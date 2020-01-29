@@ -1,0 +1,3 @@
+[submodule "themes/tale"]
+	path = themes/tale
+	url = https://github.com/1nterp/tale-hugo.git
