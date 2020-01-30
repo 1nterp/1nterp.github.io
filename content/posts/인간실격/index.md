@@ -1,5 +1,6 @@
 ---
 layout: post
+Author: InterP
 title: "인간실격"
 tags: [리뷰, 책]
 date: "2017-02-07 11:46:21 +0900"

@@ -2,3 +2,13 @@ baseURL = "https://interp.ink/"
 languageCode = "ko-kr"
 title = "InterP Ink"
 theme = "tale"
+defaultContentLanguage = "ko"
+
+[Author]
+    name = "InterP"
+
+# [Params]
+#     css = ["override.css"]
+
+pygmentsCodefences = true
+pygmentsStyle = "monokai"

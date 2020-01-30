@@ -1,0 +1,11 @@
+[writtenBy]
+other = "글쓴이"
+
+[on]
+other = "날짜"
+
+[generator]
+other = "이 사이트는 <a href='https://gohugo.io'>Hugo</a> 로 작성되었으며 <a href='https://github.com/EmielH/tale-hugo/'>Tale</a> 테마를 사용합니다!"
+
+[publishdate]
+other = "{{ .PublishDate.Format \"2006년 1월 2일\" }}"
