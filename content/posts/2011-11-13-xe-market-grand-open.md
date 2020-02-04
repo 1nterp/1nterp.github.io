@@ -1,0 +1,22 @@
+---
+title: XE Market Grand Open
+author: interp
+type: post
+date: 2011-11-13T04:56:11+00:00
+draft: true
+private: true
+url: /xe-market-grand-open/
+categories:
+  - 미분류
+
+---
+<div style="text-align: justify;">
+  제로보드4가 제로보드XE에서 XpressEngine으로 업그레이드 되면서, 수 많은 개발자들이 제공하는 다양한 레이아웃들과 애드온 프로그램 등등을&nbsp;XE 사이트에서&nbsp;다운로드 받을 수 있었습니다. 그러면서 몇몇 파워유저는 레이아웃을 유료로 전환해 팔기도 했었지요. 그런 시장구조를 확립시켜줄 공식 마켓, XE Market이 11월 오픈했습니다. 저도 어제 안 사실이었는데, 이전에도 오픈은 되어 있었다고 하더라구요.&nbsp;</p> 
+  
+  <p>
+    XE에다가 컨퍼런스 홈페이지 프로그램을 혼자 짜뒀었는데 (하앍) 손을 좀 봐서 올려둬야 겠습니다. 보안기능만 좀 추가해서 말이죠. 사실, 컨퍼런스 페이지 만드는 툴은 외산 프레임이 있어서 범용성에서는 조금 떨어지겠지만 필요한 사람들이 분명 있겠죠~ 😀
+  </p>
+</div>
+
+<div>
+</div>
