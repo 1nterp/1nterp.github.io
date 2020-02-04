@@ -1,0 +1,48 @@
+<!doctype html><html lang=ko-kr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>mmap : 메모리를 파일처럼 &#183; InterP Ink</title><link rel=stylesheet href=/css/style.css><link rel=stylesheet href=/css/fonts.css><link rel=icon type=image/png sizes=32x32 href=/images/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/images/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/images/apple-touch-icon.png><link href rel=alternate type=application/rss+xml title="InterP Ink"></head><body><nav class=nav><div class=nav-container><a href=/><h2 class=nav-title>InterP Ink</h2></a><ul></ul></div></nav><main><div class=post><div class=post-info><time datetime="2017-09-20 13:29:57 +0000 UTC">2017년 9월 20일</time></div><h1 class=post-title>mmap : 메모리를 파일처럼</h1><div class=post-line></div><p>mmap은 memory map 의 줄임말이다. 메모리의 특정 영역을 파일 디스크립터로 인식하게 만드는 것이다.</p><blockquote><p>map or unmap files or devices into memory</p></blockquote><blockquote><p>메모리 영역을 파일이나 디바이스로 인식하게 합니다</p><p>– manpage of mmap</p></blockquote><h3 id=사용>사용</h3><p>여기서 의미가 있는 건 Length, Prot (Protection), Flag 뿐이다.</p><ul><li>Start 는, Kernel이 아무 곳이나 지정해도 좋다면 NULL을 입력한다.</li><li>Offset 은, 보통 0으로 둔다. (MAP_ANONYMOUS 또는 MAP_ANON Flag가 있는 경우엔 무시된다)</li><li>Fd 는, 연결할 파일 디스크립터를 지정한다. (MAP_ANONYMOUS 또는 MAP_ANON Flag를 통해서 ‘파일로 사용하지 않는다’ 라고 한다면 -1을 넣어줘야 한다. (사실 안 넣어주고 무시해도 되지만 몇몇 구현에서는 넣어야 한다 카더라)</li></ul><h3 id=protection>Protection</h3><p>매핑된 메모리 영역의 사용 권한 같은 것을 정하는 것이라고 이해하자. 리눅스 파일 시스템의 권한과 비슷한 분류로 이해하면 더욱 쉽다. (물론 똑같지는 않지만)</p><p>이 때, 연결된 파일 디스크립터의 모드와 절대 충돌해서는 안 된다. 예를 들어 파일 디스크립터를 획득할 때는 <code>w+</code> 라고 해놓고 여기서 PROT_READ 라고 하면, 예상치 못한 무언가가 일어나지 않을까?</p><p>메모리 영역의 보호에 관련된 자세한 내용은 <a href=http://man7.org/linux/man-pages/man2/mprotect.2.html>여기</a>를 참고하자.</p><h3 id=flag>Flag</h3><pre><code>&lt;td&gt;
+  &lt;strong&gt;사용 가능&lt;/strong&gt;&lt;br /&gt; &lt;strong&gt;커널&lt;/strong&gt;
+&lt;/td&gt;
+
+&lt;td&gt;
+  &lt;strong&gt;설명&lt;/strong&gt;
+&lt;/td&gt;
+</code></pre><pre><code>&lt;td&gt;
+  &amp;#8211;
+&lt;/td&gt;
+
+&lt;td&gt;
+  이 매핑을 다른 프로세스들이 공유할 수 있다. (실제 파일과 연결되어 반영된다. 하지만 자동으로 반영하지는 않고 &lt;code&gt;msync&lt;/code&gt; 나 &lt;code&gt;munmap&lt;/code&gt; 을 호출해야 반영된다.)
+&lt;/td&gt;
+</code></pre><pre><code>&lt;td&gt;
+  &amp;#8211;
+&lt;/td&gt;
+
+&lt;td&gt;
+  이 매핑을 다른 프로세스들과 공유하지 않는다. 실제 파일과도 연결되지 않으므로, &lt;code&gt;mmap&lt;/code&gt; 이후에 파일에 반영되는 변경 내역이 매핑된 영역에 반영되는지는 확신할 수 없다.
+&lt;/td&gt;
+</code></pre><pre><code>&lt;td&gt;
+  ~2.4.20, 2.6
+&lt;/td&gt;
+
+&lt;td&gt;
+  첫 2GB 안에서 영역을 잡는다.&lt;br /&gt; x86-64 프로그램에서만 사용이 가능하다.&lt;br /&gt; (초기 64-bit 프로세서에서는 context-switch 비용 절감을 위해 사용할 수 있는 옵션이겠지만, 지금은 그렇지 않으므로 굳이..)
+&lt;/td&gt;
+</code></pre><pre><code>&lt;td&gt;
+  &amp;#8211;
+&lt;/td&gt;
+
+&lt;td&gt;
+  파일 디스크립터로 인식하지 않는다. fd와 offset은 무시되지만, 몇몇 구현에서는 fd를 반드시 -1로 입력해야 한다.&lt;/p&gt; 
+  
+  &lt;p&gt;
+    ※ SHARED와 같이 사용하려면 Kernel Version 이 2.4 이하여야 한다.&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; 
+    
+    &lt;p&gt;
+      &amp;nbsp;
+    &lt;/p&gt;
+    
+    &lt;p&gt;
+      헉헉&amp;#8230; 아래에 더 있는데 여기까지만 해야겠다. 내가 사용하고자 하는건 사실 ANONYMOUS Flag 만 있으면 되는데 말이지.
+    &lt;/p&gt;
+</code></pre></div><div class=pagination><a href=/polylang-%EC%82%AC%EC%9A%A9-%ED%8C%81/ class="left arrow">&#8592;</a>
+<a href=/%EC%95%84%EC%9E%84-%EB%8D%94-%EB%B3%B4%EC%8A%A4-im-the-boss/ class="right arrow">&#8594;</a>
+<a href=# class=top>Top</a></div></main><footer><span>&copy; <time datetime="2020-02-04 12:54:15.847693201 +0000 UTC m=+0.222430608">2020</time> InterP. 이 사이트는 <a href=https://gohugo.io>Hugo</a> 로 작성되었으며 <a href=https://github.com/EmielH/tale-hugo/>Tale</a> 테마를 사용합니다!</span></footer></body></html>
