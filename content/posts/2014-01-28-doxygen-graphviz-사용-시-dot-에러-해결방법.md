@@ -17,7 +17,7 @@ _doxygen_ 과 _graphviz_ 를 사용해서 다이어그램을 출력할 때, 다�
 
 <blockquote class="tx-quote-tistory">
   <p>
-    <i>Problems running dot: exit code=-1, command=&#8217;dot&#8217;,<br /> <span style="background-color: transparent; font-size: 9pt; line-height: 1.5;">&#8230;</span></i>
+    <i>Problems running dot: exit code=-1, command='dot',<br /> <span style="background-color: transparent; font-size: 9pt; line-height: 1.5;">&#8230;</span></i>
   </p>
 </blockquote>
 
@@ -33,7 +33,7 @@ _doxygen_ 과 _graphviz_ 를 사용해서 다이어그램을 출력할 때, 다�
 
 <ul style="list-style-type: disc;">
   <li>
-    doxygen 쓰다가 Problems running dot: exit code=-1, command=&#8217;dot&#8217;,을 만났다.
+    doxygen 쓰다가 Problems running dot: exit code=-1, command='dot',을 만났다.
   </li>
   <li>
     doxygen의 Expert 탭 > Topics 중 Dot을 찾아 클릭 > DOT_PATH가 잘못 잡혀있었다.

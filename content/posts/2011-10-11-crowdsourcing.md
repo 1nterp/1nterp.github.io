@@ -15,7 +15,7 @@ categories:
   
   <blockquote>
     <p>
-      크라우드소싱(crowdsourcing)은 기업활동의 전 과정에 소비자 또는 대중이 참여할 수 있도록 일부를 개방하고 참여자의 기여로 기업활동 능력이 향상되면 그 수익을 참여자와 공유하는 방법이다. &#8216;대중'(crowd)과 &#8216;외부 자원 활용'(outsourcing)의 합성어이다.&nbsp;
+      크라우드소싱(crowdsourcing)은 기업활동의 전 과정에 소비자 또는 대중이 참여할 수 있도록 일부를 개방하고 참여자의 기여로 기업활동 능력이 향상되면 그 수익을 참여자와 공유하는 방법이다. '대중'(crowd)과 '외부 자원 활용'(outsourcing)의 합성어이다.&nbsp;
     </p>
     
     <p>
@@ -33,7 +33,7 @@ categories:
   
   <blockquote>
     <p>
-      Crowdsourcing platforms such as Amazon&#8217;s Mechanical Turk make it possible to organize crowd workers to perform tasks like translation or image labelling on demand. Building these workflows is challenging: how much should you pay crowd workers? can you trust the output of each worker? how can you coordinate workers to perform complicated high-level tasks? Qurk helps you build crowd-powered data processing workflows using a PIG-like language while tackling these challenges on your behalf.
+      Crowdsourcing platforms such as Amazon's Mechanical Turk make it possible to organize crowd workers to perform tasks like translation or image labelling on demand. Building these workflows is challenging: how much should you pay crowd workers? can you trust the output of each worker? how can you coordinate workers to perform complicated high-level tasks? Qurk helps you build crowd-powered data processing workflows using a PIG-like language while tackling these challenges on your behalf.
     </p>
     
     <p>

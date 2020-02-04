@@ -21,6 +21,6 @@ tags:
 > 
 > 현재 쓰레드를 실제로 지연시키고 싶지 않지만 (호출 쓰레드 대신) 다른 쓰레드에게 실행권을 넘겨주고 싶은 경우라면, sleep() 보단 pthread_yield() 가 적합할 것 같습니다.
 
-sleep 자체가 프로세스를 아예 멈추게 하니까 pthread_yield 를 통해서 나는 잠시 빠져주는 상태로 만드는 거였다. 코드를 보면서 감으로만 &#8216;아 저건 sleep() 같진 않지만 뭔가 이럴 때 쓰는거야&#8217; 라고만 어렴풋이 알고 있었는데, 무엇이든 확실히 알아야 한다.
+sleep 자체가 프로세스를 아예 멈추게 하니까 pthread_yield 를 통해서 나는 잠시 빠져주는 상태로 만드는 거였다. 코드를 보면서 감으로만 '아 저건 sleep() 같진 않지만 뭔가 이럴 때 쓰는거야' 라고만 어렴풋이 알고 있었는데, 무엇이든 확실히 알아야 한다.
 
  [1]: https://stackoverflow.com/questions/936993/pthread-what-is-the-difference-between-time-hsleep-and-pthread-hpthread

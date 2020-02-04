@@ -12,7 +12,7 @@ tags:
   - vtune
 
 ---
-Intel VTune 으로 Memory Bandwidth 를 분석하려면, 분석할 수 있는 커널 드라이버를 로딩시켜야 한다. (참고로 메모리 분석은 리눅스에서만 가능하다.) 해당 작업을 하지 않고 &#8216;General Exploration > Analyze memory bandwidth&#8217; 를 체크하면 엄한 경고창이 반길 것이다.
+Intel VTune 으로 Memory Bandwidth 를 분석하려면, 분석할 수 있는 커널 드라이버를 로딩시켜야 한다. (참고로 메모리 분석은 리눅스에서만 가능하다.) 해당 작업을 하지 않고 'General Exploration > Analyze memory bandwidth' 를 체크하면 엄한 경고창이 반길 것이다.
 
 <img class="aligncenter size-large wp-image-1272" src="http://interp.iwinv.net/wp-content/uploads/2018/01/before-1024x156.jpg" alt="" width="730" height="111" srcset="https://interp.blog/wp-content/uploads/2018/01/before-1024x156.jpg 1024w, https://interp.blog/wp-content/uploads/2018/01/before-300x46.jpg 300w, https://interp.blog/wp-content/uploads/2018/01/before-768x117.jpg 768w, https://interp.blog/wp-content/uploads/2018/01/before-1200x183.jpg 1200w, https://interp.blog/wp-content/uploads/2018/01/before.jpg 1325w" sizes="(max-width: 730px) 100vw, 730px" />
 

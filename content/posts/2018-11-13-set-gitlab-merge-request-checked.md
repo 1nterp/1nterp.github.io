@@ -22,7 +22,7 @@ Gitlab Community 에서 필요로 하는 기능인데, 이렇게 수동으로 �
 **이 체크박스를 개발자가 일일해 해 줘야 하는 문제**가 있다. 그래서 어떤 개발자는 체크하는 것을 까먹었다가 master branch 의 commit tree 를 엉망으로 만들기도 한다. 이 문제를 그냥 없애기 위해, 체크박스 표시를 그대로 두도록 하면 어떨까 고민하던 차에, 해결방법을 알아냈다.
 
   1. `/opt/gitlab/embedded/service/gitlab-rails/app/views/shared/issuable/form/_merge_params.html.haml` 을 편집기로 연다.
-  2. `check_box_tag` 항목으로 시작하는 줄이 <span style="text-decoration: underline;">두 군데</span> 있는데, 아래와 같이 다음 내용을 &#8216;추가&#8217; 한다.
+  2. `check_box_tag` 항목으로 시작하는 줄이 <span style="text-decoration: underline;">두 군데</span> 있는데, 아래와 같이 다음 내용을 '추가' 한다.
 
 <pre>= check_box_tag 'merge_request[force_remove_source_branch]', '1', issuable.force_remove_source_branch?, class: 'form-check-input'<span style="color: #ff0000;">, checked: 'checked'</span> 
 <span style="color: #0000ff;"># ... blahblah</span> 
@@ -32,7 +32,7 @@ Gitlab Community 에서 필요로 하는 기능인데, 이렇게 수동으로 �
 
 * * *
 
-Translation may be necessary for those not familiar with Korean, so let&#8217;s summarize it.
+Translation may be necessary for those not familiar with Korean, so let's summarize it.
 
 Two options in Gitlab merge request are not checked at first, as captured above. I think **it is mistake-prone to many developers, so some of them forgot to check them**. It results adding merge commit(s) into master branch.
 

@@ -24,7 +24,7 @@ Gitlab의 Markdown Parser는 [Redcarpet][2] 을 사용한다. 아마 [Jekyll][3]
 
 `/opt/gitlab/embedded/lib/ruby/gems/2.3.0/gems/redcarpet-3.4.0/` 으로 들어가면 Redcarpet의 소스코드가 존재한다. 여기서 `ext/redcarpet` 디렉토리가 Parser C 파일들이 위치한 곳이다.
 
-내가 수정하고 싶은 것은 &#8216;**엔터 키를 두번 쳐야 (혹은 줄 끝에 스페이스를 2개 이상 줘야) 줄바꿈이 되는 불편함**&#8216; 을 해소하고 싶었다. `markdown.c` 파일을 보니 `char_linebreak()`  라는 함수가 존재한다. 여기서 해당 부분을 주석처리했다.
+내가 수정하고 싶은 것은 '**엔터 키를 두번 쳐야 (혹은 줄 끝에 스페이스를 2개 이상 줘야) 줄바꿈이 되는 불편함**' 을 해소하고 싶었다. `markdown.c` 파일을 보니 `char_linebreak()`  라는 함수가 존재한다. 여기서 해당 부분을 주석처리했다.
 
 <pre class="brush: cpp; title: ; notranslate" title="">/* char_linebreak • '\n' preceded by two spaces (assuming linebreak != 0) */
 static size_t

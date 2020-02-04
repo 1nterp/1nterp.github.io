@@ -12,7 +12,7 @@ categories:
 ---
 <a class="tx-link" target="_blank" href="http://people.cs.clemson.edu/~dhouse/courses/405/papers/optimize.pdf" rel="noopener noreferrer">http://people.cs.clemson.edu/~dhouse/courses/405/papers/optimize.pdf</a> 
 
-암달의 법칙( Ahmdal&#8217;s Law, **`1 / ( 1 -&nbsp; cost(f) ) + cost(f) / speedup(f)`** )을 기억하라. Run-time의 상당량을 소비하는 함수를 최적화하는 방법이 가장 효과적이라는 것이다. 달리 말해서, 자주 사용되지 않는 함수는 최적화 과정에 최소한으로 신경쓰거나 최적화 과정을 아예 고려하지 않아야 한다.
+암달의 법칙( Ahmdal's Law, **`1 / ( 1 -&nbsp; cost(f) ) + cost(f) / speedup(f)`** )을 기억하라. Run-time의 상당량을 소비하는 함수를 최적화하는 방법이 가장 효과적이라는 것이다. 달리 말해서, 자주 사용되지 않는 함수는 최적화 과정에 최소한으로 신경쓰거나 최적화 과정을 아예 고려하지 않아야 한다.
 
 정확히 동작한 다음에 최적화 해야 한다.
 

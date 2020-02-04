@@ -46,10 +46,10 @@ sudo /etc/init.d/vboxdrv setup
   1. 재부팅 후, BIOS 설정으로 이동한다.
   2. 고급 모드로 진입한다.
   3. 부팅 탭에서, 안전 부팅 (Secure Book) 소항목으로 이동한다.
-  4. 운영체제 종류(OS Type)가 &#8216;Windows UFEI&#8217; 로 되어 있는지 확인한다. 만약 &#8216;Other OS&#8217;로 되어 있다면 &#8216;Windows UFEI&#8217;로 설정해 주자. (잠시만 할 것이다)
+  4. 운영체제 종류(OS Type)가 'Windows UFEI' 로 되어 있는지 확인한다. 만약 'Other OS'로 되어 있다면 'Windows UFEI'로 설정해 주자. (잠시만 할 것이다)
   5. 그러면 키 관리 (Key Management) 가 아래 소항목으로 뜨는데, 여기로 이동한다.
-  6. 맨 위에 &#8216;안전 부팅 키 지우기(Clear secure boot keys)&#8217; 를 선택한 뒤 OK를 누른다.
-  7. 이전 화면으로 돌아와서, 운영체제 종류(OS Type)을 &#8216;Other OS&#8217; 로 설정한다.
+  6. 맨 위에 '안전 부팅 키 지우기(Clear secure boot keys)' 를 선택한 뒤 OK를 누른다.
+  7. 이전 화면으로 돌아와서, 운영체제 종류(OS Type)을 'Other OS' 로 설정한다.
   8. 바이오스 내용을 저장한 뒤 재부팅한다.
 
 <p style="text-align: justify;">

@@ -19,4 +19,4 @@ Eclipse CDT를 Ubuntu 에서 쓰려니까, GTK3 환경에서 자꾸 실행된다
 <pre class="brush: bash; title: ; notranslate" title="">export SWT_GTK3=0 && ~/eclipse/cpp-neon/eclipse/eclipse & disown
 </pre>
 
-SWT_GTK3을 끄면 GTK2 로 eclipse가 실행된다. 그리고 disown 옵션으로 background process를 실행하면 해당 터미널을 종료해도 프로세스가 상주하게 된다. 정확히 말하면 &#8216;Job 테이블에서 해당 Job을 제거한다 (Remove jobs from the table of active job.)&#8217; 라는 명령이다.
+SWT_GTK3을 끄면 GTK2 로 eclipse가 실행된다. 그리고 disown 옵션으로 background process를 실행하면 해당 터미널을 종료해도 프로세스가 상주하게 된다. 정확히 말하면 'Job 테이블에서 해당 Job을 제거한다 (Remove jobs from the table of active job.)' 라는 명령이다.

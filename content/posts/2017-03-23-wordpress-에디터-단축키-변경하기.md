@@ -25,7 +25,7 @@ WordPress는 기본적으로 TinyMCE를 탑재하고 있는데, [기본 단축�
   
     각각 Mac 의 Command / Ctrl+Alt 와 대응된다. 윈도우라면 Ctrl / Shift+Alt 와 대응된다.
 
-Command 리스트는 [이 페이지][3]를 참고하면 된다. 참고로 Heading 1, Heading 2 를 나타내는 Command 는 &#8216;Heading&#8217; 이 아니라 &#8216;FormatBlock&#8217; 이란 이름이다. 각 Command 의 설명을 잘 읽어보도록 하자.
+Command 리스트는 [이 페이지][3]를 참고하면 된다. 참고로 Heading 1, Heading 2 를 나타내는 Command 는 'Heading' 이 아니라 'FormatBlock' 이란 이름이다. 각 Command 의 설명을 잘 읽어보도록 하자.
 
 내가 적용한 것은 Heading1~6 (제목 줄 정하기, Ctrl+1~6), InsertUnorderedList (번호 없는 목록 만들기, Ctrl+Shift+B) 정도다. 생각나는 대로 더 추가할 예정이다.
 

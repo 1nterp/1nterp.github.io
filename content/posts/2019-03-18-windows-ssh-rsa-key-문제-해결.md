@@ -35,7 +35,7 @@ interp@192.168.0.30's password:
   <img class="alignnone size-full wp-image-1518 " src="https://interp.blog/wp-content/uploads/2019/06/img_5d11dcea1b41a.png" alt="" srcset="https://interp.blog/wp-content/uploads/2019/06/img_5d11dcea1b41a.png 421w, https://interp.blog/wp-content/uploads/2019/06/img_5d11dcea1b41a-218x300.png 218w" sizes="(max-width: 421px) 100vw, 421px" />
 </p>
 
-&#8216;편집&#8217; 에 가서 등록된 사용자를 지우려고 하면, 상속으로 인해 지울 수 없다는 괴상한 에러가 뜰 것이다. 그러니까 위 화면에서 &#8216;고급&#8217; 으로 간 다음, 아래 캡처에 있는 &#8216;상속 사용 안 함&#8217; 을 클릭하면 자동으로 지워진다. 그 다음 시도하면, 잘 된다!
+'편집' 에 가서 등록된 사용자를 지우려고 하면, 상속으로 인해 지울 수 없다는 괴상한 에러가 뜰 것이다. 그러니까 위 화면에서 '고급' 으로 간 다음, 아래 캡처에 있는 '상속 사용 안 함' 을 클릭하면 자동으로 지워진다. 그 다음 시도하면, 잘 된다!
 
 <p id="bzFxOJb">
   <img class="alignnone size-full wp-image-1519 " src="https://interp.blog/wp-content/uploads/2019/06/img_5d11dd707fe99.png" alt="" srcset="https://interp.blog/wp-content/uploads/2019/06/img_5d11dd707fe99.png 293w, https://interp.blog/wp-content/uploads/2019/06/img_5d11dd707fe99-216x300.png 216w" sizes="(max-width: 293px) 100vw, 293px" />

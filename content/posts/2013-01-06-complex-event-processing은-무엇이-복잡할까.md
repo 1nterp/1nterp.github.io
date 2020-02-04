@@ -22,11 +22,11 @@ tags:
 </p>
 
 <p style="text-align: justify;">
-  소프트웨어에서 말하는 &#8216;세상의&nbsp;이벤트&#8217;의 정의는 단순한 &#8216;사건&#8217;이 아닌 &#8216;상태의 현격한 변화&#8217; 또는 &#8216;연속적인 상태를 나타내는 데이터&#8217;까지 모두 아우릅니다.&nbsp;물건 A의 값이 어제까지 100원으로 동결되다가 오늘 갑자기 200원으로 급등했다면, 이 역시 이벤트입니다. 혼동하지 말아야 할 것은, 여기서 언급되는 이벤트는 컴퓨팅에서 사용되는 용어가 아니라는 점입니다. 개념은 비슷할지 모르지만, 컴퓨팅에서의 이벤트는 흡사 &#8216;자극&#8217;과 같은 것입니다. 외부의 신호로 내부가 작동되기 때문이라 그런 겁니다. 신경 세포 간의&nbsp;시냅스전달 같은.
+  소프트웨어에서 말하는 '세상의&nbsp;이벤트'의 정의는 단순한 '사건'이 아닌 '상태의 현격한 변화' 또는 '연속적인 상태를 나타내는 데이터'까지 모두 아우릅니다.&nbsp;물건 A의 값이 어제까지 100원으로 동결되다가 오늘 갑자기 200원으로 급등했다면, 이 역시 이벤트입니다. 혼동하지 말아야 할 것은, 여기서 언급되는 이벤트는 컴퓨팅에서 사용되는 용어가 아니라는 점입니다. 개념은 비슷할지 모르지만, 컴퓨팅에서의 이벤트는 흡사 '자극'과 같은 것입니다. 외부의 신호로 내부가 작동되기 때문이라 그런 겁니다. 신경 세포 간의&nbsp;시냅스전달 같은.
 </p>
 
 <p style="text-align: justify;">
-  아무튼, 소프트웨어 개발자들은 이런 &#8216;이벤트&#8217;에 주목하기 시작했습니다. 이벤트 기반 아키텍쳐(Event-driven Architecture, EDA)가 대표적입니다. 고객의 요구사항을 &#8216;이벤트의 흐름&#8217;으로 풀어내는 소프트웨어 아키텍쳐의 한 패턴입니다.&nbsp;이벤트 프로세싱(Event processing)이라고,&nbsp;이런 이벤트 기반 아키텍쳐에 사용될 수 있는 중요한 기법도 있습니다.&nbsp;이벤트 프로세싱은, 다양한 이벤트 원인들로부터 어떤 이벤트를 발생시켜야 효과적인지 판단할 수 있도록 고객을 도와주게 됩니다. 즉, 입력도 이벤트이며 출력도 이벤트입니다.
+  아무튼, 소프트웨어 개발자들은 이런 '이벤트'에 주목하기 시작했습니다. 이벤트 기반 아키텍쳐(Event-driven Architecture, EDA)가 대표적입니다. 고객의 요구사항을 '이벤트의 흐름'으로 풀어내는 소프트웨어 아키텍쳐의 한 패턴입니다.&nbsp;이벤트 프로세싱(Event processing)이라고,&nbsp;이런 이벤트 기반 아키텍쳐에 사용될 수 있는 중요한 기법도 있습니다.&nbsp;이벤트 프로세싱은, 다양한 이벤트 원인들로부터 어떤 이벤트를 발생시켜야 효과적인지 판단할 수 있도록 고객을 도와주게 됩니다. 즉, 입력도 이벤트이며 출력도 이벤트입니다.
 </p>
 
 # Complex Event Processing
@@ -36,7 +36,7 @@ tags:
 </p>
 
 <p style="text-align: justify;">
-  Event processing 외에도, 많은 용어가 중구난방으로 혼용되고 있었습니다. ESP(Event Stream Processing)도 있었고, CEP도 사용되고 있었습니다. 문제는 각 용어가 지칭하는 Event Processing의 소분류 간의 경계가 명확하지도 않고, 서로 바꿔 사용해도 무리가 없을거라는 인식이 더욱 강해지고 있다는 것이었습니다. CEP도 연속적인 데이터들을 처리해야 하고, 그러자면 이 &#8216;연속적인 데이터&#8217;를 스트림으로 볼 수 있습니다. 그러면 곧 CEP는 ESP가 됩니다.
+  Event processing 외에도, 많은 용어가 중구난방으로 혼용되고 있었습니다. ESP(Event Stream Processing)도 있었고, CEP도 사용되고 있었습니다. 문제는 각 용어가 지칭하는 Event Processing의 소분류 간의 경계가 명확하지도 않고, 서로 바꿔 사용해도 무리가 없을거라는 인식이 더욱 강해지고 있다는 것이었습니다. CEP도 연속적인 데이터들을 처리해야 하고, 그러자면 이 '연속적인 데이터'를 스트림으로 볼 수 있습니다. 그러면 곧 CEP는 ESP가 됩니다.
 </p>
 
 <p style="text-align: justify;">
@@ -44,7 +44,7 @@ tags:
 </p>
 
 <p style="text-align: justify;">
-  그러던 차에, David Luckham이 CEP를 옹호하는 글[footnote]http://www.ebizq.net/topics/cep/features/5580.html[/footnote]을&nbsp;썼었습니다. 제목은 &#8216;CEP에&nbsp;두려움을 갖고 있다는&nbsp;것(Taking the Fear out of Complex Event Processing&#8217;인데, 세상에서 일어나는 이벤트는 복잡하니까 &#8216;복잡한&#8217;이라는 의미를 담은 CEP를 써야한다는 주장입니다.
+  그러던 차에, David Luckham이 CEP를 옹호하는 글[footnote]http://www.ebizq.net/topics/cep/features/5580.html[/footnote]을&nbsp;썼었습니다. 제목은 'CEP에&nbsp;두려움을 갖고 있다는&nbsp;것(Taking the Fear out of Complex Event Processing'인데, 세상에서 일어나는 이벤트는 복잡하니까 '복잡한'이라는 의미를 담은 CEP를 써야한다는 주장입니다.
 </p>
 
 <blockquote class="tx-quote-tistory">
@@ -57,15 +57,15 @@ tags:
   </p>
 </blockquote>
 
-여기에 반하는 글도 눈에 띕니다. Opher Etzion의 블로그 &#8216;Event Processing Thinking&#8217; 에서 바로 위의 글을 언급하면서 반박하는 구절이 담긴 포스팅[footnote]http://epthinking.blogspot.kr/2008/01/why-i-prefer-to-use-event-processing.html[/footnote]이 있는데요. 그 외에도 Event Processing의 이름에 관한 많은 고찰이 담겨있는 포스팅이라서, 수 많은 용어를 구분해서 이해하는데&nbsp;큰 도움이 되었습니다.
+여기에 반하는 글도 눈에 띕니다. Opher Etzion의 블로그 'Event Processing Thinking' 에서 바로 위의 글을 언급하면서 반박하는 구절이 담긴 포스팅[footnote]http://epthinking.blogspot.kr/2008/01/why-i-prefer-to-use-event-processing.html[/footnote]이 있는데요. 그 외에도 Event Processing의 이름에 관한 많은 고찰이 담겨있는 포스팅이라서, 수 많은 용어를 구분해서 이해하는데&nbsp;큰 도움이 되었습니다.
 
 <blockquote class="tx-quote-tistory">
   <p style="text-align: justify;">
-    David Luckham은 그의 유명한 책을 통해 CEP라는 용어를 소개했다. &#8216;CEP&#8217; 라는 용어는&nbsp;모호한 의미를 지니고 있다.&nbsp;이벤트를 복잡하게 처리하는 것인지, 아니면 복잡한 이벤트를 처리해주는 것인지 말이다. 복잡한 이벤트라 함은, 단일 이벤트가 아닌 다수의 이벤트 즉, 복잡한 오브젝트를 말하는 것이다. 이벤트를 복잡하게 처리한다면, CEP와 EP는 사실 같으며, EP에 들어있는 모든 개념은 CEP의 하위 개념이 된다. 복잡한 이벤트를 처리한다면, EP는 이벤트 처리방식의 집합체이며, CEP가 EP에 속해있다고 봐야 한다.
+    David Luckham은 그의 유명한 책을 통해 CEP라는 용어를 소개했다. 'CEP' 라는 용어는&nbsp;모호한 의미를 지니고 있다.&nbsp;이벤트를 복잡하게 처리하는 것인지, 아니면 복잡한 이벤트를 처리해주는 것인지 말이다. 복잡한 이벤트라 함은, 단일 이벤트가 아닌 다수의 이벤트 즉, 복잡한 오브젝트를 말하는 것이다. 이벤트를 복잡하게 처리한다면, CEP와 EP는 사실 같으며, EP에 들어있는 모든 개념은 CEP의 하위 개념이 된다. 복잡한 이벤트를 처리한다면, EP는 이벤트 처리방식의 집합체이며, CEP가 EP에 속해있다고 봐야 한다.
   </p>
   
   <p style="text-align: justify;">
-    David Luckham used the term &#8220;complex event processing&#8221; in his famous book that used the term. The term &#8220;complex event processing&#8221; has ambigious meaning &#8211; one interpretation is that this is processing of complex events, where complex event is an event that consists of more than one event (analog to complex object), the other interpretation is that this is complex processing of events. (omit)&nbsp;Interpretation one (&#8220;the monolithic approach&#8221;) : CEP = EP, everything is a subset of CEP. Interpreation two (&#8220;the layered approach&#8221;) : EP is a collection of technologies, whereas CEP is one of them.
+    David Luckham used the term "complex event processing" in his famous book that used the term. The term "complex event processing" has ambigious meaning &#8211; one interpretation is that this is processing of complex events, where complex event is an event that consists of more than one event (analog to complex object), the other interpretation is that this is complex processing of events. (omit)&nbsp;Interpretation one ("the monolithic approach") : CEP = EP, everything is a subset of CEP. Interpreation two ("the layered approach") : EP is a collection of technologies, whereas CEP is one of them.
   </p>
 </blockquote>
 
@@ -76,5 +76,5 @@ tags:
 # 마치며
 
 <p style="text-align: justify;">
-  CEP를 듣게 되면 &#8216;뭐가 복잡해서 그러는 걸까&#8217; 라고 생각했고, 그 궁금증을 풀어보려고 이리저리 찾아 읽었습니다. 용어는 일종의 &#8216;합의&#8217;가 있으면 그 의미를 깊게 파고들지 않아도 통용될 수 있습니다만, 처음 듣는 사람에게 개념을 명확하게 설명해주기란 쉽지가 않죠. 그런 면에서 이 글이 작은 도움이 되었으면 좋겠습니다.
+  CEP를 듣게 되면 '뭐가 복잡해서 그러는 걸까' 라고 생각했고, 그 궁금증을 풀어보려고 이리저리 찾아 읽었습니다. 용어는 일종의 '합의'가 있으면 그 의미를 깊게 파고들지 않아도 통용될 수 있습니다만, 처음 듣는 사람에게 개념을 명확하게 설명해주기란 쉽지가 않죠. 그런 면에서 이 글이 작은 도움이 되었으면 좋겠습니다.
 </p>

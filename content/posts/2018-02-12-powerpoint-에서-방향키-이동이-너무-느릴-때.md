@@ -17,8 +17,8 @@ tags:
 <img class="aligncenter size-full wp-image-1291" src="http://interp.iwinv.net/wp-content/uploads/2018/02/제목-없음-1.jpg" alt="" width="408" height="444" srcset="https://interp.blog/wp-content/uploads/2018/02/제목-없음-1.jpg 408w, https://interp.blog/wp-content/uploads/2018/02/제목-없음-1-276x300.jpg 276w" sizes="(max-width: 408px) 100vw, 408px" />
 
   1. 보기 탭으로
-  2. 표시 항목에서 &#8216;확장 아이콘&#8217;이 아주 작게 보인다.
-  3. &#8216;눈금 및 안내선&#8217; 이란 제목의 창이 뜨며, 여기서 &#8216;개체를 눈금에 맞춰 이동&#8217;
+  2. 표시 항목에서 '확장 아이콘'이 아주 작게 보인다.
+  3. '눈금 및 안내선' 이란 제목의 창이 뜨며, 여기서 '개체를 눈금에 맞춰 이동'
   
     을 클릭한다.
 
