@@ -4,7 +4,7 @@ author: interp
 type: post
 date: 2018-07-15T05:30:47+00:00
 url: /if-you-cannot-explain/
-featured_image: /wp-content/uploads/2018/07/einstein-150x150.jpg
+featured_image: /wp-content/uploads/2018/07/einstein.jpg
 categories:
   - 이야기
 

@@ -1,7 +1,7 @@
 {{ define "main" }}
 
 <main>
-	<div class="post">
+	<div class="post" style="background: url('{{ .Params.featured_image }}') no-repeat top center; {{ if isset .Params "project_url" }} {{ index .Params "project_url" }}{{ end }}">
 		{{ partial "single/post-info.html" . }}
 		{{ partial "single/title.html" . }}
 
