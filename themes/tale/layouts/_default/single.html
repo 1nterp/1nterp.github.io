@@ -1,7 +1,15 @@
 {{ define "main" }}
 
 <main>
-	<div class="post" style="background: url('{{ .Params.featured_image }}') no-repeat top center; {{ if isset .Params "project_url" }} {{ index .Params "project_url" }}{{ end }}">
+	{{ with .Params.featured_image }}
+		{{ $imageResource := ($.Site.GetPage "uploads").Resources.GetMatch (.) }}
+		{{ with $imageResource }}
+			{{ $resized := $imageResource.Fill "800x300" | images.Filter (images.Brightness 10)}}
+			<div class="post" style="background: url('{{ $resized.RelPermalink }}') no-repeat top center; padding-top:19rem">
+		{{ else }}
+			<div class="post">
+		{{ end }}
+	{{ end }}
 		{{ partial "single/post-info.html" . }}
 		{{ partial "single/title.html" . }}
 
