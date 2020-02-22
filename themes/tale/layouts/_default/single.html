@@ -4,12 +4,13 @@
 	{{ with .Params.featured_image }}
 		{{ $imageResource := ($.Site.GetPage "uploads").Resources.GetMatch (.) }}
 		{{ with $imageResource }}
-			{{ $resized := $imageResource.Fill "800x300" | images.Filter (images.Brightness 10)}}
-			<div class="post" style="background: url('{{ $resized.RelPermalink }}') no-repeat top center; padding-top:19rem">
-		{{ else }}
-			<div class="post">
+			{{ $resized := $imageResource.Fill "800x250 q100" | images.Filter (images.Brightness 10)}}
+			<div class="post-up">
+				<img src="{{ $resized.RelPermalink }}" />
+			</div>
 		{{ end }}
 	{{ end }}
+	<div class="post">
 		{{ partial "single/post-info.html" . }}
 		{{ partial "single/title.html" . }}
 
