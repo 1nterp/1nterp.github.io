@@ -2,6 +2,28 @@
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,500,700&display=swap');
 
 @font-face {
+    font-family: 'IBM Plex Sans KR';
+    font-style: normal;
+    font-weight: 300;
+    src: url('/fonts/IBM_Plex/IBMPlexSansKR-ExtraLight.eot'); /* IE9 Compat Modes */
+    src: local('IBM Plex Sans KR ExtraLight'),
+    url('/fonts/IBM_Plex/IBMPlexSansKR-ExtraLight.woff2') format('woff2'), /* Super Modern Browsers */
+    url('/fonts/IBM_Plex/IBMPlexSansKR-ExtraLight.woff') format('woff'), /* Modern Browsers */
+    url('/fonts/IBM_Plex/IBMPlexSansKR-ExtraLight.ttf') format('truetype') /* Safari, Android, iOS */
+}
+
+@font-face {
+    font-family: 'IBM Plex Sans KR';
+    font-style: normal;
+    font-weight: 700;
+    src: url('/fonts/IBM_Plex/IBMPlexSansKR-SemiBold.eot'); /* IE9 Compat Modes */
+    src: local('IBM Plex Sans KR SemiBold'),
+    url('/fonts/IBM_Plex/IBMPlexSansKR-SemiBold.woff2') format('woff2'), /* Super Modern Browsers */
+    url('/fonts/IBM_Plex/IBMPlexSansKR-SemiBold.woff') format('woff'), /* Modern Browsers */
+    url('/fonts/IBM_Plex/IBMPlexSansKR-SemiBold.ttf') format('truetype') /* Safari, Android, iOS */
+}
+
+@font-face {
     font-family: 'Libre Baskerville';
     font-style: normal;
     font-weight: 400;
