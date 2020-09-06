@@ -26,7 +26,7 @@ tags:
   <p class="wp-caption-text">
     이렇게 찾는 것이 현실일지라도, 이건 좋은 개발자를 프로젝트에 태우는 방법이 아니다. (출처 : Rhio.Kim's Blog)
   </p>
-</div>
+
 
 ### 입문서 구입
 
@@ -46,7 +46,7 @@ tags:
   <p class="wp-caption-text">
     make를 조상님으로 두는 maven
   </p>
-</div>
+
 
 make의 Java 버전이 ant 인데, 여기서 Dependency Management 와 Declarative Form 을 갖추면서 Report/Documentation 까지 지원하는 프로젝트 관리 도구인 것이다.
 

@@ -1,0 +1,5 @@
+{{ with .Get 0 }}
+    {{ $imageResource := ($.Site.GetPage "uploads").Resources.GetMatch (.) }}
+    {{ $resized := $imageResource.Fill "800x400" }}
+    <img src="{{ $resized.RelPermalink }}" />
+{{ end }}

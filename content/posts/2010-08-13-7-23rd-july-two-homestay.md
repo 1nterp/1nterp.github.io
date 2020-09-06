@@ -34,13 +34,13 @@ categories:
   
   <div style="text-align: center; ">
     <img src="http://interp.iwinv.net/wp-content/uploads/1/cfile28.uf.16363C054C65DB039A4A00.jpg" class="aligncenter" width="255" height="383" alt="" filename="c0030121_4870a0ddebc44.jpg" filemime="image/jpeg" /><font class="Apple-style-span" color="#474747"><br /> </font>
-  </div></p> 
+  </p> 
   
   <div style="text-align: center; ">
     <font class="Apple-style-span" color="#474747"><&nbsp;&nbsp;One of&nbsp;the Icons&nbsp;in Australia. 너무나도 유명한 Vegemite.<br /> 빵이나 쿠키에 발라먹는데, 동양인은 적응하기 어려운 맛이다.&nbsp;></p> 
     
     <p>
-      </font></div> 
+      </font> 
       
       <p>
         <font class="Apple-style-span" color="#474747"><br /> 뚜껑을 열어서 향을 맡아보라고 하셨다.<br /> 잠깐 코를 갖다댔더니, 시큼한 것도 아니고 구리한 것도 아닌 요상한 냄새가 났다.<br /> "아.. 괜찮습니다. 나중에 기회가 되면 먹어볼게요(;;)"<br /> "그래, 오늘만 기회는 아니니까."</p> 
@@ -55,11 +55,11 @@ categories:
         
         <div style="text-align: center; ">
           <img src="http://interp.iwinv.net/wp-content/uploads/1/cfile23.uf.133653054C65DB049A94A8.jpg" class="aligncenter" width="401" height="303" alt="" filename="c0030121_4870a1bb106c2.jpg" filemime="image/jpeg" /><font class="Apple-style-span" color="#474747"><br /> </font>
-        </div></p> 
+        </p> 
         
         <div style="text-align: center; ">
           <font class="Apple-style-span" color="#474747"><&nbsp;2004년 대만 KFC CF. 대장금의 인기가 어느 정도였는지 알 수 있다.<br /> 새로 나온 햄버거 역시.. 무려 김치버거라는 것!&nbsp;></font>
-        </div>
+        
         
         <p>
           <font class="Apple-style-span" color="#474747"></p> 
@@ -78,13 +78,13 @@ categories:
           
           <div style="text-align: center; ">
             <img src="http://interp.iwinv.net/wp-content/uploads/1/cfile21.uf.153618054C65DB03807F5F.jpg" class="aligncenter" width="200" height="235" alt="" filename="c0030121_48708ec12f104.jpg" filemime="image/jpeg" /><font class="Apple-style-span" color="#474747"><br /> </font>
-          </div></p> 
+          </p> 
           
           <div style="text-align: center; ">
             <font class="Apple-style-span" color="#474747">< Brisbane Festival '06 포스터.&nbsp;7월 14일 &#8211; 30일까지 진행했다. ></p> 
             
             <p>
-              </font></div>
+              </font>
             </p>
             
             <p>
@@ -93,7 +93,7 @@ categories:
             
             <div style="text-align: center; ">
               <img src="http://interp.iwinv.net/wp-content/uploads/1/cfile21.uf.153592054C65DB038C83AB.jpg" class="aligncenter" width="358" height="118" alt="" filename="c0030121_48708ce837335.jpg" filemime="image/jpeg" /><font class="Apple-style-span" color="#474747"><br /> </font>
-            </div></p> 
+            </p> 
             
             <div style="text-align: center; ">
               <font class="Apple-style-span" color="#474747">< Brisbane Festival '08 로고.&nbsp;이제 눈이 생겼다(!)<br /> 이번에는 7월 18일 &#8211; 8월 3일까지 한단다. ></p> 
@@ -107,12 +107,12 @@ categories:
                 
                 <div style="text-align: center; ">
                   <img src="http://interp.iwinv.net/wp-content/uploads/1/cfile10.uf.11361F054C65DB03A3645A.jpg" class="aligncenter" width="247" height="208" alt="" filename="c0030121_48708e0ab2005.jpg" filemime="image/jpeg" /><font class="Apple-style-span" color="#474747"><br /> </font>
-                </div>
-              </div></div> 
+                
+               
               
               <div style="text-align: center; ">
                 <font class="Apple-style-span" color="#474747"><&nbsp;ENERGEX Positive Energy Across Brisbane Program이&nbsp;<br /> 바로 우리가 갔던 곳의 프로그램 이름이다.&nbsp;></font>
-              </div>
+              
               
               <p>
                 <font class="Apple-style-span" color="#474747"><br /> 거리 전체가 북적거렸다.<br /> 이리저리 구경했지만, 아직도 적응을 못해 불안감이 가득했다.<br /> 게다가 이렇게 많은 외국인이라니..;<br /> 그럴 생각을 할 때마다 Jery 옆에 서며 안심했다(?)</p> 

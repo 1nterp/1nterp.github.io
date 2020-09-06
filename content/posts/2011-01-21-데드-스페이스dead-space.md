@@ -35,7 +35,7 @@ categories:
   
   <p>
     </span>
-  </p></div> 
+  </p> 
   
   <div>
     <span class="Apple-style-span" style="border-collapse: collapse; "></p> 
@@ -89,7 +89,7 @@ categories:
     </p>
     
     <p style="font-family: 굴림; line-height: 1.5; font-size: 9pt; ">
-      </div> 
+       
       
       <div style="font-family: 굴림; line-height: 1.5; font-size: 9pt; ">
         <span class="Apple-style-span" style="border-collapse: collapse; "></p> 
@@ -131,7 +131,7 @@ categories:
         </p>
         
         <p>
-          </span><span class="Apple-style-span" style="font-size: 9pt; line-height: 1.5; "><span class="Apple-style-span" style="line-height: 19px; font-size: 13px; font-family: 돋움; "><span style="font-size: 10pt; "><span style="font-family: Batang; "><span style="font-family: Gulim; ">이런 인터페이스를 시도한 이유는 쉽게 예측할 수 있습니다.&nbsp;</span></span></span><font style="background-color: rgb(0, 153, 153); "><span style="font-size: 10pt; "><span style="font-family: Batang; "><span style="font-family: Gulim; ">유저가 더욱 게임에 몰입할 수 있도록 하기 위해서입니다.</span></span></span></font><span style="font-size: 10pt; "><span style="font-family: Batang; "><span style="font-family: Gulim; ">&nbsp;이런 이유 때문에 FPS(First-Person Shooting)이 아닌&nbsp;</span></span></span><u><span style="font-size: 10pt; "><span style="font-family: Batang; "><span style="font-family: Gulim; ">TPS(Third-Person Shooting) 시스템을 택하지 않았나 싶은데요</span></span></span></u><span style="font-size: 10pt; "><span style="font-family: Batang; "><span style="font-family: Gulim; ">, FPS의 경우 총구만 보이기 때문에 앞의 적만 보이지만, TPS의 경우, 등 뒤의 네크로모프가 아이작을 공격하려고 팔을 휘젓는 모습마저 유저가 볼 수 있게 됩니다.</span></span></span></span><span style="font-size: 10pt; "><span style="font-family: Batang; "><span style="font-family: Gulim; ">&nbsp;등 뒤에 적이 있는데 나는 앞을 보고 있을 때&#8230; 그 공포는 당해봐야 앱니다(?).</span></span></span></span></div> 
+          </span><span class="Apple-style-span" style="font-size: 9pt; line-height: 1.5; "><span class="Apple-style-span" style="line-height: 19px; font-size: 13px; font-family: 돋움; "><span style="font-size: 10pt; "><span style="font-family: Batang; "><span style="font-family: Gulim; ">이런 인터페이스를 시도한 이유는 쉽게 예측할 수 있습니다.&nbsp;</span></span></span><font style="background-color: rgb(0, 153, 153); "><span style="font-size: 10pt; "><span style="font-family: Batang; "><span style="font-family: Gulim; ">유저가 더욱 게임에 몰입할 수 있도록 하기 위해서입니다.</span></span></span></font><span style="font-size: 10pt; "><span style="font-family: Batang; "><span style="font-family: Gulim; ">&nbsp;이런 이유 때문에 FPS(First-Person Shooting)이 아닌&nbsp;</span></span></span><u><span style="font-size: 10pt; "><span style="font-family: Batang; "><span style="font-family: Gulim; ">TPS(Third-Person Shooting) 시스템을 택하지 않았나 싶은데요</span></span></span></u><span style="font-size: 10pt; "><span style="font-family: Batang; "><span style="font-family: Gulim; ">, FPS의 경우 총구만 보이기 때문에 앞의 적만 보이지만, TPS의 경우, 등 뒤의 네크로모프가 아이작을 공격하려고 팔을 휘젓는 모습마저 유저가 볼 수 있게 됩니다.</span></span></span></span><span style="font-size: 10pt; "><span style="font-family: Batang; "><span style="font-family: Gulim; ">&nbsp;등 뒤에 적이 있는데 나는 앞을 보고 있을 때&#8230; 그 공포는 당해봐야 앱니다(?).</span></span></span></span> 
           
           <p style="font-family: 굴림; line-height: 1.5; font-size: 9pt; ">
             <p align="left" style="margin-top: 2px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; line-height: 1.5; font-family: 돋움; font-size: 9pt; color: rgb(125, 125, 125); ">

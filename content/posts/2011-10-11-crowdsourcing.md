@@ -10,7 +10,7 @@ categories:
   - 미분류
 
 ---
-<div style="text-align: justify;">
+
   TinyDB 개발을 담당했던 Samuel Madden은, 개발 당시인 2003년에는 UC Berkerly에 있었지만 지금은 MIT에서 조교수로 재임중이다.[footnote]http://db.csail.mit.edu/madden/[/footnote]&nbsp;(생각보다 젊다!) 여기서 Crowdsourcing에 관련된 프로젝트가 눈에 띄어, 어떤 의미가 있는 것인지 차근차근 살펴보기로 했다.</p> 
   
   <blockquote>
@@ -40,4 +40,3 @@ categories:
       아마존의 Mechanical Turk와 같은 크라우드소싱 플랫폼은, 언제든지 번역을 하거나 이미지에 라벨을 다는 등의 작업을 수행할 때 크라우드에 있는 작업자를 구성해 처리할 수 있도록 하고 있다. 이런 크라우드소싱에서는, 참여하는 작업자에게 얼마나 많은 돈을 지불해야 하는지, 각각의 작업자를 믿을 수 있는지, 고레벨의 복잡한 작업을 수행하려면 이 작업자들을 어떻게 배치해야 하는지를 고려해, 작업의 진행단계를 설계하는 것이 중요하다. Qurk는, PIG와 같은 언어를 통해 당신이 처한 이런 문제를 대신 고민해주며, 당신이 crowd-powered data processing workflow를 설계할 수 있도록 도와줄 것입니다.
     </p>
   </blockquote>
-</div>

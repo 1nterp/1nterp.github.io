@@ -23,7 +23,7 @@ categories:
 
 <div>
   Kernel 업데이트를 받은 다음, 위의 명령을 sudoers 계정에서 실행하는 방법이 있다.
-</div>
+
 
 <div>
   <pre class="brush: bash; title: ; notranslate" title="">
@@ -31,7 +31,7 @@ sudo apt-get install linux-headers-`uname -r`
 sudo apt-get install dkms
 sudo /etc/init.d/vboxdrv setup
 </pre>
-</div>
+
 
 ### 2. BIOS의 Secure Boot 기능을 끄는 방법
 

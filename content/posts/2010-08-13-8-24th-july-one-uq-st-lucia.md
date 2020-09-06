@@ -80,11 +80,11 @@ categories:
     
     <div style="text-align: center; ">
       <img class="image_mid" border="0" alt="" src="http://pds10.egloos.com/pds/200907/29/21/c0030121_4a6fe09d60978.jpg" width="334" height="213" style="margin-bottom: 15px; margin-top: 15px; cursor: pointer; " />
-    </div></p> 
+    </p> 
     
     <div style="text-align: center; ">
       <span style="color: rgb(153, 153, 153); ">< 요런 잔디밭이 있었다. (<a href="http://www.uq.edu.au/" style="color: rgb(51, 85, 170); font: normal normal normal 12px/normal 굴림; text-decoration: none; "><span style="color: rgb(153, 153, 153); ">UQ St Lucia</span></a>) ></span>
-    </div>
+    
     
     <p class="바탕글">
       <p>

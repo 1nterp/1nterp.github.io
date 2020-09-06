@@ -10,7 +10,7 @@ categories:
   - 미분류
 
 ---
-<div style="text-align: justify;">
+
   제가 찾고 있는 분야에 속한 어느 Article에서 다음과 같이 표현한 부분이 있었습니다.<br /> <span style="font-weight: bold;"><tongue in cheek> ~~~ </tongue in cheek></span><br /> HTML Tag 개념이 들어가 있지만, 단순히 '저 안에 들어가는 말은 다음과 같은 속성을 가진다' 라고 이해하면 됩니다. 그렇다면 저 'tongue in cheek'이 내부의 단어들을 꾸며주는 형용사이거나 단어를 대하는 저자의 태도가 담긴 동사 정도로 압축되겠어요.</p> 
   
   <p>
@@ -18,7 +18,7 @@ categories:
   </p>
   
   <p>
-    그래서 rungue in cheek은 '조롱조로 말하다, 불성실하게 대하다' 입니다. </div> 
+    그래서 rungue in cheek은 '조롱조로 말하다, 불성실하게 대하다' 입니다.  
     
     <p>
       Ref. http://architects.dzone.com/news/complex-event-processing-cep

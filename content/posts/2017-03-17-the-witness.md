@@ -4,7 +4,7 @@ author: interp
 type: post
 date: 2017-03-17T14:41:26+00:00
 url: /the-witness/
-featured_image: /wp-content/uploads/2017/03/thewitness-w-150x150.jpg
+featured_image: /wp-content/uploads/2017/03/thewitness-w.jpg
 dsq_thread_id:
   - 5640784278
 categories:

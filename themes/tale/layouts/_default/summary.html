@@ -1,7 +1,24 @@
 <a href="{{ .Permalink }}" class="catalogue-item">
     <div>
-        <time datetime="{{ .PublishDate }}" class="catalogue-time">{{ i18n "publishdate" . }}</time>
-        <h1 class="catalogue-title">{{ .Title }}</h1>
+        {{- if .Params.featured_image }}
+            {{ $imageResourceLink := ($.Site.GetPage "uploads").Resources.GetMatch (printf "%s" .Params.featured_image) }}
+            {{- if $imageResourceLink }}
+                {{ $imageResourceLink := $imageResourceLink.RelPermalink }}
+                <div style="background-image: url({{ $imageResourceLink }}); background-size: cover; background-position: 50% 35%; position: relative; padding:4%; padding-top:10%;">
+            {{- else }}
+                <div>
+            {{- end }}
+        {{- end }}
+        {{- if .Params.featured_image }}
+            <time datetime="{{ .PublishDate }}" class="catalogue-time-bg">{{ i18n "publishdate" . }}</time>
+            <h1 class="catalogue-title-bg">{{ .Title }}</h1>
+        </div>
+            <br/>
+        {{- else }}
+            <time datetime="{{ .PublishDate }}" class="catalogue-time">{{ i18n "publishdate" . }}</time>
+            <h1 class="catalogue-title">{{ .Title }}</h1>
+        </div>
+        {{- end }}
         <div class="catalogue-line"></div>
 
         <p>
