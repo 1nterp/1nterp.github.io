@@ -1,10 +1,10 @@
 <a href="{{ .Permalink }}" class="catalogue-item">
     <div>
         {{- if .Params.featured_image }}
-            {{ $imageResourceLink := ($.Site.GetPage "uploads").Resources.GetMatch (printf "%s" .Params.featured_image) }}
-            {{- if $imageResourceLink }}
-                {{ $imageResourceLink := $imageResourceLink.RelPermalink }}
-                <div style="background-image: url({{ $imageResourceLink }}); background-size: cover; background-position: 50% 35%; position: relative; padding:4%; padding-top:10%;">
+            {{ $imageResource:= ($.Site.GetPage "uploads").Resources.GetMatch (printf "%s" .Params.featured_image) }}
+            {{- if $imageResource }}
+                {{ $resized := $imageResource.Resize "x500 q100" }}
+                <div style="background-image: url({{ $resized.RelPermalink }}); background-size: cover; background-position: 50% 35%; position: relative; padding:4%; padding-top:10%;">
             {{- else }}
                 <div>
             {{- end }}
