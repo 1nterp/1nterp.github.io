@@ -30,7 +30,7 @@ http://www.unixodbc.org/ 에서 Download 메뉴를 통해 받을 수 있습니�
 
 <div>
   MySQL에서는 MySQL ODBC Connector라는 것을 제공합니다. 여러 설치 버전으로 제공되는데, 가장 편한 방법은 미리 컴파일 된 Connector를 그냥 받는 것입니다. 우리가 필요한 건 드라이버 파일이니까요. (같이 동봉되어 있는 유틸리티는 사실 unixodbc에도 있으니 사실상 쓸 일이 없습니다.)
-</div>
+
 
 적절한 곳에 심어둔 다음, unixodbc를 설치합니다. 소스로 설치해도 되고, yum이나 apt-get install 을 이용해도 됩니다. 설치하면 odbcinst 라는 유틸리티를 사용할 수 있습니다. ODBC Driver/DSN Manager 라고 생각합시다.
 

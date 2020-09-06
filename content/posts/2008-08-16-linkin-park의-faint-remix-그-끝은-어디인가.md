@@ -29,14 +29,14 @@ tags:
   <br /> 
   
   <DIV>
-  </DIV><FONT color=#c1c1c1>
+  <FONT color=#c1c1c1>
   
   <br /> 
   
   <DIV style="TEXT-ALIGN: center">
     <FONT color=#c1c1c1>( 출처 : </FONT><A href="http://gall.dcinside.com/list.php?id=hit&no=6413&page=1"><FONT color=#c1c1c1>http://gall.dcinside.com/list.php?id=hit&no=6413&page=1</FONT></A><FONT color=#c1c1c1>&nbsp;)</FONT>
-  </DIV></FONT>
-</DIV>
+  </FONT>
+
 
   
   
@@ -46,7 +46,7 @@ tags:
 
 <DIV>
   물론, 요즘 대세는 '빠삐놈' 이죠. DC 연간베스트로도 손색이 없는 명작!<BR />하지만, 저는 개인적으로 이 곡도 상당히 애착이 갑니다.
-</DIV>
+
 
   
   
@@ -68,6 +68,6 @@ Faint를 리믹스한 곡 중에 제가 익히 아는 곡이 있죠.
 
 <DIV style="TEXT-ALIGN: left">
   세 곡 모두 마음에 들어요, 꺄아아~(-_-;)
-</DIV></p>
+</p>
 
  [1]: http://kr.youtube.com/watch?v=RH05TPnoduw

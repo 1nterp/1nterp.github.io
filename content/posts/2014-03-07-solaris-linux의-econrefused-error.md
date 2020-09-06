@@ -32,7 +32,7 @@ Socket Programming을 여러 플랫폼에서 구현해보다가 수상쩍은 점
 
 <div>
   해당 내용은 man page에 그대로 나와 있습니다
-</div>
+
 
 <blockquote class="tx-quote-tistory">
   <p>
