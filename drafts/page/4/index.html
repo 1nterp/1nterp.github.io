@@ -1,0 +1,208 @@
+<!doctype html><html lang=en dir=auto>
+<head><meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name=robots content="index, follow">
+<title>Drafts | InterP Blog</title>
+<meta name=keywords content>
+<meta name=description content="Drafts - InterP Blog">
+<meta name=author content="InterP">
+<link rel=canonical href=https://interp.blog/drafts/>
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.9906a2b74cdafd3190ad7dbbc2fccdff9c2aaff204038b3d609a6041a2d43a49.css integrity="sha256-mQait0za/TGQrX27wvzN/5wqr/IEA4s9YJpgQaLUOkk=" rel="preload stylesheet" as=style>
+<link rel=icon href=https://interp.blog/favicon.ico>
+<link rel=icon type=image/png sizes=16x16 href=https://interp.blog/favicon-16x16.png>
+<link rel=icon type=image/png sizes=32x32 href=https://interp.blog/favicon-32x32.png>
+<link rel=apple-touch-icon href=https://interp.blog/apple-touch-icon.png>
+<link rel=mask-icon href=https://interp.blog/safari-pinned-tab.svg>
+<meta name=theme-color content="#2e2e33">
+<meta name=msapplication-TileColor content="#2e2e33">
+<meta name=generator content="Hugo 0.91.2">
+<link rel=alternate type=application/rss+xml href=https://interp.blog/drafts/index.xml>
+<noscript>
+<style>#theme-toggle,.top-link{display:none}</style>
+<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
+</noscript><meta property="og:title" content="Drafts">
+<meta property="og:description" content>
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://interp.blog/drafts/">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="Drafts">
+<meta name=twitter:description content>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Drafts","item":"https://interp.blog/drafts/"}]}</script>
+</head>
+<body class=list id=top>
+<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
+<header class=header>
+<nav class=nav>
+<div class=logo>
+<a href=https://interp.blog/ accesskey=h title="InterP Blog (Alt + H)">InterP Blog</a>
+<span class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+</span>
+</div>
+<ul id=menu>
+<li>
+<a href=https://interp.blog/posts/ title=Posts>
+<span>Posts</span>
+</a>
+</li>
+<li>
+<a href=https://interp.blog/archives/ title=Archives>
+<span>Archives</span>
+</a>
+</li>
+<li>
+<a href=https://interp.blog/search/ title=Search>
+<span>Search</span>
+</a>
+</li>
+<li>
+<a href=https://interp.blog/drafts/ title=Drafts>
+<span class=active>Drafts</span>
+</a>
+</li>
+</ul>
+</nav>
+</header>
+<main class=main>
+<header class=page-header><div class=breadcrumbs><a href=https://interp.blog/>Home</a></div>
+<h1>Drafts</h1>
+</header>
+<article class=post-entry>
+<header class=entry-header>
+<h2>Eclipse Ubuntu에서 GTK2로 실행
+</h2>
+</header>
+<section class=entry-content>
+<p>Eclipse CDT를 Ubuntu 에서 쓰려니까, GTK3 환경에서 자꾸 실행된다. 그 때문에 오버레이 스크롤이고 뭐고 전부 느린 현상이 발생해서, GTK2 환경에서 실행시키려고 했다. 환경설정 파일도 고치고 이것저것 해 봤지만 안 되니까, 결국 아래와 같이 1회에 한해 SWT_GTK3 값을 바꾸는 편법을 사용했다.
+SWT_GTK3을 끄면 GTK2 로 eclipse가 실행된다. 그리고 disown 옵션으로 background process를 실행하면 해당 터미널을 종료해도 프로세스가 상주하게 된다. 정확히 말하면 ‘Job 테이블에서 해당 Job을 제거한다 (Remove jobs from the table of active job....</p>
+</section>
+<footer class=entry-footer><span title="2016-11-28 00:44:41 +0000 UTC">November 28, 2016</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to Eclipse Ubuntu에서 GTK2로 실행" href=https://interp.blog/eclipse-ubuntu%EC%97%90%EC%84%9C-gtk2%EB%A1%9C-%EC%8B%A4%ED%96%89/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
+<h2>Jekyll vs. WordPress
+</h2>
+</header>
+<section class=entry-content>
+<p>Jekyll은 확실히 좋다 그런데 왜 WordPress 인가 무료 호스팅으로 커버할 수 없겠지만, 그래도 국내엔 괜찮은 호스팅이 많다. 최소한의 비용은 투자되어도 좋다고 생각한다. 해커의 공격을 받을 수 있겠지만, 지속적인 관리를 통한다면 못 할 게 뭐가 있을까. 그리고 그렇게 인기있는 블로거도 아닌데 말이다.속도 문제는 플러그인을 최소화하고 테마를 간소하게 만들어서 캐싱을 하도록 했다. 그리고 웹 브라우저를 띄우고 글을 쓰는 것? 이것 때문에 사용한다 🙂</p>
+</section>
+<footer class=entry-footer><span title="2016-11-10 14:02:14 +0000 UTC">November 10, 2016</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to Jekyll vs. WordPress" href=https://interp.blog/jekyll-vs-wordpress/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
+<h2>좋은 Git Commit Log 작성하기
+</h2>
+</header>
+<section class=entry-content>
+<p>여기에서 지목하는 다음 7가지를 알아봅시다.
+제목과 내용 사이 한 줄을 넣는다. 제목은 50자 내외로 적는다. 제목 첫 글자는 대문자로 한다. 제목에는 마침표로 끝내지 않는다. 제목은 명령법으로 작성한다. 내용은 한 줄에 72자를 넘지 않도록 줄바꿈한다. 내용은 ‘어떻게’ 수정했는지 적지 말고, ‘무엇을’ ‘왜’ 수정했는지 작성하라. 예를 들어,
+제목 제목은 최대한 간결하게, 마침표 없이 명령조로 작성해야 합니다. 제가 자주 본 commit 제목은 ‘Fixed issue #32’ 같은 식인데, 이건 명령조도 아니고 무엇을 수정했는지도 모호하거든요....</p>
+</section>
+<footer class=entry-footer><span title="2016-11-09 05:38:33 +0000 UTC">November 9, 2016</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to 좋은 Git Commit Log 작성하기" href=https://interp.blog/%EC%A2%8B%EC%9D%80-git-commit-log-%EC%9E%91%EC%84%B1%ED%95%98%EA%B8%B0/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
+<h2>Recipe Echoing in Compiling
+</h2>
+</header>
+<section class=entry-content>
+<p>GNU Make에서는 ‘Recipe Echoing’ 이라고 부르는데, 아무튼 일반적으로 나오는 컴파일 명령어 줄을 보고 싶지 않고 Warning/Error 만 확인하고자 할 때 사용할 수 있는 명령을 정리한다. 완벽한 해결책은 아닌게, 어떤 파일이 통과되는지 여부는 간단하게나마 확인이 가능해야 하기 때문이다. 이 방법으로는 통과되는 파일들의 목록을 전혀 볼 수 없다.
+이걸 대체하고 싶어서 나름 머리를 굴려서 이런 Rule을 덮어 썼다.</p>
+</section>
+<footer class=entry-footer><span title="2016-11-09 02:40:58 +0000 UTC">November 9, 2016</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to Recipe Echoing in Compiling" href=https://interp.blog/recipe-echoing-in-compiling/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
+<h2>사진 복구 프로그램 사용기
+</h2>
+</header>
+<section class=entry-content>
+<p>Image Rescue3 Recuva Photorec </p>
+</section>
+<footer class=entry-footer><span title="2016-11-08 00:58:02 +0000 UTC">November 8, 2016</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to 사진 복구 프로그램 사용기" href=https://interp.blog/%EC%82%AC%EC%A7%84-%EB%B3%B5%EA%B5%AC-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EC%82%AC%EC%9A%A9%EA%B8%B0/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
+<h2>pthread_mutex_unlock() 중복 호출
+</h2>
+</header>
+<section class=entry-content>
+<p>따라서, pthread_mutex가 이미 unlock되었다면 unlock() 함수를 호출하지 않도록 해야 한다.</p>
+</section>
+<footer class=entry-footer><span title="2016-11-07 05:56:21 +0000 UTC">November 7, 2016</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to pthread_mutex_unlock() 중복 호출" href=https://interp.blog/pthread_mutex_unlock-%EC%A4%91%EB%B3%B5-%ED%98%B8%EC%B6%9C/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
+<h2>아수라 (2016)
+</h2>
+</header>
+<section class=entry-content>
+<p></p>
+</section>
+<footer class=entry-footer><span title="2016-11-02 03:09:07 +0000 UTC">November 2, 2016</span>&nbsp;·&nbsp;0 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to 아수라 (2016)" href=https://interp.blog/%EC%95%84%EC%88%98%EB%9D%BC-2016/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
+<h2>둠 (DOOM, 2016)
+</h2>
+</header>
+<section class=entry-content>
+<p></p>
+</section>
+<footer class=entry-footer><span title="2016-10-31 02:09:39 +0000 UTC">October 31, 2016</span>&nbsp;·&nbsp;0 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to 둠 (DOOM, 2016)" href=https://interp.blog/%EB%91%A0-doom-2016/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
+<h2>전문가 그 자체로의 연설
+</h2>
+</header>
+<section class=entry-content>
+<p>책「TED TALKS」에서는, 강연자가 다른 전문가처럼 굴지 않았으면 한다고 주문하는 부분이 있다. 공학자가 소설가처럼 각종 수사와 미려한 문장으로 말하려는 것보다, 공학자 그대로의 객관적이고 서술적인 설명을 통해 연설하는 것이 가장 자연스럽기 때문이다. 물론, 청중의 지식 수준을 무시한 채로 진행하라는 것은 아니지만 말이다.
+또, 책에서는 고대에 진행되었을 연설 장면을 묘사하는데, 모닥불에 빙 둘러앉은 부족원들 사이로 연륜 있는 강연자가 나서서 모두에게 뭔가를 말하는 장면이다. 그러면, 강연자가 그리는 세계를 같이 상상하며 감화되는 것이다. 가수의 목소리를 직접 들을 수 있는 콘서트 장에 갔던 기억을 떠올려 본다....</p>
+</section>
+<footer class=entry-footer><span title="2016-10-31 01:13:05 +0000 UTC">October 31, 2016</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to 전문가 그 자체로의 연설" href=https://interp.blog/%EC%A0%84%EB%AC%B8%EA%B0%80-%EA%B7%B8-%EC%9E%90%EC%B2%B4%EB%A1%9C%EC%9D%98-%EC%97%B0%EC%84%A4/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
+<h2>TODO를 다루기
+</h2>
+</header>
+<section class=entry-content>
+<p> </p>
+</section>
+<footer class=entry-footer><span title="2016-10-28 02:13:29 +0000 UTC">October 28, 2016</span>&nbsp;·&nbsp;0 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to TODO를 다루기" href=https://interp.blog/todo%EB%A5%BC-%EB%8B%A4%EB%A3%A8%EA%B8%B0/></a>
+</article>
+<footer class=page-footer>
+<nav class=pagination>
+<a class=prev href=https://interp.blog/drafts/page/3/>« Prev Page</a>
+<a class=next href=https://interp.blog/drafts/page/5/>Next Page »</a>
+</nav>
+</footer>
+</main>
+<footer class=footer>
+<span>&copy; 2022 <a href=https://interp.blog/>InterP Blog</a></span>
+<span>
+Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+</span>
+</footer>
+<a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a>
+<script>let menu=document.getElementById('menu');menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener("click",function(b){b.preventDefault();var a=this.getAttribute("href").substr(1);window.matchMedia('(prefers-reduced-motion: reduce)').matches?document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView({behavior:"smooth"}),a==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${a}`)})})</script>
+<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
+<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove('dark'),localStorage.setItem("pref-theme",'light')):(document.body.classList.add('dark'),localStorage.setItem("pref-theme",'dark'))})</script>
+</body>
+</html>

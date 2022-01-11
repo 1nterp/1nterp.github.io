@@ -1,3 +1,99 @@
-<!doctype html><html lang=ko-kr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>sed &#183; InterP Blog</title><link rel=stylesheet href=/css/style.css><link rel=stylesheet href=/css/fonts.css><link rel=icon type=image/png sizes=32x32 href=/images/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/images/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/images/apple-touch-icon.png><link href=/tags/sed/index.xml rel=alternate type=application/rss+xml title="InterP Blog"></head><body><nav class=nav><div class=nav-container><a href=/><h2 class=nav-title>InterP Blog</h2></a><ul></ul></div></nav><main><h1>Tag sed</h1><div class=catalogue><a href=https://interp.blog/quote-in-bash/ class=catalogue-item><div><time datetime="2016-12-08 07:59:41 +0000 UTC" class=catalogue-time>2016년 12월 8일</time><h1 class=catalogue-title>bash 에서 따옴표를 쓸 때</h1></div><div class=catalogue-line></div><p>bash 쉘 스크립트를 작성할 때, 현재 디렉토리에 있는 파일 중 $1 문자열을 $2 문자열로 치환하라는 명령을 작성했다. 그런데 $1과 $2가 인식이 안 된다. 정확히 말하면 쉘이 &lsquo;$1&rsquo; 이라는 문자열을 찾아 &lsquo;$2&rsquo; 라는 문자열로 바꾸려고 시도했단 것이다. 이유가 뭘까? 바로 sed 명령을 작은 따옴표로 사용했기 때문이다.
+<!doctype html><html lang=en dir=auto>
+<head><meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name=robots content="index, follow">
+<title>sed | InterP Blog</title>
+<meta name=keywords content>
+<meta name=description content>
+<meta name=author content="InterP">
+<link rel=canonical href=https://interp.blog/tags/sed/>
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.9906a2b74cdafd3190ad7dbbc2fccdff9c2aaff204038b3d609a6041a2d43a49.css integrity="sha256-mQait0za/TGQrX27wvzN/5wqr/IEA4s9YJpgQaLUOkk=" rel="preload stylesheet" as=style>
+<link rel=icon href=https://interp.blog/favicon.ico>
+<link rel=icon type=image/png sizes=16x16 href=https://interp.blog/favicon-16x16.png>
+<link rel=icon type=image/png sizes=32x32 href=https://interp.blog/favicon-32x32.png>
+<link rel=apple-touch-icon href=https://interp.blog/apple-touch-icon.png>
+<link rel=mask-icon href=https://interp.blog/safari-pinned-tab.svg>
+<meta name=theme-color content="#2e2e33">
+<meta name=msapplication-TileColor content="#2e2e33">
+<meta name=generator content="Hugo 0.91.2">
+<link rel=alternate type=application/rss+xml href=https://interp.blog/tags/sed/index.xml>
+<noscript>
+<style>#theme-toggle,.top-link{display:none}</style>
+<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
+</noscript><meta property="og:title" content="sed">
+<meta property="og:description" content>
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://interp.blog/tags/sed/">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="sed">
+<meta name=twitter:description content>
+</head>
+<body class=list id=top>
+<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
+<header class=header>
+<nav class=nav>
+<div class=logo>
+<a href=https://interp.blog/ accesskey=h title="InterP Blog (Alt + H)">InterP Blog</a>
+<span class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+</span>
+</div>
+<ul id=menu>
+<li>
+<a href=https://interp.blog/posts/ title=Posts>
+<span>Posts</span>
+</a>
+</li>
+<li>
+<a href=https://interp.blog/archives/ title=Archives>
+<span>Archives</span>
+</a>
+</li>
+<li>
+<a href=https://interp.blog/search/ title=Search>
+<span>Search</span>
+</a>
+</li>
+<li>
+<a href=https://interp.blog/drafts/ title=Drafts>
+<span>Drafts</span>
+</a>
+</li>
+</ul>
+</nav>
+</header>
+<main class=main>
+<header class=page-header><div class=breadcrumbs><a href=https://interp.blog/>Home</a>&nbsp;»&nbsp;<a href=https://interp.blog/tags/>Tags</a></div>
+<h1>sed</h1>
+</header>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>bash 에서 따옴표를 쓸 때
+</h2>
+</header>
+<section class=entry-content>
+<p>bash 쉘 스크립트를 작성할 때, 현재 디렉토리에 있는 파일 중 $1 문자열을 $2 문자열로 치환하라는 명령을 작성했다. 그런데 $1과 $2가 인식이 안 된다. 정확히 말하면 쉘이 ‘$1’ 이라는 문자열을 찾아 ‘$2’ 라는 문자열로 바꾸려고 시도했단 것이다. 이유가 뭘까? 바로 sed 명령을 작은 따옴표로 사용했기 때문이다.
 우선 방금 이야기한 간단한 스크립트를 보자. 작은 따옴표 안에서 변수를 참조하고 있는데, 잘 안 된 것이다.
-Bash Reference 의 작은 따옴표/큰 따옴표 설명을 보면, 다음의 규칙이 존재한다.</p></div></a></div><div class=pagination><span>1</span></div></main><footer><span>&copy; <time datetime="2020-09-06 21:18:24.398320906 +0000 UTC m=+0.307148555">2020</time> InterP. 이 사이트는 <a href=https://gohugo.io>Hugo</a> 로 작성되었으며 <a href=https://github.com/EmielH/tale-hugo/>Tale</a> 테마를 사용합니다!</span></footer></body></html>
+Bash Reference 의 작은 따옴표/큰 따옴표 설명을 보면, 다음의 규칙이 존재한다....</p>
+</section>
+<footer class=entry-footer><span title="2016-12-08 07:59:41 +0000 UTC">December 8, 2016</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to bash 에서 따옴표를 쓸 때" href=https://interp.blog/quote-in-bash/></a>
+</article>
+</main>
+<footer class=footer>
+<span>&copy; 2022 <a href=https://interp.blog/>InterP Blog</a></span>
+<span>
+Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+</span>
+</footer>
+<a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a>
+<script>let menu=document.getElementById('menu');menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener("click",function(b){b.preventDefault();var a=this.getAttribute("href").substr(1);window.matchMedia('(prefers-reduced-motion: reduce)').matches?document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView({behavior:"smooth"}),a==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${a}`)})})</script>
+<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
+<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove('dark'),localStorage.setItem("pref-theme",'light')):(document.body.classList.add('dark'),localStorage.setItem("pref-theme",'dark'))})</script>
+</body>
+</html>

@@ -1,7 +1,158 @@
-<!doctype html><html lang=ko-kr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>wordpress &#183; InterP Blog</title><link rel=stylesheet href=/css/style.css><link rel=stylesheet href=/css/fonts.css><link rel=icon type=image/png sizes=32x32 href=/images/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/images/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/images/apple-touch-icon.png><link href=/tags/wordpress/index.xml rel=alternate type=application/rss+xml title="InterP Blog"></head><body><nav class=nav><div class=nav-container><a href=/><h2 class=nav-title>InterP Blog</h2></a><ul></ul></div></nav><main><h1>Tag wordpress</h1><div class=catalogue><a href=https://interp.blog/polylang-%EC%82%AC%EC%9A%A9-%ED%8C%81/ class=catalogue-item><div><time datetime="2017-09-06 05:22:27 +0000 UTC" class=catalogue-time>2017년 9월 6일</time><h1 class=catalogue-title>polylang 사용 팁</h1></div><div class=catalogue-line></div><p>다국어 사이트를 기획하던 중에 만난 Polylang 이 괜찮은 것 같아서 사용 중인데, 설정 중에 만난 두 가지 문제들을 아래와 같이 해결했다.
-Language Switcher가 없다고? **외모 – 메뉴 **에서 오른쪽 위에 &lsquo;화면 옵션&rsquo; 을 펼치면 Language Switcher 가 꺼져있을 것이다. String Translation 을 따로 추가하고 싶다고? 테마의 functions.php 에서pll_register_string() 함수를 호출하면 된다. 해당 String 을 사용하고 싶다면 테마에서 pll__또는 pll__e 를 사용하면 된다.자세한 내용은 여기를 참고.</p></div></a><a href=https://interp.blog/amazon-web-server-%EC%97%90%EC%84%9C-wordpress-%EC%97%85%EB%8D%B0%EC%9D%B4%ED%8A%B8/ class=catalogue-item><div><time datetime="2017-08-08 09:16:18 +0000 UTC" class=catalogue-time>2017년 8월 8일</time><h1 class=catalogue-title>amazon web server 에서 WordPress 업데이트</h1></div><div class=catalogue-line></div><p>Amazon Web Server에서 WordPress를 설치하고, 플러그인이나 워드프레스를 업그레이드 하라고 하면… FTP 정보를 등록하라고 나온다. 그렇게 하지 않아도, 여기서 제시한 것 처럼 권한 사용자만 바꿔줘도 된다.</p></div></a><a href=https://interp.blog/wordpress-%EC%97%90%EB%94%94%ED%84%B0-%EC%8A%A4%ED%83%80%EC%9D%BC-%EB%B3%80%EA%B2%BD/ class=catalogue-item><div><time datetime="2017-03-24 02:50:22 +0000 UTC" class=catalogue-time>2017년 3월 24일</time><h1 class=catalogue-title>WordPress 에디터 스타일 변경</h1></div><div class=catalogue-line></div><p>WordPress 3.9 부터는 포스트 에디터로 TinyMCE를 내장하고 있다. 테마 별로 이 에디터의 CSS 의 스타일을 제공할 수 있다. add_editor_style() 함수가 그것이다.
+<!doctype html><html lang=en dir=auto>
+<head><meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name=robots content="index, follow">
+<title>wordpress | InterP Blog</title>
+<meta name=keywords content>
+<meta name=description content>
+<meta name=author content="InterP">
+<link rel=canonical href=https://interp.blog/tags/wordpress/>
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.9906a2b74cdafd3190ad7dbbc2fccdff9c2aaff204038b3d609a6041a2d43a49.css integrity="sha256-mQait0za/TGQrX27wvzN/5wqr/IEA4s9YJpgQaLUOkk=" rel="preload stylesheet" as=style>
+<link rel=icon href=https://interp.blog/favicon.ico>
+<link rel=icon type=image/png sizes=16x16 href=https://interp.blog/favicon-16x16.png>
+<link rel=icon type=image/png sizes=32x32 href=https://interp.blog/favicon-32x32.png>
+<link rel=apple-touch-icon href=https://interp.blog/apple-touch-icon.png>
+<link rel=mask-icon href=https://interp.blog/safari-pinned-tab.svg>
+<meta name=theme-color content="#2e2e33">
+<meta name=msapplication-TileColor content="#2e2e33">
+<meta name=generator content="Hugo 0.91.2">
+<link rel=alternate type=application/rss+xml href=https://interp.blog/tags/wordpress/index.xml>
+<noscript>
+<style>#theme-toggle,.top-link{display:none}</style>
+<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
+</noscript><meta property="og:title" content="wordpress">
+<meta property="og:description" content>
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://interp.blog/tags/wordpress/">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="wordpress">
+<meta name=twitter:description content>
+</head>
+<body class=list id=top>
+<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
+<header class=header>
+<nav class=nav>
+<div class=logo>
+<a href=https://interp.blog/ accesskey=h title="InterP Blog (Alt + H)">InterP Blog</a>
+<span class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+</span>
+</div>
+<ul id=menu>
+<li>
+<a href=https://interp.blog/posts/ title=Posts>
+<span>Posts</span>
+</a>
+</li>
+<li>
+<a href=https://interp.blog/archives/ title=Archives>
+<span>Archives</span>
+</a>
+</li>
+<li>
+<a href=https://interp.blog/search/ title=Search>
+<span>Search</span>
+</a>
+</li>
+<li>
+<a href=https://interp.blog/drafts/ title=Drafts>
+<span>Drafts</span>
+</a>
+</li>
+</ul>
+</nav>
+</header>
+<main class=main>
+<header class=page-header><div class=breadcrumbs><a href=https://interp.blog/>Home</a>&nbsp;»&nbsp;<a href=https://interp.blog/tags/>Tags</a></div>
+<h1>wordpress</h1>
+</header>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>polylang 사용 팁
+</h2>
+</header>
+<section class=entry-content>
+<p>다국어 사이트를 기획하던 중에 만난 Polylang 이 괜찮은 것 같아서 사용 중인데, 설정 중에 만난 두 가지 문제들을 아래와 같이 해결했다.
+Language Switcher가 없다고? **외모 – 메뉴 **에서 오른쪽 위에 ‘화면 옵션’ 을 펼치면 Language Switcher 가 꺼져있을 것이다. String Translation 을 따로 추가하고 싶다고? 테마의 functions.php 에서pll_register_string() 함수를 호출하면 된다. 해당 String 을 사용하고 싶다면 테마에서 pll__또는 pll__e 를 사용하면 된다.자세한 내용은 여기를 참고. </p>
+</section>
+<footer class=entry-footer><span title="2017-09-06 05:22:27 +0000 UTC">September 6, 2017</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to polylang 사용 팁" href=https://interp.blog/polylang-%EC%82%AC%EC%9A%A9-%ED%8C%81/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>amazon web server 에서 WordPress 업데이트
+</h2>
+</header>
+<section class=entry-content>
+<p>Amazon Web Server에서 WordPress를 설치하고, 플러그인이나 워드프레스를 업그레이드 하라고 하면… FTP 정보를 등록하라고 나온다. 그렇게 하지 않아도, 여기서 제시한 것 처럼 권한 사용자만 바꿔줘도 된다.</p>
+</section>
+<footer class=entry-footer><span title="2017-08-08 09:16:18 +0000 UTC">August 8, 2017</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to amazon web server 에서 WordPress 업데이트" href=https://interp.blog/amazon-web-server-%EC%97%90%EC%84%9C-wordpress-%EC%97%85%EB%8D%B0%EC%9D%B4%ED%8A%B8/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>WordPress 에디터 스타일 변경
+</h2>
+</header>
+<section class=entry-content>
+<p>WordPress 3.9 부터는 포스트 에디터로 TinyMCE를 내장하고 있다. 테마 별로 이 에디터의 CSS 의 스타일을 제공할 수 있다. add_editor_style() 함수가 그것이다.
 사용중인 테마에서 에디터 스타일 변경 다음 코드를 사용 중인 테마의 functions.php 에 추가하면 된다.
-물론, 여기서 editor-style.css 파일은 존재해야 한다. 에디터 스타일을 직접 작성할 수도 있지만, 나는 테마 스타일의 포스팅 부분만 떼내서 만들었다. 즉, 에디터를 통해 미리보기를 하지 않아도 포스팅 구성이 어떻게 되고 본문이나 제목이 어떻게 보여지는지 한 눈에 파악할 수 있다.</p></div></a><a href=https://interp.blog/wordpress-disqus-%EC%BD%94%EB%A9%98%ED%8A%B8-%EC%88%98%EA%B0%80-%EC%95%88-%EB%B3%B4%EC%9D%B4%EB%A9%B4/ class=catalogue-item><div><time datetime="2017-03-23 13:05:49 +0000 UTC" class=catalogue-time>2017년 3월 23일</time><h1 class=catalogue-title>WordPress Disqus 코멘트 수가 안 보이면</h1></div><div class=catalogue-line></div><p>Disqus Comment Plugin 을 설치했고, Footer에 Javascript를 추가한다는 옵션도 켜져있는데… 최근 글에 개수가 안 보인다면?
-대개 이런 경우는 글 발행을 하고 아무런 액션을 취하지 않았거나 워드프레스를 이전한 경우이다. 해답은 간단한데, 해당 글을 한번 클릭해서 disqus 댓글 창이 로딩되기를 기다리면 된다. 그리고 새로고침하면 바뀐다! 대부분 바로 적용되지만, 몇몇 포스팅은 바로 적용되지 않더라. 그러니 만들었으면 진득히 기다려 보자.</p></div></a><a href=https://interp.blog/wordpress-%EC%97%90%EB%94%94%ED%84%B0-%EB%8B%A8%EC%B6%95%ED%82%A4-%EB%B3%80%EA%B2%BD%ED%95%98%EA%B8%B0/ class=catalogue-item><div><time datetime="2017-03-23 13:04:12 +0000 UTC" class=catalogue-time>2017년 3월 23일</time><h1 class=catalogue-title>WordPress 에디터 단축키 변경하기</h1></div><div class=catalogue-line></div><p>WordPress는 기본적으로 TinyMCE를 탑재하고 있는데, 기본 단축키가 존재한다. 글을 작성할 때 굉장히 편하게 쓸 수 있다. 그런데 나는 Confluence 에 내장된 TinyMCE에 익숙해져서, 단축키를 두 번 외우기 싫어서 이걸 바꿔보려고 했다. (당장 태그를 정하는 것만 해도 Confluence 는 Ctrl + 1 인데, WordPress 는 Shift + Alt + 1 이다. 엄청 불편하다!)
+물론, 여기서 editor-style.css 파일은 존재해야 한다. 에디터 스타일을 직접 작성할 수도 있지만, 나는 테마 스타일의 포스팅 부분만 떼내서 만들었다. 즉, 에디터를 통해 미리보기를 하지 않아도 포스팅 구성이 어떻게 되고 본문이나 제목이 어떻게 보여지는지 한 눈에 파악할 수 있다....</p>
+</section>
+<footer class=entry-footer><span title="2017-03-24 02:50:22 +0000 UTC">March 24, 2017</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to WordPress 에디터 스타일 변경" href=https://interp.blog/wordpress-%EC%97%90%EB%94%94%ED%84%B0-%EC%8A%A4%ED%83%80%EC%9D%BC-%EB%B3%80%EA%B2%BD/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>WordPress Disqus 코멘트 수가 안 보이면
+</h2>
+</header>
+<section class=entry-content>
+<p>Disqus Comment Plugin 을 설치했고, Footer에 Javascript를 추가한다는 옵션도 켜져있는데… 최근 글에 개수가 안 보인다면?
+대개 이런 경우는 글 발행을 하고 아무런 액션을 취하지 않았거나 워드프레스를 이전한 경우이다. 해답은 간단한데, 해당 글을 한번 클릭해서 disqus 댓글 창이 로딩되기를 기다리면 된다. 그리고 새로고침하면 바뀐다! 대부분 바로 적용되지만, 몇몇 포스팅은 바로 적용되지 않더라. 그러니 만들었으면 진득히 기다려 보자.</p>
+</section>
+<footer class=entry-footer><span title="2017-03-23 13:05:49 +0000 UTC">March 23, 2017</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to WordPress Disqus 코멘트 수가 안 보이면" href=https://interp.blog/wordpress-disqus-%EC%BD%94%EB%A9%98%ED%8A%B8-%EC%88%98%EA%B0%80-%EC%95%88-%EB%B3%B4%EC%9D%B4%EB%A9%B4/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>WordPress 에디터 단축키 변경하기
+</h2>
+</header>
+<section class=entry-content>
+<p>WordPress는 기본적으로 TinyMCE를 탑재하고 있는데, 기본 단축키가 존재한다. 글을 작성할 때 굉장히 편하게 쓸 수 있다. 그런데 나는 Confluence 에 내장된 TinyMCE에 익숙해져서, 단축키를 두 번 외우기 싫어서 이걸 바꿔보려고 했다. (당장 태그를 정하는 것만 해도 Confluence 는 Ctrl + 1 인데, WordPress 는 Shift + Alt + 1 이다. 엄청 불편하다!)
 단축키 변경 원리 보통 wp-include/js/tinymce/tinymce.min.js 안에 addShortcut 이 지정되어 있다. 이걸 바꾸면 되는데, 다음과 같은 규칙이 있다.
-단축키 패턴은, 소문자로 적어도 상관없다</p></div></a><a href=https://interp.blog/jekyll-vs-wordpress/ class=catalogue-item><div><time datetime="2016-11-10 14:02:14 +0000 UTC" class=catalogue-time>2016년 11월 10일</time><h1 class=catalogue-title>Jekyll vs. WordPress</h1></div><div class=catalogue-line></div><p>Jekyll은 확실히 좋다 그런데 왜 WordPress 인가 무료 호스팅으로 커버할 수 없겠지만, 그래도 국내엔 괜찮은 호스팅이 많다. 최소한의 비용은 투자되어도 좋다고 생각한다. 해커의 공격을 받을 수 있겠지만, 지속적인 관리를 통한다면 못 할 게 뭐가 있을까. 그리고 그렇게 인기있는 블로거도 아닌데 말이다.속도 문제는 플러그인을 최소화하고 테마를 간소하게 만들어서 캐싱을 하도록 했다. 그리고 웹 브라우저를 띄우고 글을 쓰는 것? 이것 때문에 사용한다 🙂</p></div></a></div><div class=pagination><span>1</span></div></main><footer><span>&copy; <time datetime="2020-09-06 21:18:24.405125965 +0000 UTC m=+0.313953514">2020</time> InterP. 이 사이트는 <a href=https://gohugo.io>Hugo</a> 로 작성되었으며 <a href=https://github.com/EmielH/tale-hugo/>Tale</a> 테마를 사용합니다!</span></footer></body></html>
+단축키 패턴은, 소문자로 적어도 상관없다...</p>
+</section>
+<footer class=entry-footer><span title="2017-03-23 13:04:12 +0000 UTC">March 23, 2017</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to WordPress 에디터 단축키 변경하기" href=https://interp.blog/wordpress-%EC%97%90%EB%94%94%ED%84%B0-%EB%8B%A8%EC%B6%95%ED%82%A4-%EB%B3%80%EA%B2%BD%ED%95%98%EA%B8%B0/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>Jekyll vs. WordPress
+</h2>
+</header>
+<section class=entry-content>
+<p>Jekyll은 확실히 좋다 그런데 왜 WordPress 인가 무료 호스팅으로 커버할 수 없겠지만, 그래도 국내엔 괜찮은 호스팅이 많다. 최소한의 비용은 투자되어도 좋다고 생각한다. 해커의 공격을 받을 수 있겠지만, 지속적인 관리를 통한다면 못 할 게 뭐가 있을까. 그리고 그렇게 인기있는 블로거도 아닌데 말이다.속도 문제는 플러그인을 최소화하고 테마를 간소하게 만들어서 캐싱을 하도록 했다. 그리고 웹 브라우저를 띄우고 글을 쓰는 것? 이것 때문에 사용한다 🙂</p>
+</section>
+<footer class=entry-footer><span title="2016-11-10 14:02:14 +0000 UTC">November 10, 2016</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to Jekyll vs. WordPress" href=https://interp.blog/jekyll-vs-wordpress/></a>
+</article>
+</main>
+<footer class=footer>
+<span>&copy; 2022 <a href=https://interp.blog/>InterP Blog</a></span>
+<span>
+Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+</span>
+</footer>
+<a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a>
+<script>let menu=document.getElementById('menu');menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener("click",function(b){b.preventDefault();var a=this.getAttribute("href").substr(1);window.matchMedia('(prefers-reduced-motion: reduce)').matches?document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView({behavior:"smooth"}),a==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${a}`)})})</script>
+<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
+<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove('dark'),localStorage.setItem("pref-theme",'light')):(document.body.classList.add('dark'),localStorage.setItem("pref-theme",'dark'))})</script>
+</body>
+</html>

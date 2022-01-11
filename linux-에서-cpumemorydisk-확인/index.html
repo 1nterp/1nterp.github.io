@@ -1,3 +1,121 @@
-<!doctype html><html lang=ko-kr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Linux 에서 CPU/Memory/Disk 확인 &#183; InterP Blog</title><link rel=stylesheet href=/css/style.css><link rel=stylesheet href=/css/fonts.css><link rel=icon type=image/png sizes=32x32 href=/images/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/images/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/images/apple-touch-icon.png><link href rel=alternate type=application/rss+xml title="InterP Blog"></head><body><nav class=nav><div class=nav-container><a href=/><h2 class=nav-title>InterP Blog</h2></a><ul></ul></div></nav><main><div class=post><div class=post-info><time datetime="2017-10-30 08:31:03 +0000 UTC">2017년 10월 30일</time></div><h1 class=post-title>Linux 에서 CPU/Memory/Disk 확인</h1><div class=post-line></div><p>자주 쓰긴 하지만, 곧바로 생각나지 않을 것을 대비해서… 서버실 서버 사양을 전부 체크하려다 보니 어쩔 수 없이 정리했다.</p><h3 id=cpu--memory-확인>CPU / Memory 확인</h3><p>CPU / Memory 는 사실 쉽다. <code>/proc/cpuinfo</code> 와 <code>/proc/meminfo</code> 안에 들어있기 때문이다.</p><h3 id=disk-확인>Disk 확인</h3><p><code>df</code> 는 mount 된 것만 확인이 가능해서 별로고, <code>lsblk</code> 를 하면 마운트되지 않은 것까지 나온다.</p><blockquote></blockquote></div><div class=pagination><a href=/%ED%98%84%EC%83%81%EC%9D%84-%ED%86%B5%EC%B0%B0%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95/ class="left arrow">&#8592;</a>
-<a href=/gitlab-%EC%82%BD%EC%A7%88%EA%B8%B0/ class="right arrow">&#8594;</a>
-<a href=# class=top>Top</a></div></main><footer><span>&copy; <time datetime="2020-09-06 21:18:24.31767759 +0000 UTC m=+0.226505139">2020</time> InterP. 이 사이트는 <a href=https://gohugo.io>Hugo</a> 로 작성되었으며 <a href=https://github.com/EmielH/tale-hugo/>Tale</a> 테마를 사용합니다!</span></footer></body></html>
+<!doctype html><html lang=en dir=auto>
+<head><meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name=robots content="index, follow">
+<title>Linux 에서 CPU/Memory/Disk 확인 | InterP Blog</title>
+<meta name=keywords content="Linux,사양">
+<meta name=description content="자주 쓰긴 하지만, 곧바로 생각나지 않을 것을 대비해서… 서버실 서버 사양을 전부 체크하려다 보니 어쩔 수 없이 정리했다.
+CPU / Memory 확인 CPU / Memory 는 사실 쉽다. /proc/cpuinfo 와 /proc/meminfo 안에 들어있기 때문이다.
+Disk 확인 df 는 mount 된 것만 확인이 가능해서 별로고, lsblk 를 하면 마운트되지 않은 것까지 나온다.
+  ">
+<meta name=author content="interp">
+<link rel=canonical href=https://interp.blog/linux-%EC%97%90%EC%84%9C-cpumemorydisk-%ED%99%95%EC%9D%B8/>
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.9906a2b74cdafd3190ad7dbbc2fccdff9c2aaff204038b3d609a6041a2d43a49.css integrity="sha256-mQait0za/TGQrX27wvzN/5wqr/IEA4s9YJpgQaLUOkk=" rel="preload stylesheet" as=style>
+<script defer crossorigin=anonymous src=/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5+kdJvBz5iKbt6B5PJI=" onload=hljs.initHighlightingOnLoad()></script>
+<link rel=icon href=https://interp.blog/favicon.ico>
+<link rel=icon type=image/png sizes=16x16 href=https://interp.blog/favicon-16x16.png>
+<link rel=icon type=image/png sizes=32x32 href=https://interp.blog/favicon-32x32.png>
+<link rel=apple-touch-icon href=https://interp.blog/apple-touch-icon.png>
+<link rel=mask-icon href=https://interp.blog/safari-pinned-tab.svg>
+<meta name=theme-color content="#2e2e33">
+<meta name=msapplication-TileColor content="#2e2e33">
+<meta name=generator content="Hugo 0.91.2">
+<noscript>
+<style>#theme-toggle,.top-link{display:none}</style>
+<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
+</noscript><meta property="og:title" content="Linux 에서 CPU/Memory/Disk 확인">
+<meta property="og:description" content="자주 쓰긴 하지만, 곧바로 생각나지 않을 것을 대비해서… 서버실 서버 사양을 전부 체크하려다 보니 어쩔 수 없이 정리했다.
+CPU / Memory 확인 CPU / Memory 는 사실 쉽다. /proc/cpuinfo 와 /proc/meminfo 안에 들어있기 때문이다.
+Disk 확인 df 는 mount 된 것만 확인이 가능해서 별로고, lsblk 를 하면 마운트되지 않은 것까지 나온다.
+  ">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://interp.blog/linux-%EC%97%90%EC%84%9C-cpumemorydisk-%ED%99%95%EC%9D%B8/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2017-10-30T08:31:03+00:00">
+<meta property="article:modified_time" content="2017-10-30T08:31:03+00:00">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="Linux 에서 CPU/Memory/Disk 확인">
+<meta name=twitter:description content="자주 쓰긴 하지만, 곧바로 생각나지 않을 것을 대비해서… 서버실 서버 사양을 전부 체크하려다 보니 어쩔 수 없이 정리했다.
+CPU / Memory 확인 CPU / Memory 는 사실 쉽다. /proc/cpuinfo 와 /proc/meminfo 안에 들어있기 때문이다.
+Disk 확인 df 는 mount 된 것만 확인이 가능해서 별로고, lsblk 를 하면 마운트되지 않은 것까지 나온다.
+  ">
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://interp.blog/posts/"},{"@type":"ListItem","position":2,"name":"Linux 에서 CPU/Memory/Disk 확인","item":"https://interp.blog/linux-%EC%97%90%EC%84%9C-cpumemorydisk-%ED%99%95%EC%9D%B8/"}]}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Linux 에서 CPU/Memory/Disk 확인","name":"Linux 에서 CPU\/Memory\/Disk 확인","description":"자주 쓰긴 하지만, 곧바로 생각나지 않을 것을 대비해서… 서버실 서버 사양을 전부 체크하려다 보니 어쩔 수 없이 정리했다.\nCPU / Memory 확인 CPU / Memory 는 사실 쉽다. /proc/cpuinfo 와 /proc/meminfo 안에 들어있기 때문이다.\nDisk 확인 df 는 mount 된 것만 확인이 가능해서 별로고, lsblk 를 하면 마운트되지 않은 것까지 나온다.\n  ","keywords":["Linux","사양"],"articleBody":"자주 쓰긴 하지만, 곧바로 생각나지 않을 것을 대비해서… 서버실 서버 사양을 전부 체크하려다 보니 어쩔 수 없이 정리했다.\nCPU / Memory 확인 CPU / Memory 는 사실 쉽다. /proc/cpuinfo 와 /proc/meminfo 안에 들어있기 때문이다.\nDisk 확인 df 는 mount 된 것만 확인이 가능해서 별로고, lsblk 를 하면 마운트되지 않은 것까지 나온다.\n  ","wordCount":"51","inLanguage":"en","datePublished":"2017-10-30T08:31:03Z","dateModified":"2017-10-30T08:31:03Z","author":{"@type":"Person","name":"interp"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://interp.blog/linux-%EC%97%90%EC%84%9C-cpumemorydisk-%ED%99%95%EC%9D%B8/"},"publisher":{"@type":"Organization","name":"InterP Blog","logo":{"@type":"ImageObject","url":"https://interp.blog/favicon.ico"}}}</script>
+</head>
+<body id=top>
+<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
+<header class=header>
+<nav class=nav>
+<div class=logo>
+<a href=https://interp.blog/ accesskey=h title="InterP Blog (Alt + H)">InterP Blog</a>
+<span class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+</span>
+</div>
+<ul id=menu>
+<li>
+<a href=https://interp.blog/posts/ title=Posts>
+<span>Posts</span>
+</a>
+</li>
+<li>
+<a href=https://interp.blog/archives/ title=Archives>
+<span>Archives</span>
+</a>
+</li>
+<li>
+<a href=https://interp.blog/search/ title=Search>
+<span>Search</span>
+</a>
+</li>
+<li>
+<a href=https://interp.blog/drafts/ title=Drafts>
+<span>Drafts</span>
+</a>
+</li>
+</ul>
+</nav>
+</header>
+<main class=main>
+<article class=post-single>
+<header class=post-header>
+<div class=breadcrumbs><a href=https://interp.blog/>Home</a>&nbsp;»&nbsp;<a href=https://interp.blog/posts/>Posts</a></div>
+<h1 class=post-title>
+Linux 에서 CPU/Memory/Disk 확인
+</h1>
+<div class=post-meta><span title="2017-10-30 08:31:03 +0000 UTC">October 30, 2017</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp
+</div>
+</header>
+<div class=post-content><p>자주 쓰긴 하지만, 곧바로 생각나지 않을 것을 대비해서… 서버실 서버 사양을 전부 체크하려다 보니 어쩔 수 없이 정리했다.</p>
+<h3 id=cpu--memory-확인>CPU / Memory 확인<a hidden class=anchor aria-hidden=true href=#cpu--memory-확인>#</a></h3>
+<p>CPU / Memory 는 사실 쉽다. <code>/proc/cpuinfo</code> 와 <code>/proc/meminfo</code> 안에 들어있기 때문이다.</p>
+<h3 id=disk-확인>Disk 확인<a hidden class=anchor aria-hidden=true href=#disk-확인>#</a></h3>
+<p><code>df</code> 는 mount 된 것만 확인이 가능해서 별로고, <code>lsblk</code> 를 하면 마운트되지 않은 것까지 나온다.</p>
+<blockquote>
+</blockquote>
+</div>
+<footer class=post-footer>
+<ul class=post-tags>
+<li><a href=https://interp.blog/tags/linux/>Linux</a></li>
+<li><a href=https://interp.blog/tags/%EC%82%AC%EC%96%91/>사양</a></li>
+</ul>
+</footer>
+</article>
+</main>
+<footer class=footer>
+<span>&copy; 2022 <a href=https://interp.blog/>InterP Blog</a></span>
+<span>
+Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+</span>
+</footer>
+<a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a>
+<script>let menu=document.getElementById('menu');menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener("click",function(b){b.preventDefault();var a=this.getAttribute("href").substr(1);window.matchMedia('(prefers-reduced-motion: reduce)').matches?document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView({behavior:"smooth"}),a==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${a}`)})})</script>
+<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
+<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove('dark'),localStorage.setItem("pref-theme",'light')):(document.body.classList.add('dark'),localStorage.setItem("pref-theme",'dark'))})</script>
+<script>document.querySelectorAll('pre > code').forEach(b=>{const c=b.parentNode.parentNode,a=document.createElement('button');a.classList.add('copy-code'),a.innerText='copy';function d(){a.innerText='copied!',setTimeout(()=>{a.innerText='copy'},2e3)}a.addEventListener('click',e=>{if('clipboard'in navigator){navigator.clipboard.writeText(b.textContent),d();return}const a=document.createRange();a.selectNodeContents(b);const c=window.getSelection();c.removeAllRanges(),c.addRange(a);try{document.execCommand('copy'),d()}catch(a){}c.removeRange(a)}),c.classList.contains("highlight")?c.appendChild(a):c.parentNode.firstChild==c||(b.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?b.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(a):b.parentNode.appendChild(a))})</script>
+</body>
+</html>

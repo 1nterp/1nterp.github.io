@@ -1,20 +1,218 @@
-<!doctype html><html lang=ko-kr><head><meta name=generator content="Hugo 0.74.3"><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><title>InterP Blog</title><link rel=stylesheet href=/css/style.css><link rel=stylesheet href=/css/fonts.css><link rel=icon type=image/png sizes=32x32 href=/images/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/images/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/images/apple-touch-icon.png><link href=/index.xml rel=alternate type=application/rss+xml title="InterP Blog"></head><body><nav class=nav><div class=nav-container><a href=/><h2 class=nav-title>InterP Blog</h2></a><ul></ul></div></nav><main><div class=catalogue><a href=https://interp.blog/specify-value-to-unnamed-union-fields/ class=catalogue-item><div><time datetime="2017-05-11 01:30:36 +0000 UTC" class=catalogue-time>2017년 5월 11일</time><h1 class=catalogue-title>Specifying value to unnamed union fields</h1></div><div class=catalogue-line></div><p>구조체 내부에, 이름없는 union 타입의 필드에 값을 지정할 때 조심해야 할 점이 있다.
+<!doctype html><html lang=en dir=auto>
+<head><meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name=robots content="index, follow">
+<title>InterP Blog</title>
+<meta name=description content>
+<meta name=author content="InterP">
+<link rel=canonical href=https://interp.blog/>
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.9906a2b74cdafd3190ad7dbbc2fccdff9c2aaff204038b3d609a6041a2d43a49.css integrity="sha256-mQait0za/TGQrX27wvzN/5wqr/IEA4s9YJpgQaLUOkk=" rel="preload stylesheet" as=style>
+<link rel=icon href=https://interp.blog/favicon.ico>
+<link rel=icon type=image/png sizes=16x16 href=https://interp.blog/favicon-16x16.png>
+<link rel=icon type=image/png sizes=32x32 href=https://interp.blog/favicon-32x32.png>
+<link rel=apple-touch-icon href=https://interp.blog/apple-touch-icon.png>
+<link rel=mask-icon href=https://interp.blog/safari-pinned-tab.svg>
+<meta name=theme-color content="#2e2e33">
+<meta name=msapplication-TileColor content="#2e2e33">
+<meta name=generator content="Hugo 0.91.2">
+<link rel=alternate type=application/rss+xml href=https://interp.blog/index.xml>
+<link rel=alternate type=application/json href=https://interp.blog/index.json>
+<noscript>
+<style>#theme-toggle,.top-link{display:none}</style>
+<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
+</noscript><meta property="og:title" content="InterP Blog">
+<meta property="og:description" content>
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://interp.blog/">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="InterP Blog">
+<meta name=twitter:description content>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"Organization","name":"InterP Blog","url":"https://interp.blog/","description":"","thumbnailUrl":"https://interp.blog/favicon.ico","sameAs":[]}</script>
+</head>
+<body class=list id=top>
+<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
+<header class=header>
+<nav class=nav>
+<div class=logo>
+<a href=https://interp.blog/ accesskey=h title="InterP Blog (Alt + H)">InterP Blog</a>
+<span class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+</span>
+</div>
+<ul id=menu>
+<li>
+<a href=https://interp.blog/posts/ title=Posts>
+<span>Posts</span>
+</a>
+</li>
+<li>
+<a href=https://interp.blog/archives/ title=Archives>
+<span>Archives</span>
+</a>
+</li>
+<li>
+<a href=https://interp.blog/search/ title=Search>
+<span>Search</span>
+</a>
+</li>
+<li>
+<a href=https://interp.blog/drafts/ title=Drafts>
+<span>Drafts</span>
+</a>
+</li>
+</ul>
+</nav>
+</header>
+<main class=main>
+<article class=post-entry>
+<header class=entry-header>
+<h2>Specifying value to unnamed union fields
+</h2>
+</header>
+<section class=entry-content>
+<p>구조체 내부에, 이름없는 union 타입의 필드에 값을 지정할 때 조심해야 할 점이 있다.
 (확인해 본 건 두 버전 뿐이지만) gcc v4.7 에서는 성공적으로 컴파일이 된다. 그러나 gcc v4.4 에서는 아래와 같이 에러가 발생한다!
-에러를 없애는 방법은, 내부 union을 향하는 것이라고 명시를 해 주는 수밖에 없다. 즉, union 필드에 값을 지정할 때는 중괄호로 한번 더 감싸주면 된다.</p></div></a><a href=https://interp.blog/vim%EC%9D%98-ctrl-%EB%8B%A8%EC%B6%95%ED%82%A4/ class=catalogue-item><div><time datetime="2017-03-29 05:08:10 +0000 UTC" class=catalogue-time>2017년 3월 29일</time><h1 class=catalogue-title>vim의 Ctrl 단축키</h1></div><div class=catalogue-line></div><p>몇 가지는 이미 알고 있었고, 몇 가지는 새로 찾은 것들이 되겠다. 모든 단축키를 알려줄 순 없지만 자주 사용할 법한 것들 위주로 정리해 둔다.
+에러를 없애는 방법은, 내부 union을 향하는 것이라고 명시를 해 주는 수밖에 없다. 즉, union 필드에 값을 지정할 때는 중괄호로 한번 더 감싸주면 된다.
+</p>
+</section>
+<footer class=entry-footer><span title="2017-05-11 01:30:36 +0000 UTC">May 11, 2017</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to Specifying value to unnamed union fields" href=https://interp.blog/specify-value-to-unnamed-union-fields/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
+<h2>vim의 Ctrl 단축키
+</h2>
+</header>
+<section class=entry-content>
+<p>몇 가지는 이미 알고 있었고, 몇 가지는 새로 찾은 것들이 되겠다. 모든 단축키를 알려줄 순 없지만 자주 사용할 법한 것들 위주로 정리해 둔다.
 Ctrl+r 가장 기초적인 것부터 보도록 하자.
-거의 대부분의 저작도구에서 지원하는 &lsquo;되돌리기(Undo)&rsquo; 와 &lsquo;다시하기(Redo)&rsquo; 를 Vim 도 지원한다. 되돌리기는 u 이며, 다시 하기가 바로 Ctrl+r이다.
+거의 대부분의 저작도구에서 지원하는 ‘되돌리기(Undo)’ 와 ‘다시하기(Redo)’ 를 Vim 도 지원한다. 되돌리기는 u 이며, 다시 하기가 바로 Ctrl+r이다.
 Ctrl+a / Ctrl+x Ctrl+a는 커서가 위치한 줄에 한해, 커서 다음에 위치한 숫자를 찾아서 1 증가시킨다. 반대로 숫자를 감소시키는 단축키는 Ctrl+x이다.
-vim은 엑셀이 아니기 때문에, 셀을 끌어당겨서 숫자를 1씩 증가시키는 그런 기능이 없다.</p></div></a><a href=https://interp.blog/wordpress-%EC%97%90%EB%94%94%ED%84%B0-%EC%8A%A4%ED%83%80%EC%9D%BC-%EB%B3%80%EA%B2%BD/ class=catalogue-item><div><time datetime="2017-03-24 02:50:22 +0000 UTC" class=catalogue-time>2017년 3월 24일</time><h1 class=catalogue-title>WordPress 에디터 스타일 변경</h1></div><div class=catalogue-line></div><p>WordPress 3.9 부터는 포스트 에디터로 TinyMCE를 내장하고 있다. 테마 별로 이 에디터의 CSS 의 스타일을 제공할 수 있다. add_editor_style() 함수가 그것이다.
+vim은 엑셀이 아니기 때문에, 셀을 끌어당겨서 숫자를 1씩 증가시키는 그런 기능이 없다....</p>
+</section>
+<footer class=entry-footer><span title="2017-03-29 05:08:10 +0000 UTC">March 29, 2017</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to vim의 Ctrl 단축키" href=https://interp.blog/vim%EC%9D%98-ctrl-%EB%8B%A8%EC%B6%95%ED%82%A4/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
+<h2>WordPress 에디터 스타일 변경
+</h2>
+</header>
+<section class=entry-content>
+<p>WordPress 3.9 부터는 포스트 에디터로 TinyMCE를 내장하고 있다. 테마 별로 이 에디터의 CSS 의 스타일을 제공할 수 있다. add_editor_style() 함수가 그것이다.
 사용중인 테마에서 에디터 스타일 변경 다음 코드를 사용 중인 테마의 functions.php 에 추가하면 된다.
-물론, 여기서 editor-style.css 파일은 존재해야 한다. 에디터 스타일을 직접 작성할 수도 있지만, 나는 테마 스타일의 포스팅 부분만 떼내서 만들었다. 즉, 에디터를 통해 미리보기를 하지 않아도 포스팅 구성이 어떻게 되고 본문이나 제목이 어떻게 보여지는지 한 눈에 파악할 수 있다.</p></div></a><a href=https://interp.blog/wordpress-disqus-%EC%BD%94%EB%A9%98%ED%8A%B8-%EC%88%98%EA%B0%80-%EC%95%88-%EB%B3%B4%EC%9D%B4%EB%A9%B4/ class=catalogue-item><div><time datetime="2017-03-23 13:05:49 +0000 UTC" class=catalogue-time>2017년 3월 23일</time><h1 class=catalogue-title>WordPress Disqus 코멘트 수가 안 보이면</h1></div><div class=catalogue-line></div><p>Disqus Comment Plugin 을 설치했고, Footer에 Javascript를 추가한다는 옵션도 켜져있는데… 최근 글에 개수가 안 보인다면?
-대개 이런 경우는 글 발행을 하고 아무런 액션을 취하지 않았거나 워드프레스를 이전한 경우이다. 해답은 간단한데, 해당 글을 한번 클릭해서 disqus 댓글 창이 로딩되기를 기다리면 된다. 그리고 새로고침하면 바뀐다! 대부분 바로 적용되지만, 몇몇 포스팅은 바로 적용되지 않더라. 그러니 만들었으면 진득히 기다려 보자.</p></div></a><a href=https://interp.blog/wordpress-%EC%97%90%EB%94%94%ED%84%B0-%EB%8B%A8%EC%B6%95%ED%82%A4-%EB%B3%80%EA%B2%BD%ED%95%98%EA%B8%B0/ class=catalogue-item><div><time datetime="2017-03-23 13:04:12 +0000 UTC" class=catalogue-time>2017년 3월 23일</time><h1 class=catalogue-title>WordPress 에디터 단축키 변경하기</h1></div><div class=catalogue-line></div><p>WordPress는 기본적으로 TinyMCE를 탑재하고 있는데, 기본 단축키가 존재한다. 글을 작성할 때 굉장히 편하게 쓸 수 있다. 그런데 나는 Confluence 에 내장된 TinyMCE에 익숙해져서, 단축키를 두 번 외우기 싫어서 이걸 바꿔보려고 했다. (당장 태그를 정하는 것만 해도 Confluence 는 Ctrl + 1 인데, WordPress 는 Shift + Alt + 1 이다. 엄청 불편하다!)
+물론, 여기서 editor-style.css 파일은 존재해야 한다. 에디터 스타일을 직접 작성할 수도 있지만, 나는 테마 스타일의 포스팅 부분만 떼내서 만들었다. 즉, 에디터를 통해 미리보기를 하지 않아도 포스팅 구성이 어떻게 되고 본문이나 제목이 어떻게 보여지는지 한 눈에 파악할 수 있다....</p>
+</section>
+<footer class=entry-footer><span title="2017-03-24 02:50:22 +0000 UTC">March 24, 2017</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to WordPress 에디터 스타일 변경" href=https://interp.blog/wordpress-%EC%97%90%EB%94%94%ED%84%B0-%EC%8A%A4%ED%83%80%EC%9D%BC-%EB%B3%80%EA%B2%BD/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
+<h2>WordPress Disqus 코멘트 수가 안 보이면
+</h2>
+</header>
+<section class=entry-content>
+<p>Disqus Comment Plugin 을 설치했고, Footer에 Javascript를 추가한다는 옵션도 켜져있는데… 최근 글에 개수가 안 보인다면?
+대개 이런 경우는 글 발행을 하고 아무런 액션을 취하지 않았거나 워드프레스를 이전한 경우이다. 해답은 간단한데, 해당 글을 한번 클릭해서 disqus 댓글 창이 로딩되기를 기다리면 된다. 그리고 새로고침하면 바뀐다! 대부분 바로 적용되지만, 몇몇 포스팅은 바로 적용되지 않더라. 그러니 만들었으면 진득히 기다려 보자.</p>
+</section>
+<footer class=entry-footer><span title="2017-03-23 13:05:49 +0000 UTC">March 23, 2017</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to WordPress Disqus 코멘트 수가 안 보이면" href=https://interp.blog/wordpress-disqus-%EC%BD%94%EB%A9%98%ED%8A%B8-%EC%88%98%EA%B0%80-%EC%95%88-%EB%B3%B4%EC%9D%B4%EB%A9%B4/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
+<h2>WordPress 에디터 단축키 변경하기
+</h2>
+</header>
+<section class=entry-content>
+<p>WordPress는 기본적으로 TinyMCE를 탑재하고 있는데, 기본 단축키가 존재한다. 글을 작성할 때 굉장히 편하게 쓸 수 있다. 그런데 나는 Confluence 에 내장된 TinyMCE에 익숙해져서, 단축키를 두 번 외우기 싫어서 이걸 바꿔보려고 했다. (당장 태그를 정하는 것만 해도 Confluence 는 Ctrl + 1 인데, WordPress 는 Shift + Alt + 1 이다. 엄청 불편하다!)
 단축키 변경 원리 보통 wp-include/js/tinymce/tinymce.min.js 안에 addShortcut 이 지정되어 있다. 이걸 바꾸면 되는데, 다음과 같은 규칙이 있다.
-단축키 패턴은, 소문자로 적어도 상관없다</p></div></a><a href=https://interp.blog/%EC%9A%B0%EB%B6%84%ED%88%AC-fcitx-%ED%95%9C%EC%98%81%ED%82%A4-%ED%95%9C%EC%9E%90%ED%82%A4-%EB%A7%A4%ED%95%91/ class=catalogue-item><div><time datetime="2017-03-20 07:01:03 +0000 UTC" class=catalogue-time>2017년 3월 20일</time><h1 class=catalogue-title>우분투 fcitx 한/영키, 한자키 매핑</h1></div><div class=catalogue-line></div><p>레오폴드의 키보드가 으레 그렇지만, 750RT 버전의 경우 한/영키와 한자키가 각각 ALT/CTRL 와 같이 매핑이 되어 있다. 윈도우라면 아무런 걱정이 없었지만, 우분투에서 쓰려니까 다음과 같은 단점이 생겼다.
+단축키 패턴은, 소문자로 적어도 상관없다...</p>
+</section>
+<footer class=entry-footer><span title="2017-03-23 13:04:12 +0000 UTC">March 23, 2017</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to WordPress 에디터 단축키 변경하기" href=https://interp.blog/wordpress-%EC%97%90%EB%94%94%ED%84%B0-%EB%8B%A8%EC%B6%95%ED%82%A4-%EB%B3%80%EA%B2%BD%ED%95%98%EA%B8%B0/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
+<h2>우분투 fcitx 한/영키, 한자키 매핑
+</h2>
+</header>
+<section class=entry-content>
+<p>레오폴드의 키보드가 으레 그렇지만, 750RT 버전의 경우 한/영키와 한자키가 각각 ALT/CTRL 와 같이 매핑이 되어 있다. 윈도우라면 아무런 걱정이 없었지만, 우분투에서 쓰려니까 다음과 같은 단점이 생겼다.
 키보드가 레오폴드가 아니더라도, 우분투에서 오른쪽의 ALT/CTRL 키를 한/영키와 한자키로 쓰고자 하는 분들에게 유용할 것 같아서 정리한다. 16.04 LTS부터 기본 지원되는 fcitx를 기준으로 설명한다.
-fcitx에서 한/영키를 Ralt 로 설정하는 것은 가능하다. 그러나 이게 OS에서 그대로 ALT 로 인식한다는 게 문제다. 타이핑 도중 한/영키를 누르면 타이핑 글자와 함께 조합키로 인식되어 입력 변환이 원활하지 않다는 느낌이 든다.</p></div></a><a href=https://interp.blog/%ED%82%A4%EB%B3%B4%EB%93%9C-%ED%82%A4-%EB%B0%94%EC%9A%B4%EC%8B%B1-%EB%AC%B8%EC%A0%9C-%ED%95%B4%EA%B2%B0/ class=catalogue-item><div><time datetime="2017-03-20 02:25:04 +0000 UTC" class=catalogue-time>2017년 3월 20일</time><h1 class=catalogue-title>키보드 키 바운싱 문제 해결</h1></div><div class=catalogue-line></div><p>회사에서 기계식 키보드를 아무거나 사라고 해서 i-rocks의 KR-6251 을 사서 5년 째 쓰고 있다. 2년 전부터 몇몇 키들은 한 번 누를 때마다 두 번 입력되는 느낌을 받았고, 쓰면서 이 현상이 더욱 가중되어 성가신 느낌을 지우기 힘들었다.
-그런데 이 문제를 어떻게 웹에 검색하지? 감을 잡을 수 없어서 &lsquo;그냥 새로운 키보드를 사야하는 건가!&rsquo; 라고까지 고민하고 있었다. (이럴 때만 지름신이 오셔서 &lsquo;비싼 기계식 키보드를 사서 쓰렴, 껄껄&rsquo; 이라고 조언해준다.) 그러다가 우연찮게 이런 문제를 무엇이라고 말하는지 알 수 있었다.</p></div></a><a href=https://interp.blog/the-witness/ class=catalogue-item><div><div><time datetime="2017-03-17 14:41:26 +0000 UTC" class=catalogue-time-bg>2017년 3월 17일</time><h1 class=catalogue-title-bg>The Witness</h1></div><br><div class=catalogue-line></div><p>아름답지만 인기척 하나 없는 섬을 탐험하며 두뇌 유희를 즐길 수 있는 게임. 하지만 곳곳에 존재하는 메시지는 어쩐지 심오한 퍼즐 게임 &lsquo;The Witness&rsquo; 를 플레이 했다. 스팀/GOG 에서 43000원($39.99)으로 구입이 가능하다. 결코 저렴하다 할 순 없지만, 최대 세일도 50% 까지 했었고 최근엔 Humble Monthly 에서 선공개 게임으로 나오기도 했다. (구독 비용이 $12 이므로, 이게 사실상 최저가가 아닐까 싶다.) 발매 초부터 세일하면꼭 해봐야지 싶었던 게임이라서, 두통을 끌어안고굉장히 즐겁게 했다.
-그래픽 – 섬 그래픽은 The Long Dark 의 밝은 버전이라고 할 법한데, 원색으로 이루어진 자연 경관이 반겨 준다.</p></div></a><a href=https://interp.blog/vim-plugin-%EC%97%90-%EB%8C%80%ED%95%B4/ class=catalogue-item><div><time datetime="2017-03-15 01:41:28 +0000 UTC" class=catalogue-time>2017년 3월 15일</time><h1 class=catalogue-title>Vim Plugin</h1></div><div class=catalogue-line></div><p>ack.vim 을 설치하려니까 Vim Plugin Manager 란 게 있는 사실도 알았다. 누구는 Vim Plugin을 상위권부터 하나씩 써보고 마음에 드는 걸 적용하고 있다는데, 나도 그래야겠다 싶어서 여기에 정리해 두고자 한다. 여기서는 플러그인에 대해서 먼저 알아보고, 플러그인마다 제공하는 가장 많이 사용하는 플러그인들을 알아본 다음에, 최종적으로는 내가 원하는 ack.vim 을 설치해보고자 한다.
-Vim Plugin Manager : Vundle 집/회사에서의 개발환경이 다르고, 회사에서도 여러 서버를 넘나들며 개발과 유지보수를 해야 하는데, 모든 환경을 일일히 동기화하기엔 귀찮은 것이 사실이다.</p></div></a><a href=https://interp.blog/posts/2017-02-07-%EC%9D%B8%EA%B0%84%EC%8B%A4%EA%B2%A9/ class=catalogue-item><div><time datetime="2017-02-07 11:46:21 +0900 +0900" class=catalogue-time>2017년 2월 7일</time><h1 class=catalogue-title>인간실격</h1></div><div class=catalogue-line></div><p>&lsquo;인간실격&rsquo; 이란 제목부터 뭔가 끌어당기는 것이 있었다. 오프닝에서는 충격을 받고 엔딩에서는 한숨이 나왔다. 무덤덤하게 작가의 일생을 나열하는 마지막 페이지에서는 흠칫했다. 소설의 내용과 일치하는 부분이 있었다. 부유한 집안에 태어나 자랐고, 여자와 자살기도를 했지만 본인은 실패했다는 점 등. 굴곡진 인생을 살아온 주인공 요조의 이야기가, 혹시 작가 자신의 이야기였을까.
-소설은 인간의 위선적인 태도를 경멸하고 두려워하면서도, 그 속에서 녹아들기 위해 그 자신마저도 위선을 가장한 광대짓을 하고 있는 주인공을 계속 보여준다. 그런데 그 거짓이 간파당하는 순간이 두 번 존재한다.</p></div></a></div><div class=pagination><a href=/page/5/ class="left arrow">&#8592;</a>
-<a href=/page/7/ class="right arrow">&#8594;</a>
-<span>6</span></div></main><footer><span>&copy; <time datetime="2020-09-06 21:18:24.35096399 +0000 UTC m=+0.259791739">2020</time> InterP. 이 사이트는 <a href=https://gohugo.io>Hugo</a> 로 작성되었으며 <a href=https://github.com/EmielH/tale-hugo/>Tale</a> 테마를 사용합니다!</span></footer></body></html>
+fcitx에서 한/영키를 Ralt 로 설정하는 것은 가능하다. 그러나 이게 OS에서 그대로 ALT 로 인식한다는 게 문제다. 타이핑 도중 한/영키를 누르면 타이핑 글자와 함께 조합키로 인식되어 입력 변환이 원활하지 않다는 느낌이 든다....</p>
+</section>
+<footer class=entry-footer><span title="2017-03-20 07:01:03 +0000 UTC">March 20, 2017</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to 우분투 fcitx 한/영키, 한자키 매핑" href=https://interp.blog/%EC%9A%B0%EB%B6%84%ED%88%AC-fcitx-%ED%95%9C%EC%98%81%ED%82%A4-%ED%95%9C%EC%9E%90%ED%82%A4-%EB%A7%A4%ED%95%91/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
+<h2>키보드 키 바운싱 문제 해결
+</h2>
+</header>
+<section class=entry-content>
+<p>회사에서 기계식 키보드를 아무거나 사라고 해서 i-rocks의 KR-6251 을 사서 5년 째 쓰고 있다. 2년 전부터 몇몇 키들은 한 번 누를 때마다 두 번 입력되는 느낌을 받았고, 쓰면서 이 현상이 더욱 가중되어 성가신 느낌을 지우기 힘들었다.
+그런데 이 문제를 어떻게 웹에 검색하지? 감을 잡을 수 없어서 ‘그냥 새로운 키보드를 사야하는 건가!’ 라고까지 고민하고 있었다. (이럴 때만 지름신이 오셔서 ‘비싼 기계식 키보드를 사서 쓰렴, 껄껄’ 이라고 조언해준다.) 그러다가 우연찮게 이런 문제를 무엇이라고 말하는지 알 수 있었다....</p>
+</section>
+<footer class=entry-footer><span title="2017-03-20 02:25:04 +0000 UTC">March 20, 2017</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to 키보드 키 바운싱 문제 해결" href=https://interp.blog/%ED%82%A4%EB%B3%B4%EB%93%9C-%ED%82%A4-%EB%B0%94%EC%9A%B4%EC%8B%B1-%EB%AC%B8%EC%A0%9C-%ED%95%B4%EA%B2%B0/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
+<h2>The Witness
+</h2>
+</header>
+<section class=entry-content>
+<p>아름답지만 인기척 하나 없는 섬을 탐험하며 두뇌 유희를 즐길 수 있는 게임. 하지만 곳곳에 존재하는 메시지는 어쩐지 심오한 퍼즐 게임 ‘The Witness’ 를 플레이 했다. 스팀/GOG 에서 43000원($39.99)으로 구입이 가능하다. 결코 저렴하다 할 순 없지만, 최대 세일도 50% 까지 했었고 최근엔 Humble Monthly 에서 선공개 게임으로 나오기도 했다. (구독 비용이 $12 이므로, 이게 사실상 최저가가 아닐까 싶다.) 발매 초부터 세일하면꼭 해봐야지 싶었던 게임이라서, 두통을 끌어안고굉장히 즐겁게 했다.
+그래픽 – 섬 그래픽은 The Long Dark 의 밝은 버전이라고 할 법한데, 원색으로 이루어진 자연 경관이 반겨 준다....</p>
+</section>
+<footer class=entry-footer><span title="2017-03-17 14:41:26 +0000 UTC">March 17, 2017</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to The Witness" href=https://interp.blog/the-witness/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
+<h2>Vim Plugin
+</h2>
+</header>
+<section class=entry-content>
+<p>ack.vim 을 설치하려니까 Vim Plugin Manager 란 게 있는 사실도 알았다. 누구는 Vim Plugin을 상위권부터 하나씩 써보고 마음에 드는 걸 적용하고 있다는데, 나도 그래야겠다 싶어서 여기에 정리해 두고자 한다. 여기서는 플러그인에 대해서 먼저 알아보고, 플러그인마다 제공하는 가장 많이 사용하는 플러그인들을 알아본 다음에, 최종적으로는 내가 원하는 ack.vim 을 설치해보고자 한다.
+Vim Plugin Manager : Vundle 집/회사에서의 개발환경이 다르고, 회사에서도 여러 서버를 넘나들며 개발과 유지보수를 해야 하는데, 모든 환경을 일일히 동기화하기엔 귀찮은 것이 사실이다....</p>
+</section>
+<footer class=entry-footer><span title="2017-03-15 01:41:28 +0000 UTC">March 15, 2017</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to Vim Plugin" href=https://interp.blog/vim-plugin-%EC%97%90-%EB%8C%80%ED%95%B4/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
+<h2>인간실격
+</h2>
+</header>
+<section class=entry-content>
+<p>‘인간실격’ 이란 제목부터 뭔가 끌어당기는 것이 있었다. 오프닝에서는 충격을 받고 엔딩에서는 한숨이 나왔다. 무덤덤하게 작가의 일생을 나열하는 마지막 페이지에서는 흠칫했다. 소설의 내용과 일치하는 부분이 있었다. 부유한 집안에 태어나 자랐고, 여자와 자살기도를 했지만 본인은 실패했다는 점 등. 굴곡진 인생을 살아온 주인공 요조의 이야기가, 혹시 작가 자신의 이야기였을까.
+소설은 인간의 위선적인 태도를 경멸하고 두려워하면서도, 그 속에서 녹아들기 위해 그 자신마저도 위선을 가장한 광대짓을 하고 있는 주인공을 계속 보여준다. 그런데 그 거짓이 간파당하는 순간이 두 번 존재한다....</p>
+</section>
+<footer class=entry-footer><span title="2017-02-07 11:46:21 +0900 +0900">February 7, 2017</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;InterP</footer>
+<a class=entry-link aria-label="post link to 인간실격" href=https://interp.blog/drafts/2017-02-07-%EC%9D%B8%EA%B0%84%EC%8B%A4%EA%B2%A9/></a>
+</article>
+<footer class=page-footer>
+<nav class=pagination>
+<a class=prev href=https://interp.blog/page/5/>« Prev Page</a>
+<a class=next href=https://interp.blog/page/7/>Next Page »</a>
+</nav>
+</footer>
+</main>
+<footer class=footer>
+<span>&copy; 2022 <a href=https://interp.blog/>InterP Blog</a></span>
+<span>
+Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+</span>
+</footer>
+<a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a>
+<script>let menu=document.getElementById('menu');menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener("click",function(b){b.preventDefault();var a=this.getAttribute("href").substr(1);window.matchMedia('(prefers-reduced-motion: reduce)').matches?document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView({behavior:"smooth"}),a==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${a}`)})})</script>
+<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
+<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove('dark'),localStorage.setItem("pref-theme",'light')):(document.body.classList.add('dark'),localStorage.setItem("pref-theme",'dark'))})</script>
+</body>
+</html>
