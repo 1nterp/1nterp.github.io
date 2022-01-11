@@ -1,11 +1,13 @@
 baseURL = "https://interp.blog/"
 languageCode = "ko-kr"
 title = "InterP Blog"
-theme = "tale"
+theme = "tale-hugo"
 defaultContentLanguage = "ko"
 
 [Author]
     name = "InterP"
+
+sectionPagesMenu = "main"
 
 # [Params]
 #     css = ["override.css"]

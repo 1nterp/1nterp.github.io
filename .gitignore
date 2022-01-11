@@ -2,3 +2,4 @@ public/**
 resources/**
 content/posts/.DS_Store
 launch.json
+.hugo_build.lock

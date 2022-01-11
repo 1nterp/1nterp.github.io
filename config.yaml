@@ -1,0 +1,44 @@
+
+baseURL: https://interp.blog/
+languageCode: ko-kr
+title: "InterP Blog"
+theme: paper-mod
+sectionPagesMenu: main
+
+params:
+    defaultTheme: auto
+    ShowPostNavLinks: true
+    homeInfoParams:
+        Title: InterP Blog ✌
+        Content: "The longer I am here, the smarter they will be"
+    ShowReadingTime: true
+    ShowBreadCrumbs: true
+    ShowCodeCopyButtons: true
+    author: ["InterP"]
+
+outputs:
+    home:
+        - HTML
+        - RSS
+        - JSON # is necessary
+
+menu:
+  main:
+  - identifier: archive
+    name: Archives
+    #pre: <i class='fa fa-heart'></i>
+    url: /archives/
+    weight: 100
+  - identifier: search
+    name: Search
+    #pre: <i class='fa fa-heart'></i>
+    url: /search/
+    weight: 150
+  - identifier: posts
+    name: Posts
+    #pre: <i class='fa fa-heart'></i>
+    url: /posts/
+    weight: -10
+
+pygmentsCodefences: true
+pygmentsStyle: monokai
