@@ -12,6 +12,7 @@ tags:
   - ubuntu
   - docker
 
+draft: true
 ---
 ubuntu 14.04 를 기반으로 한 Dockerfile 에,SSH를 설치하기 위해 아래와 같이 작성했다고 하자.
 

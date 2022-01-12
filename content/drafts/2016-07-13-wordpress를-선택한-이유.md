@@ -11,6 +11,7 @@ dsq_thread_id:
 categories:
   - 이야기
 
+draft: true
 ---
 <p style="text-align: left;">
   블로그 서비스와 저작 도구를 이리저리 헤메면서, 그나마 가장 나은 것은 WordPress 였다. 여기서는 모든 서비스/도구의 장단점을 언급하기 보다는, 지극히 내 개인적인 환경에서 그 이유를 찾아가려고 한다.

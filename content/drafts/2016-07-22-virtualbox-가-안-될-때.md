@@ -12,6 +12,7 @@ dsq_thread_id:
 categories:
   - 프로그래밍
 
+draft: true
 ---
 <p style="text-align: justify;">
   Ubuntu 14.04 LTS 에서 업데이트 이후 갑자기 Virtualbox의 게스트 OS를 실행할 수 없는 현상을 마주했다. (Virtualbox 자체는 실행 가능하다) 게스트 OS를 실행하려고 하면, 다음과 같은 이미지가 나오면서 실행이 안 된다. 해결책은 크게 <strong>Kernel 업데이트</strong>를 받거나, <strong>BIOS의 Secure Boot 기능을 끄는 방법</strong>이다.

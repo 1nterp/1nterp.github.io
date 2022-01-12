@@ -12,6 +12,7 @@ tags:
   - git
   - commit
 
+draft: true
 ---
 [여기][1]에서 지목하는 다음 7가지를 알아봅시다.
 

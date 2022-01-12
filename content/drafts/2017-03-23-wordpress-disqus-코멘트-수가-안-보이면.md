@@ -10,6 +10,7 @@ tags:
   - wordpress
   - disqus
 
+draft: true
 ---
 Disqus Comment Plugin 을 설치했고, Footer에 Javascript를 추가한다는 옵션도 켜져있는데&#8230; 최근 글에 개수가 안 보인다면?
 

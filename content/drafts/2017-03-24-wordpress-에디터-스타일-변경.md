@@ -12,6 +12,7 @@ tags:
   - wordpress
   - editor
 
+draft: true
 ---
 WordPress 3.9 부터는 포스트 에디터로 TinyMCE를 내장하고 있다. 테마 별로 이 에디터의 CSS 의 스타일을 제공할 수 있다. [add\_editor\_style()][1] 함수가 그것이다.
 

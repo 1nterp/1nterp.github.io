@@ -13,6 +13,7 @@ tags:
   - amazon
 format: link
 
+draft: true
 ---
 Amazon Web Server에서 WordPress를 설치하고, 플러그인이나 워드프레스를 업그레이드 하라고 하면&#8230; FTP 정보를 등록하라고 나온다. 그렇게 하지 않아도, [여기][1]서 제시한 것 처럼 권한 사용자만 바꿔줘도 된다.
 

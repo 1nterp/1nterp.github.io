@@ -12,6 +12,7 @@ tags:
   - wordpress
   - jekyll
 
+draft: true
 ---
 <p style="text-align: justify;">
   <a href="http://interp.iwinv.net/40">WordPress를 선택한 이유</a>에서는 '어떤 방법으로 작성하는 것이 가장 편한가' 에 대한 답이었다면, 이번에는 조금 다른 각도로 이야기하고자 한다. 정적 사이트 생성기인 Jekyll 기반의 블로깅을 한번 알아보고, 그럼에도 내가 WordPress를 선택한 이유를 알려드리고자 한다.

@@ -11,7 +11,7 @@ categories:
 tags:
   - doxygen
   - graphviz
-
+draft: true
 ---
 _doxygen_ 과 _graphviz_ 를 사용해서 다이어그램을 출력할 때, 다음의 에러가 뜨면서 다이어그램 그림파일이 생성중단되는 경우가 있었다.
 

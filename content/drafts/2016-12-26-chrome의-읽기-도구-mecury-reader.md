@@ -13,6 +13,7 @@ tags:
   - reader
   - extension
 
+draft: true
 ---
 <p style="text-align: center;">
   <img class="aligncenter wp-image-790 size-full" src="http://interp.iwinv.net/wp-content/uploads/2016/12/unnamed.jpg" width="640" height="400" srcset="https://interp.blog/wp-content/uploads/2016/12/unnamed.jpg 640w, https://interp.blog/wp-content/uploads/2016/12/unnamed-300x188.jpg 300w" sizes="(max-width: 640px) 100vw, 640px" /> <span style="color: #999999;">(출처 : Chrome 앱 스토어)</span>

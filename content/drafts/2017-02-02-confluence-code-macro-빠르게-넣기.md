@@ -11,6 +11,7 @@ categories:
 tags:
   - Confluence
 
+draft: true
 ---
 Code Macro를 자동완성으로 입력하는 방법은 쉽다. 중괄호({)를 시작으로 `{code` 까지 치면 자동완성 제안이 뜨기 때문이다. 그런데 이 Code block은 Java 문법을 하이라이팅하기 때문에, 다른 언어를 하이라이팅하려면 다음과 같이 해야 된다.
 

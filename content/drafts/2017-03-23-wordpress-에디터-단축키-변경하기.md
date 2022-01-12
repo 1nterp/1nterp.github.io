@@ -12,6 +12,7 @@ tags:
   - wordpress
   - 에디터
 
+draft: true
 ---
 WordPress는 기본적으로 TinyMCE를 탑재하고 있는데, [기본 단축키][1]가 존재한다. 글을 작성할 때 굉장히 편하게 쓸 수 있다. 그런데 나는 Confluence 에 내장된 TinyMCE에 익숙해져서, 단축키를 두 번 외우기 싫어서 이걸 바꿔보려고 했다. (당장 <h1> 태그를 정하는 것만 해도 Confluence 는 Ctrl + 1 인데, WordPress 는 Shift + Alt + 1 이다. 엄청 불편하다!)
 

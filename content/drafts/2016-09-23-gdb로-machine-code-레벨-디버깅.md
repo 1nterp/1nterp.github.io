@@ -12,6 +12,7 @@ tags:
   - 디버깅
   - gdb
 
+draft: true
 ---
 <p style="text-align: justify;">
   gdb로 Machine Code 레벨 디버깅을 할 일이 있나 싶었는데, Callstack에서는 불친절하게도 아래와 같은 Function (=Start Address) + Hex 값의 지점을 가리켜 주기 때문에 소스 코드를 따라가지 못하는 상황이 발생한다. (더군다나 디버깅으로 재현은 안 되는 경우 SegFault 로 인한 Interrupt 로도 잡을 수 없다. 하지만 Callstack을 전달받았으니 원인 규명은 해야 하고&#8230;)
