@@ -9,12 +9,14 @@ params:
     defaultTheme: auto
     ShowPostNavLinks: true
     homeInfoParams:
-        Title: InterP Blog ✌
-        Content: "The longer I am here, the smarter they will be"
+      Title: InterP Blog ✌
+      Content: "The longer I am here, the smarter they will be"
     ShowReadingTime: true
     ShowBreadCrumbs: true
     ShowCodeCopyButtons: true
     author: ["InterP"]
+    cover:
+      relative: true
 
 outputs:
     home:
@@ -34,10 +36,20 @@ menu:
     #pre: <i class='fa fa-heart'></i>
     url: /search/
     weight: 150
-  - identifier: posts
-    name: Posts
+  - identifier: tech
+    name: Tech
     #pre: <i class='fa fa-heart'></i>
-    url: /posts/
+    url: /tech/
+    weight: -15
+  - identifier: essay
+    name: Essay
+    #pre: <i class='fa fa-heart'></i>
+    url: /essay/
+    weight: -10
+  - identifier: review
+    name: Review
+    #pre: <i class='fa fa-heart'></i>
+    url: /review/
     weight: -10
 
 pygmentsCodefences: true
