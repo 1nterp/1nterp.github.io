@@ -43,8 +43,18 @@
 </div>
 <ul id=menu>
 <li>
-<a href=https://interp.blog/posts/ title=Posts>
-<span>Posts</span>
+<a href=https://interp.blog/tech/ title=Tech>
+<span>Tech</span>
+</a>
+</li>
+<li>
+<a href=https://interp.blog/essay/ title=Essay>
+<span>Essay</span>
+</a>
+</li>
+<li>
+<a href=https://interp.blog/review/ title=Review>
+<span>Review</span>
 </a>
 </li>
 <li>
@@ -53,19 +63,26 @@
 </a>
 </li>
 <li>
-<a href=https://interp.blog/search/ title=Search>
+<a href=https://interp.blog/search/ title="Search (Alt + /)" accesskey=/>
 <span>Search</span>
-</a>
-</li>
-<li>
-<a href=https://interp.blog/drafts/ title=Drafts>
-<span>Drafts</span>
 </a>
 </li>
 </ul>
 </nav>
 </header>
 <main class=main>
+<article class=post-entry>
+<header class=entry-header>
+<h2>Timsort
+</h2>
+</header>
+<section class=entry-content>
+<p>학부에서 알고리즘 수업을 들으면, 가장 빠른 정렬 알고리즘이 뭐냐는 질문에 쉽게 Quicksort 라고 답할 수 있겠다. 실제로 현업에서도 적용하기 가장 편하기 때문에 많이 차용되는 편이다. 그런데 모든 문제를 쉽게 풀 수 있는 은탄은 세상에 존재하지 않듯, Quicksort 역시 특정 케이스에서는 성능이 낮게 나오는 경우가 있다. 더 심각한(?) 것은, 이 특정 케이스가 현실에서는 꽤나 자주 발생한다는 것이다.
+그 케이스란 바로 ‘거의 정렬된 데이터’ 이다. 거의 정렬된 데이터라면 pivoting – partitioning 을 반복할 필요도 없이 Bubble Sort 나, 심지어는 Insertion Sort 를 해도 된다....</p>
+</section>
+<footer class=entry-footer><span title="2018-04-23 01:36:57 +0000 UTC">April 23, 2018</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to Timsort" href=https://interp.blog/timsort/></a>
+</article>
 <article class=post-entry>
 <header class=entry-header>
 <h2>정리는 비움으로, 그리고 마음부터
@@ -182,19 +199,6 @@ Breakpoint 상황을 출력하기 위 코드에서 if 문에 breakpoint 를 걸�
 </section>
 <footer class=entry-footer><span title="2018-01-16 12:14:29 +0000 UTC">January 16, 2018</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
 <a class=entry-link aria-label="post link to Office 2016 커서 애니메이션 끄기" href=https://interp.blog/office-2016-%EC%BB%A4%EC%84%9C-%EC%95%A0%EB%8B%88%EB%A9%94%EC%9D%B4%EC%85%98-%EB%81%84%EA%B8%B0/></a>
-</article>
-<article class=post-entry>
-<header class=entry-header>
-<h2>Java Web Application 입문 (1) 준비운동
-</h2>
-</header>
-<section class=entry-content>
-<p>Java? 전통의 APM, Node.js 모두 한 걸음 정도는 자신있게 뗄 수 있는 (?) 수준이라고 생각하지만, 갑작스런 Java Web Application 도전이라니.
-바깥 세상(?) 에선 아직도 Java 개발자를 찾는 것이 현실이다. 이제 그것을 대비하는 차원이다. Java 하나만 가지고 대부분의 어플리케이션 개발에 비빌 수 있기 때문이기도 하다. (개인적으로, 이런 대중성이 Java 개발자의 가치를 떨어뜨린다고 전혀 생각하지 않는다. Java 개발자는 많지만, 좋은 Java 개발자를 찾는 것은 전혀 다른 문제라고 생각하니까.)
-입문서 구입 단순히 ‘Spring 기반으로 웹 어플리케이션을 만들어요’ 라는 말만 듣고 Spring 입문서!...</p>
-</section>
-<footer class=entry-footer><span title="2018-01-09 07:09:07 +0000 UTC">January 9, 2018</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;interp</footer>
-<a class=entry-link aria-label="post link to Java Web Application 입문 (1) 준비운동" href=https://interp.blog/java-web-application-%EC%9E%85%EB%AC%B8-1-%EC%A4%80%EB%B9%84%EC%9A%B4%EB%8F%99/></a>
 </article>
 <footer class=page-footer>
 <nav class=pagination>

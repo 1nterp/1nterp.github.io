@@ -26,14 +26,14 @@
 <meta property="og:description" content="Gitlab Community 에서 필요로 하는 기능인데, 이렇게 수동으로 할 수 있어서 간단히 남긴다. Gitlab 에 있는 merge request 에 보면 다음 옵션이 있는데, 전부 체크가 해제되어 있다.
  Merge Request 에 성공한 Source Branch 를 삭제 Merge Request 할 때 Commit 을 하나로 뭉쳐서 Merge (=Squash Merge)  이 체크박스를 개발자가 일일해 해 줘야 하는 문제가 있다. 그래서 어떤 개발자는 체크하는 것을 까먹었다가 master branch 의 commit tree 를 엉망으로 만들기도 한다.">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://interp.blog/set-gitlab-merge-request-checked/"><meta property="article:section" content="posts">
+<meta property="og:url" content="https://interp.blog/set-gitlab-merge-request-checked/"><meta property="article:section" content="tech">
 <meta property="article:published_time" content="2018-11-13T05:03:22+00:00">
 <meta property="article:modified_time" content="2018-11-13T05:03:22+00:00">
 <meta name=twitter:card content="summary">
 <meta name=twitter:title content="Gitlab merge request 옵션 기본으로 두기">
 <meta name=twitter:description content="Gitlab Community 에서 필요로 하는 기능인데, 이렇게 수동으로 할 수 있어서 간단히 남긴다. Gitlab 에 있는 merge request 에 보면 다음 옵션이 있는데, 전부 체크가 해제되어 있다.
  Merge Request 에 성공한 Source Branch 를 삭제 Merge Request 할 때 Commit 을 하나로 뭉쳐서 Merge (=Squash Merge)  이 체크박스를 개발자가 일일해 해 줘야 하는 문제가 있다. 그래서 어떤 개발자는 체크하는 것을 까먹었다가 master branch 의 commit tree 를 엉망으로 만들기도 한다.">
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://interp.blog/posts/"},{"@type":"ListItem","position":2,"name":"Gitlab merge request 옵션 기본으로 두기","item":"https://interp.blog/set-gitlab-merge-request-checked/"}]}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tech 🛠️","item":"https://interp.blog/tech/"},{"@type":"ListItem","position":2,"name":"Gitlab merge request 옵션 기본으로 두기","item":"https://interp.blog/set-gitlab-merge-request-checked/"}]}</script>
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Gitlab merge request 옵션 기본으로 두기","name":"Gitlab merge request 옵션 기본으로 두기","description":"Gitlab Community 에서 필요로 하는 기능인데, 이렇게 수동으로 할 수 있어서 간단히 남긴다. Gitlab 에 있는 merge request 에 보면 다음 옵션이 있는데, 전부 체크가 해제되어 있다.\n Merge Request 에 성공한 Source Branch 를 삭제 Merge Request 할 때 Commit 을 하나로 뭉쳐서 Merge (=Squash Merge)  이 체크박스를 개발자가 일일해 해 줘야 하는 문제가 있다. 그래서 어떤 개발자는 체크하는 것을 까먹었다가 master branch 의 commit tree 를 엉망으로 만들기도 한다.","keywords":["gitlab","merge request","squash merge"],"articleBody":"Gitlab Community 에서 필요로 하는 기능인데, 이렇게 수동으로 할 수 있어서 간단히 남긴다. Gitlab 에 있는 merge request 에 보면 다음 옵션이 있는데, 전부 체크가 해제되어 있다.\n Merge Request 에 성공한 Source Branch 를 삭제 Merge Request 할 때 Commit 을 하나로 뭉쳐서 Merge (=Squash Merge)  이 체크박스를 개발자가 일일해 해 줘야 하는 문제가 있다. 그래서 어떤 개발자는 체크하는 것을 까먹었다가 master branch 의 commit tree 를 엉망으로 만들기도 한다. 이 문제를 그냥 없애기 위해, 체크박스 표시를 그대로 두도록 하면 어떨까 고민하던 차에, 해결방법을 알아냈다.\n /opt/gitlab/embedded/service/gitlab-rails/app/views/shared/issuable/form/_merge_params.html.haml 을 편집기로 연다. check_box_tag 항목으로 시작하는 줄이 두 군데있는데, 아래와 같이 다음 내용을 ‘추가’ 한다.  다 했다면 gitlab-ctl reconfigure \u0026\u0026 gitlab-ctl restart 로 Gitlab 서버를 재시작한다.\n Translation may be necessary for those not familiar with Korean, so let’s summarize it.\nTwo options in Gitlab merge request are not checked at first, as captured above. I think it is mistake-prone to many developers, so some of them forgot to check them. It results adding merge commit(s) into master branch.\nSo I needed how to make them checked, and I finally got an answer.\n Open /opt/gitlab/embedded/service/gitlab-rails/app/views/shared/issuable/form/_merge_params.html.haml with your favorite editor. Find lines starting with check_box_tag and append it described below.  After that, you should restart server by entering gitlab-ctl reconfigure \u0026\u0026 gitlab-ctl restart\n","wordCount":"207","inLanguage":"en","datePublished":"2018-11-13T05:03:22Z","dateModified":"2018-11-13T05:03:22Z","author":{"@type":"Person","name":"interp"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://interp.blog/set-gitlab-merge-request-checked/"},"publisher":{"@type":"Organization","name":"InterP Blog","logo":{"@type":"ImageObject","url":"https://interp.blog/favicon.ico"}}}</script>
 </head>
 <body id=top>
@@ -49,8 +49,18 @@
 </div>
 <ul id=menu>
 <li>
-<a href=https://interp.blog/posts/ title=Posts>
-<span>Posts</span>
+<a href=https://interp.blog/tech/ title=Tech>
+<span>Tech</span>
+</a>
+</li>
+<li>
+<a href=https://interp.blog/essay/ title=Essay>
+<span>Essay</span>
+</a>
+</li>
+<li>
+<a href=https://interp.blog/review/ title=Review>
+<span>Review</span>
 </a>
 </li>
 <li>
@@ -59,13 +69,8 @@
 </a>
 </li>
 <li>
-<a href=https://interp.blog/search/ title=Search>
+<a href=https://interp.blog/search/ title="Search (Alt + /)" accesskey=/>
 <span>Search</span>
-</a>
-</li>
-<li>
-<a href=https://interp.blog/drafts/ title=Drafts>
-<span>Drafts</span>
 </a>
 </li>
 </ul>
@@ -74,7 +79,7 @@
 <main class=main>
 <article class=post-single>
 <header class=post-header>
-<div class=breadcrumbs><a href=https://interp.blog/>Home</a>&nbsp;»&nbsp;<a href=https://interp.blog/posts/>Posts</a></div>
+<div class=breadcrumbs><a href=https://interp.blog/>Home</a>&nbsp;»&nbsp;<a href=https://interp.blog/tech/>Tech 🛠️</a></div>
 <h1 class=post-title>
 Gitlab merge request 옵션 기본으로 두기
 </h1>

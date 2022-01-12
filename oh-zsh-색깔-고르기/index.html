@@ -34,7 +34,7 @@
 이 때 123 대신 0~255 를 입력한다.
   0~255 숫자와 대응되는 색상을 찾아야 하는데, 여기를 참고하면 도움이 된다.">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://interp.blog/oh-zsh-%EC%83%89%EA%B9%94-%EA%B3%A0%EB%A5%B4%EA%B8%B0/"><meta property="article:section" content="posts">
+<meta property="og:url" content="https://interp.blog/oh-zsh-%EC%83%89%EA%B9%94-%EA%B3%A0%EB%A5%B4%EA%B8%B0/"><meta property="article:section" content="tech">
 <meta property="article:published_time" content="2017-12-13T05:43:01+00:00">
 <meta property="article:modified_time" content="2017-12-13T05:43:01+00:00">
 <meta name=twitter:card content="summary">
@@ -45,7 +45,7 @@
   oh-my-zsh 에서, %{%K{123}%} 또는 %{%F{123}%} 를 가지고 색깔을 찾는다.
 이 때 123 대신 0~255 를 입력한다.
   0~255 숫자와 대응되는 색상을 찾아야 하는데, 여기를 참고하면 도움이 된다.">
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://interp.blog/posts/"},{"@type":"ListItem","position":2,"name":"oh-my-zsh 색깔 고르기","item":"https://interp.blog/oh-zsh-%EC%83%89%EA%B9%94-%EA%B3%A0%EB%A5%B4%EA%B8%B0/"}]}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tech 🛠️","item":"https://interp.blog/tech/"},{"@type":"ListItem","position":2,"name":"oh-my-zsh 색깔 고르기","item":"https://interp.blog/oh-zsh-%EC%83%89%EA%B9%94-%EA%B3%A0%EB%A5%B4%EA%B8%B0/"}]}</script>
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"oh-my-zsh 색깔 고르기","name":"oh-my-zsh 색깔 고르기","description":"oh-my-zsh 테마 작업을 agnoster 를 기반으로 고쳐서 사용 중이다. 그런데 주석을 보면 다음 색깔만 지원하는 것 처럼 나온다.\n white, black, red, blue, green, yellow, cyan, magenta  사전에 정의된 것 외의 색상을 설정하려면, 다음 작업이 필요하다.\n  터미널 종류가 xterm-256color 여야 한다. (xterm 이면 색깔을 정해도 제대로 출력이 안된다.)\n  oh-my-zsh 에서, %{%K{123}%} 또는 %{%F{123}%} 를 가지고 색깔을 찾는다.\n이 때 123 대신 0~255 를 입력한다.\n  0~255 숫자와 대응되는 색상을 찾아야 하는데, 여기를 참고하면 도움이 된다.","keywords":["oh-my-zsh"],"articleBody":"oh-my-zsh 테마 작업을 agnoster 를 기반으로 고쳐서 사용 중이다. 그런데 주석을 보면 다음 색깔만 지원하는 것 처럼 나온다.\n white, black, red, blue, green, yellow, cyan, magenta  사전에 정의된 것 외의 색상을 설정하려면, 다음 작업이 필요하다.\n  터미널 종류가 xterm-256color 여야 한다. (xterm 이면 색깔을 정해도 제대로 출력이 안된다.)\n  oh-my-zsh 에서, %{%K{123}%} 또는 %{%F{123}%} 를 가지고 색깔을 찾는다.\n이 때 123 대신 0~255 를 입력한다.\n  0~255 숫자와 대응되는 색상을 찾아야 하는데, 여기를 참고하면 도움이 된다.\n  ","wordCount":"73","inLanguage":"en","datePublished":"2017-12-13T05:43:01Z","dateModified":"2017-12-13T05:43:01Z","author":{"@type":"Person","name":"interp"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://interp.blog/oh-zsh-%EC%83%89%EA%B9%94-%EA%B3%A0%EB%A5%B4%EA%B8%B0/"},"publisher":{"@type":"Organization","name":"InterP Blog","logo":{"@type":"ImageObject","url":"https://interp.blog/favicon.ico"}}}</script>
 </head>
 <body id=top>
@@ -61,8 +61,18 @@
 </div>
 <ul id=menu>
 <li>
-<a href=https://interp.blog/posts/ title=Posts>
-<span>Posts</span>
+<a href=https://interp.blog/tech/ title=Tech>
+<span>Tech</span>
+</a>
+</li>
+<li>
+<a href=https://interp.blog/essay/ title=Essay>
+<span>Essay</span>
+</a>
+</li>
+<li>
+<a href=https://interp.blog/review/ title=Review>
+<span>Review</span>
 </a>
 </li>
 <li>
@@ -71,13 +81,8 @@
 </a>
 </li>
 <li>
-<a href=https://interp.blog/search/ title=Search>
+<a href=https://interp.blog/search/ title="Search (Alt + /)" accesskey=/>
 <span>Search</span>
-</a>
-</li>
-<li>
-<a href=https://interp.blog/drafts/ title=Drafts>
-<span>Drafts</span>
 </a>
 </li>
 </ul>
@@ -86,7 +91,7 @@
 <main class=main>
 <article class=post-single>
 <header class=post-header>
-<div class=breadcrumbs><a href=https://interp.blog/>Home</a>&nbsp;»&nbsp;<a href=https://interp.blog/posts/>Posts</a></div>
+<div class=breadcrumbs><a href=https://interp.blog/>Home</a>&nbsp;»&nbsp;<a href=https://interp.blog/tech/>Tech 🛠️</a></div>
 <h1 class=post-title>
 oh-my-zsh 색깔 고르기
 </h1>

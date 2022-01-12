@@ -1,0 +1,233 @@
+<!doctype html><html lang=en dir=auto>
+<head><meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name=robots content="index, follow">
+<title>Tech 🛠️ | InterP Blog</title>
+<meta name=keywords content>
+<meta name=description content="Tips, dev. environment, and so on.">
+<meta name=author content="InterP">
+<link rel=canonical href=https://interp.blog/tech/>
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.9906a2b74cdafd3190ad7dbbc2fccdff9c2aaff204038b3d609a6041a2d43a49.css integrity="sha256-mQait0za/TGQrX27wvzN/5wqr/IEA4s9YJpgQaLUOkk=" rel="preload stylesheet" as=style>
+<link rel=icon href=https://interp.blog/favicon.ico>
+<link rel=icon type=image/png sizes=16x16 href=https://interp.blog/favicon-16x16.png>
+<link rel=icon type=image/png sizes=32x32 href=https://interp.blog/favicon-32x32.png>
+<link rel=apple-touch-icon href=https://interp.blog/apple-touch-icon.png>
+<link rel=mask-icon href=https://interp.blog/safari-pinned-tab.svg>
+<meta name=theme-color content="#2e2e33">
+<meta name=msapplication-TileColor content="#2e2e33">
+<meta name=generator content="Hugo 0.91.2">
+<link rel=alternate type=application/rss+xml href=https://interp.blog/tech/index.xml>
+<noscript>
+<style>#theme-toggle,.top-link{display:none}</style>
+<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
+</noscript><meta property="og:title" content="Tech 🛠️">
+<meta property="og:description" content="Tips, dev. environment, and so on.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://interp.blog/tech/">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="Tech 🛠️">
+<meta name=twitter:description content="Tips, dev. environment, and so on.">
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tech 🛠️","item":"https://interp.blog/tech/"}]}</script>
+</head>
+<body class=list id=top>
+<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
+<header class=header>
+<nav class=nav>
+<div class=logo>
+<a href=https://interp.blog/ accesskey=h title="InterP Blog (Alt + H)">InterP Blog</a>
+<span class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+</span>
+</div>
+<ul id=menu>
+<li>
+<a href=https://interp.blog/tech/ title=Tech>
+<span class=active>Tech</span>
+</a>
+</li>
+<li>
+<a href=https://interp.blog/essay/ title=Essay>
+<span>Essay</span>
+</a>
+</li>
+<li>
+<a href=https://interp.blog/review/ title=Review>
+<span>Review</span>
+</a>
+</li>
+<li>
+<a href=https://interp.blog/archives/ title=Archives>
+<span>Archives</span>
+</a>
+</li>
+<li>
+<a href=https://interp.blog/search/ title="Search (Alt + /)" accesskey=/>
+<span>Search</span>
+</a>
+</li>
+</ul>
+</nav>
+</header>
+<main class=main>
+<header class=page-header><div class=breadcrumbs><a href=https://interp.blog/>Home</a></div>
+<h1>Tech 🛠️</h1>
+<div class=post-description>
+Tips, dev. environment, and so on.
+</div>
+</header>
+<article class=post-entry>
+<header class=entry-header>
+<h2>Office 2016 커서 애니메이션 끄기
+</h2>
+</header>
+<section class=entry-content>
+<p>Office 2016 부터인지 모르겠지만, 커서가 부드럽게 움직이는 애니메이션이 추가되었다. 실제 입력 속도는 같을지 모르겠는데, 문서 작업을 하고 있자니 조금 답답한 느낌이 들었다. 조금 느리게 입력되는 느낌?
+그래서 이걸 끌 수 있는 방법을 두 가지 찾았는데, 하나는 레지스트리를 수정하는 것이라 귀찮았다. 다른 하나는 그 것보단 간단하다. 아래 스크린샷 순서대로 따라가 체크를 해제하면 된다.
+제어판 > 시스템으로 들어간 다음, 고급 시스템 설정으로 들어간다. 고급 탭에서, 성능 항목에 ‘설정…’ 을 클릭한다. ‘시각 효과’ 탭에서, 창의 제어 및 요소에 애니메이션 효과 추가 항목의 체크를 해제한다....</p>
+</section>
+<footer class=entry-footer><span title="2018-01-16 12:14:29 +0000 UTC">January 16, 2018</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to Office 2016 커서 애니메이션 끄기" href=https://interp.blog/office-2016-%EC%BB%A4%EC%84%9C-%EC%95%A0%EB%8B%88%EB%A9%94%EC%9D%B4%EC%85%98-%EB%81%84%EA%B8%B0/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
+<h2>Java Web Application 입문 (1) 준비운동
+</h2>
+</header>
+<section class=entry-content>
+<p>Java? 전통의 APM, Node.js 모두 한 걸음 정도는 자신있게 뗄 수 있는 (?) 수준이라고 생각하지만, 갑작스런 Java Web Application 도전이라니.
+바깥 세상(?) 에선 아직도 Java 개발자를 찾는 것이 현실이다. 이제 그것을 대비하는 차원이다. Java 하나만 가지고 대부분의 어플리케이션 개발에 비빌 수 있기 때문이기도 하다. (개인적으로, 이런 대중성이 Java 개발자의 가치를 떨어뜨린다고 전혀 생각하지 않는다. Java 개발자는 많지만, 좋은 Java 개발자를 찾는 것은 전혀 다른 문제라고 생각하니까.)
+입문서 구입 단순히 ‘Spring 기반으로 웹 어플리케이션을 만들어요’ 라는 말만 듣고 Spring 입문서!...</p>
+</section>
+<footer class=entry-footer><span title="2018-01-09 07:09:07 +0000 UTC">January 9, 2018</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to Java Web Application 입문 (1) 준비운동" href=https://interp.blog/java-web-application-%EC%9E%85%EB%AC%B8-1-%EC%A4%80%EB%B9%84%EC%9A%B4%EB%8F%99/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
+<h2>Gitlab 아바타/첨부파일 상대 경로 설정
+</h2>
+</header>
+<section class=entry-content>
+<p>Gitlab의 External_Url 을 실제 서버 주소와 다르게 설정할 때엔, 실제 nginx 에도 해당 도메인으로 접근할 수 있도록 설정해야 하는 게 맞다. 그렇지 않으면, 첨부파일과 아바타 이미지가 모두 깨져나온다. 하지만 그러기 전에 Gitlab 차원에서 상대 경로로 아바타를 출력할 수 있도록 수정하는 방법 ‘도’ 있으니 편법으로 수정했다.
+아바타 상대 경로 설정 /opt/gitlab/embedded/service/gitlab-rails/app/models/concerns/avatarable.rb 파일에서 절대 경로로 수정하는 코드가 있는데, url_base 에 덧붙이는 코드들을 전부 주석처리하면 된다.
+당연히 gitlab-ctl reconfigure && gitlab-ctl restart 를 해 줘야 한다....</p>
+</section>
+<footer class=entry-footer><span title="2018-01-08 02:35:20 +0000 UTC">January 8, 2018</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to Gitlab 아바타/첨부파일 상대 경로 설정" href=https://interp.blog/gitlab-%EC%95%84%EB%B0%94%ED%83%80-%EC%83%81%EB%8C%80-%EA%B2%BD%EB%A1%9C-%EC%84%A4%EC%A0%95/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
+<h2>Gitlab Markdown Parser 바꾸기
+</h2>
+</header>
+<section class=entry-content>
+<p>Git 기반 프로세스 도구인 Gitlab 은 오픈소스이기 때문에 Community Edition 을 쓰건, Enterprise Edition 을 쓰건 상관없이 맘대로 수정해서 사용이 가능하다. 물론 적절한 감(?)으로 수정할 곳을 찾아야 하는 번거로움은 있다. 여기서는 Gitlab에서 문서 작성에 필요한 Markdown 의 Parser 부분을 수정하기 위한 방법을 정리해 둔다. Ruby 개발자가 아니라서 전체 빌드 순서가 정공법처럼 보이진 않겠지만.
+Gitlab의 Markdown Parser는 Redcarpet 을 사용한다. 아마 Jekyll 도 기본적으로 Redcarpet 을 사용하는 것으로 알고 있다. 만약 Ruby의 Redcarpet 을 Markdown Parser 로 쓰는 경우라면 똑같이 적용이 가능하다....</p>
+</section>
+<footer class=entry-footer><span title="2018-01-03 02:29:21 +0000 UTC">January 3, 2018</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to Gitlab Markdown Parser 바꾸기" href=https://interp.blog/gitlab-markdown-parser-%EB%B0%94%EA%BE%B8%EA%B8%B0/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
+<h2>oh-my-zsh 색깔 고르기
+</h2>
+</header>
+<section class=entry-content>
+<p>oh-my-zsh 테마 작업을 agnoster 를 기반으로 고쳐서 사용 중이다. 그런데 주석을 보면 다음 색깔만 지원하는 것 처럼 나온다.
+white, black, red, blue, green, yellow, cyan, magenta 사전에 정의된 것 외의 색상을 설정하려면, 다음 작업이 필요하다.
+터미널 종류가 xterm-256color 여야 한다. (xterm 이면 색깔을 정해도 제대로 출력이 안된다.)
+oh-my-zsh 에서, %{%K{123}%} 또는 %{%F{123}%} 를 가지고 색깔을 찾는다.
+이 때 123 대신 0~255 를 입력한다.
+0~255 숫자와 대응되는 색상을 찾아야 하는데, 여기를 참고하면 도움이 된다....</p>
+</section>
+<footer class=entry-footer><span title="2017-12-13 05:43:01 +0000 UTC">December 13, 2017</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to oh-my-zsh 색깔 고르기" href=https://interp.blog/oh-zsh-%EC%83%89%EA%B9%94-%EA%B3%A0%EB%A5%B4%EA%B8%B0/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
+<h2>X11 on Windows Linux Subsystem
+</h2>
+</header>
+<section class=entry-content>
+<p>제목은 다음 내용을 포함하고 있다.
+Windows 10 에서 지원하는 Linux Subsystem 기능에 대해 이야기한다. 잘 모르겠다면 이 글을 읽고 설치에 도전해 보자. 그런데 글 내용을 보면 이거랑 관련 없다. Babun, Mintty, Git on Bash, Putty 전부 포함이다 SSH에 접속한 서버에서 X11 Forwarding 을 받고 싶은 경우를 이야기한다. 단적으로, 접속한 서버에서 파이어폭스 브라우저를 실행하면 내 윈도우 화면에 브라우저 창이 실행되는 거다. 이걸 따로 이야기하고 싶지 않으니 Xming 이나 VcXsrv (추천) 을 참고해 설치해보자....</p>
+</section>
+<footer class=entry-footer><span title="2017-11-29 08:32:52 +0000 UTC">November 29, 2017</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to X11 on Windows Linux Subsystem" href=https://interp.blog/x11-windows-linux-subsystem/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
+<h2>C# xUnit 실습
+</h2>
+</header>
+<section class=entry-content>
+<p>졸업프로젝트도 아니고, 기말고사 대신 치룬 텀프로젝트의 마지막을 장식할 윈도우 어플리케이션을 만들기 위해 배우려 했으나 문 앞에서 서성이기만 했던 바로 그 언어, C#을 당장 써먹어야 하는 상황이 발생했다. (이런 상황이 발생한 것이 참 안타깝긴 하지만) 배움의 기회로 삼는 수 밖에 없다.
+dotnet test 및 xUnit을 사용하여 .NET Core에서 C# 유닛 테스트라는 MS 문서를 기반으로 실습을 했는데, 여기서 중요한 것은, 내가 만들어야 하는 라이브러리의 Target Framework가 .NET Core 가 아니라 .NET Framework 4....</p>
+</section>
+<footer class=entry-footer><span title="2017-11-29 03:28:03 +0000 UTC">November 29, 2017</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to C# xUnit 실습" href=https://interp.blog/c-xunit-%EC%8B%A4%EC%8A%B5/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
+<h2>Gitlab 삽질기
+</h2>
+</header>
+<section class=entry-content>
+<p>Upgrade 8.x 로 쓰다가 10.x 로 업그레이드를 진행했다. 아니.. 그런데 Postgresql Database 버전이 다르다고? 알고보니 이렇게 대격변을 일으키면 안 되던 거였다. 그래서 겸사겸사 9.5.10 으로 다시 설치하니까 된다.
+gitlab-ctl reconfigure 를 설치 직후에 반드시 해 줘야 한다. 가끔 gitlab-ctl pg-upgrade 를 꼭 하라는 말이 있던데, 내가 해보니까 gitlab-ctl reconfigure 할 때 알아서 한다 (…) 했던 거 또 하는 느낌. gitlab-ctl restart 를 할 때 postgresql 이나 다른 곳에서 ‘down, up, want up’ 이런 게 뜨면 서비스가 온전히 수행될 수 없는 상황이다....</p>
+</section>
+<footer class=entry-footer><span title="2017-11-15 09:17:58 +0000 UTC">November 15, 2017</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to Gitlab 삽질기" href=https://interp.blog/gitlab-%EC%82%BD%EC%A7%88%EA%B8%B0/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
+<h2>Linux 에서 CPU/Memory/Disk 확인
+</h2>
+</header>
+<section class=entry-content>
+<p>자주 쓰긴 하지만, 곧바로 생각나지 않을 것을 대비해서… 서버실 서버 사양을 전부 체크하려다 보니 어쩔 수 없이 정리했다.
+CPU / Memory 확인 CPU / Memory 는 사실 쉽다. /proc/cpuinfo 와 /proc/meminfo 안에 들어있기 때문이다.
+Disk 확인 df 는 mount 된 것만 확인이 가능해서 별로고, lsblk 를 하면 마운트되지 않은 것까지 나온다.</p>
+</section>
+<footer class=entry-footer><span title="2017-10-30 08:31:03 +0000 UTC">October 30, 2017</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to Linux 에서 CPU/Memory/Disk 확인" href=https://interp.blog/linux-%EC%97%90%EC%84%9C-cpumemorydisk-%ED%99%95%EC%9D%B8/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
+<h2>mmap : 메모리를 파일처럼
+</h2>
+</header>
+<section class=entry-content>
+<p>mmap은 memory map 의 줄임말이다. 메모리의 특정 영역을 파일 디스크립터로 인식하게 만드는 것이다.
+map or unmap files or devices into memory
+메모리 영역을 파일이나 디바이스로 인식하게 합니다
+– manpage of mmap
+사용 여기서 의미가 있는 건 Length, Prot (Protection), Flag 뿐이다.
+Start 는, Kernel이 아무 곳이나 지정해도 좋다면 NULL을 입력한다. Offset 은, 보통 0으로 둔다. (MAP_ANONYMOUS 또는 MAP_ANON Flag가 있는 경우엔 무시된다) Fd 는, 연결할 파일 디스크립터를 지정한다....</p>
+</section>
+<footer class=entry-footer><span title="2017-09-20 13:29:57 +0000 UTC">September 20, 2017</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to mmap : 메모리를 파일처럼" href=https://interp.blog/mmap-%EB%A9%94%EB%AA%A8%EB%A6%AC%EB%A5%BC-%ED%8C%8C%EC%9D%BC%EC%B2%98%EB%9F%BC/></a>
+</article>
+<footer class=page-footer>
+<nav class=pagination>
+<a class=prev href=https://interp.blog/tech/>« Prev Page</a>
+<a class=next href=https://interp.blog/tech/page/3/>Next Page »</a>
+</nav>
+</footer>
+</main>
+<footer class=footer>
+<span>&copy; 2022 <a href=https://interp.blog/>InterP Blog</a></span>
+<span>
+Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+</span>
+</footer>
+<a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a>
+<script>let menu=document.getElementById('menu');menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener("click",function(b){b.preventDefault();var a=this.getAttribute("href").substr(1);window.matchMedia('(prefers-reduced-motion: reduce)').matches?document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView({behavior:"smooth"}),a==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${a}`)})})</script>
+<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
+<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove('dark'),localStorage.setItem("pref-theme",'light')):(document.body.classList.add('dark'),localStorage.setItem("pref-theme",'dark'))})</script>
+</body>
+</html>

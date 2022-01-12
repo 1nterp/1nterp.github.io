@@ -42,8 +42,18 @@
 </div>
 <ul id=menu>
 <li>
-<a href=https://interp.blog/posts/ title=Posts>
-<span>Posts</span>
+<a href=https://interp.blog/tech/ title=Tech>
+<span>Tech</span>
+</a>
+</li>
+<li>
+<a href=https://interp.blog/essay/ title=Essay>
+<span>Essay</span>
+</a>
+</li>
+<li>
+<a href=https://interp.blog/review/ title=Review>
+<span>Review</span>
 </a>
 </li>
 <li>
@@ -52,13 +62,8 @@
 </a>
 </li>
 <li>
-<a href=https://interp.blog/search/ title=Search>
+<a href=https://interp.blog/search/ title="Search (Alt + /)" accesskey=/>
 <span>Search</span>
-</a>
-</li>
-<li>
-<a href=https://interp.blog/drafts/ title=Drafts>
-<span>Drafts</span>
 </a>
 </li>
 </ul>
@@ -148,61 +153,6 @@ sleep() 은 X초만큼 지나거나, 무시할 수 없는 시그널이 도착할
 <footer class=entry-footer><span title="2017-08-24 05:35:24 +0000 UTC">August 24, 2017</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
 <a class=entry-link aria-label="post link to pthread_yield vs. sleep" href=https://interp.blog/pthread_yield-vs-sleep/></a>
 </article>
-<article class="post-entry tag-entry">
-<header class=entry-header>
-<h2>Specifying value to unnamed union fields
-</h2>
-</header>
-<section class=entry-content>
-<p>구조체 내부에, 이름없는 union 타입의 필드에 값을 지정할 때 조심해야 할 점이 있다.
-(확인해 본 건 두 버전 뿐이지만) gcc v4.7 에서는 성공적으로 컴파일이 된다. 그러나 gcc v4.4 에서는 아래와 같이 에러가 발생한다!
-에러를 없애는 방법은, 내부 union을 향하는 것이라고 명시를 해 주는 수밖에 없다. 즉, union 필드에 값을 지정할 때는 중괄호로 한번 더 감싸주면 된다.
-</p>
-</section>
-<footer class=entry-footer><span title="2017-05-11 01:30:36 +0000 UTC">May 11, 2017</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
-<a class=entry-link aria-label="post link to Specifying value to unnamed union fields" href=https://interp.blog/specify-value-to-unnamed-union-fields/></a>
-</article>
-<article class="post-entry tag-entry">
-<header class=entry-header>
-<h2>bash 에서 따옴표를 쓸 때
-</h2>
-</header>
-<section class=entry-content>
-<p>bash 쉘 스크립트를 작성할 때, 현재 디렉토리에 있는 파일 중 $1 문자열을 $2 문자열로 치환하라는 명령을 작성했다. 그런데 $1과 $2가 인식이 안 된다. 정확히 말하면 쉘이 ‘$1’ 이라는 문자열을 찾아 ‘$2’ 라는 문자열로 바꾸려고 시도했단 것이다. 이유가 뭘까? 바로 sed 명령을 작은 따옴표로 사용했기 때문이다.
-우선 방금 이야기한 간단한 스크립트를 보자. 작은 따옴표 안에서 변수를 참조하고 있는데, 잘 안 된 것이다.
-Bash Reference 의 작은 따옴표/큰 따옴표 설명을 보면, 다음의 규칙이 존재한다....</p>
-</section>
-<footer class=entry-footer><span title="2016-12-08 07:59:41 +0000 UTC">December 8, 2016</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
-<a class=entry-link aria-label="post link to bash 에서 따옴표를 쓸 때" href=https://interp.blog/quote-in-bash/></a>
-</article>
-<article class="post-entry tag-entry">
-<header class=entry-header>
-<h2>pthread_mutex_unlock() 중복 호출
-</h2>
-</header>
-<section class=entry-content>
-<p>따라서, pthread_mutex가 이미 unlock되었다면 unlock() 함수를 호출하지 않도록 해야 한다.</p>
-</section>
-<footer class=entry-footer><span title="2016-11-07 05:56:21 +0000 UTC">November 7, 2016</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
-<a class=entry-link aria-label="post link to pthread_mutex_unlock() 중복 호출" href=https://interp.blog/pthread_mutex_unlock-%EC%A4%91%EB%B3%B5-%ED%98%B8%EC%B6%9C/></a>
-</article>
-<article class="post-entry tag-entry">
-<header class=entry-header>
-<h2>CSS로 한글 단어 word-break
-</h2>
-</header>
-<section class=entry-content>
-<p>모바일 제목이 줄바꿈 될 때 단어가 아니라 음절 단위로 잘려서 보기 흉했다. 다음과 같이 처리가 가능했다.
- </p>
-</section>
-<footer class=entry-footer><span title="2016-10-28 01:53:36 +0000 UTC">October 28, 2016</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
-<a class=entry-link aria-label="post link to CSS로 한글 단어 word-break" href=https://interp.blog/css%EB%A1%9C-%ED%95%9C%EA%B8%80-%EB%8B%A8%EC%96%B4-word-break/></a>
-</article>
-<footer class=page-footer>
-<nav class=pagination>
-<a class=next href=https://interp.blog/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/page/2/>Next Page »</a>
-</nav>
-</footer>
 </main>
 <footer class=footer>
 <span>&copy; 2022 <a href=https://interp.blog/>InterP Blog</a></span>

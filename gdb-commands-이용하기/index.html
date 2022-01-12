@@ -30,7 +30,7 @@ Breakpoint 상황을 출력하기 위 코드에서 if 문에 breakpoint 를 걸�
 Breakpoint 상황을 출력하기 위 코드에서 if 문에 breakpoint 를 걸고, 할당받은 시작 주소와 그 크기를 보고자 한다. 한두번 발생하는 거라면 breakpoint 를 걸어 둔 다음 print 나 graph display (ddd 전용) 으로 띄워서 관찰하면 된다. 그런데 이게 100번 200번이면 하염없이 엔터를 치게 된다.
 이럴 때 다음과 같이 입력한다.">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://interp.blog/gdb-commands-%EC%9D%B4%EC%9A%A9%ED%95%98%EA%B8%B0/"><meta property="article:section" content="posts">
+<meta property="og:url" content="https://interp.blog/gdb-commands-%EC%9D%B4%EC%9A%A9%ED%95%98%EA%B8%B0/"><meta property="article:section" content="tech">
 <meta property="article:published_time" content="2018-02-06T08:46:05+00:00">
 <meta property="article:modified_time" content="2018-02-06T08:46:05+00:00">
 <meta name=twitter:card content="summary">
@@ -39,7 +39,7 @@ Breakpoint 상황을 출력하기 위 코드에서 if 문에 breakpoint 를 걸�
 참고 : 매뉴얼
 Breakpoint 상황을 출력하기 위 코드에서 if 문에 breakpoint 를 걸고, 할당받은 시작 주소와 그 크기를 보고자 한다. 한두번 발생하는 거라면 breakpoint 를 걸어 둔 다음 print 나 graph display (ddd 전용) 으로 띄워서 관찰하면 된다. 그런데 이게 100번 200번이면 하염없이 엔터를 치게 된다.
 이럴 때 다음과 같이 입력한다.">
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://interp.blog/posts/"},{"@type":"ListItem","position":2,"name":"gdb commands 이용하기","item":"https://interp.blog/gdb-commands-%EC%9D%B4%EC%9A%A9%ED%95%98%EA%B8%B0/"}]}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tech 🛠️","item":"https://interp.blog/tech/"},{"@type":"ListItem","position":2,"name":"gdb commands 이용하기","item":"https://interp.blog/gdb-commands-%EC%9D%B4%EC%9A%A9%ED%95%98%EA%B8%B0/"}]}</script>
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"gdb commands 이용하기","name":"gdb commands 이용하기","description":"gdb/ddd 에서 commands 를 사용하면 간편하게 breakpoint 의 상태를 출력할 수 있다. 물론 다양하게 응용이 가능하겠지만, 매뉴얼에서 제시한 케이스가 굉장히 편해서 따로 정리한다.\n참고 : 매뉴얼\nBreakpoint 상황을 출력하기 위 코드에서 if 문에 breakpoint 를 걸고, 할당받은 시작 주소와 그 크기를 보고자 한다. 한두번 발생하는 거라면 breakpoint 를 걸어 둔 다음 print 나 graph display (ddd 전용) 으로 띄워서 관찰하면 된다. 그런데 이게 100번 200번이면 하염없이 엔터를 치게 된다.\n이럴 때 다음과 같이 입력한다.","keywords":["gdb"],"articleBody":"gdb/ddd 에서 commands 를 사용하면 간편하게 breakpoint 의 상태를 출력할 수 있다. 물론 다양하게 응용이 가능하겠지만, 매뉴얼에서 제시한 케이스가 굉장히 편해서 따로 정리한다.\n참고 : 매뉴얼\nBreakpoint 상황을 출력하기 위 코드에서 if 문에 breakpoint 를 걸고, 할당받은 시작 주소와 그 크기를 보고자 한다. 한두번 발생하는 거라면 breakpoint 를 걸어 둔 다음 print 나 graph display (ddd 전용) 으로 띄워서 관찰하면 된다. 그런데 이게 100번 200번이면 하염없이 엔터를 치게 된다.\n이럴 때 다음과 같이 입력한다.\n이러고 cont 를 날리면.. breakpoint 에서 멈추는 대신 해당 command 가 수행된다! 즉, 계속해서 주소와 할당 크기가 출력된다. 아주 편하다…\nCall Stack 보기 일종의 응용인데, commands 내부에는 우리가 흔히 쓰는 명령어를 입력하면 된다.\nCommands 의 초기화 commands 명령어를 입력한 다음, 바로 end 로 끝내면 된다.\n","wordCount":"119","inLanguage":"en","datePublished":"2018-02-06T08:46:05Z","dateModified":"2018-02-06T08:46:05Z","author":{"@type":"Person","name":"interp"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://interp.blog/gdb-commands-%EC%9D%B4%EC%9A%A9%ED%95%98%EA%B8%B0/"},"publisher":{"@type":"Organization","name":"InterP Blog","logo":{"@type":"ImageObject","url":"https://interp.blog/favicon.ico"}}}</script>
 </head>
 <body id=top>
@@ -55,8 +55,18 @@ Breakpoint 상황을 출력하기 위 코드에서 if 문에 breakpoint 를 걸�
 </div>
 <ul id=menu>
 <li>
-<a href=https://interp.blog/posts/ title=Posts>
-<span>Posts</span>
+<a href=https://interp.blog/tech/ title=Tech>
+<span>Tech</span>
+</a>
+</li>
+<li>
+<a href=https://interp.blog/essay/ title=Essay>
+<span>Essay</span>
+</a>
+</li>
+<li>
+<a href=https://interp.blog/review/ title=Review>
+<span>Review</span>
 </a>
 </li>
 <li>
@@ -65,13 +75,8 @@ Breakpoint 상황을 출력하기 위 코드에서 if 문에 breakpoint 를 걸�
 </a>
 </li>
 <li>
-<a href=https://interp.blog/search/ title=Search>
+<a href=https://interp.blog/search/ title="Search (Alt + /)" accesskey=/>
 <span>Search</span>
-</a>
-</li>
-<li>
-<a href=https://interp.blog/drafts/ title=Drafts>
-<span>Drafts</span>
 </a>
 </li>
 </ul>
@@ -80,7 +85,7 @@ Breakpoint 상황을 출력하기 위 코드에서 if 문에 breakpoint 를 걸�
 <main class=main>
 <article class=post-single>
 <header class=post-header>
-<div class=breadcrumbs><a href=https://interp.blog/>Home</a>&nbsp;»&nbsp;<a href=https://interp.blog/posts/>Posts</a></div>
+<div class=breadcrumbs><a href=https://interp.blog/>Home</a>&nbsp;»&nbsp;<a href=https://interp.blog/tech/>Tech 🛠️</a></div>
 <h1 class=post-title>
 gdb commands 이용하기
 </h1>
