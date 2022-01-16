@@ -4,8 +4,6 @@ author: interp
 type: post
 date: 2016-11-10T14:02:14+00:00
 url: /jekyll-vs-wordpress/
-dsq_thread_id:
-  - 5836725228
 categories:
   - 이야기
 tags:

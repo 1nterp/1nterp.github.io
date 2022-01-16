@@ -4,8 +4,6 @@ author: interp
 type: post
 date: 2017-08-03T05:48:18+00:00
 url: /docker에서-apt-get-update가-실패할-때/
-dsq_thread_id:
-  - 6037393985
 categories:
   - 개발환경
 tags:

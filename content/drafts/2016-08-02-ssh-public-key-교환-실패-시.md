@@ -4,8 +4,6 @@ author: interp
 type: post
 date: 2016-08-02T02:52:02+00:00
 url: /ssh-public-key-교환-실패-시/
-dsq_thread_id:
-  - 5893278040
 categories:
   - 개발환경
 tags:

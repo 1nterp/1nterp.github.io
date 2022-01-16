@@ -4,8 +4,6 @@ author: interp
 type: post
 date: 2016-10-28T01:53:36+00:00
 url: /css로-한글-단어-word-break/
-dsq_thread_id:
-  - 5869983256
 categories:
   - 프로그래밍
 tags:

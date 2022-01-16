@@ -4,8 +4,6 @@ author: interp
 type: post
 date: 2016-11-09T05:38:33+00:00
 url: /좋은-git-commit-log-작성하기/
-dsq_thread_id:
-  - 5711532830
 categories:
   - 개발환경
 tags:

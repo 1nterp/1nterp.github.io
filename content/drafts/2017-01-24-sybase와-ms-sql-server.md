@@ -4,8 +4,6 @@ author: interp
 type: post
 date: 2017-01-24T06:18:54+00:00
 url: /sybase와-ms-sql-server/
-dsq_thread_id:
-  - 5615343257
 categories:
   - 이야기
 tags:

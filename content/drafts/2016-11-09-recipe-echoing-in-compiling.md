@@ -4,8 +4,6 @@ author: interp
 type: post
 date: 2016-11-09T02:40:58+00:00
 url: /recipe-echoing-in-compiling/
-dsq_thread_id:
-  - 5711534169
 categories:
   - 개발환경
 

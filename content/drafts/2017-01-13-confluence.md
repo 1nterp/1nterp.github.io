@@ -4,8 +4,6 @@ author: interp
 type: post
 date: 2017-01-13T06:52:37+00:00
 url: /confluence-문서-pdf-출력/
-dsq_thread_id:
-  - 5615639793
 categories:
   - 개발환경
 tags:

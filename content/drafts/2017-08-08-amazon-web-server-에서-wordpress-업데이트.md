@@ -4,8 +4,6 @@ author: interp
 type: post
 date: 2017-08-08T09:16:18+00:00
 url: /amazon-web-server-에서-wordpress-업데이트/
-dsq_thread_id:
-  - 6049977595
 categories:
   - 개발환경
 tags:

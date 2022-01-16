@@ -7,8 +7,6 @@ url: /virtualbox-가-안-될-때/
 featured_image: /wp-content/uploads/2016/07/HwyLg.png
 mentions:
   - 'a:0:{}'
-dsq_thread_id:
-  - 5692215751
 categories:
   - 프로그래밍
 

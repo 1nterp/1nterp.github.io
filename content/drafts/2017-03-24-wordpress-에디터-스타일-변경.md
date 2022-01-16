@@ -4,8 +4,6 @@ author: interp
 type: post
 date: 2017-03-24T02:50:22+00:00
 url: /wordpress-에디터-스타일-변경/
-dsq_thread_id:
-  - 5660232349
 categories:
   - 팁
 tags:

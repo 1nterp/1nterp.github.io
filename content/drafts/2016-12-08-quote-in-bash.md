@@ -4,8 +4,6 @@ author: interp
 type: post
 date: 2016-12-08T07:59:41+00:00
 url: /quote-in-bash/
-dsq_thread_id:
-  - 5666203032
 categories:
   - 프로그래밍
 tags:

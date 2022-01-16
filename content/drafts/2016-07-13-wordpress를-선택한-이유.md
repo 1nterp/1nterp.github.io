@@ -6,8 +6,6 @@ date: 2016-07-13T01:27:54+00:00
 url: /wordpress를-선택한-이유/
 mentions:
   - 'a:0:{}'
-dsq_thread_id:
-  - 5660233198
 categories:
   - 이야기
 

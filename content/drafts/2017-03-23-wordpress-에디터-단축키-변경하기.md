@@ -4,8 +4,6 @@ author: interp
 type: post
 date: 2017-03-23T13:04:12+00:00
 url: /wordpress-에디터-단축키-변경하기/
-dsq_thread_id:
-  - 6062708036
 categories:
   - 개발환경
 tags:

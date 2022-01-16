@@ -4,8 +4,6 @@ author: interp
 type: post
 date: 2017-03-15T01:41:28+00:00
 url: /vim-plugin-에-대해/
-dsq_thread_id:
-  - 5636906007
 categories:
   - 개발환경
 tags:

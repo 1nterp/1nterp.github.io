@@ -4,8 +4,6 @@ author: interp
 type: post
 date: 2018-03-25T06:14:18+00:00
 url: /샷건-웨딩-shotgun-wedding/
-dsq_thread_id:
-  - 6633170606
 categories:
   - 미분류
 

@@ -5,8 +5,6 @@ type: post
 date: 2017-10-10T22:18:56+00:00
 url: /아임-더-보스-im-the-boss/
 featured_image: /wp-content/uploads/1/cfile23.uf.273ABA375385DA8316BAED.png
-dsq_thread_id:
-  - 6205737010
 categories:
   - 리뷰
 tags:

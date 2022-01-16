@@ -4,8 +4,6 @@ author: interp
 type: post
 date: 2017-02-02T08:33:43+00:00
 url: /confluence-code-macro-빠르게-넣기/
-dsq_thread_id:
-  - 5612722950
 categories:
   - 개발환경
 tags:

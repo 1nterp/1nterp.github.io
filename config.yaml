@@ -4,19 +4,21 @@ title: "InterP Blog"
 theme: paper-mod
 sectionPagesMenu: main
 googleAnalytics: UA-126809878-1
+disqusShortname: interp-blog
 
 params:
-    defaultTheme: auto
-    ShowPostNavLinks: true
-    homeInfoParams:
-      Title: InterP Blog ✌
-      Content: "The longer I am here, the smarter they will be"
-    ShowReadingTime: true
-    ShowBreadCrumbs: true
-    ShowCodeCopyButtons: true
-    author: ["InterP"]
-    cover:
-      relative: true
+  comments: true
+  defaultTheme: auto
+  ShowPostNavLinks: true
+  homeInfoParams:
+    Title: InterP Blog ✌
+    Content: "The longer I am here, the smarter they will be"
+  ShowReadingTime: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  author: ["InterP"]
+  cover:
+    relative: true
 
 outputs:
     home:

@@ -4,8 +4,6 @@ author: interp
 type: post
 date: 2017-05-11T01:30:36+00:00
 url: /specify-value-to-unnamed-union-fields/
-dsq_thread_id:
-  - 5805742928
 categories:
   - 프로그래밍
 tags:

@@ -6,8 +6,6 @@ date: 2016-11-29T01:39:43+00:00
 draft: true
 private: true
 url: /oracle-express-edition-on-ubuntu/
-dsq_thread_id:
-  - 5339691269
 categories:
   - 미분류
 tags:

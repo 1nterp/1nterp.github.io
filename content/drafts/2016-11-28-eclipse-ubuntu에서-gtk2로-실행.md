@@ -4,8 +4,6 @@ author: interp
 type: post
 date: 2016-11-28T00:44:41+00:00
 url: /eclipse-ubuntu에서-gtk2로-실행/
-dsq_thread_id:
-  - 5655415823
 categories:
   - 개발환경
 tags:

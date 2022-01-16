@@ -6,8 +6,6 @@ date: 2016-12-26T13:51:20+00:00
 draft: true
 private: true
 url: /parametervariable-notation-function/
-dsq_thread_id:
-  - 5615642486
 categories:
   - 미분류
 

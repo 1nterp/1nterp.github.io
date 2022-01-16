@@ -4,8 +4,6 @@ author: interp
 type: post
 date: 2016-12-26T05:36:39+00:00
 url: /chrome의-읽기-도구-mecury-reader/
-dsq_thread_id:
-  - 5615642592
 categories:
   - 리뷰
 tags:
