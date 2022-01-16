@@ -22,7 +22,8 @@
 <noscript>
 <style>#theme-toggle,.top-link{display:none}</style>
 <style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
-</noscript><meta property="og:title" content="Gitlab merge request 옵션 기본으로 두기">
+</noscript>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-126809878-1','auto'),ga('send','pageview'))</script><meta property="og:title" content="Gitlab merge request 옵션 기본으로 두기">
 <meta property="og:description" content="Gitlab Community 에서 필요로 하는 기능인데, 이렇게 수동으로 할 수 있어서 간단히 남긴다. Gitlab 에 있는 merge request 에 보면 다음 옵션이 있는데, 전부 체크가 해제되어 있다.
  Merge Request 에 성공한 Source Branch 를 삭제 Merge Request 할 때 Commit 을 하나로 뭉쳐서 Merge (=Squash Merge)  이 체크박스를 개발자가 일일해 해 줘야 하는 문제가 있다. 그래서 어떤 개발자는 체크하는 것을 까먹었다가 master branch 의 commit tree 를 엉망으로 만들기도 한다.">
 <meta property="og:type" content="article">
@@ -113,7 +114,10 @@ Gitlab merge request 옵션 기본으로 두기
 <li><a href=https://interp.blog/tags/merge-request/>merge request</a></li>
 <li><a href=https://interp.blog/tags/squash-merge/>squash merge</a></li>
 </ul>
-</footer>
+</footer><div id=disqus_thread></div>
+<script type=application/javascript>var disqus_config=function(){};(function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById('disqus_thread').innerHTML='Disqus comments not available by default when the website is previewed locally.';return}var b=document,a=b.createElement('script');a.async=!0,a.src='//interp-blog.disqus.com/embed.js',a.setAttribute('data-timestamp',+new Date),(b.head||b.body).appendChild(a)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+<a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 </article>
 </main>
 <footer class=footer>

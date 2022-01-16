@@ -23,7 +23,8 @@
 <noscript>
 <style>#theme-toggle,.top-link{display:none}</style>
 <style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
-</noscript><meta property="og:title" content="Intel VTune Memory Bandwidth 분석하기">
+</noscript>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-126809878-1','auto'),ga('send','pageview'))</script><meta property="og:title" content="Intel VTune Memory Bandwidth 분석하기">
 <meta property="og:description" content="Intel VTune 으로 Memory Bandwidth 를 분석하려면, 분석할 수 있는 커널 드라이버를 로딩시켜야 한다. (참고로 메모리 분석은 리눅스에서만 가능하다.) 해당 작업을 하지 않고 &lsquo;General Exploration > Analyze memory bandwidth&rsquo; 를 체크하면 엄한 경고창이 반길 것이다.
 이 문서를 참고해도 좋지만, VTune 이 설치된 경로에서 sepdk/src/README.txt 를 보는 게 더 쉽다. 이 내용을 요약하면,
  커널 환경변수를 체크한다. 프로파일링이 가능하고 모듈 로딩이 가능해야 한다.  CONFIG_MODULES=y CONFIG_MODULE_UNLOAD=y CONFIG_PROFILING=y   커널 드라이버를 컴파일시킬 헤더파일이 필요하다.">
@@ -119,7 +120,10 @@ Intel VTune Memory Bandwidth 분석하기
 <ul class=post-tags>
 <li><a href=https://interp.blog/tags/vtune/>vtune</a></li>
 </ul>
-</footer>
+</footer><div id=disqus_thread></div>
+<script type=application/javascript>var disqus_config=function(){};(function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById('disqus_thread').innerHTML='Disqus comments not available by default when the website is previewed locally.';return}var b=document,a=b.createElement('script');a.async=!0,a.src='//interp-blog.disqus.com/embed.js',a.setAttribute('data-timestamp',+new Date),(b.head||b.body).appendChild(a)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+<a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 </article>
 </main>
 <footer class=footer>

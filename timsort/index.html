@@ -22,7 +22,8 @@
 <noscript>
 <style>#theme-toggle,.top-link{display:none}</style>
 <style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
-</noscript><meta property="og:title" content="Timsort">
+</noscript>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-126809878-1','auto'),ga('send','pageview'))</script><meta property="og:title" content="Timsort">
 <meta property="og:description" content="학부에서 알고리즘 수업을 들으면, 가장 빠른 정렬 알고리즘이 뭐냐는 질문에 쉽게 Quicksort 라고 답할 수 있겠다. 실제로 현업에서도 적용하기 가장 편하기 때문에 많이 차용되는 편이다. 그런데 모든 문제를 쉽게 풀 수 있는 은탄은 세상에 존재하지 않듯, Quicksort 역시 특정 케이스에서는 성능이 낮게 나오는 경우가 있다. 더 심각한(?) 것은, 이 특정 케이스가 현실에서는 꽤나 자주 발생한다는 것이다.
 그 케이스란 바로 &lsquo;거의 정렬된 데이터&rsquo; 이다. 거의 정렬된 데이터라면 pivoting – partitioning 을 반복할 필요도 없이 Bubble Sort 나, 심지어는 Insertion Sort 를 해도 된다.">
 <meta property="og:type" content="article">
@@ -112,7 +113,10 @@ Timsort
 <li><a href=https://interp.blog/tags/%EC%A0%95%EB%A0%AC/>정렬</a></li>
 <li><a href=https://interp.blog/tags/timsort/>timsort</a></li>
 </ul>
-</footer>
+</footer><div id=disqus_thread></div>
+<script type=application/javascript>var disqus_config=function(){};(function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById('disqus_thread').innerHTML='Disqus comments not available by default when the website is previewed locally.';return}var b=document,a=b.createElement('script');a.async=!0,a.src='//interp-blog.disqus.com/embed.js',a.setAttribute('data-timestamp',+new Date),(b.head||b.body).appendChild(a)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+<a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 </article>
 </main>
 <footer class=footer>
