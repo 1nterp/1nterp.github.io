@@ -1,9 +1,9 @@
-
 baseURL: https://interp.blog/
 languageCode: ko-kr
 title: "InterP Blog"
 theme: paper-mod
 sectionPagesMenu: main
+googleAnalytics: UA-126809878-1
 
 params:
     defaultTheme: auto
