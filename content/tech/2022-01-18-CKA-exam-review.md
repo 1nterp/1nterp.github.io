@@ -24,8 +24,6 @@ CKA (Certified K8s Administrator) 를 2021년 12월 말에 합격 통지를 받�
 ## 시험 등록
 보통 시험을 Linux Foundation 에서 볼 텐데, 그럼 아래와 같은 절차로 시험을 준비한다.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/20008ca4-ef24-4698-afb1-de4802f13e47/Untitled.png)
-
 1. **Global Candidate Agreement** 를 읽고 '동의' 를 누른다.
 2. **이름을 확인한다**. 반드시 신분증에 있는 영어이름과 일치해야 한다. (여권이나 국제운전면허증 등등) 일치하지 않거나 하면 피곤해진다고 한다.
 3. **시험에 사용될 OS 를 지정한다**. 보통 우분투를 사용한다.
@@ -38,7 +36,7 @@ CKA (Certified K8s Administrator) 를 2021년 12월 말에 합격 통지를 받�
 6. **다음 글을 읽어 본다**. 만약 시간이 없으면 Important Instructions 만 읽어 보자.
     - [Important Instructions: CKA, CKAD](https://docs.linuxfoundation.org/tc-docs/certification/tips-cka-and-ckad)
     - [Handbook](https://docs.linuxfoundation.org/tc-docs/certification/lf-candidate-handbook)
-7. 시험 준비가 모두 끝났다고 생각되면, `[killer.sh](http://killer.sh)` 에 들어가서 모의고사 세션을 시작해보자.
+7. 시험 준비가 모두 끝났다고 생각되면, [killer.sh](http://killer.sh) 에 들어가서 모의고사 세션을 시작해보자.
 
 ## killer.sh
 Linux Foundation 에서 제공하는 마지막 모의고사 성격의 mock-up exam 환경이다.
