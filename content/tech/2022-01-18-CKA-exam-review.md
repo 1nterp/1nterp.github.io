@@ -1,6 +1,7 @@
 ---
-title: "Hugo SCSS Rebuild"
+title: "CKA 시험 후기"
 date: "2022-01-18 22:38:42"
+url: /cka-exam-review/
 tags:
   - CKA
   - kubernetes
