@@ -80,6 +80,19 @@ Tips, dev. environment, and so on.
 </header>
 <article class=post-entry>
 <header class=entry-header>
+<h2>Intel VTune Memory Bandwidth 분석하기
+</h2>
+</header>
+<section class=entry-content>
+<p>Intel VTune 으로 Memory Bandwidth 를 분석하려면, 분석할 수 있는 커널 드라이버를 로딩시켜야 한다. (참고로 메모리 분석은 리눅스에서만 가능하다.) 해당 작업을 하지 않고 ‘General Exploration > Analyze memory bandwidth’ 를 체크하면 엄한 경고창이 반길 것이다.
+이 문서를 참고해도 좋지만, VTune 이 설치된 경로에서 sepdk/src/README.txt 를 보는 게 더 쉽다. 이 내용을 요약하면,
+커널 환경변수를 체크한다. 프로파일링이 가능하고 모듈 로딩이 가능해야 한다. CONFIG_MODULES=y CONFIG_MODULE_UNLOAD=y CONFIG_PROFILING=y 커널 드라이버를 컴파일시킬 헤더파일이 필요하다....</p>
+</section>
+<footer class=entry-footer><span title="2018-01-22 05:19:48 +0000 UTC">January 22, 2018</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to Intel VTune Memory Bandwidth 분석하기" href=https://interp.blog/vtune-memory-bandwidth/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
 <h2>Office 2016 커서 애니메이션 끄기
 </h2>
 </header>
@@ -193,22 +206,6 @@ Disk 확인 df 는 mount 된 것만 확인이 가능해서 별로고, lsblk 를 
 </section>
 <footer class=entry-footer><span title="2017-10-30 08:31:03 +0000 UTC">October 30, 2017</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
 <a class=entry-link aria-label="post link to Linux 에서 CPU/Memory/Disk 확인" href=https://interp.blog/linux-%EC%97%90%EC%84%9C-cpumemorydisk-%ED%99%95%EC%9D%B8/></a>
-</article>
-<article class=post-entry>
-<header class=entry-header>
-<h2>mmap : 메모리를 파일처럼
-</h2>
-</header>
-<section class=entry-content>
-<p>mmap은 memory map 의 줄임말이다. 메모리의 특정 영역을 파일 디스크립터로 인식하게 만드는 것이다.
-map or unmap files or devices into memory
-메모리 영역을 파일이나 디바이스로 인식하게 합니다
-– manpage of mmap
-사용 여기서 의미가 있는 건 Length, Prot (Protection), Flag 뿐이다.
-Start 는, Kernel이 아무 곳이나 지정해도 좋다면 NULL을 입력한다. Offset 은, 보통 0으로 둔다. (MAP_ANONYMOUS 또는 MAP_ANON Flag가 있는 경우엔 무시된다) Fd 는, 연결할 파일 디스크립터를 지정한다....</p>
-</section>
-<footer class=entry-footer><span title="2017-09-20 13:29:57 +0000 UTC">September 20, 2017</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;interp</footer>
-<a class=entry-link aria-label="post link to mmap : 메모리를 파일처럼" href=https://interp.blog/mmap-%EB%A9%94%EB%AA%A8%EB%A6%AC%EB%A5%BC-%ED%8C%8C%EC%9D%BC%EC%B2%98%EB%9F%BC/></a>
 </article>
 <footer class=page-footer>
 <nav class=pagination>

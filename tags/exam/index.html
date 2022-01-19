@@ -3,11 +3,11 @@
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
 <meta name=robots content="index, follow">
-<title>Tech 🛠️ | InterP Blog</title>
+<title>exam | InterP Blog</title>
 <meta name=keywords content>
-<meta name=description content="Tips, dev. environment, and so on.">
+<meta name=description content>
 <meta name=author content="InterP">
-<link rel=canonical href=https://interp.blog/tech/>
+<link rel=canonical href=https://interp.blog/tags/exam/>
 <link crossorigin=anonymous href=/assets/css/stylesheet.min.9906a2b74cdafd3190ad7dbbc2fccdff9c2aaff204038b3d609a6041a2d43a49.css integrity="sha256-mQait0za/TGQrX27wvzN/5wqr/IEA4s9YJpgQaLUOkk=" rel="preload stylesheet" as=style>
 <link rel=icon href=https://interp.blog/favicon.ico>
 <link rel=icon type=image/png sizes=16x16 href=https://interp.blog/favicon-16x16.png>
@@ -17,19 +17,18 @@
 <meta name=theme-color content="#2e2e33">
 <meta name=msapplication-TileColor content="#2e2e33">
 <meta name=generator content="Hugo 0.91.2">
-<link rel=alternate type=application/rss+xml href=https://interp.blog/tech/index.xml>
+<link rel=alternate type=application/rss+xml href=https://interp.blog/tags/exam/index.xml>
 <noscript>
 <style>#theme-toggle,.top-link{display:none}</style>
 <style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
 </noscript>
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-126809878-1','auto'),ga('send','pageview'))</script><meta property="og:title" content="Tech 🛠️">
-<meta property="og:description" content="Tips, dev. environment, and so on.">
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-126809878-1','auto'),ga('send','pageview'))</script><meta property="og:title" content="exam">
+<meta property="og:description" content>
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://interp.blog/tech/">
+<meta property="og:url" content="https://interp.blog/tags/exam/">
 <meta name=twitter:card content="summary">
-<meta name=twitter:title content="Tech 🛠️">
-<meta name=twitter:description content="Tips, dev. environment, and so on.">
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tech 🛠️","item":"https://interp.blog/tech/"}]}</script>
+<meta name=twitter:title content="exam">
+<meta name=twitter:description content>
 </head>
 <body class=list id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -45,7 +44,7 @@
 <ul id=menu>
 <li>
 <a href=https://interp.blog/tech/ title=Tech>
-<span class=active>Tech</span>
+<span>Tech</span>
 </a>
 </li>
 <li>
@@ -72,59 +71,22 @@
 </nav>
 </header>
 <main class=main>
-<header class=page-header><div class=breadcrumbs><a href=https://interp.blog/>Home</a></div>
-<h1>Tech 🛠️</h1>
-<div class=post-description>
-Tips, dev. environment, and so on.
-</div>
+<header class=page-header><div class=breadcrumbs><a href=https://interp.blog/>Home</a>&nbsp;»&nbsp;<a href=https://interp.blog/tags/>Tags</a></div>
+<h1>exam</h1>
 </header>
-<article class=post-entry>
+<article class="post-entry tag-entry">
 <header class=entry-header>
-<h2>mmap : 메모리를 파일처럼
+<h2>Hugo SCSS Rebuild
 </h2>
 </header>
 <section class=entry-content>
-<p>mmap은 memory map 의 줄임말이다. 메모리의 특정 영역을 파일 디스크립터로 인식하게 만드는 것이다.
-map or unmap files or devices into memory
-메모리 영역을 파일이나 디바이스로 인식하게 합니다
-– manpage of mmap
-사용 여기서 의미가 있는 건 Length, Prot (Protection), Flag 뿐이다.
-Start 는, Kernel이 아무 곳이나 지정해도 좋다면 NULL을 입력한다. Offset 은, 보통 0으로 둔다. (MAP_ANONYMOUS 또는 MAP_ANON Flag가 있는 경우엔 무시된다) Fd 는, 연결할 파일 디스크립터를 지정한다....</p>
+<p>CKA (Certified K8s Administrator) 를 2021년 12월 말에 합격 통지를 받았다. 합격을 받고 나서 정리한 팁을 공유하고자 한다.
+강의 매우 유명한 Udemy 의 Mumshard 강의를 완강했다. 내가 너무 초보여서 그런지는 몰라도, 기초 강의도 기본을 다지고 한번 더 리마인드 하자는 차원에서 완강을 했고, 결론적으로는 시험 뿐만 아니라 업무에도 큰 도움이 되고 있다.
+이해가 쏙쏙 되는 강의 지속적인 업데이트 KodeCloud 를 통한 인터렉티브 연습 문제 (엄청 많다!) 3개의 모의고사 (요점은 다 나온다) 유료 (이긴 한데 상시 할인이라 큰 부담은 없다....</p>
 </section>
-<footer class=entry-footer><span title="2017-09-20 13:29:57 +0000 UTC">September 20, 2017</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;interp</footer>
-<a class=entry-link aria-label="post link to mmap : 메모리를 파일처럼" href=https://interp.blog/mmap-%EB%A9%94%EB%AA%A8%EB%A6%AC%EB%A5%BC-%ED%8C%8C%EC%9D%BC%EC%B2%98%EB%9F%BC/></a>
+<footer class=entry-footer><span title="2022-01-18 22:38:42 +0000 UTC">January 18, 2022</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;InterP</footer>
+<a class=entry-link aria-label="post link to Hugo SCSS Rebuild" href=https://interp.blog/tech/2022-01-18-cka-exam-review/></a>
 </article>
-<article class=post-entry>
-<header class=entry-header>
-<h2>polylang 사용 팁
-</h2>
-</header>
-<section class=entry-content>
-<p>다국어 사이트를 기획하던 중에 만난 Polylang 이 괜찮은 것 같아서 사용 중인데, 설정 중에 만난 두 가지 문제들을 아래와 같이 해결했다.
-Language Switcher가 없다고? **외모 – 메뉴 **에서 오른쪽 위에 ‘화면 옵션’ 을 펼치면 Language Switcher 가 꺼져있을 것이다. String Translation 을 따로 추가하고 싶다고? 테마의 functions.php 에서pll_register_string() 함수를 호출하면 된다. 해당 String 을 사용하고 싶다면 테마에서 pll__또는 pll__e 를 사용하면 된다.자세한 내용은 여기를 참고. </p>
-</section>
-<footer class=entry-footer><span title="2017-09-06 05:22:27 +0000 UTC">September 6, 2017</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
-<a class=entry-link aria-label="post link to polylang 사용 팁" href=https://interp.blog/polylang-%EC%82%AC%EC%9A%A9-%ED%8C%81/></a>
-</article>
-<article class=post-entry>
-<header class=entry-header>
-<h2>pthread_yield vs. sleep
-</h2>
-</header>
-<section class=entry-content>
-<p>pthread_yield() 와 sleep() 의 차이를 묻는 Stack Overflow 글을 가져와 봤다.
-pthread_yield() 는, 호출한 쓰레드가 프로세서 사용을 그만두고, 스케쥴링이 될 때 까지 작업 큐(run queue)에서 기다립니다. 만약 호출되었을 때 작업 큐가 비어 있다면, 즉시 스케쥴링이 되겠죠.
-sleep() 은 X초만큼 지나거나, 무시할 수 없는 시그널이 도착할 때 까지 (다른 쓰레드를 포함한) 호출 프로세스를 재웁니다.
-현재 쓰레드를 실제로 지연시키고 싶지 않지만 (호출 쓰레드 대신) 다른 쓰레드에게 실행권을 넘겨주고 싶은 경우라면, sleep() 보단 pthread_yield() 가 적합할 것 같습니다....</p>
-</section>
-<footer class=entry-footer><span title="2017-08-24 05:35:24 +0000 UTC">August 24, 2017</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
-<a class=entry-link aria-label="post link to pthread_yield vs. sleep" href=https://interp.blog/pthread_yield-vs-sleep/></a>
-</article>
-<footer class=page-footer>
-<nav class=pagination>
-<a class=prev href=https://interp.blog/tech/page/2/>« Prev Page</a>
-</nav>
-</footer>
 </main>
 <footer class=footer>
 <span>&copy; 2022 <a href=https://interp.blog/>InterP Blog</a></span>
