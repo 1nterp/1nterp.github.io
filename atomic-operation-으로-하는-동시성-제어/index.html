@@ -5,6 +5,7 @@
 <meta name=robots content="index, follow">
 <title>Atomic Operation 으로 하는 동시성 제어 | InterP Blog</title>
 <meta name=keywords content="lock,atomic">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
 <meta name=description content="Test-And-Set (TAS) TAS 를 이용해서 간단한 동시성 제어를 할 수 있다. testAndSet 이라는 function 을 가지고 아래의 do...while 문을 쓰레드 A, B 에서 동시에 호출한다고 해 보자. 이 때 lock 은 같은 변수이다.
 우선 TestAndSet() 은 다음과 같은 일을 한다. 말 그대로 &lsquo;지금 값이 무엇인지 검사하고, 값을 바꾼다&rsquo; 는 것이다.
  lock의 현재 값을 저장해 둔다. lock의 값을 true 로 설정한다. 저장한 lock 의 값을 반환한다.  그럼 이걸로 어떻게 아래 block 의 critical section 에 대한 동시성 제어를 할 수 있을까?">
