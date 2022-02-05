@@ -75,6 +75,18 @@
 <main class=main>
 <article class=post-entry>
 <header class=entry-header>
+<h2>Gitlab 삽질기
+</h2>
+</header>
+<section class=entry-content>
+<p>Upgrade 8.x 로 쓰다가 10.x 로 업그레이드를 진행했다. 아니.. 그런데 Postgresql Database 버전이 다르다고? 알고보니 이렇게 대격변을 일으키면 안 되던 거였다. 그래서 겸사겸사 9.5.10 으로 다시 설치하니까 된다.
+gitlab-ctl reconfigure 를 설치 직후에 반드시 해 줘야 한다. 가끔 gitlab-ctl pg-upgrade 를 꼭 하라는 말이 있던데, 내가 해보니까 gitlab-ctl reconfigure 할 때 알아서 한다 (…) 했던 거 또 하는 느낌. gitlab-ctl restart 를 할 때 postgresql 이나 다른 곳에서 ‘down, up, want up’ 이런 게 뜨면 서비스가 온전히 수행될 수 없는 상황이다....</p>
+</section>
+<footer class=entry-footer><span title="2017-11-15 09:17:58 +0000 UTC">November 15, 2017</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to Gitlab 삽질기" href=https://interp.blog/gitlab-%EC%82%BD%EC%A7%88%EA%B8%B0/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
 <h2>Linux 에서 CPU/Memory/Disk 확인
 </h2>
 </header>
