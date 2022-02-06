@@ -3,8 +3,8 @@ dotnet test 및 xUnit을 사용하여 .NET Core에서 C# 유닛 테스트라는 
 map or unmap files or devices into memory
 메모리 영역을 파일이나 디바이스로 인식하게 합니다
 – manpage of mmap
-사용 여기서 의미가 있는 건 Length, Prot (Protection), Flag 뿐이다.
-Start 는, Kernel이 아무 곳이나 지정해도 좋다면 NULL을 입력한다. Offset 은, 보통 0으로 둔다. (MAP_ANONYMOUS 또는 MAP_ANON Flag가 있는 경우엔 무시된다) Fd 는, 연결할 파일 디스크립터를 지정한다.</description></item><item><title>pthread_yield vs. sleep</title><link>https://interp.blog/pthread_yield-vs-sleep/</link><pubDate>Thu, 24 Aug 2017 05:35:24 +0000</pubDate><guid>https://interp.blog/pthread_yield-vs-sleep/</guid><description>pthread_yield() 와 sleep() 의 차이를 묻는 Stack Overflow 글을 가져와 봤다.
+사용 void * mmap(void *start, size_t length, int prot, int flags, int fd, off_t offset); 여기서 의미가 있는 건 Length, Prot (Protection), Flag 뿐이다.
+Start 는, Kernel이 아무 곳이나 지정해도 좋다면 NULL을 입력한다. Offset 은, 보통 0으로 둔다.</description></item><item><title>pthread_yield vs. sleep</title><link>https://interp.blog/pthread_yield-vs-sleep/</link><pubDate>Thu, 24 Aug 2017 05:35:24 +0000</pubDate><guid>https://interp.blog/pthread_yield-vs-sleep/</guid><description>pthread_yield() 와 sleep() 의 차이를 묻는 Stack Overflow 글을 가져와 봤다.
 pthread_yield() 는, 호출한 쓰레드가 프로세서 사용을 그만두고, 스케쥴링이 될 때 까지 작업 큐(run queue)에서 기다립니다. 만약 호출되었을 때 작업 큐가 비어 있다면, 즉시 스케쥴링이 되겠죠.
 sleep() 은 X초만큼 지나거나, 무시할 수 없는 시그널이 도착할 때 까지 (다른 쓰레드를 포함한) 호출 프로세스를 재웁니다.
 현재 쓰레드를 실제로 지연시키고 싶지 않지만 (호출 쓰레드 대신) 다른 쓰레드에게 실행권을 넘겨주고 싶은 경우라면, sleep() 보단 pthread_yield() 가 적합할 것 같습니다.</description></item></channel></rss>

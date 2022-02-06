@@ -82,8 +82,7 @@
 </header>
 <section class=entry-content>
 <p>Test-And-Set (TAS) TAS 를 이용해서 간단한 동시성 제어를 할 수 있다. testAndSet 이라는 function 을 가지고 아래의 do...while 문을 쓰레드 A, B 에서 동시에 호출한다고 해 보자. 이 때 lock 은 같은 변수이다.
-우선 TestAndSet() 은 다음과 같은 일을 한다. 말 그대로 ‘지금 값이 무엇인지 검사하고, 값을 바꾼다’ 는 것이다.
-lock의 현재 값을 저장해 둔다. lock의 값을 true 로 설정한다. 저장한 lock 의 값을 반환한다. 그럼 이걸로 어떻게 아래 block 의 critical section 에 대한 동시성 제어를 할 수 있을까?...</p>
+function TestAndSet(boolean_ref lock) { boolean initial = lock lock = true return initial } do { while(TestAndSet(&lock)) ; // do nothing // critical section lock = false; // remainder section } while(true); 우선 TestAndSet() 은 다음과 같은 일을 한다....</p>
 </section>
 <footer class=entry-footer><span title="2018-04-24 02:31:38 +0000 UTC">April 24, 2018</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;interp</footer>
 <a class=entry-link aria-label="post link to Atomic Operation 으로 하는 동시성 제어" href=https://interp.blog/atomic-operation-%EC%9C%BC%EB%A1%9C-%ED%95%98%EB%8A%94-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%A0%9C%EC%96%B4/></a>

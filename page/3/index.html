@@ -93,8 +93,7 @@
 </header>
 <section class=entry-content>
 <p>Test-And-Set (TAS) TAS 를 이용해서 간단한 동시성 제어를 할 수 있다. testAndSet 이라는 function 을 가지고 아래의 do...while 문을 쓰레드 A, B 에서 동시에 호출한다고 해 보자. 이 때 lock 은 같은 변수이다.
-우선 TestAndSet() 은 다음과 같은 일을 한다. 말 그대로 ‘지금 값이 무엇인지 검사하고, 값을 바꾼다’ 는 것이다.
-lock의 현재 값을 저장해 둔다. lock의 값을 true 로 설정한다. 저장한 lock 의 값을 반환한다. 그럼 이걸로 어떻게 아래 block 의 critical section 에 대한 동시성 제어를 할 수 있을까?...</p>
+function TestAndSet(boolean_ref lock) { boolean initial = lock lock = true return initial } do { while(TestAndSet(&lock)) ; // do nothing // critical section lock = false; // remainder section } while(true); 우선 TestAndSet() 은 다음과 같은 일을 한다....</p>
 </section>
 <footer class=entry-footer><span title="2018-04-24 02:31:38 +0000 UTC">April 24, 2018</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;interp</footer>
 <a class=entry-link aria-label="post link to Atomic Operation 으로 하는 동시성 제어" href=https://interp.blog/atomic-operation-%EC%9C%BC%EB%A1%9C-%ED%95%98%EB%8A%94-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%A0%9C%EC%96%B4/></a>
@@ -196,8 +195,7 @@ you need differential matrix calculus, the shotgun wedding of linear algebra 
 <section class=entry-content>
 <p>gdb/ddd 에서 commands 를 사용하면 간편하게 breakpoint 의 상태를 출력할 수 있다. 물론 다양하게 응용이 가능하겠지만, 매뉴얼에서 제시한 케이스가 굉장히 편해서 따로 정리한다.
 참고 : 매뉴얼
-Breakpoint 상황을 출력하기 위 코드에서 if 문에 breakpoint 를 걸고, 할당받은 시작 주소와 그 크기를 보고자 한다. 한두번 발생하는 거라면 breakpoint 를 걸어 둔 다음 print 나 graph display (ddd 전용) 으로 띄워서 관찰하면 된다. 그런데 이게 100번 200번이면 하염없이 엔터를 치게 된다.
-이럴 때 다음과 같이 입력한다....</p>
+Breakpoint 상황을 출력하기 10 *sAddr = malloc(aSize); 11 if (*sAddr != NULL) 12 ... 위 코드에서 if 문에 breakpoint 를 걸고, 할당받은 시작 주소와 그 크기를 보고자 한다. 한두번 발생하는 거라면 breakpoint 를 걸어 둔 다음 print 나 graph display (ddd 전용) 으로 띄워서 관찰하면 된다....</p>
 </section>
 <footer class=entry-footer><span title="2018-02-06 08:46:05 +0000 UTC">February 6, 2018</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
 <a class=entry-link aria-label="post link to gdb commands 이용하기" href=https://interp.blog/gdb-commands-%EC%9D%B4%EC%9A%A9%ED%95%98%EA%B8%B0/></a>

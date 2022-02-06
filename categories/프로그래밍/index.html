@@ -82,8 +82,7 @@
 </header>
 <section class=entry-content>
 <p>Test-And-Set (TAS) TAS 를 이용해서 간단한 동시성 제어를 할 수 있다. testAndSet 이라는 function 을 가지고 아래의 do...while 문을 쓰레드 A, B 에서 동시에 호출한다고 해 보자. 이 때 lock 은 같은 변수이다.
-우선 TestAndSet() 은 다음과 같은 일을 한다. 말 그대로 ‘지금 값이 무엇인지 검사하고, 값을 바꾼다’ 는 것이다.
-lock의 현재 값을 저장해 둔다. lock의 값을 true 로 설정한다. 저장한 lock 의 값을 반환한다. 그럼 이걸로 어떻게 아래 block 의 critical section 에 대한 동시성 제어를 할 수 있을까?...</p>
+function TestAndSet(boolean_ref lock) { boolean initial = lock lock = true return initial } do { while(TestAndSet(&lock)) ; // do nothing // critical section lock = false; // remainder section } while(true); 우선 TestAndSet() 은 다음과 같은 일을 한다....</p>
 </section>
 <footer class=entry-footer><span title="2018-04-24 02:31:38 +0000 UTC">April 24, 2018</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;interp</footer>
 <a class=entry-link aria-label="post link to Atomic Operation 으로 하는 동시성 제어" href=https://interp.blog/atomic-operation-%EC%9C%BC%EB%A1%9C-%ED%95%98%EB%8A%94-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%A0%9C%EC%96%B4/></a>
@@ -108,7 +107,7 @@ lock의 현재 값을 저장해 둔다. lock의 값을 true 로 설정한다. �
 <section class=entry-content>
 <p>Java? 전통의 APM, Node.js 모두 한 걸음 정도는 자신있게 뗄 수 있는 (?) 수준이라고 생각하지만, 갑작스런 Java Web Application 도전이라니.
 바깥 세상(?) 에선 아직도 Java 개발자를 찾는 것이 현실이다. 이제 그것을 대비하는 차원이다. Java 하나만 가지고 대부분의 어플리케이션 개발에 비빌 수 있기 때문이기도 하다. (개인적으로, 이런 대중성이 Java 개발자의 가치를 떨어뜨린다고 전혀 생각하지 않는다. Java 개발자는 많지만, 좋은 Java 개발자를 찾는 것은 전혀 다른 문제라고 생각하니까.)
-입문서 구입 단순히 ‘Spring 기반으로 웹 어플리케이션을 만들어요’ 라는 말만 듣고 Spring 입문서!...</p>
+이렇게 찾는 것이 현실일지라도, 이건 좋은 개발자를 프로젝트에 태우는 방법이 아니다....</p>
 </section>
 <footer class=entry-footer><span title="2018-01-09 07:09:07 +0000 UTC">January 9, 2018</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;interp</footer>
 <a class=entry-link aria-label="post link to Java Web Application 입문 (1) 준비운동" href=https://interp.blog/java-web-application-%EC%9E%85%EB%AC%B8-1-%EC%A4%80%EB%B9%84%EC%9A%B4%EB%8F%99/></a>
@@ -135,8 +134,8 @@ dotnet test 및 xUnit을 사용하여 .NET Core에서 C# 유닛 테스트라는 
 map or unmap files or devices into memory
 메모리 영역을 파일이나 디바이스로 인식하게 합니다
 – manpage of mmap
-사용 여기서 의미가 있는 건 Length, Prot (Protection), Flag 뿐이다.
-Start 는, Kernel이 아무 곳이나 지정해도 좋다면 NULL을 입력한다. Offset 은, 보통 0으로 둔다. (MAP_ANONYMOUS 또는 MAP_ANON Flag가 있는 경우엔 무시된다) Fd 는, 연결할 파일 디스크립터를 지정한다....</p>
+사용 void * mmap(void *start, size_t length, int prot, int flags, int fd, off_t offset); 여기서 의미가 있는 건 Length, Prot (Protection), Flag 뿐이다.
+Start 는, Kernel이 아무 곳이나 지정해도 좋다면 NULL을 입력한다. Offset 은, 보통 0으로 둔다....</p>
 </section>
 <footer class=entry-footer><span title="2017-09-20 13:29:57 +0000 UTC">September 20, 2017</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;interp</footer>
 <a class=entry-link aria-label="post link to mmap : 메모리를 파일처럼" href=https://interp.blog/mmap-%EB%A9%94%EB%AA%A8%EB%A6%AC%EB%A5%BC-%ED%8C%8C%EC%9D%BC%EC%B2%98%EB%9F%BC/></a>

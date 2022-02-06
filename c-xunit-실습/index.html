@@ -36,7 +36,7 @@ dotnet test 및 xUnit을 사용하여 .NET Core에서 C# 유닛 테스트라는 
 <meta name=twitter:description content="졸업프로젝트도 아니고, 기말고사 대신 치룬 텀프로젝트의 마지막을 장식할 윈도우 어플리케이션을 만들기 위해 배우려 했으나 문 앞에서 서성이기만 했던 바로 그 언어, C#을 당장 써먹어야 하는 상황이 발생했다. (이런 상황이 발생한 것이 참 안타깝긴 하지만) 배움의 기회로 삼는 수 밖에 없다.
 dotnet test 및 xUnit을 사용하여 .NET Core에서 C# 유닛 테스트라는 MS 문서를 기반으로 실습을 했는데, 여기서 중요한 것은, 내가 만들어야 하는 라이브러리의 Target Framework가 .NET Core 가 아니라 .NET Framework 4.">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tech 🛠️","item":"https://interp.blog/tech/"},{"@type":"ListItem","position":2,"name":"C# xUnit 실습","item":"https://interp.blog/c-xunit-%EC%8B%A4%EC%8A%B5/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"C# xUnit 실습","name":"C# xUnit 실습","description":"졸업프로젝트도 아니고, 기말고사 대신 치룬 텀프로젝트의 마지막을 장식할 윈도우 어플리케이션을 만들기 위해 배우려 했으나 문 앞에서 서성이기만 했던 바로 그 언어, C#을 당장 써먹어야 하는 상황이 발생했다. (이런 상황이 발생한 것이 참 안타깝긴 하지만) 배움의 기회로 삼는 수 밖에 없다.\ndotnet test 및 xUnit을 사용하여 .NET Core에서 C# 유닛 테스트라는 MS 문서를 기반으로 실습을 했는데, 여기서 중요한 것은, 내가 만들어야 하는 라이브러리의 Target Framework가 .NET Core 가 아니라 .NET Framework 4.","keywords":["c","xunit"],"articleBody":"졸업프로젝트도 아니고, 기말고사 대신 치룬 텀프로젝트의 마지막을 장식할 윈도우 어플리케이션을 만들기 위해 배우려 했으나 문 앞에서 서성이기만 했던 바로 그 언어, C#을 당장 써먹어야 하는 상황이 발생했다. (이런 상황이 발생한 것이 참 안타깝긴 하지만) 배움의 기회로 삼는 수 밖에 없다.\ndotnet test 및 xUnit을 사용하여 .NET Core에서 C# 유닛 테스트라는 MS 문서를 기반으로 실습을 했는데, 여기서 중요한 것은, 내가 만들어야 하는 라이브러리의 Target Framework가 .NET Core 가 아니라 .NET Framework 4.0 이다. xUnit은 최소 .NET Framework 4.5 이상에서만 돌아간다. 그럼 나는 테스트를 못 하는 것인가?\n천만에. xUnit 프로젝트만 .NET Framework 4.5 로 두고, 라이브러리 프로젝트는 .NET Framework 4.0 으로 설정해서 테스트를 진행해 봤다. 대부분의 내용은 위의 문서를 요약한 것에 지나지 않지만, 사이사이에 Target Framework를 설정하는 부분에 대해 넣도록 하겠다.\n사전 준비 혹시나 해서 적어둔다. 다 필요없고 .NET Core SDK 를 설치해주자.\n .NET Framework 4.0, .NET Framework 4.5 SDK 가 설치되어 있어야 한다. (Visual Studio 설치하면서 같이 설치하는게 속편하다) .NET Framework 4.5 이후의 TargetFramework를 가져가는 경우엔 .NET Core SDK 를 설치하는 것으로 끝날지도 모른다는 어렴풋한 추측을 해 본다. (Target Framework를 수정한 다음 dotnet restore 를 하면?)  그리고 아래 실습은 Visual Studio 가 아니라 Powershell 에서 진행한다. 사내 빌드할 때 Visual Studio를 안 쓰기 때문이다. 단지 그 뿐이다..\n솔루션/프로젝트 준비  디렉토리를 하나 만든다. 여기서는 testSolution 라고 하자. dotnet new sln 을 실행한다. 솔루션 파일이 생성된다. 내부에 디렉토리를 하나 만든다. 여기서는 projLibrary 라고 하자. projLibrary 에 들어가서 dotnet new classlib 명령으로 프로젝트를 만든다.  classlib 라고 입력하면 해당 프로젝트는 라이브러리를 생성하는 것이 된다.  다시 testSolution 디렉토리로 돌아와서, dotnet sln add projLibrary/projLibrary.csproj 를 입력한다. 이제 솔루션에 해당 프로젝트가 등록된다. testSolution내부에 테스트용 디렉토리를 하나 만든다. 여기서는 projTest 라고 하자. projTest 에 들어가서 dotnet new xuint 를 입력해 테스트용 프로젝트를 만든다.  xuint 라고 입력하면, 해당 프로젝트는 테스트를 위한 것이 된다.  다시 testSolution 디렉토리로 돌아와서, dotnet sln add projTest/projTest.csproj 를 입력한다. 이제 솔루션에 해당 프로젝트가 등록된다. 마지막으로 테스트 프로젝트에 라이브러리 프로젝트를 참조할 수 있도록, 연결해야 한다. projTest 에 들어가서 dotnet add reference ../projLibrary/projLibrary.csproj 를 입력한다.  그러면 아래와 같이 디렉토리와 파일이 구성되어야 한다. (자동으로 생성되는 Class1.cs 는 제외했다.)\nTest Framework 수정 projLibrary 에 있는 projLibrary.csproj를 열어서 아래를 수정한다.\n만들고자 하는 프레임워크 버전을 명시하면 되고, 버전은 여기를 참고한다. 여러 개의 버전을 명시할 경우에는 세미콜론(;) 으로 구분하면 된다.\n역으로, projTest 에 있는 projTest.csproj 는 이렇게 수정해야 한다.\n기본적으로 netcore2.0 으로 설정되어 있을텐데, 이러면 net40 과 호환이 안되어서 참조조차 안되는 불상사가 발생한다. net45 또는 그 이상의 .NET Framework를 지정하되, netcore1.x 에 대응되는 버전으로만 지정하면 될 것으로 보인다.\n테스트 작성 projLibrary에서 Class1.cs 에 다음을 추가하자.\n아직 구현을 안 한 거다. 이제 projTest에서 Class1.cs에 다음을 추가한다\n테스트 다 끝났다. 이제 솔루션 디렉토리에서 dotnet test 를 힘차게 불러보자.\n에러가 날 것이다. 당연히 테스트 코드에서 result 값이 FALSE가 나오기를 기대하는데, 지금은 그냥 Exception 으로 떨어지기 때문이다.\nprojLibrary에서 IsPrime() 함수의 리턴을 FALSE로 바꿔주면 테스트가 성공하는 것을 확인할 수 있다.\n","wordCount":"456","inLanguage":"en","datePublished":"2017-11-29T03:28:03Z","dateModified":"2017-11-29T03:28:03Z","author":{"@type":"Person","name":"interp"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://interp.blog/c-xunit-%EC%8B%A4%EC%8A%B5/"},"publisher":{"@type":"Organization","name":"InterP Blog","logo":{"@type":"ImageObject","url":"https://interp.blog/favicon.ico"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"C# xUnit 실습","name":"C# xUnit 실습","description":"졸업프로젝트도 아니고, 기말고사 대신 치룬 텀프로젝트의 마지막을 장식할 윈도우 어플리케이션을 만들기 위해 배우려 했으나 문 앞에서 서성이기만 했던 바로 그 언어, C#을 당장 써먹어야 하는 상황이 발생했다. (이런 상황이 발생한 것이 참 안타깝긴 하지만) 배움의 기회로 삼는 수 밖에 없다.\ndotnet test 및 xUnit을 사용하여 .NET Core에서 C# 유닛 테스트라는 MS 문서를 기반으로 실습을 했는데, 여기서 중요한 것은, 내가 만들어야 하는 라이브러리의 Target Framework가 .NET Core 가 아니라 .NET Framework 4.","keywords":["c","xunit"],"articleBody":"졸업프로젝트도 아니고, 기말고사 대신 치룬 텀프로젝트의 마지막을 장식할 윈도우 어플리케이션을 만들기 위해 배우려 했으나 문 앞에서 서성이기만 했던 바로 그 언어, C#을 당장 써먹어야 하는 상황이 발생했다. (이런 상황이 발생한 것이 참 안타깝긴 하지만) 배움의 기회로 삼는 수 밖에 없다.\ndotnet test 및 xUnit을 사용하여 .NET Core에서 C# 유닛 테스트라는 MS 문서를 기반으로 실습을 했는데, 여기서 중요한 것은, 내가 만들어야 하는 라이브러리의 Target Framework가 .NET Core 가 아니라 .NET Framework 4.0 이다. xUnit은 최소 .NET Framework 4.5 이상에서만 돌아간다. 그럼 나는 테스트를 못 하는 것인가?\n천만에. xUnit 프로젝트만 .NET Framework 4.5 로 두고, 라이브러리 프로젝트는 .NET Framework 4.0 으로 설정해서 테스트를 진행해 봤다. 대부분의 내용은 위의 문서를 요약한 것에 지나지 않지만, 사이사이에 Target Framework를 설정하는 부분에 대해 넣도록 하겠다.\n사전 준비 혹시나 해서 적어둔다. 다 필요없고 .NET Core SDK 를 설치해주자.\n .NET Framework 4.0, .NET Framework 4.5 SDK 가 설치되어 있어야 한다. (Visual Studio 설치하면서 같이 설치하는게 속편하다) .NET Framework 4.5 이후의 TargetFramework를 가져가는 경우엔 .NET Core SDK 를 설치하는 것으로 끝날지도 모른다는 어렴풋한 추측을 해 본다. (Target Framework를 수정한 다음 dotnet restore 를 하면?)  그리고 아래 실습은 Visual Studio 가 아니라 Powershell 에서 진행한다. 사내 빌드할 때 Visual Studio를 안 쓰기 때문이다. 단지 그 뿐이다..\n솔루션/프로젝트 준비  디렉토리를 하나 만든다. 여기서는 testSolution 라고 하자. dotnet new sln 을 실행한다. 솔루션 파일이 생성된다. 내부에 디렉토리를 하나 만든다. 여기서는 projLibrary 라고 하자. projLibrary 에 들어가서 dotnet new classlib 명령으로 프로젝트를 만든다.  classlib 라고 입력하면 해당 프로젝트는 라이브러리를 생성하는 것이 된다.  다시 testSolution 디렉토리로 돌아와서, dotnet sln add projLibrary/projLibrary.csproj 를 입력한다. 이제 솔루션에 해당 프로젝트가 등록된다. testSolution내부에 테스트용 디렉토리를 하나 만든다. 여기서는 projTest 라고 하자. projTest 에 들어가서 dotnet new xuint 를 입력해 테스트용 프로젝트를 만든다.  xuint 라고 입력하면, 해당 프로젝트는 테스트를 위한 것이 된다.  다시 testSolution 디렉토리로 돌아와서, dotnet sln add projTest/projTest.csproj 를 입력한다. 이제 솔루션에 해당 프로젝트가 등록된다. 마지막으로 테스트 프로젝트에 라이브러리 프로젝트를 참조할 수 있도록, 연결해야 한다. projTest 에 들어가서 dotnet add reference ../projLibrary/projLibrary.csproj 를 입력한다.  그러면 아래와 같이 디렉토리와 파일이 구성되어야 한다. (자동으로 생성되는 Class1.cs 는 제외했다.)\n/testSolution testSolution.sln /projLibrary projLibrary.csproj /projTest # other referenced files (xunit) projTest.csproj  Test Framework 수정 projLibrary 에 있는 projLibrary.csproj를 열어서 아래를 수정한다.\nnet40  만들고자 하는 프레임워크 버전을 명시하면 되고, 버전은 여기를 참고한다. 여러 개의 버전을 명시할 경우에는 세미콜론(;) 으로 구분하면 된다.\n역으로, projTest 에 있는 projTest.csproj 는 이렇게 수정해야 한다.\nnet45  기본적으로 netcore2.0 으로 설정되어 있을텐데, 이러면 net40 과 호환이 안되어서 참조조차 안되는 불상사가 발생한다. net45 또는 그 이상의 .NET Framework를 지정하되, netcore1.x 에 대응되는 버전으로만 지정하면 될 것으로 보인다.\n테스트 작성 projLibrary에서 Class1.cs 에 다음을 추가하자.\nusing System; namespace ProjLibrary { public class Class1 { public bool IsPrime(int candidate) { throw new NotImplementedException(\"Please create a test first\"); } } }  아직 구현을 안 한 거다. 이제 projTest에서 Class1.cs에 다음을 추가한다\nusing Xunit; using ProjLibrary; namespace Prime.UnitTests.Services { public class TestClass1 { private readonly Class1 _service; public Class1_IsPrimeShould() { _service = new Class1(); } [Fact] public void ReturnFalseGivenValueOf1() { var result = _service.IsPrime(1); Assert.False(result, \"1 should not be prime\"); } } }  테스트 다 끝났다. 이제 솔루션 디렉토리에서 dotnet test 를 힘차게 불러보자.\n에러가 날 것이다. 당연히 테스트 코드에서 result 값이 FALSE가 나오기를 기대하는데, 지금은 그냥 Exception 으로 떨어지기 때문이다.\nprojLibrary에서 IsPrime() 함수의 리턴을 FALSE로 바꿔주면 테스트가 성공하는 것을 확인할 수 있다.\n","wordCount":"544","inLanguage":"en","datePublished":"2017-11-29T03:28:03Z","dateModified":"2017-11-29T03:28:03Z","author":{"@type":"Person","name":"interp"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://interp.blog/c-xunit-%EC%8B%A4%EC%8A%B5/"},"publisher":{"@type":"Organization","name":"InterP Blog","logo":{"@type":"ImageObject","url":"https://interp.blog/favicon.ico"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -119,14 +119,63 @@ C# xUnit 실습
 <li>마지막으로 테스트 프로젝트에 라이브러리 프로젝트를 참조할 수 있도록, 연결해야 한다. <code>projTest</code> 에 들어가서 <code>dotnet add reference ../projLibrary/projLibrary.csproj</code> 를 입력한다.</li>
 </ol>
 <p>그러면 아래와 같이 디렉토리와 파일이 구성되어야 한다. (자동으로 생성되는 Class1.cs 는 제외했다.)</p>
+<pre class="brush: bash; title: ; notranslate" title>/testSolution
+  testSolution.sln
+  /projLibrary
+    projLibrary.csproj
+  /projTest
+    # other referenced files (xunit)
+    projTest.csproj
+</pre>
 <h3 id=test-framework-수정>Test Framework 수정<a hidden class=anchor aria-hidden=true href=#test-framework-수정>#</a></h3>
 <p><code>projLibrary</code> 에 있는 <code>projLibrary.csproj</code>를 열어서 아래를 수정한다.</p>
+<pre class="brush: xml; title: ; notranslate" title>&lt;TargetFramework&gt;net40&lt;/TargetFramework&gt;
+</pre>
 <p>만들고자 하는 프레임워크 버전을 명시하면 되고, 버전은 <a href=https://docs.microsoft.com/en-us/dotnet/standard/net-standard>여기</a>를 참고한다. 여러 개의 버전을 명시할 경우에는 세미콜론(;) 으로 구분하면 된다.</p>
 <p>역으로, <code>projTest</code> 에 있는 <code>projTest.csproj</code> 는 이렇게 수정해야 한다.</p>
+<pre class="brush: xml; title: ; notranslate" title>&lt;TargetFramework&gt;net45&lt;/TargetFramework&gt;
+</pre>
 <p>기본적으로 netcore2.0 으로 설정되어 있을텐데, 이러면 net40 과 호환이 안되어서 참조조차 안되는 불상사가 발생한다. net45 또는 그 이상의 .NET Framework를 지정하되, netcore1.x 에 대응되는 버전으로만 지정하면 될 것으로 보인다.</p>
 <h3 id=테스트-작성>테스트 작성<a hidden class=anchor aria-hidden=true href=#테스트-작성>#</a></h3>
 <p><code>projLibrary</code>에서 Class1.cs 에 다음을 추가하자.</p>
+<pre class="brush: csharp; title: ; notranslate" title>using System;
+
+namespace ProjLibrary
+{
+    public class Class1
+    {
+        public bool IsPrime(int candidate) 
+        {
+            throw new NotImplem&lt;span style="display: inline-block; width: 0px; overflow: hidden; line-height: 0;" data-mce-type="bookmark" class="mce_SELRES_start"&gt;&lt;/span&gt;entedException("Please create a test first");
+        } 
+    }
+}
+</pre>
 <p>아직 구현을 안 한 거다. 이제 <code>projTest</code>에서 Class1.cs에 다음을 추가한다</p>
+<pre class="brush: csharp; title: ; notranslate" title>using Xunit;
+using ProjLibrary;
+
+namespace Prime.UnitTests.Services
+{
+    public class TestClass1
+    {
+        private readonly Class1 _service;
+
+        public Class1_IsPrimeShould()
+        {
+            _service = new Class1();
+        }
+
+        [Fact]
+        public void ReturnFalseGivenValueOf1()
+        {
+            var result = _service.IsPrime(1);
+
+            Assert.False(result, "1 should not be prime");
+        }
+    }
+}
+</pre>
 <h3 id=테스트>테스트<a hidden class=anchor aria-hidden=true href=#테스트>#</a></h3>
 <p>다 끝났다. 이제 솔루션 디렉토리에서 <code>dotnet test</code> 를 힘차게 불러보자.</p>
 <p>에러가 날 것이다. 당연히 테스트 코드에서 result 값이 FALSE가 나오기를 기대하는데, 지금은 그냥 Exception 으로 떨어지기 때문이다.</p>
