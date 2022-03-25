@@ -5,6 +5,10 @@
 <meta name=robots content="index, follow">
 <title>pthread_yield vs. sleep | InterP Blog</title>
 <meta name=keywords content="c,thread">
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-126809878-1"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','UA-126809878-1')</script>
+<link rel=preconnect href=https://fonts.googleapis.com>
+<link rel=preconnect href=https://fonts.gstatic.com crossorigin>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
 <meta name=description content="pthread_yield() 와 sleep() 의 차이를 묻는 Stack Overflow 글을 가져와 봤다.
  pthread_yield() 는, 호출한 쓰레드가 프로세서 사용을 그만두고, 스케쥴링이 될 때 까지 작업 큐(run queue)에서 기다립니다. 만약 호출되었을 때 작업 큐가 비어 있다면, 즉시 스케쥴링이 되겠죠.

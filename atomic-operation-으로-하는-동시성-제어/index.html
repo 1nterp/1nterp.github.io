@@ -5,6 +5,10 @@
 <meta name=robots content="index, follow">
 <title>Atomic Operation 으로 하는 동시성 제어 | InterP Blog</title>
 <meta name=keywords content="lock,atomic">
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-126809878-1"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','UA-126809878-1')</script>
+<link rel=preconnect href=https://fonts.googleapis.com>
+<link rel=preconnect href=https://fonts.gstatic.com crossorigin>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
 <meta name=description content="Test-And-Set (TAS) TAS 를 이용해서 간단한 동시성 제어를 할 수 있다. testAndSet 이라는 function 을 가지고 아래의 do...while 문을 쓰레드 A, B 에서 동시에 호출한다고 해 보자. 이 때 lock 은 같은 변수이다.
 function TestAndSet(boolean_ref lock) { boolean initial = lock lock = true return initial } do { while(TestAndSet(&lock)) ; // do nothing // critical section lock = false; // remainder section } while(true);  우선 TestAndSet() 은 다음과 같은 일을 한다.">
