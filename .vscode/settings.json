@@ -1,0 +1,47 @@
+{
+    "[markdown]": {
+    },
+    "frontMatter.content.fmHighlight": true,
+    "frontMatter.taxonomy.contentTypes": [
+        {
+            "name": "default",
+            "previewPath": null,
+            "pageBundle": false,
+            "fields": [
+            {
+                "title": "Title",
+                "name": "title",
+                "type": "string"
+            },
+            {
+                "title": "Publishing date",
+                "name": "date",
+                "type": "datetime",
+                "default": "{{now}}",
+                "isPublishDate": true
+            },
+            {
+                "title": "Article preview",
+                "name": "preview",
+                "type": "image"
+            },
+            {
+                "title": "Is in draft",
+                "name": "draft",
+                "type": "draft"
+            },
+            {
+                "title": "Categories",
+                "name": "categories",
+                "type": "categories"
+            },
+            {
+                "title": "Tags",
+                "name": "tags",
+                "type": "tags"
+            }
+            ]
+        }
+    ],
+    "frontMatter.taxonomy.dateFormat": "yyyy-MM-dd HH:mm:ss XX"
+}

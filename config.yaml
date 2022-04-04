@@ -1,4 +1,5 @@
 baseURL: https://interp.blog/
+defaultContentLanguage: ko
 languageCode: ko-kr
 title: "InterP Blog"
 theme: paper-mod
@@ -19,6 +20,10 @@ params:
   author: ["InterP"]
   cover:
     relative: true
+  mainSections:
+  - tech
+  - essay
+  - review 
 
 outputs:
     home:
@@ -28,16 +33,16 @@ outputs:
 
 menu:
   main:
-  - identifier: archive
-    name: Archives
-    #pre: <i class='fa fa-heart'></i>
-    url: /archives/
-    weight: 100
-  - identifier: search
-    name: Search
-    #pre: <i class='fa fa-heart'></i>
-    url: /search/
-    weight: 150
+  # - identifier: archive ### need to unite all date string, see '인간실격'
+  #   name: Archives
+  #   #pre: <i class='fa fa-heart'></i>
+  #   url: /archives/
+  #   weight: 100
+  # - identifier: search ### need to configure fuse.js to hide drafts
+  #   name: Search
+  #   #pre: <i class='fa fa-heart'></i>
+  #   url: /search/
+  #   weight: 150
   - identifier: tech
     name: Tech
     #pre: <i class='fa fa-heart'></i>
