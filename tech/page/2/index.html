@@ -1,4 +1,4 @@
-<!doctype html><html lang=en dir=auto>
+<!doctype html><html lang=ko dir=auto>
 <head><meta charset=utf-8>
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
@@ -13,7 +13,7 @@
 <meta name=description content="Tips, dev. environment, and so on.">
 <meta name=author content="InterP">
 <link rel=canonical href=https://interp.blog/tech/>
-<link crossorigin=anonymous href=/assets/css/stylesheet.min.9906a2b74cdafd3190ad7dbbc2fccdff9c2aaff204038b3d609a6041a2d43a49.css integrity="sha256-mQait0za/TGQrX27wvzN/5wqr/IEA4s9YJpgQaLUOkk=" rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.249aeaee013a9e12701551bc1e2fed22c5d275b38711de8d173c6538b60c5fa6.css integrity="sha256-JJrq7gE6nhJwFVG8Hi/tIsXSdbOHEd6NFzxlOLYMX6Y=" rel="preload stylesheet" as=style>
 <link rel=icon href=https://interp.blog/favicon.ico>
 <link rel=icon type=image/png sizes=16x16 href=https://interp.blog/favicon-16x16.png>
 <link rel=icon type=image/png sizes=32x32 href=https://interp.blog/favicon-32x32.png>
@@ -63,16 +63,6 @@
 <span>Review</span>
 </a>
 </li>
-<li>
-<a href=https://interp.blog/archives/ title=Archives>
-<span>Archives</span>
-</a>
-</li>
-<li>
-<a href=https://interp.blog/search/ title="Search (Alt + /)" accesskey=/>
-<span>Search</span>
-</a>
-</li>
 </ul>
 </nav>
 </header>
@@ -85,6 +75,18 @@ Tips, dev. environment, and so on.
 </header>
 <article class=post-entry>
 <header class=entry-header>
+<h2>Timsort
+</h2>
+</header>
+<section class=entry-content>
+<p>학부에서 알고리즘 수업을 들으면, 가장 빠른 정렬 알고리즘이 뭐냐는 질문에 쉽게 Quicksort 라고 답할 수 있겠다. 실제로 현업에서도 적용하기 가장 편하기 때문에 많이 차용되는 편이다. 그런데 모든 문제를 쉽게 풀 수 있는 은탄은 세상에 존재하지 않듯, Quicksort 역시 특정 케이스에서는 성능이 낮게 나오는 경우가 있다. 더 심각한(?) 것은, 이 특정 케이스가 현실에서는 꽤나 자주 발생한다는 것이다.
+그 케이스란 바로 ‘거의 정렬된 데이터’ 이다. 거의 정렬된 데이터라면 pivoting – partitioning 을 반복할 필요도 없이 Bubble Sort 나, 심지어는 Insertion Sort 를 해도 된다....</p>
+</section>
+<footer class=entry-footer><span title="2018-04-23 01:36:57 +0000 UTC">4월 23, 2018</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to Timsort" href=https://interp.blog/timsort/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
 <h2>gdb commands 이용하기
 </h2>
 </header>
@@ -93,7 +95,7 @@ Tips, dev. environment, and so on.
 참고 : 매뉴얼
 Breakpoint 상황을 출력하기 10 *sAddr = malloc(aSize); 11 if (*sAddr != NULL) 12 ... 위 코드에서 if 문에 breakpoint 를 걸고, 할당받은 시작 주소와 그 크기를 보고자 한다. 한두번 발생하는 거라면 breakpoint 를 걸어 둔 다음 print 나 graph display (ddd 전용) 으로 띄워서 관찰하면 된다....</p>
 </section>
-<footer class=entry-footer><span title="2018-02-06 08:46:05 +0000 UTC">February 6, 2018</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
+<footer class=entry-footer><span title="2018-02-06 08:46:05 +0000 UTC">2월 6, 2018</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
 <a class=entry-link aria-label="post link to gdb commands 이용하기" href=https://interp.blog/gdb-commands-%EC%9D%B4%EC%9A%A9%ED%95%98%EA%B8%B0/></a>
 </article>
 <article class=post-entry>
@@ -106,7 +108,7 @@ Breakpoint 상황을 출력하기 10 *sAddr = malloc(aSize); 11 if (*sAddr != NU
 이 문서를 참고해도 좋지만, VTune 이 설치된 경로에서 sepdk/src/README.txt 를 보는 게 더 쉽다. 이 내용을 요약하면,
 커널 환경변수를 체크한다. 프로파일링이 가능하고 모듈 로딩이 가능해야 한다. CONFIG_MODULES=y CONFIG_MODULE_UNLOAD=y CONFIG_PROFILING=y 커널 드라이버를 컴파일시킬 헤더파일이 필요하다....</p>
 </section>
-<footer class=entry-footer><span title="2018-01-22 05:19:48 +0000 UTC">January 22, 2018</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
+<footer class=entry-footer><span title="2018-01-22 05:19:48 +0000 UTC">1월 22, 2018</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
 <a class=entry-link aria-label="post link to Intel VTune Memory Bandwidth 분석하기" href=https://interp.blog/vtune-memory-bandwidth/></a>
 </article>
 <article class=post-entry>
@@ -119,7 +121,7 @@ Breakpoint 상황을 출력하기 10 *sAddr = malloc(aSize); 11 if (*sAddr != NU
 그래서 이걸 끌 수 있는 방법을 두 가지 찾았는데, 하나는 레지스트리를 수정하는 것이라 귀찮았다. 다른 하나는 그 것보단 간단하다. 아래 스크린샷 순서대로 따라가 체크를 해제하면 된다.
 제어판 > 시스템으로 들어간 다음, 고급 시스템 설정으로 들어간다. 고급 탭에서, 성능 항목에 ‘설정…’ 을 클릭한다. ‘시각 효과’ 탭에서, 창의 제어 및 요소에 애니메이션 효과 추가 항목의 체크를 해제한다....</p>
 </section>
-<footer class=entry-footer><span title="2018-01-16 12:14:29 +0000 UTC">January 16, 2018</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
+<footer class=entry-footer><span title="2018-01-16 12:14:29 +0000 UTC">1월 16, 2018</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
 <a class=entry-link aria-label="post link to Office 2016 커서 애니메이션 끄기" href=https://interp.blog/office-2016-%EC%BB%A4%EC%84%9C-%EC%95%A0%EB%8B%88%EB%A9%94%EC%9D%B4%EC%85%98-%EB%81%84%EA%B8%B0/></a>
 </article>
 <article class=post-entry>
@@ -132,7 +134,7 @@ Breakpoint 상황을 출력하기 10 *sAddr = malloc(aSize); 11 if (*sAddr != NU
 바깥 세상(?) 에선 아직도 Java 개발자를 찾는 것이 현실이다. 이제 그것을 대비하는 차원이다. Java 하나만 가지고 대부분의 어플리케이션 개발에 비빌 수 있기 때문이기도 하다. (개인적으로, 이런 대중성이 Java 개발자의 가치를 떨어뜨린다고 전혀 생각하지 않는다. Java 개발자는 많지만, 좋은 Java 개발자를 찾는 것은 전혀 다른 문제라고 생각하니까.)
 이렇게 찾는 것이 현실일지라도, 이건 좋은 개발자를 프로젝트에 태우는 방법이 아니다....</p>
 </section>
-<footer class=entry-footer><span title="2018-01-09 07:09:07 +0000 UTC">January 9, 2018</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;interp</footer>
+<footer class=entry-footer><span title="2018-01-09 07:09:07 +0000 UTC">1월 9, 2018</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;interp</footer>
 <a class=entry-link aria-label="post link to Java Web Application 입문 (1) 준비운동" href=https://interp.blog/java-web-application-%EC%9E%85%EB%AC%B8-1-%EC%A4%80%EB%B9%84%EC%9A%B4%EB%8F%99/></a>
 </article>
 <article class=post-entry>
@@ -145,7 +147,7 @@ Breakpoint 상황을 출력하기 10 *sAddr = malloc(aSize); 11 if (*sAddr != NU
 아바타 상대 경로 설정 /opt/gitlab/embedded/service/gitlab-rails/app/models/concerns/avatarable.rb 파일에서 절대 경로로 수정하는 코드가 있는데, url_base 에 덧붙이는 코드들을 전부 주석처리하면 된다.
 module Avatarable extend ActiveSupport::Concern def avatar_path(only_path: true) return unless self[:avatar]....</p>
 </section>
-<footer class=entry-footer><span title="2018-01-08 02:35:20 +0000 UTC">January 8, 2018</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;interp</footer>
+<footer class=entry-footer><span title="2018-01-08 02:35:20 +0000 UTC">1월 8, 2018</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;interp</footer>
 <a class=entry-link aria-label="post link to Gitlab 아바타/첨부파일 상대 경로 설정" href=https://interp.blog/gitlab-%EC%95%84%EB%B0%94%ED%83%80-%EC%83%81%EB%8C%80-%EA%B2%BD%EB%A1%9C-%EC%84%A4%EC%A0%95/></a>
 </article>
 <article class=post-entry>
@@ -157,7 +159,7 @@ module Avatarable extend ActiveSupport::Concern def avatar_path(only_path: true)
 <p>Git 기반 프로세스 도구인 Gitlab 은 오픈소스이기 때문에 Community Edition 을 쓰건, Enterprise Edition 을 쓰건 상관없이 맘대로 수정해서 사용이 가능하다. 물론 적절한 감(?)으로 수정할 곳을 찾아야 하는 번거로움은 있다. 여기서는 Gitlab에서 문서 작성에 필요한 Markdown 의 Parser 부분을 수정하기 위한 방법을 정리해 둔다. Ruby 개발자가 아니라서 전체 빌드 순서가 정공법처럼 보이진 않겠지만.
 Gitlab의 Markdown Parser는 Redcarpet 을 사용한다. 아마 Jekyll 도 기본적으로 Redcarpet 을 사용하는 것으로 알고 있다. 만약 Ruby의 Redcarpet 을 Markdown Parser 로 쓰는 경우라면 똑같이 적용이 가능하다....</p>
 </section>
-<footer class=entry-footer><span title="2018-01-03 02:29:21 +0000 UTC">January 3, 2018</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;interp</footer>
+<footer class=entry-footer><span title="2018-01-03 02:29:21 +0000 UTC">1월 3, 2018</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;interp</footer>
 <a class=entry-link aria-label="post link to Gitlab Markdown Parser 바꾸기" href=https://interp.blog/gitlab-markdown-parser-%EB%B0%94%EA%BE%B8%EA%B8%B0/></a>
 </article>
 <article class=post-entry>
@@ -173,7 +175,7 @@ oh-my-zsh 에서, %{%K{123}%} 또는 %{%F{123}%} 를 가지고 색깔을 찾는�
 이 때 123 대신 0~255 를 입력한다.
 0~255 숫자와 대응되는 색상을 찾아야 하는데, 여기를 참고하면 도움이 된다....</p>
 </section>
-<footer class=entry-footer><span title="2017-12-13 05:43:01 +0000 UTC">December 13, 2017</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
+<footer class=entry-footer><span title="2017-12-13 05:43:01 +0000 UTC">12월 13, 2017</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
 <a class=entry-link aria-label="post link to oh-my-zsh 색깔 고르기" href=https://interp.blog/oh-zsh-%EC%83%89%EA%B9%94-%EA%B3%A0%EB%A5%B4%EA%B8%B0/></a>
 </article>
 <article class=post-entry>
@@ -185,7 +187,7 @@ oh-my-zsh 에서, %{%K{123}%} 또는 %{%F{123}%} 를 가지고 색깔을 찾는�
 <p>제목은 다음 내용을 포함하고 있다.
 Windows 10 에서 지원하는 Linux Subsystem 기능에 대해 이야기한다. 잘 모르겠다면 이 글을 읽고 설치에 도전해 보자. 그런데 글 내용을 보면 이거랑 관련 없다. Babun, Mintty, Git on Bash, Putty 전부 포함이다 SSH에 접속한 서버에서 X11 Forwarding 을 받고 싶은 경우를 이야기한다. 단적으로, 접속한 서버에서 파이어폭스 브라우저를 실행하면 내 윈도우 화면에 브라우저 창이 실행되는 거다. 이걸 따로 이야기하고 싶지 않으니 Xming 이나 VcXsrv (추천) 을 참고해 설치해보자....</p>
 </section>
-<footer class=entry-footer><span title="2017-11-29 08:32:52 +0000 UTC">November 29, 2017</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;interp</footer>
+<footer class=entry-footer><span title="2017-11-29 08:32:52 +0000 UTC">11월 29, 2017</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;interp</footer>
 <a class=entry-link aria-label="post link to X11 on Windows Linux Subsystem" href=https://interp.blog/x11-windows-linux-subsystem/></a>
 </article>
 <article class=post-entry>
@@ -197,25 +199,13 @@ Windows 10 에서 지원하는 Linux Subsystem 기능에 대해 이야기한다.
 <p>졸업프로젝트도 아니고, 기말고사 대신 치룬 텀프로젝트의 마지막을 장식할 윈도우 어플리케이션을 만들기 위해 배우려 했으나 문 앞에서 서성이기만 했던 바로 그 언어, C#을 당장 써먹어야 하는 상황이 발생했다. (이런 상황이 발생한 것이 참 안타깝긴 하지만) 배움의 기회로 삼는 수 밖에 없다.
 dotnet test 및 xUnit을 사용하여 .NET Core에서 C# 유닛 테스트라는 MS 문서를 기반으로 실습을 했는데, 여기서 중요한 것은, 내가 만들어야 하는 라이브러리의 Target Framework가 .NET Core 가 아니라 .NET Framework 4....</p>
 </section>
-<footer class=entry-footer><span title="2017-11-29 03:28:03 +0000 UTC">November 29, 2017</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;interp</footer>
+<footer class=entry-footer><span title="2017-11-29 03:28:03 +0000 UTC">11월 29, 2017</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;interp</footer>
 <a class=entry-link aria-label="post link to C# xUnit 실습" href=https://interp.blog/c-xunit-%EC%8B%A4%EC%8A%B5/></a>
-</article>
-<article class=post-entry>
-<header class=entry-header>
-<h2>Gitlab 삽질기
-</h2>
-</header>
-<section class=entry-content>
-<p>Upgrade 8.x 로 쓰다가 10.x 로 업그레이드를 진행했다. 아니.. 그런데 Postgresql Database 버전이 다르다고? 알고보니 이렇게 대격변을 일으키면 안 되던 거였다. 그래서 겸사겸사 9.5.10 으로 다시 설치하니까 된다.
-gitlab-ctl reconfigure 를 설치 직후에 반드시 해 줘야 한다. 가끔 gitlab-ctl pg-upgrade 를 꼭 하라는 말이 있던데, 내가 해보니까 gitlab-ctl reconfigure 할 때 알아서 한다 (…) 했던 거 또 하는 느낌. gitlab-ctl restart 를 할 때 postgresql 이나 다른 곳에서 ‘down, up, want up’ 이런 게 뜨면 서비스가 온전히 수행될 수 없는 상황이다....</p>
-</section>
-<footer class=entry-footer><span title="2017-11-15 09:17:58 +0000 UTC">November 15, 2017</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;interp</footer>
-<a class=entry-link aria-label="post link to Gitlab 삽질기" href=https://interp.blog/gitlab-%EC%82%BD%EC%A7%88%EA%B8%B0/></a>
 </article>
 <footer class=page-footer>
 <nav class=pagination>
-<a class=prev href=https://interp.blog/tech/>« Prev Page</a>
-<a class=next href=https://interp.blog/tech/page/3/>Next Page »</a>
+<a class=prev href=https://interp.blog/tech/>« 이전 페이지</a>
+<a class=next href=https://interp.blog/tech/page/3/>다음 페이지 »</a>
 </nav>
 </footer>
 </main>

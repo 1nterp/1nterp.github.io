@@ -1,4 +1,4 @@
-<!doctype html><html lang=en dir=auto>
+<!doctype html><html lang=ko dir=auto>
 <head><meta charset=utf-8>
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
@@ -13,7 +13,7 @@
 <meta name=description content>
 <meta name=author content="InterP">
 <link rel=canonical href=https://interp.blog/tags/linux/>
-<link crossorigin=anonymous href=/assets/css/stylesheet.min.9906a2b74cdafd3190ad7dbbc2fccdff9c2aaff204038b3d609a6041a2d43a49.css integrity="sha256-mQait0za/TGQrX27wvzN/5wqr/IEA4s9YJpgQaLUOkk=" rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.249aeaee013a9e12701551bc1e2fed22c5d275b38711de8d173c6538b60c5fa6.css integrity="sha256-JJrq7gE6nhJwFVG8Hi/tIsXSdbOHEd6NFzxlOLYMX6Y=" rel="preload stylesheet" as=style>
 <link rel=icon href=https://interp.blog/favicon.ico>
 <link rel=icon type=image/png sizes=16x16 href=https://interp.blog/favicon-16x16.png>
 <link rel=icon type=image/png sizes=32x32 href=https://interp.blog/favicon-32x32.png>
@@ -62,16 +62,6 @@
 <span>Review</span>
 </a>
 </li>
-<li>
-<a href=https://interp.blog/archives/ title=Archives>
-<span>Archives</span>
-</a>
-</li>
-<li>
-<a href=https://interp.blog/search/ title="Search (Alt + /)" accesskey=/>
-<span>Search</span>
-</a>
-</li>
 </ul>
 </nav>
 </header>
@@ -89,7 +79,7 @@
 CPU / Memory 확인 CPU / Memory 는 사실 쉽다. /proc/cpuinfo 와 /proc/meminfo 안에 들어있기 때문이다.
 $ cat /proc/cpuinfo | grep "model name" | sort -u model name : Intel(R) Core(TM) i3-4160 CPU @ 3.60GHz $ cat /proc/meminfo | grep "MemTotal" MemTotal: 8040588 kB Disk 확인 df 는 mount 된 것만 확인이 가능해서 별로고, lsblk 를 하면 마운트되지 않은 것까지 나온다....</p>
 </section>
-<footer class=entry-footer><span title="2017-10-30 08:31:03 +0000 UTC">October 30, 2017</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
+<footer class=entry-footer><span title="2017-10-30 08:31:03 +0000 UTC">10월 30, 2017</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
 <a class=entry-link aria-label="post link to Linux 에서 CPU/Memory/Disk 확인" href=https://interp.blog/linux-%EC%97%90%EC%84%9C-cpumemorydisk-%ED%99%95%EC%9D%B8/></a>
 </article>
 <article class="post-entry tag-entry">
@@ -105,7 +95,7 @@ map or unmap files or devices into memory
 사용 void * mmap(void *start, size_t length, int prot, int flags, int fd, off_t offset); 여기서 의미가 있는 건 Length, Prot (Protection), Flag 뿐이다.
 Start 는, Kernel이 아무 곳이나 지정해도 좋다면 NULL을 입력한다. Offset 은, 보통 0으로 둔다....</p>
 </section>
-<footer class=entry-footer><span title="2017-09-20 13:29:57 +0000 UTC">September 20, 2017</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;interp</footer>
+<footer class=entry-footer><span title="2017-09-20 13:29:57 +0000 UTC">9월 20, 2017</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;interp</footer>
 <a class=entry-link aria-label="post link to mmap : 메모리를 파일처럼" href=https://interp.blog/mmap-%EB%A9%94%EB%AA%A8%EB%A6%AC%EB%A5%BC-%ED%8C%8C%EC%9D%BC%EC%B2%98%EB%9F%BC/></a>
 </article>
 </main>
