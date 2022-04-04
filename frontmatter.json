@@ -1,0 +1,61 @@
+{
+  "$schema": "https://frontmatter.codes/frontmatter.schema.json",
+  "frontMatter.framework.id": "hugo",
+  "frontMatter.content.publicFolder": "static",
+  "frontMatter.content.pageFolders": [
+    {
+      "title": "content",
+      "path": "[[workspace]]/content"
+    }
+  ],
+  "frontMatter.content.snippets": {
+    "Highlight": {
+      "description": "Syntax Highlighting",
+      "body": [
+        "{{< highlight [[type]] \\\"linenos=table,noclasses=false\\\" >}}",
+        "  [[selection]]",
+        "{{< / highlight >}}"
+      ],
+      "fields": [
+        {
+          "name": "type",
+          "title": "type",
+          "type": "string",
+          "single": true,
+          "default": ""
+        },
+        {
+          "name": "selection",
+          "title": "selection",
+          "type": "string",
+          "single": true,
+          "default": ""
+        }
+      ]
+    },
+    "Figure": {
+      "description": "Figure with caption",
+      "body": [
+        "<center>",
+        "{{< figure src=\"[[&img]]\" caption=\"[[caption]]\" >}}",
+        "</center>"
+      ],
+      "fields": [
+        {
+          "name": "img",
+          "title": "img",
+          "type": "string",
+          "single": true,
+          "default": ""
+        },
+        {
+          "name": "caption",
+          "title": "caption",
+          "type": "string",
+          "single": true,
+          "default": ""
+        }
+      ]
+    }
+  }
+}
