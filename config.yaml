@@ -9,7 +9,7 @@ disqusShortname: interp-blog
 
 params:
   comments: true
-  defaultTheme: auto
+  defaultTheme: light
   ShowPostNavLinks: true
   homeInfoParams:
     Title: InterP Blog ✌
