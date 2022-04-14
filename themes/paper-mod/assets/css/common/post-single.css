@@ -1,6 +1,7 @@
 .page-header,
 .post-header {
     margin: 24px auto var(--content-gap) auto;
+    width: 95%;
 }
 
 .post-title {
@@ -33,6 +34,8 @@
 }
 
 .post-content {
+    width: 95%;
+    margin: 0 auto;
     color: var(--content);
     font-weight: 300;
 }
@@ -311,8 +314,8 @@
 .share-buttons,
 .paginav {
     border-radius: var(--radius);
-    background: var(--code-bg);
-    border: 1px solid var(--border);
+    /* background: var(--code-bg); */
+    /* border: 1px solid var(--border); */
 }
 
 .post-tags a {
