@@ -1,0 +1,52 @@
+---
+label: blog
+hide_body: false
+fields:
+- type: text
+  name: title
+  label: Title
+  config:
+    required: true
+- type: text
+  name: author
+  label: Author
+  default: InterP
+  hidden: true
+- type: datetime
+  name: date
+  label: Date
+  config:
+    date_format: YYYY-MM-DD
+    time_format: hh:mm ZZ
+    export_format: YYYY-MM-DD hh:mm
+    required: true
+  default: now
+- type: text
+  name: url
+  label: URL
+  config:
+    required: false
+- type: list
+  name: categories
+  label: Category
+  config:
+    use_select: true
+    source:
+      type: simple
+    options:
+    - Tech
+    - Review
+    - Essay
+- name: tags
+  type: tag_list
+  default: []
+  label: Tag
+- type: field_group
+  name: cover
+  label: Cover
+  fields:
+  - type: file
+    name: image
+    label: Feature Image
+pages:
+- content/tech/지금은.md
