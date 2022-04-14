@@ -12,7 +12,8 @@
 <meta name=description content>
 <meta name=author content="InterP">
 <link rel=canonical href=https://interp.blog/>
-<link crossorigin=anonymous href=/assets/css/stylesheet.min.249aeaee013a9e12701551bc1e2fed22c5d275b38711de8d173c6538b60c5fa6.css integrity="sha256-JJrq7gE6nhJwFVG8Hi/tIsXSdbOHEd6NFzxlOLYMX6Y=" rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.acfe2752e2f372c268e77efbda7527e3414a8dce1b6337e9ac4b63e26bcb0bf3.css integrity="sha256-rP4nUuLzcsJo53772nUn40FKjc4bYzfprEtj4mvLC/M=" rel="preload stylesheet" as=style>
+<link rel=preload href=https://ko.gravatar.com/userimage/55729251/9412ef61b7ae20adcf2b9e38e49c8042.jpeg as=image>
 <link rel=icon href=https://interp.blog/favicon.ico>
 <link rel=icon type=image/png sizes=16x16 href=https://interp.blog/favicon-16x16.png>
 <link rel=icon type=image/png sizes=32x32 href=https://interp.blog/favicon-32x32.png>
@@ -25,7 +26,6 @@
 <link rel=alternate type=application/json href=https://interp.blog/index.json>
 <noscript>
 <style>#theme-toggle,.top-link{display:none}</style>
-<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
 </noscript>
 <script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-126809878-1','auto'),ga('send','pageview'))</script><meta property="og:title" content="InterP Blog">
 <meta property="og:description" content>
@@ -34,10 +34,10 @@
 <meta name=twitter:card content="summary">
 <meta name=twitter:title content="InterP Blog">
 <meta name=twitter:description content>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"Organization","name":"InterP Blog","url":"https://interp.blog/","description":"","thumbnailUrl":"https://interp.blog/favicon.ico","sameAs":[]}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"Organization","name":"InterP Blog","url":"https://interp.blog/","description":"","thumbnailUrl":"https://interp.blog/favicon.ico","sameAs":["\u003clink\u003e","\u003clink2\u003e"]}</script>
 </head>
-<body class=list id=top>
-<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
+<body class="list dark" id=top>
+<script>localStorage.getItem("pref-theme")==="light"&&document.body.classList.remove('dark')</script>
 <header class=header>
 <nav class=nav>
 <div class=logo>
@@ -66,155 +66,25 @@
 </ul>
 </nav>
 </header>
-<main class=main>
-<article class="first-entry home-info">
-<header class=entry-header>
-<h1>InterP Blog ✌</h1>
-</header>
-<section class=entry-content>
-<p>The longer I am here, the smarter they will be</p>
-</section>
-<footer class=entry-footer>
-<div class=social-icons>
+<main class=main><div class=profile>
+<div class=profile_inner><img src=https://ko.gravatar.com/userimage/55729251/9412ef61b7ae20adcf2b9e38e49c8042.jpeg alt="profile image" height=120 width=120>
+<h1>InterP</h1>
+<span>Cloud-service DevOps / Database-engine Developer</span><div class=social-icons>
+<a href=%3clink%3e target=_blank rel="noopener noreferrer me" title=Twitter><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9.0 01-3.14 1.53 4.48 4.48.0 00-7.86 3v1A10.66 10.66.0 013 4s-4 9 5 13a11.64 11.64.0 01-7 2c9 5 20 0 20-11.5a4.5 4.5.0 00-.08-.83A7.72 7.72.0 0023 3z"/></svg>
+</a>
+<a href=%3clink2%3e target=_blank rel="noopener noreferrer me" title=Facebook><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+</a>
 </div>
-</footer>
-</article>
-<article class=post-entry>
-<header class=entry-header>
-<h2>k8s Operator vs. Controller
-</h2>
-</header>
-<section class=entry-content>
-<p>쿠버네티스에서 서비스를 개발하거나 운영하다 보면 자주 접하게 될 개념 중 하나가, 바로 이 Controller 와 Operator 일 것이다. 어떤 경우에는, 동일한 서비스를 두고 ‘이건 Controller 야’ 라고 말 할 때도 있고 ‘이 Operator 는…’ 이라고 불릴 때도 있어서 헷갈릴 수 있다. 심지어 공식 문서에서도 두 개념에 대한 비교는 하지 않고 있어서 명확한 구분이 필요한 것 같다.
-와중에 이 문서를 발견했는데, 요약하자면 이렇다.
-Controller So in the Kubernetes world, a controller will basically monitor and measure the cluster resources state to adjust those resources that diverge from the desired state....</p>
-</section>
-<footer class=entry-footer><span title="2022-03-15 02:44:57 +0000 UTC">3월 15, 2022</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;interp</footer>
-<a class=entry-link aria-label="post link to k8s Operator vs. Controller" href=https://interp.blog/kubernetes-operator-vs-controller/></a>
-</article>
-<article class=post-entry>
-<figure class=entry-cover><img loading=lazy src=https://interp.blog/images/featured/the-book-you-wish-your-parents-had-read.jpg alt>
-</figure>
-<header class=entry-header>
-<h2>나의 부모님이 이 책을 읽었더라면
-</h2>
-</header>
-<section class=entry-content>
-<p>책 제목이 나에겐 조금 자극적이었는데, 마치 이렇게 지내는 내가 나의 부모님 때문이라는 일종의 책임전가 같은 느낌이 들어서였다. 물론 실제 내용은 그렇진 않고 무던하면서도 세세하게 양육법에 대한 상담 내용이나 저자의 생각을 공유한다.
-당장 생각나는 것은 이 정도이다.
-(전부는 아니지만) 대개 양육에서 어려움을 느끼는 부분은, 내가 자라면서 겪은 부분이 반영된 것이다. 그 부분이 나의 부모님의 잘못일 수도 있고, 환경적인 문제일 수도 있고, 시대 또는 집안에서 요구한 (혹은 묵인한) 양육법의 문제일 수도 있다....</p>
-</section>
-<footer class=entry-footer><span title="2022-03-02 00:00:06.875 +0000 UTC">3월 2, 2022</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;interp</footer>
-<a class=entry-link aria-label="post link to 나의 부모님이 이 책을 읽었더라면" href=https://interp.blog/the-book-you-wish-your-parents-had-read/></a>
-</article>
-<article class=post-entry>
-<figure class=entry-cover><img loading=lazy src=https://interp.blog/images/2022-02-28-elden-ring/featured.jpg alt>
-</figure>
-<header class=entry-header>
-<h2>엘든 링, 10시간 리뷰
-</h2>
-</header>
-<section class=entry-content>
-<p>메타크리틱과 오픈크리틱에서 GOTY 급 평점을 받은 그 게임, 그 때문인지 모든 스트리머와 게이머의 기대를 한 몸에 받아 수 많은 이슈를 한 몸에 받아내고 있는 ‘프롬 소프트웨어’ 의 2022년 신작 ‘엘든 링’ 을 10시간 가량 해 보고 난 소감을 적어본다.
-10시간 가량 했지만, 이제 겨우 멀기트를 잡았다. 새로운 지역을 싸돌아 다니면서 맵 아이템만 줍줍하고 보이는 축복들만 밝혔더니 스톰빌 전은 거진 다 밝혔다. (보스 잡은게 몇 없어서 그렇지…)
-스카이림 + 블러드본 인생 게임에 대한 이야기를 시작하게 되면, ‘엘더 스크롤 5: 스카이림’ 과 ‘블러드본’ 은 항상 나에게 두 손가락 안에 드는 게임으로 꼽힌다....</p>
-</section>
-<footer class=entry-footer><span title="2022-02-28 08:53:20 +0000 UTC">2월 28, 2022</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;interp</footer>
-<a class=entry-link aria-label="post link to 엘든 링, 10시간 리뷰" href=https://interp.blog/elden-ring-10h-review/></a>
-</article>
-<article class=post-entry>
-<figure class=entry-cover><img loading=lazy src=https://interp.blog/images/2022-02-13-being-busy-habit/feature.jpg alt>
-</figure>
-<header class=entry-header>
-<h2>바쁜 것도 습관입니다
-</h2>
-</header>
-<section class=entry-content>
-<p>저자인 아리카와 마유미는 50가지 이상의 직업을 가져 본 40대의 베스트셀러 작가라고 한다. 이 책은 자기계발서이긴 하지만, 시간을 효율적으로 쓰는 기술을 알려주는 책은 아니다.
-책에서 이야기하는 ‘8가지 기술’이란 사실, 마음가짐에 대한 조언이다.
-시간을 보내는 기분에 집중한다. 목적의식을 갖고 시간을 쓴다. 나만의 철학으로 우선순위를 매긴다. 지금 하고 싶은 일을 미루지 않는다. 너무 깊은 생각은 행동으로 끊는다. 나를 행복하게 만드는 관계에 집중한다. 지속가능한 삶을 위해 시간을 쌓는다. 일상의 호사스러움을 놓치지 않는다. 그러나 이 항목은 어쩐지 억지로 끼워 맞춘 듯 해 보이고, 아마 저자가 한편씩 내키는대로 (?...</p>
-</section>
-<footer class=entry-footer><span title="2022-02-13 22:26:07 +0900 +0900">2월 13, 2022</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;interp</footer>
-<a class=entry-link aria-label="post link to 바쁜 것도 습관입니다" href=https://interp.blog/being-busy-habit/></a>
-</article>
-<article class=post-entry>
-<header class=entry-header>
-<h2>카카오/네이버 메일 아이폰 연동
-</h2>
-</header>
-<section class=entry-content>
-<p>요약 원래는 홈페이지에서 하라는 대로 하면 된다. 비밀번호를 잘 입력했는데 서버 접속이 안 된다면, 혹시 2단계 인증을 쓰고 있지는 않은지? 2단계 인증을 쓰는 경우라면, 앱 비밀번호를 별도로 발급받는다. 참고 카카오 메일 뿐만 아니라 네이버 메일이나 네이버 캘린더 동기화도 비슷하다. 아래에 ‘부록’ 으로 달아뒀으니 참고하면 된다.
-설정 방법 PC 에서 브라우저를 열고, 카카오 메일을 접속한다. 모바일 브라우저에서 카카오 메일을 접속하면 카카오톡으로 리다이렉트 되는데, 카카오톡에서는 해당 설정을 진행할 수 없다....</p>
-</section>
-<footer class=entry-footer><span title="2022-02-04 16:35:37 +0000 UTC">2월 4, 2022</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;InterP</footer>
-<a class=entry-link aria-label="post link to 카카오/네이버 메일 아이폰 연동" href=https://interp.blog/kakao-naver-email-iphone-connect/></a>
-</article>
-<article class=post-entry>
-<header class=entry-header>
-<h2>CKA 시험 후기
-</h2>
-</header>
-<section class=entry-content>
-<p>CKA (Certified K8s Administrator) 를 2021년 12월 말에 합격 통지를 받았다. 합격을 받고 나서 정리한 팁을 공유하고자 한다.
-강의 매우 유명한 Udemy 의 Mumshard 강의를 완강했다. 내가 너무 초보여서 그런지는 몰라도, 기초 강의도 기본을 다지고 한번 더 리마인드 하자는 차원에서 완강을 했고, 결론적으로는 시험 뿐만 아니라 업무에도 큰 도움이 되고 있다.
-이해가 쏙쏙 되는 강의 지속적인 업데이트 KodeCloud 를 통한 인터렉티브 연습 문제 (엄청 많다!) 3개의 모의고사 (요점은 다 나온다) 유료 (이긴 한데 상시 할인이라 큰 부담은 없다....</p>
-</section>
-<footer class=entry-footer><span title="2022-01-18 22:38:42 +0000 UTC">1월 18, 2022</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;InterP</footer>
-<a class=entry-link aria-label="post link to CKA 시험 후기" href=https://interp.blog/cka-exam-review/></a>
-</article>
-<article class=post-entry>
-<header class=entry-header>
-<h2>Hugo SCSS Rebuild
-</h2>
-</header>
-<section class=entry-content>
-<p>Hugo 에 포함된 Theme 에는 대부분 SASS/SCSS 파일로 스타일링을 했는데, 여기서 SCSS 내용을 변경해도 사이트 빌드할 때 변경 내용이 적용이 되지 않았다. 원칙적으론 되어야 한다. 어떻게 해결했는지 간단히 적어본다.</p>
-</section>
-<footer class=entry-footer><span title="2020-01-31 00:35:23 +0900 +0900">1월 31, 2020</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;InterP</footer>
-<a class=entry-link aria-label="post link to Hugo SCSS Rebuild" href=https://interp.blog/tech/2020-01-31-hugo-scss-rebuild/></a>
-</article>
-<article class=post-entry>
-<header class=entry-header>
-<h2>바보가 되고 있다
-</h2>
-</header>
-<section class=entry-content>
-<p>생각이 글이 되고 글이 정제된 다른 글이 되는 연계를 계속 해야 하는데. 어느 샌가 단편적인 이미지, 몇 분짜리 동영상, 흘러가는 명언에 시간을 소비하고 있는 것은 아닌지, 양심의 가책을 느낀다. 생각의 소스가 되는 것들이 저급한 것이라고 할 순 없겠지만, 그게 내 손에서 일궈진 것이 아니라서 값지지 않게 느껴진다. 유망주 투수의 현란한 로케이션이 담긴 GIF, 대중 매체를 알지 못하면 이해할 수 없는 드립, 당신을 움직이게 만들 것이라고 광고하는 몇 컷 짜리 자기계발서 요약 슬라이드들이 그런 것이다....</p>
-</section>
-<footer class=entry-footer><span title="2019-08-29 22:41:30 +0000 UTC">8월 29, 2019</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;interp</footer>
-<a class=entry-link aria-label="post link to 바보가 되고 있다" href=https://interp.blog/%EB%B0%94%EB%B3%B4%EA%B0%80-%EB%90%98%EA%B3%A0-%EC%9E%88%EB%8B%A4/></a>
-</article>
-<article class=post-entry>
-<header class=entry-header>
-<h2>Visual Studio Code Remote Deployment
-</h2>
-</header>
-<section class=entry-content>
-<p>Vim 과 SSH 에 찌들어 있었는데, 이번 Visual Studio Code 의 베타 기능인 Remote Deployment 를 연결해 보고 나서, 학생 때 쓰던 IDE 로 돌아간 것 같아 너무 좋았다. 언제까지고 구식 도구를 쓰며 부심을 부릴 수만은 없다. 설치 과정이 조금 험난했지만, 간단히 요약해서 써본다.
-클라이언트 OS 는 윈도우 10 (빌드 1809), 서버 OS 는 Cent OS 7 기준으로 작성한다.
-클라이언트 (윈도우) 준비 처음에 준비할 때는 Visual Studio Code Insider 버전을 설치하라고 되어 있었는데, 이제는 꼭 그럴 필요 없는 것 같다....</p>
-</section>
-<footer class=entry-footer><span title="2019-06-26 05:11:21 +0000 UTC">6월 26, 2019</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;interp</footer>
-<a class=entry-link aria-label="post link to Visual Studio Code Remote Deployment" href=https://interp.blog/visual-studio-code-remote-deployment/></a>
-</article>
-<article class=post-entry>
-<header class=entry-header>
-<h2>경력직 면접의 단상
-</h2>
-</header>
-<section class=entry-content>
-<p>처음에는 경력직을 선호했고, 나도 그랬다.
-개발자를 충원하자는 계획에 맞춰, 공고를 등록하고 경력직 이력서를 받으면서 이 정도 커리어면 뭐든지 붙을 수 있을거라고 생각했을 것이다. 하지만 그 때의 실패들이 쌓여 이제는 경력직이나 신입이나 동일 선상에 놓고 평가하고 있다.
-내가 몸 담고 있는 필드는 국내에서 잘 하지 않는 분야다. 없진 않지만, 사용자 경험과 컴퓨터 구조를 동시에 신경 써야 하는 조직이다. (물론 개발자 1인이 모두 신경 쓰는 것은 아니다.) 그런데, 소위 SI 업체나 프리랜서 개발자들의 면접을 보면 괜히 미안해진다....</p>
-</section>
-<footer class=entry-footer><span title="2019-05-12 12:40:26 +0000 UTC">5월 12, 2019</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;interp</footer>
-<a class=entry-link aria-label="post link to 경력직 면접의 단상" href=https://interp.blog/%EA%B2%BD%EB%A0%A5%EC%A7%81-%EB%A9%B4%EC%A0%91-%EB%8B%A8%EC%83%81/></a>
-</article>
-<footer class=page-footer>
-<nav class=pagination>
-<a class=next href=https://interp.blog/page/2/>다음 페이지 »</a>
-</nav>
-</footer>
+<div class=buttons>
+<a class=button href=/archives rel=noopener title=Archive>
+<span class=button-inner>Archive</span>
+</a>
+<a class=button href=https://github.com/1nterp rel=noopener title=Github>
+<span class=button-inner>Github</span>
+</a>
+</div>
+</div>
+</div>
 </main>
 <footer class=footer>
 <span>&copy; 2022 <a href=https://interp.blog/>InterP Blog</a></span>

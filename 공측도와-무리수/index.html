@@ -15,7 +15,7 @@
 그런데 19세기 조지 크리스털이 증명한 것은, 정사각형의 변과 대각선의 변을 동시에 측정할 수 있는 선분은 없다는 것이다. 왜일까? 귀류법을 통해, 정사각형의 변과 대각선의 변을 동시에 측정할 수 있는 선분이 있다고 가정하면 된단다.">
 <meta name=author content="interp">
 <link rel=canonical href=https://interp.blog/%EA%B3%B5%EC%B8%A1%EB%8F%84%EC%99%80-%EB%AC%B4%EB%A6%AC%EC%88%98/>
-<link crossorigin=anonymous href=/assets/css/stylesheet.min.249aeaee013a9e12701551bc1e2fed22c5d275b38711de8d173c6538b60c5fa6.css integrity="sha256-JJrq7gE6nhJwFVG8Hi/tIsXSdbOHEd6NFzxlOLYMX6Y=" rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.acfe2752e2f372c268e77efbda7527e3414a8dce1b6337e9ac4b63e26bcb0bf3.css integrity="sha256-rP4nUuLzcsJo53772nUn40FKjc4bYzfprEtj4mvLC/M=" rel="preload stylesheet" as=style>
 <script defer crossorigin=anonymous src=/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5+kdJvBz5iKbt6B5PJI=" onload=hljs.initHighlightingOnLoad()></script>
 <link rel=icon href=https://interp.blog/favicon.ico>
 <link rel=icon type=image/png sizes=16x16 href=https://interp.blog/favicon-16x16.png>
@@ -27,7 +27,6 @@
 <meta name=generator content="Hugo 0.91.2">
 <noscript>
 <style>#theme-toggle,.top-link{display:none}</style>
-<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
 </noscript>
 <script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-126809878-1','auto'),ga('send','pageview'))</script><meta property="og:title" content="공측도와 무리수">
 <meta property="og:description" content="&lsquo;알고리즘 산책&rsquo; 책 요약이다. 까먹지 않으려고 정리한다.
@@ -45,8 +44,8 @@
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tech 🛠️","item":"https://interp.blog/tech/"},{"@type":"ListItem","position":2,"name":"공측도와 무리수","item":"https://interp.blog/%EA%B3%B5%EC%B8%A1%EB%8F%84%EC%99%80-%EB%AC%B4%EB%A6%AC%EC%88%98/"}]}</script>
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"공측도와 무리수","name":"공측도와 무리수","description":"\u0026lsquo;알고리즘 산책\u0026rsquo; 책 요약이다. 까먹지 않으려고 정리한다.\n최대공측도는 최대공약수 같은 개념이다. 선분 A와 B가 특정한 길이로 측정이 가능할 때, 이 길이 중 가장 긴 길이를 최대공측도라고 하는 것이다. 이 값을 구하는 코딩 역시 최대공약수 계산과 다르지 않다. 여기서 공측도 값이 되는 선분 길이는 자연수이다.\n그런데 19세기 조지 크리스털이 증명한 것은, 정사각형의 변과 대각선의 변을 동시에 측정할 수 있는 선분은 없다는 것이다. 왜일까? 귀류법을 통해, 정사각형의 변과 대각선의 변을 동시에 측정할 수 있는 선분이 있다고 가정하면 된단다.","keywords":[],"articleBody":"‘알고리즘 산책’ 책 요약이다. 까먹지 않으려고 정리한다.\n최대공측도는 최대공약수 같은 개념이다. 선분 A와 B가 특정한 길이로 측정이 가능할 때, 이 길이 중 가장 긴 길이를 최대공측도라고 하는 것이다. 이 값을 구하는 코딩 역시 최대공약수 계산과 다르지 않다. 여기서 공측도 값이 되는 선분 길이는 자연수이다.\n그런데 19세기 조지 크리스털이 증명한 것은, 정사각형의 변과 대각선의 변을 동시에 측정할 수 있는 선분은 없다는 것이다. 왜일까? 귀류법을 통해, 정사각형의 변과 대각선의 변을 동시에 측정할 수 있는 선분이 있다고 가정하면 된단다. 여기 다 정리할 수는 없고 요약만 하자면, 동시에 측정할 수 있는 선분으로 그린 정사각형을 계속 생각하다 보면, 어느 순간 가장 작은 정사각형이 나올 것이다. 하지만 이 경우에도 선분이 있다고 가정해버리면, 더 작은 정사각형을 그릴 수 있게 되므로 모순이다.\n그래서 대각선은 유리수가 아니라는 단서가 되었고, 무리수  를 발견할 수 있었다.\n","wordCount":"131","inLanguage":"ko","datePublished":"2019-04-27T11:32:38Z","dateModified":"2019-04-27T11:32:38Z","author":{"@type":"Person","name":"interp"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://interp.blog/%EA%B3%B5%EC%B8%A1%EB%8F%84%EC%99%80-%EB%AC%B4%EB%A6%AC%EC%88%98/"},"publisher":{"@type":"Organization","name":"InterP Blog","logo":{"@type":"ImageObject","url":"https://interp.blog/favicon.ico"}}}</script>
 </head>
-<body id=top>
-<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
+<body class=dark id=top>
+<script>localStorage.getItem("pref-theme")==="light"&&document.body.classList.remove('dark')</script>
 <header class=header>
 <nav class=nav>
 <div class=logo>
@@ -91,10 +90,7 @@
 <p>그래서 대각선은 유리수가 아니라는 단서가 되었고, 무리수 <code>&lt;img src="//s0.wp.com/latex.php?latex=%5Csqrt%7B2%7D&amp;#038;bg=ffffff&amp;#038;fg=000&amp;#038;s=0" alt="&amp;#92;sqrt{2}" title="&amp;#92;sqrt{2}" class="latex" /></code> 를 발견할 수 있었다.</p>
 </div>
 <footer class=post-footer>
-</footer><div id=disqus_thread></div>
-<script type=application/javascript>var disqus_config=function(){};(function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById('disqus_thread').innerHTML='Disqus comments not available by default when the website is previewed locally.';return}var b=document,a=b.createElement('script');a.async=!0,a.src='//interp-blog.disqus.com/embed.js',a.setAttribute('data-timestamp',+new Date),(b.head||b.body).appendChild(a)})()</script>
-<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
-<a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
+</footer>
 </article>
 </main>
 <footer class=footer>
