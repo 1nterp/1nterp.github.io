@@ -30,3 +30,5 @@ fields:
 - type: text
   name: preview
   label: preview
+pages:
+- content/tech/지금은.md
