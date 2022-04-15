@@ -74,6 +74,18 @@ Tips, dev. environment, and so on.
 </header>
 <article class=post-entry>
 <header class=entry-header>
+<h2>Atomic Operation 으로 하는 동시성 제어
+</h2>
+</header>
+<section class=entry-content>
+<p>Test-And-Set (TAS) TAS 를 이용해서 간단한 동시성 제어를 할 수 있다. testAndSet 이라는 function 을 가지고 아래의 do...while 문을 쓰레드 A, B 에서 동시에 호출한다고 해 보자. 이 때 lock 은 같은 변수이다.
+function TestAndSet(boolean_ref lock) { boolean initial = lock lock = true return initial } do { while(TestAndSet(&lock)) ; // do nothing // critical section lock = false; // remainder section } while(true); 우선 TestAndSet() 은 다음과 같은 일을 한다....</p>
+</section>
+<footer class=entry-footer><span title="2018-04-24 02:31:38 +0000 UTC">4월 24, 2018</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;interp</footer>
+<a class=entry-link aria-label="post link to Atomic Operation 으로 하는 동시성 제어" href=https://interp.blog/atomic-operation-%EC%9C%BC%EB%A1%9C-%ED%95%98%EB%8A%94-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%A0%9C%EC%96%B4/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
 <h2>Timsort
 </h2>
 </header>
@@ -188,18 +200,6 @@ Windows 10 에서 지원하는 Linux Subsystem 기능에 대해 이야기한다.
 </section>
 <footer class=entry-footer><span title="2017-11-29 08:32:52 +0000 UTC">11월 29, 2017</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;interp</footer>
 <a class=entry-link aria-label="post link to X11 on Windows Linux Subsystem" href=https://interp.blog/x11-windows-linux-subsystem/></a>
-</article>
-<article class=post-entry>
-<header class=entry-header>
-<h2>C# xUnit 실습
-</h2>
-</header>
-<section class=entry-content>
-<p>졸업프로젝트도 아니고, 기말고사 대신 치룬 텀프로젝트의 마지막을 장식할 윈도우 어플리케이션을 만들기 위해 배우려 했으나 문 앞에서 서성이기만 했던 바로 그 언어, C#을 당장 써먹어야 하는 상황이 발생했다. (이런 상황이 발생한 것이 참 안타깝긴 하지만) 배움의 기회로 삼는 수 밖에 없다.
-dotnet test 및 xUnit을 사용하여 .NET Core에서 C# 유닛 테스트라는 MS 문서를 기반으로 실습을 했는데, 여기서 중요한 것은, 내가 만들어야 하는 라이브러리의 Target Framework가 .NET Core 가 아니라 .NET Framework 4....</p>
-</section>
-<footer class=entry-footer><span title="2017-11-29 03:28:03 +0000 UTC">11월 29, 2017</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;interp</footer>
-<a class=entry-link aria-label="post link to C# xUnit 실습" href=https://interp.blog/c-xunit-%EC%8B%A4%EC%8A%B5/></a>
 </article>
 <footer class=page-footer>
 <nav class=pagination>

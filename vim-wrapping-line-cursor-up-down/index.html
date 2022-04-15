@@ -1,0 +1,135 @@
+<!doctype html><html lang=ko dir=auto>
+<head><meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name=robots content="index, follow">
+<title>VSCodeVim: Wrapping Line 위/아래로 커서 이동하기 | InterP Blog</title>
+<meta name=keywords content="vim,VSCode">
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-126809878-1"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','UA-126809878-1')</script>
+<link rel=preconnect href=https://fonts.googleapis.com>
+<link rel=preconnect href=https://fonts.gstatic.com crossorigin>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
+<meta name=description content="VSCode 에서도 Vim 환경을 쓰고 싶어서 VSCodeVim 을 설치해서 쓰고 있다.
+그런데 위와 같이 markdown 편집을 할 때 처럼 line wrapping 이 된 경우에는, 커서를 위/아래로 내릴 경우에 다음 &lsquo;줄&rsquo; 로 이동한다. 화면에 보이는 줄이 아니라, 실제 줄로 이동하기 때문에, 커서를 옮길 때 여간 불편한 게 아니다.
+Vim 도 사실 line wrapping 이 되었을 때 같은 문제가 있고, (문제라기 보다는 특성인데) 원하는 방법대로 우회할 수 있는 방법을 여기서 찾았다. 이 방법을 그대로 VSCode 에도 적용한 것이다.">
+<meta name=author content="InterP">
+<link rel=canonical href=https://interp.blog/vim-wrapping-line-cursor-up-down/>
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.acfe2752e2f372c268e77efbda7527e3414a8dce1b6337e9ac4b63e26bcb0bf3.css integrity="sha256-rP4nUuLzcsJo53772nUn40FKjc4bYzfprEtj4mvLC/M=" rel="preload stylesheet" as=style>
+<script defer crossorigin=anonymous src=/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5+kdJvBz5iKbt6B5PJI=" onload=hljs.initHighlightingOnLoad()></script>
+<link rel=icon href=https://interp.blog/favicon.ico>
+<link rel=icon type=image/png sizes=16x16 href=https://interp.blog/favicon-16x16.png>
+<link rel=icon type=image/png sizes=32x32 href=https://interp.blog/favicon-32x32.png>
+<link rel=apple-touch-icon href=https://interp.blog/apple-touch-icon.png>
+<link rel=mask-icon href=https://interp.blog/safari-pinned-tab.svg>
+<meta name=theme-color content="#2e2e33">
+<meta name=msapplication-TileColor content="#2e2e33">
+<meta name=generator content="Hugo 0.91.2">
+<noscript>
+<style>#theme-toggle,.top-link{display:none}</style>
+</noscript>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-126809878-1','auto'),ga('send','pageview'))</script><meta property="og:title" content="VSCodeVim: Wrapping Line 위/아래로 커서 이동하기">
+<meta property="og:description" content="VSCode 에서도 Vim 환경을 쓰고 싶어서 VSCodeVim 을 설치해서 쓰고 있다.
+그런데 위와 같이 markdown 편집을 할 때 처럼 line wrapping 이 된 경우에는, 커서를 위/아래로 내릴 경우에 다음 &lsquo;줄&rsquo; 로 이동한다. 화면에 보이는 줄이 아니라, 실제 줄로 이동하기 때문에, 커서를 옮길 때 여간 불편한 게 아니다.
+Vim 도 사실 line wrapping 이 되었을 때 같은 문제가 있고, (문제라기 보다는 특성인데) 원하는 방법대로 우회할 수 있는 방법을 여기서 찾았다. 이 방법을 그대로 VSCode 에도 적용한 것이다.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://interp.blog/vim-wrapping-line-cursor-up-down/"><meta property="article:section" content="tech">
+<meta property="article:published_time" content="2022-04-15T02:45:00+00:00">
+<meta property="article:modified_time" content="2022-04-15T02:45:00+00:00">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="VSCodeVim: Wrapping Line 위/아래로 커서 이동하기">
+<meta name=twitter:description content="VSCode 에서도 Vim 환경을 쓰고 싶어서 VSCodeVim 을 설치해서 쓰고 있다.
+그런데 위와 같이 markdown 편집을 할 때 처럼 line wrapping 이 된 경우에는, 커서를 위/아래로 내릴 경우에 다음 &lsquo;줄&rsquo; 로 이동한다. 화면에 보이는 줄이 아니라, 실제 줄로 이동하기 때문에, 커서를 옮길 때 여간 불편한 게 아니다.
+Vim 도 사실 line wrapping 이 되었을 때 같은 문제가 있고, (문제라기 보다는 특성인데) 원하는 방법대로 우회할 수 있는 방법을 여기서 찾았다. 이 방법을 그대로 VSCode 에도 적용한 것이다.">
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tech 🛠️","item":"https://interp.blog/tech/"},{"@type":"ListItem","position":2,"name":"VSCodeVim: Wrapping Line 위/아래로 커서 이동하기","item":"https://interp.blog/vim-wrapping-line-cursor-up-down/"}]}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"VSCodeVim: Wrapping Line 위/아래로 커서 이동하기","name":"VSCodeVim: Wrapping Line 위\/아래로 커서 이동하기","description":"VSCode 에서도 Vim 환경을 쓰고 싶어서 VSCodeVim 을 설치해서 쓰고 있다.\n그런데 위와 같이 markdown 편집을 할 때 처럼 line wrapping 이 된 경우에는, 커서를 위/아래로 내릴 경우에 다음 \u0026lsquo;줄\u0026rsquo; 로 이동한다. 화면에 보이는 줄이 아니라, 실제 줄로 이동하기 때문에, 커서를 옮길 때 여간 불편한 게 아니다.\nVim 도 사실 line wrapping 이 되었을 때 같은 문제가 있고, (문제라기 보다는 특성인데) 원하는 방법대로 우회할 수 있는 방법을 여기서 찾았다. 이 방법을 그대로 VSCode 에도 적용한 것이다.","keywords":["vim","VSCode"],"articleBody":"VSCode 에서도 Vim 환경을 쓰고 싶어서 VSCodeVim 을 설치해서 쓰고 있다.\n그런데 위와 같이 markdown 편집을 할 때 처럼 line wrapping 이 된 경우에는, 커서를 위/아래로 내릴 경우에 다음 ‘줄’ 로 이동한다. 화면에 보이는 줄이 아니라, 실제 줄로 이동하기 때문에, 커서를 옮길 때 여간 불편한 게 아니다.\nVim 도 사실 line wrapping 이 되었을 때 같은 문제가 있고, (문제라기 보다는 특성인데) 원하는 방법대로 우회할 수 있는 방법을 여기서 찾았다. 이 방법을 그대로 VSCode 에도 적용한 것이다.\n먼저 Settings 를 열어서 Vim: Normal Mode Key Bindings 로 이동하면, Edit in settings.json 링크가 있다. 이걸 눌러서 다음을 추가하자.\n\"vim.normalModeKeyBindings\": [ { \"before\": [\"\"], \"after\": [\"g\", \"k\"] }, { \"before\": [\"\"], \"after\": [\"g\", \"j\"] } ] 적용하고 곧바로 편집 중인 파일로 돌아오면 적용이 되어 있는 걸 볼 수 있다. 이제 커서를 위/아래로 움직여도 화면에 보이는 윗줄/아랫줄로 이동한다!\n","wordCount":"134","inLanguage":"ko","datePublished":"2022-04-15T02:45:00Z","dateModified":"2022-04-15T02:45:00Z","author":{"@type":"Person","name":"InterP"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://interp.blog/vim-wrapping-line-cursor-up-down/"},"publisher":{"@type":"Organization","name":"InterP Blog","logo":{"@type":"ImageObject","url":"https://interp.blog/favicon.ico"}}}</script>
+</head>
+<body class=dark id=top>
+<script>localStorage.getItem("pref-theme")==="light"&&document.body.classList.remove('dark')</script>
+<header class=header>
+<nav class=nav>
+<div class=logo>
+<a href=https://interp.blog/ accesskey=h title="InterP Blog (Alt + H)">InterP Blog</a>
+<span class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+</span>
+</div>
+<ul id=menu>
+<li>
+<a href=https://interp.blog/tech/ title=Tech>
+<span>Tech</span>
+</a>
+</li>
+<li>
+<a href=https://interp.blog/essay/ title=Essay>
+<span>Essay</span>
+</a>
+</li>
+<li>
+<a href=https://interp.blog/review/ title=Review>
+<span>Review</span>
+</a>
+</li>
+</ul>
+</nav>
+</header>
+<main class=main>
+<article class=post-single>
+<header class=post-header>
+<div class=breadcrumbs><a href=https://interp.blog/>Home</a>&nbsp;»&nbsp;<a href=https://interp.blog/tech/>Tech 🛠️</a></div>
+<h1 class=post-title>
+VSCodeVim: Wrapping Line 위/아래로 커서 이동하기
+</h1>
+<div class=post-meta><span title="2022-04-15 02:45:00 +0000 UTC">4월 15, 2022</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;InterP
+</div>
+</header>
+<div class=post-content><p>VSCode 에서도 Vim 환경을 쓰고 싶어서 <a href=https://github.com/VSCodeVim/Vim>VSCodeVim</a> 을 설치해서 쓰고 있다.</p>
+<p><img loading=lazy src=/images/2022-04-15-vscodevim.png alt>
+</p>
+<p>그런데 위와 같이 markdown 편집을 할 때 처럼 line wrapping 이 된 경우에는, 커서를 위/아래로 내릴 경우에 다음 &lsquo;줄&rsquo; 로 이동한다. <strong>화면에 보이는 줄이 아니라, 실제 줄로 이동하기 때문에</strong>, 커서를 옮길 때 여간 불편한 게 아니다.</p>
+<p>Vim 도 사실 line wrapping 이 되었을 때 같은 문제가 있고, (문제라기 보다는 특성인데) 원하는 방법대로 우회할 수 있는 방법을 <a href=https://vim.fandom.com/wiki/Move_cursor_by_display_lines_when_wrapping>여기</a>서 찾았다. 이 방법을 그대로 VSCode 에도 적용한 것이다.</p>
+<p>먼저 Settings 를 열어서 <strong>Vim: Normal Mode Key Bindings</strong> 로 이동하면, Edit in settings.json 링크가 있다. 이걸 눌러서 다음을 추가하자.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>        <span style=color:#e6db74>&#34;vim.normalModeKeyBindings&#34;</span><span style=color:#960050;background-color:#1e0010>:</span> [
+          {
+            <span style=color:#f92672>&#34;before&#34;</span>: [<span style=color:#e6db74>&#34;&lt;Up&gt;&#34;</span>],
+            <span style=color:#f92672>&#34;after&#34;</span>: [<span style=color:#e6db74>&#34;g&#34;</span>, <span style=color:#e6db74>&#34;k&#34;</span>]
+          },
+          {
+            <span style=color:#f92672>&#34;before&#34;</span>: [<span style=color:#e6db74>&#34;&lt;Down&gt;&#34;</span>],
+            <span style=color:#f92672>&#34;after&#34;</span>: [<span style=color:#e6db74>&#34;g&#34;</span>, <span style=color:#e6db74>&#34;j&#34;</span>]
+          }
+        ]
+</code></pre></div><p>적용하고 곧바로 편집 중인 파일로 돌아오면 적용이 되어 있는 걸 볼 수 있다. 이제 커서를 위/아래로 움직여도 화면에 보이는 윗줄/아랫줄로 이동한다!</p>
+</div>
+<footer class=post-footer>
+<ul class=post-tags>
+<li><a href=https://interp.blog/tags/vim/>vim</a></li>
+<li><a href=https://interp.blog/tags/vscode/>VSCode</a></li>
+</ul>
+<nav class=paginav>
+<a class=next href=https://interp.blog/kubernetes-operator-vs-controller/>
+<span class=title>다음 페이지 »</span>
+<br>
+<span>k8s Operator vs. Controller</span>
+</a>
+</nav>
+</footer>
+</article>
+</main>
+<footer class=footer>
+<span>&copy; 2022 <a href=https://interp.blog/>InterP Blog</a></span>
+<span>
+Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+</span>
+</footer>
+<a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a>
+<script>let menu=document.getElementById('menu');menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener("click",function(b){b.preventDefault();var a=this.getAttribute("href").substr(1);window.matchMedia('(prefers-reduced-motion: reduce)').matches?document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView({behavior:"smooth"}),a==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${a}`)})})</script>
+<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
+<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove('dark'),localStorage.setItem("pref-theme",'light')):(document.body.classList.add('dark'),localStorage.setItem("pref-theme",'dark'))})</script>
+<script>document.querySelectorAll('pre > code').forEach(b=>{const c=b.parentNode.parentNode,a=document.createElement('button');a.classList.add('copy-code'),a.innerText='copy';function d(){a.innerText='copied!',setTimeout(()=>{a.innerText='copy'},2e3)}a.addEventListener('click',e=>{if('clipboard'in navigator){navigator.clipboard.writeText(b.textContent),d();return}const a=document.createRange();a.selectNodeContents(b);const c=window.getSelection();c.removeAllRanges(),c.addRange(a);try{document.execCommand('copy'),d()}catch(a){}c.removeRange(a)}),c.classList.contains("highlight")?c.appendChild(a):c.parentNode.firstChild==c||(b.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?b.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(a):b.parentNode.appendChild(a))})</script>
+</body>
+</html>
