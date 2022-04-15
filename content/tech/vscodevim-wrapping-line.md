@@ -3,7 +3,7 @@ author = "InterP"
 categories = ["Tech"]
 date = 2022-04-15T02:45:00Z
 draft = true
-tags = ["vim"]
+tags = ["vim", "VSCode"]
 title = "VSCodeVim: Wrapping Line 위/아래로 커서 이동하기"
 url = "vim-wrapping-line-cursor-up-down"
 [cover]
@@ -20,6 +20,7 @@ Vim 도 사실 line wrapping 이 되었을 때 같은 문제가 있고, (문제�
 
 먼저 Settings 를 열어서 **Vim: Normal Mode Key Bindings** 로 이동하면, Edit in settings.json 링크가 있다. 이걸 눌러서 다음을 추가하자.
 
+```json
         "vim.normalModeKeyBindings": [
           {
             "before": ["<Up>"],
@@ -30,5 +31,6 @@ Vim 도 사실 line wrapping 이 되었을 때 같은 문제가 있고, (문제�
             "after": ["g", "j"]
           }
         ]
+```
 
 적용하고 곧바로 편집 중인 파일로 돌아오면 적용이 되어 있는 걸 볼 수 있다. 이제 커서를 위/아래로 움직여도 화면에 보이는 윗줄/아랫줄로 이동한다!
