@@ -2,7 +2,6 @@
 author = "InterP"
 categories = ["Tech"]
 date = 2022-04-15T02:45:00Z
-draft = true
 tags = ["vim", "VSCode"]
 title = "VSCodeVim: Wrapping Line 위/아래로 커서 이동하기"
 url = "vim-wrapping-line-cursor-up-down"
