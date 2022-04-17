@@ -17,17 +17,7 @@ VSCode 에서도 Vim 환경을 쓰고 싶어서 [VSCodeVim](https://github.com/V
 
 Vim 도 사실 line wrapping 이 되었을 때 같은 문제가 있고, (문제라기 보다는 특성인데) 원하는 방법대로 우회할 수 있는 방법을 [여기](https://vim.fandom.com/wiki/Move_cursor_by_display_lines_when_wrapping)서 찾았다. 이 방법을 그대로 VSCode 에도 적용한 것이다.
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607"
-crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-style="display:block; text-align:center;"
-data-ad-layout="in-article"
-data-ad-format="fluid"
-data-ad-client="ca-pub-0712823212859607"
-data-ad-slot="7880266545"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || \[\]).push({});
-</script>
+{{< adsense2 >}}
 
 먼저 Settings 를 열어서 **Vim: Normal Mode Key Bindings** 로 이동하면, Edit in settings.json 링크가 있다. 이걸 눌러서 다음을 추가하자.
 
@@ -46,14 +36,4 @@ data-ad-slot="7880266545"></ins>
 
 적용하고 곧바로 편집 중인 파일로 돌아오면 적용이 되어 있는 걸 볼 수 있다. 이제 커서를 위/아래로 움직여도 화면에 보이는 윗줄/아랫줄로 이동한다!
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607"
-crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-style="display:block; text-align:center;"
-data-ad-layout="in-article"
-data-ad-format="fluid"
-data-ad-client="ca-pub-0712823212859607"
-data-ad-slot="7880266545"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || \[\]).push({});
-</script>
+{{< adsense1 >}}
