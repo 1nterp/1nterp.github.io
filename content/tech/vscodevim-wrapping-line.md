@@ -9,7 +9,7 @@ url = "vim-wrapping-line-cursor-up-down"
 image = ""
 
 +++
-VSCode 에서도 Vim 환경을 쓰고 싶어서 [VSCodeVim](https://github.com/VSCodeVim/Vim) 을 설치해서 쓰고 있다. 
+VSCode 에서도 Vim 환경을 쓰고 싶어서 [VSCodeVim](https://github.com/VSCodeVim/Vim) 을 설치해서 쓰고 있다.
 
 ![](/images/2022-04-15-vscodevim.png)
 
@@ -33,3 +33,15 @@ Vim 도 사실 line wrapping 이 되었을 때 같은 문제가 있고, (문제�
 ```
 
 적용하고 곧바로 편집 중인 파일로 돌아오면 적용이 되어 있는 걸 볼 수 있다. 이제 커서를 위/아래로 움직여도 화면에 보이는 윗줄/아랫줄로 이동한다!
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607"
+crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-0712823212859607"
+data-ad-slot="7880266545"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || \[\]).push({});
+</script>
