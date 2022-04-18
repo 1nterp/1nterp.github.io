@@ -13,7 +13,7 @@
 <meta name=description content>
 <meta name=author content="InterP">
 <link rel=canonical href=https://interp.blog/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/>
-<link crossorigin=anonymous href=/assets/css/stylesheet.min.8cc51c9bbf1b186fe7152e77501a81eec5a82a920dbe86a45f44f0969c7767e8.css integrity="sha256-jMUcm78bGG/nFS53UBqB7sWoKpINvoakX0Twlpx3Z+g=" rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.082df44e568f842dcc41f033eddd0105e4a55dc2651712885ede18a4ccc992ea.css integrity="sha256-CC30TlaPhC3MQfAz7d0BBeSlXcJlFxKIXt4YpMzJkuo=" rel="preload stylesheet" as=style>
 <link rel=icon href=https://interp.blog/favicon.ico>
 <link rel=icon type=image/png sizes=16x16 href=https://interp.blog/favicon-16x16.png>
 <link rel=icon type=image/png sizes=32x32 href=https://interp.blog/favicon-32x32.png>
@@ -77,7 +77,8 @@
 <p>Test-And-Set (TAS) TAS 를 이용해서 간단한 동시성 제어를 할 수 있다. testAndSet 이라는 function 을 가지고 아래의 do...while 문을 쓰레드 A, B 에서 동시에 호출한다고 해 보자. 이 때 lock 은 같은 변수이다.
 function TestAndSet(boolean_ref lock) { boolean initial = lock lock = true return initial } do { while(TestAndSet(&lock)) ; // do nothing // critical section lock = false; // remainder section } while(true); 우선 TestAndSet() 은 다음과 같은 일을 한다....</p>
 </section>
-<footer class=entry-footer><span title="2018-04-24 02:31:38 +0000 UTC">4월 24, 2018</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;interp</footer>
+<footer class=entry-footer>
+<span title="2018-04-24 02:31:38 +0000 UTC">2018년 04월 24일</span>&nbsp;·&nbsp;3 분</footer>
 <a class=entry-link aria-label="post link to Atomic Operation 으로 하는 동시성 제어" href=https://interp.blog/atomic-operation-%EC%9C%BC%EB%A1%9C-%ED%95%98%EB%8A%94-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%A0%9C%EC%96%B4/></a>
 </article>
 <article class="post-entry tag-entry">
@@ -89,7 +90,8 @@ function TestAndSet(boolean_ref lock) { boolean initial = lock lock = true retur
 <p>학부에서 알고리즘 수업을 들으면, 가장 빠른 정렬 알고리즘이 뭐냐는 질문에 쉽게 Quicksort 라고 답할 수 있겠다. 실제로 현업에서도 적용하기 가장 편하기 때문에 많이 차용되는 편이다. 그런데 모든 문제를 쉽게 풀 수 있는 은탄은 세상에 존재하지 않듯, Quicksort 역시 특정 케이스에서는 성능이 낮게 나오는 경우가 있다. 더 심각한(?) 것은, 이 특정 케이스가 현실에서는 꽤나 자주 발생한다는 것이다.
 그 케이스란 바로 ‘거의 정렬된 데이터’ 이다. 거의 정렬된 데이터라면 pivoting – partitioning 을 반복할 필요도 없이 Bubble Sort 나, 심지어는 Insertion Sort 를 해도 된다....</p>
 </section>
-<footer class=entry-footer><span title="2018-04-23 01:36:57 +0000 UTC">4월 23, 2018</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;interp</footer>
+<footer class=entry-footer>
+<span title="2018-04-23 01:36:57 +0000 UTC">2018년 04월 23일</span>&nbsp;·&nbsp;4 분</footer>
 <a class=entry-link aria-label="post link to Timsort" href=https://interp.blog/timsort/></a>
 </article>
 <article class="post-entry tag-entry">
@@ -102,7 +104,8 @@ function TestAndSet(boolean_ref lock) { boolean initial = lock lock = true retur
 바깥 세상(?) 에선 아직도 Java 개발자를 찾는 것이 현실이다. 이제 그것을 대비하는 차원이다. Java 하나만 가지고 대부분의 어플리케이션 개발에 비빌 수 있기 때문이기도 하다. (개인적으로, 이런 대중성이 Java 개발자의 가치를 떨어뜨린다고 전혀 생각하지 않는다. Java 개발자는 많지만, 좋은 Java 개발자를 찾는 것은 전혀 다른 문제라고 생각하니까.)
 이렇게 찾는 것이 현실일지라도, 이건 좋은 개발자를 프로젝트에 태우는 방법이 아니다....</p>
 </section>
-<footer class=entry-footer><span title="2018-01-09 07:09:07 +0000 UTC">1월 9, 2018</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;interp</footer>
+<footer class=entry-footer>
+<span title="2018-01-09 07:09:07 +0000 UTC">2018년 01월 09일</span>&nbsp;·&nbsp;2 분</footer>
 <a class=entry-link aria-label="post link to Java Web Application 입문 (1) 준비운동" href=https://interp.blog/java-web-application-%EC%9E%85%EB%AC%B8-1-%EC%A4%80%EB%B9%84%EC%9A%B4%EB%8F%99/></a>
 </article>
 <article class="post-entry tag-entry">
@@ -114,7 +117,8 @@ function TestAndSet(boolean_ref lock) { boolean initial = lock lock = true retur
 <p>졸업프로젝트도 아니고, 기말고사 대신 치룬 텀프로젝트의 마지막을 장식할 윈도우 어플리케이션을 만들기 위해 배우려 했으나 문 앞에서 서성이기만 했던 바로 그 언어, C#을 당장 써먹어야 하는 상황이 발생했다. (이런 상황이 발생한 것이 참 안타깝긴 하지만) 배움의 기회로 삼는 수 밖에 없다.
 dotnet test 및 xUnit을 사용하여 .NET Core에서 C# 유닛 테스트라는 MS 문서를 기반으로 실습을 했는데, 여기서 중요한 것은, 내가 만들어야 하는 라이브러리의 Target Framework가 .NET Core 가 아니라 .NET Framework 4....</p>
 </section>
-<footer class=entry-footer><span title="2017-11-29 03:28:03 +0000 UTC">11월 29, 2017</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;interp</footer>
+<footer class=entry-footer>
+<span title="2017-11-29 03:28:03 +0000 UTC">2017년 11월 29일</span>&nbsp;·&nbsp;3 분</footer>
 <a class=entry-link aria-label="post link to C# xUnit 실습" href=https://interp.blog/c-xunit-%EC%8B%A4%EC%8A%B5/></a>
 </article>
 <article class="post-entry tag-entry">
@@ -130,7 +134,8 @@ map or unmap files or devices into memory
 사용 void * mmap(void *start, size_t length, int prot, int flags, int fd, off_t offset); 여기서 의미가 있는 건 Length, Prot (Protection), Flag 뿐이다.
 Start 는, Kernel이 아무 곳이나 지정해도 좋다면 NULL을 입력한다. Offset 은, 보통 0으로 둔다....</p>
 </section>
-<footer class=entry-footer><span title="2017-09-20 13:29:57 +0000 UTC">9월 20, 2017</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;interp</footer>
+<footer class=entry-footer>
+<span title="2017-09-20 13:29:57 +0000 UTC">2017년 09월 20일</span>&nbsp;·&nbsp;2 분</footer>
 <a class=entry-link aria-label="post link to mmap : 메모리를 파일처럼" href=https://interp.blog/mmap-%EB%A9%94%EB%AA%A8%EB%A6%AC%EB%A5%BC-%ED%8C%8C%EC%9D%BC%EC%B2%98%EB%9F%BC/></a>
 </article>
 <article class="post-entry tag-entry">
@@ -144,7 +149,8 @@ pthread_yield() 는, 호출한 쓰레드가 프로세서 사용을 그만두고,
 sleep() 은 X초만큼 지나거나, 무시할 수 없는 시그널이 도착할 때 까지 (다른 쓰레드를 포함한) 호출 프로세스를 재웁니다.
 현재 쓰레드를 실제로 지연시키고 싶지 않지만 (호출 쓰레드 대신) 다른 쓰레드에게 실행권을 넘겨주고 싶은 경우라면, sleep() 보단 pthread_yield() 가 적합할 것 같습니다....</p>
 </section>
-<footer class=entry-footer><span title="2017-08-24 05:35:24 +0000 UTC">8월 24, 2017</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp</footer>
+<footer class=entry-footer>
+<span title="2017-08-24 05:35:24 +0000 UTC">2017년 08월 24일</span>&nbsp;·&nbsp;1 분</footer>
 <a class=entry-link aria-label="post link to pthread_yield vs. sleep" href=https://interp.blog/pthread_yield-vs-sleep/></a>
 </article>
 </main>

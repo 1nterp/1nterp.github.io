@@ -15,7 +15,7 @@
  커널 환경변수를 체크한다. 프로파일링이 가능하고 모듈 로딩이 가능해야 한다.  CONFIG_MODULES=y CONFIG_MODULE_UNLOAD=y CONFIG_PROFILING=y   커널 드라이버를 컴파일시킬 헤더파일이 필요하다.">
 <meta name=author content="interp">
 <link rel=canonical href=https://interp.blog/vtune-memory-bandwidth/>
-<link crossorigin=anonymous href=/assets/css/stylesheet.min.8cc51c9bbf1b186fe7152e77501a81eec5a82a920dbe86a45f44f0969c7767e8.css integrity="sha256-jMUcm78bGG/nFS53UBqB7sWoKpINvoakX0Twlpx3Z+g=" rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.082df44e568f842dcc41f033eddd0105e4a55dc2651712885ede18a4ccc992ea.css integrity="sha256-CC30TlaPhC3MQfAz7d0BBeSlXcJlFxKIXt4YpMzJkuo=" rel="preload stylesheet" as=style>
 <script defer crossorigin=anonymous src=/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5+kdJvBz5iKbt6B5PJI=" onload=hljs.initHighlightingOnLoad()></script>
 <link rel=icon href=https://interp.blog/favicon.ico>
 <link rel=icon type=image/png sizes=16x16 href=https://interp.blog/favicon-16x16.png>
@@ -81,7 +81,8 @@
 <h1 class=post-title>
 Intel VTune Memory Bandwidth 분석하기
 </h1>
-<div class=post-meta><span title="2018-01-22 05:19:48 +0000 UTC">1월 22, 2018</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;interp
+<div class=post-meta>
+<span title="2018-01-22 05:19:48 +0000 UTC">2018년 01월 22일</span>&nbsp;·&nbsp;1 분
 </div>
 </header>
 <div class=post-content><p>Intel VTune 으로 Memory Bandwidth 를 분석하려면, 분석할 수 있는 커널 드라이버를 로딩시켜야 한다. (참고로 메모리 분석은 리눅스에서만 가능하다.) 해당 작업을 하지 않고 &lsquo;General Exploration > Analyze memory bandwidth&rsquo; 를 체크하면 엄한 경고창이 반길 것이다.</p>
