@@ -59,7 +59,7 @@
 .entry-content {
     margin: 8px 0;
     color: var(--secondary);
-    font-size: 14px;
+    font-size: .9rem;
     font-weight: 300;
     line-height: 1.6;
     overflow: hidden;
