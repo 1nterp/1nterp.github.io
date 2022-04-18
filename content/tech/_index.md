@@ -1,4 +1,4 @@
 ---
 title: Tech 🛠️
-Description: "Tips, dev. environment, and so on."
+Description: "Development, Testing, Cloud, etc."
 ---
