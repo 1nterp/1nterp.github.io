@@ -10,7 +10,7 @@ googleAnalytics: UA-126809878-1
 
 params:
   comments: true
-  defaultTheme: dark
+  defaultTheme: light
   ShowPostNavLinks: true
   # homeInfoParams:
   #   Title: InterP Blog
