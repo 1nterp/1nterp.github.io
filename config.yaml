@@ -8,6 +8,8 @@ sectionPagesMenu: main
 googleAnalytics: UA-126809878-1
 # disqusShortname: interp-blog
 
+metaDataFormat: "yaml" # for forestry.io
+
 params:
   comments: true
   defaultTheme: light
