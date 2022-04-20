@@ -20,14 +20,14 @@ params:
     enabled: true
     title: "InterP" # optional default will be site title
     subtitle: "Cloud-service DevOps / Database-engine Developer"
-    imageUrl: "https://ko.gravatar.com/userimage/55729251/9412ef61b7ae20adcf2b9e38e49c8042.jpeg" # optional
+    imageUrl: "avatar.jpg" # optional
     imageWidth: 120 # custom size
     imageHeight: 120 # custom size
-    buttons:
-      - name: Archive
-        url: "/archives"
-      - name: Github
-        url: "https://github.com/1nterp"
+    # buttons:
+    #   - name: Archive
+    #     url: "/archives"
+    #   - name: Github
+    #     url: "https://github.com/1nterp"
     # Content: "The longer I am here, the smarter they will be"
   ShowReadingTime: true
   ShowBreadCrumbs: true
@@ -40,10 +40,10 @@ params:
   - essay
   - review 
   socialIcons: # optional
-  - name: "Twitter"
-    url: "<link>"
-  - name: "Facebook"
-    url: "<link2>"
+  - name: "Github"
+    url: "https://github.com/1nterp/"
+  - name: "Linkedin"
+    url: "https://www.linkedin.com/in/interp/"
 
 outputs:
     home:
