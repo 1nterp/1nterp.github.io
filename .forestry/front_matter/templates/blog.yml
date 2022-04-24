@@ -49,4 +49,5 @@ fields:
     name: image
     label: Feature Image
 pages:
+- content/drafts/sad-cafe.md
 - content/tech/vscodevim-wrapping-line.md
