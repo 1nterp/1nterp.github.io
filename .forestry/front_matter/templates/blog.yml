@@ -49,6 +49,4 @@ fields:
     name: image
     label: Feature Image
 pages:
-- content/2018-03-25-샷건-웨딩-shotgun-wedding.md
-- content/drafts/sad-cafe.md
-- content/tech/vscodevim-wrapping-line.md
+- content/tech/2022-04-15-vscodevim-wrapping-line.md
