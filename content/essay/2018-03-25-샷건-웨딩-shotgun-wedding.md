@@ -5,11 +5,7 @@ type: post
 date: 2018-03-25 06:14
 url: "/shotgun-wedding/"
 categories:
-- Essay
-tags: []
-cover:
-  image: ''
-draft: true
+- essay
 
 ---
 행렬 미분학 (differential matrix calculus) 에 대한 문서를 읽다가 이런 글귀를 발견했다.
@@ -22,7 +18,7 @@ draft: true
 
 <img class="wp-image-1277 alignnone" src="http://interp.iwinv.net/wp-content/uploads/2018/02/daughter-sex-boyfriend-dad-text.jpg" alt="" width="324" height="300" srcset="https://interp.blog/wp-content/uploads/2018/02/daughter-sex-boyfriend-dad-text.jpg 479w, https://interp.blog/wp-content/uploads/2018/02/daughter-sex-boyfriend-dad-text-300x278.jpg 300w" sizes="(max-width: 324px) 100vw, 324px" />
 
-아아, 그만 알아보자. (&#8230;)
+아아, 그만 알아보자. 🔫
 
 &nbsp;
 
