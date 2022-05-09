@@ -9,16 +9,18 @@ categories:
 tags:
   - SSH
   - permission
-
+cover:
+    image: "/images/featured/ssh-rsa.jpg"
 ---
 Windows Server 2016에서 OpenSSH 를 설치하고, cmd 에서 다음과 같이 RSA 키를 생성한다.
 
-<pre class="brush: bash; title: ; notranslate" title="">$ ssh-keygen -t rsa
-</pre>
+```bash
+$ ssh-keygen -t rsa
+```
 
 그러고 Public Key 를 SSH Server 에 위치한 authorized_keys 파일에 추가하고 접속을 시도하면?
 
-<pre class="brush: bash; title: ; notranslate" title="">$ ssh interp@192.168.0.30
+```bash
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ WARNING: UNPROTECTED PRIVATE KEY FILE! @
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -27,7 +29,7 @@ It is required that your private key files are NOT accessible by others.
 This private key will be ignored.
 Load key "C:\\Users\\interp/.ssh/id_rsa": bad permissions
 interp@192.168.0.30's password:
-</pre>
+```
 
 오잉? 내 파일이 맞는데 이게 뭘까. Private Key 파일에 마우스 우클릭을 하고 봤더니 여러 사용자가 읽기 권한으로 걸려 있는 것을 확인할 수 있었다. 이건 아니다&#8230; 등록된 사용자를 전부 지우고 현재 사용자에게 모든 권한을 준 다음에, 확인을 눌러 권한 변경을 해 준다.
 

@@ -9,6 +9,8 @@ tags:
     - iPhone
 categories:
     - tech
+cover:
+    image: "/images/2022-02-04-kakao-email/feature-image.jpg"
 ---
 
 

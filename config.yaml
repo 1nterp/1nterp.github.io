@@ -7,6 +7,7 @@ theme: paper-mod
 sectionPagesMenu: main
 googleAnalytics: UA-126809878-1
 metaDataFormat: yaml
+summaryLength: 60
 params:
   defaultTheme: auto
   ShowPostNavLinks: true
