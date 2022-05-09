@@ -69,6 +69,19 @@
 <main class=main>
 <article class=post-entry>
 <header class=entry-header>
+<h2>Gitlab Markdown Parser 바꾸기
+</h2>
+</header>
+<section class=entry-content>
+<p>Git 기반 프로세스 도구인 Gitlab 은 오픈소스이기 때문에 Community Edition 을 쓰건, Enterprise Edition 을 쓰건 상관없이 맘대로 수정해서 사용이 가능하다. 물론 적절한 감(?)으로 수정할 곳을 찾아야 하는 번거로움은 있다. 여기서는 Gitlab에서 문서 작성에 필요한 Markdown 의 Parser 부분을 수정하기 위한 방법을 정리해 둔다. Ruby 개발자가 아니라서 전체 빌드 순서가 정공법처럼 보이진 않겠지만.
+Gitlab의 Markdown Parser는 Redcarpet 을 사용한다. 아마 Jekyll 도 기본적으로 Redcarpet 을 사용하는 것으로 알고 있다. 만약 Ruby의 Redcarpet 을 Markdown Parser 로 쓰는 경우라면 똑같이 적용이 가능하다....</p>
+</section>
+<footer class=entry-footer>
+<span title="2018-01-03 02:29:21 +0000 UTC">2018년 01월 03일</span>&nbsp;·&nbsp;3 분</footer>
+<a class=entry-link aria-label="post link to Gitlab Markdown Parser 바꾸기" href=https://interp.blog/gitlab-markdown-parser-%EB%B0%94%EA%BE%B8%EA%B8%B0/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
 <h2>oh-my-zsh 색깔 고르기
 </h2>
 </header>
@@ -191,19 +204,6 @@ Start 는, Kernel이 아무 곳이나 지정해도 좋다면 NULL을 입력한�
 <footer class=entry-footer>
 <span title="2017-09-20 13:29:57 +0000 UTC">2017년 09월 20일</span>&nbsp;·&nbsp;2 분</footer>
 <a class=entry-link aria-label="post link to mmap : 메모리를 파일처럼" href=https://interp.blog/mmap-memory-block-like-file/></a>
-</article>
-<article class=post-entry>
-<header class=entry-header>
-<h2>polylang 사용 팁
-</h2>
-</header>
-<section class=entry-content>
-<p>다국어 사이트를 기획하던 중에 만난 Polylang 이 괜찮은 것 같아서 사용 중인데, 설정 중에 만난 두 가지 문제들을 아래와 같이 해결했다.
-Language Switcher가 없다고? **외모 – 메뉴 **에서 오른쪽 위에 ‘화면 옵션’ 을 펼치면 Language Switcher 가 꺼져있을 것이다. String Translation 을 따로 추가하고 싶다고? 테마의 functions.php 에서pll_register_string() 함수를 호출하면 된다. 해당 String 을 사용하고 싶다면 테마에서 pll__ 또는 pll__e 를 사용하면 된다.자세한 내용은 여기를 참고. </p>
-</section>
-<footer class=entry-footer>
-<span title="2017-09-06 05:22:27 +0000 UTC">2017년 09월 06일</span>&nbsp;·&nbsp;1 분</footer>
-<a class=entry-link aria-label="post link to polylang 사용 팁" href=https://interp.blog/polylang-usage-tip/></a>
 </article>
 <footer class=page-footer>
 <nav class=pagination>
