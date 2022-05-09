@@ -8,16 +8,11 @@ sectionPagesMenu: main
 googleAnalytics: UA-126809878-1
 metaDataFormat: yaml
 params:
-  comments: true
-  defaultTheme: light
+  defaultTheme: auto
   ShowPostNavLinks: true
-  profileMode:
-    enabled: true
-    title: InterP
-    subtitle: Cloud-service DevOps / Database-engine Developer
-    imageUrl: avatar.jpg
-    imageWidth: 120
-    imageHeight: 120
+  homeInfoParams:
+    Title: InterP Blog 🍏
+    Content: things I'm interested in
   ShowReadingTime: true
   ShowBreadCrumbs: true
   ShowCodeCopyButtons: true
@@ -29,11 +24,6 @@ params:
   - tech
   - essay
   - review
-  socialIcons:
-  - name: Github
-    url: https://github.com/1nterp/
-  - name: Linkedin
-    url: https://www.linkedin.com/in/interp/
 outputs:
   home:
   - HTML
