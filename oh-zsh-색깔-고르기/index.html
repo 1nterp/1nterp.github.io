@@ -18,7 +18,7 @@
   0~255 숫자와 대응되는 색상을 찾아야 하는데, 여기를 참고하면 도움이 된다.">
 <meta name=author content="interp">
 <link rel=canonical href=https://interp.blog/oh-zsh-%EC%83%89%EA%B9%94-%EA%B3%A0%EB%A5%B4%EA%B8%B0/>
-<link crossorigin=anonymous href=/assets/css/stylesheet.min.082df44e568f842dcc41f033eddd0105e4a55dc2651712885ede18a4ccc992ea.css integrity="sha256-CC30TlaPhC3MQfAz7d0BBeSlXcJlFxKIXt4YpMzJkuo=" rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.5c135091b28454e5765591f50735a2f017ccca49d8a5ee29c543c74d3fe5df91.css integrity="sha256-XBNQkbKEVOV2VZH1BzWi8BfMyknYpe4pxUPHTT/l35E=" rel="preload stylesheet" as=style>
 <script defer crossorigin=anonymous src=/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5+kdJvBz5iKbt6B5PJI=" onload=hljs.initHighlightingOnLoad()></script>
 <link rel=icon href=https://interp.blog/favicon.ico>
 <link rel=icon type=image/png sizes=16x16 href=https://interp.blog/favicon-16x16.png>
@@ -30,6 +30,7 @@
 <meta name=generator content="Hugo 0.91.2">
 <noscript>
 <style>#theme-toggle,.top-link{display:none}</style>
+<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
 </noscript>
 <script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-126809878-1','auto'),ga('send','pageview'))</script><meta property="og:title" content="oh-my-zsh 색깔 고르기">
 <meta property="og:description" content="oh-my-zsh 테마 작업을 agnoster 를 기반으로 고쳐서 사용 중이다. 그런데 주석을 보면 다음 색깔만 지원하는 것 처럼 나온다.
@@ -54,7 +55,7 @@
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"oh-my-zsh 색깔 고르기","name":"oh-my-zsh 색깔 고르기","description":"oh-my-zsh 테마 작업을 agnoster 를 기반으로 고쳐서 사용 중이다. 그런데 주석을 보면 다음 색깔만 지원하는 것 처럼 나온다.\n white, black, red, blue, green, yellow, cyan, magenta  사전에 정의된 것 외의 색상을 설정하려면, 다음 작업이 필요하다.\n  터미널 종류가 xterm-256color 여야 한다. (xterm 이면 색깔을 정해도 제대로 출력이 안된다.)\n  oh-my-zsh 에서, %{%K{123}%} 또는 %{%F{123}%} 를 가지고 색깔을 찾는다.\n이 때 123 대신 0~255 를 입력한다.\n  0~255 숫자와 대응되는 색상을 찾아야 하는데, 여기를 참고하면 도움이 된다.","keywords":["oh-my-zsh"],"articleBody":"oh-my-zsh 테마 작업을 agnoster 를 기반으로 고쳐서 사용 중이다. 그런데 주석을 보면 다음 색깔만 지원하는 것 처럼 나온다.\n white, black, red, blue, green, yellow, cyan, magenta  사전에 정의된 것 외의 색상을 설정하려면, 다음 작업이 필요하다.\n  터미널 종류가 xterm-256color 여야 한다. (xterm 이면 색깔을 정해도 제대로 출력이 안된다.)\n  oh-my-zsh 에서, %{%K{123}%} 또는 %{%F{123}%} 를 가지고 색깔을 찾는다.\n이 때 123 대신 0~255 를 입력한다.\n  0~255 숫자와 대응되는 색상을 찾아야 하는데, 여기를 참고하면 도움이 된다.\n  ","wordCount":"73","inLanguage":"ko","datePublished":"2017-12-13T05:43:01Z","dateModified":"2017-12-13T05:43:01Z","author":{"@type":"Person","name":"interp"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://interp.blog/oh-zsh-%EC%83%89%EA%B9%94-%EA%B3%A0%EB%A5%B4%EA%B8%B0/"},"publisher":{"@type":"Organization","name":"InterP Blog","logo":{"@type":"ImageObject","url":"https://interp.blog/favicon.ico"}}}</script>
 </head>
 <body id=top>
-<script>localStorage.getItem("pref-theme")==="dark"&&document.body.classList.add('dark')</script>
+<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
 <header class=header>
 <nav class=nav>
 <div class=logo>
