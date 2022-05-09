@@ -1,19 +1,20 @@
-+++
-author = "InterP"
-categories = ["Tech"]
-date = 2022-04-15T02:45:00Z
-tags = ["vim", "VSCode"]
-title = "VSCodeVim: Wrapping Line 위/아래로 커서 이동하기"
-url = "vim-wrapping-line-cursor-up-down"
-[cover]
-image = ""
+---
+author: "InterP"
+categories: 
+  - tech
+date: 2022-04-15 02:45:00 +0900
+tags: 
+  - vim
+  - VSCode
+title: "VSCodeVim: 분리된 줄 위/아래로 커서 이동하기"
+url: "/vim-wrapping-line-cursor-up-down/"
+---
 
-+++
 VSCode 에서도 Vim 환경을 쓰고 싶어서 [VSCodeVim](https://github.com/VSCodeVim/Vim) 을 설치해서 쓰고 있다.
 
 ![](/images/2022-04-15-vscodevim.png)
 
-그런데 위와 같이 markdown 편집을 할 때 처럼 line wrapping 이 된 경우에는, 커서를 위/아래로 내릴 경우에 다음 '줄' 로 이동한다. **화면에 보이는 줄이 아니라, 실제 줄로 이동하기 때문에**, 커서를 옮길 때 여간 불편한 게 아니다.
+그런데 위와 같이 markdown 편집을 할 때 처럼 줄 분리가 이뤄져서 (line wrapping) 사실 한 줄인데 여러 줄로 보여지는 경우에는, 커서를 아래로 내릴 경우에 *실제* 다음 줄 로 이동한다. **화면에 보이는 줄이 아니라, 실제 줄로 이동하기 때문에**, 커서를 옮길 때 여간 불편한 게 아니다.
 
 ### 해결 방법
 Vim 도 사실 line wrapping 이 되었을 때 같은 문제가 있고, (문제라기 보다는 특성인데) 원하는 방법대로 우회할 수 있는 방법을 [여기](https://vim.fandom.com/wiki/Move_cursor_by_display_lines_when_wrapping)서 찾았다. 이 방법을 그대로 VSCode 에도 적용한 것이다.
