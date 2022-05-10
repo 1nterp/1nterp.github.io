@@ -6,7 +6,7 @@ date: 2007-11-29T08:03:22+00:00
 draft: true
 private: true
 url: /워다이얼링wardialing/
-featured_image: /wp-content/uploads/1/cfile4.uf.1275F9264A3493BD5C5052.jpg
+featured_image: /uploads/1/cfile4.uf.1275F9264A3493BD5C5052.jpg
 categories:
   - 미분류
 tags:
@@ -22,7 +22,7 @@ tags:
 
 
 > 
->   <img src="http://interp.iwinv.net/wp-content/uploads/1/cfile4.uf.1275F9264A3493BD5C5052.jpg" class="alignleft" width="250" height="262" alt="사용자 삽입 이미지" /><strong>워다이얼링(Wardialing)</strong>은 컴퓨터나 팩스기계가 사용가능한 곳을 찾아 내서 접근하기 위해, 특정 지역의 모든 전화번호를 걸어서 모뎀에 연결된 전화번호를 자동적으로 검색하는 방법이다.
+>   <img src="/uploads/1/cfile4.uf.1275F9264A3493BD5C5052.jpg" class="alignleft" width="250" height="262" alt="사용자 삽입 이미지" /><strong>워다이얼링(Wardialing)</strong>은 컴퓨터나 팩스기계가 사용가능한 곳을 찾아 내서 접근하기 위해, 특정 지역의 모든 전화번호를 걸어서 모뎀에 연결된 전화번호를 자동적으로 검색하는 방법이다.
 > 
 > 
 > 

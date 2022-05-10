@@ -6,7 +6,7 @@ date: 2008-08-16T11:19:00+00:00
 draft: true
 private: true
 url: /linkin-park의-faint-remix-그-끝은-어디인가/
-featured_image: /wp-content/uploads/1/cfile23.uf.1112B8114A3493CD5A8313.jpg
+featured_image: /uploads/1/cfile23.uf.1112B8114A3493CD5A8313.jpg
 categories:
   - 미분류
 tags:
@@ -15,7 +15,7 @@ tags:
   - 브리트니 스피어스
 
 ---
-<P align=center><img src="http://interp.iwinv.net/wp-content/uploads/1/cfile23.uf.1112B8114A3493CD5A8313.jpg" width="130" height="130" />지금까지도 제 기분을 띄워주고 계시는 린킨 파크의 명곡인 Faint. 
+<P align=center><img src="/uploads/1/cfile23.uf.1112B8114A3493CD5A8313.jpg" width="130" height="130" />지금까지도 제 기분을 띄워주고 계시는 린킨 파크의 명곡인 Faint. 
 
   
 최근에 이런 Remix를 듣고 너무나 화려한 싱크로율에 그만 따라 부르게 되었습니다(&#8230;)  

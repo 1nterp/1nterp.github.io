@@ -6,7 +6,7 @@ date: 2010-08-13T23:56:26+00:00
 draft: true
 private: true
 url: /7-23rd-july-two-homestay/
-featured_image: /wp-content/uploads/1/cfile10.uf.11361F054C65DB03A3645A.jpg
+featured_image: /uploads/1/cfile10.uf.11361F054C65DB03A3645A.jpg
 categories:
   - 미분류
 
@@ -33,7 +33,7 @@ categories:
   </p>
   
   <div style="text-align: center; ">
-    <img src="http://interp.iwinv.net/wp-content/uploads/1/cfile28.uf.16363C054C65DB039A4A00.jpg" class="aligncenter" width="255" height="383" alt="" filename="c0030121_4870a0ddebc44.jpg" filemime="image/jpeg" /><font class="Apple-style-span" color="#474747"><br /> </font>
+    <img src="/uploads/1/cfile28.uf.16363C054C65DB039A4A00.jpg" class="aligncenter" width="255" height="383" alt="" filename="c0030121_4870a0ddebc44.jpg" filemime="image/jpeg" /><font class="Apple-style-span" color="#474747"><br /> </font>
   </p> 
   
   <div style="text-align: center; ">
@@ -54,7 +54,7 @@ categories:
         </p>
         
         <div style="text-align: center; ">
-          <img src="http://interp.iwinv.net/wp-content/uploads/1/cfile23.uf.133653054C65DB049A94A8.jpg" class="aligncenter" width="401" height="303" alt="" filename="c0030121_4870a1bb106c2.jpg" filemime="image/jpeg" /><font class="Apple-style-span" color="#474747"><br /> </font>
+          <img src="/uploads/1/cfile23.uf.133653054C65DB049A94A8.jpg" class="aligncenter" width="401" height="303" alt="" filename="c0030121_4870a1bb106c2.jpg" filemime="image/jpeg" /><font class="Apple-style-span" color="#474747"><br /> </font>
         </p> 
         
         <div style="text-align: center; ">
@@ -77,7 +77,7 @@ categories:
           </p>
           
           <div style="text-align: center; ">
-            <img src="http://interp.iwinv.net/wp-content/uploads/1/cfile21.uf.153618054C65DB03807F5F.jpg" class="aligncenter" width="200" height="235" alt="" filename="c0030121_48708ec12f104.jpg" filemime="image/jpeg" /><font class="Apple-style-span" color="#474747"><br /> </font>
+            <img src="/uploads/1/cfile21.uf.153618054C65DB03807F5F.jpg" class="aligncenter" width="200" height="235" alt="" filename="c0030121_48708ec12f104.jpg" filemime="image/jpeg" /><font class="Apple-style-span" color="#474747"><br /> </font>
           </p> 
           
           <div style="text-align: center; ">
@@ -92,7 +92,7 @@ categories:
             </p>
             
             <div style="text-align: center; ">
-              <img src="http://interp.iwinv.net/wp-content/uploads/1/cfile21.uf.153592054C65DB038C83AB.jpg" class="aligncenter" width="358" height="118" alt="" filename="c0030121_48708ce837335.jpg" filemime="image/jpeg" /><font class="Apple-style-span" color="#474747"><br /> </font>
+              <img src="/uploads/1/cfile21.uf.153592054C65DB038C83AB.jpg" class="aligncenter" width="358" height="118" alt="" filename="c0030121_48708ce837335.jpg" filemime="image/jpeg" /><font class="Apple-style-span" color="#474747"><br /> </font>
             </p> 
             
             <div style="text-align: center; ">
@@ -106,7 +106,7 @@ categories:
                 <font class="Apple-style-span" color="#474747"><br /> </font></p> 
                 
                 <div style="text-align: center; ">
-                  <img src="http://interp.iwinv.net/wp-content/uploads/1/cfile10.uf.11361F054C65DB03A3645A.jpg" class="aligncenter" width="247" height="208" alt="" filename="c0030121_48708e0ab2005.jpg" filemime="image/jpeg" /><font class="Apple-style-span" color="#474747"><br /> </font>
+                  <img src="/uploads/1/cfile10.uf.11361F054C65DB03A3645A.jpg" class="aligncenter" width="247" height="208" alt="" filename="c0030121_48708e0ab2005.jpg" filemime="image/jpeg" /><font class="Apple-style-span" color="#474747"><br /> </font>
                 
                
               

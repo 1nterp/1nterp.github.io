@@ -4,7 +4,7 @@ author: interp
 type: post
 date: 2016-07-22T13:27:44+00:00
 url: /virtualbox-가-안-될-때/
-featured_image: /wp-content/uploads/2016/07/HwyLg.png
+featured_image: /uploads/2016/07/HwyLg.png
 mentions:
   - 'a:0:{}'
 categories:
@@ -16,7 +16,7 @@ draft: true
   Ubuntu 14.04 LTS 에서 업데이트 이후 갑자기 Virtualbox의 게스트 OS를 실행할 수 없는 현상을 마주했다. (Virtualbox 자체는 실행 가능하다) 게스트 OS를 실행하려고 하면, 다음과 같은 이미지가 나오면서 실행이 안 된다. 해결책은 크게 <strong>Kernel 업데이트</strong>를 받거나, <strong>BIOS의 Secure Boot 기능을 끄는 방법</strong>이다.
 </p>
 
-<img class="aligncenter wp-image-73 size-full" src="http://interp.ivyro.net/wp-content/uploads/2016/07/HwyLg.png" alt="HwyLg" width="490" height="262" srcset="https://interp.blog/wp-content/uploads/2016/07/HwyLg.png 490w, https://interp.blog/wp-content/uploads/2016/07/HwyLg-300x160.png 300w" sizes="(max-width: 490px) 100vw, 490px" />
+<img class="aligncenter wp-image-73 size-full" src="http://interp.ivyro.net/uploads/2016/07/HwyLg.png" alt="HwyLg" width="490" height="262" srcset="https://interp.blog/uploads/2016/07/HwyLg.png 490w, https://interp.blog/uploads/2016/07/HwyLg-300x160.png 300w" sizes="(max-width: 490px) 100vw, 490px" />
 
 ### 1. Kernel 업데이트
 

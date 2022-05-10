@@ -6,13 +6,13 @@ date: 2011-04-15T01:45:23+00:00
 draft: true
 private: true
 url: /a-post-a-day/
-featured_image: /wp-content/uploads/1/cfile25.uf.176241444DA7A30E26E91D.jpg
+featured_image: /uploads/1/cfile25.uf.176241444DA7A30E26E91D.jpg
 categories:
   - 미분류
 
 ---
 <p style="margin:0">
-  <span style="font-size: 9pt; ">﻿</span><img src="http://interp.iwinv.net/wp-content/uploads/1/cfile25.uf.176241444DA7A30E26E91D.jpg" class="aligncenter" width="720" height="478" alt="" filename="205189_165981826792672_100001425673383_390937_8033095_n.jpg" filemime="image/jpeg" />
+  <span style="font-size: 9pt; ">﻿</span><img src="/uploads/1/cfile25.uf.176241444DA7A30E26E91D.jpg" class="aligncenter" width="720" height="478" alt="" filename="205189_165981826792672_100001425673383_390937_8033095_n.jpg" filemime="image/jpeg" />
 </p>
 
 <span style="font-family: Gulim; ">니콘 광고에서 빅뱅과 2NE1이 나와서 '어샷 어데이~(A shot, a day)' 라고 외치길래, </span>

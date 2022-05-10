@@ -4,7 +4,7 @@ author: interp
 type: post
 date: 2017-10-10T22:18:56+00:00
 url: /im-the-boss/
-featured_image: /wp-content/uploads/1/cfile23.uf.273ABA375385DA8316BAED.png
+featured_image: /uploads/1/cfile23.uf.273ABA375385DA8316BAED.png
 categories:
   - review
 tags:

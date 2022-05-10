@@ -49,7 +49,7 @@
 {{- $class = "post-entry tag-entry" }}
 {{- end }}
 
-{{- if not .Draft}}
+{{- if (or (not .Draft) .Site.BuildDrafts)}}
 <article class="{{ $class }}">
   {{- $isHidden := (.Site.Params.cover.hidden | default .Site.Params.cover.hiddenInList) }}
   {{- partial "cover.html" (dict "cxt" . "IsHome" true "isHidden" $isHidden) }}

@@ -6,7 +6,7 @@ date: 2014-10-11T09:02:50+00:00
 draft: true
 private: true
 url: /오묘한-javascript-패턴으로-파악하자/
-featured_image: /wp-content/uploads/1/cfile3.uf.2639964B5438F106160476.jpg
+featured_image: /uploads/1/cfile3.uf.2639964B5438F106160476.jpg
 categories:
   - 프로그래밍
 tags:
@@ -15,7 +15,7 @@ tags:
 
 ---
 <p style="clear: none; float: none; text-align: center;">
-  <img src="http://interp.iwinv.net/wp-content/uploads/1/cfile3.uf.2639964B5438F106160476.jpg" class="aligncenter" width="220" height="220" filename="js_logo.jpg" filemime="image/jpeg" style="width: 220px; height: 220px;" />
+  <img src="/uploads/1/cfile3.uf.2639964B5438F106160476.jpg" class="aligncenter" width="220" height="220" filename="js_logo.jpg" filemime="image/jpeg" style="width: 220px; height: 220px;" />
 </p>
 
 <p style="text-align: justify;">

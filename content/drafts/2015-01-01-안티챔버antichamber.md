@@ -6,7 +6,7 @@ date: 2015-01-01T12:56:37+00:00
 draft: true
 private: true
 url: /안티챔버antichamber/
-featured_image: /wp-content/uploads/1/cfile6.uf.271F124354A558BA2D0D8A.png
+featured_image: /uploads/1/cfile6.uf.271F124354A558BA2D0D8A.png
 categories:
   - 미분류
 tags:
@@ -15,7 +15,7 @@ tags:
 
 ---
 <p style="text-align: center; clear: none; float: none;">
-  <img src="http://interp.iwinv.net/wp-content/uploads/1/cfile6.uf.271F124354A558BA2D0D8A.png" class="aligncenter" width="300" height="300" filename="Antichamber_logo.png" filemime="image/png" />
+  <img src="/uploads/1/cfile6.uf.271F124354A558BA2D0D8A.png" class="aligncenter" width="300" height="300" filename="Antichamber_logo.png" filemime="image/png" />
 </p>
 
 <p style="text-align: justify;">
@@ -54,7 +54,7 @@ tags:
 
 
 <p style="text-align: center; clear: none; float: none;">
-  <img src="http://interp.iwinv.net/wp-content/uploads/1/cfile9.uf.2359E14654A5517804A63D.png" class="aligncenter" width="600" height="375" filename="Blue_gun.png" filemime="image/png" style="width: 600px; height: 375px;" />
+  <img src="/uploads/1/cfile9.uf.2359E14654A5517804A63D.png" class="aligncenter" width="600" height="375" filename="Blue_gun.png" filemime="image/png" style="width: 600px; height: 375px;" />
 </p>
 
 <p style="text-align: justify;">

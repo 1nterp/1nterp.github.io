@@ -6,7 +6,7 @@ date: 2011-10-11T03:17:20+00:00
 draft: true
 private: true
 url: /pdf-viewer에-팝업사전을-달아보자/
-featured_image: /wp-content/uploads/1/cfile1.uf.1861C5434E93B4EE28092D.png
+featured_image: /uploads/1/cfile1.uf.1861C5434E93B4EE28092D.png
 categories:
   - 미분류
 
@@ -21,7 +21,7 @@ PDF 뷰어와 하루종일 뒹굴고 있는 사람들에게, 특히 영어로 �
   </p>
   
   <p style="margin:0">
-    <img src="http://interp.iwinv.net/wp-content/uploads/1/cfile1.uf.1861C5434E93B4EE28092D.png" class="aligncenter" width="467" height="260" alt="" filename="1.png" filemime="image/jpeg" />
+    <img src="/uploads/1/cfile1.uf.1861C5434E93B4EE28092D.png" class="aligncenter" width="467" height="260" alt="" filename="1.png" filemime="image/jpeg" />
   </p>
   
   <p>

@@ -25,11 +25,11 @@ Vim 과 SSH 에 찌들어 있었는데, 이번 Visual Studio Code 의 베타 기
 시작 > 설정 앱에서, '앱' 을 클릭한 뒤 '앱 및 기능' 탭의 '선택적 기능 관리' 를 클릭한다. 그 다음 아래 'OpenSSH 클라이언트' 를 찾아 설치한다. OpenSSH 서버는 설치할 필요가 없다.
 
 <p id="foopGhq">
-  <img class="alignnone size-full wp-image-1523 " src="https://interp.blog/wp-content/uploads/2019/06/img_5d11df55e7f29.png" alt="" srcset="https://interp.blog/wp-content/uploads/2019/06/img_5d11df55e7f29.png 829w, https://interp.blog/wp-content/uploads/2019/06/img_5d11df55e7f29-300x139.png 300w, https://interp.blog/wp-content/uploads/2019/06/img_5d11df55e7f29-768x357.png 768w" sizes="(max-width: 829px) 100vw, 829px" />
+  <img class="alignnone size-full wp-image-1523 " src="https://interp.blog/uploads/2019/06/img_5d11df55e7f29.png" alt="" srcset="https://interp.blog/uploads/2019/06/img_5d11df55e7f29.png 829w, https://interp.blog/uploads/2019/06/img_5d11df55e7f29-300x139.png 300w, https://interp.blog/uploads/2019/06/img_5d11df55e7f29-768x357.png 768w" sizes="(max-width: 829px) 100vw, 829px" />
 </p>
 
 <p id="MCzFjvf">
-  <img class="alignnone size-full wp-image-1522 " src="https://interp.blog/wp-content/uploads/2019/06/img_5d11df39e0722.png" alt="" srcset="https://interp.blog/wp-content/uploads/2019/06/img_5d11df39e0722.png 470w, https://interp.blog/wp-content/uploads/2019/06/img_5d11df39e0722-300x43.png 300w" sizes="(max-width: 470px) 100vw, 470px" />
+  <img class="alignnone size-full wp-image-1522 " src="https://interp.blog/uploads/2019/06/img_5d11df39e0722.png" alt="" srcset="https://interp.blog/uploads/2019/06/img_5d11df39e0722.png 470w, https://interp.blog/uploads/2019/06/img_5d11df39e0722-300x43.png 300w" sizes="(max-width: 470px) 100vw, 470px" />
 </p>
 
 <p style="padding-left: 40px;">
@@ -60,7 +60,7 @@ Visual Studio Code 는 OpenSSH (또는 Git 의 ssh) 클라이언트를 쓰기 �
 우여곡절 끝에 준비를 다 했으면, Visual Studio Code 를 열어서 [Remote Deployment][7] 를 설치하자. 그 다음, 명령 팔레트를 열어서 (Shift + Ctrl + P) **Remote-SSH: Open Configuration File&#8230;** 을 선택한다. 설정 파일 경로는 수정하거나 기존에 잡아주는 경로를 쓰건 상관없다.
 
 <p id="KhDFgvb">
-  <img class="alignnone size-full wp-image-1524 " src="https://interp.blog/wp-content/uploads/2019/06/img_5d12fc88e148b.png" alt="" srcset="https://interp.blog/wp-content/uploads/2019/06/img_5d12fc88e148b.png 622w, https://interp.blog/wp-content/uploads/2019/06/img_5d12fc88e148b-300x45.png 300w" sizes="(max-width: 622px) 100vw, 622px" />
+  <img class="alignnone size-full wp-image-1524 " src="https://interp.blog/uploads/2019/06/img_5d12fc88e148b.png" alt="" srcset="https://interp.blog/uploads/2019/06/img_5d12fc88e148b.png 622w, https://interp.blog/uploads/2019/06/img_5d12fc88e148b-300x45.png 300w" sizes="(max-width: 622px) 100vw, 622px" />
 </p>
 
 예시는 이렇다.

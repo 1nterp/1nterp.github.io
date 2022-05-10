@@ -6,13 +6,13 @@ date: 2011-03-07T11:22:04+00:00
 draft: true
 private: true
 url: /why-so-serious/
-featured_image: /wp-content/uploads/1/cfile23.uf.202EB35A4D74C2AE386B5E.jpg
+featured_image: /uploads/1/cfile23.uf.202EB35A4D74C2AE386B5E.jpg
 categories:
   - 미분류
 
 ---
 
-  <img src="http://interp.iwinv.net/wp-content/uploads/1/cfile23.uf.202EB35A4D74C2AE386B5E.jpg" class="aligncenter" width="540" height="180" alt="" filename="110307.jpg" filemime="image/jpeg" />
+  <img src="/uploads/1/cfile23.uf.202EB35A4D74C2AE386B5E.jpg" class="aligncenter" width="540" height="180" alt="" filename="110307.jpg" filemime="image/jpeg" />
 
 
 
