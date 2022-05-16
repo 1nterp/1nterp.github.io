@@ -167,7 +167,13 @@ sleep() 은 X초만큼 지나거나, 무시할 수 없는 시그널이 도착할
 <section class=entry-content>
 <p>‘zsh 자동 완성’ 이라는 Kubernetes 공식 문서에 따르면, 다음 명령으로 자동 완성이 가능하다고 한다.
 source &lt;(kubectl completion zsh) 그런데 Oh my zsh! 에서는 몇가지 더 설정을 해야 한다.
-$HOME/.zshrc 를 열어서, plugins 에 다음을 추가한다. kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions plugins=(git kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions) kubectl, kube-ps1 은 이미 설치되어 있을텐데, 아래 2개는 별도 설치가 필요할 수 있다....</p>
+$HOME/.zshrc 를 열어서, plugins 에 다음을 추가한다.
+kubectl
+kube-ps1
+zsh-syntax-highlighting
+zsh-autosuggestions
+plugins=(git kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions)
+kubectl, kube-ps1 은 이미 설치되어 있을텐데, 아래 2개는 별도 설치가 필요할 수 있다....</p>
 </section>
 <footer class=entry-footer>
 1 분</footer>
