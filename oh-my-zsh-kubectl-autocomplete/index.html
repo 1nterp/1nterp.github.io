@@ -1,0 +1,148 @@
+<!doctype html><html lang=ko dir=auto>
+<head><meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name=robots content="index, follow">
+<title>Oh my zsh! 에서 kubectl 자동 완성 하기 | InterP Blog</title>
+<meta name=keywords content="kubectl,oh-my-zsh">
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-126809878-1"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','UA-126809878-1')</script>
+<link rel=preconnect href=https://fonts.googleapis.com>
+<link rel=preconnect href=https://fonts.gstatic.com crossorigin>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KMRJ33V06X"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-KMRJ33V06X')</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
+<meta name=description content="&lsquo;zsh 자동 완성&rsquo; 이라는 Kubernetes 공식 문서에 따르면, 다음 명령으로 자동 완성이 가능하다고 한다.
+source <(kubectl completion zsh) 그런데 Oh my zsh! 에서는 몇가지 더 설정을 해야 한다.
+ $HOME/.zshrc 를 열어서, plugins 에 다음을 추가한다.  kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions    plugins=(git kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions)  kubectl, kube-ps1 은 이미 설치되어 있을텐데, 아래 2개는 별도 설치가 필요할 수 있다.">
+<meta name=author content="InterP">
+<link rel=canonical href=https://interp.blog/oh-my-zsh-kubectl-autocomplete/>
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.7e908554da084cbc2892fa8b2efb5c546df8cc87286b8d5165b0d3da3b1af694.css integrity="sha256-fpCFVNoITLwokvqLLvtcVG34zIcoa41RZbDT2jsa9pQ=" rel="preload stylesheet" as=style>
+<script defer crossorigin=anonymous src=/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5+kdJvBz5iKbt6B5PJI=" onload=hljs.initHighlightingOnLoad()></script>
+<link rel=icon href=https://interp.blog/favicon.ico>
+<link rel=icon type=image/png sizes=16x16 href=https://interp.blog/favicon-16x16.png>
+<link rel=icon type=image/png sizes=32x32 href=https://interp.blog/favicon-32x32.png>
+<link rel=apple-touch-icon href=https://interp.blog/apple-touch-icon.png>
+<link rel=mask-icon href=https://interp.blog/safari-pinned-tab.svg>
+<meta name=theme-color content="#2e2e33">
+<meta name=msapplication-TileColor content="#2e2e33">
+<meta name=generator content="Hugo 0.91.2">
+<noscript>
+<style>#theme-toggle,.top-link{display:none}</style>
+<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
+</noscript>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-126809878-1','auto'),ga('send','pageview'))</script><meta property="og:title" content="Oh my zsh! 에서 kubectl 자동 완성 하기">
+<meta property="og:description" content="&lsquo;zsh 자동 완성&rsquo; 이라는 Kubernetes 공식 문서에 따르면, 다음 명령으로 자동 완성이 가능하다고 한다.
+source <(kubectl completion zsh) 그런데 Oh my zsh! 에서는 몇가지 더 설정을 해야 한다.
+ $HOME/.zshrc 를 열어서, plugins 에 다음을 추가한다.  kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions    plugins=(git kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions)  kubectl, kube-ps1 은 이미 설치되어 있을텐데, 아래 2개는 별도 설치가 필요할 수 있다.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://interp.blog/oh-my-zsh-kubectl-autocomplete/"><meta property="article:section" content="tech">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="Oh my zsh! 에서 kubectl 자동 완성 하기">
+<meta name=twitter:description content="&lsquo;zsh 자동 완성&rsquo; 이라는 Kubernetes 공식 문서에 따르면, 다음 명령으로 자동 완성이 가능하다고 한다.
+source <(kubectl completion zsh) 그런데 Oh my zsh! 에서는 몇가지 더 설정을 해야 한다.
+ $HOME/.zshrc 를 열어서, plugins 에 다음을 추가한다.  kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions    plugins=(git kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions)  kubectl, kube-ps1 은 이미 설치되어 있을텐데, 아래 2개는 별도 설치가 필요할 수 있다.">
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tech 🛠️","item":"https://interp.blog/tech/"},{"@type":"ListItem","position":2,"name":"Oh my zsh! 에서 kubectl 자동 완성 하기","item":"https://interp.blog/oh-my-zsh-kubectl-autocomplete/"}]}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Oh my zsh! 에서 kubectl 자동 완성 하기","name":"Oh my zsh! 에서 kubectl 자동 완성 하기","description":"\u0026lsquo;zsh 자동 완성\u0026rsquo; 이라는 Kubernetes 공식 문서에 따르면, 다음 명령으로 자동 완성이 가능하다고 한다.\nsource \u0026lt;(kubectl completion zsh) 그런데 Oh my zsh! 에서는 몇가지 더 설정을 해야 한다.\n $HOME/.zshrc 를 열어서, plugins 에 다음을 추가한다.  kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions    plugins=(git kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions)  kubectl, kube-ps1 은 이미 설치되어 있을텐데, 아래 2개는 별도 설치가 필요할 수 있다.","keywords":["kubectl","oh-my-zsh"],"articleBody":"‘zsh 자동 완성’ 이라는 Kubernetes 공식 문서에 따르면, 다음 명령으로 자동 완성이 가능하다고 한다.\nsource (kubectl completion zsh) 그런데 Oh my zsh! 에서는 몇가지 더 설정을 해야 한다.\n $HOME/.zshrc 를 열어서, plugins 에 다음을 추가한다.  kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions    plugins=(git kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions)  kubectl, kube-ps1 은 이미 설치되어 있을텐데, 아래 2개는 별도 설치가 필요할 수 있다.  # zsh-syntax-highlighting git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting # zsh-autosuggestions git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions 참고로 Auto-suggestion 되는 내용이 하얀색으로 나와서 타이핑하거나 알아보기가 힘들다면, 해당 내용만 다른 색으로 바꿔줄 수 있다.\n export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=(number)' 라고 쓰면 된다. 나는 (number) 자리에 243 을 사용했다. 연한 회색이다. 자세한 color 값은 여기를 참고하자. 물론 사용하려면 $TERM 값이 xterm-256color 여야 한다.  그리고 다시 로그인하면, 탭키() 를 통해 자동 완성이 잘 되는 것을 확인할 수 있다.\n","wordCount":"124","inLanguage":"ko","datePublished":"0001-01-01T00:00:00Z","dateModified":"0001-01-01T00:00:00Z","author":{"@type":"Person","name":"InterP"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://interp.blog/oh-my-zsh-kubectl-autocomplete/"},"publisher":{"@type":"Organization","name":"InterP Blog","logo":{"@type":"ImageObject","url":"https://interp.blog/favicon.ico"}}}</script>
+</head>
+<body id=top>
+<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
+<header class=header>
+<nav class=nav>
+<div class=logo>
+<a href=https://interp.blog/ accesskey=h title="InterP Blog (Alt + H)">InterP Blog</a>
+<span class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+</span>
+</div>
+<ul id=menu>
+<li>
+<a href=https://interp.blog/tech/ title=Tech>
+<span>Tech</span>
+</a>
+</li>
+<li>
+<a href=https://interp.blog/review/ title=Review>
+<span>Review</span>
+</a>
+</li>
+<li>
+<a href=https://interp.blog/essay/ title=Essay>
+<span>Essay</span>
+</a>
+</li>
+</ul>
+</nav>
+</header>
+<main class=main>
+<article class=post-single>
+<header class=post-header>
+<div class=breadcrumbs><a href=https://interp.blog/>Home</a>&nbsp;»&nbsp;<a href=https://interp.blog/tech/>Tech 🛠️</a></div>
+<h1 class=post-title>
+Oh my zsh! 에서 kubectl 자동 완성 하기
+</h1>
+<div class=post-meta>
+1 분
+</div>
+</header>
+<div class=post-content><p>&lsquo;<a href=https://kubernetes.io/ko/docs/tasks/tools/included/optional-kubectl-configs-zsh/>zsh 자동 완성</a>&rsquo; 이라는 Kubernetes 공식 문서에 따르면, 다음 명령으로 자동 완성이 가능하다고 한다.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>source &lt;<span style=color:#f92672>(</span>kubectl completion zsh<span style=color:#f92672>)</span>
+</code></pre></div><p>그런데 Oh my zsh! 에서는 몇가지 더 설정을 해야 한다.</p>
+<ul>
+<li><code>$HOME/.zshrc</code> 를 열어서, plugins 에 다음을 추가한다.
+<ul>
+<li>kubectl</li>
+<li>kube-ps1</li>
+<li>zsh-syntax-highlighting</li>
+<li>zsh-autosuggestions</li>
+</ul>
+</li>
+</ul>
+<pre tabindex=0><code>plugins=(git kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions)
+</code></pre><ul>
+<li>kubectl, kube-ps1 은 이미 설치되어 있을텐데, 아래 2개는 별도 설치가 필요할 수 있다.</li>
+</ul>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#75715e># zsh-syntax-highlighting</span>
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git <span style=color:#e6db74>${</span>ZSH_CUSTOM<span style=color:#66d9ef>:-</span>~/.oh-my-zsh/custom<span style=color:#e6db74>}</span>/plugins/zsh-syntax-highlighting
+<span style=color:#75715e># zsh-autosuggestions</span>
+git clone https://github.com/zsh-users/zsh-autosuggestions <span style=color:#e6db74>${</span>ZSH_CUSTOM<span style=color:#66d9ef>:-</span>~/.oh-my-zsh/custom<span style=color:#e6db74>}</span>/plugins/zsh-autosuggestions
+</code></pre></div><p>참고로 Auto-suggestion 되는 내용이 하얀색으로 나와서 타이핑하거나 알아보기가 힘들다면, 해당 내용만 다른 색으로 바꿔줄 수 있다.</p>
+<ul>
+<li><code>export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=(number)'</code> 라고 쓰면 된다.</li>
+<li>나는 <code>(number)</code> 자리에 <code>243</code> 을 사용했다. 연한 회색이다.</li>
+<li>자세한 color 값은 <a href=https://upload.wikimedia.org/wikipedia/commons/1/15/Xterm_256color_chart.svg>여기</a>를 참고하자. 물론 사용하려면 <code>$TERM</code> 값이 <strong>xterm-256color</strong> 여야 한다.</li>
+</ul>
+<p>그리고 다시 로그인하면, 탭키(<tab>) 를 통해 자동 완성이 잘 되는 것을 확인할 수 있다.</p>
+</div>
+<footer class=post-footer>
+<ul class=post-tags>
+<li><a href=https://interp.blog/tags/kubectl/>kubectl</a></li>
+<li><a href=https://interp.blog/tags/oh-my-zsh/>oh-my-zsh</a></li>
+</ul>
+<nav class=paginav>
+<a class=prev href=https://interp.blog/powerpoint-shape-move-faster/>
+<span class=title>« 이전 페이지</span>
+<br>
+<span>Powerpoint 에서 방향키 이동이 너무 느릴 때</span>
+</a>
+</nav>
+</footer>
+</article>
+</main>
+<footer class=footer>
+<span>&copy; 2022 <a href=https://interp.blog/>InterP Blog</a></span>
+<span>
+Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+</span>
+</footer>
+<a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a>
+<script>let menu=document.getElementById('menu');menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener("click",function(b){b.preventDefault();var a=this.getAttribute("href").substr(1);window.matchMedia('(prefers-reduced-motion: reduce)').matches?document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView({behavior:"smooth"}),a==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${a}`)})})</script>
+<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
+<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove('dark'),localStorage.setItem("pref-theme",'light')):(document.body.classList.add('dark'),localStorage.setItem("pref-theme",'dark'))})</script>
+<script>document.querySelectorAll('pre > code').forEach(b=>{const c=b.parentNode.parentNode,a=document.createElement('button');a.classList.add('copy-code'),a.innerText='copy';function d(){a.innerText='copied!',setTimeout(()=>{a.innerText='copy'},2e3)}a.addEventListener('click',e=>{if('clipboard'in navigator){navigator.clipboard.writeText(b.textContent),d();return}const a=document.createRange();a.selectNodeContents(b);const c=window.getSelection();c.removeAllRanges(),c.addRange(a);try{document.execCommand('copy'),d()}catch(a){}c.removeRange(a)}),c.classList.contains("highlight")?c.appendChild(a):c.parentNode.firstChild==c||(b.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?b.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(a):b.parentNode.appendChild(a))})</script>
+</body>
+</html>
