@@ -17,8 +17,8 @@ fields:
   label: Date
   config:
     date_format: YYYY-MM-DD
-    time_format: hh:mm ZZ
-    export_format: YYYY-MM-DD hh:mm
+    time_format: hh:mm:ss ZZ
+    export_format: YYYY-MM-DD'T'hh:mm:ssZZ
     required: true
   default: now
 - type: text
