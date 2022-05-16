@@ -26,9 +26,7 @@ source <(kubectl completion zsh)
   * zsh-syntax-highlighting
   * zsh-autosuggestions
 
-```
-plugins=(git kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions)
-```
+    plugins=(git kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions)
 
 * kubectl, kube-ps1 은 이미 설치되어 있을텐데, 아래 2개는 별도 설치가 필요할 수 있다.
 
@@ -45,4 +43,4 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-m
 * 나는 `(number)` 자리에 `243` 을 사용했다. 연한 회색이다.
 * 자세한 color 값은 [여기](https://upload.wikimedia.org/wikipedia/commons/1/15/Xterm_256color_chart.svg)를 참고하자. 물론 사용하려면 `$TERM` 값이 **xterm-256color** 여야 한다.
 
-그리고 다시 로그인하면, 탭키(<tab>) 를 통해 자동 완성이 잘 되는 것을 확인할 수 있다.
+그리고 다시 로그인하면, 탭키(`<tab>`) 를 통해 자동 완성이 잘 되는 것을 확인할 수 있다.
