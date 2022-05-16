@@ -26,7 +26,9 @@ source <(kubectl completion zsh)
   * zsh-syntax-highlighting
   * zsh-autosuggestions
 
-    plugins=(git kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions)
+```
+plugins=(git kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions)
+```
 
 * kubectl, kube-ps1 은 이미 설치되어 있을텐데, 아래 2개는 별도 설치가 필요할 수 있다.
 
