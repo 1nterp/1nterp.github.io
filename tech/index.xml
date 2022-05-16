@@ -40,10 +40,4 @@ pthread_yield() 는, 호출한 쓰레드가 프로세서 사용을 그만두고,
 sleep() 은 X초만큼 지나거나, 무시할 수 없는 시그널이 도착할 때 까지 (다른 쓰레드를 포함한) 호출 프로세스를 재웁니다.
 현재 쓰레드를 실제로 지연시키고 싶지 않지만 (호출 쓰레드 대신) 다른 쓰레드에게 실행권을 넘겨주고 싶은 경우라면, sleep() 보단 pthread_yield() 가 적합할 것 같습니다.</description></item><item><title>Oh my zsh! 에서 kubectl 자동 완성 하기</title><link>https://interp.blog/oh-my-zsh-kubectl-autocomplete/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://interp.blog/oh-my-zsh-kubectl-autocomplete/</guid><description>&amp;lsquo;zsh 자동 완성&amp;rsquo; 이라는 Kubernetes 공식 문서에 따르면, 다음 명령으로 자동 완성이 가능하다고 한다.
 source &amp;lt;(kubectl completion zsh) 그런데 Oh my zsh! 에서는 몇가지 더 설정을 해야 한다.
-$HOME/.zshrc 를 열어서, plugins 에 다음을 추가한다.
-kubectl
-kube-ps1
-zsh-syntax-highlighting
-zsh-autosuggestions
-plugins=(git kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions)
-kubectl, kube-ps1 은 이미 설치되어 있을텐데, 아래 2개는 별도 설치가 필요할 수 있다.</description></item></channel></rss>
+$HOME/.zshrc 를 열어서, plugins 에 다음을 추가한다. kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions plugins=(git kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions) kubectl, kube-ps1 은 이미 설치되어 있을텐데, 아래 2개는 별도 설치가 필요할 수 있다.</description></item></channel></rss>

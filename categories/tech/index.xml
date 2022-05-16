@@ -7,10 +7,4 @@
 그래서 이걸 끌 수 있는 방법을 두 가지 찾았는데, 하나는 레지스트리를 수정하는 것이라 귀찮았다. 다른 하나는 그 것보단 간단하다. 아래 스크린샷 순서대로 따라가 체크를 해제하면 된다.
 제어판 &amp;gt; 시스템으로 들어간 다음, 고급 시스템 설정으로 들어간다.</description></item><item><title>Oh my zsh! 에서 kubectl 자동 완성 하기</title><link>https://interp.blog/oh-my-zsh-kubectl-autocomplete/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://interp.blog/oh-my-zsh-kubectl-autocomplete/</guid><description>&amp;lsquo;zsh 자동 완성&amp;rsquo; 이라는 Kubernetes 공식 문서에 따르면, 다음 명령으로 자동 완성이 가능하다고 한다.
 source &amp;lt;(kubectl completion zsh) 그런데 Oh my zsh! 에서는 몇가지 더 설정을 해야 한다.
-$HOME/.zshrc 를 열어서, plugins 에 다음을 추가한다.
-kubectl
-kube-ps1
-zsh-syntax-highlighting
-zsh-autosuggestions
-plugins=(git kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions)
-kubectl, kube-ps1 은 이미 설치되어 있을텐데, 아래 2개는 별도 설치가 필요할 수 있다.</description></item></channel></rss>
+$HOME/.zshrc 를 열어서, plugins 에 다음을 추가한다. kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions plugins=(git kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions) kubectl, kube-ps1 은 이미 설치되어 있을텐데, 아래 2개는 별도 설치가 필요할 수 있다.</description></item></channel></rss>

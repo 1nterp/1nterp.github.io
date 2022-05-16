@@ -3,10 +3,4 @@ white, black, red, blue, green, yellow, cyan, magenta 사전에 정의된 것 �
 터미널 종류가 xterm-256color 여야 한다. (xterm 이면 색깔을 정해도 제대로 출력이 안된다.)
 oh-my-zsh 에서, %{%K{123}%} 또는 %{%F{123}%} 를 가지고 색깔을 찾는다.</description></item><item><title>Oh my zsh! 에서 kubectl 자동 완성 하기</title><link>https://interp.blog/oh-my-zsh-kubectl-autocomplete/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://interp.blog/oh-my-zsh-kubectl-autocomplete/</guid><description>&amp;lsquo;zsh 자동 완성&amp;rsquo; 이라는 Kubernetes 공식 문서에 따르면, 다음 명령으로 자동 완성이 가능하다고 한다.
 source &amp;lt;(kubectl completion zsh) 그런데 Oh my zsh! 에서는 몇가지 더 설정을 해야 한다.
-$HOME/.zshrc 를 열어서, plugins 에 다음을 추가한다.
-kubectl
-kube-ps1
-zsh-syntax-highlighting
-zsh-autosuggestions
-plugins=(git kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions)
-kubectl, kube-ps1 은 이미 설치되어 있을텐데, 아래 2개는 별도 설치가 필요할 수 있다.</description></item></channel></rss>
+$HOME/.zshrc 를 열어서, plugins 에 다음을 추가한다. kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions plugins=(git kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions) kubectl, kube-ps1 은 이미 설치되어 있을텐데, 아래 2개는 별도 설치가 필요할 수 있다.</description></item></channel></rss>
