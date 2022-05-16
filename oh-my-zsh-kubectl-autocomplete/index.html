@@ -12,9 +12,7 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-KMRJ33V06X"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-KMRJ33V06X')</script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
-<meta name=description content="&lsquo;zsh 자동 완성&rsquo; 이라는 Kubernetes 공식 문서에 따르면, 다음 명령으로 자동 완성이 가능하다고 한다.
-source <(kubectl completion zsh) 그런데 Oh my zsh! 에서는 몇가지 더 설정을 해야 한다.
- $HOME/.zshrc 를 열어서, plugins 에 다음을 추가한다.  kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions    plugins=(git kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions)  kubectl, kube-ps1 은 이미 설치되어 있을텐데, 아래 2개는 별도 설치가 필요할 수 있다.">
+<meta name=description content="‘zsh 자동 완성’ 이라는 Kubernetes 공식 문서에 따르면, 몇 가지 명령으로 자동 완성이 가능하다고 한다. 하지만 Oh my zsh! 에서는 이것만으로는 충분하지 않았다.">
 <meta name=author content="InterP">
 <link rel=canonical href=https://interp.blog/oh-my-zsh-kubectl-autocomplete/>
 <link crossorigin=anonymous href=/assets/css/stylesheet.min.7e908554da084cbc2892fa8b2efb5c546df8cc87286b8d5165b0d3da3b1af694.css integrity="sha256-fpCFVNoITLwokvqLLvtcVG34zIcoa41RZbDT2jsa9pQ=" rel="preload stylesheet" as=style>
@@ -32,18 +30,16 @@ source <(kubectl completion zsh) 그런데 Oh my zsh! 에서는 몇가지 더 �
 <style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
 </noscript>
 <script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-126809878-1','auto'),ga('send','pageview'))</script><meta property="og:title" content="Oh my zsh! 에서 kubectl 자동 완성 하기">
-<meta property="og:description" content="&lsquo;zsh 자동 완성&rsquo; 이라는 Kubernetes 공식 문서에 따르면, 다음 명령으로 자동 완성이 가능하다고 한다.
-source <(kubectl completion zsh) 그런데 Oh my zsh! 에서는 몇가지 더 설정을 해야 한다.
- $HOME/.zshrc 를 열어서, plugins 에 다음을 추가한다.  kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions    plugins=(git kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions)  kubectl, kube-ps1 은 이미 설치되어 있을텐데, 아래 2개는 별도 설치가 필요할 수 있다.">
+<meta property="og:description" content="‘zsh 자동 완성’ 이라는 Kubernetes 공식 문서에 따르면, 몇 가지 명령으로 자동 완성이 가능하다고 한다. 하지만 Oh my zsh! 에서는 이것만으로는 충분하지 않았다.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://interp.blog/oh-my-zsh-kubectl-autocomplete/"><meta property="article:section" content="tech">
+<meta property="article:published_time" content="2022-05-16T01:57:00+09:00">
+<meta property="article:modified_time" content="2022-05-16T01:57:00+09:00">
 <meta name=twitter:card content="summary">
 <meta name=twitter:title content="Oh my zsh! 에서 kubectl 자동 완성 하기">
-<meta name=twitter:description content="&lsquo;zsh 자동 완성&rsquo; 이라는 Kubernetes 공식 문서에 따르면, 다음 명령으로 자동 완성이 가능하다고 한다.
-source <(kubectl completion zsh) 그런데 Oh my zsh! 에서는 몇가지 더 설정을 해야 한다.
- $HOME/.zshrc 를 열어서, plugins 에 다음을 추가한다.  kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions    plugins=(git kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions)  kubectl, kube-ps1 은 이미 설치되어 있을텐데, 아래 2개는 별도 설치가 필요할 수 있다.">
+<meta name=twitter:description content="‘zsh 자동 완성’ 이라는 Kubernetes 공식 문서에 따르면, 몇 가지 명령으로 자동 완성이 가능하다고 한다. 하지만 Oh my zsh! 에서는 이것만으로는 충분하지 않았다.">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tech 🛠️","item":"https://interp.blog/tech/"},{"@type":"ListItem","position":2,"name":"Oh my zsh! 에서 kubectl 자동 완성 하기","item":"https://interp.blog/oh-my-zsh-kubectl-autocomplete/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Oh my zsh! 에서 kubectl 자동 완성 하기","name":"Oh my zsh! 에서 kubectl 자동 완성 하기","description":"\u0026lsquo;zsh 자동 완성\u0026rsquo; 이라는 Kubernetes 공식 문서에 따르면, 다음 명령으로 자동 완성이 가능하다고 한다.\nsource \u0026lt;(kubectl completion zsh) 그런데 Oh my zsh! 에서는 몇가지 더 설정을 해야 한다.\n $HOME/.zshrc 를 열어서, plugins 에 다음을 추가한다.  kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions    plugins=(git kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions)  kubectl, kube-ps1 은 이미 설치되어 있을텐데, 아래 2개는 별도 설치가 필요할 수 있다.","keywords":["kubectl","oh-my-zsh"],"articleBody":"‘zsh 자동 완성’ 이라는 Kubernetes 공식 문서에 따르면, 다음 명령으로 자동 완성이 가능하다고 한다.\nsource (kubectl completion zsh) 그런데 Oh my zsh! 에서는 몇가지 더 설정을 해야 한다.\n $HOME/.zshrc 를 열어서, plugins 에 다음을 추가한다.  kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions    plugins=(git kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions)  kubectl, kube-ps1 은 이미 설치되어 있을텐데, 아래 2개는 별도 설치가 필요할 수 있다.  # zsh-syntax-highlighting git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting # zsh-autosuggestions git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions 참고로 Auto-suggestion 되는 내용이 하얀색으로 나와서 타이핑하거나 알아보기가 힘들다면, 해당 내용만 다른 색으로 바꿔줄 수 있다.\n export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=(number)' 라고 쓰면 된다. 나는 (number) 자리에 243 을 사용했다. 연한 회색이다. 자세한 color 값은 여기를 참고하자. 물론 사용하려면 $TERM 값이 xterm-256color 여야 한다.  그리고 다시 로그인하면, 탭키() 를 통해 자동 완성이 잘 되는 것을 확인할 수 있다.\n","wordCount":"124","inLanguage":"ko","datePublished":"0001-01-01T00:00:00Z","dateModified":"0001-01-01T00:00:00Z","author":{"@type":"Person","name":"InterP"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://interp.blog/oh-my-zsh-kubectl-autocomplete/"},"publisher":{"@type":"Organization","name":"InterP Blog","logo":{"@type":"ImageObject","url":"https://interp.blog/favicon.ico"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Oh my zsh! 에서 kubectl 자동 완성 하기","name":"Oh my zsh! 에서 kubectl 자동 완성 하기","description":"‘zsh 자동 완성’ 이라는 Kubernetes 공식 문서에 따르면, 몇 가지 명령으로 자동 완성이 가능하다고 한다. 하지만 Oh my zsh! 에서는 이것만으로는 충분하지 않았다.","keywords":["kubectl","oh-my-zsh"],"articleBody":"‘zsh 자동 완성’ 이라는 Kubernetes 공식 문서에 따르면, 다음 명령으로 자동 완성이 가능하다고 한다.\nsource (kubectl completion zsh) 그런데 Oh my zsh! 에서는 몇가지 더 설정을 해야 한다.\n $HOME/.zshrc 를 열어서, plugins 에 다음을 추가한다.  kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions    plugins=(git kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions)  kubectl, kube-ps1 은 이미 설치되어 있을텐데, 아래 2개는 별도 설치가 필요할 수 있다.  # zsh-syntax-highlighting git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting # zsh-autosuggestions git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions 참고로 Auto-suggestion 되는 내용이 하얀색으로 나와서 타이핑하거나 알아보기가 힘들다면, 해당 내용만 다른 색으로 바꿔줄 수 있다.\n export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=(number)' 라고 쓰면 된다. 나는 (number) 자리에 243 을 사용했다. 연한 회색이다. 자세한 color 값은 여기를 참고하자. 물론 사용하려면 $TERM 값이 xterm-256color 여야 한다.  그리고 다시 로그인하면, 탭키() 를 통해 자동 완성이 잘 되는 것을 확인할 수 있다.\n","wordCount":"124","inLanguage":"ko","datePublished":"2022-05-16T01:57:00+09:00","dateModified":"2022-05-16T01:57:00+09:00","author":{"@type":"Person","name":"InterP"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://interp.blog/oh-my-zsh-kubectl-autocomplete/"},"publisher":{"@type":"Organization","name":"InterP Blog","logo":{"@type":"ImageObject","url":"https://interp.blog/favicon.ico"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -83,7 +79,7 @@ source <(kubectl completion zsh) 그런데 Oh my zsh! 에서는 몇가지 더 �
 Oh my zsh! 에서 kubectl 자동 완성 하기
 </h1>
 <div class=post-meta>
-1 분
+<span title="2022-05-16 01:57:00 +0900 +0900">2022년 05월 16일</span>&nbsp;·&nbsp;1 분
 </div>
 </header>
 <div class=post-content><p>&lsquo;<a href=https://kubernetes.io/ko/docs/tasks/tools/included/optional-kubectl-configs-zsh/>zsh 자동 완성</a>&rsquo; 이라는 Kubernetes 공식 문서에 따르면, 다음 명령으로 자동 완성이 가능하다고 한다.</p>
@@ -121,10 +117,10 @@ git clone https://github.com/zsh-users/zsh-autosuggestions <span style=color:#e6
 <li><a href=https://interp.blog/tags/oh-my-zsh/>oh-my-zsh</a></li>
 </ul>
 <nav class=paginav>
-<a class=prev href=https://interp.blog/powerpoint-shape-move-faster/>
-<span class=title>« 이전 페이지</span>
+<a class=next href=https://interp.blog/simple-software/>
+<span class=title>다음 페이지 »</span>
 <br>
-<span>Powerpoint 에서 방향키 이동이 너무 느릴 때</span>
+<span>심플 소프트웨어</span>
 </a>
 </nav>
 </footer>
