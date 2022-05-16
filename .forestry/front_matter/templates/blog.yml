@@ -50,3 +50,4 @@ fields:
     label: Feature Image
 pages:
 - content/tech/2022-04-15-vscodevim-wrapping-line.md
+- content/tech/oh-my-zsh-kubectl.md
