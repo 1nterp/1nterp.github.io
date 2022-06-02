@@ -71,6 +71,19 @@
 <main class=main>
 <article class=post-entry>
 <header class=entry-header>
+<h2>Atomic Operation 으로 하는 동시성 제어
+</h2>
+</header>
+<section class=entry-content>
+<p>Test-And-Set (TAS) TAS 를 이용해서 간단한 동시성 제어를 할 수 있다. testAndSet 이라는 function 을 가지고 아래의 do...while 문을 쓰레드 A, B 에서 동시에 호출한다고 해 보자. 이 때 lock 은 같은 변수이다.
+function TestAndSet(boolean_ref lock) { boolean initial = lock lock = true return initial } do { while(TestAndSet(&lock)) ; // do nothing // critical section lock = false; // remainder section } while(true); 우선 TestAndSet() 은 다음과 같은 일을 한다....</p>
+</section>
+<footer class=entry-footer>
+<span title="2018-04-24 02:31:38 +0000 UTC">2018년 04월 24일</span>&nbsp;·&nbsp;3 분</footer>
+<a class=entry-link aria-label="post link to Atomic Operation 으로 하는 동시성 제어" href=https://interp.blog/atomic-operation-%EC%9C%BC%EB%A1%9C-%ED%95%98%EB%8A%94-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%A0%9C%EC%96%B4/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
 <h2>Timsort
 </h2>
 </header>
@@ -192,19 +205,6 @@ Breakpoint 상황을 출력하기 10 *sAddr = malloc(aSize); 11 if (*sAddr != NU
 <footer class=entry-footer>
 <span title="2018-01-09 07:09:07 +0000 UTC">2018년 01월 09일</span>&nbsp;·&nbsp;2 분</footer>
 <a class=entry-link aria-label="post link to Java Web Application 입문 (1) 준비운동" href=https://interp.blog/java-web-application-%EC%9E%85%EB%AC%B8-1-%EC%A4%80%EB%B9%84%EC%9A%B4%EB%8F%99/></a>
-</article>
-<article class=post-entry>
-<header class=entry-header>
-<h2>Gitlab 아바타/첨부파일 상대 경로 설정
-</h2>
-</header>
-<section class=entry-content>
-<p>Gitlab의 External_Url 을 실제 서버 주소와 다르게 설정할 때엔, 실제 nginx 에도 해당 도메인으로 접근할 수 있도록 설정해야 하는 게 맞다. 그렇지 않으면, 첨부파일과 아바타 이미지가 모두 깨져나온다. 하지만 그러기 전에 Gitlab 차원에서 상대 경로로 아바타를 출력할 수 있도록 수정하는 방법 ‘도’ 있으니 편법으로 수정했다.
-아바타 상대 경로 설정 /opt/gitlab/embedded/service/gitlab-rails/app/models/concerns/avatarable.rb 파일에서 절대 경로로 수정하는 코드가 있는데, url_base 에 덧붙이는 코드들을 전부 주석처리하면 된다....</p>
-</section>
-<footer class=entry-footer>
-<span title="2018-01-08 02:35:20 +0000 UTC">2018년 01월 08일</span>&nbsp;·&nbsp;2 분</footer>
-<a class=entry-link aria-label="post link to Gitlab 아바타/첨부파일 상대 경로 설정" href=https://interp.blog/gitlab-%EC%95%84%EB%B0%94%ED%83%80-%EC%83%81%EB%8C%80-%EA%B2%BD%EB%A1%9C-%EC%84%A4%EC%A0%95/></a>
 </article>
 <footer class=page-footer>
 <nav class=pagination>
