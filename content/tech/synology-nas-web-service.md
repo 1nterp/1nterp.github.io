@@ -3,8 +3,9 @@ author: InterP
 date: 2022-06-10T11:13:46+0900
 tags: []
 title: Synology NAS 재시작 시 Web Service 패키지 포털 문제
-url: ''
-categories: []
+url: "/synology-package-portal-restart-problem/"
+categories:
+- Tech
 cover:
   image: ''
 draft: true
