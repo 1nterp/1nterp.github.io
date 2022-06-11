@@ -38,8 +38,8 @@
 }
 
 .post-content {
-    width: 95%;
-    font-size: 1.1rem;
+    width: 98%;
+    font-size: 1.2rem;
     margin: 0 auto;
     color: var(--content);
     font-weight: 300;
@@ -49,16 +49,16 @@
 .post-content h4,
 .post-content h5,
 .post-content h6 {
-    margin: 24px 0 16px;
+    margin: 32px 0 24px;
 }
 
 .post-content h1 {
-    margin: 40px auto 32px;
+    margin: 48px auto 32px;
     font-size: 40px;
 }
 
 .post-content h2 {
-    margin: 32px auto 24px;
+    margin: 42px auto 34px;
     font-size: 32px;
 }
 
@@ -206,7 +206,7 @@
     margin: auto 4px;
     padding: 4px 6px;
     font-size: 0.78em;
-    line-height: 1.5;
+    line-height: 1.6;
     background: var(--code-bg);
     border-radius: 2px;
 }
