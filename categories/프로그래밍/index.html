@@ -79,7 +79,7 @@
 </header>
 <section class=entry-content>
 <p>Test-And-Set (TAS) TAS 를 이용해서 간단한 동시성 제어를 할 수 있다. testAndSet 이라는 function 을 가지고 아래의 do...while 문을 쓰레드 A, B 에서 동시에 호출한다고 해 보자. 이 때 lock 은 같은 변수이다.
-function TestAndSet(boolean_ref lock) { boolean initial = lock lock = true return initial } do { while(TestAndSet(&lock)) ; // do nothing // critical section lock = false; // remainder section } while(true); 우선 TestAndSet() 은 다음과 같은 일을 한다....</p>
+function TestAndSet(boolean_ref lock) { boolean initial = lock lock = true return initial } do { while(TestAndSet(&amp;amp;lock)) ; // do nothing // critical section lock = false; // remainder section } while(true); 우선 TestAndSet() 은 다음과 같은 일을 한다....</p>
 </section>
 <footer class=entry-footer>
 <span title="2018-04-24 02:31:38 +0000 UTC">2018년 04월 24일</span>&nbsp;·&nbsp;3 분</footer>
@@ -134,7 +134,8 @@ dotnet test 및 xUnit을 사용하여 .NET Core에서 C# 유닛 테스트라는 
 map or unmap files or devices into memory
 메모리 영역을 파일이나 디바이스로 인식하게 합니다
 – manpage of mmap
-사용 void * mmap(void *start, size_t length, int prot, int flags, int fd, off_t offset); 여기서 의미가 있는 건 Length, Prot (Protection), Flag 뿐이다....</p>
+사용 void * mmap(void *start, size_t length, int prot, int flags, int fd, off_t offset); 여기서 의미가 있는 건 Length, Prot (Protection), Flag 뿐이다.
+Start 는, Kernel이 아무 곳이나 지정해도 좋다면 NULL을 입력한다....</p>
 </section>
 <footer class=entry-footer>
 <span title="2017-09-20 13:29:57 +0000 UTC">2017년 09월 20일</span>&nbsp;·&nbsp;2 분</footer>

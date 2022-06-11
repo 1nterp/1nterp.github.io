@@ -83,7 +83,7 @@ Development, Testing, Cloud, etc.
 </header>
 <section class=entry-content>
 <p>제목은 다음 내용을 포함하고 있다.
-Windows 10 에서 지원하는 Linux Subsystem 기능에 대해 이야기한다. 잘 모르겠다면 이 글을 읽고 설치에 도전해 보자. 그런데 글 내용을 보면 이거랑 관련 없다. Babun, Mintty, Git on Bash, Putty 전부 포함이다 SSH에 접속한 서버에서 X11 Forwarding 을 받고 싶은 경우를 이야기한다. 단적으로, 접속한 서버에서 파이어폭스 브라우저를 실행하면 내 윈도우 화면에 브라우저 창이 실행되는 거다....</p>
+Windows 10 에서 지원하는 Linux Subsystem 기능에 대해 이야기한다. 잘 모르겠다면 이 글1을 읽고 설치에 도전해 보자. 그런데 글 내용을 보면 이거랑 관련 없다. Babun, Mintty, Git on Bash, Putty 전부 포함이다 SSH에 접속한 서버에서 X11 Forwarding 을 받고 싶은 경우를 이야기한다. 단적으로, 접속한 서버에서 파이어폭스 브라우저를 실행하면 내 윈도우 화면에 브라우저 창이 실행되는 거다....</p>
 </section>
 <footer class=entry-footer>
 <span title="2017-11-29 08:32:52 +0000 UTC">2017년 11월 29일</span>&nbsp;·&nbsp;2 분</footer>
@@ -139,7 +139,8 @@ $ cat /proc/cpuinfo | grep "model name" | sort -u model name : Intel(R) Core(TM
 map or unmap files or devices into memory
 메모리 영역을 파일이나 디바이스로 인식하게 합니다
 – manpage of mmap
-사용 void * mmap(void *start, size_t length, int prot, int flags, int fd, off_t offset); 여기서 의미가 있는 건 Length, Prot (Protection), Flag 뿐이다....</p>
+사용 void * mmap(void *start, size_t length, int prot, int flags, int fd, off_t offset); 여기서 의미가 있는 건 Length, Prot (Protection), Flag 뿐이다.
+Start 는, Kernel이 아무 곳이나 지정해도 좋다면 NULL을 입력한다....</p>
 </section>
 <footer class=entry-footer>
 <span title="2017-09-20 13:29:57 +0000 UTC">2017년 09월 20일</span>&nbsp;·&nbsp;2 분</footer>
