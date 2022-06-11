@@ -22,7 +22,8 @@ categories:
 
 [#M_소스 보기|소스 닫기|
 
-<pre class="brush:cpp">#include &lt;windows.h> 
+```cpp
+#include &lt;windows.h> 
 #include &lt;stdio.h>
 #include &lt;tchar.h>
 #include &lt;strsafe.h>
@@ -410,7 +411,7 @@ VOID GetAnswerToRequest(LPPIPEINST pipe)
     pipe-&gt;cbToWrite = (lstrlen(pipe-&gt;chReply)+1)*sizeof(TCHAR);
 }
 
-&lt;/strsafe.h>&lt;/tchar.h>&lt;/stdio.h>&lt;/windows.h></pre></p> 
+&lt;/strsafe.h>&lt;/tchar.h>&lt;/stdio.h>&lt;/windows.h>```</p> 
 
 _M#]
 
@@ -418,7 +419,8 @@ _M#]
 
 [#M_소스 보기|소스 닫기|
 
-<pre class="brush:cpp">#include &lt;windows.h> 
+```cpp
+#include &lt;windows.h> 
 #include &lt;stdio.h>
 #include &lt;conio.h>
 #include &lt;tchar.h>
@@ -558,17 +560,18 @@ int _tmain(int argc, TCHAR *argv[])
  
    return 0; 
 }
-&lt;/end>&lt;/tchar.h>&lt;/conio.h>&lt;/stdio.h>&lt;/windows.h></pre></p> 
+&lt;/end>&lt;/tchar.h>&lt;/conio.h>&lt;/stdio.h>&lt;/windows.h>```</p> 
 
 _M#]
 
 두 프로그램을 컴파일 해서, 실행을 해 봅시다.
 
-<pre class="brush:plain">&gt; cl.exe Server.cpp
+```plain
+&gt; cl.exe Server.cpp
 &gt; cl.exe Client.cpp
 &gt; Server.exe
 &gt; (다른 창에서) Client.exe
-</pre>
+```
 
 클라이언트는 한 번 메세지를 보내고, 서버는 클라이언트의 메세지를 받는 즉시 되돌려 보내고 다시 기다리고를 반복합니다. 물론, 5초동안 클라이언트 메세지가 오지 않으면 서버는 기다리다 지쳐 종료합니다. 어때요, select() 함수처럼 상대방이 뭔가 하려고 하는구나 감지할 수 있는 코드가 완성되었습니다.
   

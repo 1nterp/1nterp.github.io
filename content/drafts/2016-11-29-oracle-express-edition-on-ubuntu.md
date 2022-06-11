@@ -16,8 +16,9 @@ tags:
 ---
 [여기][1]를 참고했다. 실행/종료는 다음과 같이.
 
-<pre class="brush: bash; title: ; notranslate" title="">/etc/init.d/oracle-xe start # 실행
+```bash
+/etc/init.d/oracle-xe start # 실행
 /etc/init.d/oracle-xe stop  # 종료
-</pre>
+```
 
  [1]: https://avinmathew.com/install-oracle-xe-11g-r2-on-ubuntu-12-04/

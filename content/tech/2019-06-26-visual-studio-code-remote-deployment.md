@@ -40,8 +40,9 @@ Vim 과 SSH 에 찌들어 있었는데, 이번 Visual Studio Code 의 베타 기
 
 Visual Studio Code 는 OpenSSH (또는 Git 의 ssh) 클라이언트를 쓰기 때문에, Key 호환성 문제로 'invalid format' 에러를 발생시킬 수 있다. 그러니 순순히 (?) **실행 명령 창 (cmd) 을 열어서** 다음을 입력하자. 기존에 쓰던 키 저장 경로가 존재한다면, 다른 경로로 설정하는 것을 추천한다. 이 방법은 [Visual Studio Code 페이지의 Troubleshooting][5] 에 등록된 내용이다.
 
-<pre class="brush: bash; title: ; notranslate" title="">ssh-keygen -t rsa -b  4096
-</pre>
+```bash
+ssh-keygen -t rsa -b  4096
+```
 
 &nbsp;
 
@@ -65,11 +66,12 @@ Visual Studio Code 는 OpenSSH (또는 Git 의 ssh) 클라이언트를 쓰기 �
 
 예시는 이렇다.
 
-<pre class="brush: plain; title: ; notranslate" title="">Host 192.168.0.10
+```plain
+Host 192.168.0.10
     HostName 192.168.0.10
     User interp
     IdentityFile "C:\Users\interp\ssh_key\id_rsa"
-</pre>
+```
 
   * Host : 목록에 나올 이름이다. 보통은 HostName 과 같이 지정해주거나 Username@HostName 으로 지정한다.
   * HostName : 실제 접속할 호스트 주소

@@ -21,8 +21,9 @@ ack.vim 을 설치하려니까 Vim Plugin Manager 란 게 있는 사실도 알�
 
 [Vundle의 설치 방법][3]은 잘 나와 있지만, 요약하면 다음과 같다.
 
-  1. 다음 명령으로 `~/.vim/bundle/Vundle.vim` 을 설치한다. <pre class="brush: bash; title: ; notranslate" title="">git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-</pre>
+  1. 다음 명령으로 `~/.vim/bundle/Vundle.vim` 을 설치한다. ```bash
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+```
 
   2. `~/.vimrc` 에 Vundle이 시작될 수 있도록 코드를 입력한다. ([링크][3] 참고)
   3. `~/.vimrc` 에 작성한 Vundle 코드에서, 플러그인 목록을 작성한다.

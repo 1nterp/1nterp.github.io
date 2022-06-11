@@ -25,11 +25,12 @@ draft: true
 
 
 <div>
-  <pre class="brush: bash; title: ; notranslate" title="">
+  ```bash
+
 sudo apt-get install linux-headers-`uname -r`
 sudo apt-get install dkms
 sudo /etc/init.d/vboxdrv setup
-</pre>
+```
 
 
 ### 2. BIOS의 Secure Boot 기능을 끄는 방법

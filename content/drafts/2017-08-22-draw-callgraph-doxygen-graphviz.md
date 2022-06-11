@@ -14,9 +14,10 @@ categories:
 
 코드를 숲으로 보는 가장 편리한 방법은 Call Graph를 그리는 방법이다. 우분투에서 그대로 뽑아보려고 해서, 어쩔 수 없이 다음을 통해 Doxygen 을 실행시켰다.
 
-<pre class="brush: bash; title: ; notranslate" title="">sudo apt install doxygen doxygen-gui graphviz
+```bash
+sudo apt install doxygen doxygen-gui graphviz
 doxywizard
-</pre>
+```
 
 이후에는 파일 포맷이나 Graph 타입 (이 때 Graphviz 를 사용한 Graph가 필요한 것), 기타 자세한 정보를 추가로 체크해서 export 하면 된다. 출력된 HTML을 통해 하나씩 따라갈 수 있겠다.
 

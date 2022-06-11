@@ -24,9 +24,10 @@ Gitlab Community 에서 필요로 하는 기능인데, 이렇게 수동으로 �
   1. `/opt/gitlab/embedded/service/gitlab-rails/app/views/shared/issuable/form/_merge_params.html.haml` 을 편집기로 연다.
   2. `check_box_tag` 항목으로 시작하는 줄이 <span style="text-decoration: underline;">두 군데</span> 있는데, 아래와 같이 다음 내용을 '추가' 한다.
 
-<pre>= check_box_tag 'merge_request[force_remove_source_branch]', '1', issuable.force_remove_source_branch?, class: 'form-check-input'<span style="color: #ff0000;">, checked: 'checked'</span> 
+```
+= check_box_tag 'merge_request[force_remove_source_branch]', '1', issuable.force_remove_source_branch?, class: 'form-check-input'<span style="color: #ff0000;">, checked: 'checked'</span> 
 <span style="color: #0000ff;"># ... blahblah</span> 
-= check_box_tag 'merge_request[squash]', '1', issuable.squash, class: 'form-check-input'<span style="color: #ff0000;">, checked: 'checked'</span></pre>
+= check_box_tag 'merge_request[squash]', '1', issuable.squash, class: 'form-check-input'<span style="color: #ff0000;">, checked: 'checked'</span>```
 
 다 했다면 `gitlab-ctl reconfigure && gitlab-ctl restart` 로 Gitlab 서버를 재시작한다.
 
@@ -41,8 +42,9 @@ So I needed how to make them checked, and I finally got an answer.
   1. Open `/opt/gitlab/embedded/service/gitlab-rails/app/views/shared/issuable/form/_merge_params.html.haml` with your favorite editor.
   2. Find lines starting with `check_box_tag` and append it described below.
 
-<pre>= check_box_tag 'merge_request[force_remove_source_branch]', '1', issuable.force_remove_source_branch?, class: 'form-check-input'<span style="color: #ff0000;">, checked: 'checked'</span> 
+```
+= check_box_tag 'merge_request[force_remove_source_branch]', '1', issuable.force_remove_source_branch?, class: 'form-check-input'<span style="color: #ff0000;">, checked: 'checked'</span> 
 <span style="color: #0000ff;"># ... blahblah</span> 
-= check_box_tag 'merge_request[squash]', '1', issuable.squash, class: 'form-check-input'<span style="color: #ff0000;">, checked: 'checked'</span></pre>
+= check_box_tag 'merge_request[squash]', '1', issuable.squash, class: 'form-check-input'<span style="color: #ff0000;">, checked: 'checked'</span>```
 
 After that, you should restart server by entering `gitlab-ctl reconfigure && gitlab-ctl restart`

@@ -15,7 +15,8 @@ tags:
 
 TAS 를 이용해서 간단한 동시성 제어를 할 수 있다. testAndSet 이라는 function 을 가지고 아래의 `do...while` 문을 쓰레드 A, B 에서 동시에 호출한다고 해 보자. 이 때 lock 은 같은 변수이다.
 
-<pre class="brush: cpp; title: ; notranslate" title="">function TestAndSet(boolean_ref lock) {
+```cpp
+function TestAndSet(boolean_ref lock) {
     boolean initial = lock
     lock = true
     return initial
@@ -28,7 +29,7 @@ do {
     lock = false;
     // remainder section
 } while(true);
-</pre>
+```
 
 우선 TestAndSet() 은 다음과 같은 일을 한다. 말 그대로 '지금 값이 무엇인지 검사하고, 값을 바꾼다' 는 것이다.
 
@@ -61,7 +62,8 @@ do {
 
 Atomic Operation 으로 구현할 수 있는 Lock 중에 Ticket Lock 이 있는데, Fetch-And-Add 로 구현할 수 있는 방법을 알아보자.
 
-<pre class="brush: cpp; title: ; notranslate" title="">ticketLock_init(int *next_ticket, int *now_serving)
+```cpp
+ticketLock_init(int *next_ticket, int *now_serving)
 {
     *now_serving = *next_ticket = 0;
 }
@@ -77,7 +79,7 @@ ticketLock_release(int *now_serving)
     now_serving++;
 }
 
-</pre>
+```
 
 TAS 의 케이스를 이해하고 본다면 별 다른 설명이 필요 없을 것 같다.
 

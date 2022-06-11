@@ -18,8 +18,9 @@ WordPress 3.9 부터는 포스트 에디터로 TinyMCE를 내장하고 있다. �
 
 다음 코드를 사용 중인 테마의 functions.php 에 추가하면 된다.
 
-<pre class="brush: php; title: ; notranslate" title="">add_editor_style('assets/css/editor-style.css');
-</pre>
+```php
+add_editor_style('assets/css/editor-style.css');
+```
 
 물론, 여기서 editor-style.css 파일은 존재해야 한다. 에디터 스타일을 직접 작성할 수도 있지만, 나는 테마 스타일의 포스팅 부분만 떼내서 만들었다. 즉, 에디터를 통해 미리보기를 하지 않아도 포스팅 구성이 어떻게 되고 본문이나 제목이 어떻게 보여지는지 한 눈에 파악할 수 있다.
 

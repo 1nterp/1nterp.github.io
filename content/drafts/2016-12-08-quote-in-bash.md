@@ -16,8 +16,9 @@ bash 쉘 스크립트를 작성할 때, 현재 디렉토리에 있는 파일 중
 
 우선 방금 이야기한 간단한 스크립트를 보자. 작은 따옴표 안에서 변수를 참조하고 있는데, 잘 안 된 것이다.
 
-<pre class="brush: bash; title: ; notranslate" title="">ag $1 -l | xargs sed -i 's/$1/$2/g' 
-</pre>
+```bash
+ag $1 -l | xargs sed -i 's/$1/$2/g' 
+```
 
 [Bash Reference 의 작은 따옴표/큰 따옴표 설명][1]을 보면, 다음의 규칙이 존재한다.
 
@@ -41,7 +42,8 @@ bash 쉘 스크립트를 작성할 때, 현재 디렉토리에 있는 파일 중
 
 즉, 단순히 작은 따옴표(single quote)를 큰 따옴표(double quote)로 바꿨다. 명령 줄 안에서도 $가 변수로 인식된다.
 
-<pre class="brush: bash; title: ; notranslate" title="">ag $1 -l | xargs sed -i "s/$1/$2/g"
-</pre>
+```bash
+ag $1 -l | xargs sed -i "s/$1/$2/g"
+```
 
  [1]: http://www.gnu.org/software/bash/manual/bashref.html#Single-Quotes

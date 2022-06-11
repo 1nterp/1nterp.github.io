@@ -24,7 +24,8 @@ Gitlab의 Markdown Parser는 [Redcarpet][2] 을 사용한다. 아마 [Jekyll][3]
 
 내가 수정하고 싶은 것은 '**엔터 키를 두번 쳐야 (혹은 줄 끝에 스페이스를 2개 이상 줘야) 줄바꿈이 되는 불편함**' 을 해소하고 싶었다. `markdown.c` 파일을 보니 `char_linebreak()`  라는 함수가 존재한다. 여기서 해당 부분을 주석처리했다.
 
-<pre class="brush: cpp; title: ; notranslate" title="">/* char_linebreak • '\n' preceded by two spaces (assuming linebreak != 0) */
+```cpp
+/* char_linebreak • '\n' preceded by two spaces (assuming linebreak != 0) */
 static size_t
 char_linebreak(struct buf *ob, struct sd_markdown *rndr, uint8_t *data, size_t offset, size_t size)
 {
@@ -35,7 +36,7 @@ char_linebreak(struct buf *ob, struct sd_markdown *rndr, uint8_t *data, size_t o
 
         return rndr-&gt;cb.linebreak(ob, rndr-&gt;opaque) ? 1 : 0;
 }
-</pre>
+```
 
 ### 라이브러리 생성/복사
 
@@ -60,7 +61,8 @@ char_linebreak(struct buf *ob, struct sd_markdown *rndr, uint8_t *data, size_t o
 
 옵션을 쓸 수 있다면 좋겠지만, 본인은 마음이 급한지라 참고할 만한 소스코드만 붙이고 도망가도록 한다. `html.c:283` 부터다. 여기서 직접 line break 를 하도록 강제했다.
 
-<pre class="brush: cpp; title: ; notranslate" title="">case CMARK_NODE_SOFTBREAK:
+```cpp
+case CMARK_NODE_SOFTBREAK:
      if (options &amp; CMARK_OPT_HARDBREAKS) {
        cmark_strbuf_puts(html, "&lt;br/&gt;\n");
      } else if (options &amp; CMARK_OPT_NOBREAKS) {
@@ -71,17 +73,18 @@ char_linebreak(struct buf *ob, struct sd_markdown *rndr, uint8_t *data, size_t o
      }
      break;
 
-</pre>
+```
 
 이렇게 하고 make 를 치면.. 어? 빌드가 안 된다.
 
 당황하지 말고, <del>보기 싫지만</del> banzai filter 가 위치한 곳의 ruby 파일을 수정하면 된다. 여기에서 사실 옵션 조절이 가능하다. 파일 위치는 `/opt/gitlab/embedded/service/gitlab-rails/lib/banzai/filter/markdown_engines/common_mark.rb` 이다.
 
-<pre class="brush: ruby; title: ; notranslate" title="">RENDER_OPTIONS = [
+```ruby
+RENDER_OPTIONS = [
           :DEFAULT,     # default rendering system. Nothing special.
           :HARDBREAKS   # Treat `\n` as hardbreaks (by adding `&lt;br/&gt;`).            # 이걸 추가한다.
         ].freeze
-</pre>
+```
 
 반드시, Gitlab 재부팅을 잊지말자!
 
