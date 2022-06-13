@@ -2,7 +2,7 @@
 title: Linux 에서 CPU/Memory/Disk 확인
 author: interp
 type: post
-date: 2017-10-30T08:31:03+00:00
+date: 2017-10-30T08:31:03+0000
 url: /linux-에서-cpumemorydisk-확인/
 categories:
   - 팁

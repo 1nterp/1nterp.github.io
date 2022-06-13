@@ -2,7 +2,7 @@
 title: Visual Studio Code Remote Deployment
 author: interp
 type: post
-date: 2019-06-26T05:11:21+00:00
+date: 2019-06-26T05:11:21+0000
 url: /visual-studio-code-remote-deployment/
 categories:
   - 개발환경

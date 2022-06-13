@@ -2,7 +2,7 @@
 title: Atomic Operation 으로 하는 동시성 제어
 author: interp
 type: post
-date: 2018-04-24T02:31:38+00:00
+date: 2018-04-24T02:31:38+0000
 url: /atomic-operation-으로-하는-동시성-제어/
 categories:
   - 프로그래밍

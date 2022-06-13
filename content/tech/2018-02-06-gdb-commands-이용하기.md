@@ -2,7 +2,7 @@
 title: gdb commands 이용하기
 author: interp
 type: post
-date: 2018-02-06T08:46:05+00:00
+date: 2018-02-06T08:46:05+0000
 url: /gdb-commands-이용하기/
 categories:
   - 개발환경

@@ -2,7 +2,7 @@
 title: X11 on Windows Linux Subsystem
 author: interp
 type: post
-date: 2017-11-29T08:32:52+00:00
+date: 2017-11-29T08:32:52+0000
 url: /x11-windows-linux-subsystem/
 categories:
   - 개발환경

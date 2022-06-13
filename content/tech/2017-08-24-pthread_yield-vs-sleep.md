@@ -2,7 +2,7 @@
 title: pthread_yield vs. sleep
 author: interp
 type: post
-date: 2017-08-24T05:35:24+00:00
+date: 2017-08-24T05:35:24+0000
 url: /pthread_yield-vs-sleep/
 categories:
   - 프로그래밍

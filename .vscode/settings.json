@@ -43,5 +43,6 @@
             ]
         }
     ],
-    "frontMatter.taxonomy.dateFormat": "yyyy-MM-dd HH:mm:ss XX"
+    "frontMatter.taxonomy.dateFormat": "yyyy-MM-dd HH:mm:ss XX",
+    "frontMatter.framework.startCommand": "hugo server"
 }

@@ -2,7 +2,7 @@
 title: Java Web Application 입문 (1) 준비운동
 author: interp
 type: post
-date: 2018-01-09T07:09:07+00:00
+date: 2018-01-09T07:09:07+0000
 url: /java-web-application-입문-1-준비운동/
 categories:
   - 프로그래밍

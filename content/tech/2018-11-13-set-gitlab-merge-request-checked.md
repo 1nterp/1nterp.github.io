@@ -2,7 +2,7 @@
 title: Gitlab merge request 옵션 기본으로 두기
 author: interp
 type: post
-date: 2018-11-13T05:03:22+00:00
+date: 2018-11-13T05:03:22+0000
 url: /set-gitlab-merge-request-checked/
 categories:
   - 개발환경
