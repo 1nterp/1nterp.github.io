@@ -29,7 +29,6 @@
 <meta name=generator content="Hugo 0.91.2">
 <noscript>
 <style>#theme-toggle,.top-link{display:none}</style>
-<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
 </noscript>
 <script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-126809878-1','auto'),ga('send','pageview'))</script><meta property="og:title" content="k8s Operator vs. Controller">
 <meta property="og:description" content="쿠버네티스에서 서비스를 개발하거나 운영하다 보면 자주 접하게 될 개념 중 하나가, 바로 이 Controller 와 Operator 일 것이다. 어떤 경우에는, 동일한 서비스를 두고 &lsquo;이건 Controller 야&rsquo; 라고 말 할 때도 있고 &lsquo;이 Operator 는&mldr;&rsquo; 이라고 불릴 때도 있어서 헷갈릴 수 있다. 심지어 공식 문서에서도 두 개념에 대한 비교는 하지 않고 있어서 명확한 구분이 필요한 것 같다.
@@ -46,7 +45,7 @@
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"k8s Operator vs. Controller","name":"k8s Operator vs. Controller","description":"쿠버네티스에서 서비스를 개발하거나 운영하다 보면 자주 접하게 될 개념 중 하나가, 바로 이 Controller 와 Operator 일 것이다. 어떤 경우에는, 동일한 서비스를 두고 \u0026lsquo;이건 Controller 야\u0026rsquo; 라고 말 할 때도 있고 \u0026lsquo;이 Operator 는\u0026hellip;\u0026rsquo; 이라고 불릴 때도 있어서 헷갈릴 수 있다. 심지어 공식 문서에서도 두 개념에 대한 비교는 하지 않고 있어서 명확한 구분이 필요한 것 같다.\n와중에 이 문서를 발견했는데, 요약하자면 이렇다.","keywords":["k8s","controller","operator"],"articleBody":"쿠버네티스에서 서비스를 개발하거나 운영하다 보면 자주 접하게 될 개념 중 하나가, 바로 이 Controller 와 Operator 일 것이다. 어떤 경우에는, 동일한 서비스를 두고 ‘이건 Controller 야’ 라고 말 할 때도 있고 ‘이 Operator 는…’ 이라고 불릴 때도 있어서 헷갈릴 수 있다. 심지어 공식 문서에서도 두 개념에 대한 비교는 하지 않고 있어서 명확한 구분이 필요한 것 같다.\n와중에 이 문서를 발견했는데, 요약하자면 이렇다.\nController  So in the Kubernetes world, a controller will basically monitor and measure the cluster resources state to adjust those resources that diverge from the desired state.\n 더 줄여보면, Controller 는 (1) K8s 리소스 (중 일부) 의 상태를 체크하고 (2) 이 리소스들의 상태를 ‘목표 상태 (desired state)’ 로 조정하는 역할을 한다.\nReplicaSet, StatefulSet, DaemonSet 이 대표적인 Controller 들이다. 속해 있는 Pod 들의 상태를 ‘목표한 상태’ 로 조정하려고, Pod 을 추가하거나 삭제한다.\nOperator CoreOS 에서 정의하는 Operator 는 다음과 같다.\n An Operator is a method of packaging, deploying and managing a Kubernetes application.\n 그런데 이 개념을 구현하기 위해서는 필연적으로 Controller 가 들어가게 된다. 그렇다면 Controller 와 비교했을 때 Operator 의 차이점은 무엇일까?\n저 ‘Kubernetes application’ 에서 말하는 것은, 사용자가 직접 지정할 수 있는 CRD (Custom Resource Definition) 과 거기서 파생된 CR (Custom Resource) 까지 포함하고 있는 것이다. 아니면 정말 bare application 형태로 특정 microservice 를 관리할 때도 Operator 라고 부를 수 있겠다.\n예를 들면, Orange 라는 CRD 를 하나 만들었고, 이 Orange CR 에는 1개의 Service 와 1개의 Pod 이 만들어져야 한다고 해보자. 그러면 Orange CR 을 관리하는 application 을 가리킬 때는 Orange *Operator* 라고 부를 수 있다. 하지만 내부에 구현된 Reconcile Loop Code 는 일종의 Orange *Controller* 라고도 부를 수 있는 것이다. 실제로 Service 와 Pod 을 만드는 역할은 이 Controller 에서 이뤄지지만, 전체적으로 Orange CR 의 명세를 관리하는 것은 전체 Operator 가 담당하는 것이다.\n정리하면 나에게 Controller 는 기술적인 개념이고, Operator 는 좀 더 포괄적이면서 논리적인 개념으로 받아들여진다. 문서에서도 ‘모든 Operator 는 CR 을 관리하기 위해 쓰이는 Controller 라고 부를 수 있다.’ 라고 하고 있으니까 말이다.\n그리고 Controller 나 Operator 모두 어떤 프레임워크일 뿐이지, 언어에 국한된 것은 아니라고 언급한다. Go 언어와 Python 으로 모두 구현해 본 경험이 있는 나 역시, 이 부분에 동의한다.\n다만 용어를 선택하거나 접할 때 좀 더 이해를 확실히 할 목적으로 정리하는게 더욱 낫지 않을까 하는 마음에, 이 비교글을 마친다.\n","wordCount":"366","inLanguage":"ko","datePublished":"2022-03-15T02:44:57Z","dateModified":"2022-03-15T02:44:57Z","author":{"@type":"Person","name":"interp"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://interp.blog/kubernetes-operator-vs-controller/"},"publisher":{"@type":"Organization","name":"InterP Blog","logo":{"@type":"ImageObject","url":"https://interp.blog/favicon.ico"}}}</script>
 </head>
 <body id=top>
-<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
+<script>localStorage.getItem("pref-theme")==="dark"&&document.body.classList.add('dark')</script>
 <header class=header>
 <nav class=nav>
 <div class=logo>
@@ -112,7 +111,10 @@ k8s Operator vs. Controller
 <li><a href=https://interp.blog/tags/k8s/>k8s</a></li>
 <li><a href=https://interp.blog/tags/controller/>controller</a></li>
 <li><a href=https://interp.blog/tags/operator/>operator</a></li>
-</ul>
+</ul><br>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
+<ins class=adsbygoogle style=display:block data-ad-format=autorelaxed data-ad-client=ca-pub-0712823212859607 data-ad-slot=2292719672></ins>
+<script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
 <nav class=paginav>
 <a class=prev href=https://interp.blog/vim-wrapping-line-cursor-up-down/>
 <span class=title>« 이전 페이지</span>

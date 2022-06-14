@@ -33,7 +33,6 @@
 <meta name=generator content="Hugo 0.91.2">
 <noscript>
 <style>#theme-toggle,.top-link{display:none}</style>
-<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
 </noscript>
 <script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-126809878-1','auto'),ga('send','pageview'))</script><meta property="og:title" content="공측도와 무리수">
 <meta property="og:description" content="&lsquo;알고리즘 산책&rsquo; 책 요약이다. 공측도라는 개념이나, 귀류법을 사용한 증명 등의 내용을 까먹지 않으려고 정리한다. 물론 이미 다 어릴 적 배웠겠지만, 다시 공부한다는 마음으로 정리하는 것이다.
@@ -50,7 +49,7 @@
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"공측도와 무리수","name":"공측도와 무리수","description":"\u0026lsquo;알고리즘 산책\u0026rsquo; 책 요약이다. 공측도라는 개념이나, 귀류법을 사용한 증명 등의 내용을 까먹지 않으려고 정리한다. 물론 이미 다 어릴 적 배웠겠지만, 다시 공부한다는 마음으로 정리하는 것이다.\n최대공측도는 최대공약수 같은 개념이다. 선분 A와 B가 특정한 길이로 측정이 가능할 때, 이 길이 중 가장 긴 길이를 최대공측도라고 하는 것이다. 이 값을 코딩으로 구하려면, 최대공약수를 계산하는 방법과 다르지 않을 것이다. (여기서 공측도 값이 되는 선분 길이는 자연수여야 한다.","keywords":[],"articleBody":"‘알고리즘 산책’ 책 요약이다. 공측도라는 개념이나, 귀류법을 사용한 증명 등의 내용을 까먹지 않으려고 정리한다. 물론 이미 다 어릴 적 배웠겠지만, 다시 공부한다는 마음으로 정리하는 것이다.\n최대공측도는 최대공약수 같은 개념이다. 선분 A와 B가 특정한 길이로 측정이 가능할 때, 이 길이 중 가장 긴 길이를 최대공측도라고 하는 것이다. 이 값을 코딩으로 구하려면, 최대공약수를 계산하는 방법과 다르지 않을 것이다. (여기서 공측도 값이 되는 선분 길이는 자연수여야 한다.)\n그런데 19세기 조지 크리스털이 증명한 것은, 정사각형의 변과 대각선의 변을 동시에 측정할 수 있는 선분은 없다는 것이다. 왜일까? (다시 말하지만 공측도는 자연수이다.)\n귀류법을 통해, 정사각형의 변과 대각선의 변을 동시에 측정할 수 있는 선분이 있다고 가정해보자. 요약하자면, 이 선분으로 정사각형을 그리고, 또 그 정사각형에서 한 변과 대각선을 측정할 수 있는 선분 (공측도) 이 있고, 계속 이런 식으로 정사각형을 그려나가다 보면, 어느 순간 가장 작은 정사각형이 나올 것이다. 하지만 가정에 따르면, 이 경우에도 대각선과 공측도가 되는 선분이 존재할 수 있게 된다. 그렇다면 더 작은 정사각형을 그릴 수 있게 되므로 모순이 생긴다.\n그래서 대각선은 자연수가 아니라는 단서가 되었고, 이로 인해 무리수 $\\sqrt{2}$ 를 발견할 수 있게 되었다고 한다.\n","wordCount":"169","inLanguage":"ko","datePublished":"2019-04-27T11:32:38Z","dateModified":"2019-04-27T11:32:38Z","author":{"@type":"Person","name":"interp"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://interp.blog/%EA%B3%B5%EC%B8%A1%EB%8F%84%EC%99%80-%EB%AC%B4%EB%A6%AC%EC%88%98/"},"publisher":{"@type":"Organization","name":"InterP Blog","logo":{"@type":"ImageObject","url":"https://interp.blog/favicon.ico"}}}</script>
 </head>
 <body id=top>
-<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
+<script>localStorage.getItem("pref-theme")==="dark"&&document.body.classList.add('dark')</script>
 <header class=header>
 <nav class=nav>
 <div class=logo>
@@ -96,7 +95,10 @@
 <p>귀류법을 통해, 정사각형의 변과 대각선의 변을 동시에 측정할 수 있는 선분이 있다고 가정해보자. 요약하자면, 이 선분으로 정사각형을 그리고, 또 그 정사각형에서 한 변과 대각선을 측정할 수 있는 선분 (공측도) 이 있고, 계속 이런 식으로 정사각형을 그려나가다 보면, 어느 순간 <span style=text-decoration:underline>가장 작은 정사각형</span>이 나올 것이다. 하지만 가정에 따르면, 이 경우에도 대각선과 공측도가 되는 선분이 존재할 수 있게 된다. 그렇다면 더 작은 정사각형을 그릴 수 있게 되므로 모순이 생긴다.</p>
 <p>그래서 대각선은 자연수가 아니라는 단서가 되었고, 이로 인해 무리수 $\sqrt{2}$ 를 발견할 수 있게 되었다고 한다.</p>
 </div>
-<footer class=post-footer>
+<footer class=post-footer><br>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
+<ins class=adsbygoogle style=display:block data-ad-format=autorelaxed data-ad-client=ca-pub-0712823212859607 data-ad-slot=2292719672></ins>
+<script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
 </footer>
 </article>
 </main>

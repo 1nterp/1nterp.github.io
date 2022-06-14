@@ -30,7 +30,6 @@
 <meta name=generator content="Hugo 0.91.2">
 <noscript>
 <style>#theme-toggle,.top-link{display:none}</style>
-<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
 </noscript>
 <script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-126809878-1','auto'),ga('send','pageview'))</script><meta property="og:title" content="Intel VTune Memory Bandwidth 분석하기">
 <meta property="og:description" content="Intel VTune 으로 Memory Bandwidth 를 분석하려면, 분석할 수 있는 커널 드라이버를 로딩시켜야 한다. (참고로 메모리 분석은 리눅스에서만 가능하다.) 해당 작업을 하지 않고 &lsquo;General Exploration > Analyze memory bandwidth&rsquo; 를 체크하면 엄한 경고창이 반길 것이다.
@@ -49,7 +48,7 @@
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Intel VTune Memory Bandwidth 분석하기","name":"Intel VTune Memory Bandwidth 분석하기","description":"Intel VTune 으로 Memory Bandwidth 를 분석하려면, 분석할 수 있는 커널 드라이버를 로딩시켜야 한다. (참고로 메모리 분석은 리눅스에서만 가능하다.) 해당 작업을 하지 않고 \u0026lsquo;General Exploration \u0026gt; Analyze memory bandwidth\u0026rsquo; 를 체크하면 엄한 경고창이 반길 것이다.\n이 문서를 참고해도 좋지만, VTune 이 설치된 경로에서 sepdk/src/README.txt 를 보는 게 더 쉽다. 이 내용을 요약하면,\n 커널 환경변수를 체크한다. 프로파일링이 가능하고 모듈 로딩이 가능해야 한다.","keywords":["vtune"],"articleBody":"Intel VTune 으로 Memory Bandwidth 를 분석하려면, 분석할 수 있는 커널 드라이버를 로딩시켜야 한다. (참고로 메모리 분석은 리눅스에서만 가능하다.) 해당 작업을 하지 않고 ‘General Exploration  Analyze memory bandwidth’ 를 체크하면 엄한 경고창이 반길 것이다.\n이 문서를 참고해도 좋지만, VTune 이 설치된 경로에서 sepdk/src/README.txt 를 보는 게 더 쉽다. 이 내용을 요약하면,\n 커널 환경변수를 체크한다. 프로파일링이 가능하고 모듈 로딩이 가능해야 한다.  CONFIG_MODULES=y CONFIG_MODULE_UNLOAD=y CONFIG_PROFILING=y   커널 드라이버를 컴파일시킬 헤더파일이 필요하다. Linux 배포판에 따라, 커널 개발용 패키지를 내려받아 설치한다. (언급한 Linux 배포판이 없으면 소스를 직접 받아둔다.)  Redhat 5/Fedora/CentOS : yum install kernel-devel Ubuntu/Debian : apt-get install build-essential linux-headers-`uname-r`   VTune이 필요로 하는 커널 드라이버를 컴파일하고 로드시킨다.  cd ${VTune Directory}/spedk/src ./build_driver (이 때 2번에서 설치한 커널 헤더파일의 위치를 정확히 입력해야 한다.) ./insmod-sep3  로딩 확인을 위해서는 ./insmod-sep3 -q 라고 입력해 보자.   언로딩 시키려면 ./rmmod-sep3 이라고 입력하자.       ","wordCount":"131","inLanguage":"ko","datePublished":"2018-01-22T05:19:48Z","dateModified":"2018-01-22T05:19:48Z","author":{"@type":"Person","name":"interp"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://interp.blog/vtune-memory-bandwidth/"},"publisher":{"@type":"Organization","name":"InterP Blog","logo":{"@type":"ImageObject","url":"https://interp.blog/favicon.ico"}}}</script>
 </head>
 <body id=top>
-<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
+<script>localStorage.getItem("pref-theme")==="dark"&&document.body.classList.add('dark')</script>
 <header class=header>
 <nav class=nav>
 <div class=logo>
@@ -126,7 +125,10 @@ Intel VTune Memory Bandwidth 분석하기
 <footer class=post-footer>
 <ul class=post-tags>
 <li><a href=https://interp.blog/tags/vtune/>vtune</a></li>
-</ul>
+</ul><br>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
+<ins class=adsbygoogle style=display:block data-ad-format=autorelaxed data-ad-client=ca-pub-0712823212859607 data-ad-slot=2292719672></ins>
+<script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
 </footer>
 </article>
 </main>

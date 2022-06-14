@@ -29,7 +29,6 @@
 <meta name=generator content="Hugo 0.91.2">
 <noscript>
 <style>#theme-toggle,.top-link{display:none}</style>
-<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
 </noscript>
 <script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-126809878-1','auto'),ga('send','pageview'))</script><meta property="og:title" content="현상을 통찰하는 방법">
 <meta property="og:description" content="게임 &lsquo;배틀그라운드&rsquo; 에서, 어떻게 해야 상위 랭크에 도달할 수 있는지를 수학적인 접근으로 잘 풀어낸 네이버 블로그 글을 봤다. 누군가에겐 그저 즐기는 게임이 될 수 있지만, 누군가에게는 연구대상이 된다. 사물이나 현상을 어떻게 바라보느냐, 얼마나 관심있느냐에 따라서 통찰이 생겨난다. 이것은 모두에게 열려있다. 반대로 생각하면, 논문을 쓰는 사람들은 결단코 고상한 사람들이 아니다.
@@ -46,7 +45,7 @@
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"현상을 통찰하는 방법","name":"현상을 통찰하는 방법","description":"게임 \u0026lsquo;배틀그라운드\u0026rsquo; 에서, 어떻게 해야 상위 랭크에 도달할 수 있는지를 수학적인 접근으로 잘 풀어낸 네이버 블로그 글을 봤다. 누군가에겐 그저 즐기는 게임이 될 수 있지만, 누군가에게는 연구대상이 된다. 사물이나 현상을 어떻게 바라보느냐, 얼마나 관심있느냐에 따라서 통찰이 생겨난다. 이것은 모두에게 열려있다. 반대로 생각하면, 논문을 쓰는 사람들은 결단코 고상한 사람들이 아니다.\n\u0026lsquo;수학적인 접근\u0026rsquo;이라는 말 때문에 설득력이 떨어질 수는 있다. 하지만 어느 분야나 자신의 경험을 녹여 전혀 다른 곳에서 적응하는 사람들을 우리는 일상에서 많이 봤다.","keywords":[],"articleBody":"게임 ‘배틀그라운드’ 에서, 어떻게 해야 상위 랭크에 도달할 수 있는지를 수학적인 접근으로 잘 풀어낸 네이버 블로그 글을 봤다. 누군가에겐 그저 즐기는 게임이 될 수 있지만, 누군가에게는 연구대상이 된다. 사물이나 현상을 어떻게 바라보느냐, 얼마나 관심있느냐에 따라서 통찰이 생겨난다. 이것은 모두에게 열려있다. 반대로 생각하면, 논문을 쓰는 사람들은 결단코 고상한 사람들이 아니다.\n‘수학적인 접근’이라는 말 때문에 설득력이 떨어질 수는 있다. 하지만 어느 분야나 자신의 경험을 녹여 전혀 다른 곳에서 적응하는 사람들을 우리는 일상에서 많이 봤다. 그것이 상식이 될 수도 있고, 연륜이 될 수도 있다. (개인적으로는, ‘나이를 먹어감에 따라 현명해지는 것은 잘못된 생각이다’ 라는 누군가의 말에 동의하지만…)\n그런 사람이 되어야 하지 않을까, 생각한다.\n","wordCount":"99","inLanguage":"ko","datePublished":"2017-10-12T01:09:33Z","dateModified":"2017-10-12T01:09:33Z","author":{"@type":"Person","name":"interp"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://interp.blog/%ED%98%84%EC%83%81%EC%9D%84-%ED%86%B5%EC%B0%B0%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95/"},"publisher":{"@type":"Organization","name":"InterP Blog","logo":{"@type":"ImageObject","url":"https://interp.blog/favicon.ico"}}}</script>
 </head>
 <body id=top>
-<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
+<script>localStorage.getItem("pref-theme")==="dark"&&document.body.classList.add('dark')</script>
 <header class=header>
 <nav class=nav>
 <div class=logo>
@@ -90,7 +89,10 @@
 <p>&lsquo;수학적인 접근&rsquo;이라는 말 때문에 설득력이 떨어질 수는 있다. 하지만 어느 분야나 자신의 경험을 녹여 전혀 다른 곳에서 적응하는 사람들을 우리는 일상에서 많이 봤다. 그것이 상식이 될 수도 있고, 연륜이 될 수도 있다. (개인적으로는, &lsquo;나이를 먹어감에 따라 현명해지는 것은 잘못된 생각이다&rsquo; 라는 누군가의 말에 동의하지만…)</p>
 <p>그런 사람이 되어야 하지 않을까, 생각한다.</p>
 </div>
-<footer class=post-footer>
+<footer class=post-footer><br>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
+<ins class=adsbygoogle style=display:block data-ad-format=autorelaxed data-ad-client=ca-pub-0712823212859607 data-ad-slot=2292719672></ins>
+<script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
 </footer>
 </article>
 </main>
