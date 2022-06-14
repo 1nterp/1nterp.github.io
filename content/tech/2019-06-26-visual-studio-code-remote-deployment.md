@@ -66,7 +66,7 @@ ssh-keygen -t rsa -b  4096
 
 예시는 이렇다.
 
-```plain
+```
 Host 192.168.0.10
     HostName 192.168.0.10
     User interp

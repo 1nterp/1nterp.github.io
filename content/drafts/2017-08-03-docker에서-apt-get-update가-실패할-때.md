@@ -14,7 +14,7 @@ draft: true
 ---
 ubuntu 14.04 를 기반으로 한 Dockerfile 에,SSH를 설치하기 위해 아래와 같이 작성했다고 하자.
 
-```plain
+```
 FROM ubuntu:14.04
 RUN apt-get update
 RUN apt-get install -y openssh-server
@@ -23,7 +23,7 @@ RUN apt-get install -y openssh-server
 
 그러면 `archive.ubuntu.com` Repository 에서 Update를 받는데, 갑자기 이런 메시지가 뜬다.
 
-```plain
+```
 ...
 Get:22 http://archive.ubuntu.com trusty/universe amd64 Packages [7589 kB]
 Fetched 22.7 MB in 18s (1208 kB/s)
@@ -35,7 +35,7 @@ E: Some index files failed to download. They have been ignored, or old ones used
 
 어차피 Build 하는 시점에는 어느 Repository를 써도 상관이 없으니, 전통의 `kr.archive.ubuntu.com` 를 사용하도록 Dockerfile을 수정해 봤다.
 
-```plain
+```
 FROM ubuntu:14.04
 RUN sed -i 's/archive.ubuntu.com/kr.archive.ubuntu.com/g' /etc/apt/sources.list
 RUN apt-get update

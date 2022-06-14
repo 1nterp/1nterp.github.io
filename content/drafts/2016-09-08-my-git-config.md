@@ -19,7 +19,7 @@ git config --global alias.ci commit
 git config --global alias.st status
 git config --global alias.pu push
 git config --global alias.pl pull
-git config --global alias.lg 'log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset' --abbrev-commit'
+git config --global alias.lg 'log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit'
 git config --global alias.df 'difftool --no-prompt'
 git config --global alias.sta stash
 git config --global alias.stp 'stash pop'

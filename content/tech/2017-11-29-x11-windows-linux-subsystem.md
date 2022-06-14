@@ -27,7 +27,7 @@ tags:
 
   1. Xming 또는 VcXsrv 를 설치해서 실행시켰다. 트레이 아이콘에 'X' 라고 떠 있으면 완료. (이걸 X Server 라고 부른다)
   2. Ubuntu Console을 하나 열어서,`/etc/ssh/ssh_config` (sshd_config 가 아니다) 파일을 확인했다. 여기에서 ForwardX11 yes, ForwardX11Trusted yes 를 확인했다. (주석 처리되어 있다면 주석을 제거, sudo 권한 필요)
-  3. SSH 접속을 하면, 다음 에러 메시지가 떠서 보기 싫었다. ```plain
+  3. SSH 접속을 하면, 다음 에러 메시지가 떠서 보기 싫었다. ```
 No xauth data; using fake authentication data for X11 forwarding.
     
 그래서 다음과 같이 처리했다.

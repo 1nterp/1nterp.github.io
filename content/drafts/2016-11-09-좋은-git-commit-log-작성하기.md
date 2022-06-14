@@ -24,7 +24,7 @@ draft: true
 
 예를 들어,
 
-```plain
+```
 Summarize changes in around 50 characters or less
 
 More detailed explanatory text, if necessary. Wrap it to about 72

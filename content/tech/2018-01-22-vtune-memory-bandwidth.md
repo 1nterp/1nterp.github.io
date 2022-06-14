@@ -28,10 +28,10 @@ Intel VTune 으로 Memory Bandwidth 를 분석하려면, 분석할 수 있는 �
       * `./build_driver` (이 때 2번에서 설치한 커널 헤더파일의 위치를 정확히 입력해야 한다.)
       * `./insmod-sep3` <ul style="list-style-type: circle;">
           <li>
-            로딩 확인을 위해서는 <code>./insmod-sep3 -q</code> 라고 입력해 보자.
+            로딩 확인을 위해서는 `./insmod-sep3 -q` 라고 입력해 보자.
           </li>
           <li>
-            언로딩 시키려면 <code>./rmmod-sep3</code> 이라고 입력하자.
+            언로딩 시키려면 `./rmmod-sep3` 이라고 입력하자.
           </li>
         </ul>
 

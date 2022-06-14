@@ -23,10 +23,10 @@ categories:
 [#M_소스 보기|소스 닫기|
 
 ```cpp
-#include &lt;windows.h> 
-#include &lt;stdio.h>
-#include &lt;tchar.h>
-#include &lt;strsafe.h>
+#include <windows.h> 
+#include <stdio.h>
+#include <tchar.h>
+#include <strsafe.h>
  
 #define CONNECTING_STATE 0 
 #define READING_STATE 1 
@@ -201,7 +201,7 @@ DWORD ConnectOverlapped(HANDLE hPipe, LPOVERLAPPED lpo)
     if(fPendingIO == TRUE)
     {
         dwWait = WaitForSingleObject( 
-                    lpo-&gt;hEvent,   // array of event objects 
+                    lpo->hEvent,   // array of event objects 
                     5000 );        // waits 5sec
 
         if( dwWait == WAIT_TIMEOUT )
@@ -243,7 +243,7 @@ DWORD ReadOverlapped(HANDLE hPipe, LPOVERLAPPED lpo, LPVOID buffer, DWORD aBuffe
  * - if( previous state is pending ) 
         OverlapResult()
         if( pending condition ) continue;
-        else =&gt; return
+        else => return
  */
     BOOL fConnected, fPendingIO, fSuccess = FALSE; 
     DWORD dwWait;
@@ -286,7 +286,7 @@ DWORD ReadOverlapped(HANDLE hPipe, LPOVERLAPPED lpo, LPVOID buffer, DWORD aBuffe
         while(1)
         {
             dwWait = WaitForSingleObject( 
-                        lpo-&gt;hEvent,   // array of event objects 
+                        lpo->hEvent,   // array of event objects 
                         5000 );        // waits 5sec
                         
             if( dwWait == WAIT_TIMEOUT )
@@ -367,7 +367,7 @@ DWORD WriteOverlapped(HANDLE hPipe, LPOVERLAPPED lpo, LPVOID buffer, DWORD aBuff
         while(1)
         {
             dwWait = WaitForSingleObject( 
-                        lpo-&gt;hEvent,   // array of event objects 
+                        lpo->hEvent,   // array of event objects 
                         5000 );        // waits 5sec
                         
             if( dwWait == WAIT_TIMEOUT )
@@ -406,12 +406,12 @@ DWORD WriteOverlapped(HANDLE hPipe, LPOVERLAPPED lpo, LPVOID buffer, DWORD aBuff
 
 VOID GetAnswerToRequest(LPPIPEINST pipe)
 {
-    _tprintf( TEXT("[%d] %s\n"), pipe-&gt;hPipeInst, pipe-&gt;chRequest);
-    StringCchCopy( pipe-&gt;chReply, BUFSIZE, TEXT("Default answer from server") );
-    pipe-&gt;cbToWrite = (lstrlen(pipe-&gt;chReply)+1)*sizeof(TCHAR);
+    _tprintf( TEXT("[%d] %s\n"), pipe->hPipeInst, pipe->chRequest);
+    StringCchCopy( pipe->chReply, BUFSIZE, TEXT("Default answer from server") );
+    pipe->cbToWrite = (lstrlen(pipe->chReply)+1)*sizeof(TCHAR);
 }
 
-&lt;/strsafe.h>&lt;/tchar.h>&lt;/stdio.h>&lt;/windows.h>```</p> 
+</strsafe.h></tchar.h></stdio.h></windows.h>```</p> 
 
 _M#]
 
@@ -420,10 +420,10 @@ _M#]
 [#M_소스 보기|소스 닫기|
 
 ```cpp
-#include &lt;windows.h> 
-#include &lt;stdio.h>
-#include &lt;conio.h>
-#include &lt;tchar.h>
+#include <windows.h> 
+#include <stdio.h>
+#include <conio.h>
+#include <tchar.h>
 
 #define BUFSIZE 512
  
@@ -436,7 +436,7 @@ int _tmain(int argc, TCHAR *argv[])
    DWORD  cbRead, cbToWrite, cbWritten, dwMode; 
    LPTSTR lpszPipename = TEXT("\\\\.\\pipe\\mynamedpipe"); 
 
-   if( argc &gt; 1 )
+   if( argc > 1 )
       lpvMessage = argv[1];
  
 // Try to open a named pipe; wait for it, if necessary. 
@@ -555,22 +555,22 @@ int _tmain(int argc, TCHAR *argv[])
       return -1;
    }
 
-   printf("\n&lt;end of="" message,="" press="" enter="" to="" terminate="" connection="" and="" exit="">");
+   printf("\n<end of="" message,="" press="" enter="" to="" terminate="" connection="" and="" exit="">");
    CloseHandle(hPipe); 
  
    return 0; 
 }
-&lt;/end>&lt;/tchar.h>&lt;/conio.h>&lt;/stdio.h>&lt;/windows.h>```</p> 
+</end></tchar.h></conio.h></stdio.h></windows.h>```</p> 
 
 _M#]
 
 두 프로그램을 컴파일 해서, 실행을 해 봅시다.
 
-```plain
-&gt; cl.exe Server.cpp
-&gt; cl.exe Client.cpp
-&gt; Server.exe
-&gt; (다른 창에서) Client.exe
+```
+> cl.exe Server.cpp
+> cl.exe Client.cpp
+> Server.exe
+> (다른 창에서) Client.exe
 ```
 
 클라이언트는 한 번 메세지를 보내고, 서버는 클라이언트의 메세지를 받는 즉시 되돌려 보내고 다시 기다리고를 반복합니다. 물론, 5초동안 클라이언트 메세지가 오지 않으면 서버는 기다리다 지쳐 종료합니다. 어때요, select() 함수처럼 상대방이 뭔가 하려고 하는구나 감지할 수 있는 코드가 완성되었습니다.

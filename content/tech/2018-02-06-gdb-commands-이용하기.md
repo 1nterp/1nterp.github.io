@@ -26,13 +26,13 @@ gdb/ddd 에서 commands 를 사용하면 간편하게 breakpoint 의 상태를 �
 
 이럴 때 다음과 같이 입력한다.
 
-```plain
+```
 (gdb) b 10 # 10번째 라인에 breakpoint
 (gdb) commands # 아무 것도 입력하지 않으면 최근 breakpoint 에 대한 command 입력
-&gt; silent    # breakpoint 에 멈췄단 메시지를 출력하지 말아달라
-&gt; printf "alloc address is %p\n and its size is %ld", *sAddr, aSize # 프린트
-&gt; cont      # 흔히 입력하는 cont 와 동일하다.
-&gt; end       # command 입력 종료
+> silent    # breakpoint 에 멈췄단 메시지를 출력하지 말아달라
+> printf "alloc address is %p\n and its size is %ld", *sAddr, aSize # 프린트
+> cont      # 흔히 입력하는 cont 와 동일하다.
+> end       # command 입력 종료
 ```
 
 이러고 cont 를 날리면.. breakpoint 에서 멈추는 대신 해당 command 가 수행된다! 즉, 계속해서 주소와 할당 크기가 출력된다. 아주 편하다&#8230;
@@ -41,21 +41,21 @@ gdb/ddd 에서 commands 를 사용하면 간편하게 breakpoint 의 상태를 �
 
 일종의 응용인데, commands 내부에는 우리가 흔히 쓰는 명령어를 입력하면 된다.
 
-```plain
+```
 (gdb) commands
-&gt; silent
-&gt; bt 5      # backtrace (callstack) 을 출력하되, 안쪽에서 5개 까지만 출력
-&gt; cont
-&gt; end
+> silent
+> bt 5      # backtrace (callstack) 을 출력하되, 안쪽에서 5개 까지만 출력
+> cont
+> end
 ```
 
 ### Commands 의 초기화
 
 commands 명령어를 입력한 다음, 바로 end 로 끝내면 된다.
 
-```plain
+```
 (gdb) commands
-&gt; end
+> end
 ```
 
  [1]: http://sourceware.org/gdb/onlinedocs/gdb/Break-Commands.html

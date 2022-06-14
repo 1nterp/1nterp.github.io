@@ -29,12 +29,12 @@ Gitlab의 Markdown Parser는 [Redcarpet][2] 을 사용한다. 아마 [Jekyll][3]
 static size_t
 char_linebreak(struct buf *ob, struct sd_markdown *rndr, uint8_t *data, size_t offset, size_t size)
 {
-        //if (offset &lt; 2 || data[-1] != ' ' || data[-2] != ' ') 
+        //if (offset < 2 || data[-1] != ' ' || data[-2] != ' ') 
         // return 0; /* removing the last space from ob and rendering */ 
-        while (ob-&gt;size && ob-&gt;data[ob-&gt;size - 1] == ' ')
-                ob-&gt;size--;
+        while (ob->size && ob->data[ob->size - 1] == ' ')
+                ob->size--;
 
-        return rndr-&gt;cb.linebreak(ob, rndr-&gt;opaque) ? 1 : 0;
+        return rndr->cb.linebreak(ob, rndr->opaque) ? 1 : 0;
 }
 ```
 
@@ -64,10 +64,10 @@ char_linebreak(struct buf *ob, struct sd_markdown *rndr, uint8_t *data, size_t o
 ```cpp
 case CMARK_NODE_SOFTBREAK:
      if (options &amp; CMARK_OPT_HARDBREAKS) {
-       cmark_strbuf_puts(html, "&lt;br/&gt;\n");
+       cmark_strbuf_puts(html, "<br/>\n");
      } else if (options &amp; CMARK_OPT_NOBREAKS) {
        // cmark_strbuf_putc(html, ' ');     // 수정 전
-       cmark_strbuf_puts(html, "&lt;br/&gt;\n");  // 수정 후
+       cmark_strbuf_puts(html, "<br/>\n");  // 수정 후
      } else {
        cmark_strbuf_putc(html, '\n');
      }
@@ -82,7 +82,7 @@ case CMARK_NODE_SOFTBREAK:
 ```ruby
 RENDER_OPTIONS = [
           :DEFAULT,     # default rendering system. Nothing special.
-          :HARDBREAKS   # Treat `\n` as hardbreaks (by adding `&lt;br/&gt;`).            # 이걸 추가한다.
+          :HARDBREAKS   # Treat `\n` as hardbreaks (by adding `<br/>`).            # 이걸 추가한다.
         ].freeze
 ```
 

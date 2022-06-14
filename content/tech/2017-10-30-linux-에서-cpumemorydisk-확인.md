@@ -11,9 +11,9 @@ tags:
   - 사양
 
 ---
-자주 쓰긴 하지만, 곧바로 생각나지 않을 것을 대비해서&#8230; 서버실 서버 사양을 전부 체크하려다 보니 어쩔 수 없이 정리했다.
+자주 쓰긴 하지만, 곧바로 생각나지 않을 것을 대비해서... 서버실 서버 사양을 전부 체크하려다 보니 어쩔 수 없이 정리했다.
 
-### CPU / Memory 확인
+## CPU / Memory 확인
 
 CPU / Memory 는 사실 쉽다. `/proc/cpuinfo` 와 `/proc/meminfo` 안에 들어있기 때문이다.
 
@@ -25,7 +25,7 @@ $ cat /proc/meminfo | grep "MemTotal"
 MemTotal: 8040588 kB
 ```
 
-### Disk 확인
+## Disk 확인
 
 `df` 는 mount 된 것만 확인이 가능해서 별로고, `lsblk` 를 하면 마운트되지 않은 것까지 나온다.
 

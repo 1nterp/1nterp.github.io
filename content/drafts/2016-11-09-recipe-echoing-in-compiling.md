@@ -12,7 +12,7 @@ draft: true
 GNU Make에서는 ‘[Recipe Echoing][1]’ 이라고 부르는데, 아무튼 일반적으로 나오는 컴파일 명령어 줄을 보고 싶지 않고 Warning/Error 만 확인하고자 할 때 사용할 수 있는 명령을 정리한다. 완벽한 해결책은 아닌게, 어떤 파일이 통과되는지 여부는 간단하게나마 확인이 가능해야 하기 때문이다. 이 방법으로는 통과되는 파일들의 목록을 전혀 볼 수 없다.
 
 ```bash
-make &gt;/dev/null # 일반 메시지를 모두 갖다 버린다.
+make >/dev/null # 일반 메시지를 모두 갖다 버린다.
 make --no-print-directory # 디렉토리 이동 (entering/leaving) 메시지를 보여주지 않는다.
 make -s # .SLIENT에 모든 recipe가 정의된 것 처럼 작동시킨다..라고 이해했는데 맞는지 확인 바람
 ```
@@ -33,7 +33,7 @@ WARN_STRING  = "[WARNING]"
 COM_STRING   = "Compiling"
 
 $(BUILD_DIR)/%$(OBJ_SUF): %.c
-@$(Q) $(CC_TOOL) $(CC) $(COMP_FLAGS) $(CC_FLAGS) $(addprefix $(DEF_OPT),$(DEFINES)) $(addprefix $(INC_OPT),$(INCLUDES)) $(CC_OUT_OPT)$@ $&lt; 2&gt; $@.log; \
+@$(Q) $(CC_TOOL) $(CC) $(COMP_FLAGS) $(CC_FLAGS) $(addprefix $(DEF_OPT),$(DEFINES)) $(addprefix $(INC_OPT),$(INCLUDES)) $(CC_OUT_OPT)$@ $< 2> $@.log; \
 RESULT=$$?; \
 if [ $$RESULT -ne 0 ]; then \
 printf "         %b" "$(ERROR_COLOR)$(ERROR_STRING)"; \
