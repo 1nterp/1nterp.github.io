@@ -88,9 +88,9 @@
 </h2>
 </header>
 <section class=entry-content>
-<p>mmap은 memory map 의 줄임말이다. 메모리의 특정 영역을 파일 디스크립터로 인식하게 만드는 것이다.
+<p>mmap 은 memory map 의 줄임말이다. 메모리의 특정 영역을 파일 디스크립터로 인식하게 만드는 것이다.
 map or unmap files or devices into memory
-메모리 영역을 파일이나 디바이스로 인식하게 합니다
+(메모리 영역을 파일이나 디바이스로 인식하게 합니다)
 – manpage of mmap
 사용 void * mmap(void *start, size_t length, int prot, int flags, int fd, off_t offset); 여기서 의미가 있는 건 Length, Prot (Protection), Flag 뿐이다.
 Start 는, Kernel이 아무 곳이나 지정해도 좋다면 NULL을 입력한다....</p>
@@ -101,24 +101,11 @@ Start 는, Kernel이 아무 곳이나 지정해도 좋다면 NULL을 입력한�
 </article>
 <article class=post-entry>
 <header class=entry-header>
-<h2>polylang 사용 팁
-</h2>
-</header>
-<section class=entry-content>
-<p>다국어 사이트를 기획하던 중에 만난 Polylang 이 괜찮은 것 같아서 사용 중인데, 설정 중에 만난 두 가지 문제들을 아래와 같이 해결했다.
-Language Switcher가 없다고? **외모 – 메뉴 **에서 오른쪽 위에 ‘화면 옵션’ 을 펼치면 Language Switcher 가 꺼져있을 것이다. String Translation 을 따로 추가하고 싶다고? 테마의 functions.php 에서pll_register_string() 함수를 호출하면 된다. 해당 String 을 사용하고 싶다면 테마에서 pll__ 또는 pll__e 를 사용하면 된다....</p>
-</section>
-<footer class=entry-footer>
-<span title="2017-09-06 05:22:27 +0000 UTC">2017년 09월 06일</span>&nbsp;·&nbsp;1 분</footer>
-<a class=entry-link aria-label="post link to polylang 사용 팁" href=https://interp.blog/polylang-usage-tip/></a>
-</article>
-<article class=post-entry>
-<header class=entry-header>
 <h2>pthread_yield vs. sleep
 </h2>
 </header>
 <section class=entry-content>
-<p>pthread_yield() 와 sleep() 의 차이를 묻는 Stack Overflow 글을 가져와 봤다.
+<p>pthread_yield() 와 sleep() 의 차이를 묻는 Stack Overflow 글 의 답을 발췌한다.
 pthread_yield() 는, 호출한 쓰레드가 프로세서 사용을 그만두고, 스케쥴링이 될 때 까지 작업 큐(run queue)에서 기다립니다. 만약 호출되었을 때 작업 큐가 비어 있다면, 즉시 스케쥴링이 되겠죠.
 sleep() 은 X초만큼 지나거나, 무시할 수 없는 시그널이 도착할 때 까지 (다른 쓰레드를 포함한) 호출 프로세스를 재웁니다.
 현재 쓰레드를 실제로 지연시키고 싶지 않지만 (호출 쓰레드 대신) 다른 쓰레드에게 실행권을 넘겨주고 싶은 경우라면, sleep() 보단 pthread_yield() 가 적합할 것 같습니다....</p>

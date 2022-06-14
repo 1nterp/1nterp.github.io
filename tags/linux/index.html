@@ -91,9 +91,9 @@ $ cat /proc/cpuinfo | grep "model name" | sort -u model name : Intel(R) Core(TM
 </h2>
 </header>
 <section class=entry-content>
-<p>mmap은 memory map 의 줄임말이다. 메모리의 특정 영역을 파일 디스크립터로 인식하게 만드는 것이다.
+<p>mmap 은 memory map 의 줄임말이다. 메모리의 특정 영역을 파일 디스크립터로 인식하게 만드는 것이다.
 map or unmap files or devices into memory
-메모리 영역을 파일이나 디바이스로 인식하게 합니다
+(메모리 영역을 파일이나 디바이스로 인식하게 합니다)
 – manpage of mmap
 사용 void * mmap(void *start, size_t length, int prot, int flags, int fd, off_t offset); 여기서 의미가 있는 건 Length, Prot (Protection), Flag 뿐이다.
 Start 는, Kernel이 아무 곳이나 지정해도 좋다면 NULL을 입력한다....</p>

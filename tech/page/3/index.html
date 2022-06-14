@@ -94,16 +94,16 @@ Windows 10 에서 지원하는 Linux Subsystem 기능에 대해 이야기한다.
 </h2>
 </header>
 <section class=entry-content>
-<p>졸업프로젝트도 아니고, 기말고사 대신 치룬 텀프로젝트의 마지막을 장식할 윈도우 어플리케이션을 만들기 위해 배우려 했으나 문 앞에서 서성이기만 했던 바로 그 언어, C#을 당장 써먹어야 하는 상황이 발생했다. (이런 상황이 발생한 것이 참 안타깝긴 하지만) 배움의 기회로 삼는 수 밖에 없다.
-dotnet test 및 xUnit을 사용하여 .NET Core에서 C# 유닛 테스트라는 MS 문서를 기반으로 실습을 했는데, 여기서 중요한 것은, 내가 만들어야 하는 라이브러리의 Target Framework가 ....</p>
+<p>대학생 때 팀 프로젝트로 윈도우 어플리케이션을 끄적이던 때가 있었다. 그 때 C# 기반으로 진행했었는데, 나는 뷰에 집중했던지라 디자인하고 프로퍼티 만지기 바빴고 뼈대는 다른 친구가 만들어 줬었던 기억이 난다. 그 때부터 C/C++ 와는 다르지만 비슷한 이름의 이 언어에 왠지 모를 끌림이 있었다. 하지만 배울 기회는 없었지..
+바로 그 언어, C#을 현업에서 당장 써먹어야 하는 상황이 발생했다. (이런 상황이 왜 발생했는지 한탄은 나중에 일단 하기로 하고) 어쩔 수 없이 배움의 기회로 삼는 수 밖에 없다....</p>
 </section>
 <footer class=entry-footer>
 <span title="2017-11-29 03:28:03 +0000 UTC">2017년 11월 29일</span>&nbsp;·&nbsp;3 분</footer>
-<a class=entry-link aria-label="post link to C# xUnit 실습" href=https://interp.blog/c-xunit-%EC%8B%A4%EC%8A%B5/></a>
+<a class=entry-link aria-label="post link to C# xUnit 실습" href=https://interp.blog/csharp-xunit-practice/></a>
 </article>
 <article class=post-entry>
 <header class=entry-header>
-<h2>Gitlab 삽질기
+<h2>Gitlab 10.x 삽질기
 </h2>
 </header>
 <section class=entry-content>
@@ -112,7 +112,7 @@ gitlab-ctl reconfigure 를 설치 직후에 반드시 해 줘야 한다. 가끔 
 </section>
 <footer class=entry-footer>
 <span title="2017-11-15 09:17:58 +0000 UTC">2017년 11월 15일</span>&nbsp;·&nbsp;4 분</footer>
-<a class=entry-link aria-label="post link to Gitlab 삽질기" href=https://interp.blog/gitlab-%EC%82%BD%EC%A7%88%EA%B8%B0/></a>
+<a class=entry-link aria-label="post link to Gitlab 10.x 삽질기" href=https://interp.blog/gitlab-%EC%82%BD%EC%A7%88%EA%B8%B0/></a>
 </article>
 <article class=post-entry>
 <header class=entry-header>
@@ -134,9 +134,9 @@ $ cat /proc/cpuinfo | grep "model name" | sort -u model name : Intel(R) Core(TM
 </h2>
 </header>
 <section class=entry-content>
-<p>mmap은 memory map 의 줄임말이다. 메모리의 특정 영역을 파일 디스크립터로 인식하게 만드는 것이다.
+<p>mmap 은 memory map 의 줄임말이다. 메모리의 특정 영역을 파일 디스크립터로 인식하게 만드는 것이다.
 map or unmap files or devices into memory
-메모리 영역을 파일이나 디바이스로 인식하게 합니다
+(메모리 영역을 파일이나 디바이스로 인식하게 합니다)
 – manpage of mmap
 사용 void * mmap(void *start, size_t length, int prot, int flags, int fd, off_t offset); 여기서 의미가 있는 건 Length, Prot (Protection), Flag 뿐이다.
 Start 는, Kernel이 아무 곳이나 지정해도 좋다면 NULL을 입력한다....</p>
@@ -147,24 +147,11 @@ Start 는, Kernel이 아무 곳이나 지정해도 좋다면 NULL을 입력한�
 </article>
 <article class=post-entry>
 <header class=entry-header>
-<h2>polylang 사용 팁
-</h2>
-</header>
-<section class=entry-content>
-<p>다국어 사이트를 기획하던 중에 만난 Polylang 이 괜찮은 것 같아서 사용 중인데, 설정 중에 만난 두 가지 문제들을 아래와 같이 해결했다.
-Language Switcher가 없다고? **외모 – 메뉴 **에서 오른쪽 위에 ‘화면 옵션’ 을 펼치면 Language Switcher 가 꺼져있을 것이다. String Translation 을 따로 추가하고 싶다고? 테마의 functions.php 에서pll_register_string() 함수를 호출하면 된다. 해당 String 을 사용하고 싶다면 테마에서 pll__ 또는 pll__e 를 사용하면 된다....</p>
-</section>
-<footer class=entry-footer>
-<span title="2017-09-06 05:22:27 +0000 UTC">2017년 09월 06일</span>&nbsp;·&nbsp;1 분</footer>
-<a class=entry-link aria-label="post link to polylang 사용 팁" href=https://interp.blog/polylang-usage-tip/></a>
-</article>
-<article class=post-entry>
-<header class=entry-header>
 <h2>pthread_yield vs. sleep
 </h2>
 </header>
 <section class=entry-content>
-<p>pthread_yield() 와 sleep() 의 차이를 묻는 Stack Overflow 글을 가져와 봤다.
+<p>pthread_yield() 와 sleep() 의 차이를 묻는 Stack Overflow 글 의 답을 발췌한다.
 pthread_yield() 는, 호출한 쓰레드가 프로세서 사용을 그만두고, 스케쥴링이 될 때 까지 작업 큐(run queue)에서 기다립니다. 만약 호출되었을 때 작업 큐가 비어 있다면, 즉시 스케쥴링이 되겠죠.
 sleep() 은 X초만큼 지나거나, 무시할 수 없는 시그널이 도착할 때 까지 (다른 쓰레드를 포함한) 호출 프로세스를 재웁니다.
 현재 쓰레드를 실제로 지연시키고 싶지 않지만 (호출 쓰레드 대신) 다른 쓰레드에게 실행권을 넘겨주고 싶은 경우라면, sleep() 보단 pthread_yield() 가 적합할 것 같습니다....</p>
