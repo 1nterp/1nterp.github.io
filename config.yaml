@@ -9,7 +9,7 @@ googleAnalytics: UA-126809878-1
 metaDataFormat: yaml
 summaryLength: 60
 params:
-  defaultTheme: auto
+  defaultTheme: light
   ShowPostNavLinks: true
   homeInfoParams:
     Title: InterP Blog 🍏
