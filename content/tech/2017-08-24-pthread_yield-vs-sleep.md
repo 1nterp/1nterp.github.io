@@ -5,7 +5,7 @@ type: post
 date: 2017-08-24T05:35:24+0000
 url: /pthread_yield-vs-sleep/
 categories:
-  - 프로그래밍
+    - Tech
 tags:
   - c
   - thread

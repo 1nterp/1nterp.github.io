@@ -7,7 +7,7 @@ tags:
 title: Oh my zsh! 에서 kubectl 자동 완성 하기
 url: oh-my-zsh-kubectl-autocomplete
 categories:
-- Tech
+    - TechTech
 cover:
   image: ''
 summary: ‘zsh 자동 완성’ 이라는 Kubernetes 공식 문서에 따르면, 몇 가지 명령으로 자동 완성이 가능하다고 한다. 하지만 Oh my zsh! 에서는 이것만으로는 충분하지 않았다.

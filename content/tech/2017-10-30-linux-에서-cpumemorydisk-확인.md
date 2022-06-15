@@ -5,7 +5,7 @@ type: post
 date: 2017-10-30T08:31:03+0000
 url: /linux-에서-cpumemorydisk-확인/
 categories:
-  - 팁
+    - Tech
 tags:
   - Linux
   - 사양

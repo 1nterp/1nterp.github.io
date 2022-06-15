@@ -5,7 +5,7 @@ type: post
 date: 2019-03-18T04:50:30+0000
 url: /windows-ssh-rsa-key-문제-해결/
 categories:
-  - 개발환경
+    - Tech
 tags:
   - SSH
   - permission

@@ -5,12 +5,12 @@ type: post
 date: 2018-01-09T07:09:07+0000
 url: /java-web-application-입문-1-준비운동/
 categories:
-  - 프로그래밍
+    - Tech
 tags:
   - spring
   - maven
   - java
-
+draft: true
 ---
 ### Java?
 

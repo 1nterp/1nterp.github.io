@@ -5,13 +5,13 @@ type: post
 date: 2018-04-24T02:31:38+0000
 url: /atomic-operation-으로-하는-동시성-제어/
 categories:
-  - 프로그래밍
+    - Tech
 tags:
   - lock
   - atomic
 
 ---
-### Test-And-Set (TAS)
+## Test-And-Set (TAS)
 
 TAS 를 이용해서 간단한 동시성 제어를 할 수 있다. testAndSet 이라는 function 을 가지고 아래의 `do...while` 문을 쓰레드 A, B 에서 동시에 호출한다고 해 보자. 이 때 lock 은 같은 변수이다.
 
@@ -58,7 +58,7 @@ do {
 
 그럼 어떡하나? TestAndSet() 은 그래서 저런 함수만으로는 안 되고 Test-And-Set 의 연산이 일관되도록 조정해야 한다. 함수 안에 spinlock 을 쓰면 되겠네요? 싶겠지만 lock 구현하자고 lock 을 또 만드는 건 아닌 것 같다. 그래서 Test-And-Set 은 CPU에서 지원하는 Atomic Instruction 을 사용한다.
 
-### Fetch-And-Add : Ticket Lock
+## Fetch-And-Add : Ticket Lock
 
 Atomic Operation 으로 구현할 수 있는 Lock 중에 Ticket Lock 이 있는데, Fetch-And-Add 로 구현할 수 있는 방법을 알아보자.
 

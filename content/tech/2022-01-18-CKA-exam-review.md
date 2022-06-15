@@ -7,7 +7,7 @@ tags:
     - kubernetes
     - exam
 categories:
-    - tech
+    - Techtech
 cover:
     image: "/images/featured/cka-exam.jpg"
 ---

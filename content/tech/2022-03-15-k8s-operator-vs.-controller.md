@@ -4,7 +4,7 @@ author: interp
 date: 2022-03-15 02:44:57 +0000
 url: /kubernetes-operator-vs-controller/
 categories:
-  - 테크
+    - Tech
 tags:
   - k8s
   - controller

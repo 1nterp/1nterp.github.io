@@ -8,7 +8,7 @@ tags:
     - POP3
     - iPhone
 categories:
-    - tech
+    - Techtech
 cover:
     image: "/images/2022-02-04-kakao-email/feature-image.jpg"
 ---

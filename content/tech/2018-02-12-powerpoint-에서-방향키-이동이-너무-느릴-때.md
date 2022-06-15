@@ -4,7 +4,7 @@ author: interp
 date: 2018-08-12 06:53:39
 url: /powerpoint-shape-move-faster/
 categories:
-  - 팁
+    - Tech
 tags:
   - Powerpoint
 ---
