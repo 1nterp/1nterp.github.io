@@ -13,7 +13,7 @@
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-KMRJ33V06X')</script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
 <meta name=description content="gdb/ddd 에서 commands 를 사용하면 간편하게 breakpoint 의 상태를 출력할 수 있다. 물론 다양하게 응용이 가능하겠지만, 매뉴얼에서 제시한 케이스가 굉장히 편해서 따로 정리한다.
-참고 : 매뉴얼
+참고 : http://sourceware.org/gdb/onlinedocs/gdb/Break-Commands.html
 Breakpoint 상황을 출력하기 10 *sAddr = malloc(aSize); 11 if (*sAddr != NULL) 12 ... 위 코드에서 if 문에 breakpoint 를 걸고, 할당받은 시작 주소와 그 크기를 보고자 한다. 한두번 발생하는 거라면 breakpoint 를 걸어 둔 다음 print 나 graph display (ddd 전용) 으로 띄워서 관찰하면 된다.">
 <meta name=author content="interp">
 <link rel=canonical href=https://interp.blog/gdb-commands-%EC%9D%B4%EC%9A%A9%ED%95%98%EA%B8%B0/>
@@ -33,7 +33,7 @@ Breakpoint 상황을 출력하기 10 *sAddr = malloc(aSize); 11 if (*sAddr != NU
 </noscript>
 <script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-126809878-1','auto'),ga('send','pageview'))</script><meta property="og:title" content="gdb commands 이용하기">
 <meta property="og:description" content="gdb/ddd 에서 commands 를 사용하면 간편하게 breakpoint 의 상태를 출력할 수 있다. 물론 다양하게 응용이 가능하겠지만, 매뉴얼에서 제시한 케이스가 굉장히 편해서 따로 정리한다.
-참고 : 매뉴얼
+참고 : http://sourceware.org/gdb/onlinedocs/gdb/Break-Commands.html
 Breakpoint 상황을 출력하기 10 *sAddr = malloc(aSize); 11 if (*sAddr != NULL) 12 ... 위 코드에서 if 문에 breakpoint 를 걸고, 할당받은 시작 주소와 그 크기를 보고자 한다. 한두번 발생하는 거라면 breakpoint 를 걸어 둔 다음 print 나 graph display (ddd 전용) 으로 띄워서 관찰하면 된다.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://interp.blog/gdb-commands-%EC%9D%B4%EC%9A%A9%ED%95%98%EA%B8%B0/"><meta property="article:section" content="tech">
@@ -42,10 +42,10 @@ Breakpoint 상황을 출력하기 10 *sAddr = malloc(aSize); 11 if (*sAddr != NU
 <meta name=twitter:card content="summary">
 <meta name=twitter:title content="gdb commands 이용하기">
 <meta name=twitter:description content="gdb/ddd 에서 commands 를 사용하면 간편하게 breakpoint 의 상태를 출력할 수 있다. 물론 다양하게 응용이 가능하겠지만, 매뉴얼에서 제시한 케이스가 굉장히 편해서 따로 정리한다.
-참고 : 매뉴얼
+참고 : http://sourceware.org/gdb/onlinedocs/gdb/Break-Commands.html
 Breakpoint 상황을 출력하기 10 *sAddr = malloc(aSize); 11 if (*sAddr != NULL) 12 ... 위 코드에서 if 문에 breakpoint 를 걸고, 할당받은 시작 주소와 그 크기를 보고자 한다. 한두번 발생하는 거라면 breakpoint 를 걸어 둔 다음 print 나 graph display (ddd 전용) 으로 띄워서 관찰하면 된다.">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tech 🛠️","item":"https://interp.blog/tech/"},{"@type":"ListItem","position":2,"name":"gdb commands 이용하기","item":"https://interp.blog/gdb-commands-%EC%9D%B4%EC%9A%A9%ED%95%98%EA%B8%B0/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"gdb commands 이용하기","name":"gdb commands 이용하기","description":"gdb/ddd 에서 commands 를 사용하면 간편하게 breakpoint 의 상태를 출력할 수 있다. 물론 다양하게 응용이 가능하겠지만, 매뉴얼에서 제시한 케이스가 굉장히 편해서 따로 정리한다.\n참고 : 매뉴얼\nBreakpoint 상황을 출력하기 10 *sAddr = malloc(aSize); 11 if (*sAddr != NULL) 12 ... 위 코드에서 if 문에 breakpoint 를 걸고, 할당받은 시작 주소와 그 크기를 보고자 한다. 한두번 발생하는 거라면 breakpoint 를 걸어 둔 다음 print 나 graph display (ddd 전용) 으로 띄워서 관찰하면 된다.","keywords":["gdb"],"articleBody":"gdb/ddd 에서 commands 를 사용하면 간편하게 breakpoint 의 상태를 출력할 수 있다. 물론 다양하게 응용이 가능하겠지만, 매뉴얼에서 제시한 케이스가 굉장히 편해서 따로 정리한다.\n참고 : 매뉴얼\nBreakpoint 상황을 출력하기 10 *sAddr = malloc(aSize); 11 if (*sAddr != NULL) 12 ... 위 코드에서 if 문에 breakpoint 를 걸고, 할당받은 시작 주소와 그 크기를 보고자 한다. 한두번 발생하는 거라면 breakpoint 를 걸어 둔 다음 print 나 graph display (ddd 전용) 으로 띄워서 관찰하면 된다. 그런데 이게 100번 200번이면 하염없이 엔터를 치게 된다.\n이럴 때 다음과 같이 입력한다.\n(gdb) b 10 # 10번째 라인에 breakpoint (gdb) commands # 아무 것도 입력하지 않으면 최근 breakpoint 에 대한 command 입력  silent # breakpoint 에 멈췄단 메시지를 출력하지 말아달라  printf \"alloc address is %p\\n and its size is %ld\", *sAddr, aSize # 프린트  cont # 흔히 입력하는 cont 와 동일하다.  end # command 입력 종료 이러고 cont 를 날리면.. breakpoint 에서 멈추는 대신 해당 command 가 수행된다! 즉, 계속해서 주소와 할당 크기가 출력된다. 아주 편하다…\nCall Stack 보기 일종의 응용인데, commands 내부에는 우리가 흔히 쓰는 명령어를 입력하면 된다.\n(gdb) commands  silent  bt 5 # backtrace (callstack) 을 출력하되, 안쪽에서 5개 까지만 출력  cont  end Commands 의 초기화 commands 명령어를 입력한 다음, 바로 end 로 끝내면 된다.\n(gdb) commands  end ","wordCount":"212","inLanguage":"ko","datePublished":"2018-02-06T08:46:05Z","dateModified":"2018-02-06T08:46:05Z","author":{"@type":"Person","name":"interp"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://interp.blog/gdb-commands-%EC%9D%B4%EC%9A%A9%ED%95%98%EA%B8%B0/"},"publisher":{"@type":"Organization","name":"InterP Blog","logo":{"@type":"ImageObject","url":"https://interp.blog/favicon.ico"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"gdb commands 이용하기","name":"gdb commands 이용하기","description":"gdb/ddd 에서 commands 를 사용하면 간편하게 breakpoint 의 상태를 출력할 수 있다. 물론 다양하게 응용이 가능하겠지만, 매뉴얼에서 제시한 케이스가 굉장히 편해서 따로 정리한다.\n참고 : http://sourceware.org/gdb/onlinedocs/gdb/Break-Commands.html\nBreakpoint 상황을 출력하기 10 *sAddr = malloc(aSize); 11 if (*sAddr != NULL) 12 ... 위 코드에서 if 문에 breakpoint 를 걸고, 할당받은 시작 주소와 그 크기를 보고자 한다. 한두번 발생하는 거라면 breakpoint 를 걸어 둔 다음 print 나 graph display (ddd 전용) 으로 띄워서 관찰하면 된다.","keywords":["gdb"],"articleBody":"gdb/ddd 에서 commands 를 사용하면 간편하게 breakpoint 의 상태를 출력할 수 있다. 물론 다양하게 응용이 가능하겠지만, 매뉴얼에서 제시한 케이스가 굉장히 편해서 따로 정리한다.\n참고 : http://sourceware.org/gdb/onlinedocs/gdb/Break-Commands.html\nBreakpoint 상황을 출력하기 10 *sAddr = malloc(aSize); 11 if (*sAddr != NULL) 12 ... 위 코드에서 if 문에 breakpoint 를 걸고, 할당받은 시작 주소와 그 크기를 보고자 한다. 한두번 발생하는 거라면 breakpoint 를 걸어 둔 다음 print 나 graph display (ddd 전용) 으로 띄워서 관찰하면 된다. 그런데 이게 100번 200번이면 하염없이 엔터를 치게 된다.\n이럴 때 다음과 같이 입력한다.\n(gdb) b 10 # 10번째 라인에 breakpoint (gdb) commands # 아무 것도 입력하지 않으면 최근 breakpoint 에 대한 command 입력  silent # breakpoint 에 멈췄단 메시지를 출력하지 말아달라  printf \"alloc address is %p\\n and its size is %ld\", *sAddr, aSize  cont # 흔히 입력하는 cont 와 동일하다.  end # command 입력 종료 이러고 cont 를 날리면.. breakpoint 에서 멈추는 대신 해당 command 가 수행된다! 즉, 계속해서 주소와 할당 크기가 출력된다. 아주 편하다…\nCall Stack 보기 일종의 응용인데, commands 내부에는 우리가 흔히 쓰는 명령어를 입력하면 된다.\n(gdb) commands  silent  bt 5 # backtrace (callstack) 을 출력하되, 안쪽에서 5개 까지만 출력  cont  end Commands 의 초기화 commands 명령어를 입력한 다음, 바로 end 로 끝내면 된다.\n(gdb) commands  end ","wordCount":"210","inLanguage":"ko","datePublished":"2018-02-06T08:46:05Z","dateModified":"2018-02-06T08:46:05Z","author":{"@type":"Person","name":"interp"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://interp.blog/gdb-commands-%EC%9D%B4%EC%9A%A9%ED%95%98%EA%B8%B0/"},"publisher":{"@type":"Organization","name":"InterP Blog","logo":{"@type":"ImageObject","url":"https://interp.blog/favicon.ico"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"&&document.body.classList.add('dark')</script>
@@ -89,32 +89,32 @@ gdb commands 이용하기
 </div>
 </header>
 <div class=post-content><p>gdb/ddd 에서 commands 를 사용하면 간편하게 breakpoint 의 상태를 출력할 수 있다. 물론 다양하게 응용이 가능하겠지만, 매뉴얼에서 제시한 케이스가 굉장히 편해서 따로 정리한다.</p>
-<p>참고 : <a href=http://sourceware.org/gdb/onlinedocs/gdb/Break-Commands.html>매뉴얼</a></p>
-<h3 id=breakpoint-상황을-출력하기>Breakpoint 상황을 출력하기<a hidden class=anchor aria-hidden=true href=#breakpoint-상황을-출력하기>#</a></h3>
+<p>참고 : <a href=http://sourceware.org/gdb/onlinedocs/gdb/Break-Commands.html>http://sourceware.org/gdb/onlinedocs/gdb/Break-Commands.html</a></p>
+<h2 id=breakpoint-상황을-출력하기>Breakpoint 상황을 출력하기<a hidden class=anchor aria-hidden=true href=#breakpoint-상황을-출력하기>#</a></h2>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=color:#ae81ff>10</span>    <span style=color:#f92672>*</span>sAddr <span style=color:#f92672>=</span> malloc(aSize);
 <span style=color:#ae81ff>11</span>    <span style=color:#66d9ef>if</span> (<span style=color:#f92672>*</span>sAddr <span style=color:#f92672>!=</span> NULL)
 <span style=color:#ae81ff>12</span>    ...
 </code></pre></div><p>위 코드에서 if 문에 breakpoint 를 걸고, 할당받은 시작 주소와 그 크기를 보고자 한다. 한두번 발생하는 거라면 breakpoint 를 걸어 둔 다음 print 나 graph display (ddd 전용) 으로 띄워서 관찰하면 된다. 그런데 이게 100번 200번이면 하염없이 엔터를 치게 된다.</p>
 <p>이럴 때 다음과 같이 입력한다.</p>
-<pre tabindex=0><code>(gdb) b 10 # 10번째 라인에 breakpoint
-(gdb) commands # 아무 것도 입력하지 않으면 최근 breakpoint 에 대한 command 입력
-&gt; silent    # breakpoint 에 멈췄단 메시지를 출력하지 말아달라
-&gt; printf &quot;alloc address is %p\n and its size is %ld&quot;, *sAddr, aSize # 프린트
-&gt; cont      # 흔히 입력하는 cont 와 동일하다.
-&gt; end       # command 입력 종료
-</code></pre><p>이러고 cont 를 날리면.. breakpoint 에서 멈추는 대신 해당 command 가 수행된다! 즉, 계속해서 주소와 할당 크기가 출력된다. 아주 편하다…</p>
-<h3 id=call-stack-보기>Call Stack 보기<a hidden class=anchor aria-hidden=true href=#call-stack-보기>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#f92672>(</span>gdb<span style=color:#f92672>)</span> b <span style=color:#ae81ff>10</span>     <span style=color:#75715e># 10번째 라인에 breakpoint</span>
+<span style=color:#f92672>(</span>gdb<span style=color:#f92672>)</span> commands <span style=color:#75715e># 아무 것도 입력하지 않으면 최근 breakpoint 에 대한 command 입력</span>
+&gt; silent       <span style=color:#75715e># breakpoint 에 멈췄단 메시지를 출력하지 말아달라</span>
+&gt; printf <span style=color:#e6db74>&#34;alloc address is %p\n and its size is %ld&#34;</span>, *sAddr, aSize
+&gt; cont         <span style=color:#75715e># 흔히 입력하는 cont 와 동일하다.</span>
+&gt; end          <span style=color:#75715e># command 입력 종료</span>
+</code></pre></div><p>이러고 cont 를 날리면.. breakpoint 에서 멈추는 대신 해당 command 가 수행된다! 즉, 계속해서 주소와 할당 크기가 출력된다. 아주 편하다…</p>
+<h2 id=call-stack-보기>Call Stack 보기<a hidden class=anchor aria-hidden=true href=#call-stack-보기>#</a></h2>
 <p>일종의 응용인데, commands 내부에는 우리가 흔히 쓰는 명령어를 입력하면 된다.</p>
-<pre tabindex=0><code>(gdb) commands
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#f92672>(</span>gdb<span style=color:#f92672>)</span> commands
 &gt; silent
-&gt; bt 5      # backtrace (callstack) 을 출력하되, 안쪽에서 5개 까지만 출력
+&gt; bt <span style=color:#ae81ff>5</span>      <span style=color:#75715e># backtrace (callstack) 을 출력하되, 안쪽에서 5개 까지만 출력</span>
 &gt; cont
 &gt; end
-</code></pre><h3 id=commands-의-초기화>Commands 의 초기화<a hidden class=anchor aria-hidden=true href=#commands-의-초기화>#</a></h3>
+</code></pre></div><h2 id=commands-의-초기화>Commands 의 초기화<a hidden class=anchor aria-hidden=true href=#commands-의-초기화>#</a></h2>
 <p>commands 명령어를 입력한 다음, 바로 end 로 끝내면 된다.</p>
-<pre tabindex=0><code>(gdb) commands
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#f92672>(</span>gdb<span style=color:#f92672>)</span> commands
 &gt; end
-</code></pre>
+</code></pre></div>
 </div>
 <footer class=post-footer>
 <ul class=post-tags>

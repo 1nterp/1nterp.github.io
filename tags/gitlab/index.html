@@ -81,7 +81,7 @@
 Merge Request 에 성공한 Source Branch 를 삭제 Merge Request 할 때 Commit 을 하나로 뭉쳐서 Merge (=Squash Merge) 이 체크박스를 개발자가 일일해 해 줘야 하는 문제가 있다. 그래서 어떤 개발자는 체크하는 것을 까먹었다가 master branch 의 commit tree 를 엉망으로 만들기도 한다....</p>
 </section>
 <footer class=entry-footer>
-<span title="2018-11-13 05:03:22 +0000 UTC">2018년 11월 13일</span>&nbsp;·&nbsp;2 분</footer>
+<span title="2018-11-13 05:03:22 +0000 UTC">2018년 11월 13일</span>&nbsp;·&nbsp;1 분</footer>
 <a class=entry-link aria-label="post link to Gitlab merge request 옵션 기본으로 두기" href=https://interp.blog/set-gitlab-merge-request-checked/></a>
 </article>
 <article class="post-entry tag-entry">
@@ -90,7 +90,8 @@ Merge Request 에 성공한 Source Branch 를 삭제 Merge Request 할 때 Commi
 </h2>
 </header>
 <section class=entry-content>
-<p>Gitlab의 External_Url 을 실제 서버 주소와 다르게 설정할 때엔, 실제 nginx 에도 해당 도메인으로 접근할 수 있도록 설정해야 하는 게 맞다. 그렇지 않으면, 첨부파일과 아바타 이미지가 모두 깨져나온다. 하지만 그러기 전에 Gitlab 차원에서 상대 경로로 아바타를 출력할 수 있도록 수정하는 방법 ‘도’ 있으니 편법으로 수정했다.
+<p>사내 사정으로 인해 Gitlab의 External_Url 을 실제 서버 주소와 다르게 설정해서 쓰고 있다.
+물론 실제 nginx 에도 해당 도메인으로 접근할 수 있도록 설정해야 하는 게 맞다. 그렇지 않으면, 첨부파일과 아바타 이미지가 모두 깨져나온다. 하지만 그러기 전에 Gitlab 차원에서 상대 경로로 아바타를 출력할 수 있도록 수정하는 방법 ‘도’ 있으니 편법으로 수정했다. 아래는 그 편법 내용을 다룬다.
 아바타 상대 경로 설정 /opt/gitlab/embedded/service/gitlab-rails/app/models/concerns/avatarable.rb 파일에서 절대 경로로 수정하는 코드가 있는데, url_base 에 덧붙이는 코드들을 전부 주석처리하면 된다....</p>
 </section>
 <footer class=entry-footer>
@@ -103,8 +104,8 @@ Merge Request 에 성공한 Source Branch 를 삭제 Merge Request 할 때 Commi
 </h2>
 </header>
 <section class=entry-content>
-<p>Git 기반 프로세스 도구인 Gitlab 은 오픈소스이기 때문에 Community Edition 을 쓰건, Enterprise Edition 을 쓰건 상관없이 맘대로 수정해서 사용이 가능하다. 물론 적절한 감(?)으로 수정할 곳을 찾아야 하는 번거로움은 있다. 여기서는 Gitlab에서 문서 작성에 필요한 Markdown 의 Parser 부분을 수정하기 위한 방법을 정리해 둔다. Ruby 개발자가 아니라서 전체 빌드 순서가 정공법처럼 보이진 않겠지만.
-Gitlab의 Markdown Parser는 Redcarpet 을 사용한다. 아마 Jekyll 도 기본적으로 Redcarpet 을 사용하는 것으로 알고 있다....</p>
+<p>Github 과 비슷한 서비스인 Gitlab 은 오픈소스이기 때문에 Community Edition 을 쓰건, Enterprise Edition 을 쓰건 on-premise 환경에서 설치한 뒤 맘대로 수정해서 사용이 가능하다. (물론 EE 는 라이센스가 필요하다) 수정하는 범위를 한정하지 않는다면, 일개 루비 (*.rb) 파일까지 건드릴 수 있다.
+여기서는 Gitlab에서 문서 작성에 필요한 Markdown 의 Parser 부분을 미세하게 수정해서, 입맛에 맞게 바꾸기 위한 트윅을 정리해 둔다. Ruby 개발자가 아니라서 전체 순서가 정공법처럼 보이진 않겠지만....</p>
 </section>
 <footer class=entry-footer>
 <span title="2018-01-03 02:29:21 +0000 UTC">2018년 01월 03일</span>&nbsp;·&nbsp;3 분</footer>

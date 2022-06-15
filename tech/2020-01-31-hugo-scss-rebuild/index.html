@@ -4,7 +4,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
 <meta name=robots content="index, follow">
 <title>Hugo SCSS Rebuild | InterP Blog</title>
-<meta name=keywords content>
+<meta name=keywords content="hugo,scss">
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-126809878-1"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','UA-126809878-1')</script>
 <link rel=preconnect href=https://fonts.googleapis.com>
@@ -13,7 +13,7 @@
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-KMRJ33V06X')</script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
 <meta name=description content="Hugo 에 포함된 Theme 에는 대부분 SASS/SCSS 파일로 스타일링을 했는데, 여기서 SCSS 내용을 변경해도 사이트 빌드할 때 변경 내용이 적용이 되지 않았다. 원칙적으론 되어야 한다. 어떻게 해결했는지 간단히 적어본다.">
-<meta name=author content="InterP">
+<meta name=author content="interp">
 <link rel=canonical href=https://interp.blog/tech/2020-01-31-hugo-scss-rebuild/>
 <link crossorigin=anonymous href=/assets/css/stylesheet.min.07af870d045141b7869138e688c691b1c14ee84d136db6c05031afd62f27ae5a.css integrity="sha256-B6+HDQRRQbeGkTjmiMaRscFO6E0TbbbAUDGv1i8nrlo=" rel="preload stylesheet" as=style>
 <script defer crossorigin=anonymous src=/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5+kdJvBz5iKbt6B5PJI=" onload=hljs.initHighlightingOnLoad()></script>
@@ -39,7 +39,7 @@
 <meta name=twitter:title content="Hugo SCSS Rebuild">
 <meta name=twitter:description content="Hugo 에 포함된 Theme 에는 대부분 SASS/SCSS 파일로 스타일링을 했는데, 여기서 SCSS 내용을 변경해도 사이트 빌드할 때 변경 내용이 적용이 되지 않았다. 원칙적으론 되어야 한다. 어떻게 해결했는지 간단히 적어본다.">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tech 🛠️","item":"https://interp.blog/tech/"},{"@type":"ListItem","position":2,"name":"Hugo SCSS Rebuild","item":"https://interp.blog/tech/2020-01-31-hugo-scss-rebuild/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Hugo SCSS Rebuild","name":"Hugo SCSS Rebuild","description":"Hugo 에 포함된 Theme 에는 대부분 SASS/SCSS 파일로 스타일링을 했는데, 여기서 SCSS 내용을 변경해도 사이트 빌드할 때 변경 내용이 적용이 되지 않았다. 원칙적으론 되어야 한다. 어떻게 해결했는지 간단히 적어본다.","keywords":[],"articleBody":"Tale 테마로 블로그를 처음 시작하려고 보고 있는데, 여기서 SCSS 내용을 변경해도 hugo server -D 를 하니까 변경 내용이 적용이 되지 않았다. 여기선 잘 된다고 나와 있는데, 어떻게 해결했는지 자세히 적어본다.\n 자세히 보니 이미 컴파일이 완료된 CSS 파일이 resources/_gen/assets/scss/scss/ 에 존재하고 있었다. 설마 이것 때문인가? 삭제를 하고 다시 hugo server -D 를 해보면 다음 문구가 반겨준다.  Building sites … ERROR 2020/01/31 00:27:39 Transformation failed: TOCSS: failed to transform \"scss/tale.scss\" (text/x-scss): this feature is not available in your current Hugo version, see https://goo.gl/YMrWcn for more information Built in 16 ms Error: Error building site: logged 1 error(s) 그렇다, 혹시 extension version 이 아닌 hugo 를 설치한 것은 아닌지 확인해 보자. Install Hugo 페이지에 다시 들어가 재설치하니 잘 되었다.\n","wordCount":"116","inLanguage":"ko","datePublished":"2020-01-31T00:35:23+09:00","dateModified":"2020-01-31T00:35:23+09:00","author":[{"@type":"Person","name":"InterP"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://interp.blog/tech/2020-01-31-hugo-scss-rebuild/"},"publisher":{"@type":"Organization","name":"InterP Blog","logo":{"@type":"ImageObject","url":"https://interp.blog/favicon.ico"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Hugo SCSS Rebuild","name":"Hugo SCSS Rebuild","description":"Hugo 에 포함된 Theme 에는 대부분 SASS/SCSS 파일로 스타일링을 했는데, 여기서 SCSS 내용을 변경해도 사이트 빌드할 때 변경 내용이 적용이 되지 않았다. 원칙적으론 되어야 한다. 어떻게 해결했는지 간단히 적어본다.","keywords":["hugo","scss"],"articleBody":"Tale 테마로 블로그를 처음 시작하려고 보고 있는데, 여기서 SCSS 내용을 변경해도 hugo server -D 를 하니까 변경 내용이 적용이 되지 않았다. 여기선 잘 된다고 나와 있는데, 어떻게 해결했는지 자세히 적어본다.\n 자세히 보니 이미 컴파일이 완료된 CSS 파일이 resources/_gen/assets/scss/scss/ 에 존재하고 있었다. 설마 이것 때문인가? 삭제를 하고 다시 hugo server -D 를 해보면 다음 문구가 반겨준다. Building sites … ERROR 2020/01/31 00:27:39 Transformation failed: TOCSS: failed to transform \"scss/tale.scss\" (text/x-scss): this feature is not available in your current Hugo version, see https://goo.gl/YMrWcn for more information Built in 16 ms Error: Error building site: logged 1 error(s)   그렇다, extension version 이 아닌 일반 hugo 를 설치한 것이었다! Install Hugo 페이지에 다시 들어가 재설치하니 잘 되었다.\n","wordCount":"113","inLanguage":"ko","datePublished":"2020-01-31T00:35:23+09:00","dateModified":"2020-01-31T00:35:23+09:00","author":{"@type":"Person","name":"interp"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://interp.blog/tech/2020-01-31-hugo-scss-rebuild/"},"publisher":{"@type":"Organization","name":"InterP Blog","logo":{"@type":"ImageObject","url":"https://interp.blog/favicon.ico"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"&&document.body.classList.add('dark')</script>
@@ -85,14 +85,19 @@ Hugo SCSS Rebuild
 <div class=post-content><p>Tale 테마로 블로그를 처음 시작하려고 보고 있는데, 여기서 SCSS 내용을 변경해도 <code>hugo server -D</code> 를 하니까 변경 내용이 적용이 되지 않았다. <a href=https://gohugo.io/hugo-pipes/scss-sass/>여기선</a> 잘 된다고 나와 있는데, 어떻게 해결했는지 자세히 적어본다.</p>
 <ul>
 <li>자세히 보니 이미 컴파일이 완료된 CSS 파일이 <code>resources/_gen/assets/scss/scss/</code> 에 존재하고 있었다.</li>
-<li>설마 이것 때문인가? 삭제를 하고 다시 <code>hugo server -D</code> 를 해보면 다음 문구가 반겨준다.</li>
-</ul>
+<li>설마 이것 때문인가? 삭제를 하고 다시 <code>hugo server -D</code> 를 해보면 다음 문구가 반겨준다.
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text>Building sites … ERROR 2020/01/31 00:27:39 Transformation failed: TOCSS: failed to transform &#34;scss/tale.scss&#34; (text/x-scss): this feature is not available in your current Hugo version, see https://goo.gl/YMrWcn for more information
 Built in 16 ms
 Error: Error building site: logged 1 error(s)
-</code></pre></div><p>그렇다, <strong>혹시 extension version 이 아닌 hugo 를 설치한 것은 아닌지 확인해 보자.</strong> <a href=https://gohugo.io/getting-started/installing>Install Hugo</a> 페이지에 다시 들어가 재설치하니 잘 되었다.</p>
+</code></pre></div></li>
+</ul>
+<p>그렇다, <strong>extension version 이 아닌 일반 hugo 를 설치한 것이었다!</strong> <a href=https://gohugo.io/getting-started/installing>Install Hugo</a> 페이지에 다시 들어가 재설치하니 잘 되었다.</p>
 </div>
-<footer class=post-footer><br>
+<footer class=post-footer>
+<ul class=post-tags>
+<li><a href=https://interp.blog/tags/hugo/>hugo</a></li>
+<li><a href=https://interp.blog/tags/scss/>scss</a></li>
+</ul><br>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
 <ins class=adsbygoogle style=display:block data-ad-format=autorelaxed data-ad-client=ca-pub-0712823212859607 data-ad-slot=2292719672></ins>
 <script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>

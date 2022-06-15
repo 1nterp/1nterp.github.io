@@ -71,24 +71,12 @@
 <main class=main>
 <article class=post-entry>
 <header class=entry-header>
-<h2>Java Web Application 입문 (1) 준비운동
-</h2>
-</header>
-<section class=entry-content>
-<p>Java? 전통의 APM, Node.js 모두 한 걸음 정도는 자신있게 뗄 수 있는 (?) 수준이라고 생각하지만, 갑작스런 Java Web Application 도전이라니.
-바깥 세상(?) 에선 아직도 Java 개발자를 찾는 것이 현실이다. 이제 그것을 대비하는 차원이다. Java 하나만 가지고 대부분의 어플리케이션 개발에 비빌 수 있기 때문이기도 하다. (개인적으로, 이런 대중성이 Java 개발자의 가치를 떨어뜨린다고 전혀 생각하지 않는다. Java 개발자는 많지만, 좋은 Java 개발자를 찾는 것은 전혀 다른 문제라고 생각하니까....</p>
-</section>
-<footer class=entry-footer>
-<span title="2018-01-09 07:09:07 +0000 UTC">2018년 01월 09일</span>&nbsp;·&nbsp;2 분</footer>
-<a class=entry-link aria-label="post link to Java Web Application 입문 (1) 준비운동" href=https://interp.blog/java-web-application-%EC%9E%85%EB%AC%B8-1-%EC%A4%80%EB%B9%84%EC%9A%B4%EB%8F%99/></a>
-</article>
-<article class=post-entry>
-<header class=entry-header>
 <h2>Gitlab 아바타/첨부파일 상대 경로 설정
 </h2>
 </header>
 <section class=entry-content>
-<p>Gitlab의 External_Url 을 실제 서버 주소와 다르게 설정할 때엔, 실제 nginx 에도 해당 도메인으로 접근할 수 있도록 설정해야 하는 게 맞다. 그렇지 않으면, 첨부파일과 아바타 이미지가 모두 깨져나온다. 하지만 그러기 전에 Gitlab 차원에서 상대 경로로 아바타를 출력할 수 있도록 수정하는 방법 ‘도’ 있으니 편법으로 수정했다.
+<p>사내 사정으로 인해 Gitlab의 External_Url 을 실제 서버 주소와 다르게 설정해서 쓰고 있다.
+물론 실제 nginx 에도 해당 도메인으로 접근할 수 있도록 설정해야 하는 게 맞다. 그렇지 않으면, 첨부파일과 아바타 이미지가 모두 깨져나온다. 하지만 그러기 전에 Gitlab 차원에서 상대 경로로 아바타를 출력할 수 있도록 수정하는 방법 ‘도’ 있으니 편법으로 수정했다. 아래는 그 편법 내용을 다룬다.
 아바타 상대 경로 설정 /opt/gitlab/embedded/service/gitlab-rails/app/models/concerns/avatarable.rb 파일에서 절대 경로로 수정하는 코드가 있는데, url_base 에 덧붙이는 코드들을 전부 주석처리하면 된다....</p>
 </section>
 <footer class=entry-footer>
@@ -116,8 +104,8 @@
 </h2>
 </header>
 <section class=entry-content>
-<p>Git 기반 프로세스 도구인 Gitlab 은 오픈소스이기 때문에 Community Edition 을 쓰건, Enterprise Edition 을 쓰건 상관없이 맘대로 수정해서 사용이 가능하다. 물론 적절한 감(?)으로 수정할 곳을 찾아야 하는 번거로움은 있다. 여기서는 Gitlab에서 문서 작성에 필요한 Markdown 의 Parser 부분을 수정하기 위한 방법을 정리해 둔다. Ruby 개발자가 아니라서 전체 빌드 순서가 정공법처럼 보이진 않겠지만.
-Gitlab의 Markdown Parser는 Redcarpet 을 사용한다. 아마 Jekyll 도 기본적으로 Redcarpet 을 사용하는 것으로 알고 있다....</p>
+<p>Github 과 비슷한 서비스인 Gitlab 은 오픈소스이기 때문에 Community Edition 을 쓰건, Enterprise Edition 을 쓰건 on-premise 환경에서 설치한 뒤 맘대로 수정해서 사용이 가능하다. (물론 EE 는 라이센스가 필요하다) 수정하는 범위를 한정하지 않는다면, 일개 루비 (*.rb) 파일까지 건드릴 수 있다.
+여기서는 Gitlab에서 문서 작성에 필요한 Markdown 의 Parser 부분을 미세하게 수정해서, 입맛에 맞게 바꾸기 위한 트윅을 정리해 둔다. Ruby 개발자가 아니라서 전체 순서가 정공법처럼 보이진 않겠지만....</p>
 </section>
 <footer class=entry-footer>
 <span title="2018-01-03 02:29:21 +0000 UTC">2018년 01월 03일</span>&nbsp;·&nbsp;3 분</footer>
@@ -130,9 +118,9 @@ Gitlab의 Markdown Parser는 Redcarpet 을 사용한다. 아마 Jekyll 도 기�
 </header>
 <section class=entry-content>
 <p>oh-my-zsh 테마 작업을 agnoster 를 기반으로 고쳐서 사용 중이다. 그런데 주석을 보면 다음 색깔만 지원하는 것 처럼 나온다.
-white, black, red, blue, green, yellow, cyan, magenta 사전에 정의된 것 외의 색상을 설정하려면, 다음 작업이 필요하다.
-터미널 종류가 xterm-256color 여야 한다. (xterm 이면 색깔을 정해도 제대로 출력이 안된다.)
-oh-my-zsh 에서, %{%K{123}%} 또는 %{%F{123}%} 를 가지고 색깔을 찾는다....</p>
+white, black, red, blue, green, yellow, cyan, magenta
+위의 색깔 외에 다른 색상을 설정하려면, 다음 작업이 필요하다.
+터미널 종류가 xterm-256color 여야 한다. (xterm 으로 설정되어 있으면 제대로 출력이 안된다.) oh-my-zsh 에서, %{%K{---}%} 또는 %{%F{---}%} 를 가지고 색깔을 찾는다. 이 때 --- 대신 0~255 사이의 숫자를 입력한다....</p>
 </section>
 <footer class=entry-footer>
 <span title="2017-12-13 05:43:01 +0000 UTC">2017년 12월 13일</span>&nbsp;·&nbsp;1 분</footer>
@@ -157,8 +145,8 @@ oh-my-zsh 에서, %{%K{123}%} 또는 %{%F{123}%} 를 가지고 색깔을 찾는�
 </h2>
 </header>
 <section class=entry-content>
-<p>제목은 다음 내용을 포함하고 있다.
-Windows 10 에서 지원하는 Linux Subsystem 기능에 대해 이야기한다. 잘 모르겠다면 이 글1을 읽고 설치에 도전해 보자. 그런데 글 내용을 보면 이거랑 관련 없다. Babun, Mintty, Git on Bash, Putty 전부 포함이다 SSH에 접속한 서버에서 X11 Forwarding 을 받고 싶은 경우를 이야기한다. 단적으로, 접속한 서버에서 파이어폭스 브라우저를 실행하면 내 윈도우 화면에 브라우저 창이 실행되는 거다....</p>
+<p>먼저, Windows 10 에서 지원하는 Linux Subsystem 기능에 대해 이야기한다. 잘 모르겠다면 이 글을 읽고 설치에 도전해 보자. 그런데 글 내용을 보면 이거랑 관련 없다. Babun, Mintty, Git on Bash, Putty 전부 포함이다
+SSH에 접속한 서버에서 X11 Forwarding 을 받고 싶은 경우를 이야기한다. 단적으로, 접속한 서버에서 파이어폭스 브라우저를 실행하면 내 윈도우 화면에 브라우저 창이 실행되는 거다. 이걸 따로 이야기하고 싶지 않으니 Xming 이나 VcXsrv 을 참고해 설치해보자....</p>
 </section>
 <footer class=entry-footer>
 <span title="2017-11-29 08:32:52 +0000 UTC">2017년 11월 29일</span>&nbsp;·&nbsp;2 분</footer>
@@ -203,6 +191,19 @@ $ cat /proc/cpuinfo | grep "model name" | sort -u model name : Intel(R) Core(TM
 <footer class=entry-footer>
 <span title="2017-10-30 08:31:03 +0000 UTC">2017년 10월 30일</span>&nbsp;·&nbsp;1 분</footer>
 <a class=entry-link aria-label="post link to Linux 에서 CPU/Memory/Disk 확인" href=https://interp.blog/linux-%EC%97%90%EC%84%9C-cpumemorydisk-%ED%99%95%EC%9D%B8/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
+<h2>현상을 통찰하는 방법
+</h2>
+</header>
+<section class=entry-content>
+<p>게임 ‘배틀그라운드’ 에서, 어떻게 해야 상위 랭크에 도달할 수 있는지를 수학적인 접근으로 잘 풀어낸 네이버 블로그 글을 봤다. 누군가에겐 그저 즐기는 게임이 될 수 있지만, 누군가에게는 연구대상이 된다. 사물이나 현상을 어떻게 바라보느냐, 얼마나 관심있느냐에 따라서 통찰이 생겨난다. 이것은 모두에게 열려있다. 반대로 생각하면, 논문을 쓰는 사람들은 결단코 고상한 사람들이 아니다.
+‘수학적인 접근’이라는 말 때문에 설득력이 떨어질 수는 있다. 하지만 어느 분야나 자신의 경험을 녹여 전혀 다른 곳에서 적응하는 사람들을 우리는 일상에서 많이 봤다....</p>
+</section>
+<footer class=entry-footer>
+<span title="2017-10-12 01:09:33 +0000 UTC">2017년 10월 12일</span>&nbsp;·&nbsp;1 분</footer>
+<a class=entry-link aria-label="post link to 현상을 통찰하는 방법" href=https://interp.blog/%ED%98%84%EC%83%81%EC%9D%84-%ED%86%B5%EC%B0%B0%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95/></a>
 </article>
 <footer class=page-footer>
 <nav class=pagination>

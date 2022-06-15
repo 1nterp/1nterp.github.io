@@ -3,7 +3,7 @@
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
 <meta name=robots content="index, follow">
-<title>tech | InterP Blog</title>
+<title>Tech | InterP Blog</title>
 <meta name=keywords content>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-126809878-1"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','UA-126809878-1')</script>
@@ -29,12 +29,12 @@
 <noscript>
 <style>#theme-toggle,.top-link{display:none}</style>
 </noscript>
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-126809878-1','auto'),ga('send','pageview'))</script><meta property="og:title" content="tech">
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-126809878-1','auto'),ga('send','pageview'))</script><meta property="og:title" content="Tech">
 <meta property="og:description" content>
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://interp.blog/categories/tech/">
 <meta name=twitter:card content="summary">
-<meta name=twitter:title content="tech">
+<meta name=twitter:title content="Tech">
 <meta name=twitter:description content>
 </head>
 <body class=list id=top>
@@ -69,20 +69,8 @@
 </header>
 <main class=main>
 <header class=page-header><div class=breadcrumbs><a href=https://interp.blog/>Home</a>&nbsp;»&nbsp;<a href=https://interp.blog/categories/>Categories</a></div>
-<h1>tech</h1>
+<h1>Tech</h1>
 </header>
-<article class="post-entry tag-entry">
-<header class=entry-header>
-<h2>Oh my zsh! 에서 kubectl 자동 완성 하기
-</h2>
-</header>
-<section class=entry-content>
-<p>‘zsh 자동 완성’ 이라는 Kubernetes 공식 문서에 따르면, 몇 가지 명령으로 자동 완성이 가능하다고 한다. 하지만 Oh my zsh! 에서는 이것만으로는 충분하지 않았다.</p>
-</section>
-<footer class=entry-footer>
-<span title="2022-05-16 01:57:00 +0900 +0900">2022년 05월 16일</span>&nbsp;·&nbsp;1 분</footer>
-<a class=entry-link aria-label="post link to Oh my zsh! 에서 kubectl 자동 완성 하기" href=https://interp.blog/oh-my-zsh-kubectl-autocomplete/></a>
-</article>
 <article class="post-entry tag-entry">
 <header class=entry-header>
 <h2>VSCodeVim: 분리된 줄 위/아래로 커서 이동하기
@@ -98,50 +86,130 @@
 <a class=entry-link aria-label="post link to VSCodeVim: 분리된 줄 위/아래로 커서 이동하기" href=https://interp.blog/vim-wrapping-line-cursor-up-down/></a>
 </article>
 <article class="post-entry tag-entry">
-<figure class=entry-cover><img loading=lazy src=https://interp.blog/images/2022-02-04-kakao-email/feature-image.jpg alt>
-</figure>
 <header class=entry-header>
-<h2>카카오/네이버 메일 아이폰 연동
+<h2>k8s Operator vs. Controller
 </h2>
 </header>
 <section class=entry-content>
-<p>요약 원래는 홈페이지에서 하라는 대로 하면 된다. 비밀번호를 잘 입력했는데 서버 접속이 안 된다면, 혹시 2단계 인증을 쓰고 있지는 않은지? 2단계 인증을 쓰는 경우라면, 앱 비밀번호를 별도로 발급받는다. 참고 카카오 메일 뿐만 아니라 네이버 메일이나 네이버 캘린더 동기화도 비슷하다. 아래에 ‘부록’ 으로 달아뒀으니 참고하면 된다.
-설정 방법 PC 에서 브라우저를 열고, 카카오 메일을 접속한다. 모바일 브라우저에서 카카오 메일을 접속하면 카카오톡으로 리다이렉트 되는데, 카카오톡에서는 해당 설정을 진행할 수 없다....</p>
+<p>쿠버네티스에서 서비스를 개발하거나 운영하다 보면 자주 접하게 될 개념 중 하나가, 바로 이 Controller 와 Operator 일 것이다. 어떤 경우에는, 동일한 서비스를 두고 ‘이건 Controller 야’ 라고 말 할 때도 있고 ‘이 Operator 는…’ 이라고 불릴 때도 있어서 헷갈릴 수 있다. 심지어 공식 문서에서도 두 개념에 대한 비교는 하지 않고 있어서 명확한 구분이 필요한 것 같다.
+와중에 이 문서를 발견했는데, 요약하자면 이렇다....</p>
 </section>
 <footer class=entry-footer>
-<span title="2022-02-04 16:35:37 +0000 UTC">2022년 02월 04일</span>&nbsp;·&nbsp;2 분</footer>
-<a class=entry-link aria-label="post link to 카카오/네이버 메일 아이폰 연동" href=https://interp.blog/kakao-naver-email-iphone-connect/></a>
+<span title="2022-03-15 02:44:57 +0000 UTC">2022년 03월 15일</span>&nbsp;·&nbsp;2 분</footer>
+<a class=entry-link aria-label="post link to k8s Operator vs. Controller" href=https://interp.blog/kubernetes-operator-vs-controller/></a>
 </article>
 <article class="post-entry tag-entry">
-<figure class=entry-cover><img loading=lazy src=https://interp.blog/images/featured/cka-exam.jpg alt>
-</figure>
 <header class=entry-header>
-<h2>CKA 시험 후기
+<h2>Hugo SCSS Rebuild
 </h2>
 </header>
 <section class=entry-content>
-<p>CKA (Certified K8s Administrator) 를 2021년 12월 말에 합격 통지를 받았다. 합격을 받고 나서 정리한 팁을 공유하고자 한다.
-강의 매우 유명한 Udemy 의 Mumshard 강의를 완강했다. 내가 너무 초보여서 그런지는 몰라도, 기초 강의도 기본을 다지고 한번 더 리마인드 하자는 차원에서 완강을 했고, 결론적으로는 시험 뿐만 아니라 업무에도 큰 도움이 되고 있다.
-이해가 쏙쏙 되는 강의 지속적인 업데이트 KodeCloud 를 통한 인터렉티브 연습 문제 (엄청 많다!...</p>
+<p>Hugo 에 포함된 Theme 에는 대부분 SASS/SCSS 파일로 스타일링을 했는데, 여기서 SCSS 내용을 변경해도 사이트 빌드할 때 변경 내용이 적용이 되지 않았다. 원칙적으론 되어야 한다. 어떻게 해결했는지 간단히 적어본다.</p>
 </section>
 <footer class=entry-footer>
-<span title="2022-01-18 22:38:42 +0000 UTC">2022년 01월 18일</span>&nbsp;·&nbsp;4 분</footer>
-<a class=entry-link aria-label="post link to CKA 시험 후기" href=https://interp.blog/cka-exam-review/></a>
+<span title="2020-01-31 00:35:23 +0900 +0900">2020년 01월 31일</span>&nbsp;·&nbsp;1 분</footer>
+<a class=entry-link aria-label="post link to Hugo SCSS Rebuild" href=https://interp.blog/tech/2020-01-31-hugo-scss-rebuild/></a>
 </article>
 <article class="post-entry tag-entry">
-<figure class=entry-cover><img loading=lazy src=https://interp.blog/images/2018-01-16-office-animation-off/office-animation.jpg alt>
-</figure>
 <header class=entry-header>
-<h2>Office 2016 커서 애니메이션 끄기
+<h2>Visual Studio Code Remote Deployment
 </h2>
 </header>
 <section class=entry-content>
-<p>Office 2016 부터인지 모르겠지만, 커서가 부드럽게 움직이는 애니메이션이 추가되었다. 실제 입력 속도는 같을지 모르겠는데, 문서 작업을 하고 있자니 조금 답답한 느낌이 들었다. 조금 느리게 입력되는 느낌? 처음에는 엑셀에서 셀 이동 할 때만 그런 줄 알았더니, 파워포인트나 워드를 작업할 때도 신경이 쓰였다. 그래서 이걸 끌 수 있는 방법을 두 가지 찾았는데, 하나는 레지스트리를 수정하는 방법이라 엄청나게 귀찮았다. 다른 하나는 그 것보단 간단했다....</p>
+<p>Vim 과 SSH 에 찌들어 있었는데, 이번 Visual Studio Code 의 베타 기능인 Remote Deployment 를 연결해 보고 나서, 학생 때 쓰던 IDE 로 돌아간 것 같아 너무 좋았다. 언제까지고 구식 도구를 쓰며 부심을 부릴 수만은 없다. 설치 과정이 조금 험난했지만, 간단히 요약해서 써본다.
+클라이언트 OS 는 윈도우 10 (빌드 1809), 서버 OS 는 Cent OS 7 기준으로 작성한다.
+클라이언트 (윈도우) 준비 처음에 준비할 때는 Visual Studio Code Insider 버전을 설치하라고 되어 있었는데, 이제는 꼭 그럴 필요 없는 것 같다....</p>
 </section>
 <footer class=entry-footer>
-<span title="2018-01-16 12:14:29 +0000 UTC">2018년 01월 16일</span>&nbsp;·&nbsp;1 분</footer>
-<a class=entry-link aria-label="post link to Office 2016 커서 애니메이션 끄기" href=https://interp.blog/office-2016-%EC%BB%A4%EC%84%9C-%EC%95%A0%EB%8B%88%EB%A9%94%EC%9D%B4%EC%85%98-%EB%81%84%EA%B8%B0/></a>
+<span title="2019-06-26 05:11:21 +0000 UTC">2019년 06월 26일</span>&nbsp;·&nbsp;3 분</footer>
+<a class=entry-link aria-label="post link to Visual Studio Code Remote Deployment" href=https://interp.blog/visual-studio-code-remote-deployment/></a>
 </article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>공측도와 무리수
+</h2>
+</header>
+<section class=entry-content>
+<p>‘알고리즘 산책’ 책 요약이다. 공측도라는 개념이나, 귀류법을 사용한 증명 등의 내용을 까먹지 않으려고 정리한다. 물론 이미 다 어릴 적 배웠겠지만, 다시 공부한다는 마음으로 정리하는 것이다.
+최대공측도는 최대공약수 같은 개념이다. 선분 A와 B가 특정한 길이로 측정이 가능할 때, 이 길이 중 가장 긴 길이를 최대공측도라고 하는 것이다. 이 값을 코딩으로 구하려면, 최대공약수를 계산하는 방법과 다르지 않을 것이다. (여기서 공측도 값이 되는 선분 길이는 자연수여야 한다....</p>
+</section>
+<footer class=entry-footer>
+<span title="2019-04-27 11:32:38 +0000 UTC">2019년 04월 27일</span>&nbsp;·&nbsp;1 분</footer>
+<a class=entry-link aria-label="post link to 공측도와 무리수" href=https://interp.blog/%EA%B3%B5%EC%B8%A1%EB%8F%84%EC%99%80-%EB%AC%B4%EB%A6%AC%EC%88%98/></a>
+</article>
+<article class="post-entry tag-entry">
+<figure class=entry-cover><img loading=lazy src=https://interp.blog/images/featured/ssh-rsa.jpg alt>
+</figure>
+<header class=entry-header>
+<h2>Windows SSH RSA Key 문제 해결
+</h2>
+</header>
+<section class=entry-content>
+<p>Windows Server 2016에서 OpenSSH 를 설치하고, cmd 에서 다음과 같이 RSA 키를 생성한다.
+$ ssh-keygen -t rsa 그러고 Public Key 를 SSH Server 에 위치한 authorized_keys 파일에 추가하고 접속을 시도하면?
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ @ WARNING: UNPROTECTED PRIVATE KEY FILE! @ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Permissions for 'C:\\Users\\interp/.ssh/id_rsa' are too open. It is required that your private key files are NOT accessible by others. This private key will be ignored....</p>
+</section>
+<footer class=entry-footer>
+<span title="2019-03-18 04:50:30 +0000 UTC">2019년 03월 18일</span>&nbsp;·&nbsp;1 분</footer>
+<a class=entry-link aria-label="post link to Windows SSH RSA Key 문제 해결" href=https://interp.blog/windows-ssh-rsa-key-%EB%AC%B8%EC%A0%9C-%ED%95%B4%EA%B2%B0/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>Gitlab merge request 옵션 기본으로 두기
+</h2>
+</header>
+<section class=entry-content>
+<p>Gitlab Community 에서 필요로 하는 기능인데, 이렇게 수동으로 할 수 있어서 간단히 남긴다. Gitlab 에 있는 merge request 에 보면 다음 옵션이 있는데, 전부 체크가 해제되어 있다.
+Merge Request 에 성공한 Source Branch 를 삭제 Merge Request 할 때 Commit 을 하나로 뭉쳐서 Merge (=Squash Merge) 이 체크박스를 개발자가 일일해 해 줘야 하는 문제가 있다. 그래서 어떤 개발자는 체크하는 것을 까먹었다가 master branch 의 commit tree 를 엉망으로 만들기도 한다....</p>
+</section>
+<footer class=entry-footer>
+<span title="2018-11-13 05:03:22 +0000 UTC">2018년 11월 13일</span>&nbsp;·&nbsp;1 분</footer>
+<a class=entry-link aria-label="post link to Gitlab merge request 옵션 기본으로 두기" href=https://interp.blog/set-gitlab-merge-request-checked/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>Powerpoint 에서 방향키 이동이 너무 느릴 때
+</h2>
+</header>
+<section class=entry-content>
+<p>객체를 움직일 때 방향키로 이동하면, 예전에는 한 칸씩 움직이는 것 처럼 느껴졌는데 최근에 들어서는 정말 1픽셀 만큼만 이동해서 귀찮음을 유발하곤 한다. 이렇게 답답하게 움직이는 걸 되돌리기 위한 해결 방법이다. 별 건 없지만…
+보기 탭으로 표시 항목에서 ‘확장 아이콘’이 아주 작게 보인다. ‘눈금 및 안내선’ 이란 제목의 창이 뜨며, 여기서 ‘개체를 눈금에 맞춰 이동’ 을 클릭한다. 끝이다. 참고로 개체 이동 간격을 제어하려면 (3) 번에서 눈금 간격을 조정하면 된다!...</p>
+</section>
+<footer class=entry-footer>
+<span title="2018-08-12 06:53:39 +0000 UTC">2018년 08월 12일</span>&nbsp;·&nbsp;1 분</footer>
+<a class=entry-link aria-label="post link to Powerpoint 에서 방향키 이동이 너무 느릴 때" href=https://interp.blog/powerpoint-shape-move-faster/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>Atomic Operation 으로 하는 동시성 제어
+</h2>
+</header>
+<section class=entry-content>
+<p>Test-And-Set (TAS) TAS 를 이용해서 간단한 동시성 제어를 할 수 있다. testAndSet 이라는 function 을 가지고 아래의 do...while 문을 쓰레드 A, B 에서 동시에 호출한다고 해 보자. 이 때 lock 은 같은 변수이다.
+function TestAndSet(boolean_ref lock) { boolean initial = lock lock = true return initial } do { while(TestAndSet(&amp;amp;lock)) ; // do nothing // critical section lock = false; // remainder section } while(true); 우선 TestAndSet() 은 다음과 같은 일을 한다....</p>
+</section>
+<footer class=entry-footer>
+<span title="2018-04-24 02:31:38 +0000 UTC">2018년 04월 24일</span>&nbsp;·&nbsp;3 분</footer>
+<a class=entry-link aria-label="post link to Atomic Operation 으로 하는 동시성 제어" href=https://interp.blog/atomic-operation-%EC%9C%BC%EB%A1%9C-%ED%95%98%EB%8A%94-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%A0%9C%EC%96%B4/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>Timsort
+</h2>
+</header>
+<section class=entry-content>
+<p>알고리즘 강의를 들었다면, 가장 빠른 정렬 알고리즘이 뭐냐는 질문에 곧장 Quicksort 라고 답할 수 있을 것이다. 실제로 현업에서도 적용하기 가장 편하기 때문에 많이 차용되는 편이다. 그런데 모든 문제를 쉽게 풀 수 있는 은탄은 세상에 존재하지 않듯, Quicksort 역시 특정 케이스에서는 성능이 낮게 나오는 경우가 있다. 더 심각한(?) 것은, 이 특정 케이스가 현실에서는 꽤나 자주 발생한다는 것이다.
+그 케이스란 바로 ‘거의 정렬된 데이터’ 이다....</p>
+</section>
+<footer class=entry-footer>
+<span title="2018-04-23 01:36:57 +0000 UTC">2018년 04월 23일</span>&nbsp;·&nbsp;4 분</footer>
+<a class=entry-link aria-label="post link to Timsort" href=https://interp.blog/timsort/></a>
+</article>
+<footer class=page-footer>
+<nav class=pagination>
+<a class=next href=https://interp.blog/categories/tech/page/2/>다음 페이지 »</a>
+</nav>
+</footer>
 </main>
 <footer class=footer>
 <span>&copy; 2022 <a href=https://interp.blog/>InterP Blog</a></span>
