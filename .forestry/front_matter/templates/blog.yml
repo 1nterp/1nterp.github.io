@@ -50,6 +50,6 @@ fields:
     label: Feature Image
 pages:
 - content/essay/슈퍼-개발자만-쓸모가-있을까.md
-- content/tech/12.md
 - content/tech/2022-04-15-vscodevim-wrapping-line.md
+- content/tech/a-tour-of-go-package-function-variable.md
 - content/tech/synology-nas-web-service.md
