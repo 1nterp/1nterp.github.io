@@ -9,8 +9,7 @@ categories:
 tags:
   - SSH
   - permission
-cover:
-    image: "/images/featured/ssh-rsa.jpg"
+image: "/images/featured/ssh-rsa.jpg"
 ---
 Windows Server 2016에서 OpenSSH 를 설치하고, cmd 에서 다음과 같이 RSA 키를 생성한다.
 

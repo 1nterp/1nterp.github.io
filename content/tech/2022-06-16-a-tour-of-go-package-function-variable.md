@@ -9,8 +9,7 @@ title: 'A tour of Go: Package, Function, Variable'
 url: "/tour-of-go-flow-control-stmts/"
 categories:
 - Tech
-cover:
-  image: ''
+image: ''
 
 ---
 A tour of Go 시리즈를 두 번씩 돌아보고, 나름 배운 것들을 연이어 적어보려 한다. 첫 번째로 패키지, 변수, 함수 정의와 사용에 대한 내용이다. 이 문서는 번역이 아니라서, 개인적으로 중요했던 부분만 있을 수도 있고 투어 예제에서 다루지 않은 부분이 섞여있을 수 있으니 편하게 봐주셨으면 한다. ~~화면 안 넘기고 스크롤만으로 볼 수 있다는 장점 정도?~~

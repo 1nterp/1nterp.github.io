@@ -4,8 +4,7 @@ author: InterP
 type: post
 date: 2018-07-15T05:30:47.000+00:00
 url: if-you-cannot-explain
-cover:
-  image: "/uploads/2018/07/einstein.jpg"
+image: "/uploads/2018/07/einstein.jpg"
 categories:
 - Essay
 

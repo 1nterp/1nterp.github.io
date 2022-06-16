@@ -1,7 +1,7 @@
 baseurl: https://interp.blog/
 languageCode: ko-kr
 theme: stack
-paginate: 3
+paginate: 6
 title: InterP Blog
 
 languages:
