@@ -1,3 +1,34 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>vtune on InterP Blog</title><link>https://interp.blog/tags/vtune/</link><description>Recent content in vtune on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Mon, 22 Jan 2018 05:19:48 +0000</lastBuildDate><atom:link href="https://interp.blog/tags/vtune/index.xml" rel="self" type="application/rss+xml"/><item><title>Intel VTune Memory Bandwidth 분석하기</title><link>https://interp.blog/vtune-memory-bandwidth/</link><pubDate>Mon, 22 Jan 2018 05:19:48 +0000</pubDate><guid>https://interp.blog/vtune-memory-bandwidth/</guid><description>Intel VTune 으로 Memory Bandwidth 를 분석하려면, 분석할 수 있는 커널 드라이버를 로딩시켜야 한다. (참고로 메모리 분석은 리눅스에서만 가능하다.) 해당 작업을 하지 않고 &amp;lsquo;General Exploration &amp;gt; Analyze memory bandwidth&amp;rsquo; 를 체크하면 엄한 경고창이 반길 것이다.
-이 문서를 참고해도 좋지만, VTune 이 설치된 경로에서 sepdk/src/README.txt 를 보는 게 더 쉽다. 이 내용을 요약하면,
-커널 환경변수를 체크한다. 프로파일링이 가능하고 모듈 로딩이 가능해야 한다.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>vtune on InterP Blog</title><link>https://interp.blog/tags/vtune/</link><description>Recent content in vtune on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Mon, 22 Jan 2018 05:19:48 +0000</lastBuildDate><atom:link href="https://interp.blog/tags/vtune/index.xml" rel="self" type="application/rss+xml"/><item><title>Intel VTune Memory Bandwidth 분석하기</title><link>https://interp.blog/vtune-memory-bandwidth/</link><pubDate>Mon, 22 Jan 2018 05:19:48 +0000</pubDate><guid>https://interp.blog/vtune-memory-bandwidth/</guid><description>&lt;p>Intel VTune 으로 Memory Bandwidth 를 분석하려면, 분석할 수 있는 커널 드라이버를 로딩시켜야 한다. (참고로 메모리 분석은 리눅스에서만 가능하다.) 해당 작업을 하지 않고 &amp;lsquo;General Exploration &amp;gt; Analyze memory bandwidth&amp;rsquo; 를 체크하면 엄한 경고창이 반길 것이다.&lt;/p>
+&lt;p>&lt;img src="https://interp.blog/uploads/2018/01/before.jpg"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;a class="link" href="https://software.intel.com/en-us/vtune-amplifier-help-building-and-installing-the-sampling-drivers-for-linux-targets" target="_blank" rel="noopener"
+>이 문서&lt;/a>를 참고해도 좋지만, VTune 이 설치된 경로에서 &lt;code>sepdk/src/README.txt&lt;/code> 를 보는 게 더 쉽다. 이 내용을 요약하면,&lt;/p>
+&lt;ol>
+&lt;li>커널 환경변수를 체크한다. 프로파일링이 가능하고 모듈 로딩이 가능해야 한다.
+&lt;ul>
+&lt;li>&lt;code>CONFIG_MODULES=y&lt;/code>&lt;/li>
+&lt;li>&lt;code>CONFIG_MODULE_UNLOAD=y&lt;/code>&lt;/li>
+&lt;li>&lt;code>CONFIG_PROFILING=y&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>커널 드라이버를 컴파일시킬 헤더파일이 필요하다. Linux 배포판에 따라, 커널 개발용 패키지를 내려받아 설치한다.&lt;br>
+(언급한 Linux 배포판이 없으면 소스를 직접 받아둔다.)
+&lt;ul>
+&lt;li>Redhat 5/Fedora/CentOS : &lt;code>yum install kernel-devel&lt;/code>&lt;/li>
+&lt;li>Ubuntu/Debian : &lt;code>apt-get install build-essential linux-headers-`uname-r`&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>VTune이 필요로 하는 커널 드라이버를 컴파일하고 로드시킨다.
+&lt;ul>
+&lt;li>&lt;code>cd ${VTune Directory}/spedk/src&lt;/code>&lt;/li>
+&lt;li>&lt;code>./build_driver&lt;/code> (이 때 2번에서 설치한 커널 헤더파일의 위치를 정확히 입력해야 한다.)&lt;/li>
+&lt;li>&lt;code>./insmod-sep3&lt;/code>
+&lt;ul>
+&lt;li>로딩 확인을 위해서는 &lt;code>./insmod-sep3 -q&lt;/code> 라고 입력해 보자.&lt;/li>
+&lt;li>언로딩 시키려면 &lt;code>./rmmod-sep3&lt;/code> 이라고 입력하자.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol></description></item></channel></rss>

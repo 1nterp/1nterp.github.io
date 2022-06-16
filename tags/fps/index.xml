@@ -1,1 +1,30 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>FPS on InterP Blog</title><link>https://interp.blog/tags/fps/</link><description>Recent content in FPS on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Sun, 12 Jun 2022 07:06:18 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/fps/index.xml" rel="self" type="application/rss+xml"/><item><title>리터널 (Returnal)</title><link>https://interp.blog/retrunal/</link><pubDate>Sun, 12 Jun 2022 07:06:18 +0900</pubDate><guid>https://interp.blog/retrunal/</guid><description>중년 여성의 우주인이, 외계 행성에 불시착한 뒤로 외계 생명체에게 죽음을 맞이해도 계속 우주선에서 되살아나는 로그라이크 FPS 게임, 플레이스테이션 5의 스타팅 라인업으로 소개된 &amp;lsquo;리터널&amp;rsquo;을 이제서야 플레이를 마쳤다.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>FPS on InterP Blog</title><link>https://interp.blog/tags/fps/</link><description>Recent content in FPS on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Sun, 12 Jun 2022 07:06:18 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/fps/index.xml" rel="self" type="application/rss+xml"/><item><title>리터널 (Returnal)</title><link>https://interp.blog/retrunal/</link><pubDate>Sun, 12 Jun 2022 07:06:18 +0900</pubDate><guid>https://interp.blog/retrunal/</guid><description>&lt;img src="https://interp.blog/images/2022-06-12-returnal/featured.png" alt="Featured image of post 리터널 (Returnal)" />&lt;p>중년 여성의 우주인이, 외계 행성에 불시착한 뒤로 외계 생명체에게 죽음을 맞이해도 계속 우주선에서 되살아나는 로그라이크 FPS 게임, 플레이스테이션 5의 스타팅 라인업으로 소개된 &amp;lsquo;리터널&amp;rsquo;을 이제서야 플레이를 마쳤다.&lt;/p>
+&lt;h2 id="손맛은-추천">손맛은 추천&lt;/h2>
+&lt;p>개인적으로, FPS 는 무엇보다 타격감이 좋아야 한다. 적을 모조리 헤쳐가는 부분에서는 둠 리부트 시리즈가 떠오른다면, 리터널은 (나중에 손이 익으면 무쌍난무를 펼치지만) 리듬 게임을 하듯이 요리조리 돌파하는 맛이 탁월하다. 하나는 과부화 시스템이고, 다른 하나는 접근전을 강제한다는 것이다.&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;ul>
+&lt;li>과부화 시스템은 재장전 시간을 초기화하는 기본적인 기능도 있지만, 무기의 특성이나 아티팩트의 특성에 따라 부가 효과를 가져오기 때문에 이 타이밍을 놓치지 않아야 한다.&lt;/li>
+&lt;li>근접 전용 검을 초반부에 얻게 되면 일반 몹을 한 방에 제거할 수 있다. 하지만 그러려면 탄막을 뚫어가며 위험을 무릅쓰고 적에게 접근해야 하므로 집중을 요구한다.&lt;/li>
+&lt;/ul>
+&lt;h2 id="반복-플레이는-안-추천">반복 플레이는 안 추천&lt;/h2>
+&lt;p>로그라이크 답게, &lt;strong>죽으면 모든 아이템, 상태는 초기화되고 처음 스테이지부터 시작한다.&lt;/strong> 단, &amp;lsquo;에테르&amp;rsquo; 라 불리는 영구 화폐와 (스테이지 최초 클리어 할 때 마다 주는) 영구 기술들은 남아있다. 리터널은 6개의 스테이지로 나뉘어 있고, 1-2-3, 4-5-6 의 하나의 시퀀스로 이뤄져 있다. 3스테이지까지 다 깨더라도, 4스테이지에는 아이템과 상태가 초기화 된 채로 시작한다.&lt;/p>
+&lt;p>문제는, 6개의 스테이지를 다 깨면 &lt;em>와! 잘 했어요!&lt;/em> 라고 플래티넘 트로피를 주지 않는다. 6스테이지를 다 깨면 게임에서 &amp;lsquo;진엔딩이 있으니 더 해보세욧!&amp;rsquo; 이라고 안내해 준다. 그러면 (집 이벤트를 다 안 봤다면 다 봐야 하고,) 태양의 메달이라는 파편을 1~6 스테이지에 걸쳐 또 다 모은 뒤 6스테이지 보스를 잡아야 진엔딩을 볼 수 있다. 벌써부터 피곤하다.&lt;/p>
+&lt;p>그런데 진엔딩을 보고 나서도 게임은 끝나지 않는다. 1~6 스테이지에서 수집할 수 있는 외계 아카이브/외계 문자/정찰 기록을 모두 모으는 골드 트로피 6개가 존재한다. 문제는 이 아이템들이 나오는 맵 파트가 고정되어 있고, 스테이지가 생성될 때마다 (정확히는 문을 열 때 마다) 랜덤이라서 무조건 복불복이다. 그렇다고 맵 파트가 무한정 생성되는 것도 아니고 각 스테이지마다 파트 개수는 고정이기 때문에, 못 찾으면 리셋하고 처음부터 강제로 다시 해야 한다! (1, 4 스테이지는 아무래도 많이 죽다보니 다른 스테이지보다 자주 들르게 되고, 그래서 좀 더 딸 확률이 높긴 하다.)&lt;/p>
+&lt;h2 id="플래티넘-트로피-팁">플래티넘 트로피 팁&lt;/h2>
+&lt;p>그냥 소소한 팁을 적어둔다.&lt;/p>
+&lt;ul>
+&lt;li>(PSN 유저 한 정) 세이브 데이터 클라우드 동기화를 끈다. &lt;strong>스테이지 1/4 에서 최대한 탐방해서 원하는 장비/상태를 맞추고, 순환 중지를 한 다음 세이브 파일을 클라우드에 올린다.&lt;/strong> 2-3, 5-6 스테이지 탐방이 실패하면, 이걸 불러서 다시 한다.
+&lt;ul>
+&lt;li>내 기준으로 스테이지 1/4 를 꼼꼼히 도는데 약 7-10 분 가량 필요했다. 이 시간이 너무 아까워서 작은 꼼수를 썼다.&lt;/li>
+&lt;li>중요한 것은 2-3, 5-6 에서 어떤 기록이라도 갱신에 성공했다면, 반드시 그 상태에서 순환 재시작을 눌러 다시 해야 한다. 기쁜 마음에 세이브를 다시 불러오면, 기록 갱신이 날아가버린다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>모든 외계 문자, 정찰 기록이 담긴 &lt;a class="link" href="https://psnprofiles.com/guide/13103-returnal-collectible-guide" target="_blank" rel="noopener"
+>이 가이드&lt;/a>를 참고해 보자.
+&lt;ul>
+&lt;li>특정 정찰 기록이 빠져 있다면, 여기서 검색해서 해당 파트의 맵이 뜨는 지역까지만 탐방한다. 다 열어봤는데 안 나오면, 미련없이 더 진행하지 말고 리셋한다.&lt;/li>
+&lt;li>여기서 &amp;lsquo;guaranteed spawn&amp;rsquo; 은, 맵 방문 시 반드시 획득 가능하다는 것이다. 반대로 말하면, 같은 맵에 갔더라도 외계 문자가 나오지 않을 가능성도 있다! (이게 가장 힘든 부분&amp;hellip;)&lt;/li>
+&lt;li>외계 문자는 번호가 적혀있지 않으므로, 어디가 빠졌는지 게임에서 확인할 길이 없다. 그냥 반복 플레이를 해 보고, 스크린샷을 보고, 눈에 익지 않은 곳이 어디인지 추측해서 플레이하는 길 밖에 없다. (제일 더럽다&amp;hellip;)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul></description></item></channel></rss>

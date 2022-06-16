@@ -1,1 +1,47 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>파워포인트 on InterP Blog</title><link>https://interp.blog/tags/%ED%8C%8C%EC%9B%8C%ED%8F%AC%EC%9D%B8%ED%8A%B8/</link><description>Recent content in 파워포인트 on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Tue, 16 Jan 2018 12:14:29 +0000</lastBuildDate><atom:link href="https://interp.blog/tags/%ED%8C%8C%EC%9B%8C%ED%8F%AC%EC%9D%B8%ED%8A%B8/index.xml" rel="self" type="application/rss+xml"/><item><title>Office 2016 커서 애니메이션 끄기</title><link>https://interp.blog/office-2016-%EC%BB%A4%EC%84%9C-%EC%95%A0%EB%8B%88%EB%A9%94%EC%9D%B4%EC%85%98-%EB%81%84%EA%B8%B0/</link><pubDate>Tue, 16 Jan 2018 12:14:29 +0000</pubDate><guid>https://interp.blog/office-2016-%EC%BB%A4%EC%84%9C-%EC%95%A0%EB%8B%88%EB%A9%94%EC%9D%B4%EC%85%98-%EB%81%84%EA%B8%B0/</guid><description>Office 2016 부터인지 모르겠지만, 커서가 부드럽게 움직이는 애니메이션이 추가되었다. 실제 입력 속도는 같을지 모르겠는데, 문서 작업을 하고 있자니 조금 답답한 느낌이 들었다. 조금 느리게 입력되는 느낌? 처음에는 엑셀에서 셀 이동 할 때만 그런 줄 알았더니, 파워포인트나 워드를 작업할 때도 신경이 쓰였다. 그래서 이걸 끌 수 있는 방법을 두 가지 찾았는데, 하나는 레지스트리를 수정하는 방법이라 엄청나게 귀찮았다. 다른 하나는 그 것보단 간단했다.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>파워포인트 on InterP Blog</title><link>https://interp.blog/tags/%ED%8C%8C%EC%9B%8C%ED%8F%AC%EC%9D%B8%ED%8A%B8/</link><description>Recent content in 파워포인트 on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Tue, 16 Jan 2018 12:14:29 +0000</lastBuildDate><atom:link href="https://interp.blog/tags/%ED%8C%8C%EC%9B%8C%ED%8F%AC%EC%9D%B8%ED%8A%B8/index.xml" rel="self" type="application/rss+xml"/><item><title>Office 2016 커서 애니메이션 끄기</title><link>https://interp.blog/office-2016-%EC%BB%A4%EC%84%9C-%EC%95%A0%EB%8B%88%EB%A9%94%EC%9D%B4%EC%85%98-%EB%81%84%EA%B8%B0/</link><pubDate>Tue, 16 Jan 2018 12:14:29 +0000</pubDate><guid>https://interp.blog/office-2016-%EC%BB%A4%EC%84%9C-%EC%95%A0%EB%8B%88%EB%A9%94%EC%9D%B4%EC%85%98-%EB%81%84%EA%B8%B0/</guid><description>&lt;img src="https://interp.blog/images/2018-01-16-office-animation-off/office-animation.jpg" alt="Featured image of post Office 2016 커서 애니메이션 끄기" />&lt;p>Office 2016 부터인지 모르겠지만, 커서가 부드럽게 움직이는 애니메이션이 추가되었다. 실제 입력 속도는 같을지 모르겠는데, 문서 작업을 하고 있자니 조금 답답한 느낌이 들었다. 조금 느리게 입력되는 느낌? 처음에는 엑셀에서 셀 이동 할 때만 그런 줄 알았더니, 파워포인트나 워드를 작업할 때도 신경이 쓰였다. 그래서 이걸 끌 수 있는 방법을 두 가지 찾았는데, 하나는 레지스트리를 수정하는 방법이라 엄청나게 귀찮았다. 다른 하나는 그 것보단 간단했다.&lt;/p>
+&lt;p>아래 스크린샷 순서대로 따라가 체크를 해제하면 된다.&lt;/p>
+&lt;br/>
+&lt;script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607"
+crossorigin="anonymous">&lt;/script>
+&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-0712823212859607"
+data-ad-slot="7880266545">&lt;/ins>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607"
+crossorigin="anonymous">&lt;/script>
+&lt;ins class="adsbygoogle"
+style="display:block"
+data-ad-format="fluid"
+data-ad-layout-key="-fx-q+4w-88+2u"
+data-ad-client="ca-pub-0712823212859607"
+data-ad-slot="1092971030">&lt;/ins>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br/>
+&lt;ol>
+&lt;li>제어판 &amp;gt; 시스템으로 들어간 다음, 고급 시스템 설정으로 들어간다.&lt;/li>
+&lt;li>고급 탭에서, 성능 항목에 &amp;lsquo;설정…&amp;rsquo; 을 클릭한다.&lt;/li>
+&lt;li>&amp;lsquo;시각 효과&amp;rsquo; 탭에서, 창의 제어 및 요소에 애니메이션 효과 추가 항목의 체크를 해제한다. 그리고 확인.&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://interp.blog/images/2018-01-16-office-animation-off/blog.png"
+loading="lazy"
+>&lt;/p>
+&lt;br/>
+&lt;script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607"
+crossorigin="anonymous">&lt;/script>
+&lt;ins class="adsbygoogle"
+style="display:block"
+data-ad-client="ca-pub-0712823212859607"
+data-ad-slot="6929871144"
+data-ad-format="auto"
+data-full-width-responsive="true">&lt;/ins>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br/></description></item></channel></rss>

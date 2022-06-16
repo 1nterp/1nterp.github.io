@@ -1,3 +1,68 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>gdb on InterP Blog</title><link>https://interp.blog/tags/gdb/</link><description>Recent content in gdb on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Tue, 06 Feb 2018 08:46:05 +0000</lastBuildDate><atom:link href="https://interp.blog/tags/gdb/index.xml" rel="self" type="application/rss+xml"/><item><title>gdb commands 이용하기</title><link>https://interp.blog/gdb-commands-%EC%9D%B4%EC%9A%A9%ED%95%98%EA%B8%B0/</link><pubDate>Tue, 06 Feb 2018 08:46:05 +0000</pubDate><guid>https://interp.blog/gdb-commands-%EC%9D%B4%EC%9A%A9%ED%95%98%EA%B8%B0/</guid><description>gdb/ddd 에서 commands 를 사용하면 간편하게 breakpoint 의 상태를 출력할 수 있다. 물론 다양하게 응용이 가능하겠지만, 매뉴얼에서 제시한 케이스가 굉장히 편해서 따로 정리한다.
-참고 : http://sourceware.org/gdb/onlinedocs/gdb/Break-Commands.html
-Breakpoint 상황을 출력하기 10 *sAddr = malloc(aSize); 11 if (*sAddr != NULL) 12 ... 위 코드에서 if 문에 breakpoint 를 걸고, 할당받은 시작 주소와 그 크기를 보고자 한다. 한두번 발생하는 거라면 breakpoint 를 걸어 둔 다음 print 나 graph display (ddd 전용) 으로 띄워서 관찰하면 된다.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>gdb on InterP Blog</title><link>https://interp.blog/tags/gdb/</link><description>Recent content in gdb on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Tue, 06 Feb 2018 08:46:05 +0000</lastBuildDate><atom:link href="https://interp.blog/tags/gdb/index.xml" rel="self" type="application/rss+xml"/><item><title>gdb commands 이용하기</title><link>https://interp.blog/gdb-commands-%EC%9D%B4%EC%9A%A9%ED%95%98%EA%B8%B0/</link><pubDate>Tue, 06 Feb 2018 08:46:05 +0000</pubDate><guid>https://interp.blog/gdb-commands-%EC%9D%B4%EC%9A%A9%ED%95%98%EA%B8%B0/</guid><description>&lt;p>gdb/ddd 에서 commands 를 사용하면 간편하게 breakpoint 의 상태를 출력할 수 있다. 물론 다양하게 응용이 가능하겠지만, 매뉴얼에서 제시한 케이스가 굉장히 편해서 따로 정리한다.&lt;/p>
+&lt;p>참고 : &lt;a class="link" href="http://sourceware.org/gdb/onlinedocs/gdb/Break-Commands.html" target="_blank" rel="noopener"
+>http://sourceware.org/gdb/onlinedocs/gdb/Break-Commands.html&lt;/a>&lt;/p>
+&lt;h2 id="breakpoint-상황을-출력하기">Breakpoint 상황을 출력하기&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="mi">10&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">sAddr&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">malloc&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">aSize&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="mi">11&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="n">sAddr&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="nb">NULL&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="mi">12&lt;/span> &lt;span class="p">...&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>위 코드에서 if 문에 breakpoint 를 걸고, 할당받은 시작 주소와 그 크기를 보고자 한다. 한두번 발생하는 거라면 breakpoint 를 걸어 둔 다음 print 나 graph display (ddd 전용) 으로 띄워서 관찰하면 된다. 그런데 이게 100번 200번이면 하염없이 엔터를 치게 된다.&lt;/p>
+&lt;p>이럴 때 다음과 같이 입력한다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>gdb&lt;span class="o">)&lt;/span> b &lt;span class="m">10&lt;/span> &lt;span class="c1"># 10번째 라인에 breakpoint&lt;/span>
+&lt;span class="o">(&lt;/span>gdb&lt;span class="o">)&lt;/span> commands &lt;span class="c1"># 아무 것도 입력하지 않으면 최근 breakpoint 에 대한 command 입력&lt;/span>
+&amp;gt; silent &lt;span class="c1"># breakpoint 에 멈췄단 메시지를 출력하지 말아달라&lt;/span>
+&amp;gt; &lt;span class="nb">printf&lt;/span> &lt;span class="s2">&amp;#34;alloc address is %p\n and its size is %ld&amp;#34;&lt;/span>, *sAddr, aSize
+&amp;gt; cont &lt;span class="c1"># 흔히 입력하는 cont 와 동일하다.&lt;/span>
+&amp;gt; end &lt;span class="c1"># command 입력 종료&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>이러고 cont 를 날리면.. breakpoint 에서 멈추는 대신 해당 command 가 수행된다! 즉, 계속해서 주소와 할당 크기가 출력된다. 아주 편하다…&lt;/p>
+&lt;h2 id="call-stack-보기">Call Stack 보기&lt;/h2>
+&lt;p>일종의 응용인데, commands 내부에는 우리가 흔히 쓰는 명령어를 입력하면 된다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>gdb&lt;span class="o">)&lt;/span> commands
+&amp;gt; silent
+&amp;gt; bt &lt;span class="m">5&lt;/span> &lt;span class="c1"># backtrace (callstack) 을 출력하되, 안쪽에서 5개 까지만 출력&lt;/span>
+&amp;gt; cont
+&amp;gt; end
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="commands-의-초기화">Commands 의 초기화&lt;/h2>
+&lt;p>commands 명령어를 입력한 다음, 바로 end 로 끝내면 된다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>gdb&lt;span class="o">)&lt;/span> commands
+&amp;gt; end
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>

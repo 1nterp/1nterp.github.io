@@ -1,2 +1,89 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>iPhone on InterP Blog</title><link>https://interp.blog/tags/iphone/</link><description>Recent content in iPhone on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Fri, 04 Feb 2022 16:35:37 +0000</lastBuildDate><atom:link href="https://interp.blog/tags/iphone/index.xml" rel="self" type="application/rss+xml"/><item><title>카카오/네이버 메일 아이폰 연동</title><link>https://interp.blog/kakao-naver-email-iphone-connect/</link><pubDate>Fri, 04 Feb 2022 16:35:37 +0000</pubDate><guid>https://interp.blog/kakao-naver-email-iphone-connect/</guid><description>요약 원래는 홈페이지에서 하라는 대로 하면 된다. 비밀번호를 잘 입력했는데 서버 접속이 안 된다면, 혹시 2단계 인증을 쓰고 있지는 않은지? 2단계 인증을 쓰는 경우라면, 앱 비밀번호를 별도로 발급받는다. 참고 카카오 메일 뿐만 아니라 네이버 메일이나 네이버 캘린더 동기화도 비슷하다. 아래에 ‘부록’ 으로 달아뒀으니 참고하면 된다.
-설정 방법 PC 에서 브라우저를 열고, 카카오 메일을 접속한다. 모바일 브라우저에서 카카오 메일을 접속하면 카카오톡으로 리다이렉트 되는데, 카카오톡에서는 해당 설정을 진행할 수 없다.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>iPhone on InterP Blog</title><link>https://interp.blog/tags/iphone/</link><description>Recent content in iPhone on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Fri, 04 Feb 2022 16:35:37 +0000</lastBuildDate><atom:link href="https://interp.blog/tags/iphone/index.xml" rel="self" type="application/rss+xml"/><item><title>카카오/네이버 메일 아이폰 연동</title><link>https://interp.blog/kakao-naver-email-iphone-connect/</link><pubDate>Fri, 04 Feb 2022 16:35:37 +0000</pubDate><guid>https://interp.blog/kakao-naver-email-iphone-connect/</guid><description>&lt;img src="https://interp.blog/images/2022-02-04-kakao-email/feature-image.jpg" alt="Featured image of post 카카오/네이버 메일 아이폰 연동" />&lt;h2 id="요약">요약&lt;/h2>
+&lt;ul>
+&lt;li>원래는 홈페이지에서 하라는 대로 하면 된다.&lt;/li>
+&lt;li>비밀번호를 잘 입력했는데 서버 접속이 안 된다면, 혹시 2단계 인증을 쓰고 있지는 않은지?&lt;/li>
+&lt;li>2단계 인증을 쓰는 경우라면, &lt;strong>앱 비밀번호&lt;/strong>를 별도로 발급받는다.&lt;/li>
+&lt;/ul>
+&lt;h2 id="참고">참고&lt;/h2>
+&lt;p>카카오 메일 뿐만 아니라 네이버 메일이나 네이버 캘린더 동기화도 비슷하다. 아래에 ‘부록’ 으로 달아뒀으니 참고하면 된다.&lt;/p>
+&lt;h2 id="설정-방법">설정 방법&lt;/h2>
+&lt;ol>
+&lt;li>PC 에서 브라우저를 열고, 카카오 메일을 접속한다.
+&lt;ul>
+&lt;li>모바일 브라우저에서 카카오 메일을 접속하면 카카오톡으로 리다이렉트 되는데, 카카오톡에서는 해당 설정을 진행할 수 없다. 반드시 PC 로 접속한다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>환경설정 &amp;gt; IMAP/POP3&lt;/strong> 을 클릭해서, IMAP 사용을 체크하고 저장한다.&lt;/li>
+&lt;li>설정 앱으로 가서 ‘메일 &amp;gt; 계정’ 을 차례대로 누른다.&lt;/li>
+&lt;/ol>
+&lt;!-- raw HTML omitted -->
+&lt;p>이제 안내된 대로 주소를 설정한다. &lt;a class="link" href="https://cs.kakao.com/helps?articleId=1073195244&amp;amp;service=156&amp;amp;category=519&amp;amp;device=&amp;amp;locale=ko" target="_blank" rel="noopener"
+>공식 FAQ 문서&lt;/a>, 7번 항목)&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">- 아이디 : 카카오메일 아이디 (ooooo@kakao.com 에서 앞 부분)
+- 비밀번호 : 카카오 계정 비밀번호
+- IMAP (받는서버) : imap.kakao.com:993 (SSL)
+- SMTP (보내는서버) : smtp.kakao.com:465 (SSL)
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>SSL 은 아마 처음 설정할 때 바로 시도할 것이다. 포트 번호는 당장 신경 쓰지 않아도 되는데, 나중에 계정 저장을 한 다음에 포트 세부설정이 가능한 곳이 있긴 하다.&lt;/p>
+&lt;br/>
+&lt;script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607"
+crossorigin="anonymous">&lt;/script>
+&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-0712823212859607"
+data-ad-slot="7880266545">&lt;/ins>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607"
+crossorigin="anonymous">&lt;/script>
+&lt;ins class="adsbygoogle"
+style="display:block"
+data-ad-format="fluid"
+data-ad-layout-key="-fx-q+4w-88+2u"
+data-ad-client="ca-pub-0712823212859607"
+data-ad-slot="1092971030">&lt;/ins>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br/>
+&lt;h2 id="비밀번호가-맞는데-되지-않아요">비밀번호가 맞는데 되지 않아요&lt;/h2>
+&lt;p>혹시 2단계 인증을 쓰고 있지 않은지? 그렇다면 기존 비밀번호로는 인증을 할 수 없다. 사람이 로그인을 했다면 카카오톡에 들어가서 인증하기를 눌러줬겠지만, 이건 아이폰이니까.&lt;/p>
+&lt;p>그래서 ‘앱 비밀번호’ 라는 걸 발급받아야 한다. PC 에서도 발급이 가능하지만, 어차피 아이폰에서 복사해서 바로 붙여넣을 예정이니, 모바일로 해 보자.&lt;/p>
+&lt;ol>
+&lt;li>이번에는 모바일 기기에서 ‘카카오톡’ 앱을 실행한다.&lt;/li>
+&lt;li>‘&amp;hellip;’ 버튼을 누르고, 오른쪽 위에 있는 톱니바퀴를 누른다.
+&lt;!-- raw HTML omitted -->&lt;/li>
+&lt;li>개인/보안 → ‘카카오 계정’을 누르고, 나오는 화면에서 ‘2단계 인증’ 을 누른다.&lt;/li>
+&lt;/ol>
+&lt;!-- raw HTML omitted -->
+&lt;p>이 앱 비밀번호를, 원래 비밀번호 대신 입력하면 서버 접속이 가능하다.&lt;/p>
+&lt;h2 id="네이버는-어디서">네이버는 어디서?&lt;/h2>
+&lt;p>이번에도 모바일 환경에서 해 볼 것이다. 네이버 앱으로 해도 되고, 일반 브라우저 에서 해도 상관없다.&lt;/p>
+&lt;ol>
+&lt;li>네이버에 로그인 한다.&lt;/li>
+&lt;li>오른쪽 위에 있는 프로필 아이콘을 누른 뒤, 다시 왼쪽 위에 있는 프로필 아이콘을 누른다.&lt;/li>
+&lt;li>&amp;lsquo;내 정보 및 프로필 관리&amp;rsquo; 에 있는 본인 계정을 누른다.&lt;/li>
+&lt;li>보안 설정 및 비밀번호 변경을 클릭한다.
+&lt;!-- raw HTML omitted -->&lt;/li>
+&lt;li>2단계 인증 항목에서 관리하기를 클릭한다.
+&lt;!-- raw HTML omitted -->&lt;/li>
+&lt;li>조금 스크롤을 내리면, 애플리케이션 비밀번호 관리 항목이 보인다.
+&lt;!-- raw HTML omitted -->
+&lt;ul>
+&lt;li>종류에서 아이폰을 선택해도 되지만, 카카오에서의 이름 설정에 지나지 않기 때문에, 아무거나 입력해도 된다.&lt;/li>
+&lt;li>생성하기 버튼을 누르면 비밀번호가 보인다. 마찬가지로, 지금 복사하거나 메모해두지 않으면 나중에 다시 볼 수 있는 방법이 없다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol></description></item></channel></rss>

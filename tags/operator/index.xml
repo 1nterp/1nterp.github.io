@@ -1,2 +1,46 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>operator on InterP Blog</title><link>https://interp.blog/tags/operator/</link><description>Recent content in operator on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Tue, 15 Mar 2022 02:44:57 +0000</lastBuildDate><atom:link href="https://interp.blog/tags/operator/index.xml" rel="self" type="application/rss+xml"/><item><title>k8s Operator vs. Controller</title><link>https://interp.blog/kubernetes-operator-vs-controller/</link><pubDate>Tue, 15 Mar 2022 02:44:57 +0000</pubDate><guid>https://interp.blog/kubernetes-operator-vs-controller/</guid><description>쿠버네티스에서 서비스를 개발하거나 운영하다 보면 자주 접하게 될 개념 중 하나가, 바로 이 Controller 와 Operator 일 것이다. 어떤 경우에는, 동일한 서비스를 두고 &amp;lsquo;이건 Controller 야&amp;rsquo; 라고 말 할 때도 있고 &amp;lsquo;이 Operator 는&amp;hellip;&amp;rsquo; 이라고 불릴 때도 있어서 헷갈릴 수 있다. 심지어 공식 문서에서도 두 개념에 대한 비교는 하지 않고 있어서 명확한 구분이 필요한 것 같다.
-와중에 이 문서를 발견했는데, 요약하자면 이렇다.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>operator on InterP Blog</title><link>https://interp.blog/tags/operator/</link><description>Recent content in operator on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Tue, 15 Mar 2022 02:44:57 +0000</lastBuildDate><atom:link href="https://interp.blog/tags/operator/index.xml" rel="self" type="application/rss+xml"/><item><title>k8s Operator vs. Controller</title><link>https://interp.blog/kubernetes-operator-vs-controller/</link><pubDate>Tue, 15 Mar 2022 02:44:57 +0000</pubDate><guid>https://interp.blog/kubernetes-operator-vs-controller/</guid><description>&lt;p>쿠버네티스에서 서비스를 개발하거나 운영하다 보면 자주 접하게 될 개념 중 하나가, 바로 이 Controller 와 Operator 일 것이다. 어떤 경우에는, 동일한 서비스를 두고 &amp;lsquo;이건 Controller 야&amp;rsquo; 라고 말 할 때도 있고 &amp;lsquo;이 Operator 는&amp;hellip;&amp;rsquo; 이라고 불릴 때도 있어서 헷갈릴 수 있다. 심지어 공식 문서에서도 두 개념에 대한 비교는 하지 않고 있어서 명확한 구분이 필요한 것 같다.&lt;/p>
+&lt;p>와중에 &lt;a class="link" href="https://blog.marcnuri.com/kubernetes-operator-vs-controller" target="_blank" rel="noopener"
+>이 문서&lt;/a>를 발견했는데, 요약하자면 이렇다.&lt;/p>
+&lt;h3 id="controller">Controller&lt;/h3>
+&lt;blockquote>
+&lt;p>So in the Kubernetes world, a controller will basically &lt;strong>monitor and measure the cluster resources state to adjust those resources that diverge from the desired state&lt;/strong>.&lt;/p>
+&lt;/blockquote>
+&lt;p>더 줄여보면, Controller 는 (1) K8s 리소스 (중 일부) 의 상태를 체크하고 (2) 이 리소스들의 상태를 &amp;lsquo;목표 상태 (desired state)&amp;rsquo; 로 조정하는 역할을 한다.&lt;/p>
+&lt;p>&lt;code>ReplicaSet&lt;/code>, &lt;code>StatefulSet&lt;/code>, &lt;code>DaemonSet&lt;/code> 이 대표적인 Controller 들이다. 속해 있는 Pod 들의 상태를 &amp;lsquo;목표한 상태&amp;rsquo; 로 조정하려고, Pod 을 추가하거나 삭제한다.&lt;/p>
+&lt;h3 id="operator">Operator&lt;/h3>
+&lt;p>CoreOS 에서 정의하는 Operator 는 다음과 같다.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;em>An Operator is &lt;strong>a method of packaging, deploying and managing a Kubernetes application.&lt;/strong>&lt;/em>&lt;/p>
+&lt;/blockquote>
+&lt;p>그런데 이 개념을 구현하기 위해서는 필연적으로 Controller 가 들어가게 된다. 그렇다면 Controller 와 비교했을 때 Operator 의 차이점은 무엇일까?&lt;/p>
+&lt;p>저 &amp;lsquo;Kubernetes application&amp;rsquo; 에서 말하는 것은, 사용자가 직접 지정할 수 있는 CRD (Custom Resource Definition) 과 거기서 파생된 CR (Custom Resource) 까지 포함하고 있는 것이다. 아니면 정말 bare application 형태로 특정 microservice 를 관리할 때도 Operator 라고 부를 수 있겠다.&lt;/p>
+&lt;p>예를 들면, Orange 라는 CRD 를 하나 만들었고, 이 Orange CR 에는 1개의 &lt;code>Service&lt;/code> 와 1개의 &lt;code>Pod&lt;/code> 이 만들어져야 한다고 해보자. 그러면 Orange CR 을 관리하는 application 을 가리킬 때는 Orange *&lt;strong>Operator*&lt;/strong> 라고 부를 수 있다. 하지만 내부에 구현된 Reconcile Loop Code 는 일종의 Orange *&lt;strong>Controller*&lt;/strong> 라고도 부를 수 있는 것이다. 실제로 Service 와 Pod 을 만드는 역할은 이 Controller 에서 이뤄지지만, 전체적으로 Orange CR 의 명세를 관리하는 것은 전체 Operator 가 담당하는 것이다.&lt;/p>
+&lt;br/>
+&lt;script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607"
+crossorigin="anonymous">&lt;/script>
+&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-0712823212859607"
+data-ad-slot="7880266545">&lt;/ins>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607"
+crossorigin="anonymous">&lt;/script>
+&lt;ins class="adsbygoogle"
+style="display:block"
+data-ad-format="fluid"
+data-ad-layout-key="-fx-q+4w-88+2u"
+data-ad-client="ca-pub-0712823212859607"
+data-ad-slot="1092971030">&lt;/ins>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br/>
+&lt;h3 id="정리하면">정리하면&lt;/h3>
+&lt;p>나에게 Controller 는 기술적인 개념이고, Operator 는 좀 더 포괄적이면서 논리적인 개념으로 받아들여진다. &lt;a class="link" href="https://blog.marcnuri.com/kubernetes-operator-vs-controller" target="_blank" rel="noopener"
+>문서&lt;/a>에서도 &amp;lsquo;모든 Operator 는 CR 을 관리하기 위해 쓰이는 Controller 라고 부를 수 있다.&amp;rsquo; 라고 하고 있으니까 말이다.&lt;/p>
+&lt;p>그리고 Controller 나 Operator 모두 어떤 프레임워크일 뿐이지, 언어에 국한된 것은 아니라고 언급한다. Go 언어와 Python 으로 모두 구현해 본 경험이 있는 나 역시, 이 부분에 동의한다.&lt;/p>
+&lt;p>다만 용어를 선택하거나 접할 때 좀 더 이해를 확실히 할 목적으로 정리하는게 더욱 낫지 않을까 하는 마음에, 이 비교글을 마친다.&lt;/p></description></item></channel></rss>

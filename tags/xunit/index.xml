@@ -1,2 +1,158 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>xunit on InterP Blog</title><link>https://interp.blog/tags/xunit/</link><description>Recent content in xunit on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Wed, 29 Nov 2017 03:28:03 +0000</lastBuildDate><atom:link href="https://interp.blog/tags/xunit/index.xml" rel="self" type="application/rss+xml"/><item><title>C# xUnit 실습</title><link>https://interp.blog/csharp-xunit-practice/</link><pubDate>Wed, 29 Nov 2017 03:28:03 +0000</pubDate><guid>https://interp.blog/csharp-xunit-practice/</guid><description>대학생 때 팀 프로젝트로 윈도우 어플리케이션을 끄적이던 때가 있었다. 그 때 C# 기반으로 진행했었는데, 나는 뷰에 집중했던지라 디자인하고 프로퍼티 만지기 바빴고 뼈대는 다른 친구가 만들어 줬었던 기억이 난다. 그 때부터 C/C++ 와는 다르지만 비슷한 이름의 이 언어에 왠지 모를 끌림이 있었다. 하지만 배울 기회는 없었지..
-바로 그 언어, C#을 현업에서 당장 써먹어야 하는 상황이 발생했다. (이런 상황이 왜 발생했는지 한탄은 나중에 일단 하기로 하고) 어쩔 수 없이 배움의 기회로 삼는 수 밖에 없다.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>xunit on InterP Blog</title><link>https://interp.blog/tags/xunit/</link><description>Recent content in xunit on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Wed, 29 Nov 2017 03:28:03 +0000</lastBuildDate><atom:link href="https://interp.blog/tags/xunit/index.xml" rel="self" type="application/rss+xml"/><item><title>C# xUnit 실습</title><link>https://interp.blog/csharp-xunit-practice/</link><pubDate>Wed, 29 Nov 2017 03:28:03 +0000</pubDate><guid>https://interp.blog/csharp-xunit-practice/</guid><description>&lt;p>대학생 때 팀 프로젝트로 윈도우 어플리케이션을 끄적이던 때가 있었다. 그 때 C# 기반으로 진행했었는데, 나는 뷰에 집중했던지라 디자인하고 프로퍼티 만지기 바빴고 뼈대는 다른 친구가 만들어 줬었던 기억이 난다. 그 때부터 C/C++ 와는 다르지만 비슷한 이름의 이 언어에 왠지 모를 끌림이 있었다. 하지만 배울 기회는 없었지..&lt;/p>
+&lt;p>바로 그 언어, C#을 현업에서 당장 써먹어야 하는 상황이 발생했다. (이런 상황이 왜 발생했는지 한탄은 나중에 일단 하기로 하고) 어쩔 수 없이 배움의 기회로 삼는 수 밖에 없다.&lt;/p>
+&lt;p>&lt;a class="link" href="https://docs.microsoft.com/ko-kr/dotnet/core/testing/unit-testing-with-dotnet-test" target="_blank" rel="noopener"
+>dotnet test 및 xUnit을 사용하여 .NET Core에서 C# 유닛 테스트&lt;/a>라는 MS 문서를 기반으로 실습을 했는데, 여기서 중요한 것은, 내가 만들어야 하는 라이브러리의 Target Framework가 .NET Core 가 아니라 .NET Framework 4.0 이다. xUnit은 최소 .NET Framework 4.5 이상에서만 돌아간다.&lt;/p>
+&lt;p>그럼 나는 테스트를 못 하는 것인가? 실제론 그렇지는 않았다. xUnit 프로젝트만 .NET Framework 4.5 로 두고, 라이브러리 프로젝트는 .NET Framework 4.0 으로 설정해서 테스트를 진행해 봤다. 대부분의 내용은 위의 문서를 요약한 것에 지나지 않지만, 중간에 Target Framework를 설정하는 부분에 대해서도 설명하겠다.&lt;/p>
+&lt;h2 id="사전-준비">사전 준비&lt;/h2>
+&lt;p>혹시나 해서 적어둔다. 다 필요없고 .NET Core SDK 를 설치해주자.&lt;/p>
+&lt;ul>
+&lt;li>.NET Framework 4.0, .NET Framework 4.5 SDK 가 설치되어 있어야 한다. (Visual Studio 설치하면서 같이 설치하는게 속편하다)&lt;/li>
+&lt;li>.NET Framework 4.5 이후의 TargetFramework를 가져가는 경우엔 .NET Core SDK 를 설치하는 것으로 끝날지도 모른다는 어렴풋한 추측을 해 본다. (Target Framework를 수정한 다음 dotnet restore 를 하면?)&lt;/li>
+&lt;/ul>
+&lt;p>그리고 아래 실습은 Visual Studio 가 아니라 Powershell 에서 진행한다. 사내 빌드할 때 Visual Studio를 안 쓰기 때문이다. 단지 그 뿐이다..&lt;/p>
+&lt;h2 id="솔루션프로젝트-준비">솔루션/프로젝트 준비&lt;/h2>
+&lt;ol>
+&lt;li>디렉토리를 하나 만든다. 여기서는 &lt;code>testSolution&lt;/code> 라고 하자.&lt;/li>
+&lt;li>&lt;code>dotnet new sln&lt;/code> 을 실행한다. 솔루션 파일이 생성된다.&lt;/li>
+&lt;li>내부에 디렉토리를 하나 만든다. 여기서는 &lt;code>projLibrary&lt;/code> 라고 하자.&lt;/li>
+&lt;li>&lt;code>projLibrary&lt;/code> 에 들어가서 &lt;code>dotnet new classlib&lt;/code> 명령으로 프로젝트를 만든다. &lt;br>
+&lt;code>classlib&lt;/code> 라고 입력하면 해당 프로젝트는 라이브러리를 생성하는 것이 된다.&lt;/li>
+&lt;li>다시 &lt;code>testSolution&lt;/code> 디렉토리로 돌아와서, &lt;code>dotnet sln add projLibrary/projLibrary.csproj&lt;/code> 를 입력한다.&lt;br>
+이제 솔루션에 해당 프로젝트가 등록된다.&lt;/li>
+&lt;li>&lt;code>testSolution&lt;/code>내부에 테스트용 디렉토리를 하나 만든다. 여기서는 &lt;code>projTest&lt;/code> 라고 하자.&lt;/li>
+&lt;li>&lt;code>projTest&lt;/code> 에 들어가서 &lt;code>dotnet new xuint&lt;/code> 를 입력해 테스트용 프로젝트를 만든다.&lt;br>
+&lt;code>xuint&lt;/code> 라고 입력하면, 해당 프로젝트는 테스트를 위한 것이 된다.&lt;/li>
+&lt;li>다시 &lt;code>testSolution&lt;/code> 디렉토리로 돌아와서, &lt;code>dotnet sln add projTest/projTest.csproj&lt;/code> 를 입력한다. 이제 솔루션에 해당 프로젝트가 등록된다.&lt;/li>
+&lt;li>마지막으로 테스트 프로젝트에 라이브러리 프로젝트를 참조할 수 있도록 연결해야 한다.&lt;br>
+&lt;code>projTest&lt;/code> 에 들어가서 &lt;code>dotnet add reference ../projLibrary/projLibrary.csproj&lt;/code> 를 입력한다.&lt;/li>
+&lt;/ol>
+&lt;p>그러면 아래와 같이 디렉토리와 파일이 구성되어야 한다. (자동으로 생성되는 &lt;code>Class1.cs&lt;/code> 는 제외했다.)&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">/testSolution
+testSolution.sln
+/projLibrary
+projLibrary.csproj
+/projTest
+&lt;span class="c1"># other referenced files (xunit)&lt;/span>
+projTest.csproj
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="test-framework-수정">Test Framework 수정&lt;/h2>
+&lt;p>&lt;code>projLibrary&lt;/code> 에 있는 &lt;code>projLibrary.csproj&lt;/code>를 열어서 아래를 수정한다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-xml" data-lang="xml">&lt;span class="nt">&amp;lt;TargetFramework&amp;gt;&lt;/span>net40&lt;span class="nt">&amp;lt;/TargetFramework&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>만들고자 하는 프레임워크 버전을 명시하면 되고, 버전은 [여기][2]를 참고한다. 여러 개의 버전을 명시할 경우에는 세미콜론(;) 으로 구분하면 된다.&lt;/p>
+&lt;p>역으로, &lt;code>projTest&lt;/code> 에 있는 &lt;code>projTest.csproj&lt;/code> 는 이렇게 수정해야 한다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-xml" data-lang="xml">&lt;span class="nt">&amp;lt;TargetFramework&amp;gt;&lt;/span>net45&lt;span class="nt">&amp;lt;/TargetFramework&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>기본적으로 netcore2.0 으로 설정되어 있을텐데, 이러면 net40 과 호환이 안되어서 참조조차 안되는 불상사가 발생한다. net45 또는 그 이상의 .NET Framework를 지정하되, netcore1.x 에 대응되는 버전으로만 지정하면 될 것으로 보인다.&lt;/p>
+&lt;h3 id="테스트-작성">테스트 작성&lt;/h3>
+&lt;p>&lt;code>projLibrary&lt;/code>에서 Class1.cs 에 다음을 추가하자.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-csharp" data-lang="csharp">&lt;span class="k">using&lt;/span> &lt;span class="nn">System&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">namespace&lt;/span> &lt;span class="nn">ProjLibrary&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="k">public&lt;/span> &lt;span class="k">class&lt;/span> &lt;span class="nc">Class1&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="k">public&lt;/span> &lt;span class="kt">bool&lt;/span> &lt;span class="n">IsPrime&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">candidate&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="k">throw&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">NotImplem&lt;/span>&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="n">span&lt;/span> &lt;span class="n">style&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="s">&amp;#34;display: inline-block; width: 0px; overflow: hidden; line-height: 0;&amp;#34;&lt;/span> &lt;span class="n">data&lt;/span>&lt;span class="p">-&lt;/span>&lt;span class="n">mce&lt;/span>&lt;span class="p">-&lt;/span>&lt;span class="n">type&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="s">&amp;#34;bookmark&amp;#34;&lt;/span> &lt;span class="n">class&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="s">&amp;#34;mce_SELRES_start&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="n">span&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>&lt;span class="n">entedException&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Please create a test first&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>아직 구현을 안 한 거다. 이제 &lt;code>projTest&lt;/code>에서 Class1.cs에 다음을 추가한다&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-csharp" data-lang="csharp">&lt;span class="k">using&lt;/span> &lt;span class="nn">Xunit&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">using&lt;/span> &lt;span class="nn">ProjLibrary&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">namespace&lt;/span> &lt;span class="nn">Prime.UnitTests.Services&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="k">public&lt;/span> &lt;span class="k">class&lt;/span> &lt;span class="nc">TestClass1&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="k">private&lt;/span> &lt;span class="k">readonly&lt;/span> &lt;span class="n">Class1&lt;/span> &lt;span class="m">_&lt;/span>&lt;span class="n">service&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">public&lt;/span> &lt;span class="n">Class1_IsPrimeShould&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="m">_&lt;/span>&lt;span class="n">service&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">Class1&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="na">
+&lt;/span>&lt;span class="na"> [Fact]&lt;/span>
+&lt;span class="k">public&lt;/span> &lt;span class="k">void&lt;/span> &lt;span class="n">ReturnFalseGivenValueOf1&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="kt">var&lt;/span> &lt;span class="n">result&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="m">_&lt;/span>&lt;span class="n">service&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">IsPrime&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="m">1&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">Assert&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">False&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">result&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;1 should not be prime&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="테스트">테스트&lt;/h3>
+&lt;p>다 끝났다. 이제 솔루션 디렉토리에서 &lt;code>dotnet test&lt;/code> 를 힘차게 불러보자.&lt;/p>
+&lt;p>에러가 날 것이다. 당연히 테스트 코드에서 result 값이 FALSE가 나오기를 기대하는데, 지금은 그냥 Exception 으로 떨어지기 때문이다.&lt;/p>
+&lt;p>&lt;code>projLibrary&lt;/code>에서 &lt;code>IsPrime()&lt;/code> 함수의 리턴을 FALSE로 바꿔주면 테스트가 성공하는 것을 확인할 수 있다.&lt;/p>
+&lt;p>[1]:
+[2]: &lt;a class="link" href="https://docs.microsoft.com/en-us/dotnet/standard/net-standard" target="_blank" rel="noopener"
+>https://docs.microsoft.com/en-us/dotnet/standard/net-standard&lt;/a>&lt;/p></description></item></channel></rss>

@@ -1,3 +1,50 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>사양 on InterP Blog</title><link>https://interp.blog/tags/%EC%82%AC%EC%96%91/</link><description>Recent content in 사양 on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Mon, 30 Oct 2017 08:31:03 +0000</lastBuildDate><atom:link href="https://interp.blog/tags/%EC%82%AC%EC%96%91/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux 에서 CPU/Memory/Disk 확인</title><link>https://interp.blog/linux-%EC%97%90%EC%84%9C-cpumemorydisk-%ED%99%95%EC%9D%B8/</link><pubDate>Mon, 30 Oct 2017 08:31:03 +0000</pubDate><guid>https://interp.blog/linux-%EC%97%90%EC%84%9C-cpumemorydisk-%ED%99%95%EC%9D%B8/</guid><description>자주 쓰긴 하지만, 곧바로 생각나지 않을 것을 대비해서&amp;hellip; 서버실 서버 사양을 전부 체크하려다 보니 어쩔 수 없이 정리했다.
-CPU / Memory 확인 CPU / Memory 는 사실 쉽다. /proc/cpuinfo 와 /proc/meminfo 안에 들어있기 때문이다.
-$ cat /proc/cpuinfo | grep &amp;#34;model name&amp;#34; | sort -u model name : Intel(R) Core(TM) i3-4160 CPU @ 3.60GHz $ cat /proc/meminfo | grep &amp;#34;MemTotal&amp;#34; MemTotal: 8040588 kB Disk 확인 df 는 mount 된 것만 확인이 가능해서 별로고, lsblk 를 하면 마운트되지 않은 것까지 나온다.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>사양 on InterP Blog</title><link>https://interp.blog/tags/%EC%82%AC%EC%96%91/</link><description>Recent content in 사양 on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Mon, 30 Oct 2017 08:31:03 +0000</lastBuildDate><atom:link href="https://interp.blog/tags/%EC%82%AC%EC%96%91/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux 에서 CPU/Memory/Disk 확인</title><link>https://interp.blog/linux-%EC%97%90%EC%84%9C-cpumemorydisk-%ED%99%95%EC%9D%B8/</link><pubDate>Mon, 30 Oct 2017 08:31:03 +0000</pubDate><guid>https://interp.blog/linux-%EC%97%90%EC%84%9C-cpumemorydisk-%ED%99%95%EC%9D%B8/</guid><description>&lt;p>자주 쓰긴 하지만, 곧바로 생각나지 않을 것을 대비해서&amp;hellip; 서버실 서버 사양을 전부 체크하려다 보니 어쩔 수 없이 정리했다.&lt;/p>
+&lt;h2 id="cpu--memory-확인">CPU / Memory 확인&lt;/h2>
+&lt;p>CPU / Memory 는 사실 쉽다. &lt;code>/proc/cpuinfo&lt;/code> 와 &lt;code>/proc/meminfo&lt;/code> 안에 들어있기 때문이다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ cat /proc/cpuinfo &lt;span class="p">|&lt;/span> grep &lt;span class="s2">&amp;#34;model name&amp;#34;&lt;/span>  &lt;span class="p">|&lt;/span> sort -u
+model name : Intel&lt;span class="o">(&lt;/span>R&lt;span class="o">)&lt;/span> Core&lt;span class="o">(&lt;/span>TM&lt;span class="o">)&lt;/span> i3-4160 CPU @ 3.60GHz
+$ cat /proc/meminfo &lt;span class="p">|&lt;/span> grep &lt;span class="s2">&amp;#34;MemTotal&amp;#34;&lt;/span>
+MemTotal: &lt;span class="m">8040588&lt;/span> kB
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="disk-확인">Disk 확인&lt;/h2>
+&lt;p>&lt;code>df&lt;/code> 는 mount 된 것만 확인이 가능해서 별로고, &lt;code>lsblk&lt;/code> 를 하면 마운트되지 않은 것까지 나온다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ lsblk
+NAME MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
+sda 8:0 &lt;span class="m">0&lt;/span> 477G &lt;span class="m">0&lt;/span> disk
+├─sda1 8:1 &lt;span class="m">0&lt;/span> 468.8G &lt;span class="m">0&lt;/span> part /
+└─sda2 8:2 &lt;span class="m">0&lt;/span> 8.2G &lt;span class="m">0&lt;/span> part &lt;span class="o">[&lt;/span>SWAP&lt;span class="o">]&lt;/span>
+sdb 8:16 &lt;span class="m">0&lt;/span> 2.7T &lt;span class="m">0&lt;/span> disk
+&lt;span class="c1">## df 는 sdb가 보이지 않는다.&lt;/span>
+$ df -h
+Filesystem Size Used Avail Use% Mounted on
+/dev/sda1 462G 8.4G 430G 2% /
+tmpfs 79G 224K 79G 1% /dev/shm
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>

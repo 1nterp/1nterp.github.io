@@ -1,3 +1,37 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>vim on InterP Blog</title><link>https://interp.blog/tags/vim/</link><description>Recent content in vim on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Fri, 15 Apr 2022 02:45:00 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/vim/index.xml" rel="self" type="application/rss+xml"/><item><title>VSCodeVim: 분리된 줄 위/아래로 커서 이동하기</title><link>https://interp.blog/vim-wrapping-line-cursor-up-down/</link><pubDate>Fri, 15 Apr 2022 02:45:00 +0900</pubDate><guid>https://interp.blog/vim-wrapping-line-cursor-up-down/</guid><description>VSCode 에서도 Vim 환경을 쓰고 싶어서 VSCodeVim 을 설치해서 쓰고 있다.
-그런데 위와 같이 markdown 편집을 할 때 처럼 줄 분리가 이뤄져서 (line wrapping) 사실 한 줄인데 여러 줄로 보여지는 경우에는, 커서를 아래로 내릴 경우에 실제 다음 줄 로 이동한다. 화면에 보이는 줄이 아니라, 실제 줄로 이동하기 때문에, 커서를 옮길 때 여간 불편한 게 아니다.
-해결 방법 Vim 도 사실 line wrapping 이 되었을 때 같은 문제가 있고, (문제라기 보다는 특성인데) 원하는 방법대로 우회할 수 있는 방법을 여기서 찾았다.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>vim on InterP Blog</title><link>https://interp.blog/tags/vim/</link><description>Recent content in vim on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Fri, 15 Apr 2022 02:45:00 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/vim/index.xml" rel="self" type="application/rss+xml"/><item><title>VSCodeVim: 분리된 줄 위/아래로 커서 이동하기</title><link>https://interp.blog/vim-wrapping-line-cursor-up-down/</link><pubDate>Fri, 15 Apr 2022 02:45:00 +0900</pubDate><guid>https://interp.blog/vim-wrapping-line-cursor-up-down/</guid><description>&lt;p>VSCode 에서도 Vim 환경을 쓰고 싶어서 &lt;a class="link" href="https://github.com/VSCodeVim/Vim" target="_blank" rel="noopener"
+>VSCodeVim&lt;/a> 을 설치해서 쓰고 있다.&lt;/p>
+&lt;p>&lt;img src="https://interp.blog/images/2022-04-15-vscodevim.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>그런데 위와 같이 markdown 편집을 할 때 처럼 줄 분리가 이뤄져서 (line wrapping) 사실 한 줄인데 여러 줄로 보여지는 경우에는, 커서를 아래로 내릴 경우에 &lt;em>실제&lt;/em> 다음 줄 로 이동한다. &lt;strong>화면에 보이는 줄이 아니라, 실제 줄로 이동하기 때문에&lt;/strong>, 커서를 옮길 때 여간 불편한 게 아니다.&lt;/p>
+&lt;h3 id="해결-방법">해결 방법&lt;/h3>
+&lt;p>Vim 도 사실 line wrapping 이 되었을 때 같은 문제가 있고, (문제라기 보다는 특성인데) 원하는 방법대로 우회할 수 있는 방법을 &lt;a class="link" href="https://vim.fandom.com/wiki/Move_cursor_by_display_lines_when_wrapping" target="_blank" rel="noopener"
+>여기&lt;/a>서 찾았다. 이 방법을 그대로 VSCode 에도 적용한 것이다.&lt;/p>
+&lt;p>먼저 Settings 를 열어서 &lt;strong>Vim: Normal Mode Key Bindings&lt;/strong> 로 이동하면, Edit in settings.json 링크가 있다. 이걸 눌러서 다음을 추가하자.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json"> &lt;span class="s2">&amp;#34;vim.normalModeKeyBindings&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="nt">&amp;#34;before&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;&amp;lt;Up&amp;gt;&amp;#34;&lt;/span>&lt;span class="p">],&lt;/span>
+&lt;span class="nt">&amp;#34;after&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;g&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;k&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;span class="p">},&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="nt">&amp;#34;before&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;&amp;lt;Down&amp;gt;&amp;#34;&lt;/span>&lt;span class="p">],&lt;/span>
+&lt;span class="nt">&amp;#34;after&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;g&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;j&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>적용하고 곧바로 편집 중인 파일로 돌아오면 적용이 되어 있는 걸 볼 수 있다. 이제 커서를 위/아래로 움직여도 화면에 보이는 윗줄/아랫줄로 이동한다!&lt;/p></description></item></channel></rss>
