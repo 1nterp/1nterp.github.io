@@ -73,6 +73,19 @@
 </header>
 <article class="post-entry tag-entry">
 <header class=entry-header>
+<h2>Timsort
+</h2>
+</header>
+<section class=entry-content>
+<p>알고리즘 강의를 들었다면, 가장 빠른 정렬 알고리즘이 뭐냐는 질문에 곧장 Quicksort 라고 답할 수 있을 것이다. 실제로 현업에서도 적용하기 가장 편하기 때문에 많이 차용되는 편이다. 그런데 모든 문제를 쉽게 풀 수 있는 은탄은 세상에 존재하지 않듯, Quicksort 역시 특정 케이스에서는 성능이 낮게 나오는 경우가 있다. 더 심각한(?) 것은, 이 특정 케이스가 현실에서는 꽤나 자주 발생한다는 것이다.
+그 케이스란 바로 ‘거의 정렬된 데이터’ 이다....</p>
+</section>
+<footer class=entry-footer>
+<span title="2018-04-23 01:36:57 +0000 UTC">2018년 04월 23일</span>&nbsp;·&nbsp;4 분</footer>
+<a class=entry-link aria-label="post link to Timsort" href=https://interp.blog/timsort/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
 <h2>gdb commands 이용하기
 </h2>
 </header>
@@ -193,23 +206,6 @@ $ cat /proc/cpuinfo | grep "model name" | sort -u model name : Intel(R) Core(TM
 <footer class=entry-footer>
 <span title="2017-10-30 08:31:03 +0000 UTC">2017년 10월 30일</span>&nbsp;·&nbsp;1 분</footer>
 <a class=entry-link aria-label="post link to Linux 에서 CPU/Memory/Disk 확인" href=https://interp.blog/linux-%EC%97%90%EC%84%9C-cpumemorydisk-%ED%99%95%EC%9D%B8/></a>
-</article>
-<article class="post-entry tag-entry">
-<header class=entry-header>
-<h2>mmap : 메모리를 파일처럼
-</h2>
-</header>
-<section class=entry-content>
-<p>mmap 은 memory map 의 줄임말이다. 메모리의 특정 영역을 파일 디스크립터로 인식하게 만드는 것이다.
-map or unmap files or devices into memory
-(메모리 영역을 파일이나 디바이스로 인식하게 합니다)
-– manpage of mmap
-사용 void * mmap(void *start, size_t length, int prot, int flags, int fd, off_t offset); 여기서 의미가 있는 건 Length, Prot (Protection), Flag 뿐이다.
-Start 는, Kernel이 아무 곳이나 지정해도 좋다면 NULL을 입력한다....</p>
-</section>
-<footer class=entry-footer>
-<span title="2017-09-20 13:29:57 +0000 UTC">2017년 09월 20일</span>&nbsp;·&nbsp;2 분</footer>
-<a class=entry-link aria-label="post link to mmap : 메모리를 파일처럼" href=https://interp.blog/mmap-memory-block-like-file/></a>
 </article>
 <footer class=page-footer>
 <nav class=pagination>
