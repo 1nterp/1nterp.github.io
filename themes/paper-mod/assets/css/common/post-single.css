@@ -100,6 +100,7 @@
 .post-content p,
 .post-content figure,
 .post-content ul {
+    margin-top: var(--content-gap);
     margin-bottom: var(--content-gap);
 }
 
@@ -165,7 +166,8 @@
 
 .post-content .highlight:not(table),
 .post-content pre {
-    margin: 10px auto;
+    font-family: 'Nanum Gothic Coding', monospace;
+    margin: var(--content-gap) auto;
     background: var(--hljs-bg) !important;
     border-radius: var(--radius);
 }
