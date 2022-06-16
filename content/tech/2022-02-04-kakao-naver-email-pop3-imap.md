@@ -8,7 +8,7 @@ tags:
     - POP3
     - iPhone
 categories:
-    - Techtech
+    - Tech
 cover:
     image: "/images/2022-02-04-kakao-email/feature-image.jpg"
 ---
@@ -54,6 +54,7 @@ cover:
 
  SSL 은 아마 처음 설정할 때 바로 시도할 것이다. 포트 번호는 당장 신경 쓰지 않아도 되는데, 나중에 계정 저장을 한 다음에 포트 세부설정이 가능한 곳이 있긴 하다.
 
+{{< adsense1 >}}
 
 
 ## 비밀번호가 맞는데 되지 않아요

@@ -7,7 +7,7 @@ url: if-you-cannot-explain
 cover:
   image: "/uploads/2018/07/einstein.jpg"
 categories:
-- essay
+- Essay
 
 ---
 다른 사람을 지적하기 위한 것이 아니라 그저 내가 답답해서 페북에도 두번이나 올렸던 건데, 아인슈타인이 이미 한 말이었다. 역시 범인인 내가 생각한 것들은, 누군가가 이미 생각한 것이리라. 

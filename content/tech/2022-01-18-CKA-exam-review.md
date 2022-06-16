@@ -7,7 +7,7 @@ tags:
     - kubernetes
     - exam
 categories:
-    - Techtech
+    - Tech
 cover:
     image: "/images/featured/cka-exam.jpg"
 ---
@@ -80,7 +80,7 @@ Linux Foundation 에서 제공하는 마지막 모의고사 성격의 mock-up ex
     - 리소스 이름 자동 완성 가능 (예)  `interp` 라는 ns 가 있다고 하면, then `k get pod -n int<tab>` → `k get pod -n interp`
 - 리소스를 지우거나 업데이트 하기 전에, **반드시 그 리소스를 백업해 두자.** 혹시 그 리소스를 원상복구 시킬 때가 있을 수 있는데, 백업 없이는 다른 방법이 없다.
   
-    
+{{< adsense2 >}}
 
 ## 공부할 때
 
@@ -92,5 +92,3 @@ Linux Foundation 에서 제공하는 마지막 모의고사 성격의 mock-up ex
         - `k create` 명령어로 어떤 리소스를 만들 수 있는지 보고,
         - `k create {resource} --help` 로 해당 리소스를 만들 수 있는 다양한 예제를 확인한 뒤,
         - 역시 `--dry-run=client -oyaml` 을 붙여 YAML 파일을 얻을 수도 있다.
-
-{{< adsense2 >}}

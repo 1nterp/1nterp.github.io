@@ -5,7 +5,7 @@ type: post
 date: 2018-03-25 06:14
 url: "/shotgun-wedding/"
 categories:
-- essay
+- Essay
 
 ---
 행렬 미분학 (differential matrix calculus) 에 대한 문서를 읽다가 이런 글귀를 발견했다.

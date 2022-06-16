@@ -36,6 +36,8 @@ CoreOS 에서 정의하는 Operator 는 다음과 같다.
 
 예를 들면, Orange 라는 CRD 를 하나 만들었고, 이 Orange CR 에는 1개의 `Service` 와 1개의 `Pod` 이 만들어져야 한다고 해보자. 그러면 Orange CR 을 관리하는 application 을 가리킬 때는 Orange ***Operator\*** 라고 부를 수 있다. 하지만 내부에 구현된 Reconcile Loop Code 는 일종의 Orange ***Controller\*** 라고도 부를 수 있는 것이다. 실제로 Service 와 Pod 을 만드는 역할은 이 Controller 에서 이뤄지지만, 전체적으로 Orange CR 의 명세를 관리하는 것은 전체 Operator 가 담당하는 것이다.
 
+{{< adsense1 >}}
+
 ### 정리하면
 
 나에게 Controller 는 기술적인 개념이고, Operator 는 좀 더 포괄적이면서 논리적인 개념으로 받아들여진다. [문서](https://blog.marcnuri.com/kubernetes-operator-vs-controller)에서도 '모든 Operator 는 CR 을 관리하기 위해 쓰이는 Controller 라고 부를 수 있다.' 라고 하고 있으니까 말이다.
