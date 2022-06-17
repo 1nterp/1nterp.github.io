@@ -42,17 +42,15 @@
                 </time>
             </div>
         {{ end }}
-    </footer>
-    {{ end }}
 
-    {{ if .IsTranslated }}
-        <footer class="article-translations">
-            {{ partial "helper/icon" "language" }}
+        {{ if .IsTranslated }}
             <div>
+                {{ partial "helper/icon" "language" }}
                 {{ range .Translations }}
                     <a href="{{ .Permalink }}" class="link">{{ .Language.LanguageName }}</a>
                 {{ end }}
             </div>
-        </footer>
+        {{ end }}
+    </footer>
     {{ end }}
 </div>

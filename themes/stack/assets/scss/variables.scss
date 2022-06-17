@@ -11,12 +11,13 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
         --main-top-padding: 50px;
     }
 
-    --body-background: #f5f5fa;
+    --body-background: #f9f9fe;
 
-    --accent-color: #34495e;
+    --accent-color: #528598;
     --accent-color-darker: #2c3e50;
     --accent-color-text: #fff;
     --body-text-color: #bababa;
+    --drip-del-color: #ccc;
 
     --tag-border-radius: 4px;
 
@@ -30,6 +31,7 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
         --accent-color: #ecf0f1;
         --accent-color-darker: #bdc3c7;
         --accent-color-text: #000;
+        --drip-del-color: #666;
         --body-text-color: rgba(255, 255, 255, 0.7);
         --scrollbar-thumb: hsl(0, 0%, 40%);
         --scrollbar-track: var(--body-background);
@@ -61,14 +63,14 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
 
     --card-border-radius: 10px;
 
-    --card-padding: 20px;
+    --card-padding: 15px;
 
     @include respond(md) {
-        --card-padding: 25px;
+        --card-padding: 20px;
     }
 
     @include respond(xl) {
-        --card-padding: 30px;
+        --card-padding: 25px;
     }
 
     --small-card-padding: 25px 20px;
@@ -159,7 +161,7 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
 }
 
 :root {
-    --menu-icon-separation: 40px;
+    --menu-icon-separation: 12px;
     --container-padding: 15px;
     --widget-separation: var(--section-separation);
 }

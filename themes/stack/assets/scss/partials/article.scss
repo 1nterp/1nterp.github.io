@@ -77,9 +77,9 @@
     color: var(--card-text-color-secondary);
     line-height: 1.5;
     margin: 0;
-    font-size: 1.75rem;
+    font-size: 1.35rem;
     @include respond(xl) {
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
 }
 
@@ -94,7 +94,7 @@
     display: flex;
     align-items: center;
     color: var(--card-text-color-tertiary);
-    gap: 15px;
+    gap: 12px;
     flex-wrap: wrap;
 
     svg {
@@ -113,7 +113,7 @@
     & > div {
         display: inline-flex;
         align-items: center;
-        gap: 15px;
+        gap: 6px;
     }
 }
 
@@ -125,7 +125,7 @@
     a {
         color: var(--accent-color-text);
         background-color: var(--accent-color);
-        padding: 8px 16px;
+        padding: 6px 8px;
         border-radius: var(--tag-border-radius);
         display: inline-block;
         font-size: 1.4rem;
