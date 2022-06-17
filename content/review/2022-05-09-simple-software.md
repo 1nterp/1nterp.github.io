@@ -9,7 +9,7 @@ tags:
 - 책
 - IT
 - 에세이
-image: '/images/featured/simple-software.jpg'
+image: '/images/featured/simple-software-2.jpg'
 
 ---
 [길벗 출판사](https://www.gilbut.co.kr/search/search_book_list#code=003000000&sub_code=003000000%3E003001000&view_mode=&list_size=15&order=date&descending=true&page=1 "길벗 출판사")에서 나온 비슷한 디자인의 책이 몇 권 있다. IT 교양서로 분류된 책 중에서 어두운 표지색을 내려오는 세로 제목 사이에 아이콘이 끼워져 있는데, '소프트웨어 장인', '소프트 스킬', '커리어 스킬' 세 권이 있다. 우연히도 세 권을 다 읽어봤는데, 이 시리즈 (?) 에서 한 권 더 추가된 '심플 소프트웨어' 를 최근에 도서관에서 빌려보게 되었다.
