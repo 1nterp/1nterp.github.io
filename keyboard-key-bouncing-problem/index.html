@@ -1,0 +1,229 @@
+<!doctype html><html lang=ko-kr dir=ltr>
+<head><meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="회사에서 기계식 키보드를 아무거나 사라고 해서 i-rocks의 KR-6251 을 사서 5년 째 쓰고 있다. 2년 전부터 몇몇 키들은 한 번 누를 때마다 두 번 입력되는 느낌을 받았고,"><title>키보드 키 바운싱 문제 해결</title>
+<link rel=canonical href=https://interp.blog/keyboard-key-bouncing-problem/>
+<link rel=stylesheet href=/scss/style.min.4d88a09f5e32a88daa675e1dbdac2d45c92a5a854969c80a2d96c34290bf4436.css><meta property="og:title" content="키보드 키 바운싱 문제 해결">
+<meta property="og:description" content="회사에서 기계식 키보드를 아무거나 사라고 해서 i-rocks의 KR-6251 을 사서 5년 째 쓰고 있다. 2년 전부터 몇몇 키들은 한 번 누를 때마다 두 번 입력되는 느낌을 받았고,">
+<meta property="og:url" content="https://interp.blog/keyboard-key-bouncing-problem/">
+<meta property="og:site_name" content="InterP Blog">
+<meta property="og:type" content="article"><meta property="article:section" content="Tech"><meta property="article:tag" content="키보드"><meta property="article:tag" content="키 눌림"><meta property="article:published_time" content="2017-03-20T02:25:04+00:00"><meta property="article:modified_time" content="2017-03-20T02:25:04+00:00"><meta property="og:image" content="https://interp.blog/images/featured/keyboard-key-bounce.jpg">
+<meta name=twitter:site content="@interp_">
+<meta name=twitter:creator content="@interp_"><meta name=twitter:title content="키보드 키 바운싱 문제 해결">
+<meta name=twitter:description content="회사에서 기계식 키보드를 아무거나 사라고 해서 i-rocks의 KR-6251 을 사서 5년 째 쓰고 있다. 2년 전부터 몇몇 키들은 한 번 누를 때마다 두 번 입력되는 느낌을 받았고,"><meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://interp.blog/images/featured/keyboard-key-bounce.jpg">
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-126809878-1','auto'),ga('send','pageview'))</script><style>:root{--article-font-family:"IBM Plex Sans KR", var(--base-font-family);--code-font-family:Menlo, Monaco, Consolas, "Courier New", monospace}</style>
+<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;500;700&family=Nanum+Gothic+Coding:wght@400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
+</head>
+<body class=article-page>
+<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky">
+<button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 여닫기">
+<span class=hamburger-box>
+<span class=hamburger-inner></span>
+</span>
+</button>
+<header>
+<div class=site-meta>
+<h1 class=site-name><a href=/>InterP Blog</a></h1>
+<h2 class=site-description>Things I'm interested</h2>
+</div>
+</header><ol class=menu id=main-menu>
+<li>
+<a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span>
+</a>
+</li>
+<li>
+<a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span>
+</a>
+</li>
+<div class=menu-bottom-section>
+<li id=i18n-switch><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5h7"/><path d="M9 3v2c0 4.418-2.239 8-5 8"/><path d="M5 9c-.003 2.144 2.952 3.908 6.7 4"/><path d="M12 20l4-9 4 9"/><path d="M19.1 18h-6.2"/></svg>
+<select name=language onchange="window.location.href=this.selectedOptions[0].value"><option value=https://interp.blog/ selected>한국어</option><option value=https://interp.blog/en/>English</option></select>
+</li>
+<li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>다크 모드</span>
+</li>
+</div>
+</ol>
+</aside>
+<main class="main full-width">
+<article class="has-image main-article">
+<header class=article-header>
+<div class=article-image>
+<a href=/keyboard-key-bouncing-problem/>
+<img src=/images/featured/keyboard-key-bounce.jpg loading=lazy alt="Featured image of post 키보드 키 바운싱 문제 해결">
+</a>
+</div>
+<div class=article-details>
+<header class=article-category>
+<a href=/categories/tech/>
+Tech
+</a>
+</header>
+<div class=article-title-wrapper>
+<h2 class=article-title>
+<a href=/keyboard-key-bouncing-problem/>키보드 키 바운싱 문제 해결</a>
+</h2>
+</div>
+<footer class=article-time>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>2017-03-20</time>
+</div>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>
+4 분 소요
+</time>
+</div>
+</footer>
+</div>
+</header>
+<section class=article-content>
+<p>회사에서 기계식 키보드를 아무거나 사라고 해서 <a class=link href="http://prod.danawa.com/info/?pcode=1458635" target=_blank rel=noopener>i-rocks의 KR-6251</a> 을 사서 5년 째 쓰고 있다. 2년 전부터 <strong>몇몇 키들은 한 번 누를 때마다 두 번 입력</strong>되는 느낌을 받았고, 쓰면서 이 현상이 더욱 가중되어 성가신 느낌을 지우기 힘들었다.</p>
+<p>그런데 이 문제를 어떻게 인터넷에서 검색하지? 감을 통 잡을 수 없으니 &lsquo;그냥 새로운 키보드 하나 사야 하나?&rsquo; 라고 고민하고 있었다. <del>이럴 때만 지름신이 오셔서는, &lsquo;비싼 걸 사서 쓰라&rsquo; 고 말씀하시지</del> 그러다가 우연찮게 이런 유형의 문제를 &lsquo;키 바운스&rsquo; 라고 부르는 몇몇 문서를 발견할 수 있었다.</p>
+<h2 id=키-바운스>키 바운스?</h2>
+<p><del>그대가 돌아서면~♪</del> 말 그대로, 키가 제멋대로 춤을 춰서 한번 더 스위치와 부비는(!) 현상을 말한다.</p>
+<p>무접점 키보드가 아닌 이상, 일반 키보드인 멤브레인을 포함, 스위치를 사용하는 기계식 키보드들은 발생할 수도 있는 증상이다. <strong>분명히 나는 한 번 키를 눌렀다 뗐는데, 내부에서 진동으로 인해 스위치가 한번 더 (혹은 여러 번) 눌리는 현상</strong>이라고 이해하면 되겠다. 다른 말로 채터링(Chattering) 이라고도 부르더라.</p>
+<h2 id=해결시도-1-청소>해결시도 (1) 청소</h2>
+<p>원인은 여러 가지가 있을 수 있지만, 원칙적으로는 스위치 고장이라고 생각해야 하지 않을까. 이럴 땔, 스위치 교체를 해야 한다. 혹시 키캡-스위치 접촉 불량으로 미세하게 덜렁거릴 수도 있으니 청소를 한번 해봤는데… 청소를 다 하고도 똑같은 문제가 자주 발생하는 걸 보면 그렇게 효과가 크진 않은 것 같다.</p>
+<h2 id=해결시도-2-바이오스-업데이트>해결시도 (2) 바이오스 업데이트</h2>
+<p>바이오스 업데이트로 키 입력에 대한 패치를 하는 방법도 있다는데, 잘 모르겠으니 제조사에서 추가 정보가 업데이트 되었는지 확인해 보는 방법도 있겠다. (당연히 내 키보드는 이미 단종이라 그런 사후지원을 기대할 수 없었다.)</p>
+<h2 id=해결시도-3-os-설정으로-문제-억제시키기>해결시도 (3) OS 설정으로 문제 억제시키기</h2>
+<p>그럼 스위치를 교체하거나 키보드를 버려야 할까? 잠깐 그 잔인한 생각을 집어넣고 타협할 방법을 알려드리도록 하겠다.</p>
+<p>나 역시 소프트웨어적으로 이런 반복적인 키 입력을 막을 방법이 분명히 있을거라고 생각했는데, 다양한 해결책이 있었다. 모든 OS는 &lsquo;사용자 접근성&rsquo;이란 메뉴가 존재한다. 화면 글씨를 일부러 키우거나 소리를 읽어주거나 하는 그런 기능들이다. 여기서 제공하는 것들 중 &lsquo;탄력 키&rsquo; 기능을 사용한다.</p>
+<h3 id=windows>Windows</h3>
+<p>7 이후의 버전이라면, &lsquo;제어판&rsquo; 의 &lsquo;접근성 센터&rsquo; 에서 &lsquo;키보드를 사용하기 쉽게 설정&rsquo; 항목으로 들어간다. 여기에서 &lsquo;필터 키 켜기&rsquo; 를 적용하면 된다. 그러나 애석하게도 필터 키의 바운스 타임을 뜻하는 &lsquo;탄력 키 입력 인식 시간&rsquo; 간격을 0.5초 이하로 조정할 수 없다. 이 말은, 키를 반복해서 탁탁 칠 때 0.5초보다 빠른 간격으로 치면 모두 무시된다는 소리고, 생각보다 빠른 입력을 할 때 (특히 백스페이스를 반복해서 누를 때) 복장이 터질 가능성이 높다. 결국 이걸 낮추려면 레지스트리를 건드려야 하는데, [이 포스팅][2]을 참고해서 조정이 가능하다.</p>
+<h3 id=linux-ubuntu>Linux (Ubuntu)</h3>
+<p>나 같은 리눅스 사용자는 그럼 어떡해야 할까. Ubuntu 기준으로 설명하면, &lsquo;설정&rsquo; – &lsquo;접근성&rsquo; – &lsquo;자판 입력&rsquo; 에 있는 &lsquo;탄력 키&rsquo; 를 켜서 허용 지연 시간 바(Bar)를 거의 왼쪽으로 갖다 두면 윈도우의 최소 단위인 0.5초보다 간격이 낮아져서, 반복 입력을 해도 무시되는 경우가 거의 없는데다가 키 바운싱이 완화되는 것을 확인할 수 있다.</p>
+<h2 id=결론>결론</h2>
+<p><a class=link href=http://m.blog.naver.com/dondek77/140178945548 target=_blank rel=noopener>위 네이버 포스팅</a>에도 언급되지만, 100% 해결책은 아니다. &lsquo;다&rsquo; 를 치는데 &lsquo;ㄷ&rsquo; 키가 바운싱이 되는 사이에 &lsquo;ㅏ&rsquo;가 입력되면 OS 입장에서는 &lsquo;ㄷㄷ&rsquo; 같은 중복 키로 인식하지 않으므로 &lsquo;닫&rsquo; 같은 문자가 입력되기 때문이다. 이런 문제는 지금 포스팅을 쓰는데도 발생하고 있다 (이런!)</p>
+<p>결국 지름신을 모셔야 할 것 같지만… 어느 정도 완화할 수는 있겠다 싶어서 작성한다.</p>
+</section>
+<footer class=article-footer>
+<section class=article-tags>
+<a href=/tags/%ED%82%A4%EB%B3%B4%EB%93%9C/>키보드</a>
+<a href=/tags/%ED%82%A4-%EB%88%8C%EB%A6%BC/>키 눌림</a>
+</section>
+</footer>
+</article>
+<aside class=related-content--wrapper>
+<h2 class=section-title>관련 글</h2>
+<div class=related-content>
+<div class="flex article-list--tile">
+<article>
+<a href=/tour-of-go-flow-control-stmts/>
+<div class=article-details>
+<h2 class=article-title>A tour of Go: Package, Function, Variable</h2>
+</div>
+</a>
+</article>
+<article>
+<a href=/oh-my-zsh-kubectl-autocomplete/>
+<div class=article-details>
+<h2 class=article-title>Oh my zsh! 에서 kubectl 자동 완성 하기</h2>
+</div>
+</a>
+</article>
+<article>
+<a href=/vim-wrapping-line-cursor-up-down/>
+<div class=article-details>
+<h2 class=article-title>VSCodeVim: 분리된 줄 위/아래로 커서 이동하기</h2>
+</div>
+</a>
+</article>
+<article>
+<a href=/kubernetes-operator-vs-controller/>
+<div class=article-details>
+<h2 class=article-title>k8s Operator vs. Controller</h2>
+</div>
+</a>
+</article>
+<article class=has-image>
+<a href=/kakao-naver-email-iphone-connect/>
+<div class=article-image>
+<img src=/images/2022-02-04-kakao-email/feature-image.jpg loading=lazy data-key data-hash=/images/2022-02-04-kakao-email/feature-image.jpg>
+</div>
+<div class=article-details>
+<h2 class=article-title>카카오/네이버 메일 아이폰 연동</h2>
+</div>
+</a>
+</article>
+</div>
+</div>
+</aside>
+<footer class=site-footer>
+<section class=copyright>
+&copy;
+2019 -
+2022 InterP Blog
+</section>
+<section class=powerby>
+<a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a>로 만듦 / <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.12.0>Stack</a></b> 테마 사용 중
+</section>
+</footer>
+<div class=pswp tabindex=-1 role=dialog aria-hidden=true>
+<div class=pswp__bg></div>
+<div class=pswp__scroll-wrap>
+<div class=pswp__container>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+</div>
+<div class="pswp__ui pswp__ui--hidden">
+<div class=pswp__top-bar>
+<div class=pswp__counter></div>
+<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+<div class=pswp__preloader>
+<div class=pswp__preloader__icn>
+<div class=pswp__preloader__cut>
+<div class=pswp__preloader__donut></div>
+</div>
+</div>
+</div>
+</div>
+<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+<div class=pswp__share-tooltip></div>
+</div>
+<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+</button>
+<div class=pswp__caption>
+<div class=pswp__caption__center></div>
+</div>
+</div>
+</div>
+</div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous>
+</main>
+<aside class="sidebar right-sidebar sticky">
+<section class="widget archives">
+<div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg>
+</div>
+<h2 class="widget-title section-title">목차</h2>
+<div class=widget--toc>
+<nav id=TableOfContents>
+<ol>
+<li><a href=#키-바운스>키 바운스?</a></li>
+<li><a href=#해결시도-1-청소>해결시도 (1) 청소</a></li>
+<li><a href=#해결시도-2-바이오스-업데이트>해결시도 (2) 바이오스 업데이트</a></li>
+<li><a href=#해결시도-3-os-설정으로-문제-억제시키기>해결시도 (3) OS 설정으로 문제 억제시키기</a>
+<ol>
+<li><a href=#windows>Windows</a></li>
+<li><a href=#linux-ubuntu>Linux (Ubuntu)</a></li>
+</ol>
+</li>
+<li><a href=#결론>결론</a></li>
+</ol>
+</nav>
+</div>
+</section>
+</aside>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script>
+<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
+</body>
+</html>
