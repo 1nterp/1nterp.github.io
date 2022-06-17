@@ -1,4 +1,5 @@
 <footer class="article-footer">
+    {{ partial "article/components/adsense" . }}
     {{ partial "article/components/tags" . }}
 
     {{ if and (.Site.Params.article.license.enabled) (not (eq .Params.license false)) }}
