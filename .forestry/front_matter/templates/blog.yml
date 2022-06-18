@@ -37,6 +37,13 @@ fields:
     - Tech
     - Review
     - Essay
+- name: description
+  type: text
+  config:
+    required: false
+    max: 100
+  label: Description
+  description: Summary
 - name: tags
   type: tag_list
   default: []
