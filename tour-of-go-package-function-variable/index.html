@@ -1,15 +1,15 @@
 <!doctype html><html lang=ko-kr dir=ltr>
 <head><meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="A tour of Go 시리즈를 두 번씩 돌아보고, 나름 배운 것들을 연이어 적어보려 한다. 첫 번째로 패키지, 변수, 함수 정의와 사용에 대한 내용이다. 이 문서는 번역이 아니라서"><title>A tour of Go: Package, Function, Variable</title>
-<link rel=canonical href=https://interp.blog/tour-of-go-flow-control-stmts/>
+<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="패키지, 변수, 함수 정의와 사용에 대해서 정리해 봤다."><title>A tour of Go: Package, Function, Variable</title>
+<link rel=canonical href=https://interp.blog/tour-of-go-package-function-variable/>
 <link rel=stylesheet href=/scss/style.min.4d88a09f5e32a88daa675e1dbdac2d45c92a5a854969c80a2d96c34290bf4436.css><meta property="og:title" content="A tour of Go: Package, Function, Variable">
-<meta property="og:description" content="A tour of Go 시리즈를 두 번씩 돌아보고, 나름 배운 것들을 연이어 적어보려 한다. 첫 번째로 패키지, 변수, 함수 정의와 사용에 대한 내용이다. 이 문서는 번역이 아니라서">
-<meta property="og:url" content="https://interp.blog/tour-of-go-flow-control-stmts/">
+<meta property="og:description" content="패키지, 변수, 함수 정의와 사용에 대해서 정리해 봤다.">
+<meta property="og:url" content="https://interp.blog/tour-of-go-package-function-variable/">
 <meta property="og:site_name" content="InterP Blog">
 <meta property="og:type" content="article"><meta property="article:section" content="Tech"><meta property="article:tag" content="golang"><meta property="article:tag" content="tutorial"><meta property="article:tag" content="programming"><meta property="article:published_time" content="2022-06-16T10:26:18+09:00"><meta property="article:modified_time" content="2022-06-16T10:26:18+09:00">
 <meta name=twitter:site content="@interp_">
 <meta name=twitter:creator content="@interp_"><meta name=twitter:title content="A tour of Go: Package, Function, Variable">
-<meta name=twitter:description content="A tour of Go 시리즈를 두 번씩 돌아보고, 나름 배운 것들을 연이어 적어보려 한다. 첫 번째로 패키지, 변수, 함수 정의와 사용에 대한 내용이다. 이 문서는 번역이 아니라서">
+<meta name=twitter:description content="패키지, 변수, 함수 정의와 사용에 대해서 정리해 봤다.">
 <script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-126809878-1','auto'),ga('send','pageview'))</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-126809878-1"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','UA-126809878-1')</script>
@@ -66,8 +66,11 @@ Tech
 </header>
 <div class=article-title-wrapper>
 <h2 class=article-title>
-<a href=/tour-of-go-flow-control-stmts/>A tour of Go: Package, Function, Variable</a>
+<a href=/tour-of-go-package-function-variable/>A tour of Go: Package, Function, Variable</a>
 </h2>
+<h3 class=article-subtitle>
+패키지, 변수, 함수 정의와 사용에 대해서 정리해 봤다.
+</h3>
 </div>
 <footer class=article-time>
 <div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
