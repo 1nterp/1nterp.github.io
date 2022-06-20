@@ -67,6 +67,8 @@ func swap(x, y string) (string, string) { .. }
 func split(sum int) (x, y int) { .. }
 ```
 
+{{< adsense1 >}}
+
 ## Variable declaration
 
 변수 또한 다양한 방식으로 선언이 가능한데, 크게 두 가지 방법으로 할 수 있다.
