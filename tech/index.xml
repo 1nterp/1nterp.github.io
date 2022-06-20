@@ -1,4 +1,287 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tech 🛠️ on InterP Blog</title><link>https://interp.blog/tech/</link><description>Recent content in Tech 🛠️ on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Thu, 16 Jun 2022 10:26:18 +0900</lastBuildDate><atom:link href="https://interp.blog/tech/index.xml" rel="self" type="application/rss+xml"/><item><title>A tour of Go: Package, Function, Variable</title><link>https://interp.blog/tour-of-go-package-function-variable/</link><pubDate>Thu, 16 Jun 2022 10:26:18 +0900</pubDate><guid>https://interp.blog/tour-of-go-package-function-variable/</guid><description>&lt;p>A tour of Go 시리즈를 두 번씩 돌아보고, 나름 배운 것들을 연이어 적어보려 한다. 첫 번째로 패키지, 변수, 함수 정의와 사용에 대한 내용이다. 이 문서는 번역이 아니라서, 개인적으로 중요했던 부분만 있을 수도 있고 투어 예제에서 다루지 않은 부분이 섞여있을 수 있으니 편하게 봐주셨으면 한다. &lt;del>화면 안 넘기고 스크롤만으로 볼 수 있다는 장점 정도?&lt;/del>&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tech 🛠️ on InterP Blog</title><link>https://interp.blog/tech/</link><description>Recent content in Tech 🛠️ on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Mon, 20 Jun 2022 02:36:25 +0000</lastBuildDate><atom:link href="https://interp.blog/tech/index.xml" rel="self" type="application/rss+xml"/><item><title>A tour of Go: Flow control statements</title><link>https://interp.blog/tour-of-go-flow-control-stmts/</link><pubDate>Mon, 20 Jun 2022 02:36:25 +0000</pubDate><guid>https://interp.blog/tour-of-go-flow-control-stmts/</guid><description>&lt;p>&lt;a class="link" href="https://interp.blog/tour-of-go-package-function-variable/" target="_blank" rel="noopener"
+>지난 시간&lt;/a>에 이어서, 여기서는 Flow Control Statement 에 대해 정리해 보았다.&lt;/p>
+&lt;h2 id="a-tour-of-go">A tour of Go&lt;/h2>
+&lt;ul>
+&lt;li>English: &lt;a class="link" href="https://go.dev/tour/" title="https://go.dev/tour/"
+target="_blank" rel="noopener"
+>https://go.dev/tour/&lt;/a>&lt;/li>
+&lt;li>한국어판: &lt;a class="link" href="https://go-tour-ko.appspot.com/" title="https://go-tour-ko.appspot.com/"
+target="_blank" rel="noopener"
+>https://go-tour-ko.appspot.com/&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="if-else">If, else&lt;/h2>
+&lt;p>조건문은 다른 프로그래밍 언어와 마찬가지로 &lt;code>if&lt;/code>, &lt;code>else&lt;/code> 그리고 &lt;code>else if&lt;/code> 의 조합으로 구성된다. 조건 절 (condition clause) 에 있는 수식을 검증 (evaluation 이라고도 한다) 한 결과가 참이면 해당 블록이 수행된다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-golang" data-lang="golang">&lt;span class="nx">a&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="mi">1&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">a&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="c1">// ...
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nf">funcTrue&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="c1">// ...
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>여러 개의 수식들을 넣어도 되고, 마지막 수식이 boolean 으로 검증되거나 반환되어야 한다. 수식 간에는 세미콜론(&lt;code>;&lt;/code>)으로 구분한다. 이 부분에서 가장 널리 쓰이는 패턴이 바로 &lt;code>error&lt;/code> 객체가 반환되었는지 검증하는 구문이다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-golang" data-lang="golang">&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nf">funcTest&lt;/span>&lt;span class="p">();&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="c1">// error handling with `err` object
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>참고로 저기 &lt;code>err&lt;/code> 는 조건 블록 안에서만 사용할 수 있다. 바깥에서는 참조할 수 없고, 대신 다른 &lt;code>else if&lt;/code> 나 &lt;code>else&lt;/code> 블록에서는 참조가 가능하다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="k">if&lt;/span> &lt;span class="nx">a&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nf">getInt&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">testStr&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="nx">a&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="c1">// ok
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="nx">a&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="c1">// ok
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="c1">// ok
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">a&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">// error
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>심지어는 &lt;code>else if&lt;/code> 에서 선언된 변수가 있는데 &lt;code>if&lt;/code> 에서 쓸 수 있을까? 된다! hoisting 해서 쓴다. 이 쯤 생각해보니, &lt;strong>if block 전체에 선언된 변수들에 대해 evaluation 을 먼저 하는 것으로 보인다&lt;/strong>.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kd">func&lt;/span> &lt;span class="nf">pow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">n&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">lim&lt;/span> &lt;span class="kt">float64&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="kt">float64&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">v&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">math&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Pow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">n&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="nx">v&lt;/span> &lt;span class="p">&amp;lt;&lt;/span> &lt;span class="nx">lim&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">v&lt;/span>
+&lt;span class="p">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Printf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;%g &amp;gt;= %g\n&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">v&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">lim&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">// 여기선 가능
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">lim&lt;/span> &lt;span class="c1">// 여기서 v 를 참조할 수 없다.
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>performance 를 중요시한다면 필요한 변수는 inner-block 에서 선언해 쓰는게 좋을 거 같긴 한데.. 아직 언어에 대해 잘 모르겠으니 참고만 하자.&lt;/p>
+&lt;br/>
+&lt;script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607"
+crossorigin="anonymous">&lt;/script>
+&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-0712823212859607"
+data-ad-slot="7880266545">&lt;/ins>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607"
+crossorigin="anonymous">&lt;/script>
+&lt;ins class="adsbygoogle"
+style="display:block"
+data-ad-format="fluid"
+data-ad-layout-key="-fx-q+4w-88+2u"
+data-ad-client="ca-pub-0712823212859607"
+data-ad-slot="1092971030">&lt;/ins>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br/>
+&lt;h2 id="for">For&lt;/h2>
+&lt;h3 id="basic-for">basic for&lt;/h3>
+&lt;p>다른 프로그래밍 늘 그렇듯, &lt;code>init; condition; post&lt;/code> 로 이루어져 있다. init 에는 마치 지역 변수 선언과 같은 모양을 한다 (bash 를 떠올리면 된다) 그리고 여타 다른 언어와 달리 (C, Java, &amp;hellip;) 괄호가 없다는 점을 주목하자. 그러나 반드시 브라켓 &lt;code>{ }&lt;/code> 은 필요하다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go"> &lt;span class="nx">sum&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="mi">0&lt;/span>
+&lt;span class="k">for&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="p">&amp;lt;&lt;/span> &lt;span class="mi">10&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span>&lt;span class="o">++&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">sum&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="nx">i&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="continued-for">Continued for&lt;/h3>
+&lt;p>init 과 post 은 optional 이다. 이게 비어 있으면 condition 만 남아 while 과 같은 기능을 한다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback"> sum := 0
+for ; sum &amp;lt; 10; {
+// for sum &amp;lt; 10 { // 둘 중 아무거나 써도 똑같다.
+// 그리고 위 처럼 쓴 뒤 go fmt 를 돌리면 세미콜론이 알아서 빠진다.
+sum += sum
+}
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>리스트나 맵을 순회할 때도 continued for 의 일종이라고 보면 된다. 이 때는 &lt;code>range&lt;/code> 를 사용한다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kd">var&lt;/span> &lt;span class="nx">myMap&lt;/span> &lt;span class="kd">map&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="kt">string&lt;/span>
+&lt;span class="nx">myMap&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">make&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kd">map&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="c1">// ...
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="k">for&lt;/span> &lt;span class="nx">myKey&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">myValue&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="k">range&lt;/span> &lt;span class="nx">myMap&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="c1">// ...
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="while">While&lt;/h2>
+&lt;p>다른 말로, &lt;strong>golang 은 while 이 없다&lt;/strong>&amp;hellip; 대신 &lt;code>for&lt;/code> 만 적으면 된다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="k">for&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="c1">// ...
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="switch">Switch&lt;/h2>
+&lt;p>C/C++, Java 의 switch 라고 생각하면 된다. 차이점은,&lt;/p>
+&lt;ul>
+&lt;li>C 처럼 단일 값 (e.g. int, character) 이 아니라 &lt;strong>string 도 사용이 가능&lt;/strong>하고&lt;/li>
+&lt;li>&lt;code>case&lt;/code> 에 &lt;strong>variable 을 넣어도&lt;/strong> 된다.&lt;/li>
+&lt;li>각 case 마다 break 를 다 집어넣지 않아도 된다.&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kd">func&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Go runs on &amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="kd">var&lt;/span> &lt;span class="nx">darwin_os&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s">&amp;#34;darwin&amp;#34;&lt;/span> &lt;span class="c1">// 이걸 타겟으로 써도.. 된다고?
+&lt;/span>&lt;span class="c1">&lt;/span>
+&lt;span class="k">switch&lt;/span> &lt;span class="nx">os&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">runtime&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">GOOS&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">os&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">case&lt;/span> &lt;span class="nx">darwin_os&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="c1">// ㅇㅇ 되네
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;OS X.&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">case&lt;/span> &lt;span class="s">&amp;#34;linux&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Linux.&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">default&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Printf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;%s.\n&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">os&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>참고로 &lt;code>case:&lt;/code> 만 쓰면 &lt;code>case True:&lt;/code> 와 같은 의미가 된다.&lt;/p>
+&lt;p>위의 차이점을 생각해보면, 마치 기다란 &lt;code>if-else&lt;/code> 를 &lt;code>switch&lt;/code> 로 치환할 수 있을 것 처럼 보이지만 사실 두 가지 제약을 고려해서 선택해야 한다.&lt;/p>
+&lt;ol>
+&lt;li>가독성 문제를 고려해야 한다.&lt;/li>
+&lt;li>if 안에서 변수 선언/할당이 가능하지만, case 에서는 변수 선언이 안 된다.&lt;/li>
+&lt;/ol>
+&lt;h2 id="defer">defer&lt;/h2>
+&lt;p>이 키워드로 시작하는 구문은 &lt;strong>해당 함수가 끝날 때 까지 실행이 유예된다&lt;/strong>. 이 키워드는 블록에 종속된 개념이 아니라 &lt;em>함수에 종속&lt;/em>된 개념이다. 따라서, 어느 inner block 에서 쓰이건 간에 이 구문을 지난다면, 함수가 끝날 때에야 구문이 수행된다.&lt;/p>
+&lt;p>&lt;code>defer&lt;/code> 뒤에 오는 구문은 &lt;strong>반드시 함수 호출이어야 한다&lt;/strong>. 변수 선언이거나 변수 값 할당같은 식은 안 된다. (&lt;code>+=&lt;/code> 도 안 됨)&lt;/p>
+&lt;p>재미있는 건, &lt;code>defer&lt;/code> 줄을 만나는 시점에 argument 값이 결정된다. 이후에 argument 로 들어간 variable 이 바뀌더라도, &lt;code>defer&lt;/code> 의 실제 수행 시점에서는 영향이 없는 것을 아래 코드로 확인할 수 있다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kd">func&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="kd">var&lt;/span> &lt;span class="nx">abc&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s">&amp;#34;hello&amp;#34;&lt;/span>
+&lt;span class="c1">// 아래 세 줄을 브라켓으로 감싸 블록으로 만든다 한 들, 결과는 동일함 (함수 레벨이기 때문)
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">abc&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="s">&amp;#34; world&amp;#34;&lt;/span>
+&lt;span class="k">defer&lt;/span> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">abc&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">// 뒤에 느낌표는 여기서 평가가 안 되지만, 출력은 마지막에 된다.
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">abc&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="s">&amp;#34; !!&amp;#34;&lt;/span>
+&lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">abc&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">// 여기서는 전부 출력된다.
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;span class="cm">/*
+&lt;/span>&lt;span class="cm">hello world !!
+&lt;/span>&lt;span class="cm">hello world
+&lt;/span>&lt;span class="cm">*/&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;code>defer&lt;/code> 를 하나의 함수 안에서 여러 개 선언할 수 있다. 실행 순서는 LIFO, 즉 먼저 들어간 수식이 나중에 실행된다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go"> &lt;span class="k">for&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="p">&amp;lt;&lt;/span> &lt;span class="mi">10&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span>&lt;span class="o">++&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">defer&lt;/span> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="c1">// 맞춰보자. 0이 먼저 나올까 9가 먼저 나올까?
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>A tour of Go: Package, Function, Variable</title><link>https://interp.blog/tour-of-go-package-function-variable/</link><pubDate>Thu, 16 Jun 2022 10:26:18 +0900</pubDate><guid>https://interp.blog/tour-of-go-package-function-variable/</guid><description>&lt;p>A tour of Go 시리즈를 두 번씩 돌아보고, 나름 배운 것들을 연이어 적어보려 한다. 첫 번째로 패키지, 변수, 함수 정의와 사용에 대한 내용이다. 이 문서는 번역이 아니라서, 개인적으로 중요했던 부분만 있을 수도 있고 투어 예제에서 다루지 않은 부분이 섞여있을 수 있으니 편하게 봐주셨으면 한다. &lt;del>화면 안 넘기고 스크롤만으로 볼 수 있다는 장점 정도?&lt;/del>&lt;/p>
 &lt;h2 id="a-tour-of-go">A tour of Go&lt;/h2>
 &lt;p>Go 언어의 튜토리얼 페이지라고 보면 된다. 다양한 언어로 번역되어 있으니 영어 원문으로 봐도 좋고 한국어판으로 봐도 좋다.&lt;/p>
 &lt;ul>
