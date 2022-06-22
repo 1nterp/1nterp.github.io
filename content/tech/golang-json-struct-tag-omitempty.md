@@ -3,7 +3,6 @@ author = "InterP"
 categories = ["Tech"]
 date = 2022-06-21T16:19:07Z
 description = "Go 언어에서 주로 쓰이는 JSON struct tag option 중 'omityempty' 에 대해 좀 더 자세히 알아보자."
-draft = true
 image = ""
 tags = ["golang", "JSON", "omitempty"]
 title = "Golang JSON struct tag: omitempty"
@@ -99,7 +98,7 @@ func main() {
 {"name":"John Doe","id":1}
 ```
 
-### 사소한 문제?
+## 사소한 문제?
 아까 Go 언어 기본값이 들어있는 필드는 JSON encoding package 에서 비어있는 필드로 간주한다는 말을 했었다. 그런데, 이 값들이 유의미한 값이라면 어떻게 해야 할까? 이 때는 `omitempty` 옵션 사용을 자제해야 한다.
 
 예를 들면, 통장 내역을 나타내는 struct type 에서, 잔고를 나타내는 `balance` 필드가 있다고 가정하자. 만약, 이 필드가 정확히 0을 가진다면 이 0이란 숫자는 유효한 숫자다. 그런데 이 필드에 대고 `omitempty` 를 붙이게 되면, 사용자가 반환받을 JSON 문서에 `balance` 자체가 없게 되고 큰 혼란 (?) 이 올 수 있다. 잔고라는 필드는 프로그램에서 필수적으로 있을 것이라 가정하기 때문에 일종의 *AssertionError* 에 빠질 수 있다는 뜻이다.
