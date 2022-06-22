@@ -1,4 +1,168 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tech 🛠️ on InterP Blog</title><link>https://interp.blog/tech/</link><description>Recent content in Tech 🛠️ on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Mon, 20 Jun 2022 02:36:25 +0000</lastBuildDate><atom:link href="https://interp.blog/tech/index.xml" rel="self" type="application/rss+xml"/><item><title>A tour of Go: Flow control statements</title><link>https://interp.blog/tour-of-go-flow-control-stmts/</link><pubDate>Mon, 20 Jun 2022 02:36:25 +0000</pubDate><guid>https://interp.blog/tour-of-go-flow-control-stmts/</guid><description>&lt;p>&lt;a class="link" href="https://interp.blog/tour-of-go-package-function-variable/" target="_blank" rel="noopener"
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tech 🛠️ on InterP Blog</title><link>https://interp.blog/tech/</link><description>Recent content in Tech 🛠️ on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Tue, 21 Jun 2022 16:19:07 +0000</lastBuildDate><atom:link href="https://interp.blog/tech/index.xml" rel="self" type="application/rss+xml"/><item><title>Golang JSON struct tag: omitempty</title><link>https://interp.blog/golang-json-struct-tag/</link><pubDate>Tue, 21 Jun 2022 16:19:07 +0000</pubDate><guid>https://interp.blog/golang-json-struct-tag/</guid><description>&lt;h2 id="태그">태그?&lt;/h2>
+&lt;p>Go 언어의 &lt;code>struct&lt;/code> 타입에는 각 필드마다 태그를 붙일 수 있다. (struct tag 라고도 불린다) 이렇게 아무렇게나 태그를 붙여둘 수 있다. 물론 다른 함수나 패키지에서 이런 태그를 파싱해서 다룰 수 있어야 하겠지만.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kd">type&lt;/span> &lt;span class="nx">Employee&lt;/span> &lt;span class="kd">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">Name&lt;/span> &lt;span class="kt">string&lt;/span> &lt;span class="s">`mandatory`&lt;/span>
+&lt;span class="nx">ID&lt;/span> &lt;span class="kt">uint64&lt;/span> &lt;span class="s">`mandatory`&lt;/span>
+&lt;span class="nx">Phone&lt;/span> &lt;span class="kt">string&lt;/span> &lt;span class="s">`optional`&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;code>encoding/json&lt;/code> 은 &lt;code>json&lt;/code> 으로 시작하는 태그를 지원하는데, 아래와 같이 흔히들 볼 수 있는 것들이다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kd">type&lt;/span> &lt;span class="nx">Employee&lt;/span> &lt;span class="kd">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">Name&lt;/span> &lt;span class="kt">string&lt;/span> &lt;span class="s">`json:&amp;#34;name&amp;#34;`&lt;/span>
+&lt;span class="nx">ID&lt;/span> &lt;span class="kt">uint64&lt;/span> &lt;span class="s">`json:&amp;#34;id&amp;#34;`&lt;/span>
+&lt;span class="nx">Phone&lt;/span> &lt;span class="kt">string&lt;/span> &lt;span class="s">`json:&amp;#34;phone_number&amp;#34;`&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>이 태그를 가지고 있으면, &lt;code>json.Marshal()&lt;/code> 을 할 때 구조체 필드 값을 자동으로 JSON 문서로 변환해준다. 또는 &lt;code>json.Unmarshal()&lt;/code> 을 통해, 입력된 JSON 문서 바이트 배열을 해당 구조체의 각 필드에 맞춰 알아서 변환해 준다.&lt;/p>
+&lt;h2 id="omitempty-옵션">omitempty 옵션&lt;/h2>
+&lt;p>오늘 알아볼 것은, 이런 태그 뒤에 붙는 옵션들 중에서 &lt;code>omitempty&lt;/code> 에 대한 내용이다. 이 옵션은 말 그대로 &amp;lsquo;비어있는 필드 값은 생략하겠다&amp;rsquo; 라는 뜻이다.&lt;/p>
+&lt;p>&lt;strong>결론만 말하면, 이 옵션은 Marshalling 할 때만 효과가 있다.&lt;/strong> &lt;a class="link" href="https://go.dev/play/p/EhzLmox7CYN" target="_blank" rel="noopener"
+>Go Playground Link&lt;/a> 에 아래 예제 코드를 넣어뒀으니, 직접 실행해보고 확인해보는 것을 추천한다.&lt;/p>
+&lt;h3 id="값이-비어있다">값이 비어있다?&lt;/h3>
+&lt;p>Go 언어의 자료형 기본값이 들어가 있으면 값이 비어 있다고 간주한다. 이 부분은 이전 포스팅인 &lt;a class="link" href="https://interp.blog/tour-of-go-package-function-variable/" >Go Tour 문서&lt;/a>에 더욱 자세한 내용이 들어있다.&lt;/p>
+&lt;ul>
+&lt;li>실수형 = 0&lt;/li>
+&lt;li>문자형 = &amp;quot;&amp;quot;&lt;/li>
+&lt;li>boolean 형 = false&lt;/li>
+&lt;li>포인터형 = nil&lt;/li>
+&lt;/ul>
+&lt;h3 id="unmarshalling-json---struct">Unmarshalling (JSON -&amp;gt; struct)&lt;/h3>
+&lt;p>안 해도 되는데, 일단 의심을 거두기 위해 Unmarshalling 부터 테스트 해보자. 위의 &lt;code>Employee&lt;/code> struct type 에다가, 다음 JSON String 을 Unmarshalling 해보려고 한다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="p">{&lt;/span>
+&lt;span class="nt">&amp;#34;id&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nt">&amp;#34;name&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;John Doe&amp;#34;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kd">func&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="kd">var&lt;/span> &lt;span class="nx">e&lt;/span> &lt;span class="nx">Employee&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">json&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Unmarshal&lt;/span>&lt;span class="p">([]&lt;/span>&lt;span class="nb">byte&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">jsonString&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">e&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nb">panic&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">err&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Printf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;[%s]\n&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">e&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Phone&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>그 결과는, 뻔하긴 하지만 대괄호만 나올 것이다. (&lt;code>[]&lt;/code>) 그럼 여기서 &lt;code>e.Phone&lt;/code> 에 값이 있었다면 어떻게 될까? 이 &amp;ldquo;010-&amp;rdquo; 값은 Unmarshalling 을 해도 그대로 남는다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">e&lt;/span> &lt;span class="nx">Employee&lt;/span>
+&lt;span class="nx">e&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Phone&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s">&amp;#34;010-&amp;#34;&lt;/span>
+&lt;span class="o">...&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>그렇다면, 이번에는 &lt;code>omitempty&lt;/code> 를 &lt;code>Employee.Phone&lt;/code> 에 붙이고 위의 두 실험을 해보자. 결과는 같은가? &lt;strong>그렇다.&lt;/strong> 값이 없으면 없는대로, 있으면 있는대로 출력된다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kd">type&lt;/span> &lt;span class="nx">Employee&lt;/span> &lt;span class="kd">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">Name&lt;/span> &lt;span class="kt">string&lt;/span> &lt;span class="s">`json:&amp;#34;name&amp;#34;`&lt;/span>
+&lt;span class="nx">ID&lt;/span> &lt;span class="kt">uint64&lt;/span> &lt;span class="s">`json:&amp;#34;id&amp;#34;`&lt;/span>
+&lt;span class="nx">Phone&lt;/span> &lt;span class="kt">string&lt;/span> &lt;span class="s">`json:&amp;#34;phone_number,omitempty&amp;#34;`&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="marshalling-struct---json">Marshalling (struct -&amp;gt; JSON)&lt;/h3>
+&lt;p>이번에는 저장된 값을 JSON 으로 나눠보자. 우선, &lt;code>omitempty&lt;/code> 옵션을 다시 빼고, &lt;code>e.Phone&lt;/code> 에는 아무런 값을 넣어보지 않았다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kd">func&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="kd">var&lt;/span> &lt;span class="nx">e&lt;/span> &lt;span class="nx">Employee&lt;/span>
+&lt;span class="nx">e&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Name&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s">&amp;#34;John Doe&amp;#34;&lt;/span>
+&lt;span class="nx">e&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ID&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="mi">1&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">jsonReturned&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">json&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Marshal&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">e&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nb">panic&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">err&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">string&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">jsonReturned&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">{&amp;#34;name&amp;#34;:&amp;#34;John Doe&amp;#34;,&amp;#34;id&amp;#34;:1,&amp;#34;phone_number&amp;#34;:&amp;#34;&amp;#34;}
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;code>phone_number&lt;/code> 라는 필드가 생겼다. struct 필드 값이 비어 있어도 JSON 에는 필드가 보인다는 것이다.&lt;/p>
+&lt;p>이걸 방지하기 위해 &lt;code>omitempty&lt;/code> 가 필요하다. 해당 옵션을 다시 &lt;code>Employee.Phone&lt;/code> 에 넣고 동일한 코드를 돌려보면 다음과 같이 출력된다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">{&amp;#34;name&amp;#34;:&amp;#34;John Doe&amp;#34;,&amp;#34;id&amp;#34;:1}
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="사소한-문제">사소한 문제?&lt;/h2>
+&lt;p>아까 Go 언어 기본값이 들어있는 필드는 JSON encoding package 에서 비어있는 필드로 간주한다는 말을 했었다. 그런데, 이 값들이 유의미한 값이라면 어떻게 해야 할까? 이 때는 &lt;code>omitempty&lt;/code> 옵션 사용을 자제해야 한다.&lt;/p>
+&lt;p>예를 들면, 통장 내역을 나타내는 struct type 에서, 잔고를 나타내는 &lt;code>balance&lt;/code> 필드가 있다고 가정하자. 만약, 이 필드가 정확히 0을 가진다면 이 0이란 숫자는 유효한 숫자다. 그런데 이 필드에 대고 &lt;code>omitempty&lt;/code> 를 붙이게 되면, 사용자가 반환받을 JSON 문서에 &lt;code>balance&lt;/code> 자체가 없게 되고 큰 혼란 (?) 이 올 수 있다. 잔고라는 필드는 프로그램에서 필수적으로 있을 것이라 가정하기 때문에 일종의 &lt;em>AssertionError&lt;/em> 에 빠질 수 있다는 뜻이다.&lt;/p>
+&lt;p>Marshalling 할 때 JSON 문서의 다이어트 목적으로 이 옵션을 종종 쓸 텐데, 항상 주의해서 써야 한다는 것으로 끝맺는다.&lt;/p></description></item><item><title>A tour of Go: Flow control statements</title><link>https://interp.blog/tour-of-go-flow-control-stmts/</link><pubDate>Mon, 20 Jun 2022 02:36:25 +0000</pubDate><guid>https://interp.blog/tour-of-go-flow-control-stmts/</guid><description>&lt;p>&lt;a class="link" href="https://interp.blog/tour-of-go-package-function-variable/" target="_blank" rel="noopener"
 >지난 시간&lt;/a>에 이어서, 여기서는 Flow Control Statement 에 대해 정리해 보았다.&lt;/p>
 &lt;h2 id="a-tour-of-go">A tour of Go&lt;/h2>
 &lt;ul>
