@@ -6,7 +6,7 @@ description = ""
 draft = true
 image = ""
 tags = ["golang", "JSON", "omitempty"]
-title = "Golang JSON struct tag: `omitempty`"
+title = "Golang JSON struct tag"
 url = "/golang-json-struct-tag/"
 
 +++
