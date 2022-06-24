@@ -61,4 +61,5 @@ pages:
 - content/tech/2022-06-16-a-tour-of-go-package-function-variable.md
 - content/tech/a-tour-of-go-flow-control-statements.md
 - content/tech/golang-json-struct-tag-omitempty.md
+- content/tech/rough-notation.md
 - content/tech/synology-nas-web-service.md
