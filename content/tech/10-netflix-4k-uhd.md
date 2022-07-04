@@ -32,24 +32,29 @@ url = "/netflix-4k-uhd-windows-10/"
 * 계정의 스트리밍 옵션을 '자동' 또는 '고화질' 로 설정
 
 ## 4K 로 재생될 수 있는지 알아보는 방법.
+
 넷플릭스를 켠 다음에, "4k" 라고 검색하면 4K 미디어가 전부 검색된다. 아무거나 하나를 클릭해 'HD' 아이콘이 아닌 'ULTRA HD' 아이콘이 활성화되면 성공!
 
 (그림 필요)
 
 ## 히든 팁 1. 가상 해상도 설정
 
-모니터가 지원하는 것 보다 더 높은 해상도를 GPU 에서 가상으로 지원하는 모드이다. 내장 그래픽 카드에서는 옵션이 있는지 잘 모르겠다. 
+모니터가 지원하는 것 보다 더 높은 해상도를 GPU 에서 가상으로 지원하는 모드이다. 내장 그래픽 카드에서는 옵션이 있는지 잘 모르겠다.
 
 ### NVIDIA
+
 NVIDIA 제어판 (Control Panel) 에서 설정한다.
 
 ### AMD
+
 ..
 
 ### 윈도우에서
+
 ..
 
-## 히든 팁 2. DP 케이블? HDMI 케이블!
-[컴터맨님의 포스트](https://comterman.tistory.com/2200)에서 도움을 받았는데, 나 역시도 DP 케이블에서 가상 해상도를 설정해도 4K 를 볼 수 없었다. HDMI 로 바꿔 끼웠더니 와우! 
+## 히든 팁 2. DP 케이블 > HDMI 케이블!
 
-DP 케이블 버전을 타는 것일지도 모르겠지만.. 참고로 모니터는 Dell 에서 나오는 38인치 WQHD 모니터 ([U3821DW](https://www.dell.com/en-us/work/shop/dell-ultrasharp-38-curved-usb-c-hub-monitor-u3821dw/apd/210-ayle/monitors-monitor-accessories)) 이고 단자는 HDMI 2.0 까지만 지원한다. 테스트에 사용한 케이블은 굴러다니던 닌텐도 스위치 정품 HDMI 케이블을 사용했다. 
+[컴터맨님의 포스트](https://comterman.tistory.com/2200)에서 도움을 받았는데, 나 역시도 DP 케이블에서는 가상 해상도를 설정해도 4K 를 볼 수 없었다. 그런데, 이걸 HDMI 케이블로 바꿔 끼웠더니... 와우!
+
+DP 케이블 버전을 타는 것일지도 모르겠지만.. 참고로 모니터는 Dell 에서 나오는 38인치 WQHD 모니터 ([U3821DW](https://www.dell.com/en-us/work/shop/dell-ultrasharp-38-curved-usb-c-hub-monitor-u3821dw/apd/210-ayle/monitors-monitor-accessories)) 이고 테스트에 사용한 케이블은 굴러다니던 닌텐도 스위치 정품 HDMI 케이블을 사용했다. 혹시나 하는 마음에 시도해 볼 만한 방법 되겠다.
