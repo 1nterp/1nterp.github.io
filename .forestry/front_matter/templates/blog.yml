@@ -60,6 +60,7 @@ pages:
 - content/tech/2022-04-15-vscodevim-wrapping-line.md
 - content/tech/2022-06-16-a-tour-of-go-package-function-variable.md
 - content/tech/a-tour-of-go-flow-control-statements.md
+- content/tech/a-tour-of-go-pointer-struct-array-slice.md
 - content/tech/golang-json-struct-tag-omitempty.md
 - content/tech/rough-notation.md
 - content/tech/synology-nas-web-service.md
