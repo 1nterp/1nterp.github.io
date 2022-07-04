@@ -3,7 +3,6 @@ author = "InterP"
 categories = ["Tech"]
 date = 2022-07-03T17:06:37Z
 description = ""
-draft = true
 image = ""
 tags = ["golang", "tutorial", "programming"]
 title = "A tour of Go: Pointer, Struct, Array, Slice"
