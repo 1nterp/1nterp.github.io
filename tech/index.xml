@@ -1,4 +1,495 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tech 🛠️ on InterP Blog</title><link>https://interp.blog/tech/</link><description>Recent content in Tech 🛠️ on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Fri, 24 Jun 2022 03:01:26 +0000</lastBuildDate><atom:link href="https://interp.blog/tech/index.xml" rel="self" type="application/rss+xml"/><item><title>손글씨 쓰듯 웹 문서 강조하기 - Rough Notation</title><link>https://interp.blog/rough-highlight-js/</link><pubDate>Fri, 24 Jun 2022 03:01:26 +0000</pubDate><guid>https://interp.blog/rough-highlight-js/</guid><description>&lt;img src="https://interp.blog/images/2022-06-24-68747470733a2f2f726f7567686e6f746174696f6e2e636f6d2f696d616765732f736f6369616c2e706e67.png" alt="Featured image of post 손글씨 쓰듯 웹 문서 강조하기 - Rough Notation" />&lt;p>GeekNews 를 보다보니 Atlassian JIRA/Bitbucket 가 너무 구려서 못 써먹겠다는 코멘트를 모아 둔 사이트를 발견했다. (사이트 주소도 비범하게 &lt;a class="link" href="https://ifuckinghatejira.com/" title="https://ifuckinghatejira.com/"
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tech 🛠️ on InterP Blog</title><link>https://interp.blog/tech/</link><description>Recent content in Tech 🛠️ on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Sun, 03 Jul 2022 17:06:37 +0000</lastBuildDate><atom:link href="https://interp.blog/tech/index.xml" rel="self" type="application/rss+xml"/><item><title>A tour of Go: Pointer, Struct, Array, Slice</title><link>https://interp.blog/tour-of-go-pointer-struct-array-slice/</link><pubDate>Sun, 03 Jul 2022 17:06:37 +0000</pubDate><guid>https://interp.blog/tour-of-go-pointer-struct-array-slice/</guid><description>&lt;p>Go 여행 세 번째 시간이다. &lt;a class="link" href="https://interp.blog/tour-of-go-flow-control-stmts/" target="_blank" rel="noopener"
+>지난 시간&lt;/a>에는 flow control statement 에 대해서 알아봤다. 이번에는 Go 언어의 다양한 자료형에 대해 정리해 봤다.&lt;/p>
+&lt;h2 id="a-tour-of-go">A tour of Go&lt;/h2>
+&lt;ul>
+&lt;li>English: &lt;a class="link" href="https://go.dev/tour/" title="https://go.dev/tour/"
+target="_blank" rel="noopener"
+>https://go.dev/tour/&lt;/a>&lt;/li>
+&lt;li>한국어판: &lt;a class="link" href="https://go-tour-ko.appspot.com/" title="https://go-tour-ko.appspot.com/"
+target="_blank" rel="noopener"
+>https://go-tour-ko.appspot.com/&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="pointer">Pointer&lt;/h2>
+&lt;ul>
+&lt;li>C/C++ 처럼, golang 에도 포인터가 있다.&lt;/li>
+&lt;li>NULL 표현은 &lt;code>nil&lt;/code> 이다.&lt;/li>
+&lt;li>그 외엔.. 뭐 C pointer 쓰는 거랑 별로 다를게 없다.&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go"> &lt;span class="kd">func&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">i&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">j&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="mi">42&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2701&lt;/span>
+&lt;span class="nx">p&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">i&lt;/span> &lt;span class="c1">// point to i
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="nx">p&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">// read i through the pointer = 42
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">p&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="mi">21&lt;/span> &lt;span class="c1">// set i through the pointer
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">// see the new value of i = 21
+&lt;/span>&lt;span class="c1">&lt;/span>
+&lt;span class="nx">p&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">j&lt;/span> &lt;span class="c1">// point to j
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">p&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">p&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="mi">37&lt;/span> &lt;span class="c1">// divide j through the pointer
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">j&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">// see the new value of j = 73
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="struct">Struct&lt;/h2>
+&lt;p>C 의 struct 와 동일한, field 들의 모음이다.&lt;/p>
+&lt;p>C 였다면 &lt;code>typedef type struct Vertex { ... } Vertex;&lt;/code> 이라고 typedef 를 곁들여야 하지만, 여기서는 &lt;code>type&lt;/code> 만 써도 된다. 사실상 &lt;code>type&lt;/code> 하나가 위의 &lt;code>typedef ...&lt;/code> 전체를 모두 커버한다.&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>var [변수명] [타입]&lt;/code> 처럼 &lt;code>type [타입명] struct&lt;/code> 인 것을 잘 기억해 두자.&lt;/li>
+&lt;li>struct 형 변수를 초기화할 때는 &lt;code>{ }&lt;/code> 로 써야 한다.&lt;/li>
+&lt;li>각 field 는 &lt;code>.&lt;/code> 을 사용해서 참조할 수 있다.&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go"> &lt;span class="kd">type&lt;/span> &lt;span class="nx">Vertex&lt;/span> &lt;span class="kd">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">X&lt;/span> &lt;span class="kt">int&lt;/span>
+&lt;span class="nx">Y&lt;/span> &lt;span class="kt">int&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="kd">func&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">Vertex&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">})&lt;/span> &lt;span class="c1">// {1, 2} 라고 표시된다.
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="struct-pointer">Struct Pointer&lt;/h3>
+&lt;p>원래 C 같았으면 struct pointer 변수에서 특정 필드를 참조하려면 &lt;code>(*p).X&lt;/code> 이런 식으로, 포인터의 struct 값을 dereference 한 다음에 참조하거나, &lt;code>p-&amp;gt;X&lt;/code> 같은 식으로 &amp;lsquo;포인터 변수&amp;rsquo; 라는 걸 나타내서 참조하는데.. 여기서는 둘 다 귀찮으니까 &lt;code>p&lt;/code> 가 struct pointer 라도 &lt;code>p.X&lt;/code> 로 참조가 가능하게 했다.&lt;/p>
+&lt;pre>&lt;code>func main() {
+v := Vertex{1, 2}
+p := &amp;amp;v
+p.X = 1e9 // 이렇게만 참조하고 값까지 할당하는데, 아무런 문제가 없다.
+fmt.Println(v) // {1000000000 2}
+}
+&lt;/code>&lt;/pre>
+&lt;h3 id="struct-literals">Struct Literals&lt;/h3>
+&lt;p>Struct 형 변수 초기화할 때 취할 수 있는 방법을 소개한다.&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>보통 unnamed list 를 할 것이다. &lt;code>Vertex{1,2}&lt;/code> 처럼&amp;hellip;&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>named list 도 가능한데, &lt;code>[field name]:&lt;/code> 으로 쓴다. function 의 default parameter 와는 달리, 여기선 순서는 상관없다.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>값을 넣지 않으면, 각 필드의 기본값이 들어간다. (여기서는 int 니까 0)&lt;/p>
+&lt;p>var (
+v1 = Vertex{1, 2} // has type Vertex
+v2 = Vertex{X: 1} // Y:0 is implicit
+v3 = Vertex{} // X:0 and Y:0
+p = &amp;amp;Vertex{1, 2} // has type *Vertex
+)&lt;/p>
+&lt;p>func main() {
+fmt.Println(v1, v2, v3, p) // {12} {1 0} {0 0} &amp;amp;{1 2}
+}&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="array">Array&lt;/h2>
+&lt;p>Slice 와는 달리, 사이즈가 고정된다.&lt;/p>
+&lt;ul>
+&lt;li>C 처럼 length 가 뒤에 오지 않고, 앞에 온다.&lt;/li>
+&lt;li>출력하면 struct 와는 달리 꺽쇠 &lt;code>[ ]&lt;/code> 로 출력된다.&lt;/li>
+&lt;li>&lt;strong>하지만 literal 선언은 (slice 와 마찬가지로) &lt;code>{ }&lt;/code> 안에서 원소를 나열해야 한다.&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">a&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="mi">10&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="kt">int&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="slice">Slice&lt;/h2>
+&lt;p>Array 에서 length number 만 지우면, slice 가 된다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">a&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">int&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>array 또는 slice 에서 index range 를 지정할 수 있는데, C array index 를 생각해도 헷갈릴 수 있는 부분이다.
+&lt;ul>
+&lt;li>수학적으로 정확한 range 표현은 &lt;code>[n:m)&lt;/code> 이다. 마지막 인덱스에 해당하는 원소는 &lt;strong>포함이 안 된다&lt;/strong>.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go"> &lt;span class="kd">func&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">primes&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="mi">6&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">7&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">11&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">13&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;span class="kd">var&lt;/span> &lt;span class="nx">s&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">primes&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">4&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="c1">// 3, 5, 7, 11 인가?
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">s&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">// [3 5 7] 만 출력된다.
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>Slice 는 단독으로 쓰이기도 하지만, 보통은 array 의 특정 구간을 나타내기 위해서도 쓰인다. 주의할 점은, Slice 가 바뀌면 연결된 array 도 같이 바뀐다는 것이다 (&amp;hellip;)&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go"> &lt;span class="kd">func&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">names&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="mi">4&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">{&lt;/span> &lt;span class="c1">// 어.. 비틀즈 성님덜?
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="s">&amp;#34;John&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="s">&amp;#34;Paul&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="s">&amp;#34;George&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="s">&amp;#34;Ringo&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">names&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nx">a&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">names&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="c1">// [John Paul]
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">b&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">names&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="c1">// [Paul George]
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nx">b&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s">&amp;#34;XXX&amp;#34;&lt;/span> &lt;span class="c1">// 아니 왜 폴 메카트니 성님을 지워여;;
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">// 폴의 이름이 다 바뀌어 있음.
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">names&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">// 그리고 원래 array 에도 영향이..
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>&lt;code>[n:m]&lt;/code> 으로 구간을 나눌 때 양쪽 end 를 생략할 수도 있고, 둘 다 생략할 수도 있다.
+&lt;ul>
+&lt;li>왼쪽 생략 = 0&lt;/li>
+&lt;li>오른쪽 생략 = 끝까지&lt;/li>
+&lt;li>양쪽 생략 = 그냥 그 array/slice 전체 (&amp;hellip;)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>slice 안에 당연히 struct 를 쓸 수 있다. 그래서 이런 괴상망측한 하지만 자주 보게 될 선언도 있다.&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go"> &lt;span class="c1">// 이런게 가능합니다...
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">//
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">// 이렇게 typed value 를 바로 선언하는 걸 literal 이라고 하는데,
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">// slice 건 struct 건 간에 literal 은 [] 가 아니라 {} 로 해야 한다.
+&lt;/span>&lt;span class="c1">&lt;/span>
+&lt;span class="nx">s&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kd">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">i&lt;/span> &lt;span class="kt">int&lt;/span>
+&lt;span class="nx">b&lt;/span> &lt;span class="kt">bool&lt;/span>
+&lt;span class="p">}{&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="mi">5&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>slice 는 length &lt;code>len()&lt;/code> 과 와 capacity &lt;code>cap()&lt;/code> 을 지원한다.
+&lt;ul>
+&lt;li>&lt;code>len()&lt;/code> : 실제 원소들의 개수&lt;/li>
+&lt;li>&lt;code>cap()&lt;/code> : 하위 array 의 개수 (array 는 fixed-width 라고 했다)
+&lt;ul>
+&lt;li>이게 언제 필요하냐면, slicing 할 수 있는 길이를 가늠할 때 (만약 cap 이 6인데 &lt;code>[:7]&lt;/code> 이렇게 쓰면 에러가 나버린다.&lt;/li>
+&lt;li>중요한 건, underlying array 에서, slice 의 first element 가 가리키는 위치 부터 끝까지의 길이이다 (끝 인덱스는 상관없는게 또 헷갈린다..)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go"> &lt;span class="kd">func&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">s&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">7&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">11&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">13&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;span class="nf">printSlice&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">s&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="c1">// Slice the slice to give it zero length.
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">s&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">s&lt;/span>&lt;span class="p">[:&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="c1">// 끝이 지정되어 있지 않으니 cap 은 6임. length 는 당연히 0이고.
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nf">printSlice&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">s&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="c1">// Extend its length.
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">s&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">s&lt;/span>&lt;span class="p">[:&lt;/span>&lt;span class="mi">5&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="c1">// 0~4 까지니까 length 는 5이고, 역시 끝이 지정되어 있지 않아서 cap 은 6임.
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nf">printSlice&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">s&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="c1">// Drop its first two values.
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">s&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">s&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">:]&lt;/span> &lt;span class="c1">// 마지막 slice 를 또 slicing 하지만, &amp;#39;처음 array&amp;#39; 에서 2번째 element 부터의 array 길이가 cap 이므로
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">// 5,7,11,13 -&amp;gt; 4임. ㄱ-
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">// 그런데 또 length 는 &amp;#39;마지막 slice&amp;#39; 에서의 2번째부터니까 5,7,11 만 있어서 3임 (...)
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nf">printSlice&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">s&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>slice 에 아무 값도 없으면, 그 값은 &lt;code>nil&lt;/code> 과 같다.&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go"> &lt;span class="kd">func&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="kd">var&lt;/span> &lt;span class="nx">s&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">int&lt;/span>
+&lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">s&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">s&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="nb">cap&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">s&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">s&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;nil!&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>&lt;code>make()&lt;/code> 로 slice 를 만들 수 있다. 직접 값을 입력하는게 아니라, 변수를 통해 slice 를 선언할 수 있다는 차이가 있다.
+&lt;ul>
+&lt;li>length, capacity 를 별도로 입력할 수 있는 정도?&lt;/li>
+&lt;li>length 가 0이면 비어 있는데, 그걸 잘라내면 0이 채워진다?? ㄱ-&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go"> &lt;span class="kd">func&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">b&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nb">make&lt;/span>&lt;span class="p">([]&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nf">printSlice&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;b&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nx">c&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="p">[:&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;span class="nf">printSlice&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;c&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">c&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nx">d&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">c&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">5&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;span class="nf">printSlice&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;d&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">d&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="cm">/*
+&lt;/span>&lt;span class="cm"> b len=0 cap=5 []
+&lt;/span>&lt;span class="cm"> c len=2 cap=5 [0 0]
+&lt;/span>&lt;span class="cm"> d len=3 cap=3 [0 0 0]
+&lt;/span>&lt;span class="cm"> */&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>slice 안에 slice 를 담을 수 있음. 이러면 2차원 배열이 됨. 이 때는 &lt;code>[][]string&lt;/code> 처럼 slice type 앞에 slice 를 쓰겠다고 선언하면 됨. (&lt;strong>2차원 배열이 된다&lt;/strong>)
+&lt;ul>
+&lt;li>그리고 각 원소도 slice literal 임을 명시해야 한다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>아래는 2차원 배열 예제 프로그램인데, 주목할 건 for 문이 1개만 쓰였단 거다.
+&lt;ul>
+&lt;li>대신 &lt;code>strings.Join()&lt;/code> 을 써서 내부 원소 (&lt;code>board[i]&lt;/code>) 를 String 으로 만들어 출력했다는 점..&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go"> &lt;span class="kd">func&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="c1">// Create a tic-tac-toe board.
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">board&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="p">[][]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="p">[]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="s">&amp;#34;_&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;_&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;_&amp;#34;&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="p">[]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="s">&amp;#34;_&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;_&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;_&amp;#34;&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="p">[]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="s">&amp;#34;_&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;_&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;_&amp;#34;&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="c1">// The players take turns.
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">board&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">][&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s">&amp;#34;X&amp;#34;&lt;/span>
+&lt;span class="nx">board&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">][&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s">&amp;#34;O&amp;#34;&lt;/span>
+&lt;span class="nx">board&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">][&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s">&amp;#34;X&amp;#34;&lt;/span>
+&lt;span class="nx">board&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">][&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s">&amp;#34;O&amp;#34;&lt;/span>
+&lt;span class="nx">board&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">][&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s">&amp;#34;X&amp;#34;&lt;/span>
+&lt;span class="k">for&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="p">&amp;lt;&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">board&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="nx">i&lt;/span>&lt;span class="o">++&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Printf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;%s\\n&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">strings&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Join&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">board&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="s">&amp;#34; &amp;#34;&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>익히 알겠지만, slice 는 &lt;code>append()&lt;/code> 가 가능하다. 첫 번째 파라메터는 소스 slice, 나머지는 쭉 원소(들) 을/를 입력하면 된다.
+&lt;ul>
+&lt;li>그럼 cap 은 어떻게 되나요? 직접 실험해보자 (&amp;hellip;)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go"> &lt;span class="kd">func&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="kd">var&lt;/span> &lt;span class="nx">s&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">int&lt;/span>
+&lt;span class="nf">printSlice&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">s&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="c1">// append works on nil slices.
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">s&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">s&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nf">printSlice&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">s&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="c1">// The slice grows as needed.
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">s&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">s&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nf">printSlice&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">s&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="c1">// We can add more than one element at a time.
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">s&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">s&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">4&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">// 여기서 재밌는 건 cap 이 5가 아니라 6이 된다는 거다.
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nf">printSlice&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">s&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="cm">/*
+&lt;/span>&lt;span class="cm"> len=0 cap=0 []
+&lt;/span>&lt;span class="cm"> len=1 cap=1 [0]
+&lt;/span>&lt;span class="cm"> len=2 cap=2 [0 1]
+&lt;/span>&lt;span class="cm"> len=5 cap=6 [0 1 2 3 4]
+&lt;/span>&lt;span class="cm"> */&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>마지막 줄이 왜 cap 이 6이 되는지는, go blog 에 있는 &lt;a class="link" href="https://go.dev/blog/slices-intro" target="_blank" rel="noopener"
+>Slices-intro&lt;/a> 를 살펴보자. 특히 ‘&lt;strong>Growing slices (the copy and append functions)&lt;/strong>’ 처음에 make 하는 부분을 보면 된다.&lt;/p>
+&lt;ul>
+&lt;li>Slice 에서의 for 는 &lt;code>for each&lt;/code> 같은 구문을 사용할 수 있다.
+&lt;ul>
+&lt;li>&lt;code>range [slice]&lt;/code> 로 initialize 를 하게 되는데, 리턴되는 게 2개다. 인덱스와 실제 값.&lt;/li>
+&lt;li>※ 인덱스를 안 쓰게 되면 (어차피 compile 에서 에러를 내겠지만) &lt;code>_&lt;/code> 처리해야 한다.&lt;/li>
+&lt;li>value 를 안 쓰려면, value 자리를 &lt;code>_&lt;/code> 로 감싸도 되지만, 단순히 인덱스’만’ 받아도 된다.
+&lt;ul>
+&lt;li>인덱스만 받아서 슬라이스를 인덱스+1 로 참조할 용도로 쓰는.. 뭐 그런?&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go"> &lt;span class="k">for&lt;/span> &lt;span class="nx">idx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">value&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="k">range&lt;/span> &lt;span class="nx">slice_var&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="p">..&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="c1">// 인덱스만 쓰고 싶으면
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">for&lt;/span> &lt;span class="nx">idx&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="k">range&lt;/span> &lt;span class="nx">slice_var&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="p">..&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>손글씨 쓰듯 웹 문서 강조하기 - Rough Notation</title><link>https://interp.blog/rough-highlight-js/</link><pubDate>Fri, 24 Jun 2022 03:01:26 +0000</pubDate><guid>https://interp.blog/rough-highlight-js/</guid><description>&lt;img src="https://interp.blog/images/2022-06-24-68747470733a2f2f726f7567686e6f746174696f6e2e636f6d2f696d616765732f736f6369616c2e706e67.png" alt="Featured image of post 손글씨 쓰듯 웹 문서 강조하기 - Rough Notation" />&lt;p>GeekNews 를 보다보니 Atlassian JIRA/Bitbucket 가 너무 구려서 못 써먹겠다는 코멘트를 모아 둔 사이트를 발견했다. (사이트 주소도 비범하게 &lt;a class="link" href="https://ifuckinghatejira.com/" title="https://ifuckinghatejira.com/"
 target="_blank" rel="noopener"
 >https://ifuckinghatejira.com/&lt;/a> 이다..!)&lt;/p>
 &lt;blockquote>
