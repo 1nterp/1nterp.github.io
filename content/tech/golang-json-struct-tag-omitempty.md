@@ -72,8 +72,8 @@ func main() {
 그 결과는, 뻔하긴 하지만 대괄호만 나올 것이다. (`[]`) 그럼 여기서 `e.Phone` 에 값이 있었다면 어떻게 될까? 이 "010-" 값은 Unmarshalling 을 해도 그대로 남는다.
 
 ```go
-	var e Employee
-	e.Phone = "010-"
+    var e Employee
+    e.Phone = "010-"
     ...
 ```
 
