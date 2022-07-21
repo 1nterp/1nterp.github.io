@@ -5,8 +5,8 @@ date = 2022-07-20T18:36:13Z
 description = ""
 image = "/images/2022-07-21-diesel_productv2_superliminal_home_superliminal_bannerthing_png-1280x1420-ddaed0049381d9bca9e5aef4dff725e472475d00-1440x600.jpg"
 tags = ["게임", "퍼즐"]
-title = "Subliminal"
-url = "/subliminal/"
+title = "Superliminal"
+url = "/superliminal/"
 
 +++
 서브리미널 (Subliminal) 은 식역하 (識閾下) 라고도 하는데, 인지하는 영역 밖에서 우리가 인지한 것들을 말한다. 음악을 뒤로 감아 돌리면 나오는 ‘MP3 사주세요’ 라는 백마스킹 (backmasking) 도 그 일종이고, 연구에는 실패했노라 결론났지만 영상에 중간 중간 메시지를 짧은 시간 노출하면 시청자들이 인지하기 전에 그 메시지를 따른다는 이론도 있었다. 그렇다면 식역상 (識閾上) 은 어떤 모습일까? 우리가 인지하고 있다지만 사실은 그게 충분한 정보가 아니라면? 우리가 인지하는 방법이 사실은 틀린 것이라면?
