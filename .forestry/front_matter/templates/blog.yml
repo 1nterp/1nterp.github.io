@@ -37,6 +37,7 @@ fields:
     - Tech
     - Review
     - Essay
+    - Photo
 - name: description
   type: text
   config:
