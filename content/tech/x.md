@@ -3,12 +3,14 @@ author = "InterP"
 categories = ["Tech"]
 date = 2022-07-28T01:39:19Z
 description = "다양한 곳에서 꾸밀 수 있는, 저작권에서 자유로운 예쁜 사진은 대체 어디서 찾을까?"
-image = ""
+image = "/images/2022-07-28-glenn-carstens-peters-loatw2afdyu-unsplash.jpg"
 tags = ["이미지", "웹사이트", "저작권", "스톡"]
 title = "저작권 걱정 없는 무료 이미지 사이트 3개"
 url = "/license-free-image-3-sites/"
 
 +++
+이 포스팅의 대표 이미지는 Unsplash 에서 찾은 [Glenn Carstens-Peters](https://unsplash.com/@glenncarstenspeters?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 의 사진이다. Thanks, Glenn! :wink:
+
 ## Unsplash
 
 {{< figure src="/images/2022-07-28-unsplash.jpg" >}}
