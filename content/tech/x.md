@@ -30,7 +30,7 @@ Unsplash 는 노트 서비스인 [Notion](https://www.notion.so/) 사용자들�
 
 ## Pexels
 
-{{< figure src="/images/2022-07-28-pexels.jpg)" >}}
+{{< figure src="/images/2022-07-28-pexels.jpg" >}}
 
 [https://www.pexels.com/](https://www.pexels.com/ "https://www.pexels.com/")
 
@@ -55,7 +55,7 @@ Unsplash 는 노트 서비스인 [Notion](https://www.notion.so/) 사용자들�
 
 [https://pixabay.com/](https://pixabay.com/ "https://pixabay.com/")
 
-Pexels 에서 사진과 비디오를 제공하는 것에 더해, 여기 Pixabay 에서는 벡터, 일러스트레이터, 음악과 사운드 이펙트까지 내려받을 수 있다. 물론 한국어 인터페이스를 지원한다. 
+Pexels 에서 사진과 비디오를 제공하는 것에 더해, 여기 Pixabay 에서는 벡터, 일러스트레이터, 음악과 사운드 이펙트까지 내려받을 수 있다. 물론 한국어 인터페이스를 지원한다.
 
 ### 저작권
 
