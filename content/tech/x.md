@@ -18,9 +18,9 @@ url = "/license-free-image-3-sites/"
 
 ### 저작권
 
-* {{ emojify ":white_check_mark:" }} 자유롭게 다운로드하고 사용할 수 있음.
-* {{ emojify ":white_check_mark:" }} 상업적 사용이 가능함.
-* {{ emojify ":white_check_mark:" }} 사용에 어떠한 조건도 없지만, 출처 언급을 해 주면 더욱 좋을 것.
+* :white_check_mark: 자유롭게 다운로드하고 사용할 수 있음.
+* :white_check_mark: 상업적 사용이 가능함.
+* ✔️ 사용에 어떠한 조건도 없지만, 출처 언급을 해 주면 더욱 좋을 것.
 * ❌ 사진 수정 없이 재판매 금지
 * ❌ Unsplash 사진들을 엮어 비슷한 서비스를 제공하는 것도 금지
 
