@@ -69,3 +69,4 @@ pages:
 - content/tech/golang-json-struct-tag-omitempty.md
 - content/tech/rough-notation.md
 - content/tech/synology-nas-web-service.md
+- content/tech/x.md
