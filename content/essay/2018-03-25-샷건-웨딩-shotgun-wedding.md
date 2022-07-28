@@ -2,10 +2,13 @@
 title: 샷건 웨딩 (Shotgun Wedding)
 author: InterP
 type: post
-date: 2018-03-25 06:14
+date: 2018-03-25T06:14:00+09:00
 url: "/shotgun-wedding/"
-categories:
-- Essay
+categories: []
+tags: []
+description: ''
+image: ''
+draft: true
 
 ---
 행렬 미분학 (differential matrix calculus) 에 대한 문서를 읽다가 이런 글귀를 발견했다.
