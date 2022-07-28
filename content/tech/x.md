@@ -26,6 +26,8 @@ Unsplash 는 노트 서비스인 [Notion](https://www.notion.so/) 사용자들�
 
 자세한 내용은 [https://unsplash.com/license](https://unsplash.com/license "https://unsplash.com/license") 를 참고한다.
 
+{{< adsense1 >}}
+
 ## Pexels
 
 {{< figure src="/images/2022-07-28-pexels.jpg)" >}}
