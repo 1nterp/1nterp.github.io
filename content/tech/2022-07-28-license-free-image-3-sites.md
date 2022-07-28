@@ -9,7 +9,7 @@ title = "저작권 걱정 없는 무료 이미지 사이트 3개"
 url = "/license-free-image-3-sites/"
 
 +++
-이 포스팅의 대표 이미지는 Unsplash 에서 찾은 [Glenn Carstens-Peters](https://unsplash.com/@glenncarstenspeters?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 의 사진이다. Thanks, Glenn! :wink:
+{{< callout text="이 포스팅의 대표 이미지는 Unsplash 에서 찾은 [Glenn Carstens-Peters](https://unsplash.com/@glenncarstenspeters?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 의 사진이다. Thanks, Glenn!" emoji=":wink:" >}}
 
 ## Unsplash
 

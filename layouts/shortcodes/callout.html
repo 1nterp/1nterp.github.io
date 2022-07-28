@@ -3,6 +3,6 @@
         {{ default ":bulb:" (.Get "emoji") | emojify }}
     </div>
     <div>
-        {{ .Get "text" }}
+        {{ .Get "text" | markdownify }}
     </div>
 </div>
