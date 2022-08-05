@@ -1,6 +1,6 @@
 +++
 author = "InterP"
-categories = ["Review"]
+categories = ["Review", "Essay"]
 date = 2022-08-04T18:09:24Z
 description = ""
 image = ""
