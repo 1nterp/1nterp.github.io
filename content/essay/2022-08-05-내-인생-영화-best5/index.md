@@ -2,7 +2,7 @@
 author = "InterP"
 categories = ["Review", "Essay"]
 date = 2022-08-04T18:09:24Z
-description = ""
+description = "예술성, 대중성 다 제끼고 내가 제일 즐겨본 영화는?"
 image = ""
 tags = ["영화", "베스트5", "타짜"]
 title = "내 인생 영화 BEST 5"
