@@ -3,6 +3,7 @@ author = "InterP"
 categories = ["Tech"]
 date = 2022-06-24T03:01:26Z
 description = "웹 페이지를 읽어내려가며 표시하는 듯한 강조 효과를 적용해 보자"
+draft = true
 image = "/images/2022-06-24-68747470733a2f2f726f7567686e6f746174696f6e2e636f6d2f696d616765732f736f6369616c2e706e67.png"
 tags = ["highlight", "js"]
 title = "손글씨 쓰듯 웹 문서 강조하기 - Rough Notation"
