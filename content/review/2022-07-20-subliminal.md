@@ -3,6 +3,7 @@ author = "InterP"
 categories = ["Review"]
 date = 2022-07-20T18:36:13Z
 description = "관점에 대한 새로운 내러티브를 포함한 1인칭 퍼즐 게임"
+draft = true
 image = "/images/2022-07-21-diesel_productv2_superliminal_home_superliminal_bannerthing_png-1280x1420-ddaed0049381d9bca9e5aef4dff725e472475d00-1440x600.jpg"
 tags = ["게임", "퍼즐"]
 title = "Superliminal"
