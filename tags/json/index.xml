@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>JSON on InterP Blog</title><link>https://interp.blog/tags/json/</link><description>Recent content in JSON on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Tue, 21 Jun 2022 16:19:07 +0000</lastBuildDate><atom:link href="https://interp.blog/tags/json/index.xml" rel="self" type="application/rss+xml"/><item><title>Golang JSON struct tag: omitempty</title><link>https://interp.blog/golang-json-struct-tag/</link><pubDate>Tue, 21 Jun 2022 16:19:07 +0000</pubDate><guid>https://interp.blog/golang-json-struct-tag/</guid><description>&lt;h2 id="태그">태그?&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>JSON on InterP Blog</title><link>https://1nterp.github.io/tags/json/</link><description>Recent content in JSON on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Tue, 21 Jun 2022 16:19:07 +0000</lastBuildDate><atom:link href="https://1nterp.github.io/tags/json/index.xml" rel="self" type="application/rss+xml"/><item><title>Golang JSON struct tag: omitempty</title><link>https://1nterp.github.io/golang-json-struct-tag/</link><pubDate>Tue, 21 Jun 2022 16:19:07 +0000</pubDate><guid>https://1nterp.github.io/golang-json-struct-tag/</guid><description>&lt;h2 id="태그">태그?&lt;/h2>
 &lt;p>Go 언어의 &lt;code>struct&lt;/code> 타입에는 각 필드마다 태그를 붙일 수 있다. (struct tag 라고도 불린다) 이렇게 아무렇게나 태그를 붙여둘 수 있다. 물론 다른 함수나 패키지에서 이런 태그를 파싱해서 다룰 수 있어야 하겠지만.&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -39,7 +39,7 @@
 &lt;p>&lt;strong>결론만 말하면, 이 옵션은 Marshalling 할 때만 효과가 있다.&lt;/strong> &lt;a class="link" href="https://go.dev/play/p/EhzLmox7CYN" target="_blank" rel="noopener"
 >Go Playground Link&lt;/a> 에 아래 예제 코드를 넣어뒀으니, 직접 실행해보고 확인해보는 것을 추천한다.&lt;/p>
 &lt;h3 id="값이-비어있다">값이 비어있다?&lt;/h3>
-&lt;p>Go 언어의 자료형 기본값이 들어가 있으면 값이 비어 있다고 간주한다. 이 부분은 이전 포스팅인 &lt;a class="link" href="https://interp.blog/tour-of-go-package-function-variable/" >Go Tour 문서&lt;/a>에 더욱 자세한 내용이 들어있다.&lt;/p>
+&lt;p>Go 언어의 자료형 기본값이 들어가 있으면 값이 비어 있다고 간주한다. 이 부분은 이전 포스팅인 &lt;a class="link" href="https://1nterp.github.io/tour-of-go-package-function-variable/" >Go Tour 문서&lt;/a>에 더욱 자세한 내용이 들어있다.&lt;/p>
 &lt;ul>
 &lt;li>실수형 = 0&lt;/li>
 &lt;li>문자형 = &amp;quot;&amp;quot;&lt;/li>

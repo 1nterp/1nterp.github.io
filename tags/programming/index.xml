@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>programming on InterP Blog</title><link>https://interp.blog/tags/programming/</link><description>Recent content in programming on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Sun, 03 Jul 2022 17:06:37 +0000</lastBuildDate><atom:link href="https://interp.blog/tags/programming/index.xml" rel="self" type="application/rss+xml"/><item><title>A tour of Go: Pointer, Struct, Array, Slice</title><link>https://interp.blog/tour-of-go-pointer-struct-array-slice/</link><pubDate>Sun, 03 Jul 2022 17:06:37 +0000</pubDate><guid>https://interp.blog/tour-of-go-pointer-struct-array-slice/</guid><description>&lt;p>Go 여행 세 번째 시간이다. &lt;a class="link" href="https://interp.blog/tour-of-go-flow-control-stmts/" target="_blank" rel="noopener"
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>programming on InterP Blog</title><link>https://1nterp.github.io/tags/programming/</link><description>Recent content in programming on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Sun, 03 Jul 2022 17:06:37 +0000</lastBuildDate><atom:link href="https://1nterp.github.io/tags/programming/index.xml" rel="self" type="application/rss+xml"/><item><title>A tour of Go: Pointer, Struct, Array, Slice</title><link>https://1nterp.github.io/tour-of-go-pointer-struct-array-slice/</link><pubDate>Sun, 03 Jul 2022 17:06:37 +0000</pubDate><guid>https://1nterp.github.io/tour-of-go-pointer-struct-array-slice/</guid><description>&lt;p>Go 여행 세 번째 시간이다. &lt;a class="link" href="https://interp.blog/tour-of-go-flow-control-stmts/" target="_blank" rel="noopener"
 >지난 시간&lt;/a>에는 flow control statement 에 대해서 알아봤다. 이번에는 Go 언어의 다양한 자료형에 대해 정리해 봤다.&lt;/p>
 &lt;h2 id="a-tour-of-go">A tour of Go&lt;/h2>
 &lt;ul>
@@ -489,7 +489,7 @@ fmt.Println(v1, v2, v3, p) // {12} {1 0} {0 0} &amp;amp;{1 2}
 &lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">for&lt;/span> &lt;span class="nx">idx&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="k">range&lt;/span> &lt;span class="nx">slice_var&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="p">..&lt;/span> &lt;span class="p">}&lt;/span>
 &lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></description></item><item><title>A tour of Go: Flow control statements</title><link>https://interp.blog/tour-of-go-flow-control-stmts/</link><pubDate>Mon, 20 Jun 2022 02:36:25 +0000</pubDate><guid>https://interp.blog/tour-of-go-flow-control-stmts/</guid><description>&lt;p>&lt;a class="link" href="https://interp.blog/tour-of-go-package-function-variable/" target="_blank" rel="noopener"
+&lt;/div></description></item><item><title>A tour of Go: Flow control statements</title><link>https://1nterp.github.io/tour-of-go-flow-control-stmts/</link><pubDate>Mon, 20 Jun 2022 02:36:25 +0000</pubDate><guid>https://1nterp.github.io/tour-of-go-flow-control-stmts/</guid><description>&lt;p>&lt;a class="link" href="https://interp.blog/tour-of-go-package-function-variable/" target="_blank" rel="noopener"
 >지난 시간&lt;/a>에 이어서, 여기서는 Flow Control Statement 에 대해 정리해 보았다.&lt;/p>
 &lt;h2 id="a-tour-of-go">A tour of Go&lt;/h2>
 &lt;ul>
@@ -761,7 +761,7 @@ sum += sum
 &lt;span class="c1">// 맞춰보자. 0이 먼저 나올까 9가 먼저 나올까?
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></description></item><item><title>A tour of Go: Package, Function, Variable</title><link>https://interp.blog/tour-of-go-package-function-variable/</link><pubDate>Thu, 16 Jun 2022 10:26:18 +0900</pubDate><guid>https://interp.blog/tour-of-go-package-function-variable/</guid><description>&lt;p>A tour of Go 시리즈를 두 번씩 돌아보고, 나름 배운 것들을 연이어 적어보려 한다. 첫 번째로 패키지, 변수, 함수 정의와 사용에 대한 내용이다. 이 문서는 번역이 아니라서, 개인적으로 중요했던 부분만 있을 수도 있고 투어 예제에서 다루지 않은 부분이 섞여있을 수 있으니 편하게 봐주셨으면 한다. &lt;del>화면 안 넘기고 스크롤만으로 볼 수 있다는 장점 정도?&lt;/del>&lt;/p>
+&lt;/div></description></item><item><title>A tour of Go: Package, Function, Variable</title><link>https://1nterp.github.io/tour-of-go-package-function-variable/</link><pubDate>Thu, 16 Jun 2022 10:26:18 +0900</pubDate><guid>https://1nterp.github.io/tour-of-go-package-function-variable/</guid><description>&lt;p>A tour of Go 시리즈를 두 번씩 돌아보고, 나름 배운 것들을 연이어 적어보려 한다. 첫 번째로 패키지, 변수, 함수 정의와 사용에 대한 내용이다. 이 문서는 번역이 아니라서, 개인적으로 중요했던 부분만 있을 수도 있고 투어 예제에서 다루지 않은 부분이 섞여있을 수 있으니 편하게 봐주셨으면 한다. &lt;del>화면 안 넘기고 스크롤만으로 볼 수 있다는 장점 정도?&lt;/del>&lt;/p>
 &lt;h2 id="a-tour-of-go">A tour of Go&lt;/h2>
 &lt;p>Go 언어의 튜토리얼 페이지라고 보면 된다. 다양한 언어로 번역되어 있으니 영어 원문으로 봐도 좋고 한국어판으로 봐도 좋다.&lt;/p>
 &lt;ul>
