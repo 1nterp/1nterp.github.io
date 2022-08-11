@@ -1,16 +1,17 @@
 ---
 title: CKA 시험 후기
-date: '2022-01-18 22:38:42'
-url: /cka-exam-review/
+date: 2022-01-18 22:38:42
+url: "/cka-exam-review/"
 tags:
-    - CKA
-    - kubernetes
-    - exam
+- CKA
+- kubernetes
+- exam
 categories:
-    - Tech
+- Tech
 image: "/images/featured/cka-exam.jpg"
----
+draft: true
 
+---
 CKA (Certified K8s Administrator) 를 2021년 12월 말에 합격 통지를 받았다. 합격을 받고 나서 정리한 팁을 공유하고자 한다.
 
 # 강의
