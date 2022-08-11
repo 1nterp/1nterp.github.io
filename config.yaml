@@ -1,4 +1,4 @@
-baseurl: https://interp.blog/
+baseurl: https://1nterp.github.io/
 languageCode: ko-kr
 theme: stack
 paginate: 6
@@ -18,7 +18,7 @@ languages:
 # disqusShortname: hugo-theme-stack
 
 # GA Tracking ID
-googleAnalytics: UA-126809878-1
+# googleAnalytics: UA-126809878-1
 
 # Theme i18n support
 # Available values: ar, bn, ca, de, el, en, es, fr, hu, id, it, ja, ko, nl, pt-br, th, uk, zh-cn, zh-hk, zh-tw
