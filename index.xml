@@ -2900,24 +2900,4 @@ tmpfs 79G 224K 79G 1% /dev/shm
 &lt;p>sleep 자체가 프로세스를 아예 멈추게 하니까 pthread_yield 를 통해서 나는 잠시 빠져주는 상태로 만드는 거였다. 코드를 보면서 감으로만 &amp;lsquo;아 저건 sleep() 같진 않지만 뭔가 이럴 때 쓰는거야&amp;rsquo; 라고만 어렴풋이 알고 있었는데, 무엇이든 확실히 알아야 한다.&lt;/p></description></item><item><title>다시, 한 걸음</title><link>https://1nterp.github.io/%EB%8B%A4%EC%8B%9C-%ED%95%9C-%EA%B1%B8%EC%9D%8C/</link><pubDate>Sun, 13 Aug 2017 22:29:22 +0000</pubDate><guid>https://1nterp.github.io/%EB%8B%A4%EC%8B%9C-%ED%95%9C-%EA%B1%B8%EC%9D%8C/</guid><description>&lt;p>위기가 찾아왔을 때는, 위기를 만든 사람들에게 원망하고 싶다. 그렇게 원망 해 봐야 위기가 물러가진 않지만 말이다. 그래서 위기를 어떻게 해결할 것인지를 고민해야 한다**.** 그게 오히려 스트레스를 덜 받는다.&lt;/p>
 &lt;p>사람에 대해 스트레스를 계속 받고 심지어는 사람을 잃어버리면서, 나 자신에 대한 원망이 점점 심해지고 있다는 걸 느꼈다. 왜 그때 그랬을까, 그러지 않았다면 좋았을텐데. 그렇게 해 봐야 떠났던 사람을 다시 붙잡을 수는 없지만 말이다. 미련이나 후회가 아닌, 해결해야 할 과제로 여기기로 했다. 그러면서 조금 마음이 편해졌다.&lt;/p>
 &lt;p>원망하고 후회하는 것이 오히려 더 쉽다. 해결은 답을 찾고 시도해야 하는 비싸고 귀찮은 작업이라고 생각하기 때문이다. 하지만 멀리 보면, 해결을 하기 위한 노력이 필요하다. 또 원망하고 후회하지 않으려면.&lt;/p>
-&lt;p>여전히 화내고 우울해 하며 제자리에 서 있는 나를 방치하지 않으려면 말이다.&lt;/p></description></item><item><title>키보드 키 바운싱 문제 해결</title><link>https://1nterp.github.io/keyboard-key-bouncing-problem/</link><pubDate>Mon, 20 Mar 2017 02:25:04 +0000</pubDate><guid>https://1nterp.github.io/keyboard-key-bouncing-problem/</guid><description>&lt;img src="https://1nterp.github.io/images/featured/keyboard-key-bounce.jpg" alt="Featured image of post 키보드 키 바운싱 문제 해결" />&lt;p>회사에서 기계식 키보드를 아무거나 사라고 해서 &lt;a class="link" href="http://prod.danawa.com/info/?pcode=1458635" target="_blank" rel="noopener"
->i-rocks의 KR-6251&lt;/a> 을 사서 5년 째 쓰고 있다. 2년 전부터 &lt;strong>몇몇 키들은 한 번 누를 때마다 두 번 입력&lt;/strong>되는 느낌을 받았고, 쓰면서 이 현상이 더욱 가중되어 성가신 느낌을 지우기 힘들었다.&lt;/p>
-&lt;p>그런데 이 문제를 어떻게 인터넷에서 검색하지? 감을 통 잡을 수 없으니 &amp;lsquo;그냥 새로운 키보드 하나 사야 하나?&amp;rsquo; 라고 고민하고 있었다. &lt;del>이럴 때만 지름신이 오셔서는, &amp;lsquo;비싼 걸 사서 쓰라&amp;rsquo; 고 말씀하시지&lt;/del> 그러다가 우연찮게 이런 유형의 문제를 &amp;lsquo;키 바운스&amp;rsquo; 라고 부르는 몇몇 문서를 발견할 수 있었다.&lt;/p>
-&lt;h2 id="키-바운스">키 바운스?&lt;/h2>
-&lt;p>&lt;del>그대가 돌아서면~♪&lt;/del> 말 그대로, 키가 제멋대로 춤을 춰서 한번 더 스위치와 부비는(!) 현상을 말한다.&lt;/p>
-&lt;p>무접점 키보드가 아닌 이상, 일반 키보드인 멤브레인을 포함, 스위치를 사용하는 기계식 키보드들은 발생할 수도 있는 증상이다. &lt;strong>분명히 나는 한 번 키를 눌렀다 뗐는데, 내부에서 진동으로 인해 스위치가 한번 더 (혹은 여러 번) 눌리는 현상&lt;/strong>이라고 이해하면 되겠다. 다른 말로 채터링(Chattering) 이라고도 부르더라.&lt;/p>
-&lt;h2 id="해결시도-1-청소">해결시도 (1) 청소&lt;/h2>
-&lt;p>원인은 여러 가지가 있을 수 있지만, 원칙적으로는 스위치 고장이라고 생각해야 하지 않을까. 이럴 땔, 스위치 교체를 해야 한다. 혹시 키캡-스위치 접촉 불량으로 미세하게 덜렁거릴 수도 있으니 청소를 한번 해봤는데… 청소를 다 하고도 똑같은 문제가 자주 발생하는 걸 보면 그렇게 효과가 크진 않은 것 같다.&lt;/p>
-&lt;h2 id="해결시도-2-바이오스-업데이트">해결시도 (2) 바이오스 업데이트&lt;/h2>
-&lt;p>바이오스 업데이트로 키 입력에 대한 패치를 하는 방법도 있다는데, 잘 모르겠으니 제조사에서 추가 정보가 업데이트 되었는지 확인해 보는 방법도 있겠다. (당연히 내 키보드는 이미 단종이라 그런 사후지원을 기대할 수 없었다.)&lt;/p>
-&lt;h2 id="해결시도-3-os-설정으로-문제-억제시키기">해결시도 (3) OS 설정으로 문제 억제시키기&lt;/h2>
-&lt;p>그럼 스위치를 교체하거나 키보드를 버려야 할까? 잠깐 그 잔인한 생각을 집어넣고 타협할 방법을 알려드리도록 하겠다.&lt;/p>
-&lt;p>나 역시 소프트웨어적으로 이런 반복적인 키 입력을 막을 방법이 분명히 있을거라고 생각했는데, 다양한 해결책이 있었다. 모든 OS는 &amp;lsquo;사용자 접근성&amp;rsquo;이란 메뉴가 존재한다. 화면 글씨를 일부러 키우거나 소리를 읽어주거나 하는 그런 기능들이다. 여기서 제공하는 것들 중 &amp;lsquo;탄력 키&amp;rsquo; 기능을 사용한다.&lt;/p>
-&lt;h3 id="windows">Windows&lt;/h3>
-&lt;p>7 이후의 버전이라면, &amp;lsquo;제어판&amp;rsquo; 의 &amp;lsquo;접근성 센터&amp;rsquo; 에서 &amp;lsquo;키보드를 사용하기 쉽게 설정&amp;rsquo; 항목으로 들어간다. 여기에서 &amp;lsquo;필터 키 켜기&amp;rsquo; 를 적용하면 된다. 그러나 애석하게도 필터 키의 바운스 타임을 뜻하는 &amp;lsquo;탄력 키 입력 인식 시간&amp;rsquo; 간격을 0.5초 이하로 조정할 수 없다. 이 말은, 키를 반복해서 탁탁 칠 때 0.5초보다 빠른 간격으로 치면 모두 무시된다는 소리고, 생각보다 빠른 입력을 할 때 (특히 백스페이스를 반복해서 누를 때) 복장이 터질 가능성이 높다. 결국 이걸 낮추려면 레지스트리를 건드려야 하는데, [이 포스팅][2]을 참고해서 조정이 가능하다.&lt;/p>
-&lt;h3 id="linux-ubuntu">Linux (Ubuntu)&lt;/h3>
-&lt;p>나 같은 리눅스 사용자는 그럼 어떡해야 할까. Ubuntu 기준으로 설명하면, &amp;lsquo;설정&amp;rsquo; – &amp;lsquo;접근성&amp;rsquo; – &amp;lsquo;자판 입력&amp;rsquo; 에 있는 &amp;lsquo;탄력 키&amp;rsquo; 를 켜서 허용 지연 시간 바(Bar)를 거의 왼쪽으로 갖다 두면 윈도우의 최소 단위인 0.5초보다 간격이 낮아져서, 반복 입력을 해도 무시되는 경우가 거의 없는데다가 키 바운싱이 완화되는 것을 확인할 수 있다.&lt;/p>
-&lt;h2 id="결론">결론&lt;/h2>
-&lt;p>&lt;a class="link" href="http://m.blog.naver.com/dondek77/140178945548" target="_blank" rel="noopener"
->위 네이버 포스팅&lt;/a>에도 언급되지만, 100% 해결책은 아니다. &amp;lsquo;다&amp;rsquo; 를 치는데 &amp;lsquo;ㄷ&amp;rsquo; 키가 바운싱이 되는 사이에 &amp;lsquo;ㅏ&amp;rsquo;가 입력되면 OS 입장에서는 &amp;lsquo;ㄷㄷ&amp;rsquo; 같은 중복 키로 인식하지 않으므로 &amp;lsquo;닫&amp;rsquo; 같은 문자가 입력되기 때문이다. 이런 문제는 지금 포스팅을 쓰는데도 발생하고 있다 (이런!)&lt;/p>
-&lt;p>결국 지름신을 모셔야 할 것 같지만… 어느 정도 완화할 수는 있겠다 싶어서 작성한다.&lt;/p></description></item><item><title>Search</title><link>https://1nterp.github.io/search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://1nterp.github.io/search/</guid><description/></item></channel></rss>
+&lt;p>여전히 화내고 우울해 하며 제자리에 서 있는 나를 방치하지 않으려면 말이다.&lt;/p></description></item><item><title>Search</title><link>https://1nterp.github.io/search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://1nterp.github.io/search/</guid><description/></item></channel></rss>
