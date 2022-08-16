@@ -1179,60 +1179,7 @@ complex64 complex128 // 복소수임.. e.g. 3+2i
 &lt;/div>
 &lt;/div>&lt;p>이렇게 선언하면 Big 은 &lt;code>int&lt;/code> 형이 아니라 &lt;code>float64&lt;/code> 쯤 될 것이다. 이 말은 &lt;code>Big&lt;/code> 을 int 처럼 쓰려고 들면 type conversion error 를 만날 수 있다는 것이다.&lt;/p>
 &lt;/li>
-&lt;/ul></description></item><item><title>Oh my zsh! 에서 kubectl 자동 완성 하기</title><link>https://1nterp.github.io/oh-my-zsh-kubectl-autocomplete/</link><pubDate>Mon, 16 May 2022 01:57:00 +0900</pubDate><guid>https://1nterp.github.io/oh-my-zsh-kubectl-autocomplete/</guid><description>&lt;p>&amp;lsquo;&lt;a class="link" href="https://kubernetes.io/ko/docs/tasks/tools/included/optional-kubectl-configs-zsh/" target="_blank" rel="noopener"
->zsh 자동 완성&lt;/a>&amp;rsquo; 이라는 Kubernetes 공식 문서에 따르면, 다음 명령으로 자동 완성이 가능하다고 한다.&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="nb">source&lt;/span> &amp;lt;&lt;span class="o">(&lt;/span>kubectl completion zsh&lt;span class="o">)&lt;/span>
-&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>그런데 Oh my zsh! 에서는 몇가지 더 설정을 해야 한다.&lt;/p>
-&lt;ul>
-&lt;li>&lt;code>$HOME/.zshrc&lt;/code> 를 열어서, plugins 에 다음을 추가한다.
-&lt;ul>
-&lt;li>kubectl&lt;/li>
-&lt;li>kube-ps1&lt;/li>
-&lt;li>zsh-syntax-highlighting&lt;/li>
-&lt;li>zsh-autosuggestions&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">plugins=(git kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions)
-&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;ul>
-&lt;li>kubectl, kube-ps1 은 이미 설치되어 있을텐데, 아래 2개는 별도 설치가 필요할 수 있다.&lt;/li>
-&lt;/ul>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="c1"># zsh-syntax-highlighting&lt;/span>
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git &lt;span class="si">${&lt;/span>&lt;span class="nv">ZSH_CUSTOM&lt;/span>&lt;span class="k">:-&lt;/span>&lt;span class="p">~/.oh-my-zsh/custom&lt;/span>&lt;span class="si">}&lt;/span>/plugins/zsh-syntax-highlighting
-&lt;span class="c1"># zsh-autosuggestions&lt;/span>
-git clone https://github.com/zsh-users/zsh-autosuggestions &lt;span class="si">${&lt;/span>&lt;span class="nv">ZSH_CUSTOM&lt;/span>&lt;span class="k">:-&lt;/span>&lt;span class="p">~/.oh-my-zsh/custom&lt;/span>&lt;span class="si">}&lt;/span>/plugins/zsh-autosuggestions
-&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>참고로 Auto-suggestion 되는 내용이 하얀색으로 나와서 타이핑하거나 알아보기가 힘들다면, 해당 내용만 다른 색으로 바꿔줄 수 있다.&lt;/p>
-&lt;ul>
-&lt;li>&lt;code>export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=(number)'&lt;/code> 라고 쓰면 된다.&lt;/li>
-&lt;li>나는 &lt;code>(number)&lt;/code> 자리에 &lt;code>243&lt;/code> 을 사용했다. 연한 회색이다.&lt;/li>
-&lt;li>자세한 color 값은 &lt;a class="link" href="https://upload.wikimedia.org/wikipedia/commons/1/15/Xterm_256color_chart.svg" target="_blank" rel="noopener"
->여기&lt;/a>를 참고하자. 물론 사용하려면 &lt;code>$TERM&lt;/code> 값이 &lt;strong>xterm-256color&lt;/strong> 여야 한다.&lt;/li>
-&lt;/ul>
-&lt;p>그리고 다시 로그인하면, 탭키(&lt;code>&amp;lt;tab&amp;gt;&lt;/code>) 를 통해 자동 완성이 잘 되는 것을 확인할 수 있다.&lt;/p></description></item><item><title>VSCodeVim: 분리된 줄 위/아래로 커서 이동하기</title><link>https://1nterp.github.io/vim-wrapping-line-cursor-up-down/</link><pubDate>Fri, 15 Apr 2022 02:45:00 +0900</pubDate><guid>https://1nterp.github.io/vim-wrapping-line-cursor-up-down/</guid><description>&lt;p>VSCode 에서도 Vim 환경을 쓰고 싶어서 &lt;a class="link" href="https://github.com/VSCodeVim/Vim" target="_blank" rel="noopener"
+&lt;/ul></description></item><item><title>VSCodeVim: 분리된 줄 위/아래로 커서 이동하기</title><link>https://1nterp.github.io/vim-wrapping-line-cursor-up-down/</link><pubDate>Fri, 15 Apr 2022 02:45:00 +0900</pubDate><guid>https://1nterp.github.io/vim-wrapping-line-cursor-up-down/</guid><description>&lt;p>VSCode 에서도 Vim 환경을 쓰고 싶어서 &lt;a class="link" href="https://github.com/VSCodeVim/Vim" target="_blank" rel="noopener"
 >VSCodeVim&lt;/a> 을 설치해서 쓰고 있다.&lt;/p>
 &lt;p>&lt;img src="https://1nterp.github.io/images/2022-04-15-vscodevim.png"
 loading="lazy"
