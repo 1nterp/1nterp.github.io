@@ -1474,16 +1474,7 @@ loading="lazy"
 = check_box_tag &amp;#39;merge_request[squash]&amp;#39;, &amp;#39;1&amp;#39;, issuable.squash, class: &amp;#39;form-check-input&amp;#39;&amp;lt;span style=&amp;#34;color: #ff0000;&amp;#34;&amp;gt;, checked: &amp;#39;checked&amp;#39;&amp;lt;/span&amp;gt;```
 &lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>다 했다면 &lt;code>gitlab-ctl reconfigure &amp;amp;&amp;amp; gitlab-ctl restart&lt;/code> 로 Gitlab 서버를 재시작한다.&lt;/p></description></item><item><title>Powerpoint 에서 방향키 이동이 너무 느릴 때</title><link>https://1nterp.github.io/powerpoint-shape-move-faster/</link><pubDate>Sun, 12 Aug 2018 06:53:39 +0000</pubDate><guid>https://1nterp.github.io/powerpoint-shape-move-faster/</guid><description>&lt;p>객체를 움직일 때 방향키로 이동하면, 예전에는 한 칸씩 움직이는 것 처럼 느껴졌는데 최근에 들어서는 정말 1픽셀 만큼만 이동해서 귀찮음을 유발하곤 한다. 이렇게 답답하게 움직이는 걸 되돌리기 위한 해결 방법이다. 별 건 없지만&amp;hellip;&lt;/p>
-&lt;p>&lt;img src="https://1nterp.github.io/images/2018-02-12-powerpoint-shape-move-faster/screen1.jpg"
-loading="lazy"
->&lt;/p>
-&lt;ol>
-&lt;li>보기 탭으로&lt;/li>
-&lt;li>표시 항목에서 &amp;lsquo;확장 아이콘&amp;rsquo;이 아주 작게 보인다.&lt;/li>
-&lt;li>&amp;lsquo;눈금 및 안내선&amp;rsquo; 이란 제목의 창이 뜨며, 여기서 &amp;lsquo;개체를 눈금에 맞춰 이동&amp;rsquo; 을 클릭한다.&lt;/li>
-&lt;/ol>
-&lt;p>끝이다. 참고로 개체 이동 간격을 제어하려면 (3) 번에서 눈금 간격을 조정하면 된다!&lt;/p></description></item><item><title>Atomic Operation 으로 하는 동시성 제어</title><link>https://1nterp.github.io/atomic-operation-%EC%9C%BC%EB%A1%9C-%ED%95%98%EB%8A%94-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%A0%9C%EC%96%B4/</link><pubDate>Tue, 24 Apr 2018 02:31:38 +0000</pubDate><guid>https://1nterp.github.io/atomic-operation-%EC%9C%BC%EB%A1%9C-%ED%95%98%EB%8A%94-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%A0%9C%EC%96%B4/</guid><description>&lt;h2 id="test-and-set-tas">Test-And-Set (TAS)&lt;/h2>
+&lt;/div>&lt;p>다 했다면 &lt;code>gitlab-ctl reconfigure &amp;amp;&amp;amp; gitlab-ctl restart&lt;/code> 로 Gitlab 서버를 재시작한다.&lt;/p></description></item><item><title>Atomic Operation 으로 하는 동시성 제어</title><link>https://1nterp.github.io/atomic-operation-%EC%9C%BC%EB%A1%9C-%ED%95%98%EB%8A%94-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%A0%9C%EC%96%B4/</link><pubDate>Tue, 24 Apr 2018 02:31:38 +0000</pubDate><guid>https://1nterp.github.io/atomic-operation-%EC%9C%BC%EB%A1%9C-%ED%95%98%EB%8A%94-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%A0%9C%EC%96%B4/</guid><description>&lt;h2 id="test-and-set-tas">Test-And-Set (TAS)&lt;/h2>
 &lt;p>TAS 를 이용해서 간단한 동시성 제어를 할 수 있다. testAndSet 이라는 function 을 가지고 아래의 &lt;code>do...while&lt;/code> 문을 쓰레드 A, B 에서 동시에 호출한다고 해 보자. 이 때 lock 은 같은 변수이다.&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
