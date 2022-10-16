@@ -14,7 +14,7 @@ loading="lazy"
 loading="lazy"
 >&lt;/p>
 &lt;blockquote>
-&lt;p>만약에 여러분이 윈도우 10 빌드 1807 이하 버전의 윈도우 OS 라면… 조금 귀찮아진다. &lt;a class="link" href="%22https://code.visualstudio.com/docs/remote/troubleshooting#_installing-a-supported-ssh-client%22" >이 문서&lt;/a> 에 따르면, &lt;a class="link" href="%22https://git-scm.com/download/win%22" >Git for windows&lt;/a> 를 설치하면서 옵션에서 &lt;!-- raw HTML omitted -->Use Git and optional Unix tools from the Command Prompt &lt;!-- raw HTML omitted -->를 선택하면 된다.&lt;br>
+&lt;p>만약에 여러분이 윈도우 10 빌드 1807 이하 버전의 윈도우 OS 라면… 조금 귀찮아진다. &lt;a class="link" href="%22https://code.visualstudio.com/docs/remote/troubleshooting#_installing-a-supported-ssh-client%22" >이 문서&lt;/a> 에 따르면, &lt;a class="link" href="%22https://git-scm.com/download/win%22" >Git for windows&lt;/a> 를 설치하면서 옵션에서 &lt;strong>Use Git and optional Unix tools from the Command Prompt &lt;/strong>를 선택하면 된다.&lt;br>
 그러면, 같이 설치된 mingw 내부의 SSH 를 클라이언트로 사용한다고 한다. 물론 난 테스트해 보진 않았다! 권한 문제 등등으로 생각보다 꼬일 가능성이 있으므로, 조심해야 한다.&lt;/p>
 &lt;/blockquote>
 &lt;p>이제 ssh key 를 만들어야 한다. 비대칭 키에 대한 지식이 없다면 &lt;a class="link" href="https://arsviator.blogspot.com/2015/04/ssh-ssh-key.html" target="_blank" rel="noopener"
@@ -37,7 +37,9 @@ loading="lazy"
 &lt;h2 id="visual-studio-code-준비">Visual Studio Code 준비&lt;/h2>
 &lt;p>우여곡절 끝에 준비를 다 했으면, Visual Studio Code 를 열어서 &lt;a class="link" href="https://aka.ms/vscode-remote/download/extension" target="_blank" rel="noopener"
 >Remote Deployment&lt;/a> 를 설치하자. 그 다음, 명령 팔레트를 열어서 (Shift + Ctrl + P) &lt;strong>Remote-SSH: Open Configuration File…&lt;/strong> 을 선택한다. 설정 파일 경로는 수정하거나 기존에 잡아주는 경로를 쓰건 상관없다.&lt;/p>
-&lt;!-- raw HTML omitted -->
+&lt;p id="KhDFgvb">
+&lt;img class="alignnone size-full wp-image-1524 " src="https://interp.blog/uploads/2019/06/img_5d12fc88e148b.png" alt="" srcset="https://interp.blog/uploads/2019/06/img_5d12fc88e148b.png 622w, https://interp.blog/uploads/2019/06/img_5d12fc88e148b-300x45.png 300w" sizes="(max-width: 622px) 100vw, 622px" />
+&lt;/p>
 &lt;p>예시는 이렇다.&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -94,11 +96,15 @@ interp@192.168.0.30&lt;span class="err">&amp;#39;&lt;/span>s password:
 &lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>오잉? 내 파일이 맞는데 이게 뭘까. Private Key 파일에 마우스 우클릭을 하고 봤더니 여러 사용자가 읽기 권한으로 걸려 있는 것을 확인할 수 있었다. 이건 아니다… 등록된 사용자를 전부 지우고 현재 사용자에게 모든 권한을 준 다음에, 확인을 눌러 권한 변경을 해 준다.&lt;/p>
-&lt;!-- raw HTML omitted -->
+&lt;p id="euLmFtS">
+&lt;img class="alignnone size-full wp-image-1518 " src="https://interp.blog/uploads/2019/06/img_5d11dcea1b41a.png" alt="" srcset="https://interp.blog/uploads/2019/06/img_5d11dcea1b41a.png 421w, https://interp.blog/uploads/2019/06/img_5d11dcea1b41a-218x300.png 218w" sizes="(max-width: 421px) 100vw, 421px" />
+&lt;/p>
 &lt;p>&amp;lsquo;편집&amp;rsquo; 에 가서 등록된 사용자를 지우려고 하면, 상속으로 인해 지울 수 없다는 괴상한 에러가 뜰 것이다. 그러니까 위 화면에서 &amp;lsquo;고급&amp;rsquo; 으로 간 다음, 아래 캡처에 있는 &amp;lsquo;상속 사용 안 함&amp;rsquo; 을 클릭하면 자동으로 지워진다. 그 다음 시도하면, 잘 된다!&lt;/p>
-&lt;!-- raw HTML omitted -->
+&lt;p id="bzFxOJb">
+&lt;img class="alignnone size-full wp-image-1519 " src="https://interp.blog/uploads/2019/06/img_5d11dd707fe99.png" alt="" srcset="https://interp.blog/uploads/2019/06/img_5d11dd707fe99.png 293w, https://interp.blog/uploads/2019/06/img_5d11dd707fe99-216x300.png 216w" sizes="(max-width: 293px) 100vw, 293px" />
+&lt;/p>
 &lt;p>출처 : https://superuser.com/questions/1296024/windows-ssh-permissions-for-private-key-are-too-open&lt;/p></description></item><item><title>X11 on Windows Linux Subsystem</title><link>https://1nterp.github.io/x11-windows-linux-subsystem/</link><pubDate>Wed, 29 Nov 2017 08:32:52 +0000</pubDate><guid>https://1nterp.github.io/x11-windows-linux-subsystem/</guid><description>&lt;p>먼저, Windows 10 에서 지원하는 Linux Subsystem 기능에 대해 이야기한다. 잘 모르겠다면 &lt;a class="link" href="https://msdn.microsoft.com/en-us/commandline/wsl/install-win10" target="_blank" rel="noopener"
->이 글&lt;/a>을 읽고 설치에 도전해 보자. &lt;!-- raw HTML omitted -->&lt;!-- raw HTML omitted -->그런데 글 내용을 보면 이거랑 관련 없다. Babun, Mintty, Git on Bash, Putty 전부 포함이다&lt;!-- raw HTML omitted -->&lt;!-- raw HTML omitted -->&lt;/p>
+>이 글&lt;/a>을 읽고 설치에 도전해 보자. &lt;span style="color: #999999;">&lt;del>그런데 글 내용을 보면 이거랑 관련 없다. Babun, Mintty, Git on Bash, Putty 전부 포함이다&lt;/del>&lt;/span>&lt;/p>
 &lt;ul>
 &lt;li>SSH에 접속한 서버에서 X11 Forwarding 을 받고 싶은 경우를 이야기한다. 단적으로, 접속한 서버에서 파이어폭스 브라우저를 실행하면 내 윈도우 화면에 브라우저 창이 실행되는 거다. 이걸 따로 이야기하고 싶지 않으니 &lt;a class="link" href="https://www.google.co.kr/url?sa=t&amp;amp;rct=j&amp;amp;q=&amp;amp;esrc=s&amp;amp;source=web&amp;amp;cd=1&amp;amp;ved=0ahUKEwj1yoOCrePXAhWCG5QKHeIRCkEQFggkMAA&amp;amp;url=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fxming%2F&amp;amp;usg=AOvVaw2r18vOyEGzisW0WiHH4ksg" target="_blank" rel="noopener"
 >Xming&lt;/a> 이나 &lt;a class="link" href="https://www.google.co.kr/url?sa=t&amp;amp;rct=j&amp;amp;q=&amp;amp;esrc=s&amp;amp;source=web&amp;amp;cd=1&amp;amp;ved=0ahUKEwj-y9aGrePXAhUJoZQKHXKpB2IQFggkMAA&amp;amp;url=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fvcxsrv%2F&amp;amp;usg=AOvVaw2UIxI0S4LFsqeqk9A47MSR" target="_blank" rel="noopener"

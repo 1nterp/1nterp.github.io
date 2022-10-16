@@ -31,7 +31,11 @@ interp@192.168.0.30&lt;span class="err">&amp;#39;&lt;/span>s password:
 &lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>오잉? 내 파일이 맞는데 이게 뭘까. Private Key 파일에 마우스 우클릭을 하고 봤더니 여러 사용자가 읽기 권한으로 걸려 있는 것을 확인할 수 있었다. 이건 아니다… 등록된 사용자를 전부 지우고 현재 사용자에게 모든 권한을 준 다음에, 확인을 눌러 권한 변경을 해 준다.&lt;/p>
-&lt;!-- raw HTML omitted -->
+&lt;p id="euLmFtS">
+&lt;img class="alignnone size-full wp-image-1518 " src="https://interp.blog/uploads/2019/06/img_5d11dcea1b41a.png" alt="" srcset="https://interp.blog/uploads/2019/06/img_5d11dcea1b41a.png 421w, https://interp.blog/uploads/2019/06/img_5d11dcea1b41a-218x300.png 218w" sizes="(max-width: 421px) 100vw, 421px" />
+&lt;/p>
 &lt;p>&amp;lsquo;편집&amp;rsquo; 에 가서 등록된 사용자를 지우려고 하면, 상속으로 인해 지울 수 없다는 괴상한 에러가 뜰 것이다. 그러니까 위 화면에서 &amp;lsquo;고급&amp;rsquo; 으로 간 다음, 아래 캡처에 있는 &amp;lsquo;상속 사용 안 함&amp;rsquo; 을 클릭하면 자동으로 지워진다. 그 다음 시도하면, 잘 된다!&lt;/p>
-&lt;!-- raw HTML omitted -->
+&lt;p id="bzFxOJb">
+&lt;img class="alignnone size-full wp-image-1519 " src="https://interp.blog/uploads/2019/06/img_5d11dd707fe99.png" alt="" srcset="https://interp.blog/uploads/2019/06/img_5d11dd707fe99.png 293w, https://interp.blog/uploads/2019/06/img_5d11dd707fe99-216x300.png 216w" sizes="(max-width: 293px) 100vw, 293px" />
+&lt;/p>
 &lt;p>출처 : https://superuser.com/questions/1296024/windows-ssh-permissions-for-private-key-are-too-open&lt;/p></description></item></channel></rss>
