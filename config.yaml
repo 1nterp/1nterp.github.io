@@ -81,6 +81,7 @@ params:
               params:
                   limit: 10
         page:
+            - type: search
             - type: toc
 
     opengraph:
@@ -116,18 +117,18 @@ params:
 menu:
     main: []
 
-    # social:
-    #     - identifier: github
-    #       name: GitHub
-    #       url: https://github.com/1nterp
-    #       params:
-    #           icon: brand-github
+    social:
+        - identifier: github
+          name: GitHub
+          url: https://github.com/1nterp
+          params:
+              icon: brand-github
 
-    #     - identifier: twitter
-    #       name: Twitter
-    #       url: https://twitter.com
-    #       params:
-    #           icon: brand-twitter
+        - identifier: twitter
+          name: Twitter
+          url: https://twitter.com
+          params:
+              icon: brand-twitter
 
 related:
     includeNewer: true
@@ -147,7 +148,7 @@ markup:
             unsafe: false
     tableOfContents:
         endLevel: 2
-        ordered: true
+        ordered: false
         startLevel: 2
     highlight:
         noClasses: false

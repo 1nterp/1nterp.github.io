@@ -95,14 +95,14 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
 */
 :root {
     --article-font-family: "IBM Plex Sans KR", "Lato", var(--sys-font-family), var(--zh-font-family), sans-serif;
-    --article-font-size: 1.7rem;
+    --article-font-size: 1.6rem;
+    --article-line-height: 1.8;
+    letter-spacing: -1px;
 
     @include respond(md) {
         --article-font-size: 1.8rem;
-        letter-spacing: -1px;
-    }
-
     --article-line-height: 1.85;
+    }
 }
 
 /*
