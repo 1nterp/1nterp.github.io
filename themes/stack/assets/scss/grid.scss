@@ -79,6 +79,7 @@ main.main {
     display: flex;
     flex-direction: column;
     gap: var(--section-separation);
+    font-family: var(--article-font-family);
 
     @include respond(md) {
         padding-top: var(--main-top-padding);

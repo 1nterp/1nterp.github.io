@@ -45,8 +45,9 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
     --sys-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Droid Sans", "Helvetica Neue";
     --zh-font-family: "PingFang SC", "Hiragino Sans GB", "Droid Sans Fallback", "Microsoft YaHei";
 
-    --base-font-family: "Lato", var(--sys-font-family), var(--zh-font-family), sans-serif;
+    --base-font-family: "Lato", "IBM Plex Sans KR", var(--sys-font-family), var(--zh-font-family), sans-serif;
     --code-font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+    // --code-font-family: "D2Coding", Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 /*
@@ -56,7 +57,7 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
     --card-background: #fff;
     --card-background-selected: #eaeaea;
 
-    --card-text-color-main: #000;
+    --card-text-color-main: #333;
     --card-text-color-secondary: #747474;
     --card-text-color-tertiary: #bababa;
     --card-separator-color: rgba(218, 218, 218, 0.5);
@@ -93,11 +94,12 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
 *   Article content font settings
 */
 :root {
-    --article-font-family: var(--base-font-family);
-    --article-font-size: 1.6rem;
+    --article-font-family: "IBM Plex Sans KR", "Lato", var(--sys-font-family), var(--zh-font-family), sans-serif;
+    --article-font-size: 1.7rem;
 
     @include respond(md) {
-        --article-font-size: 1.7rem;
+        --article-font-size: 1.8rem;
+        letter-spacing: -1px;
     }
 
     --article-line-height: 1.85;
