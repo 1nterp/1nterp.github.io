@@ -1,0 +1,34 @@
+baseurl: https://1nterp.github.io/
+languageCode: ko-kr
+theme: tale
+paginate: 6
+title: InterP Blog
+
+defaultContentLanguage: ko
+summaryLength: 30
+
+permalinks:
+    post: /p/:slug/
+    page: /:slug/
+
+markup:
+    goldmark:
+        renderer:
+            ## Set to true if you have HTML content inside Markdown
+            unsafe: false
+    tableOfContents:
+        endLevel: 2
+        ordered: true
+        startLevel: 2
+    highlight:
+        noClasses: false
+        codeFences: true
+        guessSyntax: true
+        lineNoStart: 1
+        lineNos: true
+        lineNumbersInTable: true
+        tabWidth: 4
+
+enableEmoji: true
+
+assetDir: "static"

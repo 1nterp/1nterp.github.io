@@ -1,15 +1,144 @@
 baseurl: https://1nterp.github.io/
 languageCode: ko-kr
-theme: tale
+theme: stack
 paginate: 6
 title: InterP Blog
 
-defaultContentLanguage: ko
-summaryLength: 30
+languages:
+    ko:
+        languageName: 한국어
+        title: InterP Blog
+        weight: 1
+    en:
+        languageName: English
+        title: InterP Blog
+        weight: 2
+
+# Change it to your Disqus shortname before using
+# disqusShortname: hugo-theme-stack
+
+# GA Tracking ID
+# googleAnalytics: UA-126809878-1
+
+# Theme i18n support
+# Available values: ar, bn, ca, de, el, en, es, fr, hu, id, it, ja, ko, nl, pt-br, th, uk, zh-cn, zh-hk, zh-tw
+DefaultContentLanguage: ko
+
+# Set hasCJKLanguage to true if DefaultContentLanguage is in [zh-cn ja ko]
+# This will make .Summary and .WordCount behave correctly for CJK languages.
+hasCJKLanguage: true
 
 permalinks:
     post: /p/:slug/
     page: /:slug/
+
+params:
+    mainSections:
+        - post
+        - tech
+        - essay
+        - review
+    featuredImageField: image
+    rssFullContent: true
+    favicon:
+
+    footer:
+        since: 2019
+        customText:
+
+    dateFormat:
+        published: 2006-01-02
+        lastUpdated: 2006-01-02 15:04 UTC
+
+    sidebar:
+        subtitle: Things I'm interested
+        avatar:
+            enabled: false
+            local: false
+            src: /apple-touch-icon.png
+
+    article:
+        math: false
+        toc: true
+        readingTime: true
+        license:
+            enabled: 
+
+    comments:
+        enabled: false
+        # provider: disqus
+
+    widgets:
+        homepage:
+            - type: search
+            - type: archives
+              params:
+                  limit: 5
+            - type: categories
+              params:
+                  limit: 10
+            - type: tag-cloud
+              params:
+                  limit: 10
+        page:
+            - type: toc
+
+    opengraph:
+        twitter:
+            # Your Twitter username
+            site: interp_
+
+            # Available values: summary, summary_large_image
+            card: summary_large_image
+
+    defaultImage:
+        opengraph:
+            enabled: false
+            local: false
+            src:
+
+    colorScheme:
+        # Display toggle
+        toggle: true
+
+        # Available values: auto, light, dark
+        default: auto
+
+    imageProcessing:
+        cover:
+            enabled: true
+        content:
+            enabled: true
+
+### Custom menu
+### See https://docs.stack.jimmycai.com/configuration/custom-menu.html
+### To remove about, archive and search page menu item, remove `menu` field from their FrontMatter
+menu:
+    main: []
+
+    # social:
+    #     - identifier: github
+    #       name: GitHub
+    #       url: https://github.com/1nterp
+    #       params:
+    #           icon: brand-github
+
+    #     - identifier: twitter
+    #       name: Twitter
+    #       url: https://twitter.com
+    #       params:
+    #           icon: brand-twitter
+
+related:
+    includeNewer: true
+    threshold: 60
+    toLower: false
+    indices:
+        - name: tags
+          weight: 100
+
+        - name: categories
+          weight: 200
 
 markup:
     goldmark:
@@ -30,5 +159,3 @@ markup:
         tabWidth: 4
 
 enableEmoji: true
-
-assetDir: "static"
