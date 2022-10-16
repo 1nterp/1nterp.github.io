@@ -1185,7 +1185,7 @@ complex64 complex128 // 복소수임.. e.g. 3+2i
 loading="lazy"
 >&lt;/p>
 &lt;p>그런데 위와 같이 markdown 편집을 할 때 처럼 줄 분리가 이뤄져서 (line wrapping) 사실 한 줄인데 여러 줄로 보여지는 경우에는, 커서를 아래로 내릴 경우에 &lt;em>실제&lt;/em> 다음 줄 로 이동한다. &lt;strong>화면에 보이는 줄이 아니라, 실제 줄로 이동하기 때문에&lt;/strong>, 커서를 옮길 때 여간 불편한 게 아니다.&lt;/p>
-&lt;h3 id="해결-방법">해결 방법&lt;/h3>
+&lt;h2 id="해결-방법">해결 방법&lt;/h2>
 &lt;p>Vim 도 사실 line wrapping 이 되었을 때 같은 문제가 있고, (문제라기 보다는 특성인데) 원하는 방법대로 우회할 수 있는 방법을 &lt;a class="link" href="https://vim.fandom.com/wiki/Move_cursor_by_display_lines_when_wrapping" target="_blank" rel="noopener"
 >여기&lt;/a>서 찾았다. 이 방법을 그대로 VSCode 에도 적용한 것이다.&lt;/p>
 &lt;p>먼저 Settings 를 열어서 &lt;strong>Vim: Normal Mode Key Bindings&lt;/strong> 로 이동하면, Edit in settings.json 링크가 있다. 이걸 눌러서 다음을 추가하자.&lt;/p>

@@ -3,7 +3,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="VSCode 에서도 Vim 환경을 쓰고 싶어서 VSCodeVim 을 설치해서 쓰고 있다. 그런데 위와 같이 markdown 편집을 할 때 처럼 줄 분리가 이뤄져서 (line wrapping) 사실 한 줄인데 여러 줄로 보여지는 경우에는, 커서"><title>VSCodeVim: 분리된 줄 위/아래로 커서 이동하기</title>
 <style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600&family=Poor+Story&display=swap'</style>
 <link rel=canonical href=https://1nterp.github.io/vim-wrapping-line-cursor-up-down/>
-<link rel=stylesheet href=/scss/style.min.58c19f06f387f49b4945244fa6b8f7e7c742831779b93765ae7e22f7654c79d0.css><meta property="og:title" content="VSCodeVim: 분리된 줄 위/아래로 커서 이동하기">
+<link rel=stylesheet href=/scss/style.min.cd8eba34572c468004e3597bde080125ce82dc6c10e4f9741a141d41ba740a03.css><meta property="og:title" content="VSCodeVim: 분리된 줄 위/아래로 커서 이동하기">
 <meta property="og:description" content="VSCode 에서도 Vim 환경을 쓰고 싶어서 VSCodeVim 을 설치해서 쓰고 있다. 그런데 위와 같이 markdown 편집을 할 때 처럼 줄 분리가 이뤄져서 (line wrapping) 사실 한 줄인데 여러 줄로 보여지는 경우에는, 커서">
 <meta property="og:url" content="https://1nterp.github.io/vim-wrapping-line-cursor-up-down/">
 <meta property="og:site_name" content="InterP Blog">
@@ -25,7 +25,16 @@
 <h1 class=site-name><a href=/>InterP Blog</a></h1>
 <h2 class=site-description>Things I'm interested</h2>
 </div>
-</header><ol class=menu id=main-menu>
+</header><ol class=social-menu>
+<li>
+<a href=https://github.com/1nterp target=_blank title=GitHub><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+</a>
+</li>
+<li>
+<a href=https://twitter.com target=_blank title=Twitter><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84.0 00.497-3.753C20.18 7.773 21.692 5.25 22 4.009z"/></svg>
+</a>
+</li>
+</ol><ol class=menu id=main-menu>
 <li>
 <a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
 <span>Archives</span>
@@ -79,7 +88,7 @@ Tech
 <p>VSCode 에서도 Vim 환경을 쓰고 싶어서 <a class=link href=https://github.com/VSCodeVim/Vim target=_blank rel=noopener>VSCodeVim</a> 을 설치해서 쓰고 있다.</p>
 <p><img src=/images/2022-04-15-vscodevim.png loading=lazy></p>
 <p>그런데 위와 같이 markdown 편집을 할 때 처럼 줄 분리가 이뤄져서 (line wrapping) 사실 한 줄인데 여러 줄로 보여지는 경우에는, 커서를 아래로 내릴 경우에 <em>실제</em> 다음 줄 로 이동한다. <strong>화면에 보이는 줄이 아니라, 실제 줄로 이동하기 때문에</strong>, 커서를 옮길 때 여간 불편한 게 아니다.</p>
-<h3 id=해결-방법>해결 방법</h3>
+<h2 id=해결-방법>해결 방법</h2>
 <p>Vim 도 사실 line wrapping 이 되었을 때 같은 문제가 있고, (문제라기 보다는 특성인데) 원하는 방법대로 우회할 수 있는 방법을 <a class=link href=https://vim.fandom.com/wiki/Move_cursor_by_display_lines_when_wrapping target=_blank rel=noopener>여기</a>서 찾았다. 이 방법을 그대로 VSCode 에도 적용한 것이다.</p>
 <p>먼저 Settings 를 열어서 <strong>Vim: Normal Mode Key Bindings</strong> 로 이동하면, Edit in settings.json 링크가 있다. 이걸 눌러서 다음을 추가하자.</p>
 <div class=highlight><div class=chroma>
@@ -210,6 +219,28 @@ Tech
 </div>
 </div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous>
 </main>
+<aside class="sidebar right-sidebar sticky">
+<form action=/search/ class="search-form widget">
+<p>
+<label>검색</label>
+<input name=keyword required placeholder="검색어를 입력하세요...">
+<button title=검색><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+</button>
+</p>
+</form>
+<section class="widget archives">
+<div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg>
+</div>
+<h2 class="widget-title section-title">목차</h2>
+<div class=widget--toc>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#해결-방법>해결 방법</a></li>
+</ul>
+</nav>
+</div>
+</section>
+</aside>
 </div>
 <script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script>
 <script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
