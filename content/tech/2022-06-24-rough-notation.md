@@ -19,3 +19,7 @@ GeekNews 를 보다보니 Atlassian JIRA/Bitbucket 가 너무 구려서 못 써�
 ![Rough Notation main page](/images/2022-06-24-2022-06-24-131516.png "rough-notation-main-page")
 
 공식 사이트는 [https://roughnotation.com/](https://roughnotation.com/ "https://roughnotation.com/") 이고, 다양한 효과를 'ANNOTATE' 버튼을 눌러 라이브로 볼 수 있다. 밑줄, 네모, 동그라미, 하이라이트, 취소선, X선 등의 효과가 가능하며, 애니메이션을 수행하지 않도록 지정할 수도 있다고 한다.
+
+그리고 **여기서도** 동일한 효과를 적용해 보았다!
+
+<script type="module">import { annotate } from 'https://unpkg.com/rough-notation?module'; const n2 = document.querySelector('span.rn-circle'); const n4 = document.querySelector('span.rn-underline'); const a2 = annotate(n2, { type: 'circle', color: 'red', padding: 10 }); const a4 = annotate(n4, { type: 'highlight', color: 'yellow', iterations: 1, multiline: true }); a2.show(); a4.show();</script>
