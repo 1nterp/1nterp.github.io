@@ -3,6 +3,7 @@ author = "InterP"
 categories = ["Review"]
 date = 2022-08-06T23:38:00Z
 description = "비밀요원 '식스' 가 내부고발자가 된 건에 대하여"
+draft = true
 image = "/images/2022-10-16-grey-man-poster-1.jpeg"
 tags = ["영화", "넷플릭스"]
 title = "그레이 맨 (The Gray Man, 2022)"
