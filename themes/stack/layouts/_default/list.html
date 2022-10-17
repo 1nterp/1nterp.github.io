@@ -4,7 +4,7 @@
             {{ if eq .Parent (.GetPage "/") }}
                 {{ T "list.section" }}
             {{ else }}
-                {{ .Parent.Title }}
+                {{ (default .Parent.Title (T (printf "list.%s" (lower .Parent.Title)))) }}
             {{ end }}
         </h3>
 

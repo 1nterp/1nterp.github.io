@@ -16,6 +16,12 @@ list:
         one: 서브섹션
         other: 서브섹션
 
+    tags:
+        other: 태그
+
+    categories:
+        other: 카테고리
+
 article:
     back:
         other: 뒤로가기

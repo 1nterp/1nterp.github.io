@@ -1,4 +1,5 @@
 {
     "[markdown]": {
-    }
+    },
+    "frontMatter.framework.startCommand": "hugo server -D --disableFastRender"
 }
