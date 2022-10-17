@@ -28,7 +28,7 @@
 
             .article-details {
                 padding: var(--card-padding);
-                padding-bottom: 0;
+                padding-bottom: 3rem;
             }
         }
 
@@ -419,5 +419,10 @@
         margin-left: calc((var(--card-padding)) * -1);
         margin-right: calc((var(--card-padding)) * -1);
         width: calc(100% + var(--card-padding) * 2);
+        padding-left: calc(var(--card-padding) * 0.6);
+    }
+
+    ul {
+        padding-inline-start: 2rem;
     }
 }
