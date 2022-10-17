@@ -55,6 +55,7 @@ params:
 
     sidebar:
         subtitle: Things I'm interested
+        # emoji: ":baseball:"
         avatar:
             enabled: false
             local: false
@@ -118,20 +119,26 @@ params:
 ### See https://docs.stack.jimmycai.com/configuration/custom-menu.html
 ### To remove about, archive and search page menu item, remove `menu` field from their FrontMatter
 menu:
-    main: []
+    main: 
+        - identifier: home
+          name: Home
+          weight: -90
+          url: /
+          params:
+              icon: home
 
-    # social:
-    #     - identifier: linkedin
-    #       name: LinkedIn
-    #       url: https://linkedin.com/in/interp
-    #       params:
-    #           icon: brand-linkedin
+    social:
+        - identifier: linkedin
+          name: LinkedIn
+          url: https://linkedin.com/in/interp
+          params:
+              icon: brand-linkedin
 
-    #     - identifier: github
-    #       name: GitHub
-    #       url: https://github.com/1nterp
-    #       params:
-    #           icon: brand-github
+        - identifier: github
+          name: GitHub
+          url: https://github.com/1nterp
+          params:
+              icon: brand-github
 
     #     - identifier: facebook
     #       name: Facebook
