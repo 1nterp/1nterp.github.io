@@ -41,6 +41,10 @@
                 max-width: 100%;
                 height: auto;
             }
+
+            img[alt=center] {
+                max-width: 50%;
+            }
         }
 
         .article-footer {
@@ -144,9 +148,9 @@
             font-weight: bold;
         }
 
-        ul li.active-class > a {
-            display: block;
-        }
+        // ul li.active-class > a {
+        //     display: block;
+        // }
 
         @function repeat($str, $n) {
             $result: "";
@@ -419,6 +423,9 @@
         margin-left: calc((var(--card-padding)) * -1);
         margin-right: calc((var(--card-padding)) * -1);
         width: calc(100% + var(--card-padding) * 2);
+    }
+
+    blockquote {
         padding-left: calc(var(--card-padding) * 0.6);
     }
 
