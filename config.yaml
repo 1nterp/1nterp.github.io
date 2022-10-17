@@ -121,17 +121,29 @@ menu:
     main: []
 
     social:
+        - identifier: linkedin
+          name: LinkedIn
+          url: https://linkedin.com/in/interp
+          params:
+              icon: brand-linkedin
+
         - identifier: github
           name: GitHub
           url: https://github.com/1nterp
           params:
               icon: brand-github
 
-        - identifier: twitter
-          name: Twitter
-          url: https://twitter.com
+        - identifier: facebook
+          name: Facebook
+          url: https://www.facebook.com/1nterp
           params:
-              icon: brand-twitter
+              icon: brand-facebook
+
+        - identifier: instagram
+          name: Instagram
+          url: https://www.instagram.com/interp/
+          params:
+              icon: brand-instagram
 
 related:
     includeNewer: true
