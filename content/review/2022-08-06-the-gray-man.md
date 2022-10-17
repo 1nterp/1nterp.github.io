@@ -3,7 +3,6 @@ author = "InterP"
 categories = ["Review"]
 date = 2022-08-06T23:38:00Z
 description = "비밀요원 '식스' 가 내부고발자가 된 건에 대하여"
-draft = true
 image = "/images/2022-10-16-grey-man-poster.jpeg"
 image_y = "15%"
 tags = ["영화", "넷플릭스"]
