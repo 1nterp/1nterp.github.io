@@ -1,5 +1,5 @@
 toggleMenu:
-    other: 메뉴 여닫기
+    other: 메뉴 토글
 
 darkMode:
     other: 다크 모드
@@ -50,6 +50,9 @@ widget:
     tagCloud:
         title:
             other: 태그
+    categoriesCloud:
+        title:
+            other: 카테고리
 
 search:
     title:
@@ -63,6 +66,6 @@ search:
 
 footer:
     builtWith:
-        other: "{{ .Generator }}로 만듦"
+        other: "{{ .Generator }} 기반"
     designedBy:
-        other: "{{ .DesignedBy }}의 {{ .Theme }} 테마 사용 중"
+        other: "{{ .DesignedBy }} 의 {{ .Theme }} 테마를 사용 중입니다."
