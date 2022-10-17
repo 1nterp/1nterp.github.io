@@ -1,4 +1,23 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>InterP Blog</title><link>https://1nterp.github.io/</link><description>Recent content on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Sun, 17 Jul 2022 17:41:57 +0000</lastBuildDate><atom:link href="https://1nterp.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>아메리칸 셰프</title><link>https://1nterp.github.io/chef-2014/</link><pubDate>Sun, 17 Jul 2022 17:41:57 +0000</pubDate><guid>https://1nterp.github.io/chef-2014/</guid><description>&lt;img src="https://1nterp.github.io/images/2022-07-18-untitled.png" alt="Featured image of post 아메리칸 셰프" />&lt;h2 id="줄거리">줄거리&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>InterP Blog</title><link>https://1nterp.github.io/</link><description>Recent content on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Mon, 17 Oct 2022 18:47:14 +0900</lastBuildDate><atom:link href="https://1nterp.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>Tistory 에서 다시 Hugo 로</title><link>https://1nterp.github.io/essay/2022-10-17-tistory-%EC%97%90%EC%84%9C-%EB%8B%A4%EC%8B%9C-hugo-%EB%A1%9C/</link><pubDate>Mon, 17 Oct 2022 18:47:14 +0900</pubDate><guid>https://1nterp.github.io/essay/2022-10-17-tistory-%EC%97%90%EC%84%9C-%EB%8B%A4%EC%8B%9C-hugo-%EB%A1%9C/</guid><description>&lt;img src="https://1nterp.github.io/images/2022-10-17-tistory-hugo-blog.jpeg" alt="Featured image of post Tistory 에서 다시 Hugo 로" />&lt;h2 id="티스토리로-갔던-이유">티스토리로 갔던 이유&lt;/h2>
+&lt;p>휴고에서 티스토리로 옮긴 지 두 달 밖에 되지 않았었다.&lt;/p>
+&lt;p>이유는 여러 가지가 있었다. Forestry 나 VSCode 를 열어두고 글인지 코드인지 모를 포스트를 쓰는 것이 귀찮아졌고, 하나부터 열까지 내가 조정해 줘야 하는 것 보다는 쉽게 글을 쓰고 싶어서였다. 주로 한글로 된 포스팅을 올릴 거라, 휴고에서 구축해 둔 다국어 기능을 전부 활용할 수 없겠단 생각도 들었다. 그리고 티스토리에 올려두면 적어도 다음이나 카카오에서는 검색이 좀 더 활발하지 않을까 하는, 더 많은 유입을 고려한 결정도 있었다.&lt;/p>
+&lt;h2 id="다시-휴고로-돌아온-이유">다시 휴고로 돌아온 이유&lt;/h2>
+&lt;p>그러나, 이번에는 확실히 휴고로 돌아왔다.&lt;/p>
+&lt;p>이유는 너무나 단순하고 어이없게도, &lt;a class="link" href="https://cs.kakao.com/helps?service=102&amp;amp;category=286&amp;amp;locale=ko&amp;amp;device=3136&amp;amp;articleId=1073204770" target="_blank" rel="noopener"
+>10월 15일 카카오가 사용하는 데이터센터에 화재가 발생&lt;/a>하면서 티스토리도 같이 서비스가 중단되었기 때문이다. 현재는 로그인도 되고 글도 살릴 수는 있지만, 모바일 보기만 지원되고 다른 스킨으로 적용도 되지 않는다.&lt;/p>
+&lt;p>구글 애널리틱스는 너의 사이트가 이상하다며, 조치를 취하라는 이메일을 일요일에 발송했었다. 지금은 구글 검색에 다 빠져 있을 것이다. 대부분의 티스토리 포스트가 구글 검색에서 썰물처럼 빠지고 있기 때문이다.&lt;/p>
+&lt;p>물론 복구가 된다면, 다시 포스트가 검색되고 아무렇지 않게 지나갈 수 있을 것이다. 그런데 그 이틀 동안, 나 뿐만 아니라 다른 포스팅까지 정전이 일어났다는 사실이 나에겐 너무 크게 느껴졌다. 어떻게 보면 별 것 아닐 수 있다. 서비스라는 것이 장애도 있고 종료도 있을 거니까. 그렇다면 이 질문을 하지 않을 수 없다.&lt;/p>
+&lt;blockquote>
+&lt;p>장애나 종료 이후에, 내가 쓴 글을 쉽게 백업받을 수 있을까? &lt;br/>
+백업 받은 걸 다른 곳에 쉽게 올릴 수 있을까?&lt;/p>
+&lt;/blockquote>
+&lt;p>네이버 블로그에서는 포스트를 PDF 로 떨궈준다. Confluence 백업을 받아둬도 그걸 파싱해 가는 데 한 세월이다. 결국 마크다운 만큼 기본 내용만큼은 쉽게 다른 곳에 옮길 수 있는 포맷이 없다.&lt;/p>
+&lt;p>물론 티스토리도 마크다운을 지원한다. 지금도 잘 옮겨뒀다. 하지만 장애가 이렇게 나 버리면, 옮길 수가 없다. Github Pages 에 올려 둔 Hugo 는 다르다. 일단 내 컴퓨터에 로컬 저장소가 있다. 적어도 거기서 출발하면 된다. 장애가 나면 서버를 열고, 거기에 소스를 부어서 시작해도 된다. 티스토리는 그게 안 된다.&lt;/p>
+&lt;p>서비스형 블로그의 한계를 너무 꼬집는다 생각할 수 있다. 이번에 그 한계가 진짜구나, 어쩔 수 없겠다 싶으니 다시 가지 않을 것이다.&lt;/p>
+&lt;h2 id="다시-처음-이유를-돌아보자">다시 처음 이유를 돌아보자&lt;/h2>
+&lt;p>글인지 코드인지 모를 포스트를 쓰는 것은 극복해야 할 문제 같다. 다양한 자동화 기능과 snippet 을 동원해야 한다. 포스트 마다 설정 가능한 옵션 파라메터를 확보해야 한다. 다국어 기능은 쓸 수 있을 때 쓰면 된다. 너무 욕심낼 필요는 없다. 유입을 더 많이 바라보기 보다는, 포트폴리오 성격으로 꾸준히 쓰는 게 중요한 것 같다. 괜찮은 글은 한 번 봐주십사 요청도 하고 다니면 어떨까 싶다.&lt;/p>
+&lt;p>플랫폼이 중요한 게 아니었다. 사실 디자인도 우선순위가 높은 작업이 아니다.&lt;/p>
+&lt;p>결국 무슨 내용이 살고 있는지가 중요한 것 같다.&lt;/p></description></item><item><title>아메리칸 셰프</title><link>https://1nterp.github.io/chef-2014/</link><pubDate>Sun, 17 Jul 2022 17:41:57 +0000</pubDate><guid>https://1nterp.github.io/chef-2014/</guid><description>&lt;img src="https://1nterp.github.io/images/2022-07-18-untitled.png" alt="Featured image of post 아메리칸 셰프" />&lt;h2 id="줄거리">줄거리&lt;/h2>
 &lt;p>셰프라는 직업에 자부심이 강한 주인공 칼은, 파워 블로거 평론가를 맞이하기 위해 자신만의 코스 요리를 준비하지만, 레스토랑에서 늘 만들던 대로 하라는 사장의 만류에 막히고 만다. 평론가에게 혹평을 받게 되고, 트위터를 통해 많은 사람들의 입방아에 오르내리고 만다.&lt;/p>
 &lt;p>사업가 아내와 이혼한 뒤, 10살 아들을 주기적으로 돌보던 어느 날, 트위터가 뭔지 몰랐던 칼은 아들을 통해 사용하는 방법을 배우고 계정을 만들게 된다. 그리고 평론가에게 욕설과 함께 다시 와서 먹어보라는 &amp;lsquo;답글&amp;rsquo; 을 남긴다. 이 스레드는 공개되어 세간의 관심을 모으게 되고, 평론가 역시 재도전을 흥미진진하게 받아들이며 레스토랑으로 향한다.&lt;/p>
 &lt;p>하지만 다시 한 번, 칼은 만들던 메뉴를 대접하라는 사장의 압박을 받았고, 이 레스토랑은 내 것이지 네 것이 아니란 말과 함께 만들던지 나가던지 선택을 하라고 한다. 결국 칼은 다 집어던지고 나갔다가, &amp;ldquo;이 셰프는 쫄아서 안 나왔네&amp;rdquo; 라는 평론가의 트윗을 보고 다시 찾아가 면전에 욕설을 토해낸다.&lt;/p>
