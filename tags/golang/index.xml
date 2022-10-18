@@ -489,7 +489,7 @@ fmt.Println(v1, v2, v3, p) // {12} {1 0} {0 0} &amp;amp;{1 2}
 &lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">for&lt;/span> &lt;span class="nx">idx&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="k">range&lt;/span> &lt;span class="nx">slice_var&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="p">..&lt;/span> &lt;span class="p">}&lt;/span>
 &lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></description></item><item><title>Golang JSON struct tag: omitempty</title><link>https://1nterp.github.io/golang-json-struct-tag/</link><pubDate>Tue, 21 Jun 2022 16:19:07 +0000</pubDate><guid>https://1nterp.github.io/golang-json-struct-tag/</guid><description>&lt;h2 id="태그">태그?&lt;/h2>
+&lt;/div></description></item><item><title>Golang struct tag: omitempty</title><link>https://1nterp.github.io/golang-struct-tag/</link><pubDate>Tue, 21 Jun 2022 16:19:07 +0000</pubDate><guid>https://1nterp.github.io/golang-struct-tag/</guid><description>&lt;h2 id="태그">태그?&lt;/h2>
 &lt;p>Go 언어의 &lt;code>struct&lt;/code> 타입에는 각 필드마다 태그를 붙일 수 있다. (struct tag 라고도 불린다) 이렇게 아무렇게나 태그를 붙여둘 수 있다. 물론 다른 함수나 패키지에서 이런 태그를 파싱해서 다룰 수 있어야 하겠지만.&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
