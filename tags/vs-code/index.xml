@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>vs code on InterP Blog</title><link>https://1nterp.github.io/tags/vs-code/</link><description>Recent content in vs code on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Wed, 26 Jun 2019 05:11:21 +0000</lastBuildDate><atom:link href="https://1nterp.github.io/tags/vs-code/index.xml" rel="self" type="application/rss+xml"/><item><title>Visual Studio Code Remote Deployment</title><link>https://1nterp.github.io/visual-studio-code-remote-deployment/</link><pubDate>Wed, 26 Jun 2019 05:11:21 +0000</pubDate><guid>https://1nterp.github.io/visual-studio-code-remote-deployment/</guid><description>&lt;p>Vim 과 SSH 에 찌들어 있었는데, 이번 Visual Studio Code 의 베타 기능인 Remote Deployment 를 연결해 보고 나서, 학생 때 쓰던 IDE 로 돌아간 것 같아 너무 좋았다. 언제까지고 구식 도구를 쓰며 부심을 부릴 수만은 없다. 설치 과정이 조금 험난했지만, 간단히 요약해서 써본다.&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>vs code on InterP Blog</title><link>https://interp.blog/tags/vs-code/</link><description>Recent content in vs code on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Wed, 26 Jun 2019 05:11:21 +0000</lastBuildDate><atom:link href="https://interp.blog/tags/vs-code/index.xml" rel="self" type="application/rss+xml"/><item><title>Visual Studio Code Remote Deployment</title><link>https://interp.blog/visual-studio-code-remote-deployment/</link><pubDate>Wed, 26 Jun 2019 05:11:21 +0000</pubDate><guid>https://interp.blog/visual-studio-code-remote-deployment/</guid><description>&lt;p>Vim 과 SSH 에 찌들어 있었는데, 이번 Visual Studio Code 의 베타 기능인 Remote Deployment 를 연결해 보고 나서, 학생 때 쓰던 IDE 로 돌아간 것 같아 너무 좋았다. 언제까지고 구식 도구를 쓰며 부심을 부릴 수만은 없다. 설치 과정이 조금 험난했지만, 간단히 요약해서 써본다.&lt;/p>
 &lt;p>클라이언트 OS 는 윈도우 10 (빌드 1809), 서버 OS 는 Cent OS 7 기준으로 작성한다.&lt;/p>
 &lt;h2 id="클라이언트-윈도우-준비">클라이언트 (윈도우) 준비&lt;/h2>
 &lt;p>처음에 준비할 때는 &lt;a class="link" href="https://code.visualstudio.com/insiders/" target="_blank" rel="noopener"
@@ -7,10 +7,10 @@
 &lt;p>다음으로, SSH 클라이언트를 설치한다. &lt;strong>윈도우 10 빌드 1807 이상 버전&lt;/strong>의 윈도우 OS 라면 &lt;a class="link" href="https://docs.microsoft.com/ko-kr/windows-server/administration/openssh/openssh_install_firstuse" target="_blank" rel="noopener"
 >여기 링크&lt;/a> 안내를 따르거나, 아래 요약된 스크린샷을 보면 된다.&lt;/p>
 &lt;p>시작 &amp;gt; 설정 앱에서, &amp;lsquo;앱&amp;rsquo; 을 클릭한 뒤 &amp;lsquo;앱 및 기능&amp;rsquo; 탭의 &amp;lsquo;선택적 기능 관리&amp;rsquo; 를 클릭한다. 그 다음 아래 &amp;lsquo;OpenSSH 클라이언트&amp;rsquo; 를 찾아 설치한다. OpenSSH 서버는 설치할 필요가 없다.&lt;/p>
-&lt;p>&lt;img src="https://1nterp.github.io/uploads/2019/06/img_5d11df55e7f29.png"
+&lt;p>&lt;img src="https://interp.blog/uploads/2019/06/img_5d11df55e7f29.png"
 loading="lazy"
 >
-&lt;img src="https://1nterp.github.io/uploads/2019/06/img_5d11df39e0722.png"
+&lt;img src="https://interp.blog/uploads/2019/06/img_5d11df39e0722.png"
 loading="lazy"
 >&lt;/p>
 &lt;blockquote>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>iPhone on InterP Blog</title><link>https://1nterp.github.io/tags/iphone/</link><description>Recent content in iPhone on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Fri, 04 Feb 2022 16:35:37 +0000</lastBuildDate><atom:link href="https://1nterp.github.io/tags/iphone/index.xml" rel="self" type="application/rss+xml"/><item><title>카카오/네이버 메일 아이폰 연동</title><link>https://1nterp.github.io/kakao-naver-email-iphone-connect/</link><pubDate>Fri, 04 Feb 2022 16:35:37 +0000</pubDate><guid>https://1nterp.github.io/kakao-naver-email-iphone-connect/</guid><description>&lt;img src="https://1nterp.github.io/images/2022-02-04-kakao-email/feature-image.jpg" alt="Featured image of post 카카오/네이버 메일 아이폰 연동" />&lt;h2 id="요약">요약&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>iPhone on InterP Blog</title><link>https://interp.blog/tags/iphone/</link><description>Recent content in iPhone on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Fri, 04 Feb 2022 16:35:37 +0000</lastBuildDate><atom:link href="https://interp.blog/tags/iphone/index.xml" rel="self" type="application/rss+xml"/><item><title>카카오/네이버 메일 아이폰 연동</title><link>https://interp.blog/kakao-naver-email-iphone-connect/</link><pubDate>Fri, 04 Feb 2022 16:35:37 +0000</pubDate><guid>https://interp.blog/kakao-naver-email-iphone-connect/</guid><description>&lt;img src="https://interp.blog/images/2022-02-04-kakao-email/feature-image.jpg" alt="Featured image of post 카카오/네이버 메일 아이폰 연동" />&lt;h2 id="요약">요약&lt;/h2>
 &lt;ul>
 &lt;li>원래는 홈페이지에서 하라는 대로 하면 된다.&lt;/li>
 &lt;li>비밀번호를 잘 입력했는데 서버 접속이 안 된다면, 혹시 2단계 인증을 쓰고 있지는 않은지?&lt;/li>
@@ -17,14 +17,14 @@
 &lt;li>설정 앱으로 가서 ‘메일 &amp;gt; 계정’ 을 차례대로 누른다.&lt;/li>
 &lt;/ol>
 &lt;p>
-&lt;img src="https://1nterp.github.io/images/2022-02-04-kakao-email/iphone-1.jpeg" width="200px" style="display: inline;"/>&lt;img src="https://1nterp.github.io/images/2022-02-04-kakao-email/iphone-2.jpeg" width="200px" style="display: inline;"/>
+&lt;img src="https://interp.blog/images/2022-02-04-kakao-email/iphone-1.jpeg" width="200px" style="display: inline;"/>&lt;img src="https://interp.blog/images/2022-02-04-kakao-email/iphone-2.jpeg" width="200px" style="display: inline;"/>
 &lt;/p>
 4. 그 다음 ‘계정 추가’ 를 누른 다음 ‘기타’ 를 선택한다. 이후에 'Mail 계정 추가' 를 선택한다.
 &lt;p>
-&lt;img src="https://1nterp.github.io/images/2022-02-04-kakao-email/iphone-3.jpeg" width="200px" style="display: inline;"/>&lt;img src="https://1nterp.github.io/images/2022-02-04-kakao-email/iphone-4.jpeg" width="200px" style="display: inline;" />
+&lt;img src="https://interp.blog/images/2022-02-04-kakao-email/iphone-3.jpeg" width="200px" style="display: inline;"/>&lt;img src="https://interp.blog/images/2022-02-04-kakao-email/iphone-4.jpeg" width="200px" style="display: inline;" />
 &lt;/p>
 5. 기본 정보를 입력한다. 이메일과 암호는 쓰던 걸 쓰면 되고 이름이나 설명은 자유롭게 입력한다.
-&lt;img src="https://1nterp.github.io/images/2022-02-04-kakao-email/iphone-5.png" width="300px" />
+&lt;img src="https://interp.blog/images/2022-02-04-kakao-email/iphone-5.png" width="300px" />
 6. IMAP 또는 POP 을 선택하는 탭이 있는데, 어느 것을 선택하던 상관없지만 IMAP 으로 진행한다.
 &lt;br/> &lt;br/>
 &lt;p>이제 안내된 대로 주소를 설정한다. &lt;a class="link" href="https://cs.kakao.com/helps?articleId=1073195244&amp;amp;service=156&amp;amp;category=519&amp;amp;device=&amp;amp;locale=ko" target="_blank" rel="noopener"
@@ -63,14 +63,14 @@ data-ad-slot="1092971030">&lt;/ins>
 &lt;ol>
 &lt;li>이번에는 모바일 기기에서 ‘카카오톡’ 앱을 실행한다.&lt;/li>
 &lt;li>‘&amp;hellip;’ 버튼을 누르고, 오른쪽 위에 있는 톱니바퀴를 누른다.
-&lt;img src="https://1nterp.github.io/images/2022-02-04-kakao-email/kakao-1.jpeg" width="300px" />&lt;/li>
+&lt;img src="https://interp.blog/images/2022-02-04-kakao-email/kakao-1.jpeg" width="300px" />&lt;/li>
 &lt;li>개인/보안 → ‘카카오 계정’을 누르고, 나오는 화면에서 ‘2단계 인증’ 을 누른다.&lt;/li>
 &lt;/ol>
 &lt;p>
-&lt;img src="https://1nterp.github.io/images/2022-02-04-kakao-email/kakao-2.jpeg" width="200px" style="display: inline;"/>&lt;img src="https://1nterp.github.io/images/2022-02-04-kakao-email/kakao-3.jpeg" width="200px" style="display: inline;"/>&lt;img src="https://1nterp.github.io/images/2022-02-04-kakao-email/kakao-4.jpeg" width="200px" style="display: inline;"/>
+&lt;img src="https://interp.blog/images/2022-02-04-kakao-email/kakao-2.jpeg" width="200px" style="display: inline;"/>&lt;img src="https://interp.blog/images/2022-02-04-kakao-email/kakao-3.jpeg" width="200px" style="display: inline;"/>&lt;img src="https://interp.blog/images/2022-02-04-kakao-email/kakao-4.jpeg" width="200px" style="display: inline;"/>
 &lt;/p>
 4. 비밀번호를 입력한 뒤, ‘앱 비밀번호’를 누른다.
-&lt;img src="https://1nterp.github.io/images/2022-02-04-kakao-email/kakao-5.jpeg" width="300px" />
+&lt;img src="https://interp.blog/images/2022-02-04-kakao-email/kakao-5.jpeg" width="300px" />
 5. 앱 이름을 원하는 대로 입력하고, ‘생성’ 을 누르면 앱 비밀번호가 뜬다. 앱 비밀번호는 다시 볼 수 없기 때문에, 복사해 두거나 메모해 둬야 한다. 비밀번호를 놓쳤다면, 삭제했다가 다시 만들면 되니까 걱정하지 말자.
 &lt;br/> &lt;br/>
 &lt;p>이 앱 비밀번호를, 원래 비밀번호 대신 입력하면 서버 접속이 가능하다.&lt;/p>
@@ -81,11 +81,11 @@ data-ad-slot="1092971030">&lt;/ins>
 &lt;li>오른쪽 위에 있는 프로필 아이콘을 누른 뒤, 다시 왼쪽 위에 있는 프로필 아이콘을 누른다.&lt;/li>
 &lt;li>&amp;lsquo;내 정보 및 프로필 관리&amp;rsquo; 에 있는 본인 계정을 누른다.&lt;/li>
 &lt;li>보안 설정 및 비밀번호 변경을 클릭한다.
-&lt;img src="https://1nterp.github.io/images/2022-02-04-kakao-email/naver-3.jpeg" width="300px" />&lt;/li>
+&lt;img src="https://interp.blog/images/2022-02-04-kakao-email/naver-3.jpeg" width="300px" />&lt;/li>
 &lt;li>2단계 인증 항목에서 관리하기를 클릭한다.
-&lt;img src="https://1nterp.github.io/images/2022-02-04-kakao-email/naver-4.jpeg" width="300px" />&lt;/li>
+&lt;img src="https://interp.blog/images/2022-02-04-kakao-email/naver-4.jpeg" width="300px" />&lt;/li>
 &lt;li>조금 스크롤을 내리면, 애플리케이션 비밀번호 관리 항목이 보인다.
-&lt;img src="https://1nterp.github.io/images/2022-02-04-kakao-email/naver-5.jpeg" width="300px" />
+&lt;img src="https://interp.blog/images/2022-02-04-kakao-email/naver-5.jpeg" width="300px" />
 &lt;ul>
 &lt;li>종류에서 아이폰을 선택해도 되지만, 카카오에서의 이름 설정에 지나지 않기 때문에, 아무거나 입력해도 된다.&lt;/li>
 &lt;li>생성하기 버튼을 누르면 비밀번호가 보인다. 마찬가지로, 지금 복사하거나 메모해두지 않으면 나중에 다시 볼 수 있는 방법이 없다.&lt;/li>

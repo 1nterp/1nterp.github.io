@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>golang on InterP Blog</title><link>https://1nterp.github.io/tags/golang/</link><description>Recent content in golang on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Sun, 03 Jul 2022 17:06:37 +0000</lastBuildDate><atom:link href="https://1nterp.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml"/><item><title>A tour of Go: Pointer, Struct, Array, Slice</title><link>https://1nterp.github.io/tour-of-go-pointer-struct-array-slice/</link><pubDate>Sun, 03 Jul 2022 17:06:37 +0000</pubDate><guid>https://1nterp.github.io/tour-of-go-pointer-struct-array-slice/</guid><description>&lt;p>Go 여행 세 번째 시간이다. &lt;a class="link" href="https://interp.blog/tour-of-go-flow-control-stmts/" target="_blank" rel="noopener"
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>golang on InterP Blog</title><link>https://interp.blog/tags/golang/</link><description>Recent content in golang on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Sun, 03 Jul 2022 17:06:37 +0000</lastBuildDate><atom:link href="https://interp.blog/tags/golang/index.xml" rel="self" type="application/rss+xml"/><item><title>A tour of Go: Pointer, Struct, Array, Slice</title><link>https://interp.blog/tour-of-go-pointer-struct-array-slice/</link><pubDate>Sun, 03 Jul 2022 17:06:37 +0000</pubDate><guid>https://interp.blog/tour-of-go-pointer-struct-array-slice/</guid><description>&lt;p>Go 여행 세 번째 시간이다. &lt;a class="link" href="https://interp.blog/tour-of-go-flow-control-stmts/" target="_blank" rel="noopener"
 >지난 시간&lt;/a>에는 flow control statement 에 대해서 알아봤다. 이번에는 Go 언어의 다양한 자료형에 대해 정리해 봤다.&lt;/p>
 &lt;h2 id="a-tour-of-go">A tour of Go&lt;/h2>
 &lt;ul>
@@ -489,7 +489,7 @@ fmt.Println(v1, v2, v3, p) // {12} {1 0} {0 0} &amp;amp;{1 2}
 &lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">for&lt;/span> &lt;span class="nx">idx&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="k">range&lt;/span> &lt;span class="nx">slice_var&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="p">..&lt;/span> &lt;span class="p">}&lt;/span>
 &lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></description></item><item><title>Golang struct tag: omitempty</title><link>https://1nterp.github.io/golang-struct-tag/</link><pubDate>Tue, 21 Jun 2022 16:19:07 +0000</pubDate><guid>https://1nterp.github.io/golang-struct-tag/</guid><description>&lt;h2 id="태그">태그?&lt;/h2>
+&lt;/div></description></item><item><title>Golang struct tag: omitempty</title><link>https://interp.blog/golang-struct-tag/</link><pubDate>Tue, 21 Jun 2022 16:19:07 +0000</pubDate><guid>https://interp.blog/golang-struct-tag/</guid><description>&lt;h2 id="태그">태그?&lt;/h2>
 &lt;p>Go 언어의 &lt;code>struct&lt;/code> 타입에는 각 필드마다 태그를 붙일 수 있다. (struct tag 라고도 불린다) 이렇게 아무렇게나 태그를 붙여둘 수 있다. 물론 다른 함수나 패키지에서 이런 태그를 파싱해서 다룰 수 있어야 하겠지만.&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -530,7 +530,7 @@ fmt.Println(v1, v2, v3, p) // {12} {1 0} {0 0} &amp;amp;{1 2}
 &lt;p>&lt;strong>결론만 말하면, 이 옵션은 Marshalling 할 때만 효과가 있다.&lt;/strong> &lt;a class="link" href="https://go.dev/play/p/EhzLmox7CYN" target="_blank" rel="noopener"
 >Go Playground Link&lt;/a> 에 아래 예제 코드를 넣어뒀으니, 직접 실행해보고 확인해보는 것을 추천한다.&lt;/p>
 &lt;h3 id="값이-비어있다">값이 비어있다?&lt;/h3>
-&lt;p>Go 언어의 자료형 기본값이 들어가 있으면 값이 비어 있다고 간주한다. 이 부분은 이전 포스팅인 &lt;a class="link" href="https://1nterp.github.io/tour-of-go-package-function-variable/" >Go Tour 문서&lt;/a>에 더욱 자세한 내용이 들어있다.&lt;/p>
+&lt;p>Go 언어의 자료형 기본값이 들어가 있으면 값이 비어 있다고 간주한다. 이 부분은 이전 포스팅인 &lt;a class="link" href="https://interp.blog/tour-of-go-package-function-variable/" >Go Tour 문서&lt;/a>에 더욱 자세한 내용이 들어있다.&lt;/p>
 &lt;ul>
 &lt;li>실수형 = 0&lt;/li>
 &lt;li>문자형 = &amp;quot;&amp;quot;&lt;/li>
@@ -641,7 +641,7 @@ fmt.Println(v1, v2, v3, p) // {12} {1 0} {0 0} &amp;amp;{1 2}
 &lt;h2 id="사소한-문제">사소한 문제?&lt;/h2>
 &lt;p>아까 Go 언어 기본값이 들어있는 필드는 JSON encoding package 에서 비어있는 필드로 간주한다는 말을 했었다. 그런데, 이 값들이 유의미한 값이라면 어떻게 해야 할까? 이 때는 &lt;code>omitempty&lt;/code> 옵션 사용을 자제해야 한다.&lt;/p>
 &lt;p>예를 들면, 통장 내역을 나타내는 struct type 에서, 잔고를 나타내는 &lt;code>balance&lt;/code> 필드가 있다고 가정하자. 만약, 이 필드가 정확히 0을 가진다면 이 0이란 숫자는 유효한 숫자다. 그런데 이 필드에 대고 &lt;code>omitempty&lt;/code> 를 붙이게 되면, 사용자가 반환받을 JSON 문서에 &lt;code>balance&lt;/code> 자체가 없게 되고 큰 혼란 (?) 이 올 수 있다. 잔고라는 필드는 프로그램에서 필수적으로 있을 것이라 가정하기 때문에 일종의 &lt;em>AssertionError&lt;/em> 에 빠질 수 있다는 뜻이다.&lt;/p>
-&lt;p>Marshalling 할 때 JSON 문서의 다이어트 목적으로 이 옵션을 종종 쓸 텐데, 항상 주의해서 써야 한다는 것으로 끝맺는다.&lt;/p></description></item><item><title>A tour of Go: Flow control statements</title><link>https://1nterp.github.io/tour-of-go-flow-control-stmts/</link><pubDate>Mon, 20 Jun 2022 02:36:25 +0000</pubDate><guid>https://1nterp.github.io/tour-of-go-flow-control-stmts/</guid><description>&lt;p>&lt;a class="link" href="https://interp.blog/tour-of-go-package-function-variable/" target="_blank" rel="noopener"
+&lt;p>Marshalling 할 때 JSON 문서의 다이어트 목적으로 이 옵션을 종종 쓸 텐데, 항상 주의해서 써야 한다는 것으로 끝맺는다.&lt;/p></description></item><item><title>A tour of Go: Flow control statements</title><link>https://interp.blog/tour-of-go-flow-control-stmts/</link><pubDate>Mon, 20 Jun 2022 02:36:25 +0000</pubDate><guid>https://interp.blog/tour-of-go-flow-control-stmts/</guid><description>&lt;p>&lt;a class="link" href="https://interp.blog/tour-of-go-package-function-variable/" target="_blank" rel="noopener"
 >지난 시간&lt;/a>에 이어서, 여기서는 Flow Control Statement 에 대해 정리해 보았다.&lt;/p>
 &lt;h2 id="a-tour-of-go">A tour of Go&lt;/h2>
 &lt;ul>
@@ -913,7 +913,7 @@ sum += sum
 &lt;span class="c1">// 맞춰보자. 0이 먼저 나올까 9가 먼저 나올까?
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></description></item><item><title>A tour of Go: Package, Function, Variable</title><link>https://1nterp.github.io/tour-of-go-package-function-variable/</link><pubDate>Thu, 16 Jun 2022 10:26:18 +0900</pubDate><guid>https://1nterp.github.io/tour-of-go-package-function-variable/</guid><description>&lt;p>A tour of Go 시리즈를 두 번씩 돌아보고, 나름 배운 것들을 연이어 적어보려 한다. 첫 번째로 패키지, 변수, 함수 정의와 사용에 대한 내용이다. 이 문서는 번역이 아니라서, 개인적으로 중요했던 부분만 있을 수도 있고 투어 예제에서 다루지 않은 부분이 섞여있을 수 있으니 편하게 봐주셨으면 한다. &lt;del>화면 안 넘기고 스크롤만으로 볼 수 있다는 장점 정도?&lt;/del>&lt;/p>
+&lt;/div></description></item><item><title>A tour of Go: Package, Function, Variable</title><link>https://interp.blog/tour-of-go-package-function-variable/</link><pubDate>Thu, 16 Jun 2022 10:26:18 +0900</pubDate><guid>https://interp.blog/tour-of-go-package-function-variable/</guid><description>&lt;p>A tour of Go 시리즈를 두 번씩 돌아보고, 나름 배운 것들을 연이어 적어보려 한다. 첫 번째로 패키지, 변수, 함수 정의와 사용에 대한 내용이다. 이 문서는 번역이 아니라서, 개인적으로 중요했던 부분만 있을 수도 있고 투어 예제에서 다루지 않은 부분이 섞여있을 수 있으니 편하게 봐주셨으면 한다. &lt;del>화면 안 넘기고 스크롤만으로 볼 수 있다는 장점 정도?&lt;/del>&lt;/p>
 &lt;h2 id="a-tour-of-go">A tour of Go&lt;/h2>
 &lt;p>Go 언어의 튜토리얼 페이지라고 보면 된다. 다양한 언어로 번역되어 있으니 영어 원문으로 봐도 좋고 한국어판으로 봐도 좋다.&lt;/p>
 &lt;ul>
