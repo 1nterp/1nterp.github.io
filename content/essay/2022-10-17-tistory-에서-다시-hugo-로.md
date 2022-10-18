@@ -7,6 +7,7 @@ categories:
 tags: 
   - "블로그"
 image: "/images/2022-10-17-tistory-hugo-blog.jpeg"
+image_y: "59%"
 description: "조회수가 중요한 게 아니라, 안정적인 게 중요하다"
 ---
 
