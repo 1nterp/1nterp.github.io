@@ -23,6 +23,7 @@
                         width="{{ $Width }}" 
                         height="{{ $Height }}" 
                         loading="lazy"
+                        style="object-position: 50% {{ (default `50%` .Page.Params.image_y) | safeCSS }};{{ with .Page.Params.image_height }} max-height: {{ . }}{{ end }}"
                         alt="Featured image of post {{ .Title }}" />
                 {{ else }}
                     <img src="{{ $image.permalink }}" loading="lazy" 
