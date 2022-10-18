@@ -7,7 +7,6 @@ image = "feature.jpg"
 tags = ["영화", "베스트5", "타짜"]
 title = "내 인생 영화 BEST 5"
 url = "/my-life-best-5-movies/"
-
 +++
 > "다섯 번째로 좋아하는 영화가 뭐예요?"
 

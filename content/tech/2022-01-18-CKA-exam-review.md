@@ -9,8 +9,7 @@ tags:
 categories:
 - Tech
 image: "/images/featured/cka-exam.jpg"
-draft: true
-
+description: "K8s 자격증 응시 방법과 공부한 내용, 소소한 팁들"
 ---
 CKA (Certified K8s Administrator) 를 2021년 12월 말에 합격 통지를 받았다. 합격을 받고 나서 정리한 팁을 공유하고자 한다.
 

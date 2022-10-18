@@ -169,9 +169,9 @@ markup:
             ## Set to true if you have HTML content inside Markdown
             unsafe: true
     tableOfContents:
+        startLevel: 1
         endLevel: 2
         ordered: false
-        startLevel: 2
     highlight:
         noClasses: false
         codeFences: true
