@@ -5,7 +5,7 @@ But like above, a long line is wrapped so actually it&amp;rsquo;s a single line 
 How to solve Actually it&amp;rsquo;s not a problem but a characteristic of Vim with wrapped line, so I found a document as a workaround."><title>VSCodeVim: Moving cursor in a wrapped line</title>
 <style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600&family=Poor+Story&display=swap'</style>
 <link rel=canonical href=https://interp.blog/en/vim-wrapping-line-cursor-up-down/>
-<link rel=stylesheet href=/scss/style.min.424327ee2f85ef588c4a0f22a06ed61106b87b6e3f8d79300116573d48ff25b1.css><meta property="og:title" content="VSCodeVim: Moving cursor in a wrapped line">
+<link rel=stylesheet href=/scss/style.min.2eadfa29c06a2411f8e4fab807a712ab4cc1d271ebb9693ebd342c2dcefaa082.css><meta property="og:title" content="VSCodeVim: Moving cursor in a wrapped line">
 <meta property="og:description" content="I installed VSCodeVim into my Visual Studio code to code only with keyboard.
 But like above, a long line is wrapped so actually it&amp;rsquo;s a single line but it&amp;rsquo;s shown as multiple lines. In this case, if I pressed k or ↓ on the first (visible) line, the cursor moves to the next actual line which I don&amp;rsquo;t want to at all!
 How to solve Actually it&amp;rsquo;s not a problem but a characteristic of Vim with wrapped line, so I found a document as a workaround.">
@@ -92,21 +92,7 @@ Tech
 <h2 id=how-to-solve>How to solve</h2>
 <p>Actually it&rsquo;s not a problem but a characteristic of Vim with wrapped line, so I found <a class=link href=https://vim.fandom.com/wiki/Move_cursor_by_display_lines_when_wrapping target=_blank rel=noopener>a document</a> as a workaround. Then I could adopt it into Visual Studio code as well.</p>
 <p>Firstly, open <code>Settings</code> page and move to <strong>Vim: Normal Mode Key Bindings</strong> section. Then you can see <code>Edit in settings.json</code> button. In the following JSON file, put below blocks will solve the issue.</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-json data-lang=json>        <span class=s2>&#34;vim.normalModeKeyBindings&#34;</span><span class=err>:</span> <span class=p>[</span>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json>        <span class=s2>&#34;vim.normalModeKeyBindings&#34;</span><span class=err>:</span> <span class=p>[</span>
           <span class=p>{</span>
             <span class=nt>&#34;before&#34;</span><span class=p>:</span> <span class=p>[</span><span class=s2>&#34;&lt;Up&gt;&#34;</span><span class=p>],</span>
             <span class=nt>&#34;after&#34;</span><span class=p>:</span> <span class=p>[</span><span class=s2>&#34;g&#34;</span><span class=p>,</span> <span class=s2>&#34;k&#34;</span><span class=p>]</span>
@@ -116,9 +102,7 @@ Tech
             <span class=nt>&#34;after&#34;</span><span class=p>:</span> <span class=p>[</span><span class=s2>&#34;g&#34;</span><span class=p>,</span> <span class=s2>&#34;j&#34;</span><span class=p>]</span>
           <span class=p>}</span>
         <span class=p>]</span>
-</code></pre></td></tr></table>
-</div>
-</div>
+</code></pre></div>
 </section>
 <footer class=article-footer>
 <br>

@@ -13,26 +13,11 @@
 &lt;li>Xming 또는 VcXsrv 를 설치해서 실행시켰다. 트레이 아이콘에 &amp;lsquo;X&amp;rsquo; 라고 떠 있으면 완료. (이걸 X Server 라고 부른다)&lt;/li>
 &lt;li>Ubuntu Console을 하나 열어서,&lt;code>/etc/ssh/ssh_config&lt;/code> (sshd_config 가 아니다) 파일을 확인했다. 여기에서 ForwardX11 yes, ForwardX11Trusted yes 를 확인했다. (주석 처리되어 있다면 주석을 제거, sudo 권한 필요)&lt;/li>
 &lt;li>SSH 접속을 하면, 다음 에러 메시지가 떠서 보기 싫었다.
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">No xauth data; using fake authentication data for X11 forwarding.
-&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>그래서 다음과 같이 처리했다.
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ xauth list &lt;span class="c1"># ~/.Xauthority 파일이 없었다!&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">No xauth data; using fake authentication data for X11 forwarding.
+&lt;/code>&lt;/pre>&lt;/div>그래서 다음과 같이 처리했다.
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ xauth list &lt;span class="c1"># ~/.Xauthority 파일이 없었다!&lt;/span>
 $ xauth generate :0 . trusted &lt;span class="c1"># ~/.Xauthority 파일을 만들어준다고 한다..&lt;/span>
-&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;/li>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>(Optional) Xming 또는 VcXsrv 의 설치 디렉토리에 가면 &lt;code>X0.hosts&lt;/code>라는 파일이 있다. 여기서 Server의 Hostname 또는 IP를 적어줘야 한다.&lt;/li>
 &lt;/ol>
 &lt;h2 id="server에서-한-일">Server에서 한 일&lt;/h2>
@@ -40,14 +25,7 @@ $ xauth generate :0 . trusted &lt;span class="c1"># ~/.Xauthority 파일을 만�
 &lt;ol>
 &lt;li>&lt;code>/etc/ssh/sshd_config&lt;/code> 에서 &lt;code>X11UseLocalHost&lt;/code> 가 yes 로 되어 있거나, 활성화되어 있지 않아야 한다. 만약 no로 되어 있으면 yes 로 변경해야 한다.&lt;/li>
 &lt;li>&lt;code>$DISPLAY&lt;/code> 환경 변수를 아예 Windows (클라이언트 PC) 의 Hostname 또는 IP 주소로 설정해버린다.
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="nb">export&lt;/span> &lt;span class="nv">DISPLAY&lt;/span>&lt;span class="o">=&lt;/span>192.168.0.xxx:0
-&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>참고로, 뒤에 :0 또는 :10 같이 여러 예제가 인터넷에 나도는데, Windows 에서 X 아이콘에 마우스를 가져다 대면 &lt;code>Hostname:X.X&lt;/code> 라고 나올 것이다. X.X 를 저기에 쓰는 것이다. (나는 0.0 이라고 떠서 그냥 0만 적었다.)&lt;/li>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="nb">export&lt;/span> &lt;span class="nv">DISPLAY&lt;/span>&lt;span class="o">=&lt;/span>192.168.0.xxx:0
+&lt;/code>&lt;/pre>&lt;/div>참고로, 뒤에 :0 또는 :10 같이 여러 예제가 인터넷에 나도는데, Windows 에서 X 아이콘에 마우스를 가져다 대면 &lt;code>Hostname:X.X&lt;/code> 라고 나올 것이다. X.X 를 저기에 쓰는 것이다. (나는 0.0 이라고 떠서 그냥 0만 적었다.)&lt;/li>
 &lt;li>firefox 를 실행해 보자. 끝.&lt;/li>
 &lt;/ol></description></item></channel></rss>

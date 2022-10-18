@@ -3,7 +3,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="대학생 때 팀 프로젝트로 윈도우 어플리케이션을 끄적이던 때가 있었다. 그 때 C# 기반으로 진행했었는데, 나는 뷰에 집중했던지라 디자인하고 프로퍼티 만지기 바빴고 뼈"><title>C# xUnit 실습</title>
 <style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600&family=Poor+Story&display=swap'</style>
 <link rel=canonical href=https://interp.blog/csharp-xunit-practice/>
-<link rel=stylesheet href=/scss/style.min.424327ee2f85ef588c4a0f22a06ed61106b87b6e3f8d79300116573d48ff25b1.css><meta property="og:title" content="C# xUnit 실습">
+<link rel=stylesheet href=/scss/style.min.2eadfa29c06a2411f8e4fab807a712ab4cc1d271ebb9693ebd342c2dcefaa082.css><meta property="og:title" content="C# xUnit 실습">
 <meta property="og:description" content="대학생 때 팀 프로젝트로 윈도우 어플리케이션을 끄적이던 때가 있었다. 그 때 C# 기반으로 진행했었는데, 나는 뷰에 집중했던지라 디자인하고 프로퍼티 만지기 바빴고 뼈">
 <meta property="og:url" content="https://interp.blog/csharp-xunit-practice/">
 <meta property="og:site_name" content="InterP Blog">
@@ -115,66 +115,23 @@ Tech
 <code>projTest</code> 에 들어가서 <code>dotnet add reference ../projLibrary/projLibrary.csproj</code> 를 입력한다.</li>
 </ol>
 <p>그러면 아래와 같이 디렉토리와 파일이 구성되어야 한다. (자동으로 생성되는 <code>Class1.cs</code> 는 제외했다.)</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span><span class=lnt>6
-</span><span class=lnt>7
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>/testSolution
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>/testSolution
   testSolution.sln
   /projLibrary
     projLibrary.csproj
   /projTest
     <span class=c1># other referenced files (xunit)</span>
     projTest.csproj
-</code></pre></td></tr></table>
-</div>
-</div><h2 id=test-framework-수정>Test Framework 수정</h2>
+</code></pre></div><h2 id=test-framework-수정>Test Framework 수정</h2>
 <p><code>projLibrary</code> 에 있는 <code>projLibrary.csproj</code>를 열어서 아래를 수정한다.</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-xml data-lang=xml><span class=nt>&lt;TargetFramework&gt;</span>net40<span class=nt>&lt;/TargetFramework&gt;</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>만들고자 하는 프레임워크 버전을 명시하면 되고, 버전은 [여기][2]를 참고한다. 여러 개의 버전을 명시할 경우에는 세미콜론(;) 으로 구분하면 된다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-xml data-lang=xml><span class=nt>&lt;TargetFramework&gt;</span>net40<span class=nt>&lt;/TargetFramework&gt;</span>
+</code></pre></div><p>만들고자 하는 프레임워크 버전을 명시하면 되고, 버전은 [여기][2]를 참고한다. 여러 개의 버전을 명시할 경우에는 세미콜론(;) 으로 구분하면 된다.</p>
 <p>역으로, <code>projTest</code> 에 있는 <code>projTest.csproj</code> 는 이렇게 수정해야 한다.</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-xml data-lang=xml><span class=nt>&lt;TargetFramework&gt;</span>net45<span class=nt>&lt;/TargetFramework&gt;</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>기본적으로 netcore2.0 으로 설정되어 있을텐데, 이러면 net40 과 호환이 안되어서 참조조차 안되는 불상사가 발생한다. net45 또는 그 이상의 .NET Framework를 지정하되, netcore1.x 에 대응되는 버전으로만 지정하면 될 것으로 보인다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-xml data-lang=xml><span class=nt>&lt;TargetFramework&gt;</span>net45<span class=nt>&lt;/TargetFramework&gt;</span>
+</code></pre></div><p>기본적으로 netcore2.0 으로 설정되어 있을텐데, 이러면 net40 과 호환이 안되어서 참조조차 안되는 불상사가 발생한다. net45 또는 그 이상의 .NET Framework를 지정하되, netcore1.x 에 대응되는 버전으로만 지정하면 될 것으로 보인다.</p>
 <h3 id=테스트-작성>테스트 작성</h3>
 <p><code>projLibrary</code>에서 Class1.cs 에 다음을 추가하자.</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-csharp data-lang=csharp><span class=k>using</span> <span class=nn>System</span><span class=p>;</span>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-csharp data-lang=csharp><span class=k>using</span> <span class=nn>System</span><span class=p>;</span>
 
 <span class=k>namespace</span> <span class=nn>ProjLibrary</span>
 <span class=p>{</span>
@@ -186,37 +143,8 @@ Tech
         <span class=p>}</span> 
     <span class=p>}</span>
 <span class=p>}</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>아직 구현을 안 한 거다. 이제 <code>projTest</code>에서 Class1.cs에 다음을 추가한다</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span><span class=lnt>14
-</span><span class=lnt>15
-</span><span class=lnt>16
-</span><span class=lnt>17
-</span><span class=lnt>18
-</span><span class=lnt>19
-</span><span class=lnt>20
-</span><span class=lnt>21
-</span><span class=lnt>22
-</span><span class=lnt>23
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-csharp data-lang=csharp><span class=k>using</span> <span class=nn>Xunit</span><span class=p>;</span>
+</code></pre></div><p>아직 구현을 안 한 거다. 이제 <code>projTest</code>에서 Class1.cs에 다음을 추가한다</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-csharp data-lang=csharp><span class=k>using</span> <span class=nn>Xunit</span><span class=p>;</span>
 <span class=k>using</span> <span class=nn>ProjLibrary</span><span class=p>;</span>
 
 <span class=k>namespace</span> <span class=nn>Prime.UnitTests.Services</span>
@@ -239,9 +167,7 @@ Tech
         <span class=p>}</span>
     <span class=p>}</span>
 <span class=p>}</span>
-</code></pre></td></tr></table>
-</div>
-</div><h3 id=테스트>테스트</h3>
+</code></pre></div><h3 id=테스트>테스트</h3>
 <p>다 끝났다. 이제 솔루션 디렉토리에서 <code>dotnet test</code> 를 힘차게 불러보자.</p>
 <p>에러가 날 것이다. 당연히 테스트 코드에서 result 값이 FALSE가 나오기를 기대하는데, 지금은 그냥 Exception 으로 떨어지기 때문이다.</p>
 <p><code>projLibrary</code>에서 <code>IsPrime()</code> 함수의 리턴을 FALSE로 바꿔주면 테스트가 성공하는 것을 확인할 수 있다.</p>
@@ -278,6 +204,13 @@ Tech
 </a>
 </article>
 <article>
+<a href=/bdd-in-python-behave/>
+<div class=article-details>
+<h2 class=article-title>BDD in Python: Behave</h2>
+</div>
+</a>
+</article>
+<article>
 <a href=/oh-my-zsh-kubectl-autocomplete/>
 <div class=article-details>
 <h2 class=article-title>Oh my zsh! 에서 kubectl 자동 완성 하기</h2>
@@ -291,16 +224,6 @@ Tech
 </div>
 <div class=article-details>
 <h2 class=article-title>BDD (Behavior-driven Development) 소개</h2>
-</div>
-</a>
-</article>
-<article class=has-image>
-<a href=/keyboard-key-bouncing-problem/>
-<div class=article-image>
-<img src=/images/featured/keyboard-key-bounce.jpg loading=lazy data-key data-hash=/images/featured/keyboard-key-bounce.jpg>
-</div>
-<div class=article-details>
-<h2 class=article-title>키보드 키 바운싱 문제 해결</h2>
 </div>
 </a>
 </article>

@@ -3,7 +3,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="패키지, 변수, 함수 정의와 사용에 대해"><title>A tour of Go: Package, Function, Variable</title>
 <style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600&family=Poor+Story&display=swap'</style>
 <link rel=canonical href=https://interp.blog/tour-of-go-package-function-variable/>
-<link rel=stylesheet href=/scss/style.min.424327ee2f85ef588c4a0f22a06ed61106b87b6e3f8d79300116573d48ff25b1.css><meta property="og:title" content="A tour of Go: Package, Function, Variable">
+<link rel=stylesheet href=/scss/style.min.2eadfa29c06a2411f8e4fab807a712ab4cc1d271ebb9693ebd342c2dcefaa082.css><meta property="og:title" content="A tour of Go: Package, Function, Variable">
 <meta property="og:description" content="패키지, 변수, 함수 정의와 사용에 대해">
 <meta property="og:url" content="https://interp.blog/tour-of-go-package-function-variable/">
 <meta property="og:site_name" content="InterP Blog">
@@ -99,63 +99,20 @@ Tech
 </ul>
 <h2 id=package>Package</h2>
 <p>모든 <code>*.go</code> 파일의 첫 줄에는, 이 파일이 속한 &lsquo;패키지&rsquo; 이름을 작성한다. <code>main.go</code> 는 이렇게 패키지 이름이 지정될 것이다.</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kn>package</span> <span class=nx>main</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>다음 줄에는, 이 파일에서 사용할 다른 패키지들을 작성할 수 있다. 이렇게 각각 패키지 이름과 함께 <code>import</code> 를 해도 되지만,</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=c1>// separated
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kn>package</span> <span class=nx>main</span>
+</code></pre></div><p>다음 줄에는, 이 파일에서 사용할 다른 패키지들을 작성할 수 있다. 이렇게 각각 패키지 이름과 함께 <code>import</code> 를 해도 되지만,</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=c1>// separated
 </span><span class=c1></span><span class=kn>import</span> <span class=s>&#34;fmt&#34;</span>
 <span class=kn>import</span> <span class=s>&#34;math&#34;</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>이렇게 뭉쳐서 선언하는게 보통이다.</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=c1>// factored (better)
+</code></pre></div><p>이렇게 뭉쳐서 선언하는게 보통이다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=c1>// factored (better)
 </span><span class=c1></span><span class=kn>import</span> <span class=p>(</span>
 	<span class=s>&#34;fmt&#34;</span>
 	<span class=s>&#34;math&#34;</span>
 <span class=p>)</span>
-</code></pre></td></tr></table>
-</div>
-</div><h2 id=function-declaration>Function declaration</h2>
+</code></pre></div><h2 id=function-declaration>Function declaration</h2>
 <p>다양한 방식으로 함수 시그니처를 선언할 수 있다.</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=c1>// 기본적인 형태. return type 까지 적어야 함.
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=c1>// 기본적인 형태. return type 까지 적어야 함.
 </span><span class=c1></span><span class=kd>func</span> <span class=nf>add</span><span class=p>(</span><span class=nx>x</span> <span class=kt>int</span><span class=p>,</span> <span class=nx>y</span> <span class=kt>int</span><span class=p>)</span> <span class=kt>int</span> <span class=p>{</span> <span class=p>..</span> <span class=p>}</span>
 
 <span class=c1>// input 타입이 다 같으면 이렇게 typing 을 몰아서 할 수도 있음 (가독성은 좀 떨어짐)
@@ -167,9 +124,7 @@ Tech
 <span class=c1>// return 에 변수명을 입력해도 됨. 이 때는 변수명이 함수 내부에서 사용되고, naked return 으로 리턴함 (&#39;return&#39; 만 씀) 
 </span><span class=c1>// &lt;&lt; 가독성이 심하게 떨어지므로 짧은 함수일 때만 쓰는걸 추천함.
 </span><span class=c1></span><span class=kd>func</span> <span class=nf>split</span><span class=p>(</span><span class=nx>sum</span> <span class=kt>int</span><span class=p>)</span> <span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span> <span class=kt>int</span><span class=p>)</span> <span class=p>{</span> <span class=p>..</span> <span class=p>}</span>
-</code></pre></td></tr></table>
-</div>
-</div><br>
+</code></pre></div><br>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
 <ins class=adsbygoogle style=display:block data-ad-format=fluid data-ad-layout-key=-fx-q+4w-88+2u data-ad-client=ca-pub-0712823212859607 data-ad-slot=1092971030></ins>
 <script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
@@ -180,40 +135,15 @@ Tech
 <li><code>var</code> 키워드를 통한 선언</li>
 <li><code>:=</code> 를 사용해 선언+할당 동시에 하기</li>
 </ul>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span><span class=lnt>6
-</span><span class=lnt>7
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kd>var</span> <span class=nx>c</span><span class=p>,</span> <span class=nx>python</span><span class=p>,</span> <span class=nx>java</span> <span class=kt>bool</span> <span class=c1>// 여러 변수가 전부 같은 타입이면 이렇게 변수명 리스트와 마지막 타입 한 번만 적어서 정의해도 됨.
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kd>var</span> <span class=nx>c</span><span class=p>,</span> <span class=nx>python</span><span class=p>,</span> <span class=nx>java</span> <span class=kt>bool</span> <span class=c1>// 여러 변수가 전부 같은 타입이면 이렇게 변수명 리스트와 마지막 타입 한 번만 적어서 정의해도 됨.
 </span><span class=c1></span>                         <span class=c1>// 이건 패키지 레벨, 즉, 다른 함수도 c, python, java 를 모두 접근할 수 있다.
 </span><span class=c1></span>
 <span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
 	<span class=kd>var</span> <span class=nx>i</span> <span class=kt>int</span>  <span class=c1>// 순서는 var [변수명] [타입] 이다. 이건 함수 레벨이다.
 </span><span class=c1></span>	<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>i</span><span class=p>,</span> <span class=nx>c</span><span class=p>,</span> <span class=nx>python</span><span class=p>,</span> <span class=nx>java</span><span class=p>)</span>
 <span class=p>}</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>변수 선언과 함께 값을 할당하는 initializer 방법도 다양하다.</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span><span class=lnt>6
-</span><span class=lnt>7
-</span><span class=lnt>8
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kd>var</span> <span class=nx>i</span><span class=p>,</span> <span class=nx>j</span> <span class=kt>int</span> <span class=p>=</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>2</span> <span class=c1>// 지정된 타입에 맞춰 넣는다. 여러 개를 이렇게 동시에 넣어도 된다. (이 경우에 j = &#34;str&#34; 하면 에러 난다)
+</code></pre></div><p>변수 선언과 함께 값을 할당하는 initializer 방법도 다양하다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kd>var</span> <span class=nx>i</span><span class=p>,</span> <span class=nx>j</span> <span class=kt>int</span> <span class=p>=</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>2</span> <span class=c1>// 지정된 타입에 맞춰 넣는다. 여러 개를 이렇게 동시에 넣어도 된다. (이 경우에 j = &#34;str&#34; 하면 에러 난다)
 </span><span class=c1></span><span class=kd>var</span> <span class=nx>c</span><span class=p>,</span> <span class=nx>python</span><span class=p>,</span> <span class=nx>java</span> <span class=p>=</span> <span class=kc>true</span><span class=p>,</span> <span class=kc>false</span><span class=p>,</span> <span class=s>&#34;no!&#34;</span> <span class=c1>// 타입 지정이 되어 있지 않아도, 값에 따라 개별로 설정된다. 앞부터 bool, bool, string 이 된다.
 </span><span class=c1></span>
 <span class=c1>// 이렇게 factored 방식으로 지정할 수도 있고, 가독성 역시 좋아진다~
@@ -221,44 +151,20 @@ Tech
 	<span class=nx>ToBe</span>   <span class=kt>bool</span>       <span class=p>=</span> <span class=kc>false</span>
 	<span class=nx>MaxInt</span> <span class=kt>uint64</span>     <span class=p>=</span> <span class=mi>1</span><span class=o>&lt;&lt;</span><span class=mi>64</span> <span class=o>-</span> <span class=mi>1</span> <span class=c1>// bit-wise operator 조심
 </span><span class=c1></span><span class=p>)</span>
-</code></pre></td></tr></table>
-</div>
-</div><p><code>:=</code> 도 알아보자. 단, 이 방법은 전역 변수 (=패키지 레벨 변수) 에서는 사용이 불가능하다. 이 때는 <code>var</code> 로만 선언이 가능하다.</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kd>func</span> <span class=nf>blahblah</span><span class=p>()</span> <span class=p>{</span>
+</code></pre></div><p><code>:=</code> 도 알아보자. 단, 이 방법은 전역 변수 (=패키지 레벨 변수) 에서는 사용이 불가능하다. 이 때는 <code>var</code> 로만 선언이 가능하다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kd>func</span> <span class=nf>blahblah</span><span class=p>()</span> <span class=p>{</span>
 	<span class=nx>k</span> <span class=o>:=</span> <span class=mi>3</span> <span class=c1>// var k = 3 과 같다. var == : 라는 뜻.
 </span><span class=c1></span>	<span class=nx>c</span><span class=p>,</span> <span class=nx>python</span><span class=p>,</span> <span class=nx>java</span> <span class=o>:=</span> <span class=kc>true</span><span class=p>,</span> <span class=kc>false</span><span class=p>,</span> <span class=s>&#34;no!&#34;</span>
 	<span class=o>...</span>
 <span class=p>}</span>
-</code></pre></td></tr></table>
-</div>
-</div><h2 id=exported-variablefunction>Exported variable/function</h2>
+</code></pre></div><h2 id=exported-variablefunction>Exported variable/function</h2>
 <p>첫 문자가 <strong>대문자</strong>인 함수나 전역 변수 이름은, <code>패키지 이름.이름</code> 형식으로 다른 패키지에서 참조가 가능하다. 아래와 같이 쓰고 <code>custommath_pi.go</code> 라고 저장했다고 하면, <code>custommath.hiddenPi</code> 로는 참조가 안 되고 <code>custommath.Pi()</code> 는 참조가 가능하다.</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kn>package</span> <span class=nx>custommath</span>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kn>package</span> <span class=nx>custommath</span>
 
 <span class=kd>var</span> <span class=nx>hiddenPi</span> <span class=kt>float64</span>
 
 <span class=kd>func</span> <span class=nf>Pi</span><span class=p>()</span> <span class=kt>float64</span> <span class=p>{</span> <span class=o>...</span> <span class=p>}</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>주목할 부분은,</p>
+</code></pre></div><p>주목할 부분은,</p>
 <ul>
 <li>파일 이름이 아니라 패키지 이름으로 참조한다는 것이다.</li>
 <li>다른 말로, 같은 패키지 안이기만 하면, 다른 파일에서도 모든 변수/함수 참조가 가능하다는 것이다. (같은 패키지에서 중복된 변수/함수 이름은 허용되지 않는 이유..)</li>
@@ -287,50 +193,21 @@ complex64 complex128 // 복소수임.. e.g. 3+2i
 </ul>
 <h2 id=variable-type-casting>Variable type-casting</h2>
 <p>Go 언어에서 type casting 은 <em>type conversion</em> 이라고 불린다. 그냥 캐스팅 하듯 type 을 앞에 쓰고 괄호로 감싸면 형변환이 된다.</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=nx>i</span> <span class=o>:=</span> <span class=mi>42</span>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=nx>i</span> <span class=o>:=</span> <span class=mi>42</span>
 <span class=nx>f</span> <span class=o>:=</span> <span class=nb>float64</span><span class=p>(</span><span class=nx>i</span><span class=p>)</span>
 <span class=nx>u</span> <span class=o>:=</span> <span class=nb>uint</span><span class=p>(</span><span class=nx>f</span><span class=p>)</span>
 <span class=nx>s</span> <span class=o>:=</span> <span class=nb>string</span><span class=p>(</span><span class=nx>i</span><span class=p>)</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>다른 대부분의 언어에서는 암묵적 캐스팅이 가능한데, Go 언어는 이 부분에서 엄격하다. 따라서 이 구문은 안 된다.</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kd>var</span> <span class=nx>i</span> <span class=kt>int</span> <span class=p>=</span> <span class=mi>1</span>
+</code></pre></div><p>다른 대부분의 언어에서는 암묵적 캐스팅이 가능한데, Go 언어는 이 부분에서 엄격하다. 따라서 이 구문은 안 된다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kd>var</span> <span class=nx>i</span> <span class=kt>int</span> <span class=p>=</span> <span class=mi>1</span>
 <span class=kd>var</span> <span class=nx>f</span> <span class=kt>float64</span> <span class=p>=</span> <span class=nx>i</span> <span class=c1>// i 가 int 여서 안 됨. 1.0 으로 들어가지 않음
-</span></code></pre></td></tr></table>
-</div>
-</div><h2 id=constant>Constant</h2>
+</span></code></pre></div><h2 id=constant>Constant</h2>
 <p><code>const</code> 키워드를 쓰면 된다.</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kd>const</span> <span class=nx>Pi</span> <span class=p>=</span> <span class=mf>3.14</span>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kd>const</span> <span class=nx>Pi</span> <span class=p>=</span> <span class=mf>3.14</span>
 
 <span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
 	<span class=kd>const</span> <span class=nx>world</span> <span class=p>=</span> <span class=s>&#34;세계&#34;</span>
 <span class=p>}</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>다음의 특징을 가진다.</p>
+</code></pre></div><p>다음의 특징을 가진다.</p>
 <ul>
 <li>
 <p>패키지 레벨, 함수 레벨 둘 다 가능하다.</p>
@@ -340,15 +217,8 @@ complex64 complex128 // 복소수임.. e.g. 3+2i
 </li>
 <li>
 <p>별도 타입 선언이 안 되므로, 정수형 상수 (numeric constant) 를 넣을 때는 내부적으로 필요한 type 을 (마음대로) 결정한다. 예를 들어,</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kd>const</span> <span class=nx>Big</span> <span class=p>=</span> <span class=mi>1</span> <span class=o>&lt;&lt;</span> <span class=mi>100</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>이렇게 선언하면 Big 은 <code>int</code> 형이 아니라 <code>float64</code> 쯤 될 것이다. 이 말은 <code>Big</code> 을 int 처럼 쓰려고 들면 type conversion error 를 만날 수 있다는 것이다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kd>const</span> <span class=nx>Big</span> <span class=p>=</span> <span class=mi>1</span> <span class=o>&lt;&lt;</span> <span class=mi>100</span>
+</code></pre></div><p>이렇게 선언하면 Big 은 <code>int</code> 형이 아니라 <code>float64</code> 쯤 될 것이다. 이 말은 <code>Big</code> 을 int 처럼 쓰려고 들면 type conversion error 를 만날 수 있다는 것이다.</p>
 </li>
 </ul>
 </section>
@@ -390,19 +260,16 @@ complex64 complex128 // 복소수임.. e.g. 3+2i
 </a>
 </article>
 <article>
-<a href=/oh-my-zsh-kubectl-autocomplete/>
+<a href=/bdd-in-python-behave/>
 <div class=article-details>
-<h2 class=article-title>Oh my zsh! 에서 kubectl 자동 완성 하기</h2>
+<h2 class=article-title>BDD in Python: Behave</h2>
 </div>
 </a>
 </article>
-<article class=has-image>
-<a href=/bdd-behavior-driven-development/>
-<div class=article-image>
-<img src=/bdd-behavior-driven-development/feature.4a92b05bcc5515ef86ccc5105fa05b75.jpg width=750 height=500 loading=lazy alt="Featured image of post BDD (Behavior-driven Development) 소개" data-hash="md5-SpKwW8xVFe+GzMUQX6BbdQ==">
-</div>
+<article>
+<a href=/oh-my-zsh-kubectl-autocomplete/>
 <div class=article-details>
-<h2 class=article-title>BDD (Behavior-driven Development) 소개</h2>
+<h2 class=article-title>Oh my zsh! 에서 kubectl 자동 완성 하기</h2>
 </div>
 </a>
 </article>

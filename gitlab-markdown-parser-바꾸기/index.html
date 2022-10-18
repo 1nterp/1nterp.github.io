@@ -3,7 +3,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Github 과 비슷한 서비스인 Gitlab 은 오픈소스이기 때문에 Community Edition 을 쓰건, Enterprise Edition 을 쓰건 on-premise 환경에서 설치한 뒤 맘대로 수정해서 사용이 가능하다. (물론 EE 는 라이센스가 필요하다)"><title>Gitlab Markdown Parser 바꾸기</title>
 <style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600&family=Poor+Story&display=swap'</style>
 <link rel=canonical href=https://interp.blog/gitlab-markdown-parser-%EB%B0%94%EA%BE%B8%EA%B8%B0/>
-<link rel=stylesheet href=/scss/style.min.424327ee2f85ef588c4a0f22a06ed61106b87b6e3f8d79300116573d48ff25b1.css><meta property="og:title" content="Gitlab Markdown Parser 바꾸기">
+<link rel=stylesheet href=/scss/style.min.2eadfa29c06a2411f8e4fab807a712ab4cc1d271ebb9693ebd342c2dcefaa082.css><meta property="og:title" content="Gitlab Markdown Parser 바꾸기">
 <meta property="og:description" content="Github 과 비슷한 서비스인 Gitlab 은 오픈소스이기 때문에 Community Edition 을 쓰건, Enterprise Edition 을 쓰건 on-premise 환경에서 설치한 뒤 맘대로 수정해서 사용이 가능하다. (물론 EE 는 라이센스가 필요하다)">
 <meta property="og:url" content="https://interp.blog/gitlab-markdown-parser-%EB%B0%94%EA%BE%B8%EA%B8%B0/">
 <meta property="og:site_name" content="InterP Blog">
@@ -95,22 +95,7 @@ Tech
 <h3 id=parser-c-파일-수정하기>Parser C 파일 수정하기</h3>
 <p><code>/opt/gitlab/embedded/lib/ruby/gems/2.3.0/gems/redcarpet-3.4.0/</code> 으로 들어가면 Redcarpet의 소스코드가 존재한다. 여기서 <code>ext/redcarpet</code> 디렉토리가 Parser C 파일들이 위치한 곳이다.</p>
 <p>내가 수정하고 싶은 것은 &lsquo;<strong>엔터 키를 두번 쳐야 (혹은 줄 끝에 스페이스를 2개 이상 줘야) 줄바꿈이 되는 불편함</strong>&rsquo; 을 해소하고 싶었다. <code>markdown.c</code> 파일을 보니 <code>char_linebreak()</code>  라는 함수가 존재한다. 여기서 해당 부분을 주석처리했다.</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=cm>/* char_linebreak • &#39;\n&#39; preceded by two spaces (assuming linebreak != 0) */</span>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=cm>/* char_linebreak • &#39;\n&#39; preceded by two spaces (assuming linebreak != 0) */</span>
 <span class=k>static</span> <span class=n>size_t</span>
 <span class=nf>char_linebreak</span><span class=p>(</span><span class=k>struct</span> <span class=nc>buf</span> <span class=o>*</span><span class=n>ob</span><span class=p>,</span> <span class=k>struct</span> <span class=nc>sd_markdown</span> <span class=o>*</span><span class=n>rndr</span><span class=p>,</span> <span class=kt>uint8_t</span> <span class=o>*</span><span class=n>data</span><span class=p>,</span> <span class=n>size_t</span> <span class=n>offset</span><span class=p>,</span> <span class=n>size_t</span> <span class=n>size</span><span class=p>)</span>
 <span class=p>{</span>
@@ -121,9 +106,7 @@ Tech
 
         <span class=k>return</span> <span class=n>rndr</span><span class=o>-&gt;</span><span class=n>cb</span><span class=p>.</span><span class=n>linebreak</span><span class=p>(</span><span class=n>ob</span><span class=p>,</span> <span class=n>rndr</span><span class=o>-&gt;</span><span class=n>opaque</span><span class=p>)</span> <span class=o>?</span> <span class=mi>1</span> <span class=o>:</span> <span class=mi>0</span><span class=p>;</span>
 <span class=p>}</span>
-</code></pre></td></tr></table>
-</div>
-</div><h3 id=라이브러리-생성복사>라이브러리 생성/복사</h3>
+</code></pre></div><h3 id=라이브러리-생성복사>라이브러리 생성/복사</h3>
 <p>수정이 끝나면 반드시 <code>ext/redcarpet</code> 디렉토리에서 <code>make</code> 를 수행해 주도록 하자. 그러면 Shared Library 파일인 <code>redcarpet.so</code> 이 생성된다.</p>
 <p>이 파일을, 다음 경로에 모두 복사해주도록 하자.</p>
 <ul>
@@ -137,22 +120,7 @@ Tech
 <h2 id=gitlab-11x-이후--commonmark>Gitlab 11.x 이후 : Commonmark</h2>
 <p>11.x 부터는 Redcarpet 이 아니라 Commonmark 를 기본 파서로 사용한다. 구조가 달라져서 찾는게 귀찮아서 그렇지, 기본 원리는 비슷하다. 2칸 이상의 space 를 준 채로 줄바꿈하게 되면 <code>CMARK_NODE_LINEBREAK</code>, 그렇지 않고 줄바꿈하면 <code>CMARK_NODE_SOFTBREAK</code> 상태로 전이된다.</p>
 <p>옵션을 쓸 수 있다면 좋겠지만, 본인은 마음이 급한지라 참고할 만한 소스코드만 붙이고 도망가도록 한다. <code>html.c:283</code> 부터다. 여기서 직접 line break 를 하도록 강제했다.</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=k>case</span> <span class=nl>CMARK_NODE_SOFTBREAK</span><span class=p>:</span>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=k>case</span> <span class=nl>CMARK_NODE_SOFTBREAK</span><span class=p>:</span>
      <span class=k>if</span> <span class=p>(</span><span class=n>options</span> <span class=o>&amp;</span><span class=n>amp</span><span class=p>;</span> <span class=n>CMARK_OPT_HARDBREAKS</span><span class=p>)</span> <span class=p>{</span>
        <span class=n>cmark_strbuf_puts</span><span class=p>(</span><span class=n>html</span><span class=p>,</span> <span class=s>&#34;&lt;br/&gt;</span><span class=se>\n</span><span class=s>&#34;</span><span class=p>);</span>
      <span class=p>}</span> <span class=k>else</span> <span class=k>if</span> <span class=p>(</span><span class=n>options</span> <span class=o>&amp;</span><span class=n>amp</span><span class=p>;</span> <span class=n>CMARK_OPT_NOBREAKS</span><span class=p>)</span> <span class=p>{</span>
@@ -163,25 +131,13 @@ Tech
      <span class=p>}</span>
      <span class=k>break</span><span class=p>;</span>
 
-</code></pre></td></tr></table>
-</div>
-</div><p>이렇게 하고 make 를 치면.. 어? 빌드가 안 된다.</p>
+</code></pre></div><p>이렇게 하고 make 를 치면.. 어? 빌드가 안 된다.</p>
 <p>당황하지 말고, <del>이름 때문에 보기 싫지만</del> banzai filter 가 위치한 곳의 ruby 파일을 수정하면 된다. 여기에서 사실 옵션 조절이 가능하다. 파일 위치는 <code>/opt/gitlab/embedded/service/gitlab-rails/lib/banzai/filter/markdown_engines/common_mark.rb</code> 이다.</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=no>RENDER_OPTIONS</span> <span class=o>=</span> <span class=o>[</span>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=no>RENDER_OPTIONS</span> <span class=o>=</span> <span class=o>[</span>
           <span class=ss>:DEFAULT</span><span class=p>,</span>     <span class=c1># default rendering system. Nothing special.</span>
           <span class=ss>:HARDBREAKS</span>   <span class=c1># Treat `\n` as hardbreaks (by adding `&lt;br/&gt;`).            # 이걸 추가한다.</span>
         <span class=o>].</span><span class=n>freeze</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>반드시, Gitlab 재부팅을 잊지말자!</p>
+</code></pre></div><p>반드시, Gitlab 재부팅을 잊지말자!</p>
 <p>한 가지 아쉬운 점은(?) 일부러 soft break 를 시도하는 경우에, 내부에서 line break 까지 겹쳐서 인식하기 때문에 결론적으로 <code>&lt;br/></code> 이 두번 붙는 사태가 일어난다. 어쩔 수 없이 commonmark 를 한번 빌드하는 수밖에 없나.. 하는 생각이 들고 있다.</p>
 </section>
 <footer class=article-footer>
@@ -222,19 +178,16 @@ Tech
 </a>
 </article>
 <article>
-<a href=/oh-my-zsh-kubectl-autocomplete/>
+<a href=/bdd-in-python-behave/>
 <div class=article-details>
-<h2 class=article-title>Oh my zsh! 에서 kubectl 자동 완성 하기</h2>
+<h2 class=article-title>BDD in Python: Behave</h2>
 </div>
 </a>
 </article>
-<article class=has-image>
-<a href=/bdd-behavior-driven-development/>
-<div class=article-image>
-<img src=/bdd-behavior-driven-development/feature.4a92b05bcc5515ef86ccc5105fa05b75.jpg width=750 height=500 loading=lazy alt="Featured image of post BDD (Behavior-driven Development) 소개" data-hash="md5-SpKwW8xVFe+GzMUQX6BbdQ==">
-</div>
+<article>
+<a href=/oh-my-zsh-kubectl-autocomplete/>
 <div class=article-details>
-<h2 class=article-title>BDD (Behavior-driven Development) 소개</h2>
+<h2 class=article-title>Oh my zsh! 에서 kubectl 자동 완성 하기</h2>
 </div>
 </a>
 </article>

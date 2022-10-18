@@ -1,23 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>lock on InterP Blog</title><link>https://interp.blog/tags/lock/</link><description>Recent content in lock on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Tue, 24 Apr 2018 02:31:38 +0000</lastBuildDate><atom:link href="https://interp.blog/tags/lock/index.xml" rel="self" type="application/rss+xml"/><item><title>Atomic Operation 으로 하는 동시성 제어</title><link>https://interp.blog/atomic-operation-%EC%9C%BC%EB%A1%9C-%ED%95%98%EB%8A%94-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%A0%9C%EC%96%B4/</link><pubDate>Tue, 24 Apr 2018 02:31:38 +0000</pubDate><guid>https://interp.blog/atomic-operation-%EC%9C%BC%EB%A1%9C-%ED%95%98%EB%8A%94-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%A0%9C%EC%96%B4/</guid><description>&lt;h2 id="test-and-set-tas">Test-And-Set (TAS)&lt;/h2>
 &lt;p>TAS 를 이용해서 간단한 동시성 제어를 할 수 있다. testAndSet 이라는 function 을 가지고 아래의 &lt;code>do...while&lt;/code> 문을 쓰레드 A, B 에서 동시에 호출한다고 해 보자. 이 때 lock 은 같은 변수이다.&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
-&lt;/span>&lt;span class="lnt"> 2
-&lt;/span>&lt;span class="lnt"> 3
-&lt;/span>&lt;span class="lnt"> 4
-&lt;/span>&lt;span class="lnt"> 5
-&lt;/span>&lt;span class="lnt"> 6
-&lt;/span>&lt;span class="lnt"> 7
-&lt;/span>&lt;span class="lnt"> 8
-&lt;/span>&lt;span class="lnt"> 9
-&lt;/span>&lt;span class="lnt">10
-&lt;/span>&lt;span class="lnt">11
-&lt;/span>&lt;span class="lnt">12
-&lt;/span>&lt;span class="lnt">13
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="n">function&lt;/span> &lt;span class="nf">TestAndSet&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">boolean_ref&lt;/span> &lt;span class="n">lock&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="n">function&lt;/span> &lt;span class="nf">TestAndSet&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">boolean_ref&lt;/span> &lt;span class="n">lock&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
 &lt;span class="n">boolean&lt;/span> &lt;span class="n">initial&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">lock&lt;/span>
 &lt;span class="n">lock&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">true&lt;/span>
 &lt;span class="k">return&lt;/span> &lt;span class="n">initial&lt;/span>
@@ -29,9 +12,7 @@
 &lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">lock&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">false&lt;/span>&lt;span class="p">;&lt;/span>
 &lt;span class="c1">// remainder section
 &lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span> &lt;span class="k">while&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">true&lt;/span>&lt;span class="p">);&lt;/span>
-&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>우선 TestAndSet() 은 다음과 같은 일을 한다. 말 그대로 &amp;lsquo;지금 값이 무엇인지 검사하고, 값을 바꾼다&amp;rsquo; 는 것이다.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>우선 TestAndSet() 은 다음과 같은 일을 한다. 말 그대로 &amp;lsquo;지금 값이 무엇인지 검사하고, 값을 바꾼다&amp;rsquo; 는 것이다.&lt;/p>
 &lt;ol>
 &lt;li>lock의 현재 값을 저장해 둔다.&lt;/li>
 &lt;li>lock의 값을 true 로 설정한다.&lt;/li>
@@ -59,27 +40,7 @@
 &lt;p>그럼 어떡하나? TestAndSet() 은 그래서 저런 함수만으로는 안 되고 Test-And-Set 의 연산이 일관되도록 조정해야 한다. 함수 안에 spinlock 을 쓰면 되겠네요? 싶겠지만 lock 구현하자고 lock 을 또 만드는 건 아닌 것 같다. 그래서 Test-And-Set 은 CPU에서 지원하는 Atomic Instruction 을 사용한다.&lt;/p>
 &lt;h2 id="fetch-and-add--ticket-lock">Fetch-And-Add : Ticket Lock&lt;/h2>
 &lt;p>Atomic Operation 으로 구현할 수 있는 Lock 중에 Ticket Lock 이 있는데, Fetch-And-Add 로 구현할 수 있는 방법을 알아보자.&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
-&lt;/span>&lt;span class="lnt"> 2
-&lt;/span>&lt;span class="lnt"> 3
-&lt;/span>&lt;span class="lnt"> 4
-&lt;/span>&lt;span class="lnt"> 5
-&lt;/span>&lt;span class="lnt"> 6
-&lt;/span>&lt;span class="lnt"> 7
-&lt;/span>&lt;span class="lnt"> 8
-&lt;/span>&lt;span class="lnt"> 9
-&lt;/span>&lt;span class="lnt">10
-&lt;/span>&lt;span class="lnt">11
-&lt;/span>&lt;span class="lnt">12
-&lt;/span>&lt;span class="lnt">13
-&lt;/span>&lt;span class="lnt">14
-&lt;/span>&lt;span class="lnt">15
-&lt;/span>&lt;span class="lnt">16
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="n">ticketLock_init&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">next_ticket&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">now_serving&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="n">ticketLock_init&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">next_ticket&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">now_serving&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;span class="p">{&lt;/span>
 &lt;span class="o">*&lt;/span>&lt;span class="n">now_serving&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">next_ticket&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
 &lt;span class="p">}&lt;/span>
@@ -92,9 +53,7 @@
 &lt;span class="p">{&lt;/span>
 &lt;span class="n">now_serving&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">;&lt;/span>
 &lt;span class="p">}&lt;/span>
-&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>TAS 의 케이스를 이해하고 본다면 별 다른 설명이 필요 없을 것 같다.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>TAS 의 케이스를 이해하고 본다면 별 다른 설명이 필요 없을 것 같다.&lt;/p>
 &lt;ol>
 &lt;li>Table Lock 초기화를 한다.&lt;/li>
 &lt;li>A : Table Lock 을 얻으려 한다. 이미 얻었던 &lt;code>my_ticket (0)&lt;/code> 과 &lt;code>now_serving (0)&lt;/code> 이 같은 값이므로 곧바로 빠져나온다.&lt;/li>

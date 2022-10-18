@@ -3,7 +3,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="if-else, for, switch, defer"><title>A tour of Go: Flow control statements</title>
 <style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600&family=Poor+Story&display=swap'</style>
 <link rel=canonical href=https://interp.blog/tour-of-go-flow-control-stmts/>
-<link rel=stylesheet href=/scss/style.min.424327ee2f85ef588c4a0f22a06ed61106b87b6e3f8d79300116573d48ff25b1.css><meta property="og:title" content="A tour of Go: Flow control statements">
+<link rel=stylesheet href=/scss/style.min.2eadfa29c06a2411f8e4fab807a712ab4cc1d271ebb9693ebd342c2dcefaa082.css><meta property="og:title" content="A tour of Go: Flow control statements">
 <meta property="og:description" content="if-else, for, switch, defer">
 <meta property="og:url" content="https://interp.blog/tour-of-go-flow-control-stmts/">
 <meta property="og:site_name" content="InterP Blog">
@@ -98,19 +98,7 @@ if-else, for, switch, defer
 </ul>
 <h2 id=if-else>If, else</h2>
 <p>조건문은 다른 프로그래밍 언어와 마찬가지로 <code>if</code>, <code>else</code> 그리고 <code>else if</code> 의 조합으로 구성된다. 조건 절 (condition clause) 에 있는 수식을 검증 (evaluation 이라고도 한다) 한 결과가 참이면 해당 블록이 수행된다.</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span><span class=lnt>6
-</span><span class=lnt>7
-</span><span class=lnt>8
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-golang data-lang=golang><span class=nx>a</span> <span class=o>:=</span> <span class=mi>1</span>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-golang data-lang=golang><span class=nx>a</span> <span class=o>:=</span> <span class=mi>1</span>
 <span class=k>if</span> <span class=nx>a</span> <span class=o>==</span> <span class=mi>1</span> <span class=p>{</span>
   <span class=c1>// ...
 </span><span class=c1></span><span class=p>}</span>
@@ -118,35 +106,12 @@ if-else, for, switch, defer
 <span class=k>if</span> <span class=nf>funcTrue</span><span class=p>()</span> <span class=p>{</span>
   <span class=c1>// ...
 </span><span class=c1></span><span class=p>}</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>여러 개의 수식들을 넣어도 되고, 마지막 수식이 boolean 으로 검증되거나 반환되어야 한다. 수식 간에는 세미콜론(<code>;</code>)으로 구분한다. 이 부분에서 가장 널리 쓰이는 패턴이 바로 <code>error</code> 객체가 반환되었는지 검증하는 구문이다.</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-golang data-lang=golang><span class=k>if</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nf>funcTest</span><span class=p>();</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</code></pre></div><p>여러 개의 수식들을 넣어도 되고, 마지막 수식이 boolean 으로 검증되거나 반환되어야 한다. 수식 간에는 세미콜론(<code>;</code>)으로 구분한다. 이 부분에서 가장 널리 쓰이는 패턴이 바로 <code>error</code> 객체가 반환되었는지 검증하는 구문이다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-golang data-lang=golang><span class=k>if</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nf>funcTest</span><span class=p>();</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
   <span class=c1>// error handling with `err` object
 </span><span class=c1></span><span class=p>}</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>참고로 저기 <code>err</code> 는 조건 블록 안에서만 사용할 수 있다. 바깥에서는 참조할 수 없고, 대신 다른 <code>else if</code> 나 <code>else</code> 블록에서는 참조가 가능하다.</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span><span class=lnt>6
-</span><span class=lnt>7
-</span><span class=lnt>8
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=k>if</span> <span class=nx>a</span> <span class=o>:=</span> <span class=nf>getInt</span><span class=p>(</span><span class=nx>testStr</span><span class=p>);</span> <span class=nx>a</span> <span class=o>==</span> <span class=mi>0</span> <span class=p>{</span>
+</code></pre></div><p>참고로 저기 <code>err</code> 는 조건 블록 안에서만 사용할 수 있다. 바깥에서는 참조할 수 없고, 대신 다른 <code>else if</code> 나 <code>else</code> 블록에서는 참조가 가능하다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=k>if</span> <span class=nx>a</span> <span class=o>:=</span> <span class=nf>getInt</span><span class=p>(</span><span class=nx>testStr</span><span class=p>);</span> <span class=nx>a</span> <span class=o>==</span> <span class=mi>0</span> <span class=p>{</span>
 	<span class=c1>// ok
 </span><span class=c1></span><span class=p>}</span> <span class=k>else</span> <span class=k>if</span> <span class=nx>a</span> <span class=o>==</span> <span class=mi>1</span> <span class=p>{</span>
 	<span class=c1>// ok
@@ -154,22 +119,8 @@ if-else, for, switch, defer
 	<span class=c1>// ok
 </span><span class=c1></span><span class=p>}</span>
 <span class=nx>fmt</span><span class=p>.</span><span class=nf>Print</span><span class=p>(</span><span class=nx>a</span><span class=p>)</span> <span class=c1>// error
-</span></code></pre></td></tr></table>
-</div>
-</div><p>심지어는 <code>else if</code> 에서 선언된 변수가 있는데 <code>if</code> 에서 쓸 수 있을까? 된다! hoisting 해서 쓴다. 이 쯤 생각해보니, <strong>if block 전체에 선언된 변수들에 대해 evaluation 을 먼저 하는 것으로 보인다</strong>.</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span><span class=lnt>6
-</span><span class=lnt>7
-</span><span class=lnt>8
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kd>func</span> <span class=nf>pow</span><span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>n</span><span class=p>,</span> <span class=nx>lim</span> <span class=kt>float64</span><span class=p>)</span> <span class=kt>float64</span> <span class=p>{</span>
+</span></code></pre></div><p>심지어는 <code>else if</code> 에서 선언된 변수가 있는데 <code>if</code> 에서 쓸 수 있을까? 된다! hoisting 해서 쓴다. 이 쯤 생각해보니, <strong>if block 전체에 선언된 변수들에 대해 evaluation 을 먼저 하는 것으로 보인다</strong>.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kd>func</span> <span class=nf>pow</span><span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>n</span><span class=p>,</span> <span class=nx>lim</span> <span class=kt>float64</span><span class=p>)</span> <span class=kt>float64</span> <span class=p>{</span>
 	<span class=k>if</span> <span class=nx>v</span> <span class=o>:=</span> <span class=nx>math</span><span class=p>.</span><span class=nf>Pow</span><span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>n</span><span class=p>);</span> <span class=nx>v</span> <span class=p>&lt;</span> <span class=nx>lim</span> <span class=p>{</span>
 		<span class=k>return</span> <span class=nx>v</span>
 	<span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
@@ -177,9 +128,7 @@ if-else, for, switch, defer
 </span><span class=c1></span>	<span class=p>}</span>
 	<span class=k>return</span> <span class=nx>lim</span> <span class=c1>// 여기서 v 를 참조할 수 없다.
 </span><span class=c1></span><span class=p>}</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>performance 를 중요시한다면 필요한 변수는 inner-block 에서 선언해 쓰는게 좋을 거 같긴 한데.. 아직 언어에 대해 잘 모르겠으니 참고만 하자.</p>
+</code></pre></div><p>performance 를 중요시한다면 필요한 변수는 inner-block 에서 선언해 쓰는게 좋을 거 같긴 한데.. 아직 언어에 대해 잘 모르겠으니 참고만 하자.</p>
 <br>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
 <ins class=adsbygoogle style=display:block data-ad-format=fluid data-ad-layout-key=-fx-q+4w-88+2u data-ad-client=ca-pub-0712823212859607 data-ad-slot=1092971030></ins>
@@ -188,98 +137,38 @@ if-else, for, switch, defer
 <h2 id=for>For</h2>
 <h3 id=basic-for>basic for</h3>
 <p>다른 프로그래밍 늘 그렇듯, <code>init; condition; post</code> 로 이루어져 있다. init 에는 마치 지역 변수 선언과 같은 모양을 한다 (bash 를 떠올리면 된다) 그리고 여타 다른 언어와 달리 (C, Java, &mldr;) 괄호가 없다는 점을 주목하자. 그러나 반드시 브라켓 <code>{ }</code> 은 필요하다.</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-go data-lang=go>	<span class=nx>sum</span> <span class=o>:=</span> <span class=mi>0</span>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go>	<span class=nx>sum</span> <span class=o>:=</span> <span class=mi>0</span>
 	<span class=k>for</span> <span class=nx>i</span> <span class=o>:=</span> <span class=mi>0</span><span class=p>;</span> <span class=nx>i</span> <span class=p>&lt;</span> <span class=mi>10</span><span class=p>;</span> <span class=nx>i</span><span class=o>++</span> <span class=p>{</span>
 		<span class=nx>sum</span> <span class=o>+=</span> <span class=nx>i</span>
 	<span class=p>}</span>
-</code></pre></td></tr></table>
-</div>
-</div><h3 id=continued-for>Continued for</h3>
+</code></pre></div><h3 id=continued-for>Continued for</h3>
 <p>init 과 post 은 optional 이다. 이게 비어 있으면 condition 만 남아 while 과 같은 기능을 한다.</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span><span class=lnt>6
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>	sum := 0
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>	sum := 0
 	for ; sum &lt; 10; {
 	// for sum &lt; 10 { // 둘 중 아무거나 써도 똑같다. 
 	                  // 그리고 위 처럼 쓴 뒤 go fmt 를 돌리면 세미콜론이 알아서 빠진다.
 		sum += sum
 	}
-</code></pre></td></tr></table>
-</div>
-</div><p>리스트나 맵을 순회할 때도 continued for 의 일종이라고 보면 된다. 이 때는 <code>range</code> 를 사용한다.</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span><span class=lnt>6
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kd>var</span> <span class=nx>myMap</span> <span class=kd>map</span><span class=p>[</span><span class=kt>string</span><span class=p>]</span><span class=kt>string</span>
+</code></pre></div><p>리스트나 맵을 순회할 때도 continued for 의 일종이라고 보면 된다. 이 때는 <code>range</code> 를 사용한다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kd>var</span> <span class=nx>myMap</span> <span class=kd>map</span><span class=p>[</span><span class=kt>string</span><span class=p>]</span><span class=kt>string</span>
 <span class=nx>myMap</span> <span class=p>=</span> <span class=nb>make</span><span class=p>(</span><span class=kd>map</span><span class=p>[</span><span class=kt>string</span><span class=p>]</span><span class=kt>string</span><span class=p>)</span>
 <span class=c1>// ...
 </span><span class=c1></span><span class=k>for</span> <span class=nx>myKey</span><span class=p>,</span> <span class=nx>myValue</span> <span class=o>:=</span> <span class=k>range</span> <span class=nx>myMap</span> <span class=p>{</span>
 	<span class=c1>// ...
 </span><span class=c1></span><span class=p>}</span>
-</code></pre></td></tr></table>
-</div>
-</div><h2 id=while>While</h2>
+</code></pre></div><h2 id=while>While</h2>
 <p>다른 말로, <strong>golang 은 while 이 없다</strong>&mldr; 대신 <code>for</code> 만 적으면 된다.</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=k>for</span> <span class=p>{</span>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=k>for</span> <span class=p>{</span>
 	<span class=c1>// ...
 </span><span class=c1></span><span class=p>}</span>
-</code></pre></td></tr></table>
-</div>
-</div><h2 id=switch>Switch</h2>
+</code></pre></div><h2 id=switch>Switch</h2>
 <p>C/C++, Java 의 switch 라고 생각하면 된다. 차이점은,</p>
 <ul>
 <li>C 처럼 단일 값 (e.g. int, character) 이 아니라 <strong>string 도 사용이 가능</strong>하고</li>
 <li><code>case</code> 에 <strong>variable 을 넣어도</strong> 된다.</li>
 <li>각 case 마다 break 를 다 집어넣지 않아도 된다.</li>
 </ul>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
 	<span class=nx>fmt</span><span class=p>.</span><span class=nf>Print</span><span class=p>(</span><span class=s>&#34;Go runs on &#34;</span><span class=p>)</span>
 	<span class=kd>var</span> <span class=nx>darwin_os</span> <span class=p>=</span> <span class=s>&#34;darwin&#34;</span> <span class=c1>// 이걸 타겟으로 써도.. 된다고?
 </span><span class=c1></span>
@@ -292,9 +181,7 @@ if-else, for, switch, defer
 		<span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;%s.\n&#34;</span><span class=p>,</span> <span class=nx>os</span><span class=p>)</span>
 	<span class=p>}</span>
 <span class=p>}</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>참고로 <code>case:</code> 만 쓰면 <code>case True:</code> 와 같은 의미가 된다.</p>
+</code></pre></div><p>참고로 <code>case:</code> 만 쓰면 <code>case True:</code> 와 같은 의미가 된다.</p>
 <p>위의 차이점을 생각해보면, 마치 기다란 <code>if-else</code> 를 <code>switch</code> 로 치환할 수 있을 것 처럼 보이지만 사실 두 가지 제약을 고려해서 선택해야 한다.</p>
 <ol>
 <li>가독성 문제를 고려해야 한다.</li>
@@ -304,24 +191,7 @@ if-else, for, switch, defer
 <p>이 키워드로 시작하는 구문은 <strong>해당 함수가 끝날 때 까지 실행이 유예된다</strong>. 이 키워드는 블록에 종속된 개념이 아니라 <em>함수에 종속</em>된 개념이다. 따라서, 어느 inner block 에서 쓰이건 간에 이 구문을 지난다면, 함수가 끝날 때에야 구문이 수행된다.</p>
 <p><code>defer</code> 뒤에 오는 구문은 <strong>반드시 함수 호출이어야 한다</strong>. 변수 선언이거나 변수 값 할당같은 식은 안 된다. (<code>+=</code> 도 안 됨)</p>
 <p>재미있는 건, <code>defer</code> 줄을 만나는 시점에 argument 값이 결정된다. 이후에 argument 로 들어간 variable 이 바뀌더라도, <code>defer</code> 의 실제 수행 시점에서는 영향이 없는 것을 아래 코드로 확인할 수 있다.</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
 	<span class=kd>var</span> <span class=nx>abc</span> <span class=p>=</span> <span class=s>&#34;hello&#34;</span>
   <span class=c1>// 아래 세 줄을 브라켓으로 감싸 블록으로 만든다 한 들, 결과는 동일함 (함수 레벨이기 때문)
 </span><span class=c1></span>	<span class=nx>abc</span> <span class=o>+=</span> <span class=s>&#34; world&#34;</span>
@@ -334,24 +204,12 @@ if-else, for, switch, defer
 </span><span class=cm>hello world !!
 </span><span class=cm>hello world
 </span><span class=cm>*/</span>
-</code></pre></td></tr></table>
-</div>
-</div><p><code>defer</code> 를 하나의 함수 안에서 여러 개 선언할 수 있다. 실행 순서는 LIFO, 즉 먼저 들어간 수식이 나중에 실행된다.</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-go data-lang=go>	<span class=k>for</span> <span class=nx>i</span> <span class=o>:=</span> <span class=mi>0</span><span class=p>;</span> <span class=nx>i</span> <span class=p>&lt;</span> <span class=mi>10</span><span class=p>;</span> <span class=nx>i</span><span class=o>++</span> <span class=p>{</span>
+</code></pre></div><p><code>defer</code> 를 하나의 함수 안에서 여러 개 선언할 수 있다. 실행 순서는 LIFO, 즉 먼저 들어간 수식이 나중에 실행된다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go>	<span class=k>for</span> <span class=nx>i</span> <span class=o>:=</span> <span class=mi>0</span><span class=p>;</span> <span class=nx>i</span> <span class=p>&lt;</span> <span class=mi>10</span><span class=p>;</span> <span class=nx>i</span><span class=o>++</span> <span class=p>{</span>
 		<span class=k>defer</span> <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>i</span><span class=p>)</span>
 	<span class=p>}</span>
 	<span class=c1>// 맞춰보자. 0이 먼저 나올까 9가 먼저 나올까?
-</span></code></pre></td></tr></table>
-</div>
-</div>
+</span></code></pre></div>
 </section>
 <footer class=article-footer>
 <br>
@@ -391,19 +249,16 @@ if-else, for, switch, defer
 </a>
 </article>
 <article>
-<a href=/oh-my-zsh-kubectl-autocomplete/>
+<a href=/bdd-in-python-behave/>
 <div class=article-details>
-<h2 class=article-title>Oh my zsh! 에서 kubectl 자동 완성 하기</h2>
+<h2 class=article-title>BDD in Python: Behave</h2>
 </div>
 </a>
 </article>
-<article class=has-image>
-<a href=/bdd-behavior-driven-development/>
-<div class=article-image>
-<img src=/bdd-behavior-driven-development/feature.4a92b05bcc5515ef86ccc5105fa05b75.jpg width=750 height=500 loading=lazy alt="Featured image of post BDD (Behavior-driven Development) 소개" data-hash="md5-SpKwW8xVFe+GzMUQX6BbdQ==">
-</div>
+<article>
+<a href=/oh-my-zsh-kubectl-autocomplete/>
 <div class=article-details>
-<h2 class=article-title>BDD (Behavior-driven Development) 소개</h2>
+<h2 class=article-title>Oh my zsh! 에서 kubectl 자동 완성 하기</h2>
 </div>
 </a>
 </article>

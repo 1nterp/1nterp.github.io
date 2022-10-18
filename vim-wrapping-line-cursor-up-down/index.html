@@ -3,7 +3,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="VSCode 에서도 Vim 환경을 쓰고 싶어서 VSCodeVim 을 설치해서 쓰고 있다. 그런데 위와 같이 markdown 편집을 할 때 처럼 줄 분리가 이뤄져서 (line wrapping) 사실 한 줄인데 여러 줄로 보여지는 경우에는, 커서"><title>VSCodeVim: 분리된 줄 위/아래로 커서 이동하기</title>
 <style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600&family=Poor+Story&display=swap'</style>
 <link rel=canonical href=https://interp.blog/vim-wrapping-line-cursor-up-down/>
-<link rel=stylesheet href=/scss/style.min.424327ee2f85ef588c4a0f22a06ed61106b87b6e3f8d79300116573d48ff25b1.css><meta property="og:title" content="VSCodeVim: 분리된 줄 위/아래로 커서 이동하기">
+<link rel=stylesheet href=/scss/style.min.2eadfa29c06a2411f8e4fab807a712ab4cc1d271ebb9693ebd342c2dcefaa082.css><meta property="og:title" content="VSCodeVim: 분리된 줄 위/아래로 커서 이동하기">
 <meta property="og:description" content="VSCode 에서도 Vim 환경을 쓰고 싶어서 VSCodeVim 을 설치해서 쓰고 있다. 그런데 위와 같이 markdown 편집을 할 때 처럼 줄 분리가 이뤄져서 (line wrapping) 사실 한 줄인데 여러 줄로 보여지는 경우에는, 커서">
 <meta property="og:url" content="https://interp.blog/vim-wrapping-line-cursor-up-down/">
 <meta property="og:site_name" content="InterP Blog">
@@ -96,21 +96,7 @@ Tech
 <h2 id=해결-방법>해결 방법</h2>
 <p>Vim 도 사실 line wrapping 이 되었을 때 같은 문제가 있고, (문제라기 보다는 특성인데) 원하는 방법대로 우회할 수 있는 방법을 <a class=link href=https://vim.fandom.com/wiki/Move_cursor_by_display_lines_when_wrapping target=_blank rel=noopener>여기</a>서 찾았다. 이 방법을 그대로 VSCode 에도 적용한 것이다.</p>
 <p>먼저 Settings 를 열어서 <strong>Vim: Normal Mode Key Bindings</strong> 로 이동하면, Edit in settings.json 링크가 있다. 이걸 눌러서 다음을 추가하자.</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-json data-lang=json>        <span class=s2>&#34;vim.normalModeKeyBindings&#34;</span><span class=err>:</span> <span class=p>[</span>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json>        <span class=s2>&#34;vim.normalModeKeyBindings&#34;</span><span class=err>:</span> <span class=p>[</span>
           <span class=p>{</span>
             <span class=nt>&#34;before&#34;</span><span class=p>:</span> <span class=p>[</span><span class=s2>&#34;&lt;Up&gt;&#34;</span><span class=p>],</span>
             <span class=nt>&#34;after&#34;</span><span class=p>:</span> <span class=p>[</span><span class=s2>&#34;g&#34;</span><span class=p>,</span> <span class=s2>&#34;k&#34;</span><span class=p>]</span>
@@ -120,9 +106,7 @@ Tech
             <span class=nt>&#34;after&#34;</span><span class=p>:</span> <span class=p>[</span><span class=s2>&#34;g&#34;</span><span class=p>,</span> <span class=s2>&#34;j&#34;</span><span class=p>]</span>
           <span class=p>}</span>
         <span class=p>]</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>적용하고 곧바로 편집 중인 파일로 돌아오면 적용이 되어 있는 걸 볼 수 있다. 이제 커서를 위/아래로 움직여도 화면에 보이는 윗줄/아랫줄로 이동한다!</p>
+</code></pre></div><p>적용하고 곧바로 편집 중인 파일로 돌아오면 적용이 되어 있는 걸 볼 수 있다. 이제 커서를 위/아래로 움직여도 화면에 보이는 윗줄/아랫줄로 이동한다!</p>
 </section>
 <footer class=article-footer>
 <br>
@@ -139,6 +123,13 @@ Tech
 <h2 class=section-title>관련 글</h2>
 <div class=related-content>
 <div class="flex article-list--tile">
+<article>
+<a href=/bdd-in-python-behave/>
+<div class=article-details>
+<h2 class=article-title>BDD in Python: Behave</h2>
+</div>
+</a>
+</article>
 <article>
 <a href=/oh-my-zsh-kubectl-autocomplete/>
 <div class=article-details>
@@ -173,13 +164,6 @@ Tech
 </div>
 <div class=article-details>
 <h2 class=article-title>저작권 걱정 없는 무료 이미지 사이트 3개</h2>
-</div>
-</a>
-</article>
-<article>
-<a href=/tour-of-go-pointer-struct-array-slice/>
-<div class=article-details>
-<h2 class=article-title>A tour of Go: Pointer, Struct, Array, Slice</h2>
 </div>
 </a>
 </article>

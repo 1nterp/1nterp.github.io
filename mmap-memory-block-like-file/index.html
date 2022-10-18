@@ -3,7 +3,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="mmap 은 memory map 의 줄임말이다. 메모리의 특정 영역을 파일 디스크립터로 인식하게 만드는 것이다. map or unmap files or devices into memory (메모리 영역을 파일이나 디바이스로 인식하게 합니다"><title>mmap : 메모리를 파일처럼</title>
 <style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600&family=Poor+Story&display=swap'</style>
 <link rel=canonical href=https://interp.blog/mmap-memory-block-like-file/>
-<link rel=stylesheet href=/scss/style.min.424327ee2f85ef588c4a0f22a06ed61106b87b6e3f8d79300116573d48ff25b1.css><meta property="og:title" content="mmap : 메모리를 파일처럼">
+<link rel=stylesheet href=/scss/style.min.2eadfa29c06a2411f8e4fab807a712ab4cc1d271ebb9693ebd342c2dcefaa082.css><meta property="og:title" content="mmap : 메모리를 파일처럼">
 <meta property="og:description" content="mmap 은 memory map 의 줄임말이다. 메모리의 특정 영역을 파일 디스크립터로 인식하게 만드는 것이다. map or unmap files or devices into memory (메모리 영역을 파일이나 디바이스로 인식하게 합니다">
 <meta property="og:url" content="https://interp.blog/mmap-memory-block-like-file/">
 <meta property="og:site_name" content="InterP Blog">
@@ -94,25 +94,13 @@ Tech
 <p>– manpage of mmap</p>
 </blockquote>
 <h2 id=사용>사용</h2>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span><span class=lnt>6
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=kt>void</span> <span class=o>*</span> <span class=nf>mmap</span><span class=p>(</span><span class=kt>void</span> <span class=o>*</span><span class=n>start</span><span class=p>,</span> 
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=kt>void</span> <span class=o>*</span> <span class=nf>mmap</span><span class=p>(</span><span class=kt>void</span> <span class=o>*</span><span class=n>start</span><span class=p>,</span> 
            <span class=n>size_t</span> <span class=n>length</span><span class=p>,</span> 
            <span class=kt>int</span>    <span class=n>prot</span><span class=p>,</span> 
            <span class=kt>int</span>    <span class=n>flags</span><span class=p>,</span> 
            <span class=kt>int</span>    <span class=n>fd</span><span class=p>,</span> 
            <span class=n>off_t</span>  <span class=n>offset</span><span class=p>);</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>여기서 의미가 있는 건 Length, Prot (Protection), Flag 뿐이다.</p>
+</code></pre></div><p>여기서 의미가 있는 건 Length, Prot (Protection), Flag 뿐이다.</p>
 <ul>
 <li>Start 는, Kernel이 아무 곳이나 지정해도 좋다면 NULL을 입력한다.</li>
 <li>Offset 은, 보통 0으로 둔다. (MAP_ANONYMOUS 또는 MAP_ANON Flag가 있는 경우엔 무시된다)</li>
@@ -200,19 +188,16 @@ Tech
 </a>
 </article>
 <article>
-<a href=/oh-my-zsh-kubectl-autocomplete/>
+<a href=/bdd-in-python-behave/>
 <div class=article-details>
-<h2 class=article-title>Oh my zsh! 에서 kubectl 자동 완성 하기</h2>
+<h2 class=article-title>BDD in Python: Behave</h2>
 </div>
 </a>
 </article>
-<article class=has-image>
-<a href=/bdd-behavior-driven-development/>
-<div class=article-image>
-<img src=/bdd-behavior-driven-development/feature.4a92b05bcc5515ef86ccc5105fa05b75.jpg width=750 height=500 loading=lazy alt="Featured image of post BDD (Behavior-driven Development) 소개" data-hash="md5-SpKwW8xVFe+GzMUQX6BbdQ==">
-</div>
+<article>
+<a href=/oh-my-zsh-kubectl-autocomplete/>
 <div class=article-details>
-<h2 class=article-title>BDD (Behavior-driven Development) 소개</h2>
+<h2 class=article-title>Oh my zsh! 에서 kubectl 자동 완성 하기</h2>
 </div>
 </a>
 </article>

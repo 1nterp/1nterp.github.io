@@ -3,7 +3,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="사내 사정으로 인해 Gitlab의 External_Url 을 실제 서버 주소와 다르게 설정해서 쓰고 있다. 물론 실제 nginx 에도 해당 도메인으로 접근할 수 있도록 설정해야 하는 게 맞다. 그렇지"><title>Gitlab 아바타/첨부파일 상대 경로 설정</title>
 <style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600&family=Poor+Story&display=swap'</style>
 <link rel=canonical href=https://interp.blog/gitlab-%EC%95%84%EB%B0%94%ED%83%80-%EC%83%81%EB%8C%80-%EA%B2%BD%EB%A1%9C-%EC%84%A4%EC%A0%95/>
-<link rel=stylesheet href=/scss/style.min.424327ee2f85ef588c4a0f22a06ed61106b87b6e3f8d79300116573d48ff25b1.css><meta property="og:title" content="Gitlab 아바타/첨부파일 상대 경로 설정">
+<link rel=stylesheet href=/scss/style.min.2eadfa29c06a2411f8e4fab807a712ab4cc1d271ebb9693ebd342c2dcefaa082.css><meta property="og:title" content="Gitlab 아바타/첨부파일 상대 경로 설정">
 <meta property="og:description" content="사내 사정으로 인해 Gitlab의 External_Url 을 실제 서버 주소와 다르게 설정해서 쓰고 있다. 물론 실제 nginx 에도 해당 도메인으로 접근할 수 있도록 설정해야 하는 게 맞다. 그렇지">
 <meta property="og:url" content="https://interp.blog/gitlab-%EC%95%84%EB%B0%94%ED%83%80-%EC%83%81%EB%8C%80-%EA%B2%BD%EB%A1%9C-%EC%84%A4%EC%A0%95/">
 <meta property="og:site_name" content="InterP Blog">
@@ -91,40 +91,7 @@ Tech
 <p>물론 실제 nginx 에도 해당 도메인으로 접근할 수 있도록 설정해야 하는 게 맞다. 그렇지 않으면, 첨부파일과 아바타 이미지가 모두 깨져나온다. 하지만 그러기 전에 Gitlab 차원에서 상대 경로로 아바타를 출력할 수 있도록 수정하는 방법 &lsquo;도&rsquo; 있으니 편법으로 수정했다. 아래는 그 편법 내용을 다룬다.</p>
 <h2 id=아바타-상대-경로-설정>아바타 상대 경로 설정</h2>
 <p><code>/opt/gitlab/embedded/service/gitlab-rails/app/models/concerns/avatarable.rb</code> 파일에서 절대 경로로 수정하는 코드가 있는데, url_base 에 덧붙이는 코드들을 전부 주석처리하면 된다.</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span><span class=lnt>14
-</span><span class=lnt>15
-</span><span class=lnt>16
-</span><span class=lnt>17
-</span><span class=lnt>18
-</span><span class=lnt>19
-</span><span class=lnt>20
-</span><span class=lnt>21
-</span><span class=lnt>22
-</span><span class=lnt>23
-</span><span class=lnt>24
-</span><span class=lnt>25
-</span><span class=lnt>26
-</span><span class=lnt>27
-</span><span class=lnt>28
-</span><span class=lnt>29
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=k>module</span> <span class=nn>Avatarable</span>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=k>module</span> <span class=nn>Avatarable</span>
   <span class=kp>extend</span> <span class=no>ActiveSupport</span><span class=o>::</span><span class=no>Concern</span>
 
   <span class=k>def</span> <span class=nf>avatar_path</span><span class=p>(</span><span class=ss>only_path</span><span class=p>:</span> <span class=kp>true</span><span class=p>)</span>
@@ -153,37 +120,12 @@ Tech
     <span class=n>url_base</span> <span class=o>+</span> <span class=n>avatar</span><span class=o>.</span><span class=n>url</span>
   <span class=k>end</span>
 <span class=k>end</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>당연히 <code>gitlab-ctl reconfigure && gitlab-ctl restart</code> 를 해 줘야 한다.</p>
+</code></pre></div><p>당연히 <code>gitlab-ctl reconfigure && gitlab-ctl restart</code> 를 해 줘야 한다.</p>
 <p>참고 : <a class=link href=https://gitlab.com/gitlab-org/gitlab-ce/merge target=_blank rel=noopener>https://gitlab.com/gitlab-org/gitlab-ce/merge</a>_requests/11001/diffs#note_28659864</p>
 <h2 id=첨부파일-상대-경로-설정>첨부파일 상대 경로 설정</h2>
 <p>단서가 없어서 맨땅에 헤딩하듯이 뒤지고 다녔다. Markdown 언어에서 링크를 담당하는 라이브러리가 있는데, 이름이 &lsquo;<strong>banzai</strong>&rsquo; 이다 (…) <span style=color:gray><del>무슨 생각으로 이름을 지은건지 도저히 모르겠지만</del></span> 여기를 수정해야 한다.</p>
 <p><code>filter/upload_link_filter.rb</code> 를 보면, <code>build_url()</code> 이란 함수가 있다. 여기서 Geo node 여부에 따라 base_path 를 설정하는 코드가 있는데, 여기서 원하는 내부 주소로 변경하면 된다.</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span><span class=lnt>14
-</span><span class=lnt>15
-</span><span class=lnt>16
-</span><span class=lnt>17
-</span><span class=lnt>18
-</span><span class=lnt>19
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=k>def</span> <span class=nf>build_url</span><span class=p>(</span><span class=n>uri</span><span class=p>)</span>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=k>def</span> <span class=nf>build_url</span><span class=p>(</span><span class=n>uri</span><span class=p>)</span>
         <span class=n>base_path</span> <span class=o>=</span> <span class=k>if</span> <span class=no>Gitlab</span><span class=o>::</span><span class=no>Geo</span><span class=o>.</span><span class=n>secondary?</span>
                       <span class=no>Gitlab</span><span class=o>::</span><span class=no>Geo</span><span class=o>.</span><span class=n>primary_node</span><span class=o>.</span><span class=n>url</span>
                     <span class=k>else</span>
@@ -202,9 +144,7 @@ Tech
         <span class=k>end</span>
       <span class=k>end</span>
 
-</code></pre></td></tr></table>
-</div>
-</div><p>Gitlab 11 버전 으로 업그레이드 되면서부터 해당 파일은 삭제되고, <code>absolute_link_filter.rb</code> 와 <code>external_link_filter.rb</code> , <code>relative_link_filter.rb</code> 가 남아있다. 여기 있는 <code>Gitlab.config.gitlab.url</code> 을 원하는 주소로 바꿔주면 가능하다. (relative.rb 의 경우 <code>Gitlab.config.gitlab.base_url</code>)</p>
+</code></pre></div><p>Gitlab 11 버전 으로 업그레이드 되면서부터 해당 파일은 삭제되고, <code>absolute_link_filter.rb</code> 와 <code>external_link_filter.rb</code> , <code>relative_link_filter.rb</code> 가 남아있다. 여기 있는 <code>Gitlab.config.gitlab.url</code> 을 원하는 주소로 바꿔주면 가능하다. (relative.rb 의 경우 <code>Gitlab.config.gitlab.base_url</code>)</p>
 </section>
 <footer class=article-footer>
 <br>
@@ -242,19 +182,16 @@ Tech
 </a>
 </article>
 <article>
-<a href=/oh-my-zsh-kubectl-autocomplete/>
+<a href=/bdd-in-python-behave/>
 <div class=article-details>
-<h2 class=article-title>Oh my zsh! 에서 kubectl 자동 완성 하기</h2>
+<h2 class=article-title>BDD in Python: Behave</h2>
 </div>
 </a>
 </article>
-<article class=has-image>
-<a href=/bdd-behavior-driven-development/>
-<div class=article-image>
-<img src=/bdd-behavior-driven-development/feature.4a92b05bcc5515ef86ccc5105fa05b75.jpg width=750 height=500 loading=lazy alt="Featured image of post BDD (Behavior-driven Development) 소개" data-hash="md5-SpKwW8xVFe+GzMUQX6BbdQ==">
-</div>
+<article>
+<a href=/oh-my-zsh-kubectl-autocomplete/>
 <div class=article-details>
-<h2 class=article-title>BDD (Behavior-driven Development) 소개</h2>
+<h2 class=article-title>Oh my zsh! 에서 kubectl 자동 완성 하기</h2>
 </div>
 </a>
 </article>

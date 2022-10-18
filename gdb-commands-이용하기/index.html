@@ -3,7 +3,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="gdb/ddd 에서 commands 를 사용하면 간편하게 breakpoint 의 상태를 출력할 수 있다. 물론 다양하게 응용이 가능하겠지만, 매뉴얼에서 제시한 케이스가 굉장히 편해서 따로 정리한다. 참고 : http://sourceware.org/gdb/onlinedocs/gdb/Break-Commands.html"><title>gdb commands 이용하기</title>
 <style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600&family=Poor+Story&display=swap'</style>
 <link rel=canonical href=https://interp.blog/gdb-commands-%EC%9D%B4%EC%9A%A9%ED%95%98%EA%B8%B0/>
-<link rel=stylesheet href=/scss/style.min.424327ee2f85ef588c4a0f22a06ed61106b87b6e3f8d79300116573d48ff25b1.css><meta property="og:title" content="gdb commands 이용하기">
+<link rel=stylesheet href=/scss/style.min.2eadfa29c06a2411f8e4fab807a712ab4cc1d271ebb9693ebd342c2dcefaa082.css><meta property="og:title" content="gdb commands 이용하기">
 <meta property="og:description" content="gdb/ddd 에서 commands 를 사용하면 간편하게 breakpoint 의 상태를 출력할 수 있다. 물론 다양하게 응용이 가능하겠지만, 매뉴얼에서 제시한 케이스가 굉장히 편해서 따로 정리한다. 참고 : http://sourceware.org/gdb/onlinedocs/gdb/Break-Commands.html">
 <meta property="og:url" content="https://interp.blog/gdb-commands-%EC%9D%B4%EC%9A%A9%ED%95%98%EA%B8%B0/">
 <meta property="og:site_name" content="InterP Blog">
@@ -90,70 +90,30 @@ Tech
 <p>gdb/ddd 에서 commands 를 사용하면 간편하게 breakpoint 의 상태를 출력할 수 있다. 물론 다양하게 응용이 가능하겠지만, 매뉴얼에서 제시한 케이스가 굉장히 편해서 따로 정리한다.</p>
 <p>참고 : <a class=link href=http://sourceware.org/gdb/onlinedocs/gdb/Break-Commands.html target=_blank rel=noopener>http://sourceware.org/gdb/onlinedocs/gdb/Break-Commands.html</a></p>
 <h2 id=breakpoint-상황을-출력하기>Breakpoint 상황을 출력하기</h2>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=mi>10</span>    <span class=o>*</span><span class=n>sAddr</span> <span class=o>=</span> <span class=n>malloc</span><span class=p>(</span><span class=n>aSize</span><span class=p>);</span>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=mi>10</span>    <span class=o>*</span><span class=n>sAddr</span> <span class=o>=</span> <span class=n>malloc</span><span class=p>(</span><span class=n>aSize</span><span class=p>);</span>
 <span class=mi>11</span>    <span class=k>if</span> <span class=p>(</span><span class=o>*</span><span class=n>sAddr</span> <span class=o>!=</span> <span class=nb>NULL</span><span class=p>)</span>
 <span class=mi>12</span>    <span class=p>...</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>위 코드에서 if 문에 breakpoint 를 걸고, 할당받은 시작 주소와 그 크기를 보고자 한다. 한두번 발생하는 거라면 breakpoint 를 걸어 둔 다음 print 나 graph display (ddd 전용) 으로 띄워서 관찰하면 된다. 그런데 이게 100번 200번이면 하염없이 엔터를 치게 된다.</p>
+</code></pre></div><p>위 코드에서 if 문에 breakpoint 를 걸고, 할당받은 시작 주소와 그 크기를 보고자 한다. 한두번 발생하는 거라면 breakpoint 를 걸어 둔 다음 print 나 graph display (ddd 전용) 으로 띄워서 관찰하면 된다. 그런데 이게 100번 200번이면 하염없이 엔터를 치게 된다.</p>
 <p>이럴 때 다음과 같이 입력한다.</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span><span class=lnt>6
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=o>(</span>gdb<span class=o>)</span> b <span class=m>10</span>     <span class=c1># 10번째 라인에 breakpoint</span>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=o>(</span>gdb<span class=o>)</span> b <span class=m>10</span>     <span class=c1># 10번째 라인에 breakpoint</span>
 <span class=o>(</span>gdb<span class=o>)</span> commands <span class=c1># 아무 것도 입력하지 않으면 최근 breakpoint 에 대한 command 입력</span>
 &gt; silent       <span class=c1># breakpoint 에 멈췄단 메시지를 출력하지 말아달라</span>
 &gt; <span class=nb>printf</span> <span class=s2>&#34;alloc address is %p\n and its size is %ld&#34;</span>, *sAddr, aSize
 &gt; cont         <span class=c1># 흔히 입력하는 cont 와 동일하다.</span>
 &gt; end          <span class=c1># command 입력 종료</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>이러고 cont 를 날리면.. breakpoint 에서 멈추는 대신 해당 command 가 수행된다! 즉, 계속해서 주소와 할당 크기가 출력된다. 아주 편하다…</p>
+</code></pre></div><p>이러고 cont 를 날리면.. breakpoint 에서 멈추는 대신 해당 command 가 수행된다! 즉, 계속해서 주소와 할당 크기가 출력된다. 아주 편하다…</p>
 <h2 id=call-stack-보기>Call Stack 보기</h2>
 <p>일종의 응용인데, commands 내부에는 우리가 흔히 쓰는 명령어를 입력하면 된다.</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=o>(</span>gdb<span class=o>)</span> commands
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=o>(</span>gdb<span class=o>)</span> commands
 &gt; silent
 &gt; bt <span class=m>5</span>      <span class=c1># backtrace (callstack) 을 출력하되, 안쪽에서 5개 까지만 출력</span>
 &gt; cont
 &gt; end
-</code></pre></td></tr></table>
-</div>
-</div><h2 id=commands-의-초기화>Commands 의 초기화</h2>
+</code></pre></div><h2 id=commands-의-초기화>Commands 의 초기화</h2>
 <p>commands 명령어를 입력한 다음, 바로 end 로 끝내면 된다.</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=o>(</span>gdb<span class=o>)</span> commands
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=o>(</span>gdb<span class=o>)</span> commands
 &gt; end
-</code></pre></td></tr></table>
-</div>
-</div>
+</code></pre></div>
 </section>
 <footer class=article-footer>
 <br>
@@ -169,6 +129,13 @@ Tech
 <h2 class=section-title>관련 글</h2>
 <div class=related-content>
 <div class="flex article-list--tile">
+<article>
+<a href=/bdd-in-python-behave/>
+<div class=article-details>
+<h2 class=article-title>BDD in Python: Behave</h2>
+</div>
+</a>
+</article>
 <article>
 <a href=/oh-my-zsh-kubectl-autocomplete/>
 <div class=article-details>
@@ -203,13 +170,6 @@ Tech
 </div>
 <div class=article-details>
 <h2 class=article-title>저작권 걱정 없는 무료 이미지 사이트 3개</h2>
-</div>
-</a>
-</article>
-<article>
-<a href=/tour-of-go-pointer-struct-array-slice/>
-<div class=article-details>
-<h2 class=article-title>A tour of Go: Pointer, Struct, Array, Slice</h2>
 </div>
 </a>
 </article>

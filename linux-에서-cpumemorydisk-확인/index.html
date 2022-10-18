@@ -3,7 +3,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="자주 쓰긴 하지만, 곧바로 생각나지 않을 것을 대비해서&amp;hellip; 서버실 서버 사양을 전부 체크하려다 보니 어쩔 수 없이 정리했다. CPU / Memory 확인 CPU / Memory 는 사실 쉽"><title>Linux 에서 CPU/Memory/Disk 확인</title>
 <style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600&family=Poor+Story&display=swap'</style>
 <link rel=canonical href=https://interp.blog/linux-%EC%97%90%EC%84%9C-cpumemorydisk-%ED%99%95%EC%9D%B8/>
-<link rel=stylesheet href=/scss/style.min.424327ee2f85ef588c4a0f22a06ed61106b87b6e3f8d79300116573d48ff25b1.css><meta property="og:title" content="Linux 에서 CPU/Memory/Disk 확인">
+<link rel=stylesheet href=/scss/style.min.2eadfa29c06a2411f8e4fab807a712ab4cc1d271ebb9693ebd342c2dcefaa082.css><meta property="og:title" content="Linux 에서 CPU/Memory/Disk 확인">
 <meta property="og:description" content="자주 쓰긴 하지만, 곧바로 생각나지 않을 것을 대비해서&amp;hellip; 서버실 서버 사양을 전부 체크하려다 보니 어쩔 수 없이 정리했다. CPU / Memory 확인 CPU / Memory 는 사실 쉽">
 <meta property="og:url" content="https://interp.blog/linux-%EC%97%90%EC%84%9C-cpumemorydisk-%ED%99%95%EC%9D%B8/">
 <meta property="og:site_name" content="InterP Blog">
@@ -90,41 +90,14 @@ Tech
 <p>자주 쓰긴 하지만, 곧바로 생각나지 않을 것을 대비해서&mldr; 서버실 서버 사양을 전부 체크하려다 보니 어쩔 수 없이 정리했다.</p>
 <h2 id=cpu--memory-확인>CPU / Memory 확인</h2>
 <p>CPU / Memory 는 사실 쉽다. <code>/proc/cpuinfo</code> 와 <code>/proc/meminfo</code> 안에 들어있기 때문이다.</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ cat /proc/cpuinfo <span class=p>|</span> grep <span class=s2>&#34;model name&#34;</span>  <span class=p>|</span> sort -u
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ cat /proc/cpuinfo <span class=p>|</span> grep <span class=s2>&#34;model name&#34;</span>  <span class=p>|</span> sort -u
 model name : Intel<span class=o>(</span>R<span class=o>)</span> Core<span class=o>(</span>TM<span class=o>)</span> i3-4160 CPU @ 3.60GHz
 
 $ cat /proc/meminfo <span class=p>|</span> grep <span class=s2>&#34;MemTotal&#34;</span>
 MemTotal: <span class=m>8040588</span> kB
-</code></pre></td></tr></table>
-</div>
-</div><h2 id=disk-확인>Disk 확인</h2>
+</code></pre></div><h2 id=disk-확인>Disk 확인</h2>
 <p><code>df</code> 는 mount 된 것만 확인이 가능해서 별로고, <code>lsblk</code> 를 하면 마운트되지 않은 것까지 나온다.</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ lsblk
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ lsblk
 NAME MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
 sda 8:0 <span class=m>0</span> 477G <span class=m>0</span> disk
 ├─sda1 8:1 <span class=m>0</span> 468.8G <span class=m>0</span> part /
@@ -136,9 +109,7 @@ $ df -h
 Filesystem Size Used Avail Use% Mounted on
 /dev/sda1 462G 8.4G 430G 2% /
 tmpfs 79G 224K 79G 1% /dev/shm
-</code></pre></td></tr></table>
-</div>
-</div>
+</code></pre></div>
 </section>
 <footer class=article-footer>
 <br>
@@ -159,6 +130,13 @@ tmpfs 79G 224K 79G 1% /dev/shm
 <a href=/mmap-memory-block-like-file/>
 <div class=article-details>
 <h2 class=article-title>mmap : 메모리를 파일처럼</h2>
+</div>
+</a>
+</article>
+<article>
+<a href=/bdd-in-python-behave/>
+<div class=article-details>
+<h2 class=article-title>BDD in Python: Behave</h2>
 </div>
 </a>
 </article>
@@ -186,16 +164,6 @@ tmpfs 79G 224K 79G 1% /dev/shm
 </div>
 <div class=article-details>
 <h2 class=article-title>키보드 키 바운싱 문제 해결</h2>
-</div>
-</a>
-</article>
-<article class=has-image>
-<a href=/license-free-image-3-sites/>
-<div class=article-image>
-<img src=/images/2022-07-28-glenn-carstens-peters-loatw2afdyu-unsplash.jpg loading=lazy data-key data-hash=/images/2022-07-28-glenn-carstens-peters-loatw2afdyu-unsplash.jpg>
-</div>
-<div class=article-details>
-<h2 class=article-title>저작권 걱정 없는 무료 이미지 사이트 3개</h2>
 </div>
 </a>
 </article>

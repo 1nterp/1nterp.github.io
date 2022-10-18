@@ -3,7 +3,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="먼저, Windows 10 에서 지원하는 Linux Subsystem 기능에 대해 이야기한다. 잘 모르겠다면 이 글을 읽고 설치에 도전해 보자. 그런데 글 내용을 보면 이거랑 관련 없다. Babun, Mintty, Git on Bash, Putty 전부 포"><title>X11 on Windows Linux Subsystem</title>
 <style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600&family=Poor+Story&display=swap'</style>
 <link rel=canonical href=https://interp.blog/x11-windows-linux-subsystem/>
-<link rel=stylesheet href=/scss/style.min.424327ee2f85ef588c4a0f22a06ed61106b87b6e3f8d79300116573d48ff25b1.css><meta property="og:title" content="X11 on Windows Linux Subsystem">
+<link rel=stylesheet href=/scss/style.min.2eadfa29c06a2411f8e4fab807a712ab4cc1d271ebb9693ebd342c2dcefaa082.css><meta property="og:title" content="X11 on Windows Linux Subsystem">
 <meta property="og:description" content="먼저, Windows 10 에서 지원하는 Linux Subsystem 기능에 대해 이야기한다. 잘 모르겠다면 이 글을 읽고 설치에 도전해 보자. 그런데 글 내용을 보면 이거랑 관련 없다. Babun, Mintty, Git on Bash, Putty 전부 포">
 <meta property="og:url" content="https://interp.blog/x11-windows-linux-subsystem/">
 <meta property="og:site_name" content="InterP Blog">
@@ -99,26 +99,11 @@ Tech
 <li>Xming 또는 VcXsrv 를 설치해서 실행시켰다. 트레이 아이콘에 &lsquo;X&rsquo; 라고 떠 있으면 완료. (이걸 X Server 라고 부른다)</li>
 <li>Ubuntu Console을 하나 열어서,<code>/etc/ssh/ssh_config</code> (sshd_config 가 아니다) 파일을 확인했다. 여기에서 ForwardX11 yes, ForwardX11Trusted yes 를 확인했다. (주석 처리되어 있다면 주석을 제거, sudo 권한 필요)</li>
 <li>SSH 접속을 하면, 다음 에러 메시지가 떠서 보기 싫었다.
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>No xauth data; using fake authentication data for X11 forwarding.
-</code></pre></td></tr></table>
-</div>
-</div>그래서 다음과 같이 처리했다.
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ xauth list <span class=c1># ~/.Xauthority 파일이 없었다!</span>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>No xauth data; using fake authentication data for X11 forwarding.
+</code></pre></div>그래서 다음과 같이 처리했다.
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ xauth list <span class=c1># ~/.Xauthority 파일이 없었다!</span>
 $ xauth generate :0 . trusted <span class=c1># ~/.Xauthority 파일을 만들어준다고 한다..</span>
-</code></pre></td></tr></table>
-</div>
-</div></li>
+</code></pre></div></li>
 <li>(Optional) Xming 또는 VcXsrv 의 설치 디렉토리에 가면 <code>X0.hosts</code>라는 파일이 있다. 여기서 Server의 Hostname 또는 IP를 적어줘야 한다.</li>
 </ol>
 <h2 id=server에서-한-일>Server에서 한 일</h2>
@@ -126,15 +111,8 @@ $ xauth generate :0 . trusted <span class=c1># ~/.Xauthority 파일을 만들어
 <ol>
 <li><code>/etc/ssh/sshd_config</code> 에서 <code>X11UseLocalHost</code> 가 yes 로 되어 있거나, 활성화되어 있지 않아야 한다. 만약 no로 되어 있으면 yes 로 변경해야 한다.</li>
 <li><code>$DISPLAY</code> 환경 변수를 아예 Windows (클라이언트 PC) 의 Hostname 또는 IP 주소로 설정해버린다.
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=nb>export</span> <span class=nv>DISPLAY</span><span class=o>=</span>192.168.0.xxx:0
-</code></pre></td></tr></table>
-</div>
-</div>참고로, 뒤에 :0 또는 :10 같이 여러 예제가 인터넷에 나도는데, Windows 에서 X 아이콘에 마우스를 가져다 대면 <code>Hostname:X.X</code> 라고 나올 것이다. X.X 를 저기에 쓰는 것이다. (나는 0.0 이라고 떠서 그냥 0만 적었다.)</li>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=nb>export</span> <span class=nv>DISPLAY</span><span class=o>=</span>192.168.0.xxx:0
+</code></pre></div>참고로, 뒤에 :0 또는 :10 같이 여러 예제가 인터넷에 나도는데, Windows 에서 X 아이콘에 마우스를 가져다 대면 <code>Hostname:X.X</code> 라고 나올 것이다. X.X 를 저기에 쓰는 것이다. (나는 0.0 이라고 떠서 그냥 0만 적었다.)</li>
 <li>firefox 를 실행해 보자. 끝.</li>
 </ol>
 </section>
@@ -172,6 +150,13 @@ $ xauth generate :0 . trusted <span class=c1># ~/.Xauthority 파일을 만들어
 </a>
 </article>
 <article>
+<a href=/bdd-in-python-behave/>
+<div class=article-details>
+<h2 class=article-title>BDD in Python: Behave</h2>
+</div>
+</a>
+</article>
+<article>
 <a href=/oh-my-zsh-kubectl-autocomplete/>
 <div class=article-details>
 <h2 class=article-title>Oh my zsh! 에서 kubectl 자동 완성 하기</h2>
@@ -185,16 +170,6 @@ $ xauth generate :0 . trusted <span class=c1># ~/.Xauthority 파일을 만들어
 </div>
 <div class=article-details>
 <h2 class=article-title>BDD (Behavior-driven Development) 소개</h2>
-</div>
-</a>
-</article>
-<article class=has-image>
-<a href=/keyboard-key-bouncing-problem/>
-<div class=article-image>
-<img src=/images/featured/keyboard-key-bounce.jpg loading=lazy data-key data-hash=/images/featured/keyboard-key-bounce.jpg>
-</div>
-<div class=article-details>
-<h2 class=article-title>키보드 키 바운싱 문제 해결</h2>
 </div>
 </a>
 </article>

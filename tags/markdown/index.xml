@@ -9,22 +9,7 @@
 &lt;h3 id="parser-c-파일-수정하기">Parser C 파일 수정하기&lt;/h3>
 &lt;p>&lt;code>/opt/gitlab/embedded/lib/ruby/gems/2.3.0/gems/redcarpet-3.4.0/&lt;/code> 으로 들어가면 Redcarpet의 소스코드가 존재한다. 여기서 &lt;code>ext/redcarpet&lt;/code> 디렉토리가 Parser C 파일들이 위치한 곳이다.&lt;/p>
 &lt;p>내가 수정하고 싶은 것은 &amp;lsquo;&lt;strong>엔터 키를 두번 쳐야 (혹은 줄 끝에 스페이스를 2개 이상 줘야) 줄바꿈이 되는 불편함&lt;/strong>&amp;rsquo; 을 해소하고 싶었다. &lt;code>markdown.c&lt;/code> 파일을 보니 &lt;code>char_linebreak()&lt;/code>  라는 함수가 존재한다. 여기서 해당 부분을 주석처리했다.&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
-&lt;/span>&lt;span class="lnt"> 2
-&lt;/span>&lt;span class="lnt"> 3
-&lt;/span>&lt;span class="lnt"> 4
-&lt;/span>&lt;span class="lnt"> 5
-&lt;/span>&lt;span class="lnt"> 6
-&lt;/span>&lt;span class="lnt"> 7
-&lt;/span>&lt;span class="lnt"> 8
-&lt;/span>&lt;span class="lnt"> 9
-&lt;/span>&lt;span class="lnt">10
-&lt;/span>&lt;span class="lnt">11
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="cm">/* char_linebreak • &amp;#39;\n&amp;#39; preceded by two spaces (assuming linebreak != 0) */&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="cm">/* char_linebreak • &amp;#39;\n&amp;#39; preceded by two spaces (assuming linebreak != 0) */&lt;/span>
 &lt;span class="k">static&lt;/span> &lt;span class="n">size_t&lt;/span>
 &lt;span class="nf">char_linebreak&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">struct&lt;/span> &lt;span class="nc">buf&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">ob&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="k">struct&lt;/span> &lt;span class="nc">sd_markdown&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">rndr&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">uint8_t&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">size_t&lt;/span> &lt;span class="n">offset&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">size_t&lt;/span> &lt;span class="n">size&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;span class="p">{&lt;/span>
@@ -34,9 +19,7 @@
 &lt;span class="n">ob&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">size&lt;/span>&lt;span class="o">--&lt;/span>&lt;span class="p">;&lt;/span>
 &lt;span class="k">return&lt;/span> &lt;span class="n">rndr&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">cb&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">linebreak&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ob&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">rndr&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">opaque&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">?&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
 &lt;span class="p">}&lt;/span>
-&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h3 id="라이브러리-생성복사">라이브러리 생성/복사&lt;/h3>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="라이브러리-생성복사">라이브러리 생성/복사&lt;/h3>
 &lt;p>수정이 끝나면 반드시 &lt;code>ext/redcarpet&lt;/code> 디렉토리에서 &lt;code>make&lt;/code> 를 수행해 주도록 하자. 그러면 Shared Library 파일인 &lt;code>redcarpet.so&lt;/code> 이 생성된다.&lt;/p>
 &lt;p>이 파일을, 다음 경로에 모두 복사해주도록 하자.&lt;/p>
 &lt;ul>
@@ -50,22 +33,7 @@
 &lt;h2 id="gitlab-11x-이후--commonmark">Gitlab 11.x 이후 : Commonmark&lt;/h2>
 &lt;p>11.x 부터는 Redcarpet 이 아니라 Commonmark 를 기본 파서로 사용한다. 구조가 달라져서 찾는게 귀찮아서 그렇지, 기본 원리는 비슷하다. 2칸 이상의 space 를 준 채로 줄바꿈하게 되면 &lt;code>CMARK_NODE_LINEBREAK&lt;/code>, 그렇지 않고 줄바꿈하면 &lt;code>CMARK_NODE_SOFTBREAK&lt;/code> 상태로 전이된다.&lt;/p>
 &lt;p>옵션을 쓸 수 있다면 좋겠지만, 본인은 마음이 급한지라 참고할 만한 소스코드만 붙이고 도망가도록 한다. &lt;code>html.c:283&lt;/code> 부터다. 여기서 직접 line break 를 하도록 강제했다.&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
-&lt;/span>&lt;span class="lnt"> 2
-&lt;/span>&lt;span class="lnt"> 3
-&lt;/span>&lt;span class="lnt"> 4
-&lt;/span>&lt;span class="lnt"> 5
-&lt;/span>&lt;span class="lnt"> 6
-&lt;/span>&lt;span class="lnt"> 7
-&lt;/span>&lt;span class="lnt"> 8
-&lt;/span>&lt;span class="lnt"> 9
-&lt;/span>&lt;span class="lnt">10
-&lt;/span>&lt;span class="lnt">11
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="k">case&lt;/span> &lt;span class="nl">CMARK_NODE_SOFTBREAK&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="k">case&lt;/span> &lt;span class="nl">CMARK_NODE_SOFTBREAK&lt;/span>&lt;span class="p">:&lt;/span>
 &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">options&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">amp&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="n">CMARK_OPT_HARDBREAKS&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
 &lt;span class="n">cmark_strbuf_puts&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">html&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;&amp;lt;br/&amp;gt;&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s">&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
 &lt;span class="p">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">options&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">amp&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="n">CMARK_OPT_NOBREAKS&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
@@ -75,23 +43,11 @@
 &lt;span class="n">cmark_strbuf_putc&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">html&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="sc">&amp;#39;\n&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
 &lt;span class="p">}&lt;/span>
 &lt;span class="k">break&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>이렇게 하고 make 를 치면.. 어? 빌드가 안 된다.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>이렇게 하고 make 를 치면.. 어? 빌드가 안 된다.&lt;/p>
 &lt;p>당황하지 말고, &lt;del>이름 때문에 보기 싫지만&lt;/del> banzai filter 가 위치한 곳의 ruby 파일을 수정하면 된다. 여기에서 사실 옵션 조절이 가능하다. 파일 위치는 &lt;code>/opt/gitlab/embedded/service/gitlab-rails/lib/banzai/filter/markdown_engines/common_mark.rb&lt;/code> 이다.&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-ruby" data-lang="ruby">&lt;span class="no">RENDER_OPTIONS&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="o">[&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-ruby" data-lang="ruby">&lt;span class="no">RENDER_OPTIONS&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="o">[&lt;/span>
 &lt;span class="ss">:DEFAULT&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1"># default rendering system. Nothing special.&lt;/span>
 &lt;span class="ss">:HARDBREAKS&lt;/span> &lt;span class="c1"># Treat `\n` as hardbreaks (by adding `&amp;lt;br/&amp;gt;`). # 이걸 추가한다.&lt;/span>
 &lt;span class="o">].&lt;/span>&lt;span class="n">freeze&lt;/span>
-&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>반드시, Gitlab 재부팅을 잊지말자!&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>반드시, Gitlab 재부팅을 잊지말자!&lt;/p>
 &lt;p>한 가지 아쉬운 점은(?) 일부러 soft break 를 시도하는 경우에, 내부에서 line break 까지 겹쳐서 인식하기 때문에 결론적으로 &lt;code>&amp;lt;br/&amp;gt;&lt;/code> 이 두번 붙는 사태가 일어난다. 어쩔 수 없이 commonmark 를 한번 빌드하는 수밖에 없나.. 하는 생각이 들고 있다.&lt;/p></description></item></channel></rss>

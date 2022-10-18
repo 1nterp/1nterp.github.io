@@ -3,7 +3,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Upgrade 8.x 로 쓰다가 10.x 로 업그레이드를 진행했다. 아니.. 그런데 Postgresql Database 버전이 다르다고? 알고보니 이렇게 대격변을 일으키면 안 되던 거였다. 그래서 겸사겸사 9.5.10 으로 다시"><title>Gitlab 10.x 삽질기</title>
 <style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600&family=Poor+Story&display=swap'</style>
 <link rel=canonical href=https://interp.blog/gitlab-%EC%82%BD%EC%A7%88%EA%B8%B0/>
-<link rel=stylesheet href=/scss/style.min.424327ee2f85ef588c4a0f22a06ed61106b87b6e3f8d79300116573d48ff25b1.css><meta property="og:title" content="Gitlab 10.x 삽질기">
+<link rel=stylesheet href=/scss/style.min.2eadfa29c06a2411f8e4fab807a712ab4cc1d271ebb9693ebd342c2dcefaa082.css><meta property="og:title" content="Gitlab 10.x 삽질기">
 <meta property="og:description" content="Upgrade 8.x 로 쓰다가 10.x 로 업그레이드를 진행했다. 아니.. 그런데 Postgresql Database 버전이 다르다고? 알고보니 이렇게 대격변을 일으키면 안 되던 거였다. 그래서 겸사겸사 9.5.10 으로 다시">
 <meta property="og:url" content="https://interp.blog/gitlab-%EC%82%BD%EC%A7%88%EA%B8%B0/">
 <meta property="og:site_name" content="InterP Blog">
@@ -98,33 +98,16 @@ Tech
 <p>우리 회사 Gitlab 구조는 웹 서비스 주소와 내부 공유 주소가 다르다. (도메인을 거의 리다이렉트 비슷하게 해놨기 때문이기도 하지만) 비공개 저장소다 보니, 웹 접속은 외부에서 되었면서 Clone 은 똑같은 주소로 절대 받을 수 없게 해 놨다. 이게 Gitlab Runner 를 바보로 만들었다 (…)</p>
 <p>Gitlab Runner는 <code>.gitlab-ci.yml</code> 의 구성에 상관없이, 선작업으로 해당 저장소를 Cloning 하거나 Fetching 하게 된다. (양자택일은 웹 페이지의 Runner 관리 페이지에서 설정이 가능하다.) 이건 Runner의 Executer를 Docker를 하던 Shell 을 하던 똑같다. 문제는 내가 언급했던 대로, 이 저장소 주소를 웹 주소에 기반해서 가져가기 때문에, 항상 실패했다는 것이다.</p>
 <p>짜증이 치밀 즈음, 아예 이 작업을 끌 수는 없을까 하고 봤더니… 역시나 답은 있었다.</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>variables:
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>variables:
   GIT_STRATEGY: none
-</code></pre></td></tr></table>
-</div>
-</div><p>이렇게 두면, Runner의 옵션을 Cloning 으로 줬건 Fetching 으로 줬건 간에 <strong>하지 않는다</strong>.</p>
+</code></pre></div><p>이렇게 두면, Runner의 옵션을 Cloning 으로 줬건 Fetching 으로 줬건 간에 <strong>하지 않는다</strong>.</p>
 <p>즉, 모든 작업을 온전히 CI 명령에 맡기는 것이다. 위험하기도 하고, 캐싱도 안 되고 약점이 많지만, 나는 상관이 없었다. 직접 내부 주소의 저장소로 접근해서 받아오면 그만!</p>
 <h3 id=repository-에-ssh-key-등록>Repository 에 SSH Key 등록</h3>
 <p>그런데, 문제가 생겼다. 아래와 같이 &lsquo;gitlab-runner&rsquo; 사용자로 Runner Service를 등록하고, 실행시켰다고 가정하자.</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>gitlab-runner install --user gitlab-runner
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>gitlab-runner install --user gitlab-runner
 gitlab-runner start
 ps aux <span class=p>|</span> grep gitlab-runner <span class=c1># gitlab-runner run 이 잘 되고 있어야 한다.</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>나는 Executer를 Shell 로 쓰고 있는데, 이 친구가 내부 저장소로 (그것도 SSH 주소로) 접근하려면… SSH Public Key를 넣어줘야 된다. 넣지 않으면 인증에서 실패한다. 그런데 Gitlab Runner 의 Shell 사용자는 위에서 보이는 것 처럼 &lsquo;gitlab-runner&rsquo; 인데.. 얘는 Gitlab 계정도 없는 가상 사용자다. 어떻게 Public Key를 등록할까?</p>
+</code></pre></div><p>나는 Executer를 Shell 로 쓰고 있는데, 이 친구가 내부 저장소로 (그것도 SSH 주소로) 접근하려면… SSH Public Key를 넣어줘야 된다. 넣지 않으면 인증에서 실패한다. 그런데 Gitlab Runner 의 Shell 사용자는 위에서 보이는 것 처럼 &lsquo;gitlab-runner&rsquo; 인데.. 얘는 Gitlab 계정도 없는 가상 사용자다. 어떻게 Public Key를 등록할까?</p>
 <p>Gitlab은, 각 사용자 계정의 SSH Public Key를 관리해 주기도 하지만 Project 별로 SSH Key를 등록할 수도 있다. <em>Project 페이지의 Settings > Repository</em> 에서 Deploy Keys 부분을 펼쳐보자. 그러면 익숙한 SSH Key 등록 폼이 나온다. 여기에, 아까 언급한 &lsquo;gitlab-runner&rsquo; 의 SSH Key를 등록하면 된다. (당연히 gitlab-runner 계정에서 SSH Key 생성을 해야한다.)</p>
 <p>그러면<code>.gitlab-ci.yml</code> 에 마구잡이로 <code>'git clone git@~~~~:&lt;user or group>/&lt;project>.git'</code> 이런 식으로 스크립트를 적어도 아주 잘 clone 되는 걸 확인할 수 있다!</p>
 <h2 id=create-new-branch-의-기본-branch-바꾸기><em>Create New Branch</em> 의 기본 Branch 바꾸기</h2>
@@ -134,23 +117,12 @@ ps aux <span class=p>|</span> grep gitlab-runner <span class=c1># gitlab-runner 
 <p>Ruby는 쥐뿔도 모르지만 코드는 코드일 뿐.</p>
 <p>이슈에 대한 브랜치를 생성하는 작업은 <a class=link href=https://gitlab.com/gitlab-org/gitlab-ce/merge_requests/2808/diffs target=_blank rel=noopener>이 Merge Request</a> 에서 반영된 것이다. 여기 Diff를 쭉 봤더니 <code>to_branch_name</code> 이 눈에 띈다. 오호라. 하지만 어디서 수정해야 할까?</p>
 <p>Gitlab을 Omnibus 로 정직하게 설치했다면 소스코드 경로는 <code>/opt/gitlab/embedded/service/gitlab-rails/</code> 에 있다. 여기서 grep으로 <code>to_branch_name</code> 을 검색해 보면?</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=nb>cd</span> /opt/gitlab/embedded/service/gitlab-rails/
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=nb>cd</span> /opt/gitlab/embedded/service/gitlab-rails/
 grep to_branch_name . -rn
 <span class=c1># ./embedded/service/gitlab-rails/app/models/issue.rb:XXX def to_branch_name</span>
 <span class=c1># 이하 생략</span>
 vi app/models/issue.rb
-</code></pre></td></tr></table>
-</div>
-</div><p>여기서 <code>"#{iid}-#{title.parameterize}"</code> 라고 정의된 부분을 적절히 바꿔주자. 나는 <code>"ISSUE##{iid}"</code> 로 심플하게 바꿨다.</p>
+</code></pre></div><p>여기서 <code>"#{iid}-#{title.parameterize}"</code> 라고 정의된 부분을 적절히 바꿔주자. 나는 <code>"ISSUE##{iid}"</code> 로 심플하게 바꿨다.</p>
 <p>이것만 바꾸면 &lsquo;Create New Branch&rsquo; 를 누를 때 잘 될 것 같다. 하지만 Issue 페이지에서 &lsquo;연관된 Issue Branch&rsquo; 목록에 연결되지 않는다. 수정한 파일 <code>/opt/gitlab/embedded/service/gitlab-rails/app/models/issue.rb</code> 에서, 더 수정할 것이 남아있다. 다음 함수를 수정해야 한다.</p>
 <ul>
 <li>has_related_branch</li>
@@ -197,19 +169,16 @@ vi app/models/issue.rb
 </a>
 </article>
 <article>
-<a href=/oh-my-zsh-kubectl-autocomplete/>
+<a href=/bdd-in-python-behave/>
 <div class=article-details>
-<h2 class=article-title>Oh my zsh! 에서 kubectl 자동 완성 하기</h2>
+<h2 class=article-title>BDD in Python: Behave</h2>
 </div>
 </a>
 </article>
-<article class=has-image>
-<a href=/bdd-behavior-driven-development/>
-<div class=article-image>
-<img src=/bdd-behavior-driven-development/feature.4a92b05bcc5515ef86ccc5105fa05b75.jpg width=750 height=500 loading=lazy alt="Featured image of post BDD (Behavior-driven Development) 소개" data-hash="md5-SpKwW8xVFe+GzMUQX6BbdQ==">
-</div>
+<article>
+<a href=/oh-my-zsh-kubectl-autocomplete/>
 <div class=article-details>
-<h2 class=article-title>BDD (Behavior-driven Development) 소개</h2>
+<h2 class=article-title>Oh my zsh! 에서 kubectl 자동 완성 하기</h2>
 </div>
 </a>
 </article>

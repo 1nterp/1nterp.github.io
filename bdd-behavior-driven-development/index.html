@@ -3,7 +3,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="작년 즈음에, 팀에 테스트 주도 개발 (Test-driven Development,TDD) 에 대해 어떤 강력한 합의 (?) 가 필요하지 않을까라고 팀장님께 주장했던 기억이 났다. 일단 나부터 좀 잘 해야 할텐데 그런데 그걸 언"><title>BDD (Behavior-driven Development) 소개</title>
 <style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600&family=Poor+Story&display=swap'</style>
 <link rel=canonical href=https://interp.blog/bdd-behavior-driven-development/>
-<link rel=stylesheet href=/scss/style.min.424327ee2f85ef588c4a0f22a06ed61106b87b6e3f8d79300116573d48ff25b1.css><meta property="og:title" content="BDD (Behavior-driven Development) 소개">
+<link rel=stylesheet href=/scss/style.min.2eadfa29c06a2411f8e4fab807a712ab4cc1d271ebb9693ebd342c2dcefaa082.css><meta property="og:title" content="BDD (Behavior-driven Development) 소개">
 <meta property="og:description" content="작년 즈음에, 팀에 테스트 주도 개발 (Test-driven Development,TDD) 에 대해 어떤 강력한 합의 (?) 가 필요하지 않을까라고 팀장님께 주장했던 기억이 났다. 일단 나부터 좀 잘 해야 할텐데 그런데 그걸 언">
 <meta property="og:url" content="https://interp.blog/bdd-behavior-driven-development/">
 <meta property="og:site_name" content="InterP Blog">
@@ -128,19 +128,10 @@ Tech
 <p>Gherkin 문법으로 정형화된 문서를 입력으로, 코드 템플릿을 출력하거나 코드 템플릿과 일치하는 테스트 케이스가 존재하면 바로 테스트 결과를 출력한다. (behave, godog 만 테스트해 봤다) 각 언어 별 실제 사용 예제는 블로그에 따로 정리할 예정이다.</p>
 <h3 id=gherkin-format>Gherkin Format</h3>
 <p>그럼 도대체 Gherkin <del>오이피클</del> 은 어떻게 쓰는가? 가장 간단한 방법은 세 문장으로 나타내는 것이다.</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>Given there are 12 cucumbers
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>Given there are 12 cucumbers
 When I eat 5 cucumbers
 Then I should have 7 cucumbers
-</code></pre></td></tr></table>
-</div>
-</div><p>GIVEN 은 전제 조건이고, WHEN 은 액션, THEN 은 그 결과이다. 이 부분을 테스트 케이스로 만드려면,</p>
+</code></pre></div><p>GIVEN 은 전제 조건이고, WHEN 은 액션, THEN 은 그 결과이다. 이 부분을 테스트 케이스로 만드려면,</p>
 <ul>
 <li>GIVEN : 전제조건이 되도록 환경을 구성하거나 mocking 한다.</li>
 <li>WHEN : 액션을 가한다. (함수를 호출하거나)</li>
@@ -189,6 +180,13 @@ Then I should have 7 cucumbers
 <div class=related-content>
 <div class="flex article-list--tile">
 <article>
+<a href=/bdd-in-python-behave/>
+<div class=article-details>
+<h2 class=article-title>BDD in Python: Behave</h2>
+</div>
+</a>
+</article>
+<article>
 <a href=/oh-my-zsh-kubectl-autocomplete/>
 <div class=article-details>
 <h2 class=article-title>Oh my zsh! 에서 kubectl 자동 완성 하기</h2>
@@ -219,16 +217,6 @@ Then I should have 7 cucumbers
 <a href=/tour-of-go-pointer-struct-array-slice/>
 <div class=article-details>
 <h2 class=article-title>A tour of Go: Pointer, Struct, Array, Slice</h2>
-</div>
-</a>
-</article>
-<article class=has-image>
-<a href=/rough-highlight-js/>
-<div class=article-image>
-<img src=/images/2022-06-24-68747470733a2f2f726f7567686e6f746174696f6e2e636f6d2f696d616765732f736f6369616c2e706e67.png loading=lazy data-key data-hash=/images/2022-06-24-68747470733a2f2f726f7567686e6f746174696f6e2e636f6d2f696d616765732f736f6369616c2e706e67.png>
-</div>
-<div class=article-details>
-<h2 class=article-title>Rough Notation</h2>
 </div>
 </a>
 </article>

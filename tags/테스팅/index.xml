@@ -38,19 +38,10 @@
 &lt;p>Gherkin 문법으로 정형화된 문서를 입력으로, 코드 템플릿을 출력하거나 코드 템플릿과 일치하는 테스트 케이스가 존재하면 바로 테스트 결과를 출력한다. (behave, godog 만 테스트해 봤다) 각 언어 별 실제 사용 예제는 블로그에 따로 정리할 예정이다.&lt;/p>
 &lt;h3 id="gherkin-format">Gherkin Format&lt;/h3>
 &lt;p>그럼 도대체 Gherkin &lt;del>오이피클&lt;/del> 은 어떻게 쓰는가? 가장 간단한 방법은 세 문장으로 나타내는 것이다.&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">Given there are 12 cucumbers
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">Given there are 12 cucumbers
 When I eat 5 cucumbers
 Then I should have 7 cucumbers
-&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>GIVEN 은 전제 조건이고, WHEN 은 액션, THEN 은 그 결과이다. 이 부분을 테스트 케이스로 만드려면,&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>GIVEN 은 전제 조건이고, WHEN 은 액션, THEN 은 그 결과이다. 이 부분을 테스트 케이스로 만드려면,&lt;/p>
 &lt;ul>
 &lt;li>GIVEN : 전제조건이 되도록 환경을 구성하거나 mocking 한다.&lt;/li>
 &lt;li>WHEN : 액션을 가한다. (함수를 호출하거나)&lt;/li>

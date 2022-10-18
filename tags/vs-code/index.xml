@@ -21,15 +21,8 @@ loading="lazy"
 >암호 대신 SSH Key 로 인증하기&lt;/a> 포스팅을 참고하면 된다. 혹시 PuTTY 에서 생성한 비공개 키를 등록하고 쓰고 있으니 이걸로 충분하지 않을까? 그렇게 준비하면.. 실제 접속할 때 아마 잘 안 될 것이다.&lt;/p>
 &lt;p>Visual Studio Code 는 OpenSSH (또는 Git 의 ssh) 클라이언트를 쓰기 때문에, Key 호환성 문제로 &amp;lsquo;invalid format&amp;rsquo; 에러를 발생시킬 수 있다. 그러니 순순히 (?) &lt;strong>실행 명령 창 (cmd) 을 열어서&lt;/strong> 다음을 입력하자. 기존에 쓰던 키 저장 경로가 존재한다면, 다른 경로로 설정하는 것을 추천한다. 이 방법은 &lt;a class="link" href="https://code.visualstudio.com/docs/remote/troubleshooting#_quick-start-ssh-key" target="_blank" rel="noopener"
 >Visual Studio Code 페이지의 Troubleshooting&lt;/a> 에 등록된 내용이다.&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">ssh-keygen -t rsa -b  &lt;span class="m">4096&lt;/span>
-&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h2 id="서버-리눅스-준비">서버 (리눅스) 준비&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">ssh-keygen -t rsa -b  &lt;span class="m">4096&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="서버-리눅스-준비">서버 (리눅스) 준비&lt;/h2>
 &lt;p>원활한 서비스가 가능한 리눅스 OS 목록은 &lt;a class="link" href="https://code.visualstudio.com/docs/remote/linux" target="_blank" rel="noopener"
 >여기&lt;/a>를 참고하면 된다. Cent OS 7 은 잘 되므로 별 다른 설정 없이 가능하다. 지원이 안 되는 리눅스들은 workaround 가 있는데 (특시 Cent OS 6) 생각보다 까다롭고 원치 않는 상황이 발생할 수 있기 때문에 신중해야 한다.&lt;/p>
 &lt;p>접속하고자 하는 계정의 &lt;code>~/.ssh/authorized_keys&lt;/code> 파일에다가, 아까 만들었던 Key Pair 중 &amp;lsquo;공개 키&amp;rsquo; 정보를 입력해야 한다. 해당 파일이 없으면 만들면 되고, 있으면 파일 끝에 추가 (append) 해주면 된다.&lt;/p>
@@ -41,21 +34,11 @@ loading="lazy"
 &lt;img class="alignnone size-full wp-image-1524 " src="https://interp.blog/uploads/2019/06/img_5d12fc88e148b.png" alt="" srcset="https://interp.blog/uploads/2019/06/img_5d12fc88e148b.png 622w, https://interp.blog/uploads/2019/06/img_5d12fc88e148b-300x45.png 300w" sizes="(max-width: 622px) 100vw, 622px" />
 &lt;/p>
 &lt;p>예시는 이렇다.&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">Host 192.168.0.10
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">Host 192.168.0.10
 HostName 192.168.0.10
 User interp
 IdentityFile &amp;#34;C:\Users\interp\ssh_key\id_rsa&amp;#34;
-&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;ul>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
 &lt;li>Host : 목록에 나올 이름이다. 보통은 HostName 과 같이 지정해주거나 Username@HostName 으로 지정한다.&lt;/li>
 &lt;li>HostName : 실제 접속할 호스트 주소&lt;/li>
 &lt;li>User : 접속할 사용자 계정 이름&lt;/li>

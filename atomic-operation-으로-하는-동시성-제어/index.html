@@ -1,16 +1,16 @@
 <!doctype html><html lang=ko-kr dir=ltr>
 <head><meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Test-And-Set (TAS) TAS 를 이용해서 간단한 동시성 제어를 할 수 있다. testAndSet 이라는 function 을 가지고 아래의 do...while 문을 쓰레드 A, B 에서 동시에 호출한다고 해 보자. 이 때 lock 은 같은 변수이다. 1 2 3"><title>Atomic Operation 으로 하는 동시성 제어</title>
+<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Test-And-Set (TAS) TAS 를 이용해서 간단한 동시성 제어를 할 수 있다. testAndSet 이라는 function 을 가지고 아래의 do...while 문을 쓰레드 A, B 에서 동시에 호출한다고 해 보자. 이 때 lock 은 같은 변수이다. function TestAndSet(boolean_ref lock)"><title>Atomic Operation 으로 하는 동시성 제어</title>
 <style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600&family=Poor+Story&display=swap'</style>
 <link rel=canonical href=https://interp.blog/atomic-operation-%EC%9C%BC%EB%A1%9C-%ED%95%98%EB%8A%94-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%A0%9C%EC%96%B4/>
-<link rel=stylesheet href=/scss/style.min.424327ee2f85ef588c4a0f22a06ed61106b87b6e3f8d79300116573d48ff25b1.css><meta property="og:title" content="Atomic Operation 으로 하는 동시성 제어">
-<meta property="og:description" content="Test-And-Set (TAS) TAS 를 이용해서 간단한 동시성 제어를 할 수 있다. testAndSet 이라는 function 을 가지고 아래의 do...while 문을 쓰레드 A, B 에서 동시에 호출한다고 해 보자. 이 때 lock 은 같은 변수이다. 1 2 3">
+<link rel=stylesheet href=/scss/style.min.2eadfa29c06a2411f8e4fab807a712ab4cc1d271ebb9693ebd342c2dcefaa082.css><meta property="og:title" content="Atomic Operation 으로 하는 동시성 제어">
+<meta property="og:description" content="Test-And-Set (TAS) TAS 를 이용해서 간단한 동시성 제어를 할 수 있다. testAndSet 이라는 function 을 가지고 아래의 do...while 문을 쓰레드 A, B 에서 동시에 호출한다고 해 보자. 이 때 lock 은 같은 변수이다. function TestAndSet(boolean_ref lock)">
 <meta property="og:url" content="https://interp.blog/atomic-operation-%EC%9C%BC%EB%A1%9C-%ED%95%98%EB%8A%94-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%A0%9C%EC%96%B4/">
 <meta property="og:site_name" content="InterP Blog">
 <meta property="og:type" content="article"><meta property="article:section" content="Tech"><meta property="article:tag" content="lock"><meta property="article:tag" content="atomic"><meta property="article:published_time" content="2018-04-24T02:31:38+00:00"><meta property="article:modified_time" content="2018-04-24T02:31:38+00:00">
 <meta name=twitter:site content="@interp_">
 <meta name=twitter:creator content="@interp_"><meta name=twitter:title content="Atomic Operation 으로 하는 동시성 제어">
-<meta name=twitter:description content="Test-And-Set (TAS) TAS 를 이용해서 간단한 동시성 제어를 할 수 있다. testAndSet 이라는 function 을 가지고 아래의 do...while 문을 쓰레드 A, B 에서 동시에 호출한다고 해 보자. 이 때 lock 은 같은 변수이다. 1 2 3">
+<meta name=twitter:description content="Test-And-Set (TAS) TAS 를 이용해서 간단한 동시성 제어를 할 수 있다. testAndSet 이라는 function 을 가지고 아래의 do...while 문을 쓰레드 A, B 에서 동시에 호출한다고 해 보자. 이 때 lock 은 같은 변수이다. function TestAndSet(boolean_ref lock)">
 </head>
 <body class=article-page>
 <script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>
@@ -89,24 +89,7 @@ Tech
 <section class=article-content>
 <h2 id=test-and-set-tas>Test-And-Set (TAS)</h2>
 <p>TAS 를 이용해서 간단한 동시성 제어를 할 수 있다. testAndSet 이라는 function 을 가지고 아래의 <code>do...while</code> 문을 쓰레드 A, B 에서 동시에 호출한다고 해 보자. 이 때 lock 은 같은 변수이다.</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=n>function</span> <span class=nf>TestAndSet</span><span class=p>(</span><span class=n>boolean_ref</span> <span class=n>lock</span><span class=p>)</span> <span class=p>{</span>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=n>function</span> <span class=nf>TestAndSet</span><span class=p>(</span><span class=n>boolean_ref</span> <span class=n>lock</span><span class=p>)</span> <span class=p>{</span>
     <span class=n>boolean</span> <span class=n>initial</span> <span class=o>=</span> <span class=n>lock</span>
     <span class=n>lock</span> <span class=o>=</span> <span class=nb>true</span>
     <span class=k>return</span> <span class=n>initial</span>
@@ -119,9 +102,7 @@ Tech
 </span><span class=c1></span>    <span class=n>lock</span> <span class=o>=</span> <span class=nb>false</span><span class=p>;</span>
     <span class=c1>// remainder section
 </span><span class=c1></span><span class=p>}</span> <span class=k>while</span><span class=p>(</span><span class=nb>true</span><span class=p>);</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>우선 TestAndSet() 은 다음과 같은 일을 한다. 말 그대로 &lsquo;지금 값이 무엇인지 검사하고, 값을 바꾼다&rsquo; 는 것이다.</p>
+</code></pre></div><p>우선 TestAndSet() 은 다음과 같은 일을 한다. 말 그대로 &lsquo;지금 값이 무엇인지 검사하고, 값을 바꾼다&rsquo; 는 것이다.</p>
 <ol>
 <li>lock의 현재 값을 저장해 둔다.</li>
 <li>lock의 값을 true 로 설정한다.</li>
@@ -149,27 +130,7 @@ Tech
 <p>그럼 어떡하나? TestAndSet() 은 그래서 저런 함수만으로는 안 되고 Test-And-Set 의 연산이 일관되도록 조정해야 한다. 함수 안에 spinlock 을 쓰면 되겠네요? 싶겠지만 lock 구현하자고 lock 을 또 만드는 건 아닌 것 같다. 그래서 Test-And-Set 은 CPU에서 지원하는 Atomic Instruction 을 사용한다.</p>
 <h2 id=fetch-and-add--ticket-lock>Fetch-And-Add : Ticket Lock</h2>
 <p>Atomic Operation 으로 구현할 수 있는 Lock 중에 Ticket Lock 이 있는데, Fetch-And-Add 로 구현할 수 있는 방법을 알아보자.</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span><span class=lnt>14
-</span><span class=lnt>15
-</span><span class=lnt>16
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=n>ticketLock_init</span><span class=p>(</span><span class=kt>int</span> <span class=o>*</span><span class=n>next_ticket</span><span class=p>,</span> <span class=kt>int</span> <span class=o>*</span><span class=n>now_serving</span><span class=p>)</span>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=n>ticketLock_init</span><span class=p>(</span><span class=kt>int</span> <span class=o>*</span><span class=n>next_ticket</span><span class=p>,</span> <span class=kt>int</span> <span class=o>*</span><span class=n>now_serving</span><span class=p>)</span>
 <span class=p>{</span>
     <span class=o>*</span><span class=n>now_serving</span> <span class=o>=</span> <span class=o>*</span><span class=n>next_ticket</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
 <span class=p>}</span>
@@ -185,9 +146,7 @@ Tech
     <span class=n>now_serving</span><span class=o>++</span><span class=p>;</span>
 <span class=p>}</span>
 
-</code></pre></td></tr></table>
-</div>
-</div><p>TAS 의 케이스를 이해하고 본다면 별 다른 설명이 필요 없을 것 같다.</p>
+</code></pre></div><p>TAS 의 케이스를 이해하고 본다면 별 다른 설명이 필요 없을 것 같다.</p>
 <ol>
 <li>Table Lock 초기화를 한다.</li>
 <li>A : Table Lock 을 얻으려 한다. 이미 얻었던 <code>my_ticket (0)</code> 과 <code>now_serving (0)</code> 이 같은 값이므로 곧바로 빠져나온다.</li>
@@ -213,6 +172,13 @@ Tech
 <h2 class=section-title>관련 글</h2>
 <div class=related-content>
 <div class="flex article-list--tile">
+<article>
+<a href=/bdd-in-python-behave/>
+<div class=article-details>
+<h2 class=article-title>BDD in Python: Behave</h2>
+</div>
+</a>
+</article>
 <article>
 <a href=/oh-my-zsh-kubectl-autocomplete/>
 <div class=article-details>
@@ -247,13 +213,6 @@ Tech
 </div>
 <div class=article-details>
 <h2 class=article-title>저작권 걱정 없는 무료 이미지 사이트 3개</h2>
-</div>
-</a>
-</article>
-<article>
-<a href=/tour-of-go-pointer-struct-array-slice/>
-<div class=article-details>
-<h2 class=article-title>A tour of Go: Pointer, Struct, Array, Slice</h2>
 </div>
 </a>
 </article>

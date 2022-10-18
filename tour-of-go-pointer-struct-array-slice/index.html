@@ -3,7 +3,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Go 언어의 자료구조에 대해"><title>A tour of Go: Pointer, Struct, Array, Slice</title>
 <style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600&family=Poor+Story&display=swap'</style>
 <link rel=canonical href=https://interp.blog/tour-of-go-pointer-struct-array-slice/>
-<link rel=stylesheet href=/scss/style.min.424327ee2f85ef588c4a0f22a06ed61106b87b6e3f8d79300116573d48ff25b1.css><meta property="og:title" content="A tour of Go: Pointer, Struct, Array, Slice">
+<link rel=stylesheet href=/scss/style.min.2eadfa29c06a2411f8e4fab807a712ab4cc1d271ebb9693ebd342c2dcefaa082.css><meta property="og:title" content="A tour of Go: Pointer, Struct, Array, Slice">
 <meta property="og:description" content="Go 언어의 자료구조에 대해">
 <meta property="og:url" content="https://interp.blog/tour-of-go-pointer-struct-array-slice/">
 <meta property="og:site_name" content="InterP Blog">
@@ -102,23 +102,7 @@ Go 언어의 자료구조에 대해
 <li>NULL 표현은 <code>nil</code> 이다.</li>
 <li>그 외엔.. 뭐 C pointer 쓰는 거랑 별로 다를게 없다.</li>
 </ul>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-go data-lang=go>    <span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go>    <span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
     	<span class=nx>i</span><span class=p>,</span> <span class=nx>j</span> <span class=o>:=</span> <span class=mi>42</span><span class=p>,</span> <span class=mi>2701</span>
     
     	<span class=nx>p</span> <span class=o>:=</span> <span class=o>&amp;</span><span class=nx>i</span>         <span class=c1>// point to i
@@ -130,9 +114,7 @@ Go 언어의 자료구조에 대해
 </span><span class=c1></span>    	<span class=o>*</span><span class=nx>p</span> <span class=p>=</span> <span class=o>*</span><span class=nx>p</span> <span class=o>/</span> <span class=mi>37</span>   <span class=c1>// divide j through the pointer
 </span><span class=c1></span>    	<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>j</span><span class=p>)</span> <span class=c1>// see the new value of j = 73
 </span><span class=c1></span>    <span class=p>}</span>
-</code></pre></td></tr></table>
-</div>
-</div><h2 id=struct>Struct</h2>
+</code></pre></div><h2 id=struct>Struct</h2>
 <p>C 의 struct 와 동일한, field 들의 모음이다.</p>
 <p>C 였다면 <code>typedef type struct Vertex { ... } Vertex;</code> 이라고 typedef 를 곁들여야 하지만, 여기서는 <code>type</code> 만 써도 된다. 사실상 <code>type</code> 하나가 위의 <code>typedef ...</code> 전체를 모두 커버한다.</p>
 <ul>
@@ -140,19 +122,7 @@ Go 언어의 자료구조에 대해
 <li>struct 형 변수를 초기화할 때는 <code>{ }</code> 로 써야 한다.</li>
 <li>각 field 는 <code>.</code> 을 사용해서 참조할 수 있다.</li>
 </ul>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span><span class=lnt>6
-</span><span class=lnt>7
-</span><span class=lnt>8
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-go data-lang=go>    <span class=kd>type</span> <span class=nx>Vertex</span> <span class=kd>struct</span> <span class=p>{</span>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go>    <span class=kd>type</span> <span class=nx>Vertex</span> <span class=kd>struct</span> <span class=p>{</span>
     	<span class=nx>X</span> <span class=kt>int</span>
     	<span class=nx>Y</span> <span class=kt>int</span>
     <span class=p>}</span>
@@ -160,9 +130,7 @@ Go 언어의 자료구조에 대해
     <span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
     	<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>Vertex</span><span class=p>{</span><span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>})</span> <span class=c1>// {1, 2} 라고 표시된다.
 </span><span class=c1></span>    <span class=p>}</span>
-</code></pre></td></tr></table>
-</div>
-</div><h3 id=struct-pointer>Struct Pointer</h3>
+</code></pre></div><h3 id=struct-pointer>Struct Pointer</h3>
 <p>원래 C 같았으면 struct pointer 변수에서 특정 필드를 참조하려면 <code>(*p).X</code> 이런 식으로, 포인터의 struct 값을 dereference 한 다음에 참조하거나, <code>p->X</code> 같은 식으로 &lsquo;포인터 변수&rsquo; 라는 걸 나타내서 참조하는데.. 여기서는 둘 다 귀찮으니까 <code>p</code> 가 struct pointer 라도 <code>p.X</code> 로 참조가 가능하게 했다.</p>
 <pre><code>func main() {
 	v := Vertex{1, 2}
@@ -200,74 +168,27 @@ fmt.Println(v1, v2, v3, p) // {12} {1 0} {0 0} &{1 2}
 <li>출력하면 struct 와는 달리 꺽쇠 <code>[ ]</code> 로 출력된다.</li>
 <li><strong>하지만 literal 선언은 (slice 와 마찬가지로) <code>{ }</code> 안에서 원소를 나열해야 한다.</strong></li>
 </ul>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-go data-lang=go>    <span class=kd>var</span> <span class=nx>a</span> <span class=p>[</span><span class=mi>10</span><span class=p>]</span><span class=kt>int</span>
-</code></pre></td></tr></table>
-</div>
-</div><h2 id=slice>Slice</h2>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go>    <span class=kd>var</span> <span class=nx>a</span> <span class=p>[</span><span class=mi>10</span><span class=p>]</span><span class=kt>int</span>
+</code></pre></div><h2 id=slice>Slice</h2>
 <p>Array 에서 length number 만 지우면, slice 가 된다.</p>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-go data-lang=go>    <span class=kd>var</span> <span class=nx>a</span> <span class=p>[]</span><span class=kt>int</span>
-</code></pre></td></tr></table>
-</div>
-</div><ul>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go>    <span class=kd>var</span> <span class=nx>a</span> <span class=p>[]</span><span class=kt>int</span>
+</code></pre></div><ul>
 <li>array 또는 slice 에서 index range 를 지정할 수 있는데, C array index 를 생각해도 헷갈릴 수 있는 부분이다.
 <ul>
 <li>수학적으로 정확한 range 표현은 <code>[n:m)</code> 이다. 마지막 인덱스에 해당하는 원소는 <strong>포함이 안 된다</strong>.</li>
 </ul>
 </li>
 </ul>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span><span class=lnt>6
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-go data-lang=go>    <span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go>    <span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
     	<span class=nx>primes</span> <span class=o>:=</span> <span class=p>[</span><span class=mi>6</span><span class=p>]</span><span class=kt>int</span><span class=p>{</span><span class=mi>2</span><span class=p>,</span> <span class=mi>3</span><span class=p>,</span> <span class=mi>5</span><span class=p>,</span> <span class=mi>7</span><span class=p>,</span> <span class=mi>11</span><span class=p>,</span> <span class=mi>13</span><span class=p>}</span>
     
     	<span class=kd>var</span> <span class=nx>s</span> <span class=p>[]</span><span class=kt>int</span> <span class=p>=</span> <span class=nx>primes</span><span class=p>[</span><span class=mi>1</span><span class=p>:</span><span class=mi>4</span><span class=p>]</span> <span class=c1>// 3, 5, 7, 11 인가?
 </span><span class=c1></span>    	<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>s</span><span class=p>)</span> <span class=c1>// [3 5 7] 만 출력된다.
 </span><span class=c1></span>    <span class=p>}</span>
-</code></pre></td></tr></table>
-</div>
-</div><ul>
+</code></pre></div><ul>
 <li>Slice 는 단독으로 쓰이기도 하지만, 보통은 array 의 특정 구간을 나타내기 위해서도 쓰인다. 주의할 점은, Slice 가 바뀌면 연결된 array 도 같이 바뀐다는 것이다 (&mldr;)</li>
 </ul>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span><span class=lnt>14
-</span><span class=lnt>15
-</span><span class=lnt>16
-</span><span class=lnt>17
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-go data-lang=go>    <span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go>    <span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
     	<span class=nx>names</span> <span class=o>:=</span> <span class=p>[</span><span class=mi>4</span><span class=p>]</span><span class=kt>string</span><span class=p>{</span> <span class=c1>// 어.. 비틀즈 성님덜?
 </span><span class=c1></span>    		<span class=s>&#34;John&#34;</span><span class=p>,</span>
     		<span class=s>&#34;Paul&#34;</span><span class=p>,</span>
@@ -284,9 +205,7 @@ fmt.Println(v1, v2, v3, p) // {12} {1 0} {0 0} &{1 2}
 </span><span class=c1></span>    	<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>a</span><span class=p>,</span> <span class=nx>b</span><span class=p>)</span> <span class=c1>// 폴의 이름이 다 바뀌어 있음.
 </span><span class=c1></span>    	<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>names</span><span class=p>)</span> <span class=c1>// 그리고 원래 array 에도 영향이..
 </span><span class=c1></span>    <span class=p>}</span>
-</code></pre></td></tr></table>
-</div>
-</div><ul>
+</code></pre></div><ul>
 <li><code>[n:m]</code> 으로 구간을 나눌 때 양쪽 end 를 생략할 수도 있고, 둘 다 생략할 수도 있다.
 <ul>
 <li>왼쪽 생략 = 0</li>
@@ -296,24 +215,7 @@ fmt.Println(v1, v2, v3, p) // {12} {1 0} {0 0} &{1 2}
 </li>
 <li>slice 안에 당연히 struct 를 쓸 수 있다. 그래서 이런 괴상망측한 하지만 자주 보게 될 선언도 있다.</li>
 </ul>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-go data-lang=go>    <span class=c1>// 이런게 가능합니다...
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go>    <span class=c1>// 이런게 가능합니다...
 </span><span class=c1></span>    <span class=c1>//
 </span><span class=c1></span>    <span class=c1>//  이렇게 typed value 를 바로 선언하는 걸 literal 이라고 하는데, 
 </span><span class=c1></span>    <span class=c1>//  slice 건 struct 건 간에 literal 은 [] 가 아니라 {} 로 해야 한다.
@@ -326,9 +228,7 @@ fmt.Println(v1, v2, v3, p) // {12} {1 0} {0 0} &{1 2}
     		<span class=p>{</span><span class=mi>3</span><span class=p>,</span> <span class=kc>false</span><span class=p>},</span>
     		<span class=p>{</span><span class=mi>5</span><span class=p>,</span> <span class=kc>true</span><span class=p>}</span>
     	<span class=p>}</span>
-</code></pre></td></tr></table>
-</div>
-</div><ul>
+</code></pre></div><ul>
 <li>slice 는 length <code>len()</code> 과 와 capacity <code>cap()</code> 을 지원한다.
 <ul>
 <li><code>len()</code> : 실제 원소들의 개수</li>
@@ -341,29 +241,7 @@ fmt.Println(v1, v2, v3, p) // {12} {1 0} {0 0} &{1 2}
 </ul>
 </li>
 </ul>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span><span class=lnt>14
-</span><span class=lnt>15
-</span><span class=lnt>16
-</span><span class=lnt>17
-</span><span class=lnt>18
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-go data-lang=go>    <span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go>    <span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
     	<span class=nx>s</span> <span class=o>:=</span> <span class=p>[]</span><span class=kt>int</span><span class=p>{</span><span class=mi>2</span><span class=p>,</span> <span class=mi>3</span><span class=p>,</span> <span class=mi>5</span><span class=p>,</span> <span class=mi>7</span><span class=p>,</span> <span class=mi>11</span><span class=p>,</span> <span class=mi>13</span><span class=p>}</span>
     	<span class=nf>printSlice</span><span class=p>(</span><span class=nx>s</span><span class=p>)</span>
     
@@ -381,32 +259,17 @@ fmt.Println(v1, v2, v3, p) // {12} {1 0} {0 0} &{1 2}
 </span><span class=c1></span>                <span class=c1>// 그런데 또 length 는 &#39;마지막 slice&#39; 에서의 2번째부터니까 5,7,11 만 있어서 3임 (...)
 </span><span class=c1></span>    	<span class=nf>printSlice</span><span class=p>(</span><span class=nx>s</span><span class=p>)</span>
     <span class=p>}</span>
-</code></pre></td></tr></table>
-</div>
-</div><ul>
+</code></pre></div><ul>
 <li>slice 에 아무 값도 없으면, 그 값은 <code>nil</code> 과 같다.</li>
 </ul>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span><span class=lnt>6
-</span><span class=lnt>7
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-go data-lang=go>    <span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go>    <span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
     	<span class=kd>var</span> <span class=nx>s</span> <span class=p>[]</span><span class=kt>int</span>
     	<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>s</span><span class=p>,</span> <span class=nb>len</span><span class=p>(</span><span class=nx>s</span><span class=p>),</span> <span class=nb>cap</span><span class=p>(</span><span class=nx>s</span><span class=p>))</span>
     	<span class=k>if</span> <span class=nx>s</span> <span class=o>==</span> <span class=kc>nil</span> <span class=p>{</span>
     		<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;nil!&#34;</span><span class=p>)</span>
     	<span class=p>}</span>
     <span class=p>}</span>
-</code></pre></td></tr></table>
-</div>
-</div><ul>
+</code></pre></div><ul>
 <li><code>make()</code> 로 slice 를 만들 수 있다. 직접 값을 입력하는게 아니라, 변수를 통해 slice 를 선언할 수 있다는 차이가 있다.
 <ul>
 <li>length, capacity 를 별도로 입력할 수 있는 정도?</li>
@@ -414,26 +277,7 @@ fmt.Println(v1, v2, v3, p) // {12} {1 0} {0 0} &{1 2}
 </ul>
 </li>
 </ul>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span><span class=lnt>14
-</span><span class=lnt>15
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-go data-lang=go>    <span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go>    <span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
     	<span class=nx>b</span> <span class=o>:=</span> <span class=nb>make</span><span class=p>([]</span><span class=kt>int</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>5</span><span class=p>)</span>
     	<span class=nf>printSlice</span><span class=p>(</span><span class=s>&#34;b&#34;</span><span class=p>,</span> <span class=nx>b</span><span class=p>)</span>
     
@@ -448,9 +292,7 @@ fmt.Println(v1, v2, v3, p) // {12} {1 0} {0 0} &{1 2}
 </span><span class=cm>    c len=2 cap=5 [0 0]
 </span><span class=cm>    d len=3 cap=3 [0 0 0]
 </span><span class=cm>    */</span>
-</code></pre></td></tr></table>
-</div>
-</div><ul>
+</code></pre></div><ul>
 <li>slice 안에 slice 를 담을 수 있음. 이러면 2차원 배열이 됨. 이 때는 <code>[][]string</code> 처럼 slice type 앞에 slice 를 쓰겠다고 선언하면 됨. (<strong>2차원 배열이 된다</strong>)
 <ul>
 <li>그리고 각 원소도 slice literal 임을 명시해야 한다.</li>
@@ -462,30 +304,7 @@ fmt.Println(v1, v2, v3, p) // {12} {1 0} {0 0} &{1 2}
 </ul>
 </li>
 </ul>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span><span class=lnt>14
-</span><span class=lnt>15
-</span><span class=lnt>16
-</span><span class=lnt>17
-</span><span class=lnt>18
-</span><span class=lnt>19
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-go data-lang=go>    <span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go>    <span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
     	<span class=c1>// Create a tic-tac-toe board.
 </span><span class=c1></span>    	<span class=nx>board</span> <span class=o>:=</span> <span class=p>[][]</span><span class=kt>string</span><span class=p>{</span>
     		<span class=p>[]</span><span class=kt>string</span><span class=p>{</span><span class=s>&#34;_&#34;</span><span class=p>,</span> <span class=s>&#34;_&#34;</span><span class=p>,</span> <span class=s>&#34;_&#34;</span><span class=p>},</span>
@@ -504,43 +323,14 @@ fmt.Println(v1, v2, v3, p) // {12} {1 0} {0 0} &{1 2}
     		<span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;%s\\n&#34;</span><span class=p>,</span> <span class=nx>strings</span><span class=p>.</span><span class=nf>Join</span><span class=p>(</span><span class=nx>board</span><span class=p>[</span><span class=nx>i</span><span class=p>],</span> <span class=s>&#34; &#34;</span><span class=p>))</span>
     	<span class=p>}</span>
     <span class=p>}</span>
-</code></pre></td></tr></table>
-</div>
-</div><ul>
+</code></pre></div><ul>
 <li>익히 알겠지만, slice 는 <code>append()</code> 가 가능하다. 첫 번째 파라메터는 소스 slice, 나머지는 쭉 원소(들) 을/를 입력하면 된다.
 <ul>
 <li>그럼 cap 은 어떻게 되나요? 직접 실험해보자 (&mldr;)</li>
 </ul>
 </li>
 </ul>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span><span class=lnt>14
-</span><span class=lnt>15
-</span><span class=lnt>16
-</span><span class=lnt>17
-</span><span class=lnt>18
-</span><span class=lnt>19
-</span><span class=lnt>20
-</span><span class=lnt>21
-</span><span class=lnt>22
-</span><span class=lnt>23
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-go data-lang=go>    <span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go>    <span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
     	<span class=kd>var</span> <span class=nx>s</span> <span class=p>[]</span><span class=kt>int</span>
     	<span class=nf>printSlice</span><span class=p>(</span><span class=nx>s</span><span class=p>)</span>
     
@@ -563,9 +353,7 @@ fmt.Println(v1, v2, v3, p) // {12} {1 0} {0 0} &{1 2}
 </span><span class=cm>    len=2 cap=2 [0 1]
 </span><span class=cm>    len=5 cap=6 [0 1 2 3 4]
 </span><span class=cm>    */</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>마지막 줄이 왜 cap 이 6이 되는지는, go blog 에 있는 <a class=link href=https://go.dev/blog/slices-intro target=_blank rel=noopener>Slices-intro</a> 를 살펴보자. 특히 ‘<strong>Growing slices (the copy and append functions)</strong>’ 처음에 make 하는 부분을 보면 된다.</p>
+</code></pre></div><p>마지막 줄이 왜 cap 이 6이 되는지는, go blog 에 있는 <a class=link href=https://go.dev/blog/slices-intro target=_blank rel=noopener>Slices-intro</a> 를 살펴보자. 특히 ‘<strong>Growing slices (the copy and append functions)</strong>’ 처음에 make 하는 부분을 보면 된다.</p>
 <ul>
 <li>Slice 에서의 for 는 <code>for each</code> 같은 구문을 사용할 수 있다.
 <ul>
@@ -579,19 +367,10 @@ fmt.Println(v1, v2, v3, p) // {12} {1 0} {0 0} &{1 2}
 </ul>
 </li>
 </ul>
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-go data-lang=go>    <span class=k>for</span> <span class=nx>idx</span><span class=p>,</span> <span class=nx>value</span> <span class=o>:=</span> <span class=k>range</span> <span class=nx>slice_var</span> <span class=p>{</span> <span class=p>..</span> <span class=p>}</span>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go>    <span class=k>for</span> <span class=nx>idx</span><span class=p>,</span> <span class=nx>value</span> <span class=o>:=</span> <span class=k>range</span> <span class=nx>slice_var</span> <span class=p>{</span> <span class=p>..</span> <span class=p>}</span>
     <span class=c1>// 인덱스만 쓰고 싶으면
 </span><span class=c1></span>    <span class=k>for</span> <span class=nx>idx</span> <span class=o>:=</span> <span class=k>range</span> <span class=nx>slice_var</span> <span class=p>{</span> <span class=p>..</span> <span class=p>}</span>
-</code></pre></td></tr></table>
-</div>
-</div>
+</code></pre></div>
 </section>
 <footer class=article-footer>
 <br>
@@ -631,19 +410,16 @@ fmt.Println(v1, v2, v3, p) // {12} {1 0} {0 0} &{1 2}
 </a>
 </article>
 <article>
-<a href=/oh-my-zsh-kubectl-autocomplete/>
+<a href=/bdd-in-python-behave/>
 <div class=article-details>
-<h2 class=article-title>Oh my zsh! 에서 kubectl 자동 완성 하기</h2>
+<h2 class=article-title>BDD in Python: Behave</h2>
 </div>
 </a>
 </article>
-<article class=has-image>
-<a href=/bdd-behavior-driven-development/>
-<div class=article-image>
-<img src=/bdd-behavior-driven-development/feature.4a92b05bcc5515ef86ccc5105fa05b75.jpg width=750 height=500 loading=lazy alt="Featured image of post BDD (Behavior-driven Development) 소개" data-hash="md5-SpKwW8xVFe+GzMUQX6BbdQ==">
-</div>
+<article>
+<a href=/oh-my-zsh-kubectl-autocomplete/>
 <div class=article-details>
-<h2 class=article-title>BDD (Behavior-driven Development) 소개</h2>
+<h2 class=article-title>Oh my zsh! 에서 kubectl 자동 완성 하기</h2>
 </div>
 </a>
 </article>

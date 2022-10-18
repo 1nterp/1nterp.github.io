@@ -3,7 +3,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Hugo 에 포함된 Theme 에는 대부분 SASS/SCSS 파일로 스타일링을 했는데, 여기서 SCSS 내용을 변경해도 사이트 빌드할 때 변경 내용이 적용이 되지 않았다. 원칙적으론 되어야 한다. 어떻게 해결했는지 간단히 적어본다."><title>Hugo SCSS Rebuild</title>
 <style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600&family=Poor+Story&display=swap'</style>
 <link rel=canonical href=https://interp.blog/tech/2020-01-31-hugo-scss-rebuild/>
-<link rel=stylesheet href=/scss/style.min.424327ee2f85ef588c4a0f22a06ed61106b87b6e3f8d79300116573d48ff25b1.css><meta property="og:title" content="Hugo SCSS Rebuild">
+<link rel=stylesheet href=/scss/style.min.2eadfa29c06a2411f8e4fab807a712ab4cc1d271ebb9693ebd342c2dcefaa082.css><meta property="og:title" content="Hugo SCSS Rebuild">
 <meta property="og:description" content="Hugo 에 포함된 Theme 에는 대부분 SASS/SCSS 파일로 스타일링을 했는데, 여기서 SCSS 내용을 변경해도 사이트 빌드할 때 변경 내용이 적용이 되지 않았다. 원칙적으론 되어야 한다. 어떻게 해결했는지 간단히 적어본다.">
 <meta property="og:url" content="https://interp.blog/tech/2020-01-31-hugo-scss-rebuild/">
 <meta property="og:site_name" content="InterP Blog">
@@ -91,19 +91,10 @@ Tech
 <ul>
 <li>자세히 보니 이미 컴파일이 완료된 CSS 파일이 <code>resources/_gen/assets/scss/scss/</code> 에 존재하고 있었다.</li>
 <li>설마 이것 때문인가? 삭제를 하고 다시 <code>hugo server -D</code> 를 해보면 다음 문구가 반겨준다.
-<div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-text data-lang=text>Building sites … ERROR 2020/01/31 00:27:39 Transformation failed: TOCSS: failed to transform &#34;scss/tale.scss&#34; (text/x-scss): this feature is not available in your current Hugo version, see https://goo.gl/YMrWcn for more information
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text>Building sites … ERROR 2020/01/31 00:27:39 Transformation failed: TOCSS: failed to transform &#34;scss/tale.scss&#34; (text/x-scss): this feature is not available in your current Hugo version, see https://goo.gl/YMrWcn for more information
 Built in 16 ms
 Error: Error building site: logged 1 error(s)
-</code></pre></td></tr></table>
-</div>
-</div></li>
+</code></pre></div></li>
 </ul>
 <p>그렇다, <strong>extension version 이 아닌 일반 hugo 를 설치한 것이었다!</strong> <a class=link href=https://gohugo.io/getting-started/installing target=_blank rel=noopener>Install Hugo</a> 페이지에 다시 들어가 재설치하니 잘 되었다.</p>
 </section>
@@ -122,6 +113,13 @@ Error: Error building site: logged 1 error(s)
 <h2 class=section-title>관련 글</h2>
 <div class=related-content>
 <div class="flex article-list--tile">
+<article>
+<a href=/bdd-in-python-behave/>
+<div class=article-details>
+<h2 class=article-title>BDD in Python: Behave</h2>
+</div>
+</a>
+</article>
 <article>
 <a href=/oh-my-zsh-kubectl-autocomplete/>
 <div class=article-details>
@@ -156,13 +154,6 @@ Error: Error building site: logged 1 error(s)
 </div>
 <div class=article-details>
 <h2 class=article-title>저작권 걱정 없는 무료 이미지 사이트 3개</h2>
-</div>
-</a>
-</article>
-<article>
-<a href=/tour-of-go-pointer-struct-array-slice/>
-<div class=article-details>
-<h2 class=article-title>A tour of Go: Pointer, Struct, Array, Slice</h2>
 </div>
 </a>
 </article>

@@ -11,16 +11,7 @@ loading="lazy"
 &lt;li>&lt;code>/opt/gitlab/embedded/service/gitlab-rails/app/views/shared/issuable/form/_merge_params.html.haml&lt;/code> 을 편집기로 연다.&lt;/li>
 &lt;li>&lt;code>check_box_tag&lt;/code> 항목으로 시작하는 줄이 &lt;span style="text-decoration: underline;">두 군데&lt;/span> 있는데, 아래와 같이 다음 내용을 &amp;lsquo;추가&amp;rsquo; 한다.&lt;/li>
 &lt;/ol>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">= check_box_tag &amp;#39;merge_request[force_remove_source_branch]&amp;#39;, &amp;#39;1&amp;#39;, issuable.force_remove_source_branch?, class: &amp;#39;form-check-input&amp;#39;&amp;lt;span style=&amp;#34;color: #ff0000;&amp;#34;&amp;gt;, checked: &amp;#39;checked&amp;#39;&amp;lt;/span&amp;gt;
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">= check_box_tag &amp;#39;merge_request[force_remove_source_branch]&amp;#39;, &amp;#39;1&amp;#39;, issuable.force_remove_source_branch?, class: &amp;#39;form-check-input&amp;#39;&amp;lt;span style=&amp;#34;color: #ff0000;&amp;#34;&amp;gt;, checked: &amp;#39;checked&amp;#39;&amp;lt;/span&amp;gt;
 &amp;lt;span style=&amp;#34;color: #0000ff;&amp;#34;&amp;gt;# ... blahblah&amp;lt;/span&amp;gt;
 = check_box_tag &amp;#39;merge_request[squash]&amp;#39;, &amp;#39;1&amp;#39;, issuable.squash, class: &amp;#39;form-check-input&amp;#39;&amp;lt;span style=&amp;#34;color: #ff0000;&amp;#34;&amp;gt;, checked: &amp;#39;checked&amp;#39;&amp;lt;/span&amp;gt;```
-&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>다 했다면 &lt;code>gitlab-ctl reconfigure &amp;amp;&amp;amp; gitlab-ctl restart&lt;/code> 로 Gitlab 서버를 재시작한다.&lt;/p></description></item></channel></rss>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>다 했다면 &lt;code>gitlab-ctl reconfigure &amp;amp;&amp;amp; gitlab-ctl restart&lt;/code> 로 Gitlab 서버를 재시작한다.&lt;/p></description></item></channel></rss>
