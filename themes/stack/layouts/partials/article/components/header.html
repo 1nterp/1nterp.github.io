@@ -1,6 +1,6 @@
 <header class="article-header">
     {{- $image := partialCached "helper/image" (dict "Context" . "Type" "article") .RelPermalink "article" -}}
-    {{ if $image.exists }}
+    {{ if and ($image.exists) (default true .Page.Params.image_show) }}
         <div class="article-image">
             <a href="{{ .RelPermalink }}">
                 {{ if $image.resource }}

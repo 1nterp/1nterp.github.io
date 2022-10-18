@@ -2,7 +2,7 @@
 title: 설명할 수 없으면, 아는 것이 아니다
 author: InterP
 type: post
-date: 2022-08-20T05:30:47.000+00:00
+date: 2022-06-20T05:30:47.000+00:00
 url: if-you-cannot-explain
 image: "/uploads/2018/07/einstein.jpg"
 categories:
