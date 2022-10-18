@@ -7,12 +7,10 @@ categories:
 - Tech
 tags:
 - Powerpoint
-draft: true
-
 ---
 객체를 움직일 때 방향키로 이동하면, 예전에는 한 칸씩 움직이는 것 처럼 느껴졌는데 최근에 들어서는 정말 1픽셀 만큼만 이동해서 귀찮음을 유발하곤 한다. 이렇게 답답하게 움직이는 걸 되돌리기 위한 해결 방법이다. 별 건 없지만...
 
-![](/images/2018-02-12-powerpoint-shape-move-faster/screen1.jpg)
+{{< figure src="/images/2018-02-12-powerpoint-shape-move-faster/screen1.jpg" align="center" >}}
 
 1. 보기 탭으로
 2. 표시 항목에서 '확장 아이콘'이 아주 작게 보인다.

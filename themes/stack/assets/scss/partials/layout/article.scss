@@ -430,6 +430,10 @@
         width: calc(100% + var(--card-padding) * 2);
     }
 
+    blockquote {
+        font-size: .9em;
+    }
+
     ul {
         padding-inline-start: 2rem;
     }
