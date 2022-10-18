@@ -54,11 +54,10 @@
 }
 
 .article-title {
-    font-family: 'Poor Story';
     font-weight: 600;
     margin: 0;
     color: var(--card-text-color-main);
-    font-size: 3rem;
+    font-size: 2.6rem;
 
     @include respond(xl) {
         font-size: 3.2rem;
@@ -78,9 +77,9 @@
     color: var(--card-text-color-secondary);
     line-height: 1.5;
     margin: 0;
-    font-size: 1.35rem;
+    font-size: 1.45rem;
     @include respond(xl) {
-        font-size: 1.5rem;
+        font-size: 1.6rem;
     }
 }
 

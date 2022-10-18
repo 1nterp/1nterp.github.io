@@ -2,11 +2,11 @@
 author = "InterP"
 categories = ["Tech"]
 date = 2022-06-21T16:19:07Z
-description = "Go 언어에서 주로 쓰이는 JSON struct tag option 중 'omityempty' 에 대해 좀 더 자세히 알아보자."
+description = "'정확히 알고 쓰지 않으면 삽시간에 혼란이 옵니다'"
 image = ""
 tags = ["golang", "JSON", "omitempty"]
-title = "Golang JSON struct tag: omitempty"
-url = "/golang-json-struct-tag/"
+title = "Golang struct tag: omitempty"
+url = "/golang-struct-tag/"
 
 +++
 ## 태그?

@@ -2,7 +2,7 @@
 author = "InterP"
 categories = ["Tech"]
 date = 2022-06-20T02:36:25Z
-description = "if-else, for, switch, defer 대해 정리해 봤다."
+description = "if-else, for, switch, defer"
 image = ""
 tags = ["golang", "tutorial", "programming"]
 title = "A tour of Go: Flow control statements"

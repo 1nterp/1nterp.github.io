@@ -2,7 +2,7 @@
 author = "InterP"
 categories = ["Tech"]
 date = 2022-07-03T17:06:37Z
-description = ""
+description = "Go 언어의 자료구조에 대해"
 image = ""
 tags = ["golang", "tutorial", "programming"]
 title = "A tour of Go: Pointer, Struct, Array, Slice"
