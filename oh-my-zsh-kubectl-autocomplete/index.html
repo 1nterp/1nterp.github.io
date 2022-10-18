@@ -1,16 +1,16 @@
 <!doctype html><html lang=ko-kr dir=ltr>
 <head><meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="위기가 찾아왔을 때는, 위기를 만든 사람들에게 원망하고 싶다. 그렇게 원망 해 봐야 위기가 물러가진 않지만 말이다. 그래서 위기를 어떻게 해결할 것인지를 고민해야 한"><title>다시, 한 걸음</title>
+<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="&amp;lsquo;zsh 자동 완성&amp;rsquo; 이라는 Kubernetes 공식 문서에 따르면, 다음 명령으로 자동 완성이 가능하다고 한다. 1 source &amp;lt;(kubectl completion zsh) 그런데 Oh my zsh! 에서는 몇가지 더 설정을 해야 한다."><title>Oh my zsh! 에서 kubectl 자동 완성 하기</title>
 <style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600&family=Poor+Story&display=swap'</style>
-<link rel=canonical href=https://interp.blog/%EB%8B%A4%EC%8B%9C-%ED%95%9C-%EA%B1%B8%EC%9D%8C/>
-<link rel=stylesheet href=/scss/style.min.acf88ef09d2b7625681e1cba2488a6471d08a3bba161c1137b94d5d3ef0530ec.css><meta property="og:title" content="다시, 한 걸음">
-<meta property="og:description" content="위기가 찾아왔을 때는, 위기를 만든 사람들에게 원망하고 싶다. 그렇게 원망 해 봐야 위기가 물러가진 않지만 말이다. 그래서 위기를 어떻게 해결할 것인지를 고민해야 한">
-<meta property="og:url" content="https://interp.blog/%EB%8B%A4%EC%8B%9C-%ED%95%9C-%EA%B1%B8%EC%9D%8C/">
+<link rel=canonical href=https://interp.blog/oh-my-zsh-kubectl-autocomplete/>
+<link rel=stylesheet href=/scss/style.min.424327ee2f85ef588c4a0f22a06ed61106b87b6e3f8d79300116573d48ff25b1.css><meta property="og:title" content="Oh my zsh! 에서 kubectl 자동 완성 하기">
+<meta property="og:description" content="&amp;lsquo;zsh 자동 완성&amp;rsquo; 이라는 Kubernetes 공식 문서에 따르면, 다음 명령으로 자동 완성이 가능하다고 한다. 1 source &amp;lt;(kubectl completion zsh) 그런데 Oh my zsh! 에서는 몇가지 더 설정을 해야 한다.">
+<meta property="og:url" content="https://interp.blog/oh-my-zsh-kubectl-autocomplete/">
 <meta property="og:site_name" content="InterP Blog">
-<meta property="og:type" content="article"><meta property="article:section" content="Essay"><meta property="article:published_time" content="2017-08-13T22:29:22+00:00"><meta property="article:modified_time" content="2017-08-13T22:29:22+00:00">
+<meta property="og:type" content="article"><meta property="article:section" content="Tech"><meta property="article:tag" content="kubectl"><meta property="article:tag" content="oh-my-zsh"><meta property="article:published_time" content="2022-08-16T12:31:36+09:00"><meta property="article:modified_time" content="2022-08-16T12:31:36+09:00">
 <meta name=twitter:site content="@interp_">
-<meta name=twitter:creator content="@interp_"><meta name=twitter:title content="다시, 한 걸음">
-<meta name=twitter:description content="위기가 찾아왔을 때는, 위기를 만든 사람들에게 원망하고 싶다. 그렇게 원망 해 봐야 위기가 물러가진 않지만 말이다. 그래서 위기를 어떻게 해결할 것인지를 고민해야 한">
+<meta name=twitter:creator content="@interp_"><meta name=twitter:title content="Oh my zsh! 에서 kubectl 자동 완성 하기">
+<meta name=twitter:description content="&amp;lsquo;zsh 자동 완성&amp;rsquo; 이라는 Kubernetes 공식 문서에 따르면, 다음 명령으로 자동 완성이 가능하다고 한다. 1 source &amp;lt;(kubectl completion zsh) 그런데 Oh my zsh! 에서는 몇가지 더 설정을 해야 한다.">
 </head>
 <body class=article-page>
 <script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>
@@ -65,18 +65,18 @@
 <header class=article-header>
 <div class=article-details>
 <header class=article-category>
-<a href=/categories/essay/>
-Essay
+<a href=/categories/tech/>
+Tech
 </a>
 </header>
 <div class=article-title-wrapper>
 <h2 class=article-title>
-<a href=/%EB%8B%A4%EC%8B%9C-%ED%95%9C-%EA%B1%B8%EC%9D%8C/>다시, 한 걸음</a>
+<a href=/oh-my-zsh-kubectl-autocomplete/>Oh my zsh! 에서 kubectl 자동 완성 하기</a>
 </h2>
 </div>
 <footer class=article-time>
 <div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
-<time class=article-time--published>2017-08-13</time>
+<time class=article-time--published>2022-08-16</time>
 </div>
 <div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
 <time class=article-time--reading>
@@ -87,60 +87,119 @@ Essay
 </div>
 </header>
 <section class=article-content>
-<p>위기가 찾아왔을 때는, 위기를 만든 사람들에게 원망하고 싶다. 그렇게 원망 해 봐야 위기가 물러가진 않지만 말이다. 그래서 위기를 어떻게 해결할 것인지를 고민해야 한다**.** 그게 오히려 스트레스를 덜 받는다.</p>
-<p>사람에 대해 스트레스를 계속 받고 심지어는 사람을 잃어버리면서, 나 자신에 대한 원망이 점점 심해지고 있다는 걸 느꼈다. 왜 그때 그랬을까, 그러지 않았다면 좋았을텐데. 그렇게 해 봐야 떠났던 사람을 다시 붙잡을 수는 없지만 말이다. 미련이나 후회가 아닌, 해결해야 할 과제로 여기기로 했다. 그러면서 조금 마음이 편해졌다.</p>
-<p>원망하고 후회하는 것이 오히려 더 쉽다. 해결은 답을 찾고 시도해야 하는 비싸고 귀찮은 작업이라고 생각하기 때문이다. 하지만 멀리 보면, 해결을 하기 위한 노력이 필요하다. 또 원망하고 후회하지 않으려면.</p>
-<p>여전히 화내고 우울해 하며 제자리에 서 있는 나를 방치하지 않으려면 말이다.</p>
+<p>&lsquo;<a class=link href=https://kubernetes.io/ko/docs/tasks/tools/included/optional-kubectl-configs-zsh/ target=_blank rel=noopener>zsh 자동 완성</a>&rsquo; 이라는 Kubernetes 공식 문서에 따르면, 다음 명령으로 자동 완성이 가능하다고 한다.</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=nb>source</span> &lt;<span class=o>(</span>kubectl completion zsh<span class=o>)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>그런데 Oh my zsh! 에서는 몇가지 더 설정을 해야 한다.</p>
+<ul>
+<li><code>$HOME/.zshrc</code> 를 열어서, plugins 에 다음을 추가한다.
+<ul>
+<li>kubectl</li>
+<li>kube-ps1</li>
+<li>zsh-syntax-highlighting</li>
+<li>zsh-autosuggestions</li>
+</ul>
+</li>
+</ul>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=nv>plugins</span><span class=o>=(</span>git kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions<span class=o>)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>kubectl, kube-ps1 은 이미 설치되어 있을텐데, 아래 2개는 별도 설치가 필요할 수 있다.</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=c1># zsh-syntax-highlighting</span>
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git <span class=se>\
+</span><span class=se></span>    <span class=si>${</span><span class=nv>ZSH_CUSTOM</span><span class=k>:-</span><span class=p>~/.oh-my-zsh/custom</span><span class=si>}</span>/plugins/zsh-syntax-highlighting
+
+<span class=c1># zsh-autosuggestions</span>
+git clone https://github.com/zsh-users/zsh-autosuggestions <span class=se>\
+</span><span class=se></span>    <span class=si>${</span><span class=nv>ZSH_CUSTOM</span><span class=k>:-</span><span class=p>~/.oh-my-zsh/custom</span><span class=si>}</span>/plugins/zsh-autosuggestions
+</code></pre></td></tr></table>
+</div>
+</div><p>참고로 Auto-suggestion 되는 내용이 하얀색으로 나와서 타이핑하거나 알아보기가 힘들다면, 해당 내용만 다른 색으로 바꿔줄 수 있다.</p>
+<ul>
+<li><code>export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=(number)'</code> 라고 쓰면 된다.</li>
+<li>나는 <code>(number)</code> 자리에 <code>243</code> 을 사용했다. 연한 회색이다.</li>
+<li>자세한 color 값은 <a class=link href=https://upload.wikimedia.org/wikipedia/commons/1/15/Xterm_256color_chart.svg target=_blank rel=noopener>여기</a>를 참고하자. 물론 사용하려면 <code>$TERM</code> 값이 <strong>xterm-256color</strong> 여야 한다.</li>
+</ul>
+<p>그리고 다시 로그인하면, 탭키(<code>&lt;tab></code>) 를 통해 자동 완성이 잘 되는 것을 확인할 수 있다.</p>
 </section>
 <footer class=article-footer>
 <br>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
 <ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-0712823212859607 data-ad-slot=7880266545></ins>
 <script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
+<section class=article-tags>
+<a href=/tags/kubectl/>kubectl</a>
+<a href=/tags/oh-my-zsh/>oh-my-zsh</a>
+</section>
 </footer>
 </article>
 <aside class=related-content--wrapper>
 <h2 class=section-title>관련 글</h2>
 <div class=related-content>
 <div class="flex article-list--tile">
-<article class=has-image>
-<a href=/essay/2022-10-17-tistory-%EC%97%90%EC%84%9C-%EB%8B%A4%EC%8B%9C-hugo-%EB%A1%9C/>
-<div class=article-image>
-<img src=/images/2022-10-17-tistory-hugo-blog.jpeg loading=lazy data-key data-hash=/images/2022-10-17-tistory-hugo-blog.jpeg>
-</div>
+<article>
+<a href=/oh-zsh-%EC%83%89%EA%B9%94-%EA%B3%A0%EB%A5%B4%EA%B8%B0/>
 <div class=article-details>
-<h2 class=article-title>Tistory 에서 다시 Hugo 로</h2>
+<h2 class=article-title>oh-my-zsh 색깔 고르기</h2>
 </div>
 </a>
 </article>
 <article class=has-image>
-<a href=/my-life-best-5-movies/>
+<a href=/bdd-behavior-driven-development/>
 <div class=article-image>
-<img src=/my-life-best-5-movies/feature.4e77b88bbb0e4a3a0769092f18868eed.jpg width=1223 height=300 loading=lazy alt="Featured image of post 내 인생 영화 BEST 5" data-hash="md5-Tne4i7sOSjoHaQkvGIaO7Q==">
+<img src=/bdd-behavior-driven-development/feature.4a92b05bcc5515ef86ccc5105fa05b75.jpg width=750 height=500 loading=lazy alt="Featured image of post BDD (Behavior-driven Development) 소개" data-hash="md5-SpKwW8xVFe+GzMUQX6BbdQ==">
 </div>
 <div class=article-details>
-<h2 class=article-title>내 인생 영화 BEST 5</h2>
+<h2 class=article-title>BDD (Behavior-driven Development) 소개</h2>
+</div>
+</a>
+</article>
+<article class=has-image>
+<a href=/keyboard-key-bouncing-problem/>
+<div class=article-image>
+<img src=/images/featured/keyboard-key-bounce.jpg loading=lazy data-key data-hash=/images/featured/keyboard-key-bounce.jpg>
+</div>
+<div class=article-details>
+<h2 class=article-title>키보드 키 바운싱 문제 해결</h2>
+</div>
+</a>
+</article>
+<article class=has-image>
+<a href=/license-free-image-3-sites/>
+<div class=article-image>
+<img src=/images/2022-07-28-glenn-carstens-peters-loatw2afdyu-unsplash.jpg loading=lazy data-key data-hash=/images/2022-07-28-glenn-carstens-peters-loatw2afdyu-unsplash.jpg>
+</div>
+<div class=article-details>
+<h2 class=article-title>저작권 걱정 없는 무료 이미지 사이트 3개</h2>
 </div>
 </a>
 </article>
 <article>
-<a href=/you-are-not-a-genius-programmer/>
+<a href=/tour-of-go-pointer-struct-array-slice/>
 <div class=article-details>
-<h2 class=article-title>슈퍼 개발자만 쓸모가 있을까</h2>
-</div>
-</a>
-</article>
-<article>
-<a href=/%EB%B0%94%EB%B3%B4%EA%B0%80-%EB%90%98%EA%B3%A0-%EC%9E%88%EB%8B%A4/>
-<div class=article-details>
-<h2 class=article-title>바보가 되고 있다</h2>
-</div>
-</a>
-</article>
-<article>
-<a href=/%EA%B2%BD%EB%A0%A5%EC%A7%81-%EB%A9%B4%EC%A0%91-%EB%8B%A8%EC%83%81/>
-<div class=article-details>
-<h2 class=article-title>경력직 면접의 단상</h2>
+<h2 class=article-title>A tour of Go: Pointer, Struct, Array, Slice</h2>
 </div>
 </a>
 </article>

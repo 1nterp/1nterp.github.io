@@ -1,4 +1,60 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tech on InterP Blog</title><link>https://interp.blog/categories/tech/</link><description>Recent content in Tech on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Thu, 11 Aug 2022 16:31:36 +0000</lastBuildDate><atom:link href="https://interp.blog/categories/tech/index.xml" rel="self" type="application/rss+xml"/><item><title>BDD (Behavior-driven Development) 소개</title><link>https://interp.blog/bdd-behavior-driven-development/</link><pubDate>Thu, 11 Aug 2022 16:31:36 +0000</pubDate><guid>https://interp.blog/bdd-behavior-driven-development/</guid><description>&lt;img src="https://interp.blog/bdd-behavior-driven-development/feature.jpg" alt="Featured image of post BDD (Behavior-driven Development) 소개" />&lt;p>작년 즈음에, 팀에 테스트 주도 개발 (Test-driven Development,TDD) 에 대해 어떤 강력한 합의 (?) 가 필요하지 않을까라고 팀장님께 주장했던 기억이 났다. &lt;del>일단 나부터 좀 잘 해야 할텐데&lt;/del> 그런데 그걸 언제 또 기억하셔서는, 올 초에 ‘TDD 말고 BDD 에 대해 조사해서 차기 프로젝트에 녹여보면 어떻겠냐’ 는 제안을 하셨다. 두 눈을 동그랗게 뜬 채 음성 채팅으로 ‘그것이… 무엇이죠?!’ 라고 되물었던 슬픈 기억이 난다.&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tech on InterP Blog</title><link>https://interp.blog/categories/tech/</link><description>Recent content in Tech on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Tue, 16 Aug 2022 12:31:36 +0900</lastBuildDate><atom:link href="https://interp.blog/categories/tech/index.xml" rel="self" type="application/rss+xml"/><item><title>Oh my zsh! 에서 kubectl 자동 완성 하기</title><link>https://interp.blog/oh-my-zsh-kubectl-autocomplete/</link><pubDate>Tue, 16 Aug 2022 12:31:36 +0900</pubDate><guid>https://interp.blog/oh-my-zsh-kubectl-autocomplete/</guid><description>&lt;p>&amp;lsquo;&lt;a class="link" href="https://kubernetes.io/ko/docs/tasks/tools/included/optional-kubectl-configs-zsh/" target="_blank" rel="noopener"
+>zsh 자동 완성&lt;/a>&amp;rsquo; 이라는 Kubernetes 공식 문서에 따르면, 다음 명령으로 자동 완성이 가능하다고 한다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="nb">source&lt;/span> &amp;lt;&lt;span class="o">(&lt;/span>kubectl completion zsh&lt;span class="o">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>그런데 Oh my zsh! 에서는 몇가지 더 설정을 해야 한다.&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>$HOME/.zshrc&lt;/code> 를 열어서, plugins 에 다음을 추가한다.
+&lt;ul>
+&lt;li>kubectl&lt;/li>
+&lt;li>kube-ps1&lt;/li>
+&lt;li>zsh-syntax-highlighting&lt;/li>
+&lt;li>zsh-autosuggestions&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="nv">plugins&lt;/span>&lt;span class="o">=(&lt;/span>git kubectl kube-ps1 zsh-syntax-highlighting zsh-autosuggestions&lt;span class="o">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>kubectl, kube-ps1 은 이미 설치되어 있을텐데, 아래 2개는 별도 설치가 필요할 수 있다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="c1"># zsh-syntax-highlighting&lt;/span>
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git &lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">ZSH_CUSTOM&lt;/span>&lt;span class="k">:-&lt;/span>&lt;span class="p">~/.oh-my-zsh/custom&lt;/span>&lt;span class="si">}&lt;/span>/plugins/zsh-syntax-highlighting
+&lt;span class="c1"># zsh-autosuggestions&lt;/span>
+git clone https://github.com/zsh-users/zsh-autosuggestions &lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">ZSH_CUSTOM&lt;/span>&lt;span class="k">:-&lt;/span>&lt;span class="p">~/.oh-my-zsh/custom&lt;/span>&lt;span class="si">}&lt;/span>/plugins/zsh-autosuggestions
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>참고로 Auto-suggestion 되는 내용이 하얀색으로 나와서 타이핑하거나 알아보기가 힘들다면, 해당 내용만 다른 색으로 바꿔줄 수 있다.&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=(number)'&lt;/code> 라고 쓰면 된다.&lt;/li>
+&lt;li>나는 &lt;code>(number)&lt;/code> 자리에 &lt;code>243&lt;/code> 을 사용했다. 연한 회색이다.&lt;/li>
+&lt;li>자세한 color 값은 &lt;a class="link" href="https://upload.wikimedia.org/wikipedia/commons/1/15/Xterm_256color_chart.svg" target="_blank" rel="noopener"
+>여기&lt;/a>를 참고하자. 물론 사용하려면 &lt;code>$TERM&lt;/code> 값이 &lt;strong>xterm-256color&lt;/strong> 여야 한다.&lt;/li>
+&lt;/ul>
+&lt;p>그리고 다시 로그인하면, 탭키(&lt;code>&amp;lt;tab&amp;gt;&lt;/code>) 를 통해 자동 완성이 잘 되는 것을 확인할 수 있다.&lt;/p></description></item><item><title>BDD (Behavior-driven Development) 소개</title><link>https://interp.blog/bdd-behavior-driven-development/</link><pubDate>Thu, 11 Aug 2022 16:31:36 +0000</pubDate><guid>https://interp.blog/bdd-behavior-driven-development/</guid><description>&lt;img src="https://interp.blog/bdd-behavior-driven-development/feature.jpg" alt="Featured image of post BDD (Behavior-driven Development) 소개" />&lt;p>작년 즈음에, 팀에 테스트 주도 개발 (Test-driven Development,TDD) 에 대해 어떤 강력한 합의 (?) 가 필요하지 않을까라고 팀장님께 주장했던 기억이 났다. &lt;del>일단 나부터 좀 잘 해야 할텐데&lt;/del> 그런데 그걸 언제 또 기억하셔서는, 올 초에 ‘TDD 말고 BDD 에 대해 조사해서 차기 프로젝트에 녹여보면 어떻겠냐’ 는 제안을 하셨다. 두 눈을 동그랗게 뜬 채 음성 채팅으로 ‘그것이… 무엇이죠?!’ 라고 되물었던 슬픈 기억이 난다.&lt;/p>
 &lt;p>지금은 프로젝트를 진행 중인데 거의 설계 단계를 지났고, 프로토타이핑이 끝나간다. 바쁜 시간이 지나고서야 팀장님의 부름이 닿아, 뒤늦게나마 우리가 쥐고 있는 요구사항이 무엇인지, 어떻게 적용할 수 있는지 찾아보고 있다. 그런데 이 결과물을 팀원들에게 공유하려면 내가 먼저 ‘BDD 를 왜 써야 하는지’ 를 이해하고 설명할 수 있어야 하기에, 블로그에 정리해 보려고 한다.&lt;/p>
 &lt;h2 id="bdd-란">BDD 란?&lt;/h2>
 &lt;p>BDD 는 &lt;strong>Behavior-driven Development&lt;/strong>, 즉, 제품이나 서비스의 행동에 초점을 맞춘 개발 방법론이다. 소프트웨어가 어떤 일을 해내야하는지가 가장 중요하며, 개발과 테스팅이 거기에 맞춰 진행되어야 한다는 것이다. &lt;del>뭐, 당연한 소리 아닌가? 다들 이렇게 다 하잖아요, 그쵸?&lt;/del>&lt;/p>
@@ -110,7 +166,8 @@ Then I should have 7 cucumbers
 &lt;/div>
 &lt;/div>
 &lt;h2 id="unsplash">Unsplash&lt;/h2>
-&lt;p>&lt;figure>&lt;img src="https://interp.blog/images/2022-07-28-unsplash.jpg"/>
+&lt;p>&lt;figure>
+&lt;img loading="lazy" src="https://interp.blog/images/2022-07-28-unsplash.jpg"/>
 &lt;/figure>
 &lt;a class="link" href="https://unsplash.com/" title="https://unsplash.com/"
 target="_blank" rel="noopener"
@@ -143,7 +200,8 @@ data-ad-slot="1092971030">&lt;/ins>
 &lt;/script>
 &lt;br/>
 &lt;h2 id="pexels">Pexels&lt;/h2>
-&lt;figure>&lt;img src="https://interp.blog/images/2022-07-28-pexels.jpg"/>
+&lt;figure>
+&lt;img loading="lazy" src="https://interp.blog/images/2022-07-28-pexels.jpg"/>
 &lt;/figure>
 &lt;p>&lt;a class="link" href="https://www.pexels.com/" title="https://www.pexels.com/"
 target="_blank" rel="noopener"
@@ -164,7 +222,8 @@ target="_blank" rel="noopener"
 target="_blank" rel="noopener"
 >https://www.pexels.com/ko-kr/license&lt;/a> 를 참고한다.&lt;/p>
 &lt;h2 id="pixabay">Pixabay&lt;/h2>
-&lt;figure>&lt;img src="https://interp.blog/images/2022-07-28-pixabay.jpg"/>
+&lt;figure>
+&lt;img loading="lazy" src="https://interp.blog/images/2022-07-28-pixabay.jpg"/>
 &lt;/figure>
 &lt;p>&lt;a class="link" href="https://pixabay.com/" title="https://pixabay.com/"
 target="_blank" rel="noopener"

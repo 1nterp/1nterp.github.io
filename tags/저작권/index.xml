@@ -7,7 +7,8 @@
 &lt;/div>
 &lt;/div>
 &lt;h2 id="unsplash">Unsplash&lt;/h2>
-&lt;p>&lt;figure>&lt;img src="https://interp.blog/images/2022-07-28-unsplash.jpg"/>
+&lt;p>&lt;figure>
+&lt;img loading="lazy" src="https://interp.blog/images/2022-07-28-unsplash.jpg"/>
 &lt;/figure>
 &lt;a class="link" href="https://unsplash.com/" title="https://unsplash.com/"
 target="_blank" rel="noopener"
@@ -40,7 +41,8 @@ data-ad-slot="1092971030">&lt;/ins>
 &lt;/script>
 &lt;br/>
 &lt;h2 id="pexels">Pexels&lt;/h2>
-&lt;figure>&lt;img src="https://interp.blog/images/2022-07-28-pexels.jpg"/>
+&lt;figure>
+&lt;img loading="lazy" src="https://interp.blog/images/2022-07-28-pexels.jpg"/>
 &lt;/figure>
 &lt;p>&lt;a class="link" href="https://www.pexels.com/" title="https://www.pexels.com/"
 target="_blank" rel="noopener"
@@ -61,7 +63,8 @@ target="_blank" rel="noopener"
 target="_blank" rel="noopener"
 >https://www.pexels.com/ko-kr/license&lt;/a> 를 참고한다.&lt;/p>
 &lt;h2 id="pixabay">Pixabay&lt;/h2>
-&lt;figure>&lt;img src="https://interp.blog/images/2022-07-28-pixabay.jpg"/>
+&lt;figure>
+&lt;img loading="lazy" src="https://interp.blog/images/2022-07-28-pixabay.jpg"/>
 &lt;/figure>
 &lt;p>&lt;a class="link" href="https://pixabay.com/" title="https://pixabay.com/"
 target="_blank" rel="noopener"
