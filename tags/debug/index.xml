@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Debug on InterP Blog</title><link>https://interp.blog/tags/debug/</link><description>Recent content in Debug on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Tue, 23 Aug 2022 22:26:07 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/debug/index.xml" rel="self" type="application/rss+xml"/><item><title>VSCode Python 디버그 반응이 없을 때</title><link>https://interp.blog/vscode-python-debugging-no-response/</link><pubDate>Tue, 23 Aug 2022 22:26:07 +0900</pubDate><guid>https://interp.blog/vscode-python-debugging-no-response/</guid><description>&lt;h2 id="증상">증상&lt;/h2>
+&lt;p>VSCode 에서 Python 파일을 디버깅하려 하면, &lt;strong>아~무런 반응이 없다.&lt;/strong> 그냥 실행 자체를 하지 않은 것 같다!&lt;/p>
+&lt;h2 id="분석">분석&lt;/h2>
+&lt;p>관련 로그가 남아있지 않기 때문에, 분석이 쉽지 않다. 그나마 갱신되는 로그가 &amp;lsquo;Python&amp;rsquo; 에서 보이는 한 줄의 명령어인데&amp;hellip;&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">DAP Server launched with command: /home/interp/work/project/venv/bin/python \
+/home/interp/.vscode-server/extensions/ms-python.python-2022.12.1/pythonFiles/lib/python/debugpy/adapter
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>이 명령어를 그대로 &lt;strong>터미널에서&lt;/strong> 쳐 보니 해결책이 보였다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">Traceback &lt;span class="o">(&lt;/span>most recent call last&lt;span class="o">)&lt;/span>:
+File &lt;span class="s2">&amp;#34;/home/i520508/.pyenv/versions/3.6.12/lib/python3.6/runpy.py&amp;#34;&lt;/span>, line 193, in _run_module_as_main
+&lt;span class="s2">&amp;#34;__main__&amp;#34;&lt;/span>, mod_spec&lt;span class="o">)&lt;/span>
+File &lt;span class="s2">&amp;#34;/home/i520508/.pyenv/versions/3.6.12/lib/python3.6/runpy.py&amp;#34;&lt;/span>, line 85, in _run_code
+exec&lt;span class="o">(&lt;/span>code, run_globals&lt;span class="o">)&lt;/span>
+File &lt;span class="s2">&amp;#34;/INT3/homes/i520508/.vscode-server/extensions/ms-python.python-2022.12.1/pythonFiles/lib/python/debugpy/adapter/__main__.py&amp;#34;&lt;/span>, line 212, in &amp;lt;module&amp;gt;
+__import__&lt;span class="o">(&lt;/span>&lt;span class="s2">&amp;#34;debugpy&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span>
+File &lt;span class="s2">&amp;#34;/INT3/homes/i520508/.vscode-server/extensions/ms-python.python-2022.12.1/pythonFiles/lib/python/debugpy/adapter/../../debugpy/__init__.py&amp;#34;&lt;/span>, line 28, in &amp;lt;module&amp;gt;
+&lt;span class="s2">&amp;#34;Python 3.6 and below is not supported by this version of debugpy; &amp;#34;&lt;/span>
+AssertionError: Python 3.6 and below is not supported by this version of debugpy&lt;span class="p">;&lt;/span> use debugpy 1.5.1 or earlier.
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="원인">원인&lt;/h2>
+&lt;p>Python Extension 에서 debugpy 버전을 올렸는데, 이게 더 이상 Python 3.6 에서 호환되지 않는 것이다. &lt;a class="link" href="https://marketplace.visualstudio.com/items/ms-python.python/changelog" target="_blank" rel="noopener"
+>Changelog&lt;/a>를 보니, 2022.10.0 버전부터 debugpy 를 1.6.2 로 올린 것을 확인할 수 있었다.&lt;/p>
+&lt;h2 id="해결-1-python3-버전-업그레이드-하기">해결 (1) Python3 버전 업그레이드 하기&lt;/h2>
+&lt;p>그러면 해결책은 간단하다. 원하는 대로 해주거나, 되돌아가거나.&lt;/p>
+&lt;p>나는 virtualenv 를 사용하고 있어서, &lt;code>pip freeze&lt;/code> 를 통해 설치된 라이브러리를 전부 백업해 두고, virtualenv 를 Python 3.7 버전으로 다시 만들어 환경을 구성했다.&lt;/p>
+&lt;h2 id="해결-2-vscode-python-extension-다운그레이드-하기">해결 (2) VSCode Python Extension 다운그레이드 하기&lt;/h2>
+&lt;p>다른 해결책으로는, extension 의 버전을 다운그레이드 하는 방법이다.&lt;/p>
+&lt;figure class="align-center ">
+&lt;img loading="lazy" src="downgrade.png#center"/>
+&lt;/figure>
+&lt;p>Extension 탭에서 Python 을 찾은 다음, &lt;strong>Install Another Version&lt;/strong> 을 선택한다. 잠시 기다리면, 버전 목록이 나타나며, 초록색 부분 (그 아래도 상관없음) 을 클릭하면 된다.&lt;/p>
+&lt;p>별로 추천하고 싶진 않다. Python 3.10 이 나온 마당에 이왕이면 Python 버전을 올리는게 좋을 것 같다.&lt;/p>
+&lt;h2 id="해결-3-symbolic-link-경로-문제">해결 (3) Symbolic link 경로 문제&lt;/h2>
+&lt;p>Symbolic link 경로로 workspace directory 를 열어 둔 경우에도 디버깅 문제가 생겼었다. 해결책은, 실제 directory 경로로 workspace 를 열어야 한다.&lt;/p>
+&lt;p>나는 /home/interp/ 를 &lt;code>$HOME&lt;/code> 으로 쓰지만, 사실은 /SSD/home/interp 를 /home/interp 라는 Symbolic link 로 만들어 쓰고 있다. 이 때는 디렉토리를 열 때 &lt;em>/SSD/home/interp/&amp;hellip;&lt;/em> 로 시작하도록 경로를 입력해야 Python 디버거가 정상 작동했다.&lt;/p></description></item></channel></rss>
