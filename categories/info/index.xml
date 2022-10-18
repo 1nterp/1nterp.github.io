@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Info on InterP Blog</title><link>https://interp.blog/categories/info/</link><description>Recent content in Info on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Thu, 11 Aug 2022 16:31:36 +0000</lastBuildDate><atom:link href="https://interp.blog/categories/info/index.xml" rel="self" type="application/rss+xml"/><item><title>상환 완료된 대출 계좌, 증명서 발급하기</title><link>https://interp.blog/%EC%83%81%ED%99%98-%EC%99%84%EB%A3%8C%EB%90%9C-%EB%8C%80%EC%B6%9C-%EA%B3%84%EC%A2%8C-%EC%A6%9D%EB%AA%85%EC%84%9C-%EB%B0%9C%EA%B8%89%ED%95%98%EA%B8%B0/</link><pubDate>Thu, 11 Aug 2022 16:31:36 +0000</pubDate><guid>https://interp.blog/%EC%83%81%ED%99%98-%EC%99%84%EB%A3%8C%EB%90%9C-%EB%8C%80%EC%B6%9C-%EA%B3%84%EC%A2%8C-%EC%A6%9D%EB%AA%85%EC%84%9C-%EB%B0%9C%EA%B8%89%ED%95%98%EA%B8%B0/</guid><description>&lt;img src="https://interp.blog/%EC%83%81%ED%99%98-%EC%99%84%EB%A3%8C%EB%90%9C-%EB%8C%80%EC%B6%9C-%EA%B3%84%EC%A2%8C-%EC%A6%9D%EB%AA%85%EC%84%9C-%EB%B0%9C%EA%B8%89%ED%95%98%EA%B8%B0/1.jpg" alt="Featured image of post 상환 완료된 대출 계좌, 증명서 발급하기" />&lt;p>부동산 매매 거래를 할 때, 매도인이 담보대출 건을 당일 말소시키겠단 조건을 보통 넣게 되면 매수인의 대출 실행 은행 측 법무사가 와서 &lt;strong>&amp;lsquo;상환이 완료됐는지 증명해야 하니까 증명서를 달라&amp;rsquo;&lt;/strong> 고 한다. 증명서요? 상환 다 했는데요??&lt;/p>
+&lt;p>당황해서 인터넷뱅킹 홈페이지를 여기저기 뒤지고, 영업점에 전화도 해 보고, 그러다보면 시간이 쫓길 수 있다! 우리의 시간은 소중하고 나도 이사 갈 곳에 잔금 치뤄야 하는데 이게 뭐야 ㅠㅠ&lt;/p>
+&lt;p>그래서 이 참에 정리해 봤다. &lt;strong>우리은행&lt;/strong>을 예로 들겠지만, 다 비슷할 거라 생각한다.&lt;/p>
+&lt;h3 id="대출완제-영수증-발급-받기">&lt;strong>대출완제 영수증&lt;/strong> 발급 받기&lt;/h3>
+&lt;p>대출완제 영수증이란 즉, 대출 상환을 다 마쳤다는 영수증이다. &lt;br>
+&amp;lsquo;개인 &amp;gt; 조회 &amp;gt; 계좌조회 &amp;gt;  &lt;strong>해지계좌 조회&lt;/strong>&amp;rsquo; 로 들어간다.&lt;/p>
+&lt;p>&lt;img src="https://interp.blog/%EC%83%81%ED%99%98-%EC%99%84%EB%A3%8C%EB%90%9C-%EB%8C%80%EC%B6%9C-%EA%B3%84%EC%A2%8C-%EC%A6%9D%EB%AA%85%EC%84%9C-%EB%B0%9C%EA%B8%89%ED%95%98%EA%B8%B0/1.jpg"
+width="1195"
+height="389"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="307"
+data-flex-basis="737px"
+>&lt;/p>
+&lt;p>조회구분에 &amp;lsquo;대출&amp;rsquo; 이 있는데, 이걸 클릭한 다음, 상환이 완료된 날짜가 포함되도록 기간을 설정해 조회하면 끝.&lt;/p>
+&lt;p>&lt;img src="https://interp.blog/%EC%83%81%ED%99%98-%EC%99%84%EB%A3%8C%EB%90%9C-%EB%8C%80%EC%B6%9C-%EA%B3%84%EC%A2%8C-%EC%A6%9D%EB%AA%85%EC%84%9C-%EB%B0%9C%EA%B8%89%ED%95%98%EA%B8%B0/2.jpg"
+width="1001"
+height="76"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="1317"
+data-flex-basis="3161px"
+>&lt;/p>
+&lt;p>그러면, 대출완제 영수증 출력 버튼과 함께, 해지된 계좌가 나타나게 되는데, 그걸 출력해 법무사에게 건네주면 끝!&lt;/p>
+&lt;h3 id="주택자금대출-상환증명서-발급-받기">&lt;strong>주택자금대출 상환증명서&lt;/strong> 발급 받기&lt;/h3>
+&lt;p>연말정산 용으로 주택담보대출의 이자액을 공제받을 목적이나 기타 목적으로 상환 증명서를 떼야 할 수 있다. 주의할 점은, 이 상환 증명서는 상환한 대출 이력만 나오므로 대출이 전액 상환되었는지 증명할 수 없는 서류라는 점. &lt;/p>
+&lt;p>이걸 떼 주면 법무사가 &amp;lsquo;이거 아니야&amp;rsquo; 라고 고개를 절레절레&amp;hellip; 그러니 대출의 전액 상환을 증명하려면, 앞서 소개한 &amp;lsquo;대출완제 영수증&amp;rsquo; 을 발급받아야 하니 주의!&lt;/p>
+&lt;p>이번에는 &amp;lsquo;개인 &amp;gt; 뱅킹관리 &amp;gt; 증명서발급 &amp;gt; &lt;strong>증명서신청&lt;/strong>&amp;rsquo; 으로 간다.&lt;/p>
+&lt;p>&lt;img src="https://interp.blog/%EC%83%81%ED%99%98-%EC%99%84%EB%A3%8C%EB%90%9C-%EB%8C%80%EC%B6%9C-%EA%B3%84%EC%A2%8C-%EC%A6%9D%EB%AA%85%EC%84%9C-%EB%B0%9C%EA%B8%89%ED%95%98%EA%B8%B0/3.jpg"
+width="1193"
+height="272"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="438"
+data-flex-basis="1052px"
+>&lt;/p>
+&lt;p>그 안에서 주택자금대출상환증명서를 선택한 뒤, 발급 신청을 통해 받을 수 있다.&lt;/p>
+&lt;p>&lt;img src="https://interp.blog/%EC%83%81%ED%99%98-%EC%99%84%EB%A3%8C%EB%90%9C-%EB%8C%80%EC%B6%9C-%EA%B3%84%EC%A2%8C-%EC%A6%9D%EB%AA%85%EC%84%9C-%EB%B0%9C%EA%B8%89%ED%95%98%EA%B8%B0/4.jpg"
+width="1191"
+height="400"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="297"
+data-flex-basis="714px"
+>&lt;/p></description></item></channel></rss>
