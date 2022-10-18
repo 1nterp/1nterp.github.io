@@ -10,10 +10,10 @@ tags:
 categories:
     - Tech
 image: "/images/2022-02-04-kakao-email/feature-image.jpg"
+description: 홈페이지에서 하라는 대로 했는데, 잘 안 된다면?
 ---
 
-
-
+{{< callout text="이미지 정렬이 필요합니다...!" emoji=":construction:">}}
 ## 요약
 
 - 원래는 홈페이지에서 하라는 대로 하면 된다.
