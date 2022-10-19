@@ -1,5 +1,6 @@
 ---
 title: VSCode Python 디버그 반응이 없을 때
+description: 버전 문제일수도, Workspace 경로 문제일수도?
 author: interp
 date: 2022-08-23T22:26:07.000+09:00
 url: "/vscode-python-debugging-no-response/"
@@ -12,7 +13,7 @@ tags:
 ---
 ## 증상
 
-VSCode 에서 Python 파일을 디버깅하려 하면, **아~무런 반응이 없다.** 그냥 실행 자체를 하지 않은 것 같다!
+VSCode 에서 Python 파일을 디버깅 (debugging) 하려 하면, **아~무런 반응이 없고 곧바로 종료된다.** 그냥 실행 자체를 하지 않은 것 같다!
 
 ## 분석
 

@@ -63,12 +63,17 @@
   "frontMatter.taxonomy.contentTypes": [
     {
       "name": "default",
-      "previewPath": null,
       "pageBundle": false,
+      "previewPath": null,
       "fields": [
         {
           "title": "Title",
           "name": "title",
+          "type": "string"
+        },
+        {
+          "title": "Description",
+          "name": "description",
           "type": "string"
         },
         {
@@ -79,7 +84,7 @@
           "isPublishDate": true
         },
         {
-          "title": "Article preview",
+          "title": "Content preview",
           "name": "preview",
           "type": "image"
         },
@@ -89,14 +94,24 @@
           "type": "draft"
         },
         {
+          "title": "Tags",
+          "name": "tags",
+          "type": "tags"
+        },
+        {
           "title": "Categories",
           "name": "categories",
           "type": "categories"
         },
         {
-          "title": "Tags",
-          "name": "tags",
-          "type": "tags"
+          "title": "author",
+          "name": "author",
+          "type": "string"
+        },
+        {
+          "title": "url",
+          "name": "url",
+          "type": "string"
         }
       ]
     }
