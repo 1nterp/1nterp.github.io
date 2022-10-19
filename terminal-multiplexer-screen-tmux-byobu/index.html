@@ -1,0 +1,297 @@
+<!doctype html><html lang=ko-kr dir=ltr>
+<head><meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Terminal Multiplexer 에 대해 알아보자"><title>screen, tmux, 그리고 byobu</title>
+<style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600&family=Noto+Serif+SC:wght@300;400;500;600&display=swap'</style>
+<link rel=canonical href=https://interp.blog/terminal-multiplexer-screen-tmux-byobu/>
+<link rel=stylesheet href=/scss/style.min.592c22568d36b6ea6b353f9051bfa2e1b0be6842c97e95a3f9b07fabdacfaf4c.css><meta property="og:title" content="screen, tmux, 그리고 byobu">
+<meta property="og:description" content="Terminal Multiplexer 에 대해 알아보자">
+<meta property="og:url" content="https://interp.blog/terminal-multiplexer-screen-tmux-byobu/">
+<meta property="og:site_name" content="InterP Blog">
+<meta property="og:type" content="article"><meta property="article:section" content="Tech"><meta property="article:tag" content="tmux"><meta property="article:tag" content="byobu"><meta property="article:tag" content="개발도구"><meta property="article:tag" content="터미널"><meta property="article:published_time" content="2022-10-12T08:57:42+09:00"><meta property="article:modified_time" content="2022-10-12T08:57:42+09:00"><meta property="og:image" content="https://interp.blog/terminal-multiplexer-screen-tmux-byobu/feature.jpg">
+<meta name=twitter:site content="@interp_">
+<meta name=twitter:creator content="@interp_"><meta name=twitter:title content="screen, tmux, 그리고 byobu">
+<meta name=twitter:description content="Terminal Multiplexer 에 대해 알아보자"><meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://interp.blog/terminal-multiplexer-screen-tmux-byobu/feature.jpg">
+</head>
+<body class=article-page>
+<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky">
+<button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 토글">
+<span class=hamburger-box>
+<span class=hamburger-inner></span>
+</span>
+</button>
+<header>
+<div class=site-meta>
+<h1 class=site-name><a href=/>InterP Blog</a></h1>
+<h2 class=site-description>Things I'm interested</h2>
+</div>
+</header><ol class=social-menu>
+<li>
+<a href=https://github.com/1nterp target=_blank title=GitHub><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+</a>
+</li>
+<li>
+<a href=https://linkedin.com/in/interp target=_blank title=LinkedIn><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-linkedin" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><rect x="4" y="4" width="16" height="16" rx="2"/><line x1="8" y1="11" x2="8" y2="16"/><line x1="8" y1="8" x2="8" y2="8.01"/><line x1="12" y1="16" x2="12" y2="11"/><path d="M16 16v-3a2 2 0 00-4 0"/></svg>
+</a>
+</li>
+</ol><ol class=menu id=main-menu>
+<li>
+<a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span>
+</a>
+</li>
+<li>
+<a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span>
+</a>
+</li>
+<li>
+<a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span>
+</a>
+</li>
+<div class=menu-bottom-section>
+<li id=i18n-switch><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5h7"/><path d="M9 3v2c0 4.418-2.239 8-5 8"/><path d="M5 9c-.003 2.144 2.952 3.908 6.7 4"/><path d="M12 20l4-9 4 9"/><path d="M19.1 18h-6.2"/></svg>
+<select name=language onchange="window.location.href=this.selectedOptions[0].value"><option value=https://interp.blog/ selected>한국어</option><option value=https://interp.blog/en/>English</option></select>
+</li>
+<li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>다크 모드</span>
+</li>
+</div>
+</ol>
+</aside>
+<main class="main full-width">
+<article class="has-image main-article">
+<header class=article-header>
+<div class=article-image>
+<a href=/terminal-multiplexer-screen-tmux-byobu/>
+<img src=/terminal-multiplexer-screen-tmux-byobu/feature.jpg width=2996 height=3995 loading=lazy style="object-position:50% 50%" alt="Featured image of post screen, tmux, 그리고 byobu">
+</a>
+</div>
+<div class=article-details>
+<header class=article-category>
+<a href=/categories/tech/>
+Tech
+</a>
+</header>
+<div class=article-title-wrapper>
+<h2 class=article-title>
+<a href=/terminal-multiplexer-screen-tmux-byobu/>screen, tmux, 그리고 byobu</a>
+</h2>
+<h3 class=article-subtitle>
+Terminal Multiplexer 에 대해 알아보자
+</h3>
+</div>
+<footer class=article-time>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>2022-10-12</time>
+</div>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>
+4 분 소요
+</time>
+</div>
+</footer>
+</div>
+</header>
+<section class=article-content>
+<p>개발자들은 전통적으로 워크스테이션이나 서버에 단말기를 접속해서 개발을 진행해 왔다. 이 때 사용되는 기기를 단말, 터미널 (terminal) 이라고 했다. 과거에는 컴퓨팅 파워를 구성하는 단가가 비쌌기 때문에, 저사양의 단말 컴퓨터를 가지고 상대적으로 고사양의 서버에 접속해 일을 하는 것이다.</p>
+<p>물론 지금은 PC 나 노트북 역시 충분히 고사양이긴 하다. 그래도 여전히 훨씬 더 효율적이고 강력한 서버 컴퓨터가 조직마다 존재하고, 클라우드 컴퓨팅으로 인해 자원을 필요할 때 마다 (on-demand) 빌려 쓸 수 있는 시대이다. 그렇기에 터미널은 여전히 유효하고, SSH 프로토콜로 통신하는 터미널 프로그램으로 남아있게 된다.</p>
+<p>어디서든, 어떤 단말로도 서버에 (또는 클라우드 VM 에) 접속할 수 있다는 것은 장점이지만, 네트워크 연결이 끊기거나 다른 단말로 다시 접속하게 되면 새로운 SSH 세션이 시작되고, 텅 빈 화면에서 다시 시작하게 되는 문제가 동시에 존재한다.</p>
+<p>또 한 가지 문제는, 한 화면에 하나의 세션만 열 수 있다는 것이다. 아니, 지금은 다양한 터미널 프로그램에서 &lsquo;다중 윈도우, 다중 탭&rsquo; 을 지원하는데, 그래서 여러 세션으로 넘나드는 게 가능한데 이게 무슨 문제일까? 그런 GUI 도 없는 유닉스/리눅스 시절엔 문제였다&mldr;</p>
+<p>이 두 문제를 해결해 줄 Terminal Multiplexer 에 대해 알아보자.</p>
+<h2 id=terminal-multiplexer--tmux-screen>Terminal Multiplexer : tmux, screen</h2>
+<p>우선 흔히들 쓰는 tmux 의 매뉴얼 첫 설명을 보자.</p>
+<blockquote>
+<p>tmux is a terminal multiplexer: it enables a number of terminals to be created, accessed, and controlled from a single screen. <strong>tmux may be detached from a screen and continue running in the background, then later reattached</strong>.</p>
+</blockquote>
+<p>터미널을 다중화해서, 한 화면에 여러 개의 터미널을 다룰 수 있다고 한다. 그리고 이 터미널 조합은 프로세스로 떠 있어서, (프로세스가 죽지 않는 한) 서버에 재접속 해서 해당 터미널 조합을 그대로 쓸 수 있다는 것이다.</p>
+<p>screen 의 설명은 조금 더 길고 복잡하다. (그래서 tmux 설명을 먼저 소개했다) 그 중에서 소개글을 발췌해 보면 다음과 같다.</p>
+<blockquote>
+<p>Screen is a full-screen window manager that multiplexes a physical terminal between several processes (typically interactive shells). When <code>screen</code> is called, it creates a single window with a shell in it (or the specified command) and then gets out of your way so that you can use the program as you normally would.</p>
+<p>Then, at any time, you can create new (full-screen) windows with other programs in them (including more shells), kill existing windows, view a list of windows, turn output logging on and off, copy-and-paste text between windows, view the scrollback history, switch between windows in whatever manner you wish, etc.</p>
+<p><strong>All windows run their programs completely independent of each other</strong>.</p>
+</blockquote>
+<p>screen 에서는 여러 터미널이 윈도우라는 개념으로 나뉘어지며, 여기서 실행하는 프로그램은 완전히 독립된다는 것을 강조한다.</p>
+<p>각자 다른 특징을 지닌 것 같지만, 결국 둘 모두 terminal multiplexer 라는 것은 변함이 없고, 앞서 언급한 특성들을 모두 공유한다. 즉, 서론에서 이야기한 문제를 전부 해결해 줄 수 있는 특징이 있다.</p>
+<ol>
+<li>여러 터미널을 한 화면에 띄우고, 관리할 수 있다.</li>
+<li>이 터미널 조합은, 서버에 재 접속해서 그대로 쓸 수 있다.</li>
+<li>각 터미널 안에서 수행하는 작업들은 철저히 독립적이다.</li>
+</ol>
+<p>개인적으로 두 개 중 어느 것을 써도 문제는 없을 것 같다. 몇몇은 screen 에서 최신 기능이나 자잘한 것들이 지원되지 않는다는 사람도 있었고, 몇몇은 screen 을 계속 써와서 굳이 바꿔야 할 이유를 찾지 못했다는 이야기도 들었으니까.</p>
+<h2 id=byobu>byobu</h2>
+<p><a class=link href=https://www.byobu.org target=_blank rel=noopener>https://www.byobu.org</a></p>
+<p>byobu 는 병풍(屏風)이라는 뜻의 일본어 독음이다. Canonical 에서 우분투 서버와 클라우드 팀에 있는 Dustin Kirkland 의 개인 프로젝트 라고 한다. (와우&mldr;)</p>
+<p>이 프로그램은 <strong>tmux 와 screen 의 wrapper</strong> 라고 보면 된다. 즉, 두 multiplexer 중 하나를 좀 더 쉽고 간단하게 쓸 수 있도록 만든 것이다. 처음에 실행하면, 둘 중 어느 것을 쓸 것인지 선택할 수 있다.</p>
+<h3 id=설치-방법>설치 방법</h3>
+<p>나는 brew 를 설치한 다음에 byobu 를 설치했다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>/bin/bash -c <span class=s2>&#34;</span><span class=k>$(</span>curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh<span class=k>)</span><span class=s2>&#34;</span>
+
+<span class=c1># install brew into ~/.linuxbre</span>
+<span class=nb>echo</span> <span class=s1>&#39;eval &#34;$($HOME/.linuxbrew/bin/brew shellenv)&#34;&#39;</span> &gt;&gt; ~/.zshrc
+brew install byobu
+</code></pre></div><h3 id=사용-방법>사용 방법</h3>
+<p>유튜브 튜토리얼 영상을 보면, 모짜르트 교향곡과 함께 윈도우를 화려하게 넘나드는 것을 볼 수 있다.</p>
+<p><code>man byobu</code> 를 입력해서 매뉴얼을 열어보자. 여기서 단축키 리스트를 알려주긴 하, 당장 내가 자주 쓰는 단축키는 이 정도다.</p>
+<ul>
+<li>F2 : 새로운 윈도우를 만든다. 이 때 새로운 세션을 시작한다.</li>
+<li>F3/F4 : 이전/다음 윈도우로 포커스를 이동한다.</li>
+<li>Shift+F2 : 스크린을 상/하로 분할해, 아래쪽에 새로운 세션을 시작한다.</li>
+<li>Ctrl+F2 : 스크린을 좌/우로 분할해, 오른쪽에 새로운 세션을 시작한다.</li>
+<li>Shift+F3/F4 : 이전/다음 스크린으로 포커스를 이동한다.</li>
+<li>F7 : 스크롤백 모드로 전환한다. 방향키 또는 PageUp/Dn 를 이동해 화면을 스크롤할 수 있고, Enter 를 치면 종료된다.
+<ul>
+<li>복사 : Spacebar 를 누르면 커서부터 블록을 잡을 수 있다. 블록을 다 잡고 나서 Enter 를 누르면 복사가 된다</li>
+<li>붙여넣기 : Alt+Insert (나는 안 됐음 ㅜㅜ) <strong>Ctrl+a 누른 후 ]</strong> (이게 잘 됨!)<br>
+(iterm2 의 경우, applications in terminal may access clipboard 옵션을 켜줘야 함)</li>
+</ul>
+</li>
+</ul>
+<h3 id=접속하면-자동으로-byobu-실행하기>접속하면, 자동으로 byobu 실행하기</h3>
+<p>접속하자 마자 byobu 를 실행하려면 아래를 입력하면 되는데,</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>byobu-enable
+</code></pre></div><p><code>man byobu-launcher-install</code> 을 보면 알겠지만, 이게 <code>~/.profile</code> 에 내용이 추가되는 거라서, shell 설정에 따라서는 적용 자체가 안 될 수도 있다. <code>~/.profile</code> 의 마지막 줄 내용을 <code>~/.bashrc</code> 또는 <code>~/.zshrc</code> 에 옮겨줘야 한다.</p>
+<h3 id=macos-에서-ctrl-키가-먹지-않을-때>macOS 에서 Ctrl 키가 먹지 않을 때</h3>
+<p>매뉴얼에서 나오는 Ctrl+F2 단축키가 맥북에서는 먹질 않는다. Ctrl 이 인식되지 않는다기 보단 Function Key 인식에 문제가 있는 것 같다. (그렇다고 Ctrl+Fn+F2 를 누르면 F2 효과가 난다..)</p>
+<p>그래서 아예 byobu 단축키를 수정했다. tmux 를 쓴다고 가정했을 때, 아래 파일을 열어보자.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=c1># assume that you&#39;re using with tmux</span>
+vi <span class=nv>$BYOBU_PREFIX</span>/share/byobu/keybindings/f-keys.tmux
+</code></pre></div><p>여기서 <code>C-F2</code> 따위의 키워드를 검색할 수 있는데, 이걸 Function Key 가 들어가지 않는 조합으로 바꿔주자.</p>
+<p>참고 : <a class=link href=https://askubuntu.com/questions/969846/ubuntu-server-using-byobu-ctrlf2-does-not-split-screen-in-vertical target=_blank rel=noopener>https://askubuntu.com/questions/969846/ubuntu-server-using-byobu-ctrlf2-does-not-split-screen-in-vertical</a></p>
+</section>
+<footer class=article-footer>
+<br>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
+<ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-0712823212859607 data-ad-slot=7880266545></ins>
+<script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
+<section class=article-tags>
+<a href=/tags/tmux/>tmux</a>
+<a href=/tags/byobu/>byobu</a>
+<a href=/tags/%EA%B0%9C%EB%B0%9C%EB%8F%84%EA%B5%AC/>개발도구</a>
+<a href=/tags/%ED%84%B0%EB%AF%B8%EB%84%90/>터미널</a>
+</section>
+</footer>
+</article>
+<aside class=related-content--wrapper>
+<h2 class=section-title>관련 글</h2>
+<div class=related-content>
+<div class="flex article-list--tile">
+<article>
+<a href=/golang-errorsnew-fmterrorf/>
+<div class=article-details>
+<h2 class=article-title>Golang: errors.new() vs. fmt.Errorf()</h2>
+</div>
+</a>
+</article>
+<article>
+<a href=/program-language-closure/>
+<div class=article-details>
+<h2 class=article-title>클로저 (Closure)</h2>
+</div>
+</a>
+</article>
+<article>
+<a href=/vscode-python-debugging-no-response/>
+<div class=article-details>
+<h2 class=article-title>VSCode Python 디버그 반응이 없을 때</h2>
+</div>
+</a>
+</article>
+<article>
+<a href=/bdd-in-python-behave/>
+<div class=article-details>
+<h2 class=article-title>BDD in Python: Behave</h2>
+</div>
+</a>
+</article>
+<article>
+<a href=/oh-my-zsh-kubectl-autocomplete/>
+<div class=article-details>
+<h2 class=article-title>Oh my zsh! 에서 kubectl 자동 완성 하기</h2>
+</div>
+</a>
+</article>
+</div>
+</div>
+</aside>
+<footer class=site-footer>
+<section class=copyright>
+&copy;
+2019 -
+2022 InterP Blog
+</section>
+<section class=powerby>
+<a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 기반 / <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.12.0>Stack</a></b> 테마를 사용 중입니다.
+</section>
+</footer>
+<div class=pswp tabindex=-1 role=dialog aria-hidden=true>
+<div class=pswp__bg></div>
+<div class=pswp__scroll-wrap>
+<div class=pswp__container>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+</div>
+<div class="pswp__ui pswp__ui--hidden">
+<div class=pswp__top-bar>
+<div class=pswp__counter></div>
+<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+<div class=pswp__preloader>
+<div class=pswp__preloader__icn>
+<div class=pswp__preloader__cut>
+<div class=pswp__preloader__donut></div>
+</div>
+</div>
+</div>
+</div>
+<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+<div class=pswp__share-tooltip></div>
+</div>
+<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+</button>
+<div class=pswp__caption>
+<div class=pswp__caption__center></div>
+</div>
+</div>
+</div>
+</div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous>
+</main>
+<aside class="sidebar right-sidebar sticky">
+<form action=/search/ class="search-form widget">
+<p>
+<label>검색</label>
+<input name=keyword required placeholder="검색어를 입력하세요...">
+<button title=검색><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+</button>
+</p>
+</form>
+<section class="widget archives">
+<div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg>
+</div>
+<h2 class="widget-title section-title">목차</h2>
+<div class=widget--toc>
+<nav id=TableOfContents>
+<ul>
+<li>
+<ul>
+<li><a href=#terminal-multiplexer--tmux-screen>Terminal Multiplexer : tmux, screen</a></li>
+<li><a href=#byobu>byobu</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+</div>
+</section>
+</aside>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script>
+<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
+</body>
+</html>

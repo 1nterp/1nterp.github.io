@@ -1,16 +1,16 @@
 <!doctype html><html lang=ko-kr dir=ltr>
 <head><meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="증상 VSCode 에서 Python 파일을 디버깅하려 하면, 아~무런 반응이 없다. 그냥 실행 자체를 하지 않은 것 같다! 분석 관련 로그가 남아있지 않기 때문에, 분석이 쉽지 않다. 그나마"><title>VSCode Python 디버그 반응이 없을 때</title>
+<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="버전 문제일수도, Workspace 경로 문제일수도?"><title>VSCode Python 디버그 반응이 없을 때</title>
 <style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600&family=Noto+Serif+SC:wght@300;400;500;600&display=swap'</style>
 <link rel=canonical href=https://interp.blog/vscode-python-debugging-no-response/>
 <link rel=stylesheet href=/scss/style.min.592c22568d36b6ea6b353f9051bfa2e1b0be6842c97e95a3f9b07fabdacfaf4c.css><meta property="og:title" content="VSCode Python 디버그 반응이 없을 때">
-<meta property="og:description" content="증상 VSCode 에서 Python 파일을 디버깅하려 하면, 아~무런 반응이 없다. 그냥 실행 자체를 하지 않은 것 같다! 분석 관련 로그가 남아있지 않기 때문에, 분석이 쉽지 않다. 그나마">
+<meta property="og:description" content="버전 문제일수도, Workspace 경로 문제일수도?">
 <meta property="og:url" content="https://interp.blog/vscode-python-debugging-no-response/">
 <meta property="og:site_name" content="InterP Blog">
 <meta property="og:type" content="article"><meta property="article:section" content="Tech"><meta property="article:tag" content="Python"><meta property="article:tag" content="VSCode"><meta property="article:tag" content="Debug"><meta property="article:published_time" content="2022-08-23T22:26:07+09:00"><meta property="article:modified_time" content="2022-08-23T22:26:07+09:00">
 <meta name=twitter:site content="@interp_">
 <meta name=twitter:creator content="@interp_"><meta name=twitter:title content="VSCode Python 디버그 반응이 없을 때">
-<meta name=twitter:description content="증상 VSCode 에서 Python 파일을 디버깅하려 하면, 아~무런 반응이 없다. 그냥 실행 자체를 하지 않은 것 같다! 분석 관련 로그가 남아있지 않기 때문에, 분석이 쉽지 않다. 그나마">
+<meta name=twitter:description content="버전 문제일수도, Workspace 경로 문제일수도?">
 </head>
 <body class=article-page>
 <script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>
@@ -73,6 +73,9 @@ Tech
 <h2 class=article-title>
 <a href=/vscode-python-debugging-no-response/>VSCode Python 디버그 반응이 없을 때</a>
 </h2>
+<h3 class=article-subtitle>
+버전 문제일수도, Workspace 경로 문제일수도?
+</h3>
 </div>
 <footer class=article-time>
 <div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
@@ -88,7 +91,7 @@ Tech
 </header>
 <section class=article-content>
 <h2 id=증상>증상</h2>
-<p>VSCode 에서 Python 파일을 디버깅하려 하면, <strong>아~무런 반응이 없다.</strong> 그냥 실행 자체를 하지 않은 것 같다!</p>
+<p>VSCode 에서 Python 파일을 디버깅 (debugging) 하려 하면, <strong>아~무런 반응이 없고 곧바로 종료된다.</strong> 그냥 실행 자체를 하지 않은 것 같다!</p>
 <h2 id=분석>분석</h2>
 <p>관련 로그가 남아있지 않기 때문에, 분석이 쉽지 않다. 그나마 갱신되는 로그가 &lsquo;Python&rsquo; 에서 보이는 한 줄의 명령어인데&mldr;</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>DAP Server launched with command: /home/interp/work/project/venv/bin/python \
@@ -150,30 +153,27 @@ AssertionError: Python 3.6 and below is not supported by this version of debugpy
 </div>
 </a>
 </article>
+<article class=has-image>
+<a href=/terminal-multiplexer-screen-tmux-byobu/>
+<div class=article-image>
+<img src=/terminal-multiplexer-screen-tmux-byobu/feature.7dd4b8c818b490eef70b4731374cae7f.jpg width=2996 height=3995 loading=lazy alt="Featured image of post screen, tmux, 그리고 byobu" data-hash="md5-fdS4yBi0kO73C0cxN0yufw==">
+</div>
+<div class=article-details>
+<h2 class=article-title>screen, tmux, 그리고 byobu</h2>
+</div>
+</a>
+</article>
 <article>
-<a href=/oh-my-zsh-kubectl-autocomplete/>
+<a href=/golang-errorsnew-fmterrorf/>
 <div class=article-details>
-<h2 class=article-title>Oh my zsh! 에서 kubectl 자동 완성 하기</h2>
+<h2 class=article-title>Golang: errors.new() vs. fmt.Errorf()</h2>
 </div>
 </a>
 </article>
-<article class=has-image>
-<a href=/bdd-behavior-driven-development/>
-<div class=article-image>
-<img src=/bdd-behavior-driven-development/feature.4a92b05bcc5515ef86ccc5105fa05b75.jpg width=750 height=500 loading=lazy alt="Featured image of post BDD (Behavior-driven Development) 소개" data-hash="md5-SpKwW8xVFe+GzMUQX6BbdQ==">
-</div>
+<article>
+<a href=/program-language-closure/>
 <div class=article-details>
-<h2 class=article-title>BDD (Behavior-driven Development) 소개</h2>
-</div>
-</a>
-</article>
-<article class=has-image>
-<a href=/keyboard-key-bouncing-problem/>
-<div class=article-image>
-<img src=/images/featured/keyboard-key-bounce.jpg loading=lazy data-key data-hash=/images/featured/keyboard-key-bounce.jpg>
-</div>
-<div class=article-details>
-<h2 class=article-title>키보드 키 바운싱 문제 해결</h2>
+<h2 class=article-title>클로저 (Closure)</h2>
 </div>
 </a>
 </article>

@@ -1,0 +1,314 @@
+<!doctype html><html lang=ko-kr dir=ltr>
+<head><meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="함수인듯 함수아닌 함수같은 너"><title>클로저 (Closure)</title>
+<style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600&family=Noto+Serif+SC:wght@300;400;500;600&display=swap'</style>
+<link rel=canonical href=https://interp.blog/program-language-closure/>
+<link rel=stylesheet href=/scss/style.min.592c22568d36b6ea6b353f9051bfa2e1b0be6842c97e95a3f9b07fabdacfaf4c.css><meta property="og:title" content="클로저 (Closure)">
+<meta property="og:description" content="함수인듯 함수아닌 함수같은 너">
+<meta property="og:url" content="https://interp.blog/program-language-closure/">
+<meta property="og:site_name" content="InterP Blog">
+<meta property="og:type" content="article"><meta property="article:section" content="Tech"><meta property="article:tag" content="golang"><meta property="article:tag" content="closure"><meta property="article:published_time" content="2022-09-18T08:33:23+09:00"><meta property="article:modified_time" content="2022-09-18T08:33:23+09:00">
+<meta name=twitter:site content="@interp_">
+<meta name=twitter:creator content="@interp_"><meta name=twitter:title content="클로저 (Closure)">
+<meta name=twitter:description content="함수인듯 함수아닌 함수같은 너">
+</head>
+<body class=article-page>
+<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky">
+<button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 토글">
+<span class=hamburger-box>
+<span class=hamburger-inner></span>
+</span>
+</button>
+<header>
+<div class=site-meta>
+<h1 class=site-name><a href=/>InterP Blog</a></h1>
+<h2 class=site-description>Things I'm interested</h2>
+</div>
+</header><ol class=social-menu>
+<li>
+<a href=https://github.com/1nterp target=_blank title=GitHub><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+</a>
+</li>
+<li>
+<a href=https://linkedin.com/in/interp target=_blank title=LinkedIn><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-linkedin" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><rect x="4" y="4" width="16" height="16" rx="2"/><line x1="8" y1="11" x2="8" y2="16"/><line x1="8" y1="8" x2="8" y2="8.01"/><line x1="12" y1="16" x2="12" y2="11"/><path d="M16 16v-3a2 2 0 00-4 0"/></svg>
+</a>
+</li>
+</ol><ol class=menu id=main-menu>
+<li>
+<a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span>
+</a>
+</li>
+<li>
+<a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span>
+</a>
+</li>
+<li>
+<a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span>
+</a>
+</li>
+<div class=menu-bottom-section>
+<li id=i18n-switch><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5h7"/><path d="M9 3v2c0 4.418-2.239 8-5 8"/><path d="M5 9c-.003 2.144 2.952 3.908 6.7 4"/><path d="M12 20l4-9 4 9"/><path d="M19.1 18h-6.2"/></svg>
+<select name=language onchange="window.location.href=this.selectedOptions[0].value"><option value=https://interp.blog/ selected>한국어</option><option value=https://interp.blog/en/>English</option></select>
+</li>
+<li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>다크 모드</span>
+</li>
+</div>
+</ol>
+</aside>
+<main class="main full-width">
+<article class=main-article>
+<header class=article-header>
+<div class=article-details>
+<header class=article-category>
+<a href=/categories/tech/>
+Tech
+</a>
+</header>
+<div class=article-title-wrapper>
+<h2 class=article-title>
+<a href=/program-language-closure/>클로저 (Closure)</a>
+</h2>
+<h3 class=article-subtitle>
+함수인듯 함수아닌 함수같은 너
+</h3>
+</div>
+<footer class=article-time>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>2022-09-18</time>
+</div>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>
+5 분 소요
+</time>
+</div>
+</footer>
+</div>
+</header>
+<section class=article-content>
+<p>개발자 친구랑 이런저런 이야기를 하던 중, 내 리뷰가 리젝당한 경험담을 이어서 꺼내기 시작했다. &ldquo;내가 클로저를 썼는데 리뷰어가 그게 뭐냐고, 함수로 빼달라고 하는거 있지?&rdquo; 한참을 듣던 그 친구가 대뜸 이렇게 반문했다.</p>
+<blockquote>
+<p>그런데, 클로저가 뭐야?</p>
+</blockquote>
+<p>&ldquo;어&mldr;그거 있잖아! 함수 안에 함수 만드는거! 그런데 그 함수 바깥도 참조할 수 있는거!&rdquo; 라고 얼버무렸다. 그러고 나자 (친구는 가만히 있는데) 나 혼자 이런 생각이 들었다. &lsquo;<em>함수면 함수지 왜 안에다 만들어? 변수 참조는 왜 해? 리펙터링 하기 싫어서 필요한 건가?</em>&rsquo; ㅠㅠ..</p>
+<p>일단 나부터 잘 모르고 쓰고 있다는 생각이 들어, 이참에 정리를 해 두려고 한다.</p>
+<h2 id=정의>정의</h2>
+<p>프로그래밍 언어에서 Closure 는, 함수 바깥에 있는 변수를 참조하는 함수 &lsquo;값&rsquo; 을 말한다. 한국어판 <a class=link href=https://ko.wikipedia.org/wiki/%ED%81%B4%EB%A1%9C%EC%A0%80_%28%EC%BB%B4%ED%93%A8%ED%84%B0_%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D%29 target=_blank rel=noopener>위키백과 설명</a>을 보도록 하자.</p>
+<blockquote>
+<p>컴퓨터 언어에서 클로저(Closure)는 <a class=link href=https://ko.wikipedia.org/wiki/%EC%9D%BC%EA%B8%89_%EA%B0%9D%EC%B2%B4 target=_blank rel=noopener>일급 객체 함수</a>(first-class functions)의 개념을 이용하여 스코프(scope)에 묶인 변수를 바인딩 하기 위한 일종의 기술이다.<br>
+기능상으로, 클로저는 함수를 저장한 <a class=link href=https://ko.wikipedia.org/wiki/%EB%A0%88%EC%BD%94%EB%93%9C target=_blank rel=noopener>레코드</a>(record)이며, 스코프(scope)의 인수(Factor)들은 클로저가 만들어질 때 정의(define)되며, 스코프 내의 영역이 소멸(remove)되었어도 그에 대한 접근(access)은 독립된 복사본인 클로저를 통해 이루어질 수 있다.</p>
+</blockquote>
+<p><a class=link href=https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures target=_blank rel=noopener>MDN</a> 에서 말하는 클로저의 정의는?</p>
+<blockquote>
+<p>A closure is the combination of a function bundled together (enclosed) with references to its surrounding state (the <strong>lexical environment</strong>). In other words, a closure gives you access to an <strong>outer function&rsquo;s scope</strong> from an inner function.</p>
+</blockquote>
+<figure>
+<img loading=lazy src=giphy.webp alt="시방 저것이 뭔 소리여"> <figcaption>
+<p><del>시방 저것이 뭔 소리여</del></p>
+</figcaption>
+</figure>
+<h2 id=golang-에서의-closure>Golang 에서의 Closure</h2>
+<p>백문이 불여일견, 일단 보자.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kn>package</span> <span class=nx>main</span>
+
+<span class=kn>import</span> <span class=s>&#34;fmt&#34;</span>
+
+<span class=kd>func</span> <span class=nf>outer</span><span class=p>()</span> <span class=kd>func</span><span class=p>()</span> <span class=kt>int</span> <span class=p>{</span>
+	<span class=nx>x</span> <span class=o>:=</span> <span class=mi>0</span>
+	<span class=k>return</span> <span class=kd>func</span><span class=p>()</span> <span class=kt>int</span> <span class=p>{</span>
+		<span class=nx>x</span><span class=o>++</span>
+		<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>x</span><span class=p>)</span>
+		<span class=k>return</span> <span class=nx>x</span>
+	<span class=p>}</span>
+<span class=p>}</span>
+
+<span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+	<span class=nx>inner_f</span> <span class=o>:=</span> <span class=nf>outer</span><span class=p>()</span>
+	<span class=nf>inner_f</span><span class=p>()</span>
+	<span class=nf>inner_f</span><span class=p>()</span>
+<span class=p>}</span>
+</code></pre></div><p>inner_f() 가 <strong>함수</strong>라면, 상태가 저장되는 곳이 있을 리 만무하며, 입력 값에 변화가 없기 때문에 (아예 입력 값 자체가 없다!) 두 번의 호출이 동일한 결과를 낼 것 같다. 하지만 현실은 그렇지 않다. 사실은, inner_f 는 함수가 아니라 <strong>클로저</strong>이기 때문이다. </p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>1
+2
+</code></pre></div><h2 id=일급-객체-일급-함수>일급 객체, 일급 함수</h2>
+<p>잠시 일급 객체라는 개념을 먼저 짚고 넘어가자. 일급 객체가 되려면, 세 가지 조건이 있다.</p>
+<ul>
+<li>변수에 담을 수 있는 것</li>
+<li>인자로 전달이 가능한 것</li>
+<li>반환값으로도 전달이 가능한 것</li>
+</ul>
+<p>일급 함수는 함수형으로 된 일급 변수를 뜻하니까, 짧게 설명하면 <strong>변수처럼 다룰 수 있는 함수</strong> 일급 함수라 할 수 있다. (<a class=link href=https://velog.io/@mgm-dev/%EC%9D%BC%EA%B8%89%ED%95%A8%EC%88%98%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80 target=_blank rel=noopener>참조</a>)</p>
+<p>대부분의 스크립트 프로그래밍 언어가 일급 함수를 취급하지만, 오래된 언어들 (기본 C, Algol&mldr;) 은 위의 세 가지 조건 중 일부만 지원하기 때문에 일급 함수 취급이 불가능하다.</p>
+<h2 id=스코프>스코프</h2>
+<p>어떤 변수의 스코프는, 다른 말로 하면 변수가 어디까지 접근 가능한지를 나타낸 개념이다. 특정 변수의 수명 (lifetime) 으로도 나타내더라만, 나는 두 개념이 모두 포함된 것이라고 본다.</p>
+<p>앞서 본 것 처럼, 클로저는 함수가 선언된 스코프 (scope) 안에 선언된 어느 변수라도 접근이 가능하다. 즉, 함수 스코프의 상위 스코프 까지다. </p>
+<p>예제에서는 변수 x 가 이에 해당 한다. outer() 안에 선언된 클로저 안에는 x 가 없지만, 클로저가 선언된 스코프 (그러니까 outer() 전체) 에는 x 가 사용 가능하다. 물론 이건 클로저 역시 마찬가지다.</p>
+<p>수명 이야기를 했는데, outer() 가 호출되기 시작할 때 변수 x 는 스택에 쌓이고, 호출이 종료되면 x 는 스택에서 빠질 것이다. 하지만 클로저가 선언되어 있다면 이 변수 x 의 수명은 늘어나게 된다. 그럼 이렇게 수명이 늘어난 변수 x 는 어디에 저장될까?</p>
+<h2 id=자유-변수>자유 변수</h2>
+<p>클로저에서 숨어있는 개념이 바로 &lsquo;<a class=link href=https://ko.wikipedia.org/wiki/%EC%9E%90%EC%9C%A0_%EB%B3%80%EC%88%98%EC%99%80_%EC%A2%85%EC%86%8D_%EB%B3%80%EC%88%98 target=_blank rel=noopener>자유 변수 (free variable)</a>&rsquo; 이다. 수식 속에서 상수로 치환이 가능한 변수를 말한다. 그 외의 변수는 전부 종속 변수 (bound variable) 이라고 말한다.</p>
+<p>클로저에서 말하는 자유 변수는, 클로저를 선언한 스코프 안에 위치한다. 쉽게 말하면, <strong>자유 변수 = 클로저 바깥 변수</strong>다. 클로저가 그냥 함수였다면, 자유 변수가 어떤 값을 가지고 있건 상관 없이 작동해야 한다. (자유 변수라는 말 자체가 수학에서 나온 말이다) 이런 자유 변수로 인해 함수가 닫힐 수 있게 만든 것을, 우리는 클로저 (closure) 라고 부르는 것이다.</p>
+<p>클로저에겐 자유 변수가 필요충분 조건이다. 계속 살아있어야 한다.</p>
+<h2 id=다시-정의를-읽어보자>다시 정의를 읽어보자</h2>
+<blockquote>
+<p>컴퓨터 언어에서 클로저(Closure)는 <a class=link href=https://ko.wikipedia.org/wiki/%EC%9D%BC%EA%B8%89_%EA%B0%9D%EC%B2%B4 target=_blank rel=noopener>일급 객체 함수</a>(first-class functions)의 개념을 이용하여, 스코프(scope)에 묶인 변수를 바인딩 하기 위한 일종의 기술이다.</p>
+</blockquote>
+<ul>
+<li>참고로 일급 객체 함수와 클로저는 같은 말이 아니라, 일급 객체 함수 ∋ 클로저이다.</li>
+<li>스코프에 묶인 변수를 바인딩한다는 뜻은, 클로저가 사용할 수 있게 계속 유지한다는 말과 같을 것이다.</li>
+</ul>
+<blockquote>
+<p>기능상으로, 클로저는 함수를 저장한 <a class=link href=https://ko.wikipedia.org/wiki/%EB%A0%88%EC%BD%94%EB%93%9C target=_blank rel=noopener>레코드</a>(record)이며, 스코프(scope)의 인수(Factor)들은 클로저가 만들어질 때 정의(define)되며, 스코프 내의 영역이 소멸(remove)되었어도 그에 대한 접근(access)은 독립된 복사본인 클로저를 통해 이루어질 수 있다.</p>
+</blockquote>
+<ul>
+<li>클로저 = 함수를 저장한 레코드!</li>
+<li>스코프의 인수는, 달리 말하면 클로저가 선언된 스코프에 선언된 모든 변수/객체를 말한다. 이 것들이 클로저가 만들어질 때 (=선언될 때) 정의된다는 것이다. 어디에? 바로 레코드 안에.</li>
+<li>스코프 내의 영역이 실제로 소멸되는 시점은, 스코프가 호출이 끝난 시점 (=함수 호출이 끝난 시점) 일 것이다. 하지만 그 접근은 클로저 안에서는 영원히 계속될 수 있다.</li>
+</ul>
+<p>여기까지 해석해 보면, 간접적으로 메모리를 좀 더 쓸 것이라는 추측이 가능하다. 단순히 생각해도 지역 변수들의 수명이 클로저 때문에 계속 되도록 만들어야 하기 때문이다.</p>
+<p>MDN 정의도 다시 읽어보자. 이번엔 해석을 해 봤다.</p>
+<blockquote>
+<p>A closure is the combination of a function bundled together (enclosed) with references to its surrounding state (the lexical environment). In other words, a closure gives you access to an outer function&rsquo;s scope from an inner function.<br>
+클로저란, 클로저를 둘러싼 상태 (사전적 환경) 와의 참조를 함께 넣어 묶은, 함수의 조합입니다. 다른 표현으로, 클로저를 통해 함수 내부에서 함수 외부로 접근을 가능하게 만들 수 있습니다.</p>
+</blockquote>
+<p>클로저를 둘러싼 상태, lexical environment 라는 말들 전부 <strong>클로저 바깥</strong>을 말한다. 사실 뒷 문장이 다 설명을 해 주고 있다.</p>
+</section>
+<footer class=article-footer>
+<br>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
+<ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-0712823212859607 data-ad-slot=7880266545></ins>
+<script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
+<section class=article-tags>
+<a href=/tags/golang/>golang</a>
+<a href=/tags/closure/>closure</a>
+</section>
+</footer>
+</article>
+<aside class=related-content--wrapper>
+<h2 class=section-title>관련 글</h2>
+<div class=related-content>
+<div class="flex article-list--tile">
+<article>
+<a href=/golang-errorsnew-fmterrorf/>
+<div class=article-details>
+<h2 class=article-title>Golang: errors.new() vs. fmt.Errorf()</h2>
+</div>
+</a>
+</article>
+<article>
+<a href=/tour-of-go-pointer-struct-array-slice/>
+<div class=article-details>
+<h2 class=article-title>A tour of Go: Pointer, Struct, Array, Slice</h2>
+</div>
+</a>
+</article>
+<article>
+<a href=/golang-struct-tag/>
+<div class=article-details>
+<h2 class=article-title>Golang struct tag: omitempty</h2>
+</div>
+</a>
+</article>
+<article>
+<a href=/tour-of-go-flow-control-stmts/>
+<div class=article-details>
+<h2 class=article-title>A tour of Go: Flow control statements</h2>
+</div>
+</a>
+</article>
+<article>
+<a href=/tour-of-go-package-function-variable/>
+<div class=article-details>
+<h2 class=article-title>A tour of Go: Package, Function, Variable</h2>
+</div>
+</a>
+</article>
+</div>
+</div>
+</aside>
+<footer class=site-footer>
+<section class=copyright>
+&copy;
+2019 -
+2022 InterP Blog
+</section>
+<section class=powerby>
+<a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 기반 / <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.12.0>Stack</a></b> 테마를 사용 중입니다.
+</section>
+</footer>
+<div class=pswp tabindex=-1 role=dialog aria-hidden=true>
+<div class=pswp__bg></div>
+<div class=pswp__scroll-wrap>
+<div class=pswp__container>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+</div>
+<div class="pswp__ui pswp__ui--hidden">
+<div class=pswp__top-bar>
+<div class=pswp__counter></div>
+<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+<div class=pswp__preloader>
+<div class=pswp__preloader__icn>
+<div class=pswp__preloader__cut>
+<div class=pswp__preloader__donut></div>
+</div>
+</div>
+</div>
+</div>
+<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+<div class=pswp__share-tooltip></div>
+</div>
+<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+</button>
+<div class=pswp__caption>
+<div class=pswp__caption__center></div>
+</div>
+</div>
+</div>
+</div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous>
+</main>
+<aside class="sidebar right-sidebar sticky">
+<form action=/search/ class="search-form widget">
+<p>
+<label>검색</label>
+<input name=keyword required placeholder="검색어를 입력하세요...">
+<button title=검색><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+</button>
+</p>
+</form>
+<section class="widget archives">
+<div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg>
+</div>
+<h2 class="widget-title section-title">목차</h2>
+<div class=widget--toc>
+<nav id=TableOfContents>
+<ul>
+<li>
+<ul>
+<li><a href=#정의>정의</a></li>
+<li><a href=#golang-에서의-closure>Golang 에서의 Closure</a></li>
+<li><a href=#일급-객체-일급-함수>일급 객체, 일급 함수</a></li>
+<li><a href=#스코프>스코프</a></li>
+<li><a href=#자유-변수>자유 변수</a></li>
+<li><a href=#다시-정의를-읽어보자>다시 정의를 읽어보자</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+</div>
+</section>
+</aside>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script>
+<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
+</body>
+</html>

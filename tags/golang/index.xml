@@ -1,4 +1,103 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>golang on InterP Blog</title><link>https://interp.blog/tags/golang/</link><description>Recent content in golang on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Sun, 03 Jul 2022 17:06:37 +0000</lastBuildDate><atom:link href="https://interp.blog/tags/golang/index.xml" rel="self" type="application/rss+xml"/><item><title>A tour of Go: Pointer, Struct, Array, Slice</title><link>https://interp.blog/tour-of-go-pointer-struct-array-slice/</link><pubDate>Sun, 03 Jul 2022 17:06:37 +0000</pubDate><guid>https://interp.blog/tour-of-go-pointer-struct-array-slice/</guid><description>&lt;p>Go 여행 세 번째 시간이다. &lt;a class="link" href="https://interp.blog/tour-of-go-flow-control-stmts/" target="_blank" rel="noopener"
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>golang on InterP Blog</title><link>https://interp.blog/tags/golang/</link><description>Recent content in golang on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Tue, 04 Oct 2022 09:01:55 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/golang/index.xml" rel="self" type="application/rss+xml"/><item><title>Golang: errors.new() vs. fmt.Errorf()</title><link>https://interp.blog/golang-errorsnew-fmterrorf/</link><pubDate>Tue, 04 Oct 2022 09:01:55 +0900</pubDate><guid>https://interp.blog/golang-errorsnew-fmterrorf/</guid><description>&lt;p>두 함수 호출 모두 error 를 리턴하지만, 어디서는 &lt;code>errors.new()&lt;/code> 를 쓰고 다른 데서는 &lt;code>fmt.Errorf()&lt;/code> 를 써서 헷갈렸다. &lt;a class="link" href="https://www.digitalocean.com/community/tutorials/how-to-add-extra-information-to-errors-in-go" target="_blank" rel="noopener"
+>링크&lt;/a>에서 확인한 결과, 아래와 같은 설명이 되어 있었다.&lt;/p>
+&lt;blockquote>
+&lt;p>Generally, when creating a sentinel error value, the &lt;a class="link" href="https://pkg.go.dev/errors#New" target="_blank" rel="noopener"
+>errors.New&lt;/a> function from the &lt;a class="link" href="https://pkg.go.dev/errors" target="_blank" rel="noopener"
+>errors&lt;/a> package is used instead of the &lt;code>fmt.Errorf&lt;/code> function you’ve been using thus far.&lt;/p>
+&lt;p>&lt;strong>Using &lt;code>errors.New&lt;/code> instead of &lt;code>fmt.Errorf&lt;/code> does not make any foundational changes to how the error works&lt;/strong>, though, and both functions could be used interchangeably most of the time.&lt;/p>
+&lt;p>The biggest difference between the two is the &lt;code>errors.New&lt;/code> function will only create an error with a static message, and &lt;strong>the &lt;code>fmt.Errorf&lt;/code> function allows formatting the string with values&lt;/strong>, similar to &lt;code>fmt.Printf&lt;/code> or &lt;code>fmt.Sprintf&lt;/code>. Since sentinel errors are fundamental errors with values that don’t change, it’s common to use errors.New to create them.&lt;/p>
+&lt;/blockquote>
+&lt;p>두 함수 호출로 리턴되는 error 에 특별한 차이는 없지만, &lt;strong>포맷이 필요하면 fmt.Errorf, 포맷이 필요없는 static error message 라면 errors.New&lt;/strong> 를 쓰는 것이다.&lt;/p></description></item><item><title>클로저 (Closure)</title><link>https://interp.blog/program-language-closure/</link><pubDate>Sun, 18 Sep 2022 08:33:23 +0900</pubDate><guid>https://interp.blog/program-language-closure/</guid><description>&lt;p>개발자 친구랑 이런저런 이야기를 하던 중, 내 리뷰가 리젝당한 경험담을 이어서 꺼내기 시작했다. &amp;ldquo;내가 클로저를 썼는데 리뷰어가 그게 뭐냐고, 함수로 빼달라고 하는거 있지?&amp;rdquo; 한참을 듣던 그 친구가 대뜸 이렇게 반문했다.&lt;/p>
+&lt;blockquote>
+&lt;p>그런데, 클로저가 뭐야?&lt;/p>
+&lt;/blockquote>
+&lt;p>&amp;ldquo;어&amp;hellip;그거 있잖아! 함수 안에 함수 만드는거! 그런데 그 함수 바깥도 참조할 수 있는거!&amp;rdquo; 라고 얼버무렸다. 그러고 나자 (친구는 가만히 있는데) 나 혼자 이런 생각이 들었다. &amp;lsquo;&lt;em>함수면 함수지 왜 안에다 만들어? 변수 참조는 왜 해? 리펙터링 하기 싫어서 필요한 건가?&lt;/em>&amp;rsquo; ㅠㅠ..&lt;/p>
+&lt;p>일단 나부터 잘 모르고 쓰고 있다는 생각이 들어, 이참에 정리를 해 두려고 한다.&lt;/p>
+&lt;h2 id="정의">정의&lt;/h2>
+&lt;p>프로그래밍 언어에서 Closure 는, 함수 바깥에 있는 변수를 참조하는 함수 &amp;lsquo;값&amp;rsquo; 을 말한다. 한국어판 &lt;a class="link" href="https://ko.wikipedia.org/wiki/%ED%81%B4%EB%A1%9C%EC%A0%80_%28%EC%BB%B4%ED%93%A8%ED%84%B0_%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D%29" target="_blank" rel="noopener"
+>위키백과 설명&lt;/a>을 보도록 하자.&lt;/p>
+&lt;blockquote>
+&lt;p>컴퓨터 언어에서 클로저(Closure)는 &lt;a class="link" href="https://ko.wikipedia.org/wiki/%EC%9D%BC%EA%B8%89_%EA%B0%9D%EC%B2%B4" target="_blank" rel="noopener"
+>일급 객체 함수&lt;/a>(first-class functions)의 개념을 이용하여 스코프(scope)에 묶인 변수를 바인딩 하기 위한 일종의 기술이다.&lt;br>
+기능상으로, 클로저는 함수를 저장한 &lt;a class="link" href="https://ko.wikipedia.org/wiki/%EB%A0%88%EC%BD%94%EB%93%9C" target="_blank" rel="noopener"
+>레코드&lt;/a>(record)이며, 스코프(scope)의 인수(Factor)들은 클로저가 만들어질 때 정의(define)되며, 스코프 내의 영역이 소멸(remove)되었어도 그에 대한 접근(access)은 독립된 복사본인 클로저를 통해 이루어질 수 있다.&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;a class="link" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures" target="_blank" rel="noopener"
+>MDN&lt;/a> 에서 말하는 클로저의 정의는?&lt;/p>
+&lt;blockquote>
+&lt;p>A closure is the combination of a function bundled together (enclosed) with references to its surrounding state (the &lt;strong>lexical environment&lt;/strong>). In other words, a closure gives you access to an &lt;strong>outer function&amp;rsquo;s scope&lt;/strong> from an inner function.&lt;/p>
+&lt;/blockquote>
+&lt;figure>
+&lt;img loading="lazy" src="giphy.webp"
+alt="시방 저것이 뭔 소리여"/> &lt;figcaption>
+&lt;p>&lt;del>시방 저것이 뭔 소리여&lt;/del>&lt;/p>
+&lt;/figcaption>
+&lt;/figure>
+&lt;h2 id="golang-에서의-closure">Golang 에서의 Closure&lt;/h2>
+&lt;p>백문이 불여일견, 일단 보자.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kn">package&lt;/span> &lt;span class="nx">main&lt;/span>
+&lt;span class="kn">import&lt;/span> &lt;span class="s">&amp;#34;fmt&amp;#34;&lt;/span>
+&lt;span class="kd">func&lt;/span> &lt;span class="nf">outer&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="kd">func&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">x&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="mi">0&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="kd">func&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">x&lt;/span>&lt;span class="o">++&lt;/span>
+&lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">x&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">x&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="kd">func&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">inner_f&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nf">outer&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="nf">inner_f&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="nf">inner_f&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>inner_f() 가 &lt;strong>함수&lt;/strong>라면, 상태가 저장되는 곳이 있을 리 만무하며, 입력 값에 변화가 없기 때문에 (아예 입력 값 자체가 없다!) 두 번의 호출이 동일한 결과를 낼 것 같다. 하지만 현실은 그렇지 않다. 사실은, inner_f 는 함수가 아니라 &lt;strong>클로저&lt;/strong>이기 때문이다. &lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">1
+2
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="일급-객체-일급-함수">일급 객체, 일급 함수&lt;/h2>
+&lt;p>잠시 일급 객체라는 개념을 먼저 짚고 넘어가자. 일급 객체가 되려면, 세 가지 조건이 있다.&lt;/p>
+&lt;ul>
+&lt;li>변수에 담을 수 있는 것&lt;/li>
+&lt;li>인자로 전달이 가능한 것&lt;/li>
+&lt;li>반환값으로도 전달이 가능한 것&lt;/li>
+&lt;/ul>
+&lt;p>일급 함수는 함수형으로 된 일급 변수를 뜻하니까, 짧게 설명하면 &lt;strong>변수처럼 다룰 수 있는 함수&lt;/strong> 일급 함수라 할 수 있다. (&lt;a class="link" href="https://velog.io/@mgm-dev/%EC%9D%BC%EA%B8%89%ED%95%A8%EC%88%98%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80" target="_blank" rel="noopener"
+>참조&lt;/a>)&lt;/p>
+&lt;p>대부분의 스크립트 프로그래밍 언어가 일급 함수를 취급하지만, 오래된 언어들 (기본 C, Algol&amp;hellip;) 은 위의 세 가지 조건 중 일부만 지원하기 때문에 일급 함수 취급이 불가능하다.&lt;/p>
+&lt;h2 id="스코프">스코프&lt;/h2>
+&lt;p>어떤 변수의 스코프는, 다른 말로 하면 변수가 어디까지 접근 가능한지를 나타낸 개념이다. 특정 변수의 수명 (lifetime) 으로도 나타내더라만, 나는 두 개념이 모두 포함된 것이라고 본다.&lt;/p>
+&lt;p>앞서 본 것 처럼, 클로저는 함수가 선언된 스코프 (scope) 안에 선언된 어느 변수라도 접근이 가능하다. 즉, 함수 스코프의 상위 스코프 까지다. &lt;/p>
+&lt;p>예제에서는 변수 x 가 이에 해당 한다. outer() 안에 선언된 클로저 안에는 x 가 없지만, 클로저가 선언된 스코프 (그러니까 outer() 전체) 에는 x 가 사용 가능하다. 물론 이건 클로저 역시 마찬가지다.&lt;/p>
+&lt;p>수명 이야기를 했는데, outer() 가 호출되기 시작할 때 변수 x 는 스택에 쌓이고, 호출이 종료되면 x 는 스택에서 빠질 것이다. 하지만 클로저가 선언되어 있다면 이 변수 x 의 수명은 늘어나게 된다. 그럼 이렇게 수명이 늘어난 변수 x 는 어디에 저장될까?&lt;/p>
+&lt;h2 id="자유-변수">자유 변수&lt;/h2>
+&lt;p>클로저에서 숨어있는 개념이 바로 &amp;lsquo;&lt;a class="link" href="https://ko.wikipedia.org/wiki/%EC%9E%90%EC%9C%A0_%EB%B3%80%EC%88%98%EC%99%80_%EC%A2%85%EC%86%8D_%EB%B3%80%EC%88%98" target="_blank" rel="noopener"
+>자유 변수 (free variable)&lt;/a>&amp;rsquo; 이다. 수식 속에서 상수로 치환이 가능한 변수를 말한다. 그 외의 변수는 전부 종속 변수 (bound variable) 이라고 말한다.&lt;/p>
+&lt;p>클로저에서 말하는 자유 변수는, 클로저를 선언한 스코프 안에 위치한다. 쉽게 말하면, &lt;strong>자유 변수 = 클로저 바깥 변수&lt;/strong>다. 클로저가 그냥 함수였다면, 자유 변수가 어떤 값을 가지고 있건 상관 없이 작동해야 한다. (자유 변수라는 말 자체가 수학에서 나온 말이다) 이런 자유 변수로 인해 함수가 닫힐 수 있게 만든 것을, 우리는 클로저 (closure) 라고 부르는 것이다.&lt;/p>
+&lt;p>클로저에겐 자유 변수가 필요충분 조건이다. 계속 살아있어야 한다.&lt;/p>
+&lt;h2 id="다시-정의를-읽어보자">다시 정의를 읽어보자&lt;/h2>
+&lt;blockquote>
+&lt;p>컴퓨터 언어에서 클로저(Closure)는 &lt;a class="link" href="https://ko.wikipedia.org/wiki/%EC%9D%BC%EA%B8%89_%EA%B0%9D%EC%B2%B4" target="_blank" rel="noopener"
+>일급 객체 함수&lt;/a>(first-class functions)의 개념을 이용하여, 스코프(scope)에 묶인 변수를 바인딩 하기 위한 일종의 기술이다.&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>참고로 일급 객체 함수와 클로저는 같은 말이 아니라, 일급 객체 함수 ∋ 클로저이다.&lt;/li>
+&lt;li>스코프에 묶인 변수를 바인딩한다는 뜻은, 클로저가 사용할 수 있게 계속 유지한다는 말과 같을 것이다.&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>기능상으로, 클로저는 함수를 저장한 &lt;a class="link" href="https://ko.wikipedia.org/wiki/%EB%A0%88%EC%BD%94%EB%93%9C" target="_blank" rel="noopener"
+>레코드&lt;/a>(record)이며, 스코프(scope)의 인수(Factor)들은 클로저가 만들어질 때 정의(define)되며, 스코프 내의 영역이 소멸(remove)되었어도 그에 대한 접근(access)은 독립된 복사본인 클로저를 통해 이루어질 수 있다.&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>클로저 = 함수를 저장한 레코드!&lt;/li>
+&lt;li>스코프의 인수는, 달리 말하면 클로저가 선언된 스코프에 선언된 모든 변수/객체를 말한다. 이 것들이 클로저가 만들어질 때 (=선언될 때) 정의된다는 것이다. 어디에? 바로 레코드 안에.&lt;/li>
+&lt;li>스코프 내의 영역이 실제로 소멸되는 시점은, 스코프가 호출이 끝난 시점 (=함수 호출이 끝난 시점) 일 것이다. 하지만 그 접근은 클로저 안에서는 영원히 계속될 수 있다.&lt;/li>
+&lt;/ul>
+&lt;p>여기까지 해석해 보면, 간접적으로 메모리를 좀 더 쓸 것이라는 추측이 가능하다. 단순히 생각해도 지역 변수들의 수명이 클로저 때문에 계속 되도록 만들어야 하기 때문이다.&lt;/p>
+&lt;p>MDN 정의도 다시 읽어보자. 이번엔 해석을 해 봤다.&lt;/p>
+&lt;blockquote>
+&lt;p>A closure is the combination of a function bundled together (enclosed) with references to its surrounding state (the lexical environment). In other words, a closure gives you access to an outer function&amp;rsquo;s scope from an inner function.&lt;br>
+클로저란, 클로저를 둘러싼 상태 (사전적 환경) 와의 참조를 함께 넣어 묶은, 함수의 조합입니다. 다른 표현으로, 클로저를 통해 함수 내부에서 함수 외부로 접근을 가능하게 만들 수 있습니다.&lt;/p>
+&lt;/blockquote>
+&lt;p>클로저를 둘러싼 상태, lexical environment 라는 말들 전부 &lt;strong>클로저 바깥&lt;/strong>을 말한다. 사실 뒷 문장이 다 설명을 해 주고 있다.&lt;/p></description></item><item><title>A tour of Go: Pointer, Struct, Array, Slice</title><link>https://interp.blog/tour-of-go-pointer-struct-array-slice/</link><pubDate>Sun, 03 Jul 2022 17:06:37 +0000</pubDate><guid>https://interp.blog/tour-of-go-pointer-struct-array-slice/</guid><description>&lt;p>Go 여행 세 번째 시간이다. &lt;a class="link" href="https://interp.blog/tour-of-go-flow-control-stmts/" target="_blank" rel="noopener"
 >지난 시간&lt;/a>에는 flow control statement 에 대해서 알아봤다. 이번에는 Go 언어의 다양한 자료형에 대해 정리해 봤다.&lt;/p>
 &lt;h2 id="a-tour-of-go">A tour of Go&lt;/h2>
 &lt;ul>
