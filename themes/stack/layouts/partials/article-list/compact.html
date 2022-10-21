@@ -20,7 +20,7 @@
                     {{- $Height := $image.resource.Height -}}
 
                     {{- if (default true .Page.Site.Params.imageProcessing.cover.enabled) -}}
-                        {{- $thumbnail := $image.resource.Fill "120x120" -}}
+                        {{- $thumbnail := $image.resource.Fill "240x240 webp" -}}
                         {{- $Permalink = $thumbnail.RelPermalink -}}
                         {{- $Width = $thumbnail.Width -}}
                         {{- $Height = $thumbnail.Height -}}
