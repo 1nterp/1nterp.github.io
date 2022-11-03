@@ -6,12 +6,12 @@ date: 2022-10-14T10:01:07.000+09:00
 url: /어떻게든-글쓰기
 categories:
 - Review
-image: feature.png
-image_show: false
+image: feature.jpeg
+image_y: 61%
 tags: []
 ---
 
-{{< figure src="feature.png" >}}
+{{< figure src="feature.jpeg" width="40%" >}}
 
 빨간 책 표지보다도 묘하게 긴 제목, 그리고 고양이와 함께 글을 허둥지둥 쓰는 작가의 오너캐가 더욱 눈길을 끈다. 곽재식 작가의 글쓰기 에세이를 재밌게 읽어봤다. 나도 사실 이 분의 작품을 읽어본 건 아니었지만, 한동안 글쓰기 관련 책을 찾던 때에 '유퀴즈에 나왔던?' 하는 생각이 스쳐서 골라오게 되었다.
 
