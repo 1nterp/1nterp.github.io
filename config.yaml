@@ -4,6 +4,8 @@ theme: stack
 paginate: 6
 title: InterP Blog
 
+enableRobotsTXT: true
+
 languages:
     ko:
         languageName: 한국어
