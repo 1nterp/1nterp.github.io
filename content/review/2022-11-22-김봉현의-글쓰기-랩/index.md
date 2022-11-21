@@ -2,7 +2,7 @@
 title: "김봉현의 글쓰기 랩"
 description: 디스 아닙니다, 피드백입니다.
 author: InterP
-date: 2022-11-22 13:00:01 +0900
+date: 2022-11-22 09:30:01 +0900
 url: /writing-lab
 categories:
 - Review
