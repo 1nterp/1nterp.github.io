@@ -3,12 +3,15 @@ title: 항상 앞부분만 쓰다가 그만두는 당신을 위한 어떻게든 
 description: 어떻게든 글을 쓸 수 있는 자세에 대한 이야기
 author: InterP
 date: 2022-10-14T10:01:07.000+09:00
-url: /어떻게든-글쓰기
+url: /writing-no-matter-what
 categories:
 - Review
 image: feature.jpeg
 image_y: 61%
-tags: []
+tags: 
+- 책
+- 글쓰기
+- 에세이
 ---
 
 {{< figure src="feature.jpeg" width="40%" >}}
