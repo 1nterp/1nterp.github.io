@@ -3,6 +3,8 @@ title: k8s Operator vs. Controller
 author: interp
 date: 2022-03-15 02:44:57 +0000
 url: /kubernetes-operator-vs-controller/
+aliases: 
+- /entry/kubernetes-operator-vs-controller/
 categories:
     - Tech
 tags:

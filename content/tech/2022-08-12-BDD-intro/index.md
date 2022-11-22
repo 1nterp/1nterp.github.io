@@ -4,6 +4,8 @@ author: interp
 type: post
 date: 2022-08-11T16:31:36.000+00:00
 url: "/bdd-behavior-driven-development"
+aliases:
+- "/entry/BDD-의미와-필요성/"
 image: "feature.jpg"
 categories:
 - Tech

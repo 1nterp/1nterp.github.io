@@ -6,6 +6,9 @@ summary: Hugo 에 포함된 Theme 에는 대부분 SASS/SCSS 파일로 스타일
   때 변경 내용이 적용이 되지 않았다. 원칙적으론 되어야 한다. 어떻게 해결했는지 간단히 적어본다.
 categories:
     - Tech
+url: "/hugo-scss-rebuild/"
+aliases:
+- "/tech/2020-01-31-hugo-scss-rebuild/"
 tags:
   - hugo
   - scss

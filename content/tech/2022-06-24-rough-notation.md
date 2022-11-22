@@ -7,6 +7,9 @@ image = "/images/2022-06-24-68747470733a2f2f726f7567686e6f746174696f6e2e636f6d2f
 tags = ["highlight", "js"]
 title = "Rough Notation"
 url = "/rough-highlight-js/"
+aliases = [
+    "/entry/rough-highlight-js/"
+]
 
 +++
 GeekNews 를 보다보니 Atlassian JIRA 와 Bitbucket 서비스가 <span class="rn-underline">너무 구려서 못 써먹겠다</span>는 코멘트를 모아 둔 사이트를 발견했다. (사이트 주소도 비범하게 [https://ifuckinghatejira.com/](https://ifuckinghatejira.com/) 이다..!)

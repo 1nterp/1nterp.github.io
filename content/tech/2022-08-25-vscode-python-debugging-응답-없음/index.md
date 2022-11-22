@@ -4,6 +4,10 @@ description: 버전 문제일수도, Workspace 경로 문제일수도?
 author: interp
 date: 2022-08-23T22:26:07.000+09:00
 url: "/vscode-python-debugging-no-response/"
+aliases:
+- "/VSCode-Python-Debugging-반응-없음/"
+- "/entry/vscode-python-debugging-no-response/"
+- "/entry/VSCode-Python-Debugging-반응-없음/"
 categories:
 - Tech
 tags:

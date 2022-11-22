@@ -4,6 +4,8 @@ author: interp
 type: post
 date: 2022-08-19T09:00:36.000+09:00
 url: "/bdd-in-python-behave"
+aliases:
+- "/entry/BDD-in-Python-behave/"
 categories:
 - Tech
 tags:
@@ -15,7 +17,7 @@ tags:
 
 이번 포스팅을 시작으로, 직접 다양한 언어에서 BDD 를 적용하는 방법을 정리해 볼 예정이다. 첫 시간으로는 **파이썬** (Python) 언어를 가지고 할 것이다. Python 라이브러리 중 하나인 [behave](https://behave.readthedocs.io/en/stable/) 를 통해, BDD 테스트 프레임워크를 구성하고, 예제 시나리오를 만들어서 테스트 자동화가 어떻게 이뤄질 수 있을지 알아보자.
 
-## 예제 프로젝트 생성
+# 예제 프로젝트 생성
 
 {{< callout text="모든 명령어는 리눅스 OS 또는 WSL 환경에서 실행한다고 가정한다." >}} 
 
@@ -32,11 +34,11 @@ virtualenv venv
 source venv/bin/activate
 ```
 
-## behave 설치
+# behave 설치
 
 `pip install behave` 만 하면 된다.
 
-## `features/steps` 디렉터리 생성
+# `features/steps` 디렉터리 생성
 
 behave 는 `features/steps` 를 필요로 한다. 만들어 주자.
 
@@ -48,7 +50,7 @@ mkdir -p features/steps
 
 디렉터리만 만들고 곧장 `behave` 를 실행하면, `ConfigError: No feature files in $(pwd)/features` 라는 메시지가 뜰 것이다.
 
-## `.feature` 파일 만들기
+# `.feature` 파일 만들기
 
 `features/hotdog.feature` 라는 파일을 하나 만들어보자. 핫도그 12개에서 5개를 먹으면 반드시 7개가 남아야 한다는 내용이다. 단순 영어로 되어 있지만, 문법에 대해 더 자세히 알고 싶다면 [이전 포스팅](https://interp.tistory.com/entry/BDD-%EC%9D%98%EB%AF%B8%EC%99%80-%ED%95%84%EC%9A%94%EC%84%B1)을 꼭 참고하고 오자.
 
@@ -100,7 +102,7 @@ def step_impl(context):
     raise NotImplementedError(u'STEP: Then there should be 7 remaining')
 ```
 
-## 테스트 Python 파일 만들기
+# 테스트 Python 파일 만들기
 
 방금 출력된 내용을 단순히 복사해서 `features/steps/hotdog.py` 라는 파일을 만들었다. 참고로 파일 이름은 상관없지만 반드시 `features/steps` 디렉터리에 위치해야 한다.
 
@@ -158,7 +160,7 @@ Failing scenarios:
 Took 0m0.000s
 ```
 
-## 테스트 파일 구현하기
+# 테스트 파일 구현하기
 
 이제 테스트 파일 안의 method 를 구현해 보자.
 
@@ -204,7 +206,7 @@ Feature: eat hotdogs # features/hotdog.feature:1
 Took 0m0.000s
 ```
 
-## 숫자만 바꾼 시나리오를 추가하면?
+# 숫자만 바꾼 시나리오를 추가하면?
 
 시나리오**만** 추가하더라도 이미 재사용이 가능한 형태로 테스트 method 를 구현했기 때문에, 아래처럼 성공적으로 작동한다.
 
@@ -228,7 +230,7 @@ Feature: eat hotdogs # features/hotdog.feature:1
 Took 0m0.001s
 ```
 
-## 마치며
+# 마치며
 
 이제 이 테스트 케이스를 구현할 때 mock 라이브러리를 통해 mocking 을 하면, 기능 검증을 충분히 할 수 있을 것이다. 시나리오를 추가하는 것은 개발자 뿐만이 아닌 비 개발자나 QA 도 할 수 있어야 하고, 개발자는 그렇게 푸시된 새로운 시나리오를 보고 커버리지를 달성하기 위해 테스트에 좀 더 집중할 수 있을 것이다.
 
