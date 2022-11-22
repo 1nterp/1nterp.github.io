@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - source
-  schedule:
-    - cron: '30 1 * * 1,2,3,4,5'
 
 jobs:
   deploy:
@@ -33,12 +31,3 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
           publish_branch: master
-          
-      - name: Sleep for 1 minute
-        run: sleep 60s
-        shell: bash
-        
-      - name: curl
-        uses: wei/curl@v1
-        with:
-          args: https://www.google.com/ping?sitemap=https://interp.blog/sitemap.xml
