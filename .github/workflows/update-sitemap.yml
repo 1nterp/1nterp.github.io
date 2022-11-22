@@ -1,0 +1,14 @@
+name: Update Google Sitemap
+
+on:
+  schedule:
+    - cron: '0 1 * * 1,2,3,4,5'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: curl
+        uses: wei/curl@v1
+        with:
+          args: https://www.google.com/ping?sitemap=https://interp.blog/sitemap.xml
