@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>behave on InterP Blog</title><link>https://interp.blog/tags/behave/</link><description>Recent content in behave on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Fri, 19 Aug 2022 09:00:36 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/behave/index.xml" rel="self" type="application/rss+xml"/><item><title>BDD in Python: Behave</title><link>https://interp.blog/bdd-in-python-behave/</link><pubDate>Fri, 19 Aug 2022 09:00:36 +0900</pubDate><guid>https://interp.blog/bdd-in-python-behave/</guid><description>&lt;p>&lt;a class="link" href="https://interp.blog/bdd-behavior-driven-development/" >지난 포스팅&lt;/a>으로 BDD 는 어떤 개발방법론이고, 어떤 면에서 이 방법이 필요한지를 정리해 봤다. &lt;/p>
 &lt;p>이번 포스팅을 시작으로, 직접 다양한 언어에서 BDD 를 적용하는 방법을 정리해 볼 예정이다. 첫 시간으로는 &lt;strong>파이썬&lt;/strong> (Python) 언어를 가지고 할 것이다. Python 라이브러리 중 하나인 &lt;a class="link" href="https://behave.readthedocs.io/en/stable/" target="_blank" rel="noopener"
 >behave&lt;/a> 를 통해, BDD 테스트 프레임워크를 구성하고, 예제 시나리오를 만들어서 테스트 자동화가 어떻게 이뤄질 수 있을지 알아보자.&lt;/p>
-&lt;h2 id="예제-프로젝트-생성">예제 프로젝트 생성&lt;/h2>
+&lt;h1 id="예제-프로젝트-생성">예제 프로젝트 생성&lt;/h1>
 &lt;div style="background-color: var(--body-background); width: 98%;padding: 10px;border-radius: 5px;font-size: .8em;display: flex;">
 &lt;div style="width: 16px;margin-right: 7px; margin-left: 4px;">
 💡
@@ -15,14 +15,14 @@
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>나는 virtualenv 를 이용해 환경을 분리해 두도록 하겠다.&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">virtualenv venv
 &lt;span class="nb">source&lt;/span> venv/bin/activate
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="behave-설치">behave 설치&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="behave-설치">behave 설치&lt;/h1>
 &lt;p>&lt;code>pip install behave&lt;/code> 만 하면 된다.&lt;/p>
-&lt;h2 id="featuressteps-디렉터리-생성">&lt;code>features/steps&lt;/code> 디렉터리 생성&lt;/h2>
+&lt;h1 id="featuressteps-디렉터리-생성">&lt;code>features/steps&lt;/code> 디렉터리 생성&lt;/h1>
 &lt;p>behave 는 &lt;code>features/steps&lt;/code> 를 필요로 한다. 만들어 주자.&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">mkdir -p features/steps
 &lt;/code>&lt;/pre>&lt;/div>&lt;hr>
 &lt;p>디렉터리만 만들고 곧장 &lt;code>behave&lt;/code> 를 실행하면, &lt;code>ConfigError: No feature files in $(pwd)/features&lt;/code> 라는 메시지가 뜰 것이다.&lt;/p>
-&lt;h2 id="feature-파일-만들기">&lt;code>.feature&lt;/code> 파일 만들기&lt;/h2>
+&lt;h1 id="feature-파일-만들기">&lt;code>.feature&lt;/code> 파일 만들기&lt;/h1>
 &lt;p>&lt;code>features/hotdog.feature&lt;/code> 라는 파일을 하나 만들어보자. 핫도그 12개에서 5개를 먹으면 반드시 7개가 남아야 한다는 내용이다. 단순 영어로 되어 있지만, 문법에 대해 더 자세히 알고 싶다면 &lt;a class="link" href="https://interp.tistory.com/entry/BDD-%EC%9D%98%EB%AF%B8%EC%99%80-%ED%95%84%EC%9A%94%EC%84%B1" target="_blank" rel="noopener"
 >이전 포스팅&lt;/a>을 꼭 참고하고 오자.&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-gherkin" data-lang="gherkin">&lt;span class="k">Feature:&lt;/span>&lt;span class="nf"> eat hotdogs
@@ -55,7 +55,7 @@ raise NotImplementedError&lt;span class="o">(&lt;/span>u&lt;span class="s1">&amp
 @then&lt;span class="o">(&lt;/span>u&lt;span class="s1">&amp;#39;there should be 7 remaining&amp;#39;&lt;/span>&lt;span class="o">)&lt;/span>
 def step_impl&lt;span class="o">(&lt;/span>context&lt;span class="o">)&lt;/span>:
 raise NotImplementedError&lt;span class="o">(&lt;/span>u&lt;span class="s1">&amp;#39;STEP: Then there should be 7 remaining&amp;#39;&lt;/span>&lt;span class="o">)&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="테스트-python-파일-만들기">테스트 Python 파일 만들기&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="테스트-python-파일-만들기">테스트 Python 파일 만들기&lt;/h1>
 &lt;p>방금 출력된 내용을 단순히 복사해서 &lt;code>features/steps/hotdog.py&lt;/code> 라는 파일을 만들었다. 참고로 파일 이름은 상관없지만 반드시 &lt;code>features/steps&lt;/code> 디렉터리에 위치해야 한다.&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">from&lt;/span> &lt;span class="nn">behave&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="o">*&lt;/span>
 &lt;span class="nd">@given&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">u&lt;/span>&lt;span class="s1">&amp;#39;there are 12 hotdogs&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
@@ -91,7 +91,7 @@ features/hotdog.feature:3 Eat &lt;span class="m">5&lt;/span> out of &lt;span cla
 &lt;span class="m">0&lt;/span> scenarios passed, &lt;span class="m">1&lt;/span> failed, &lt;span class="m">0&lt;/span> skipped
 &lt;span class="m">0&lt;/span> steps passed, &lt;span class="m">1&lt;/span> failed, &lt;span class="m">2&lt;/span> skipped, &lt;span class="m">0&lt;/span> undefined
 Took 0m0.000s
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="테스트-파일-구현하기">테스트 파일 구현하기&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="테스트-파일-구현하기">테스트 파일 구현하기&lt;/h1>
 &lt;p>이제 테스트 파일 안의 method 를 구현해 보자.&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">from&lt;/span> &lt;span class="nn">behave&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="o">*&lt;/span>
 &lt;span class="nd">@given&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">u&lt;/span>&lt;span class="s1">&amp;#39;there are &lt;/span>&lt;span class="si">{num_hotdog}&lt;/span>&lt;span class="s1"> hotdogs&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
@@ -121,7 +121,7 @@ Then there should be &lt;span class="m">7&lt;/span> remaining &lt;span class="c1
 &lt;span class="m">1&lt;/span> scenario passed, &lt;span class="m">0&lt;/span> failed, &lt;span class="m">0&lt;/span> skipped
 &lt;span class="m">3&lt;/span> steps passed, &lt;span class="m">0&lt;/span> failed, &lt;span class="m">0&lt;/span> skipped, &lt;span class="m">0&lt;/span> undefined
 Took 0m0.000s
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="숫자만-바꾼-시나리오를-추가하면">숫자만 바꾼 시나리오를 추가하면?&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="숫자만-바꾼-시나리오를-추가하면">숫자만 바꾼 시나리오를 추가하면?&lt;/h1>
 &lt;p>시나리오&lt;strong>만&lt;/strong> 추가하더라도 이미 재사용이 가능한 형태로 테스트 method 를 구현했기 때문에, 아래처럼 성공적으로 작동한다.&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ behave
 Feature: eat hotdogs &lt;span class="c1"># features/hotdog.feature:1&lt;/span>
@@ -137,7 +137,7 @@ Then there should be &lt;span class="m">10&lt;/span> remaining &lt;span class="c
 &lt;span class="m">2&lt;/span> scenarios passed, &lt;span class="m">0&lt;/span> failed, &lt;span class="m">0&lt;/span> skipped
 &lt;span class="m">6&lt;/span> steps passed, &lt;span class="m">0&lt;/span> failed, &lt;span class="m">0&lt;/span> skipped, &lt;span class="m">0&lt;/span> undefined
 Took 0m0.001s
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="마치며">마치며&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="마치며">마치며&lt;/h1>
 &lt;p>이제 이 테스트 케이스를 구현할 때 mock 라이브러리를 통해 mocking 을 하면, 기능 검증을 충분히 할 수 있을 것이다. 시나리오를 추가하는 것은 개발자 뿐만이 아닌 비 개발자나 QA 도 할 수 있어야 하고, 개발자는 그렇게 푸시된 새로운 시나리오를 보고 커버리지를 달성하기 위해 테스트에 좀 더 집중할 수 있을 것이다.&lt;/p>
 &lt;p>한 가지 맹점은, 기존 시나리오가 바뀌면 테스트 케이스 개발 과정에서 엄청난 고통이 뒤따를 수 있단 것이다. 따라서 (전에도 말했지만) 항상 시나리오는 합의 하에 신중히 추가되어야 한다.&lt;/p>
 &lt;p>다음 시간에는 golang 으로 똑같은 시나리오를 테스트 해 볼 예정이다.&lt;/p></description></item></channel></rss>
