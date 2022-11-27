@@ -1,4 +1,34 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Review on InterP Blog</title><link>https://interp.blog/categories/review/</link><description>Recent content in Review on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Tue, 22 Nov 2022 09:30:01 +0900</lastBuildDate><atom:link href="https://interp.blog/categories/review/index.xml" rel="self" type="application/rss+xml"/><item><title>김봉현의 글쓰기 랩</title><link>https://interp.blog/writing-lab/</link><pubDate>Tue, 22 Nov 2022 09:30:01 +0900</pubDate><guid>https://interp.blog/writing-lab/</guid><description>&lt;img src="https://interp.blog/writing-lab/feature.jpeg" alt="Featured image of post 김봉현의 글쓰기 랩" />&lt;figure>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Review on InterP Blog</title><link>https://interp.blog/categories/review/</link><description>Recent content in Review on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Sun, 27 Nov 2022 12:00:01 +0900</lastBuildDate><atom:link href="https://interp.blog/categories/review/index.xml" rel="self" type="application/rss+xml"/><item><title>스태프 엔지니어</title><link>https://interp.blog/staff-engineer/</link><pubDate>Sun, 27 Nov 2022 12:00:01 +0900</pubDate><guid>https://interp.blog/staff-engineer/</guid><description>&lt;img src="https://interp.blog/staff-engineer/feature.jpeg" alt="Featured image of post 스태프 엔지니어" />&lt;figure>
+&lt;img loading="lazy" src="feature.jpeg" width="45%"/>
+&lt;/figure>
+&lt;p>여기 두 명의 개발자가 있다.&lt;/p>
+&lt;ul>
+&lt;li>나는 매니저가 되는 게 싫다. 회사에서도 하라는 걸 극구 거부했다. 기술을 놓지 않고 싶다.&lt;/li>
+&lt;li>내가 신입 때, 개발자는 40이 되면 은퇴해야 한다고 들었다. 내가 40이 되었을 때엔, 사람들은 50이 되면 은퇴해야 한다고 말했다. 이제 나는 50에 가까워지고 있는데 은퇴해야 하나? 난 여전히 엔지니어다. 그리고 이 일을 계속 할 자신이 있다.&lt;/li>
+&lt;/ul>
+&lt;p>이 책을 처음 접했을 때, 적어도 두 분께는 알려드려야 될 것 같았다. 길벗 출판사에서 새로 펴낸 소프트웨어 엔지니어 교양서 &amp;lsquo;스태프 엔지니어&amp;rsquo; 말이다.&lt;/p>
+&lt;h1 id="스태프-엔지니어">스태프 엔지니어?&lt;/h1>
+&lt;p>앞선 두 분의 개발자에게 있어, 다음 커리어는 무엇일까? 물론 개발 역량만 충분하다면 계속 시니어 엔지니어를 하셔도 될거라고 생각한다. 그러나 특정 팀이나 프로젝트에만 소속되어 있어서, 권한이 제한되거나 조직 비전에 불만이 있어도 묵살당하기 일쑤였다. 그런 걸 봐 온 나로서는, 그 길이 정답이라고 콕 집을 순 없었다.&lt;/p>
+&lt;p>관리자와 비교했을 때, &lt;strong>스태프 엔지니어는 기술 직군으로 커리어를 이어나갈 수 있는 또 다른 트랙&lt;/strong>이라고 소개한다. 한국에서는 아직 생소할 수도 있는 단어지만, 사실 스태프 엔지니어의 대표 역할인 &lt;em>&amp;lsquo;테크 리드&lt;/em>&amp;rsquo; 나 &lt;em>&amp;lsquo;아키텍트&amp;rsquo;&lt;/em> 같은 직함을 들어보면 그렇게 낯설지는 않다.&lt;/p>
+&lt;p>관리자가 아닌 기술 커리어 트랙이 대체 왜 필요한 걸까? (역시 스태프 엔지니어이신) 이 책의 역자 장현희 님의 서문 중 일부가 답이 될 것 같았다.&lt;/p>
+&lt;blockquote>
+&lt;p>조직의 입장에서도 이런 식의 승진 절차는 한편으로는 손해이기도 합니다. 시니어 언제니어로 좋은 성과를 내던 사람이 팀장 승진 대상이 됩니다. &lt;strong>이 사람이 팀장이 되면 조직은 유능한 시니어 엔지니어 한 명을 잃고 초보 팀장 한 명을 얻게 되는 셈이기 때문이지요.&lt;/strong>&lt;/p>
+&lt;/blockquote>
+&lt;p>그렇다고 스태프 엔지니어가 시니어 엔지니어의 연장선이라는 것은 아니다. 이제는 팀 간, 부서 간을 넘나들며 플레이해야 하는 역할이기 때문이다. &amp;lsquo;테크 리드&amp;rsquo; 나 &amp;lsquo;아키텍트&amp;rsquo;, &amp;lsquo;해결사&amp;rsquo;, &amp;lsquo;오른팔&amp;rsquo; 처럼 책에서 구분해 둔 스태프 엔지니어 역할을 읽다 보면 정말 다양한 사람을 만나고, 또 다양한 일을 다뤄야 한다는 사실을 알 수 있다.&lt;/p>
+&lt;h1 id="따라한다고-되는-게-아니다">따라한다고 되는 게 아니다&lt;/h1>
+&lt;p>길벗 출판사의 다른 커리어 조언서인 &amp;lsquo;소프트 스킬/커리어 스킬&amp;rsquo; 이나 &amp;lsquo;이펙티브 엔지니어&amp;rsquo;, &amp;lsquo;심플 소프트웨어&amp;rsquo; 와 책 디자인은 비슷한데, 이 책은 앞선 책들과 다른 점이 있다. 책의 지침을 다 따라한다고 해도 스태프 엔지니어가 될 수 없다는 점이다.&lt;/p>
+&lt;p>앞선 책들은 (물론 주제가 다르긴 해도) 사실 비슷한 구석이 있었다. 전반적인 커리어 관리, 업무 태도, 효율적인 업무를 위한 조언들 말이다. &amp;ldquo;야, 너두 할 수 있어&amp;rdquo; 같은 느낌이랄까. 하지만 이 책을 읽는 동안엔 왠지 모를 압박을 받았다. &lt;strong>&amp;ldquo;이래도 할거야?&amp;quot;&lt;/strong> 같은. 지침서가 아니라, 다큐멘터리를 보는 느낌이었다.&lt;/p>
+&lt;p>하고 싶다고 해서 되는 것도 아니다. 스태프 엔지니어가 되려면 노력과 운이 동시에 필요하다는 것이다. 개인적인 노력도 중요하지만, 네트워킹을 통해 스폰서 내지는 지지 기반을 만들어야 한다. 그러기 위해선, 자신이 어떤 일을 원하는지 어떤 역할로써 스태프 엔지니어가 될 것인지 스폰서 (대개는 팀장이나 본부장) 에게 공유해야 하는 것이 첫 번째라고 조언한다.&lt;/p>
+&lt;p>하지만 스태프 엔지니어가 된다고 해서, 더욱 커진 권한을 통해 자신의 비전을 마구잡이로 주입해도 된다는 말은 아니다. 책에서 표현하는 &lt;em>&amp;ldquo;관리자를 놀라게 하는 일들&amp;rdquo;&lt;/em> 이 그런 것일텐데, 결국 회사 입장에서는 회사 비전에 가장 잘 맞추는 사람을 승진시키려고 할 것이기 때문이다. 따라서, 자신이 하고자 하는 일과 회사 비전을 최대한 맞추되, 그 속에서도 회사가 우선시되어야 한다고 강조한다.&lt;/p>
+&lt;p>회사와의 비전을 정 못 맞추겠다면 이직해서 스태프 엔지니어 자리에 앉는 것도 고려할 수 있다는 사실 역시 물론 짚어준다. 지지기반이 낮을 순 있지만, 다니는 회사의 규모가 크거나 스태프 엔지니어 자리가 쉽게 나지 않을 때는 고려해 볼 수 있다는 것이다.&lt;/p>
+&lt;h1 id="경험담만-들어도-이득">경험담만 들어도 이득&lt;/h1>
+&lt;p>이 책을 집어들고 &amp;lsquo;난 이제 스태프 엔지니어가 되고 말겠어!&amp;rsquo; 라고 외치진 말자. 이 책이 당장의 업무에 직접적인 영향을 줄 수 있다고 보긴 힘들다. 반대로 말하면, 지금 내 위치를 점검해 보고 스태프 엔지니어들의 경험담을 들어볼 수 있다.&lt;/p>
+&lt;p>이미 그 길을 걸어온 사람들의 경험담을 듣고, 그들이 조언하는 것을 듣는 것은 매우 소중한 기회이다. 스태프 엔지니어 같은 직함에 매달리지 말고, 그냥 잘 하는 선배 개발자들의 직업관, 마음가짐, 업무에 대한 경험담을 듣는 것만으로도 이 책은 절반의 역할을 다 했다고 생각한다. 실제로 책 후반부는 모조리 14명의 스태프 엔지니어들의 인터뷰로 준비되어 있다. 책에서 주석으로 알려주는 다양한 블로그나, 인터뷰 말미에 나오는 추천도서 역시 쏠쏠하다.&lt;/p>
+&lt;p>그런 면에서, 꼭 시니어 엔지니어가 아닌 신입 개발자라도 이 책은 큰 도움이 될 것이다. 물론 그런 경우라면 &amp;lsquo;커리어 스킬&amp;rsquo; 을 읽는 게 더욱 도움이 될 거라 보는데, 그 이유는 이 책의 전반부가 너무 지엽적인 조언들로 가득하기 때문이다. 인터뷰만 보는 걸 추천하는 이유이기도 하다.&lt;/p>
+&lt;hr>
+&lt;p>이 책에서 엮은 다양한 경험담과 조언들을 통해, 최소한 나의 다음 커리어에 대해 고민해 볼 수 있었다. 그리고 언제나처럼, 승진은 개인이 잘 해서 되는게 아니라는 사실, 네트워킹은 필수불가결한 요소라는 것도 같이 알아 갈 수 있었다.&lt;/p>
+&lt;p>(본인처럼) 다음 커리어에 대해 불안감을 가진 개발자/엔지니어에게도, 이 책이 도움이 되지 않을까 생각해 본다.&lt;/p>
+&lt;p>※ 출판사의 서평 이벤트를 통해 증정받은 책으로 작성하였습니다.&lt;/p></description></item><item><title>김봉현의 글쓰기 랩</title><link>https://interp.blog/writing-lab/</link><pubDate>Tue, 22 Nov 2022 09:30:01 +0900</pubDate><guid>https://interp.blog/writing-lab/</guid><description>&lt;img src="https://interp.blog/writing-lab/feature.jpeg" alt="Featured image of post 김봉현의 글쓰기 랩" />&lt;figure>
 &lt;img loading="lazy" src="feature.jpeg" width="45%"/>
 &lt;/figure>
 &lt;p>정지우 작가의 글쓰기 에세이인 &lt;a class="link" href="http://www.yes24.com/Product/Goods/105521868" target="_blank" rel="noopener"
