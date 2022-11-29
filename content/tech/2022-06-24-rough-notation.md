@@ -8,7 +8,8 @@ tags = ["highlight", "js"]
 title = "Rough Notation"
 url = "/rough-highlight-js/"
 aliases = [
-    "/entry/rough-highlight-js/"
+    "/entry/rough-highlight-js/",
+    "/m/entry/rough-highlight-js/"
 ]
 
 +++

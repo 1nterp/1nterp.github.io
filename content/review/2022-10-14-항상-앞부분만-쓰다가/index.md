@@ -4,6 +4,10 @@ description: 어떻게든 글을 쓸 수 있는 자세에 대한 이야기
 author: InterP
 date: 2022-10-14T10:01:07.000+09:00
 url: /writing-no-matter-what
+aliases: 
+- "/어떻게든-글쓰기"
+- "/entry/어떻게든-글쓰기"
+- "/m/entry/어떻게든-글쓰기"
 categories:
 - Review
 image: feature.jpeg

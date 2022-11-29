@@ -5,6 +5,7 @@ type: post
 date: 2022-08-11T09:00:36.000+09:00
 url: "/superliminal"
 aliases: 
+- "/m/entry/superliminal"
 - "/entry/superliminal"
 image: "feature.jpg"
 categories:

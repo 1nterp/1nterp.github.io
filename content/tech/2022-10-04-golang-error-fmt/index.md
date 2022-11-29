@@ -4,6 +4,9 @@ description: 어떤 경우에 어느 것을 써야 바람직할까?
 author: InterP
 date: 2022-10-04 09:01:55 +0900
 url: /golang-errorsnew-fmterrorf
+aliases: 
+- "/m/entry/golang-errorsnew-fmterrorf"
+- "/entry/golang-errorsnew-fmterrorf"
 categories: 
 - Tech
 tags:

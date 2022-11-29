@@ -6,6 +6,7 @@ date: 2022-08-19T09:00:36.000+09:00
 url: "/bdd-in-python-behave"
 aliases:
 - "/entry/BDD-in-Python-behave/"
+- "/m/entry/BDD-in-Python-behave/"
 categories:
 - Tech
 tags:

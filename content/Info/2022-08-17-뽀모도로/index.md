@@ -4,6 +4,9 @@ author: interp
 type: post
 date: 2022-08-17T17:31:36.000+00:00
 url: "/뽀모도로-Pomodoro"
+aliases: 
+- "/m/entry/뽀모도로-Pomodoro"
+- "/entry/뽀모도로-Pomodoro"
 image: "feature.jpg"
 categories:
 - Info

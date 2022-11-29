@@ -4,6 +4,9 @@ author: interp
 type: post
 date: 2022-08-12T11:00:36.000+00:00
 url: "/부자들의-초격차-독서법"
+aliases:
+- "/m/entry/부자들의-초격차-독서법"
+- "/entry/부자들의-초격차-독서법"
 image: "feature.jpg"
 image_show: false
 # image_y: "32%"

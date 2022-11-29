@@ -4,6 +4,9 @@ description: 함수인듯 함수아닌 함수같은 너
 author: InterP
 date: 2022-09-18 08:33:23 +0900
 url: /program-language-closure
+aliases: 
+- "/m/entry/closure"
+- "/entry/closure"
 categories:
   - Tech
 tags: 

@@ -4,6 +4,9 @@ description: 30대에 와서야 깨닫는 것들
 author: InterP
 date: 2022-10-13 09:05:22 +0900
 url: /25살에-알았더라면-좋았을-14가지
+aliases: 
+- "/m/entry/25살에-알았더라면-좋았을-14가지"
+- "/entry/25살에-알았더라면-좋았을-14가지"
 categories: 
 - Essay
 image: feature.jpg

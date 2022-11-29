@@ -3,6 +3,7 @@ title: CKA 시험 후기
 date: 2022-01-18 22:38:42
 url: "/cka-exam-review/"
 aliases: 
+- /m/entry/cka-exam-review/
 - /entry/cka-exam-review/
 tags:
 - CKA

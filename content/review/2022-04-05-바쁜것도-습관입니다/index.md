@@ -3,6 +3,9 @@ title: 바쁜 것도 습관입니다
 author: interp
 date: 2022-02-13T22:26:07.000+09:00
 url: "/being-busy-habit/"
+aliases: 
+- "/m/entry/바쁜-것도-습관입니다"
+- "/entry/바쁜-것도-습관입니다"
 categories:
 - Review
 image: book.jpg

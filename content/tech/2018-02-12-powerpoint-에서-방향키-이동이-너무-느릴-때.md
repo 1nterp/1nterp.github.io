@@ -5,6 +5,7 @@ date: 2018-08-12T06:53:39.000+00:00
 url: "/powerpoint-shape-move-faster/"
 aliases: 
 - "/entry/powerpoint-shape-move-faster/"
+- "/m/entry/powerpoint-shape-move-faster/"
 categories:
 - Tech
 tags:
