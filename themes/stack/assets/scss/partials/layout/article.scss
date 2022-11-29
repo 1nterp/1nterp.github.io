@@ -212,6 +212,7 @@
     font-size: var(--article-font-size);
     padding: 0 var(--card-padding);
     line-height: var(--article-line-height);
+    letter-spacing: -1px;
 
     & > p {
         margin: 1.5em 0;
