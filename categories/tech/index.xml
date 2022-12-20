@@ -1,4 +1,30 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tech on InterP Blog</title><link>https://interp.blog/categories/tech/</link><description>Recent content in Tech on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Wed, 12 Oct 2022 08:57:42 +0900</lastBuildDate><atom:link href="https://interp.blog/categories/tech/index.xml" rel="self" type="application/rss+xml"/><item><title>screen, tmux, 그리고 byobu</title><link>https://interp.blog/terminal-multiplexer-screen-tmux-byobu/</link><pubDate>Wed, 12 Oct 2022 08:57:42 +0900</pubDate><guid>https://interp.blog/terminal-multiplexer-screen-tmux-byobu/</guid><description>&lt;img src="https://interp.blog/terminal-multiplexer-screen-tmux-byobu/feature.jpg" alt="Featured image of post screen, tmux, 그리고 byobu" />&lt;p>개발자들은 전통적으로 워크스테이션이나 서버에 단말기를 접속해서 개발을 진행해 왔다. 이 때 사용되는 기기를 단말, 터미널 (terminal) 이라고 했다. 과거에는 컴퓨팅 파워를 구성하는 단가가 비쌌기 때문에, 저사양의 단말 컴퓨터를 가지고 상대적으로 고사양의 서버에 접속해 일을 하는 것이다.&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tech on InterP Blog</title><link>https://interp.blog/categories/tech/</link><description>Recent content in Tech on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Tue, 20 Dec 2022 10:57:42 +0900</lastBuildDate><atom:link href="https://interp.blog/categories/tech/index.xml" rel="self" type="application/rss+xml"/><item><title>Mac 에서 Eclipse Home/End 키 바인딩 하기</title><link>https://interp.blog/mac-eclipse-key-binding-home-end/</link><pubDate>Tue, 20 Dec 2022 10:57:42 +0900</pubDate><guid>https://interp.blog/mac-eclipse-key-binding-home-end/</guid><description>&lt;p>아이폰, 아이패드, 애플워치까지 갖고 있지만 macbook 을 본격적으로 써 본지 만 1년도 안 된다. 그래서 윈도우에서 즐겨 쓰던 Home/End 가 Mac 에서는 Cmd 키와 화살표로만 이뤄지는 걸 극복하는데 너무 힘들었다. 물론 적응하면 되겠지만, 습관이란 게 무서운 거라고.&lt;/p>
+&lt;p>결국 어떻게 하면 고칠까 알아보면서 하나씩 적용하고 있다. 일단 KeyBindings 에서 Home/End 키로 줄 시작과 줄 끝으로 이동하도록 해 두는 걸 적용했다. (&lt;a class="link" href="https://apple.stackexchange.com/questions/16135/remap-home-and-end-to-beginning-and-end-of-line" target="_blank" rel="noopener"
+>링크&lt;/a>)&lt;/p>
+&lt;p>그런데 어째선지, Eclipse 기반의 에디터에서는 이것과 무관하게 Home/End 가 &amp;lsquo;페이지 시작/끝&amp;rsquo; 으로 작동하는게 아닌가! Page Up/Down 키가 옆에 버젓이 있는데도 말이다! 최근에 PostgreSQL (정확히는 &lt;a class="link" href="https://docs.timescale.com/" target="_blank" rel="noopener"
+>TimescaleDB&lt;/a>) 를 조사할 기회가 생겨서 &lt;a class="link" href="https://dbeaver.io/" target="_blank" rel="noopener"
+>DBeaver&lt;/a> 를 설치했는데, 이 친구도 Eclipse 기반의 에디터라서 KeyBindings 설정 내용과 딴판으로 놀았었다.&lt;/p>
+&lt;p>그렇다, 이 글을 쓰는 이유 되시겠다.&lt;/p>
+&lt;h2 id="키-설정을-바꿔야-한다">키 설정을 바꿔야 한다&lt;/h2>
+&lt;ol>
+&lt;li>Eclipse 의 Preference (설정) 을 열어보자. 어딘지 모르겠다면 &lt;code>Cmd + ,&lt;/code> 를 누르면 된다.&lt;/li>
+&lt;li>여기서 &lt;code>Key&lt;/code> 라고 검색해 보면 &lt;strong>User Interface -&amp;gt; Key (키)&lt;/strong> 부분에 하이라이트가 되어 있다.&lt;/li>
+&lt;li>카테고리를 눌러 Text Editor (텍스트 편집기) 로 이동한다.&lt;/li>
+&lt;/ol>
+&lt;p>여기서 다음 항목을 입맛대로 바꾸면 된다.&lt;/p>
+&lt;ul>
+&lt;li>Line Start (행 시작) : Home &lt;code>↖&lt;/code>&lt;/li>
+&lt;li>Select Line Start (행 시작 선택) : Shift+Home &lt;code>⇧↖&lt;/code>&lt;/li>
+&lt;li>Line End (행 끝) : End &lt;code>↘&lt;/code>&lt;/li>
+&lt;li>Select Line End (행 끝 선택) : Shift+End &lt;code>⇧↘&lt;/code>&lt;/li>
+&lt;li>Page Up (텍스트 시작) : Page Up &lt;code>⇞&lt;/code>&lt;/li>
+&lt;li>Page Down (텍스트 끝) : Page Down &lt;code>⇟&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;figure>
+&lt;img loading="lazy" src="setting.png"/>
+&lt;/figure>
+&lt;h2 id="그래도-안-되면">그래도 안 되면?&lt;/h2>
+&lt;p>내 경우엔 이렇게 두고 &lt;code>Apply and Close&lt;/code> 를 눌러도 적용이 안 되더라. 심플하게 Eclipse (여기선 DBeaver) 를 껐다 다시 실행시키면 되었다.&lt;/p></description></item><item><title>screen, tmux, 그리고 byobu</title><link>https://interp.blog/terminal-multiplexer-screen-tmux-byobu/</link><pubDate>Wed, 12 Oct 2022 08:57:42 +0900</pubDate><guid>https://interp.blog/terminal-multiplexer-screen-tmux-byobu/</guid><description>&lt;img src="https://interp.blog/terminal-multiplexer-screen-tmux-byobu/feature.jpg" alt="Featured image of post screen, tmux, 그리고 byobu" />&lt;p>개발자들은 전통적으로 워크스테이션이나 서버에 단말기를 접속해서 개발을 진행해 왔다. 이 때 사용되는 기기를 단말, 터미널 (terminal) 이라고 했다. 과거에는 컴퓨팅 파워를 구성하는 단가가 비쌌기 때문에, 저사양의 단말 컴퓨터를 가지고 상대적으로 고사양의 서버에 접속해 일을 하는 것이다.&lt;/p>
 &lt;p>물론 지금은 PC 나 노트북 역시 충분히 고사양이긴 하다. 그래도 여전히 훨씬 더 효율적이고 강력한 서버 컴퓨터가 조직마다 존재하고, 클라우드 컴퓨팅으로 인해 자원을 필요할 때 마다 (on-demand) 빌려 쓸 수 있는 시대이다. 그렇기에 터미널은 여전히 유효하고, SSH 프로토콜로 통신하는 터미널 프로그램으로 남아있게 된다.&lt;/p>
 &lt;p>어디서든, 어떤 단말로도 서버에 (또는 클라우드 VM 에) 접속할 수 있다는 것은 장점이지만, 네트워크 연결이 끊기거나 다른 단말로 다시 접속하게 되면 새로운 SSH 세션이 시작되고, 텅 빈 화면에서 다시 시작하게 되는 문제가 동시에 존재한다.&lt;/p>
 &lt;p>또 한 가지 문제는, 한 화면에 하나의 세션만 열 수 있다는 것이다. 아니, 지금은 다양한 터미널 프로그램에서 &amp;lsquo;다중 윈도우, 다중 탭&amp;rsquo; 을 지원하는데, 그래서 여러 세션으로 넘나드는 게 가능한데 이게 무슨 문제일까? 그런 GUI 도 없는 유닉스/리눅스 시절엔 문제였다&amp;hellip;&lt;/p>

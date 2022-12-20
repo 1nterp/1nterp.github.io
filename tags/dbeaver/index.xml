@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>dbeaver on InterP Blog</title><link>https://interp.blog/tags/dbeaver/</link><description>Recent content in dbeaver on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Tue, 20 Dec 2022 10:57:42 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/dbeaver/index.xml" rel="self" type="application/rss+xml"/><item><title>Mac 에서 Eclipse Home/End 키 바인딩 하기</title><link>https://interp.blog/mac-eclipse-key-binding-home-end/</link><pubDate>Tue, 20 Dec 2022 10:57:42 +0900</pubDate><guid>https://interp.blog/mac-eclipse-key-binding-home-end/</guid><description>&lt;p>아이폰, 아이패드, 애플워치까지 갖고 있지만 macbook 을 본격적으로 써 본지 만 1년도 안 된다. 그래서 윈도우에서 즐겨 쓰던 Home/End 가 Mac 에서는 Cmd 키와 화살표로만 이뤄지는 걸 극복하는데 너무 힘들었다. 물론 적응하면 되겠지만, 습관이란 게 무서운 거라고.&lt;/p>
+&lt;p>결국 어떻게 하면 고칠까 알아보면서 하나씩 적용하고 있다. 일단 KeyBindings 에서 Home/End 키로 줄 시작과 줄 끝으로 이동하도록 해 두는 걸 적용했다. (&lt;a class="link" href="https://apple.stackexchange.com/questions/16135/remap-home-and-end-to-beginning-and-end-of-line" target="_blank" rel="noopener"
+>링크&lt;/a>)&lt;/p>
+&lt;p>그런데 어째선지, Eclipse 기반의 에디터에서는 이것과 무관하게 Home/End 가 &amp;lsquo;페이지 시작/끝&amp;rsquo; 으로 작동하는게 아닌가! Page Up/Down 키가 옆에 버젓이 있는데도 말이다! 최근에 PostgreSQL (정확히는 &lt;a class="link" href="https://docs.timescale.com/" target="_blank" rel="noopener"
+>TimescaleDB&lt;/a>) 를 조사할 기회가 생겨서 &lt;a class="link" href="https://dbeaver.io/" target="_blank" rel="noopener"
+>DBeaver&lt;/a> 를 설치했는데, 이 친구도 Eclipse 기반의 에디터라서 KeyBindings 설정 내용과 딴판으로 놀았었다.&lt;/p>
+&lt;p>그렇다, 이 글을 쓰는 이유 되시겠다.&lt;/p>
+&lt;h2 id="키-설정을-바꿔야-한다">키 설정을 바꿔야 한다&lt;/h2>
+&lt;ol>
+&lt;li>Eclipse 의 Preference (설정) 을 열어보자. 어딘지 모르겠다면 &lt;code>Cmd + ,&lt;/code> 를 누르면 된다.&lt;/li>
+&lt;li>여기서 &lt;code>Key&lt;/code> 라고 검색해 보면 &lt;strong>User Interface -&amp;gt; Key (키)&lt;/strong> 부분에 하이라이트가 되어 있다.&lt;/li>
+&lt;li>카테고리를 눌러 Text Editor (텍스트 편집기) 로 이동한다.&lt;/li>
+&lt;/ol>
+&lt;p>여기서 다음 항목을 입맛대로 바꾸면 된다.&lt;/p>
+&lt;ul>
+&lt;li>Line Start (행 시작) : Home &lt;code>↖&lt;/code>&lt;/li>
+&lt;li>Select Line Start (행 시작 선택) : Shift+Home &lt;code>⇧↖&lt;/code>&lt;/li>
+&lt;li>Line End (행 끝) : End &lt;code>↘&lt;/code>&lt;/li>
+&lt;li>Select Line End (행 끝 선택) : Shift+End &lt;code>⇧↘&lt;/code>&lt;/li>
+&lt;li>Page Up (텍스트 시작) : Page Up &lt;code>⇞&lt;/code>&lt;/li>
+&lt;li>Page Down (텍스트 끝) : Page Down &lt;code>⇟&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;figure>
+&lt;img loading="lazy" src="setting.png"/>
+&lt;/figure>
+&lt;h2 id="그래도-안-되면">그래도 안 되면?&lt;/h2>
+&lt;p>내 경우엔 이렇게 두고 &lt;code>Apply and Close&lt;/code> 를 눌러도 적용이 안 되더라. 심플하게 Eclipse (여기선 DBeaver) 를 껐다 다시 실행시키면 되었다.&lt;/p></description></item></channel></rss>
