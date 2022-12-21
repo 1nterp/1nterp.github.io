@@ -1,4 +1,27 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tech 🛠️ on InterP Blog</title><link>https://interp.blog/tech/</link><description>Recent content in Tech 🛠️ on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Tue, 20 Dec 2022 10:57:42 +0900</lastBuildDate><atom:link href="https://interp.blog/tech/index.xml" rel="self" type="application/rss+xml"/><item><title>Mac 에서 Eclipse Home/End 키 바인딩 하기</title><link>https://interp.blog/mac-eclipse-key-binding-home-end/</link><pubDate>Tue, 20 Dec 2022 10:57:42 +0900</pubDate><guid>https://interp.blog/mac-eclipse-key-binding-home-end/</guid><description>&lt;p>아이폰, 아이패드, 애플워치까지 갖고 있지만 macbook 을 본격적으로 써 본지 만 1년도 안 된다. 그래서 윈도우에서 즐겨 쓰던 Home/End 가 Mac 에서는 Cmd 키와 화살표로만 이뤄지는 걸 극복하는데 너무 힘들었다. 물론 적응하면 되겠지만, 습관이란 게 무서운 거라고.&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tech 🛠️ on InterP Blog</title><link>https://interp.blog/tech/</link><description>Recent content in Tech 🛠️ on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Wed, 21 Dec 2022 14:33:07 +0900</lastBuildDate><atom:link href="https://interp.blog/tech/index.xml" rel="self" type="application/rss+xml"/><item><title>VSCode 문자열 자동완성 설정</title><link>https://interp.blog/vscode-string-suggestion-config/</link><pubDate>Wed, 21 Dec 2022 14:33:07 +0900</pubDate><guid>https://interp.blog/vscode-string-suggestion-config/</guid><description>&lt;p>프로그래밍 언어 키워드나 객체 이름만 추천받을 때 유용하게 쓸 수 있는 IntelliSense. VSCode 에도 물론 내장되어 있어 유용하게 쓸 순 있지만 다음 경우에는 잘 되지 않았다.&lt;/p>
+&lt;ul>
+&lt;li>반복되는 문자열을 복사/붙여넣기 하지 않고 물 흐르듯 쓰고 싶을 때&lt;br>
+(복사할 대상이 여러개이고, 번갈아 반복되는 경우라면 더더욱.. A/B/A/B 이런 식으로)&lt;/li>
+&lt;li>다른 형식의 확장자로 된 파일 내용에서 반복되는 문자열을 추천받고 싶을 때&lt;/li>
+&lt;/ul>
+&lt;p>나의 경우는, 한 쪽에는 &lt;code>.env&lt;/code> 파일을 열어두고 다른 쪽에는 &lt;code>docker-compose.yaml&lt;/code> 을 열어둔 경우가 여기에 해당한다. 설정 가능한 변수는 &lt;code>.env&lt;/code> 에 변수로 등록하고, &lt;code>docker-compose.yaml&lt;/code> 파일 작업할 때 참조해서 쓰고 싶은데 자동완성이 안 돼서 힘들었다. 결국 검색해서 찾아내긴 했는데, 이게 기본 설정인지 아닌지는 잘 모르겠다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">{
+&amp;#34;editor.quickSuggestions&amp;#34;: {
+&amp;#34;strings&amp;#34;: &amp;#34;on&amp;#34;
+},
+&amp;#34;editor.wordBasedSuggestions&amp;#34;: true,
+&amp;#34;editor.wordBasedSuggestionsMode&amp;#34;: &amp;#34;allDocuments&amp;#34;
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>이렇게 두면, 필요한 파일을 열어두기만 하면 모든 문자열을 추천받을 수 있다.&lt;/p>
+&lt;div class="video-wrapper">
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/2-98NrJ9rG4"
+allowfullscreen
+title="YouTube Video"
+>
+&lt;/iframe>
+&lt;/div>
+&lt;p>조금 이상한 부분은, 참조해야 할 파일을 한 번 수정하거나 저장해야 적용이 되는 것 처럼 보이기는 했는데&amp;hellip; 조금 더 써보고 업데이트 해야겠다.&lt;/p></description></item><item><title>Mac 에서 Eclipse Home/End 키 바인딩 하기</title><link>https://interp.blog/mac-eclipse-key-binding-home-end/</link><pubDate>Tue, 20 Dec 2022 10:57:42 +0900</pubDate><guid>https://interp.blog/mac-eclipse-key-binding-home-end/</guid><description>&lt;p>아이폰, 아이패드, 애플워치까지 갖고 있지만 macbook 을 본격적으로 써 본지 만 1년도 안 된다. 그래서 윈도우에서 즐겨 쓰던 Home/End 가 Mac 에서는 Cmd 키와 화살표로만 이뤄지는 걸 극복하는데 너무 힘들었다. 물론 적응하면 되겠지만, 습관이란 게 무서운 거라고.&lt;/p>
 &lt;p>결국 어떻게 하면 고칠까 알아보면서 하나씩 적용하고 있다. 일단 KeyBindings 에서 Home/End 키로 줄 시작과 줄 끝으로 이동하도록 해 두는 걸 적용했다. (&lt;a class="link" href="https://apple.stackexchange.com/questions/16135/remap-home-and-end-to-beginning-and-end-of-line" target="_blank" rel="noopener"
 >링크&lt;/a>)&lt;/p>
 &lt;p>그런데 어째선지, Eclipse 기반의 에디터에서는 이것과 무관하게 Home/End 가 &amp;lsquo;페이지 시작/끝&amp;rsquo; 으로 작동하는게 아닌가! Page Up/Down 키가 옆에 버젓이 있는데도 말이다! 최근에 PostgreSQL (정확히는 &lt;a class="link" href="https://docs.timescale.com/" target="_blank" rel="noopener"
