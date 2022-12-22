@@ -3,7 +3,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Test-And-Set (TAS) TAS 를 이용해서 간단한 동시성 제어를 할 수 있다. testAndSet 이라는 function 을 가지고 아래의 do...while 문을 쓰레드 A, B 에서 동시에 호출한다고 해 보자. 이 때 lock 은 같은 변수이다. function TestAndSet(boolean_ref lock)"><title>Atomic Operation 으로 하는 동시성 제어</title>
 <style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600&display=swap'</style>
 <link rel=canonical href=https://interp.blog/atomic-operation-%EC%9C%BC%EB%A1%9C-%ED%95%98%EB%8A%94-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%A0%9C%EC%96%B4/>
-<link rel=stylesheet href=/scss/style.min.7b70cd42f2058b55c559ccd6a2cbd8d973b2adeeff14a554fac03c87e7fe4d1b.css><meta property="og:title" content="Atomic Operation 으로 하는 동시성 제어">
+<link rel=stylesheet href=/scss/style.min.63280749c45d969e8eec5c4ebded94eef58db5fd90806eb179b68cf2bdb447e0.css><meta property="og:title" content="Atomic Operation 으로 하는 동시성 제어">
 <meta property="og:description" content="Test-And-Set (TAS) TAS 를 이용해서 간단한 동시성 제어를 할 수 있다. testAndSet 이라는 function 을 가지고 아래의 do...while 문을 쓰레드 A, B 에서 동시에 호출한다고 해 보자. 이 때 lock 은 같은 변수이다. function TestAndSet(boolean_ref lock)">
 <meta property="og:url" content="https://interp.blog/atomic-operation-%EC%9C%BC%EB%A1%9C-%ED%95%98%EB%8A%94-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%A0%9C%EC%96%B4/">
 <meta property="og:site_name" content="InterP Blog">
@@ -176,6 +176,13 @@ Tech
 <div class=related-content>
 <div class="flex article-list--tile">
 <article>
+<a href=/k8s-headless-service-why/>
+<div class=article-details>
+<h2 class=article-title>K8s Headless Service, 왜 필요한가</h2>
+</div>
+</a>
+</article>
+<article>
 <a href=/vscode-string-suggestion-config/>
 <div class=article-details>
 <h2 class=article-title>VSCode 문자열 자동완성 설정</h2>
@@ -203,13 +210,6 @@ Tech
 <a href=/golang-errorsnew-fmterrorf/>
 <div class=article-details>
 <h2 class=article-title>Golang: errors.new() vs. fmt.Errorf()</h2>
-</div>
-</a>
-</article>
-<article>
-<a href=/program-language-closure/>
-<div class=article-details>
-<h2 class=article-title>클로저 (Closure)</h2>
 </div>
 </a>
 </article>
