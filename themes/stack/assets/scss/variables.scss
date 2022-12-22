@@ -21,7 +21,7 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
 
     --tag-border-radius: 4px;
 
-    --section-separation: 40px;
+    --section-separation: 20px;
 
     --scrollbar-thumb: hsl(0, 0%, 85%);
     --scrollbar-track: var(--body-background);
@@ -95,13 +95,13 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
 */
 :root {
     --article-font-family: "IBM Plex Sans KR", "Lato", var(--sys-font-family), var(--zh-font-family), sans-serif;
-    --article-font-size: 1.7rem;
+    --article-font-size: 1.6rem;
     --article-line-height: 1.8;
     // letter-spacing: -1px;
 
     @include respond(md) {
-        --article-font-size: 1.9rem;
-        --article-line-height: 1.95;
+        --article-font-size: 1.7rem;
+        --article-line-height: 2;
     }
 }
 

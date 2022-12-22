@@ -57,10 +57,10 @@
     font-weight: 600;
     margin: 0;
     color: var(--card-text-color-main);
-    font-size: 2.4rem;
+    font-size: 2.15rem;
 
     @include respond(xl) {
-        font-size: 2.8rem;
+        font-size: 2.4rem;
     }
 
     a {
@@ -79,7 +79,7 @@
     margin: 0;
     font-size: 1.45rem;
     @include respond(xl) {
-        font-size: 1.6rem;
+        font-size: 1.5rem;
     }
 }
 
