@@ -13,7 +13,7 @@ image: "book.jpg"
 image_show: false
 ---
 
-{{< figure src="book.jpg" align="center" width="40%">}}
+{{< figure src="book.jpg" align="center" width="60%">}}
 
 책 제목이 나에겐 조금 자극적이었는데, 마치 이렇게 지내는 내가 나의 부모님 때문이라는 일종의 책임전가 같은 느낌이 들어서였다. 물론 실제 내용은 그렇진 않고 무던하면서도 세세하게 양육법에 대한 상담 내용이나 저자의 생각을 공유한다. 
 

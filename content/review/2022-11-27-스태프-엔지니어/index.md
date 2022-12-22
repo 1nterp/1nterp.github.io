@@ -15,7 +15,7 @@ tags:
 - 에세이
 ---
 
-{{< figure src="feature.jpeg" width="45%" >}}
+{{< figure src="feature.jpeg" width="55%" >}}
 
 여기 두 명의 개발자가 있다.
 
