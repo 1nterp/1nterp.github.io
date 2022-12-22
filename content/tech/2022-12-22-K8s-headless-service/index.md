@@ -77,7 +77,7 @@ Praqma Network MultiTool (with NGINX) - test-deploy-7bff8c5f84-hxcfw - 200.96.1.
 ## Headless Service 생성
 이제 Headless Service 를 만들어보자. 이번에는 바로 만들지 말고 manifest 를 YAML 파일로 저장해 둔 다음에 수정이 좀 필요하다.
 ```bash
-k create service clusterip test-cs-svc --clusterip="None" --tcp=80:80 --dry-run=client -oyaml \
+kubectl create service clusterip test-cs-svc --clusterip="None" --tcp=80:80 --dry-run=client -oyaml \
   > test-cs-svc.yaml
 ```
 Headless 로 만드는 핵심 옵션이 바로 `--clusterip="None"` 라는 걸 알 수 있다. 여기서 출력되는 파일을 열어서, `spec.selector` 를 deployment 의 것으로 바꿔줘야 한다.
@@ -125,7 +125,7 @@ search default.svc.cluster.local svc.cluster.local cluster.local eu-central-1.co
 
 바로 Lookup 을 하러 가보자. 똑같이 `kubectl exec` 를 할 텐데, 이번에는 `nslookup` 을 해보도록 한다. domain name 은 그냥 Service Name 을 입력한다.
 ```bash
-$ kubectl exec test-deploy-7bff8c5f84-rjdm9 -it -- nslookup test-cs-svc
+kubectl exec test-deploy-7bff8c5f84-rjdm9 -it -- nslookup test-cs-svc
 ```
 ```
 Server:		200.64.0.10
@@ -141,28 +141,38 @@ Address: 200.96.2.24
 여러 개의 A 레코드로 이뤄진 Pod IP 목록을 얻을 수 있다. 그리고 `test-cs-svc` 처럼 Service Name 만 입력했을 뿐인데 `test-cs-svc.default.svc.cluster.local` 로 바뀐 것도 볼 수 있다.
 
 ## Head 를 달아주면요?
-이번에는 `test-cs-svc` Service 를 지우고 다시 만들 텐데, `spec.clusterIP: None` 부분을 삭제하고 만들어 보자. (참고로 `kubectl edit` 에서 열심히 ClusterIP 부분을 지워도 적용이 안 되니, 지웠다 만들어 주자.)
+이번에는 `test-cs-svc-head` 라는 이름의 Service 를 하나 더 만들자. 단순히, `spec.clusterIP: None` 부분만 없는 `test-cs-svc` 나 다름없다. 아까 만들어 둔 파일에서 `metadata.name` 부분과 `spec.clusterIP` 부분만 바꿔서 `kubectl apply -f` 로 적용해 보자.
+
+여기에 대고 똑같이 `nslookup` 을 해보자.
 ```bash
-kubectl delete svc test-cs-svc
-# edit the test-cs-svc.yaml
-kubectl apply -f test-cs-svc.yaml
+kubectl exec test-deploy-7bff8c5f84-rjdm9 -it -- nslookup test-cs-svc-head
 ```
-똑같이 `nslookup` 을 해보자.
 ```
 Server:		200.64.0.10
 Address:	200.64.0.10#53
 
-Name:	test-cs-svc.default.svc.cluster.local
+Name:	test-cs-svc-head.default.svc.cluster.local
 Address: 200.68.238.114
 ```
 이 IP 는 어디서 왔을까? 바로 Service 의 Cluster IP 되시겠다.
 ```bash
-kubectl get svc test-cs-svc
+kubectl get svc test-cs-svc-head
 ```
 ```
-NAME          TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)   AGE
-test-cs-svc   ClusterIP   200.68.238.114   <none>        80/TCP    2m32s
+NAME               TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)   AGE
+test-cs-svc-head   ClusterIP   200.68.238.114   <none>        80/TCP    2m32s
 ```
+
+## 주의할 점
+`test-cs-svc` 나 `test-cs-svc-head` 는 DNS Lookup 에서는 차이를 보이지만, `curl` 결과는 차이가 없다. 더 자세히 말하면, **두 요청 모두 3개의 Pod 중 1개에만 랜덤하게 전달된다는 것이다.**
+
+다음 명령들을 반복적으로 실행해 보자. 목적지 Pod 주소가 매번 다를 것이다.
+```bash
+kubectl exec test-deploy-7bff8c5f84-rjdm9 -it -- curl test-cs-svc:80 | head -2
+kubectl exec test-deploy-7bff8c5f84-rjdm9 -it -- curl test-cs-svc-head:80 | head -2
+```
+왜 이렇게 되는 것일까? Headless Service 의 경우, DNS Lookup 하는 A 레코드 순서가 랜덤으로 전달되고 `curl` 은 그저 맨 위의 것을 쓰기 때문이다. `nslookup` 을 반복적으로 해 보면 보다 더 확실해 질 것이다.
+
 
 # 이해를 돕기 위한 기초자료
 혹시 아직도 이해가 잘 안된다면, 기초자료로 다음을 참고해보자. ~~혹은 [CKA 시험 준비]({{< ref "/tech/2022-01-18-CKA-exam-review.md">}})를 하는 것도 좋은 방법이다!~~
