@@ -1,4 +1,40 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tech on InterP Blog</title><link>https://interp.blog/categories/tech/</link><description>Recent content in Tech on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Thu, 22 Dec 2022 11:13:12 +0900</lastBuildDate><atom:link href="https://interp.blog/categories/tech/index.xml" rel="self" type="application/rss+xml"/><item><title>K8s Headless Service, 왜 필요한가</title><link>https://interp.blog/k8s-headless-service-why/</link><pubDate>Thu, 22 Dec 2022 11:13:12 +0900</pubDate><guid>https://interp.blog/k8s-headless-service-why/</guid><description>&lt;p>K8s Resource 를 보거나 Helm Chart 를 보거나 헷갈리는 개념 중 하나가 바로 &lt;strong>&amp;lsquo;Headless Service&amp;rsquo;&lt;/strong> 이다.&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tech on InterP Blog</title><link>https://interp.blog/categories/tech/</link><description>Recent content in Tech on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Fri, 23 Dec 2022 13:57:59 +0900</lastBuildDate><atom:link href="https://interp.blog/categories/tech/index.xml" rel="self" type="application/rss+xml"/><item><title>SSH 비대칭 키로 접속할 때 문제 해결</title><link>https://interp.blog/ssh-authorized-keys-problem/</link><pubDate>Fri, 23 Dec 2022 13:57:59 +0900</pubDate><guid>https://interp.blog/ssh-authorized-keys-problem/</guid><description>&lt;img src="https://interp.blog/ssh-authorized-keys-problem/feature.jpg" alt="Featured image of post SSH 비대칭 키로 접속할 때 문제 해결" />&lt;p>클라이언트에서 서버로 SSH 접속을 패스워드 없이 하기 위해&lt;/p>
+&lt;ul>
+&lt;li>클라이언트 컴퓨터에서, RSA 알고리즘으로 비대칭 키를 생성했다.&lt;/li>
+&lt;li>비대칭 키의 Public Key 를 서버의 &lt;code>~/.ssh/authorized_keys&lt;/code> 파일에 붙여넣었다.&lt;/li>
+&lt;/ul>
+&lt;p>그런데도 패스워드를 입력하라고 하면?? 다음을 체크해 보자.&lt;/p>
+&lt;h1 id="ssh-의-소유자권한-점검">&lt;code>.ssh/&lt;/code> 의 소유자/권한 점검&lt;/h1>
+&lt;p>아래 사항이 모두 맞는지 점검한다.&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>~/.ssh&lt;/code> 권한이 700 이어야 한다.
+&lt;ul>
+&lt;li>&lt;code>ls -al ~ | grep .ssh&lt;/code> 결과가 &lt;code>d r w x - - - - - -&lt;/code> 로 시작되어야 한다.&lt;/li>
+&lt;li>수정하는 방법은 &lt;code>chmod 700 ~/.ssh&lt;/code> 이다. (&lt;code>-R&lt;/code> 옵션을 붙이지 말자!)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;code>~/.ssh&lt;/code> 소유자가 달라서는 안 된다.&lt;/li>
+&lt;li>&lt;code>~/.ssh/authorized_keys&lt;/code> 권한이 600 이어야 한다.
+&lt;ul>
+&lt;li>&lt;code>ls -al ~/.ssh/authorized_keys&lt;/code> 결과가 &lt;code>- r w - - - - - - -&lt;/code> 로 시작되어야 한다.&lt;/li>
+&lt;li>수정하는 방법은 &lt;code>chmod 600 ~/.ssh/authorized_keys&lt;/code> 이다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;code>~/.ssh/authorized_keys&lt;/code> 소유자가 달라서는 안 된다.&lt;/li>
+&lt;/ul>
+&lt;p>한 가지 더 중요한 것은, &lt;strong>만약 &lt;code>$HOME&lt;/code> 경로가 &amp;lsquo;심볼릭 링크&amp;rsquo; 를 포함하는 경우&lt;/strong>라면, 반드시 실제 경로에서 적용해야 한다는 점이다.&lt;/p>
+&lt;h1 id="rsa-는-이제-그만">RSA 는 이제 그만..&lt;/h1>
+&lt;p>서버가 OpenSSH 를 쓰는 경우라면, RSA 를 곧 지원하지 않는다는 release note 가 있다. 따라서 RSA 대신 다른 알고리즘으로 된 비대칭 키를 생성해서 쓰는 것도 방법이 될 수 있다. 나는 &lt;strong>ECDSA&lt;/strong> 를 사용해 봤다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">ssh-keygen -t ECDSA
+&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="참고자료">참고자료&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://chemicloud.com/kb/article/ssh-authentication-refused-bad-ownership-or-modes-for-directory/" target="_blank" rel="noopener"
+>https://chemicloud.com/kb/article/ssh-authentication-refused-bad-ownership-or-modes-for-directory/&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://docs.digitalocean.com/support/how-to-troubleshoot-ssh-authentication-issues/" target="_blank" rel="noopener"
+>https://docs.digitalocean.com/support/how-to-troubleshoot-ssh-authentication-issues/&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.openssh.com/txt/release-8.7" target="_blank" rel="noopener"
+>https://www.openssh.com/txt/release-8.7&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>K8s Headless Service, 왜 필요한가</title><link>https://interp.blog/k8s-headless-service-why/</link><pubDate>Thu, 22 Dec 2022 11:13:12 +0900</pubDate><guid>https://interp.blog/k8s-headless-service-why/</guid><description>&lt;p>K8s Resource 를 보거나 Helm Chart 를 보거나 헷갈리는 개념 중 하나가 바로 &lt;strong>&amp;lsquo;Headless Service&amp;rsquo;&lt;/strong> 이다.&lt;/p>
 &lt;figure>
 &lt;img loading="lazy" src="20221220_63a1afceb4826.jpg"
 alt="흐라챠!" width="40%"/> &lt;figcaption>
