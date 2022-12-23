@@ -14,11 +14,15 @@
         overflow: hidden;
 
         .article-header {
+            @include respond_max(sm) {
+                display: block !important
+            }
+
             .article-image {
                 img {
                     height: auto;
                     width: 100%;
-                    max-height: 30vh;
+                    height: 25vh;
                     object-fit: cover;
                     @media (max-width: 400px) {
                         max-height: 15vh;

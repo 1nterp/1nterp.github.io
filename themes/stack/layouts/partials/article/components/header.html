@@ -1,4 +1,4 @@
-<header class="article-header">
+<header class="article-header" style="display: {{ if .Page.Params.image_left }}flex{{ else }}block{{ end }}">
     {{- $image := partialCached "helper/image" (dict "Context" . "Type" "article") .RelPermalink "article" -}}
     {{ if and ($image.exists) (default true .Page.Params.image_show) }}
         <div class="article-image">

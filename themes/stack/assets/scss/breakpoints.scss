@@ -15,3 +15,13 @@ $breakpoints: (
         }
     }
 }
+
+@mixin respond_max($breakpoint) {
+    @if not map-has-key($breakpoints, $breakpoint) {
+        @warn "'#{$breakpoint}' is not a valid breakpoint";
+    } @else {
+        @media (max-width: map-get($breakpoints, $breakpoint)) {
+            @content;
+        }
+    }
+}
