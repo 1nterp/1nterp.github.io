@@ -18,7 +18,13 @@ tags:
 - 클라이언트 컴퓨터에서, RSA 알고리즘으로 비대칭 키를 생성했다.
 - 비대칭 키의 Public Key 를 서버의 `~/.ssh/authorized_keys` 파일에 붙여넣었다.
 
-그런데도 패스워드를 입력하라고 하면?? 다음을 체크해 보자.
+그런데도 아직 패스워드를 입력하라고 하면?? 혹시나 해서 `ssh -vvv ..` 로 디버그 메시지를 출력해 보니
+```
+debug1: Offering public key: debug3: send packet: type 50
+debug2: we sent a publickey packet, wait for reply
+debug3: receive packet: type 51
+```
+이런 메시지를 혹시 만났다면, 다음을 체크해 보자.
 
 # `.ssh/` 의 소유자/권한 점검
 아래 사항이 모두 맞는지 점검한다.
