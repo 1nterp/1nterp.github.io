@@ -106,11 +106,7 @@ RSA 키도 생성하고 authorized_keys 도 잘 설정했는데..?
 <li>클라이언트 컴퓨터에서, RSA 알고리즘으로 비대칭 키를 생성했다.</li>
 <li>비대칭 키의 Public Key 를 서버의 <code>~/.ssh/authorized_keys</code> 파일에 붙여넣었다.</li>
 </ul>
-<p>그런데도 아직 패스워드를 입력하라고 하면?? 혹시나 해서 <code>ssh -vvv ..</code> 로 디버그 메시지를 출력해 보니</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>debug1: Offering public key: debug3: send packet: type 50
-debug2: we sent a publickey packet, wait for reply
-debug3: receive packet: type 51
-</code></pre></div><p>이런 메시지를 혹시 만났다면, 다음을 체크해 보자.</p>
+<p>그런데도 패스워드를 입력하라고 하면?? 다음을 체크해 보자.</p>
 <h1 id=ssh-의-소유자권한-점검><code>.ssh/</code> 의 소유자/권한 점검</h1>
 <p>아래 사항이 모두 맞는지 점검한다.</p>
 <ul>
