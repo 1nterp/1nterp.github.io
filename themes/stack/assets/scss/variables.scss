@@ -13,7 +13,7 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
 
     --body-background: #fcfafa;
 
-    --accent-color: #b07d60;
+    --accent-color: #188cb0;
     --accent-color-darker: #6e5036;
     --accent-color-text: #fff;
     --body-text-color: #bababa;
@@ -45,7 +45,7 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
     --sys-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Droid Sans", "Helvetica Neue";
     --zh-font-family: "PingFang SC", "Hiragino Sans GB", "Droid Sans Fallback", "Microsoft YaHei";
 
-    --base-font-family: "Lato", "IBM Plex Sans KR", var(--sys-font-family), var(--zh-font-family), sans-serif;
+    --base-font-family: "Lato", "Noto Sans KR", var(--sys-font-family), var(--zh-font-family), sans-serif;
     --code-font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
     // --code-font-family: "D2Coding", Menlo, Monaco, Consolas, "Courier New", monospace;
 }
@@ -64,14 +64,14 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
 
     --card-border-radius: 10px;
 
-    --card-padding: 35px;
+    --card-padding: 30px;
 
     @include respond(md) {
-        --card-padding: 40px;
+        --card-padding: 35px;
     }
 
     @include respond(xl) {
-        --card-padding: 45px;
+        --card-padding: 40px;
     }
 
     --small-card-padding: 25px 20px;
@@ -94,14 +94,13 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
 *   Article content font settings
 */
 :root {
-    --article-font-family: "IBM Plex Sans KR", "Lato", var(--sys-font-family), var(--zh-font-family), sans-serif;
+    --article-font-family: "Noto Sans KR", "Lato", var(--sys-font-family), var(--zh-font-family), sans-serif;
     --article-font-size: 1.6rem;
-    --article-line-height: 1.8;
+    --article-line-height: 2.2;
     // letter-spacing: -1px;
 
     @include respond(md) {
         --article-font-size: 1.7rem;
-        --article-line-height: 2.2;
     }
 }
 

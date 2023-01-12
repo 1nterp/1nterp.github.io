@@ -38,8 +38,13 @@
    */
   
   h1 {
-    font-size: 1.7em;
-    margin: 0.67em 0;
+    font-size: 1.5em;
+    margin: 2.5em 0 .67em 0;
+    letter-spacing: -1px;
+
+    @include respond(md) {
+        font-size: 1.7em;
+    }
   }
   
   /* Grouping content
@@ -94,7 +99,7 @@
   
   b,
   strong {
-    font-weight: 600;
+    font-weight: 500;
   }
   
   /**
