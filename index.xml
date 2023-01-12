@@ -15,8 +15,8 @@
 &lt;p>&lt;a class="link" href="https://insighttimer.com/" target="_blank" rel="noopener"
 >사용하고 있는 앱&lt;/a>을 구글링 해 보니, 무료 명상 앱에서는 남바완 (&amp;hellip;) 이라고 홍보는 하더라. 프리미엄 구독으로 들을 수 있는 강사의 &lt;del>영어&lt;/del> 코칭 세션을 하지 않더라도, 백그라운드 음악과 세션을 입맛에 맞춰 만들어 두면 아무런 제약없이 재생 할 수 있기 때문에 무료 앱은 맞는 것 같다.&lt;/p>
 &lt;p>그 외에도 인터넷에 명상법은 엄청나게 많고, 지금까지 내가 느끼기론 단순히 &lt;em>&amp;lsquo;편안한 자세로 호흡 잘 하고 마음 속 떠오르는 걸 잡아보는 것&amp;rsquo;&lt;/em> 에서 출발해도 좋을 것 같다.&lt;/p>
-&lt;p>아! 넷플릭스에서 하던 **&lt;a class="link" href="https://www.netflix.com/title/81280926" target="_blank" rel="noopener"
->명상 시리즈&lt;/a>**도 많은 도움이 되었다.&lt;/p></description></item><item><title>SSH 비대칭 키로 접속할 때 문제 해결</title><link>https://interp.blog/ssh-authorized-keys-problem/</link><pubDate>Fri, 23 Dec 2022 13:57:59 +0900</pubDate><guid>https://interp.blog/ssh-authorized-keys-problem/</guid><description>&lt;img src="https://interp.blog/ssh-authorized-keys-problem/feature.jpg" alt="Featured image of post SSH 비대칭 키로 접속할 때 문제 해결" />&lt;p>클라이언트에서 서버로 SSH 접속을 패스워드 없이 하기 위해&lt;/p>
+&lt;p>아! 넷플릭스에서 하던 &lt;strong>&lt;a class="link" href="https://www.netflix.com/title/81280926" target="_blank" rel="noopener"
+>명상 시리즈&lt;/a>&lt;/strong> 도 많은 도움이 되었다.&lt;/p></description></item><item><title>SSH 비대칭 키로 접속할 때 문제 해결</title><link>https://interp.blog/ssh-authorized-keys-problem/</link><pubDate>Fri, 23 Dec 2022 13:57:59 +0900</pubDate><guid>https://interp.blog/ssh-authorized-keys-problem/</guid><description>&lt;img src="https://interp.blog/ssh-authorized-keys-problem/feature.jpg" alt="Featured image of post SSH 비대칭 키로 접속할 때 문제 해결" />&lt;p>클라이언트에서 서버로 SSH 접속을 패스워드 없이 하기 위해&lt;/p>
 &lt;ul>
 &lt;li>클라이언트 컴퓨터에서, RSA 알고리즘으로 비대칭 키를 생성했다.&lt;/li>
 &lt;li>비대칭 키의 Public Key 를 서버의 &lt;code>~/.ssh/authorized_keys&lt;/code> 파일에 붙여넣었다.&lt;/li>
@@ -270,7 +270,7 @@ alt="포스트 도로에는 운송봇이 상주하며 화물을 날라다 준다
 &lt;p>랜덤 맵 역시 &amp;lsquo;샌드박스&amp;rsquo; 라는 메뉴로 지원한다. 그리고 다른 플레이어들의 &lt;del>정신나간&lt;/del> 맵들도 창작마당을 통해 플레이 할 수 있다. 또한, 매 월마다 특정 맵에서 특정 목표를 향해 플레이 해 볼 수 있는 프론티어 미션이 존재한다. 미션 성공 시간이 가장 짧은 순서대로 랭킹을 볼 수 있다. &lt;del>1등 기록을 보면 핵을 쓴 거 같다&lt;/del>&lt;/p>
 &lt;figure>
 &lt;img loading="lazy" src="Untitled-3.png"
-alt="매 월마다 갱신되는 프론티어 미션"/> &lt;figcaption>
+alt="매 월마다 갱신되는 프론티어 미션" width="50%"/> &lt;figcaption>
 &lt;p>매 월마다 갱신되는 프론티어 미션&lt;/p>
 &lt;/figcaption>
 &lt;/figure>
