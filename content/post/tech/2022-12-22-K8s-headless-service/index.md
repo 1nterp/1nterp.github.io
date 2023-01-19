@@ -175,6 +175,6 @@ kubectl exec test-deploy-7bff8c5f84-rjdm9 -it -- curl test-cs-svc-head:80 | head
 
 
 # 이해를 돕기 위한 기초자료
-혹시 아직도 이해가 잘 안된다면, 기초자료로 다음을 참고해보자. ~~혹은 [CKA 시험 준비]({{< ref "/tech/2022-01-18-CKA-exam-review.md">}})를 하는 것도 좋은 방법이다!~~
+혹시 아직도 이해가 잘 안된다면, 기초자료로 다음을 참고해보자. ~~혹은 [CKA 시험 준비]({{< ref "/post/tech/2022-01-18-CKA-exam-review.md">}})를 하는 것도 좋은 방법이다!~~
 * [K8s Service](https://kubernetes.io/ko/docs/concepts/services-networking/service/)
 * [K8s DNS](https://kubernetes.io/ko/docs/concepts/services-networking/dns-pod-service/)

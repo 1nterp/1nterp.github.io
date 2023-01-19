@@ -34,16 +34,12 @@ DefaultContentLanguage: ko
 hasCJKLanguage: true
 
 permalinks:
-    post: /p/:slug/
+    post: /:slug/
     page: /:slug/
 
 params:
     mainSections:
-        - post
-        - tech
-        - essay
-        - review
-        - info
+      - post
     featuredImageField: image
     rssFullContent: true
     favicon:
