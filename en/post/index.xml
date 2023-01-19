@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on InterP Blog</title><link>https://interp.blog/en/post/</link><description>Recent content in Posts on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Fri, 15 Apr 2022 02:45:00 +0900</lastBuildDate><atom:link href="https://interp.blog/en/post/index.xml" rel="self" type="application/rss+xml"/><item><title>VSCodeVim: Moving cursor in a wrapped line</title><link>https://interp.blog/en/vim-wrapping-line-cursor-up-down/</link><pubDate>Fri, 15 Apr 2022 02:45:00 +0900</pubDate><guid>https://interp.blog/en/vim-wrapping-line-cursor-up-down/</guid><description>&lt;p>I installed &lt;a class="link" href="https://github.com/VSCodeVim/Vim" target="_blank" rel="noopener"
+>VSCodeVim&lt;/a> into my Visual Studio code to code only with keyboard.&lt;/p>
+&lt;p>&lt;img src="https://interp.blog/images/2022-04-15-vscodevim.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>But like above, a long line is wrapped so actually it&amp;rsquo;s a single line but it&amp;rsquo;s shown as multiple lines. In this case, if I pressed &lt;code>k&lt;/code> or &lt;code>↓&lt;/code> on the first (visible) line, the cursor moves to the next &lt;em>actual&lt;/em> line which I don&amp;rsquo;t want to at all!&lt;/p>
+&lt;h2 id="how-to-solve">How to solve&lt;/h2>
+&lt;p>Actually it&amp;rsquo;s not a problem but a characteristic of Vim with wrapped line, so I found &lt;a class="link" href="https://vim.fandom.com/wiki/Move_cursor_by_display_lines_when_wrapping" target="_blank" rel="noopener"
+>a document&lt;/a> as a workaround. Then I could adopt it into Visual Studio code as well.&lt;/p>
+&lt;p>Firstly, open &lt;code>Settings&lt;/code> page and move to &lt;strong>Vim: Normal Mode Key Bindings&lt;/strong> section. Then you can see &lt;code>Edit in settings.json&lt;/code> button. In the following JSON file, put below blocks will solve the issue.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json"> &lt;span class="s2">&amp;#34;vim.normalModeKeyBindings&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="nt">&amp;#34;before&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;&amp;lt;Up&amp;gt;&amp;#34;&lt;/span>&lt;span class="p">],&lt;/span>
+&lt;span class="nt">&amp;#34;after&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;g&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;k&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;span class="p">},&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="nt">&amp;#34;before&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;&amp;lt;Down&amp;gt;&amp;#34;&lt;/span>&lt;span class="p">],&lt;/span>
+&lt;span class="nt">&amp;#34;after&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;g&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;j&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div></description></item></channel></rss>

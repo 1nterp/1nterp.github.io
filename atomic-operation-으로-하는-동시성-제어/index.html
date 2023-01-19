@@ -3,13 +3,13 @@
 <meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Test-And-Set (TAS) TAS 를 이용해서 간단한 동시성 제어를 할 수 있다. testAndSet 이라는 function 을 가지고 아래의 do...while 문을 쓰레드 A, B 에서 동시에 호출한다고 해 보자. 이 때 lock 은 같은 변수이다. function TestAndSet(boolean_ref lock)"><title>Atomic Operation 으로 하는 동시성 제어</title>
 <style>@import 'https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700&family=Noto+Serif+SC:wght@300;400;500;600&display=swap'</style>
 <link rel=canonical href=https://interp.blog/atomic-operation-%EC%9C%BC%EB%A1%9C-%ED%95%98%EB%8A%94-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%A0%9C%EC%96%B4/>
-<link rel=stylesheet href=/scss/style.min.b8165c37794510ac0fe874f0d1b69b9c8af366a5dc108b6a385dd076c3387f0b.css><meta property="title" content="Atomic Operation 으로 하는 동시성 제어">
+<link rel=stylesheet href=/scss/style.min.a9c2c3cb8b2885124efeb9cc40d267be95254e3f35a623613d17b60f32d2327b.css><meta property="title" content="Atomic Operation 으로 하는 동시성 제어">
 <meta property="description" content="Test-And-Set (TAS) TAS 를 이용해서 간단한 동시성 제어를 할 수 있다. testAndSet 이라는 function 을 가지고 아래의 do...while 문을 쓰레드 A, B 에서 동시에 호출한다고 해 보자. 이 때 lock 은 같은 변수이다. function TestAndSet(boolean_ref lock)">
 <meta property="og:title" content="Atomic Operation 으로 하는 동시성 제어">
 <meta property="og:description" content="Test-And-Set (TAS) TAS 를 이용해서 간단한 동시성 제어를 할 수 있다. testAndSet 이라는 function 을 가지고 아래의 do...while 문을 쓰레드 A, B 에서 동시에 호출한다고 해 보자. 이 때 lock 은 같은 변수이다. function TestAndSet(boolean_ref lock)">
 <meta property="og:url" content="https://interp.blog/atomic-operation-%EC%9C%BC%EB%A1%9C-%ED%95%98%EB%8A%94-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%A0%9C%EC%96%B4/">
 <meta property="og:site_name" content="InterP Blog">
-<meta property="og:type" content="article"><meta property="article:section" content="Tech"><meta property="article:tag" content="lock"><meta property="article:tag" content="atomic"><meta property="article:published_time" content="2018-04-24T02:31:38+00:00"><meta property="article:modified_time" content="2018-04-24T02:31:38+00:00">
+<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="lock"><meta property="article:tag" content="atomic"><meta property="article:published_time" content="2018-04-24T02:31:38+00:00"><meta property="article:modified_time" content="2018-04-24T02:31:38+00:00">
 <meta name=twitter:site content="@interp_">
 <meta name=twitter:creator content="@interp_"><meta name=twitter:title content="Atomic Operation 으로 하는 동시성 제어">
 <meta name=twitter:description content="Test-And-Set (TAS) TAS 를 이용해서 간단한 동시성 제어를 할 수 있다. testAndSet 이라는 function 을 가지고 아래의 do...while 문을 쓰레드 A, B 에서 동시에 호출한다고 해 보자. 이 때 lock 은 같은 변수이다. function TestAndSet(boolean_ref lock)">
@@ -75,8 +75,8 @@
 <header class=article-header style=display:block>
 <div class=article-details>
 <header class=article-category>
-<a href=/categories/tech/>
-Tech
+<a href=/categories/tech/ style=background-color:#1c8193;color:#fff>
+TECH 🛠️
 </a>
 </header>
 <div class=article-title-wrapper>
