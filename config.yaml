@@ -43,6 +43,7 @@ params:
         - tech
         - essay
         - review
+        - info
     featuredImageField: image
     rssFullContent: true
     favicon:
@@ -59,7 +60,7 @@ params:
         subtitle: Things I'm interested
         # emoji: ":baseball:"
         avatar:
-            enabled: false
+            enabled: true
             local: false
             src: /apple-touch-icon.png
 
@@ -109,7 +110,7 @@ params:
         toggle: true
 
         # Available values: auto, light, dark
-        default: auto
+        default: dark
 
     imageProcessing:
         cover:
