@@ -1,4 +1,29 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>키보드 on InterP Blog</title><link>https://interp.blog/tags/%ED%82%A4%EB%B3%B4%EB%93%9C/</link><description>Recent content in 키보드 on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Thu, 11 Aug 2022 02:25:04 +0000</lastBuildDate><atom:link href="https://interp.blog/tags/%ED%82%A4%EB%B3%B4%EB%93%9C/index.xml" rel="self" type="application/rss+xml"/><item><title>키보드 키 바운싱 문제 해결</title><link>https://interp.blog/keyboard-key-bouncing-problem/</link><pubDate>Thu, 11 Aug 2022 02:25:04 +0000</pubDate><guid>https://interp.blog/keyboard-key-bouncing-problem/</guid><description>&lt;img src="https://interp.blog/images/featured/keyboard-key-bounce.jpg" alt="Featured image of post 키보드 키 바운싱 문제 해결" />&lt;p>회사에서 기계식 키보드를 아무거나 사라고 해서 &lt;a class="link" href="http://prod.danawa.com/info/?pcode=1458635" target="_blank" rel="noopener"
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>키보드 on InterP Blog</title><link>https://interp.blog/tags/%ED%82%A4%EB%B3%B4%EB%93%9C/</link><description>Recent content in 키보드 on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Thu, 19 Jan 2023 17:00:00 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/%ED%82%A4%EB%B3%B4%EB%93%9C/index.xml" rel="self" type="application/rss+xml"/><item><title>키보드 키가 자꾸 빠질 때</title><link>https://interp.blog/keyboard-key-pop-up-problem/</link><pubDate>Thu, 19 Jan 2023 17:00:00 +0900</pubDate><guid>https://interp.blog/keyboard-key-pop-up-problem/</guid><description>&lt;img src="https://interp.blog/keyboard-key-pop-up-problem/IMG_4745.JPG" alt="Featured image of post 키보드 키가 자꾸 빠질 때" />&lt;p>오랫동안 사무용/게이밍용으로 사용중인 기계식 키보드 레오폴드 FC750RT.&lt;/p>
+&lt;p>그런데 자주 써서 그런건지, 치다 보면 몇몇 키들이 마치 팝콘 튀긴 것 처럼 &amp;lsquo;퐁&amp;rsquo; 하고 튀어나왔다. 보통 반복적으로 튕기듯 누르는 키들이 잘 튀어나왔었는데, 내구성 테스트 겸 용의선상에 있는 친구들 중 하나인 &amp;lsquo;오른쪽 방향키&amp;rsquo; 를 계속 팅팅 눌러봤다.&lt;/p>
+&lt;figure class="align-center ">
+&lt;img loading="lazy" src="IMG_4748.JPG#center" width="70%"/>
+&lt;/figure>
+&lt;p>아아&amp;hellip; 갈축 스위치가 적나라하게 드러났다. 십(十)자 모양 스위치와 키 뒤쪽에 있는 십자 홈이 정확히 끼어있지 않은 것일 테다. 이리저리 검색을 해 봤는데, 홈을 조금 더 좁게 메꿀 수 있는 일종의 민간요법 (?) 을 찾았다. 바로 &lt;strong>마스킹 테이프&lt;/strong>로 메꾸기!&lt;/p>
+&lt;figure class="align-center ">
+&lt;img loading="lazy" src="IMG_4749.JPG#center" width="70%"/>
+&lt;/figure>
+&lt;h1 id="준비물">준비물&lt;/h1>
+&lt;ul>
+&lt;li>(빠진) 키보드&lt;/li>
+&lt;li>(빠진) 키보드 키&lt;/li>
+&lt;li>마스킹 테이프&lt;/li>
+&lt;/ul>
+&lt;p>방법은 간단하다. 마스킹 테이프를 키 뒤쪽 십자 홈 크기로 작게 잘라낸 뒤, 아래와 같이 살짝 붙여둔다. &lt;strong>접착면이 키 안쪽으로, 보이는 면이 키 바깥 (밑면)이 되도록&lt;/strong> 한다.&lt;/p>
+&lt;figure class="align-center ">
+&lt;img loading="lazy" src="IMG_4750.JPG#center" width="70%"/>
+&lt;/figure>
+&lt;p>그 다음, 그 상태 그대로 스위치에 맞추고 &lt;strong>지그시&lt;/strong> 눌러준다. 잘 안들어갈 것 같지만, 생각보다 쏙 들어간다. 마스킹 테이프가 말려들어가면서, 키의 십자 홈을 더욱 메꿔주는 효과를 보여주는 것이다.&lt;/p>
+&lt;p>마스킹 테이프가 가장 좋아보이지만, 굳이 없다면 비슷한 재료로 비슷하게 해도 좋을 것 같다.&lt;/p>
+&lt;ul>
+&lt;li>얇은 종이도 가능할 것 같지만, A4 두께는 생각보다 두껍다. 차라리 휴지로 하는게 낫지 않을까?&lt;/li>
+&lt;li>일반 테이프는 바깥면이 미끄러워서, 홈을 메꿔주더라도 계속 빠질 것 같은 느낌이 든다.&lt;/li>
+&lt;li>&lt;strong>절대로 접착제를 안에 넣지 말자.&lt;/strong> 나중에 스위치 문제가 생기거나, 청소를 해야 할 때 애로사항이 생긴다.&lt;/li>
+&lt;/ul></description></item><item><title>키보드 키 바운싱 문제 해결</title><link>https://interp.blog/keyboard-key-bouncing-problem/</link><pubDate>Thu, 11 Aug 2022 02:25:04 +0000</pubDate><guid>https://interp.blog/keyboard-key-bouncing-problem/</guid><description>&lt;img src="https://interp.blog/images/featured/keyboard-key-bounce.jpg" alt="Featured image of post 키보드 키 바운싱 문제 해결" />&lt;p>회사에서 기계식 키보드를 아무거나 사라고 해서 &lt;a class="link" href="http://prod.danawa.com/info/?pcode=1458635" target="_blank" rel="noopener"
 >i-rocks의 KR-6251&lt;/a> 을 사서 5년 째 쓰고 있다. 2년 전부터 &lt;strong>몇몇 키들은 한 번 누를 때마다 두 번 입력&lt;/strong>되는 느낌을 받았고, 쓰면서 이 현상이 더욱 가중되어 성가신 느낌을 지우기 힘들었다.&lt;/p>
 &lt;p>그런데 이 문제를 어떻게 인터넷에서 검색하지? 감을 통 잡을 수 없으니 &amp;lsquo;그냥 새로운 키보드 하나 사야 하나?&amp;rsquo; 라고 고민하고 있었다. &lt;del>이럴 때만 지름신이 오셔서는, &amp;lsquo;비싼 걸 사서 쓰라&amp;rsquo; 고 말씀하시지&lt;/del> 그러다가 우연찮게 이런 유형의 문제를 &amp;lsquo;키 바운스&amp;rsquo; 라고 부르는 몇몇 문서를 발견할 수 있었다.&lt;/p>
 &lt;h2 id="키-바운스">키 바운스?&lt;/h2>
