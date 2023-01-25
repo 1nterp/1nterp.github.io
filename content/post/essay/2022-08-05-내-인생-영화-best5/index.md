@@ -16,7 +16,7 @@ url = "/my-life-best-5-movies/"
 
 {{< callout text="스포일러가 있을 수 있습니다!" emoji=":exclamation:" >}}
 
-## 5. [반지의 제왕 : 두 개의 탑](https://movie.naver.com/movie/bi/mi/basic.naver?code=31795) (2002)
+# 5. [반지의 제왕 : 두 개의 탑](https://movie.naver.com/movie/bi/mi/basic.naver?code=31795) (2002)
 
 ![center](2022-08-05-16-28-13.png)
 
@@ -26,7 +26,7 @@ url = "/my-life-best-5-movies/"
 
 하지만 역시 후술할 다른 영화들보다 오래된 영화라 그런지, 추억속에서 건져올릴 만한 것이 없는 영화이기도 하다.
 
-## 4. [본 얼티메이텀](https://movie.naver.com/movie/bi/mi/basic.naver?code=59075) (2007)
+# 4. [본 얼티메이텀](https://movie.naver.com/movie/bi/mi/basic.naver?code=59075) (2007)
 
 ![center](2022-08-05-16-31-08.png)
 
@@ -38,7 +38,7 @@ url = "/my-life-best-5-movies/"
 
 반지의 제왕보다 순위가 높은 점은, 일단 지루하지 않다는 점이다. 반대로, 상위권 영화보다 순위가 낮은 점은, 리플레이성은 확실히 떨어진다는 점이다. (그래도 한 예닐곱번은 본 듯)
 
-## 3. [초속 5센티미터](https://movie.naver.com/movie/bi/mi/basic.naver?code=66820) (2007)
+# 3. [초속 5센티미터](https://movie.naver.com/movie/bi/mi/basic.naver?code=66820) (2007)
 
 ![center](2022-08-05-16-31-28.png)
 
@@ -50,7 +50,7 @@ url = "/my-life-best-5-movies/"
 
 초속 5센티미터는 어릴적의 풋풋함, 싱그러움, 방황, 사랑을 정말로 예쁜 배경에 담아낸 작품이다. 지금 다시 보라고 하면 오글거릴텐데, 당시의 나는 몇 번이고 돌려봤던 기억이 있다. 물론 스토리 자체에는 호불호가 갈릴 수 있지만, 그렇게 찜찜하게 끝내는 게 이루어질 수 없는 첫사랑을 잘 표현했다고 생각한다.
 
-## 2. [라라랜드](https://movie.naver.com/movie/bi/mi/basic.naver?code=134963) (2016)
+# 2. [라라랜드](https://movie.naver.com/movie/bi/mi/basic.naver?code=134963) (2016)
 
 ![center](2022-08-05-16-31-51.png)
 
@@ -58,7 +58,7 @@ url = "/my-life-best-5-movies/"
 
 결국 세스와 미아는 서로의 꿈을 응원하고 헤어지는데, 마지막에서 우연히 재회한 장면을 '만약에...?' 로 압축된 미니 뮤지컬로 표현하는게 기가 막히고 코가 막힌다. 아쉽게 헤어진 연인에 미련이 남을 때 늘 하는 생각들이 다들 이런 것 아니겠는가. 서로 아련해진 미아와 세스는 마지막 장면에서 눈빛을 주고 받으며 영화는 끝이 난다.
 
-## 1. [타짜](https://movie.naver.com/movie/bi/mi/basic.naver?code=57723) (2006)
+# 1. [타짜](https://movie.naver.com/movie/bi/mi/basic.naver?code=57723) (2006)
 
 ![center](2022-08-05-16-33-18.png)
 
@@ -68,6 +68,6 @@ url = "/my-life-best-5-movies/"
 
 소재가 매력적이기도 하지만, 그것보다는 인물들의 개성에 딱 맞는 대사와 그 합을 아주 오밀조밀 잘 짜뒀기 때문이다. 그래서 이 영화는 지루하지가 않다. 다음 장면이 아 그거였지 싶어도 기대가 된다. 그 환상의 티키타카를 볼 생각을 하면 말이다.
 
-## 마치며
+# 마치며
 
 이렇게 모아보니 나는 자주 본 순서대로 순위를 매겼다. 좋아한 만큼 자주 봤을테니 당연한 거 아닌가? 물론 자주 보지 않았음에도 기억에 남는 영화는 많다. 이런 영화를 또 모아서 '아차상!' 같은 포스팅을 하면 좋겠지만, 언제 시간이 될런지. 어쨌거나, 이렇게 나만의 순위를 매겨보고 그 이유를 탐구해보는 시간도 나쁘지 않은 것 같다. 다른 분들도 한번 해 보길 바라며, 다음에는 다른 분야에서 나만의 순위표를 만들어 볼 생각에 벌써 신났다. 감사해요, 장강명 작가님!

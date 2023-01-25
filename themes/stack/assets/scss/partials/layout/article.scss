@@ -125,7 +125,7 @@
             li a:first-of-type::before {
                 counter-increment: item;
                 content: counters(item, ".") ". ";
-                font-weight: bold;
+                font-weight: 600;
                 margin-right: 5px;
             }
         }
@@ -151,7 +151,7 @@
         }
         li.active-class > a {
             border-left: var(--heading-border-size) solid var(--accent-color);
-            font-weight: bold;
+            font-weight: 600;
         }
 
         // ul li.active-class > a {
@@ -220,7 +220,7 @@
     line-height: var(--article-line-height);
 
     & > p {
-        margin: 1.5em 0;
+        margin: 1.3rem 0;
     }
 
     del {

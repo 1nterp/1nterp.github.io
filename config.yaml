@@ -56,7 +56,7 @@ params:
         subtitle: Things I'm interested
         # emoji: ":baseball:"
         avatar:
-            enabled: true
+            enabled: false
             local: false
             src: /apple-touch-icon.png
 

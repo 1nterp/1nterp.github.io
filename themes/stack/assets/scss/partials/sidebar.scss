@@ -141,7 +141,7 @@
 
     .site-description {
         color: var(--body-text-color);
-        font-weight: normal;
+        font-weight: 300;
         margin: 0;
         font-size: 1.4rem;
 
@@ -155,7 +155,7 @@
     #dark-mode-toggle {
         color: var(--accent-color);
         color: var(--body-text-color);
-        font-weight: 700;
+        font-weight: 600;
 
         .icon-tabler-toggle-left {
             display: none;
