@@ -1,4 +1,76 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>InterP Blog</title><link>https://interp.blog/</link><description>Recent content on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Thu, 19 Jan 2023 17:00:00 +0900</lastBuildDate><atom:link href="https://interp.blog/index.xml" rel="self" type="application/rss+xml"/><item><title>키보드 키가 자꾸 빠질 때</title><link>https://interp.blog/keyboard-key-pop-up-problem/</link><pubDate>Thu, 19 Jan 2023 17:00:00 +0900</pubDate><guid>https://interp.blog/keyboard-key-pop-up-problem/</guid><description>&lt;img src="https://interp.blog/keyboard-key-pop-up-problem/IMG_4745.JPG" alt="Featured image of post 키보드 키가 자꾸 빠질 때" />&lt;p>오랫동안 사무용/게이밍용으로 사용중인 기계식 키보드 레오폴드 FC750RT.&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>InterP Blog</title><link>https://interp.blog/</link><description>Recent content on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Thu, 02 Feb 2023 17:00:00 +0900</lastBuildDate><atom:link href="https://interp.blog/index.xml" rel="self" type="application/rss+xml"/><item><title>Secure Communication 에 대한 모든 것</title><link>https://interp.blog/ssl-tls-pki-x509-certificate/</link><pubDate>Thu, 02 Feb 2023 17:00:00 +0900</pubDate><guid>https://interp.blog/ssl-tls-pki-x509-certificate/</guid><description>&lt;img src="https://interp.blog/ssl-tls-pki-x509-certificate/feature.jpeg" alt="Featured image of post Secure Communication 에 대한 모든 것" />&lt;h1 id="시작하면서">시작하면서&lt;/h1>
+&lt;p>SSL/TLS/HTTPS 부터 알아보자.&lt;/p>
+&lt;ul>
+&lt;li>SSL (Secure Socket Layer): 클라이언트와 서버 간 보안 통신을 위한 프로토콜이다.&lt;/li>
+&lt;li>TLS (Transport Layer Security): SSL 에서 발전된 프로토콜. SSL/TLS 로 묶어서 부르고 있음.&lt;/li>
+&lt;li>HTTPS (HTTP Secure): SSL/TLS 위에서 통신하는 HTTP&lt;/li>
+&lt;/ul>
+&lt;p>결국은 셋 모두 &amp;lsquo;클라이언트와 서버가 주고받는 정보가 안전하게 만드는 프로토콜&amp;rsquo; 이라는 것인데, 그럼 TLS 에서는 어떻게 정보를 안전하게 만드는 걸까? 이해한 대로 최대한 쉽게 풀어내 보려고 한다.&lt;/p>
+&lt;p>대부분의 내용은 Udemy CKA 강의를 바탕으로 정리했다.&lt;/p>
+&lt;h1 id="시나리오-1-암호화-비대칭-키">시나리오 (1) 암호화, 비대칭 키&lt;/h1>
+&lt;p>태초에 (?) 클라이언트와 서버는 다음과 같이 통신을 시작한다.&lt;/p>
+&lt;blockquote>
+&lt;ol>
+&lt;li>클라이언트가 서버에 접속한다.&lt;/li>
+&lt;li>서버는 클라이언트에게 사용자 정보 (ID, Password) 를 요청한다.&lt;/li>
+&lt;li>클라이언트는 사용자 정보를 서버에게 보낸다.&lt;/li>
+&lt;li>이제 서버는 클라이언트의 사용자를 확인할 수 있다.&lt;/li>
+&lt;/ol>
+&lt;/blockquote>
+&lt;p>이 과정에 아무런 보안이 적용되지 않는다면, &lt;strong>해커가 패킷을 수집해서 ID 와 패스워드를 들여다 볼 수 있다.&lt;/strong> 평문 (plain text) 으로 전달되기 때문이다. 그렇다면 어떤 보안을 적용해야 할까? 그렇다, 암호화/복호화 (encryption/decryption) 를 해야 한다.&lt;/p>
+&lt;p>서버는 암호화와 복호화가 가능한 키 (key) 를 만들어 뒀다고 가정하자.&lt;/p>
+&lt;blockquote>
+&lt;ol start="2">
+&lt;li>서버는 클라이언트에게 &lt;strong>키&lt;/strong>를 준다. &amp;lsquo;이걸로 암호화해서 줘&amp;rsquo;&lt;/li>
+&lt;li>클라이언트는 &lt;strong>서버가 준 키를 가지고 사용자 정보를 암호화&lt;/strong>해서 보낸다.&lt;/li>
+&lt;li>서버는 암호화한 정보를 &lt;strong>복호화해서&lt;/strong> 안전하게 (?) 사용자를 확인한다.&lt;/li>
+&lt;/ol>
+&lt;/blockquote>
+&lt;p>이 시나리오의 문제는? &lt;strong>키를 보내는 패킷은 암호화되지 않는다는 점&lt;/strong>이다. (3) 에서 보낸 정보를 해커도 복호화 할 수 있다는 점이다. 그래서 나온 것이 비대칭 키 (asymmetric key) 이다. 오래 전부터 사용된 &lt;a class="link" href="https://en.wikipedia.org/wiki/RSA_%28cryptosystem%29" target="_blank" rel="noopener"
+>RSA&lt;/a> 같은 것들 말이다.&lt;/p>
+&lt;p>이번엔 서버가 공개 키와 비공개 키를 한 쌍 (public/private key pair) 만들었다고 하자.&lt;/p>
+&lt;blockquote>
+&lt;ol start="2">
+&lt;li>서버는 클라이언트에게 &lt;strong>공개 키&lt;/strong>를 준다. &amp;lsquo;이걸로 암호화해서 줘&amp;rsquo;&lt;/li>
+&lt;li>클라이언트는 서버가 준 &lt;strong>공개 키&lt;/strong>를 가지고 사용자 정보를 암호화해서 보낸다.&lt;/li>
+&lt;li>서버는 암호화한 정보를 &lt;strong>비공개 키로&lt;/strong> 복호화해서 안전하게 (?) 사용자를 확인한다.&lt;/li>
+&lt;/ol>
+&lt;/blockquote>
+&lt;p>여기서 주목할 점은, 공개 키는 암호화할 때 쓰고 비공개 키는 복호화 할 때만 쓴다는 점이다. 그러면 복호화에 필요한 비공개 키는 해커가 알 수 없으니 안전해 보인다.&lt;/p>
+&lt;h1 id="시나리오-2-피싱-그리고-인증서">시나리오 (2) 피싱, 그리고 인증서&lt;/h1>
+&lt;p>이번엔 해커가 패킷을 수집하는 것을 포기하고, &lt;strong>클라이언트나 사용자를 속여서 피싱을 했다&lt;/strong>고 가정하자.&lt;/p>
+&lt;p>(방법은 여러가지인데, 사회공학적 기법으로 구별하기 어려운 URL 을 사용자에게 제공하거나, 클라이언트나 DNS 를 속여먹거나..) 아무튼 해커가 준비한 가짜 사이트로 들어가게 되면, 위 시나리오 그대로 해커에게 사용자 정보가 고스란히 넘어가게 된다.&lt;/p>
+&lt;p>이런 시나리오를 방지하기 위해서, 서버가 보내는 공개 키에 &amp;lsquo;이 키는 안전합니다! &lt;del>안심하고 정보를 넘겨 주십시오&lt;/del>&amp;rsquo; 라는 &lt;strong>인증서&lt;/strong>가 필서하다.&lt;/p>
+&lt;blockquote>
+&lt;ol start="2">
+&lt;li>서버는 클라이언트에게 &lt;strong>공개 키가 담긴 인증서&lt;/strong>를 준다. &lt;br/>&amp;lsquo;이거 &lt;u>인증 받은&lt;/u> 공개키야, 이걸로 암호화해서 줘&amp;rsquo;&lt;/li>
+&lt;li>클라이언트는 서버가 준 인증서가 진짜인지 확인한다. (사인해 준 곳에 가서 물어보거나..)&lt;/li>
+&lt;li>클라이언트는 서버가 준 공개 키를 가지고 사용자 정보를 암호화해서 보낸다.&lt;/li>
+&lt;li>서버는 암호화한 정보를 비공개 키로 복호화해서 안전하게 (?) 사용자를 확인한다.&lt;/li>
+&lt;/ol>
+&lt;/blockquote>
+&lt;p>이렇게 공개 키를 인증받고 교환하는 모든 과정을 &lt;a class="link" href="https://ko.wikipedia.org/wiki/%EA%B3%B5%EA%B0%9C_%ED%82%A4_%EA%B8%B0%EB%B0%98_%EA%B5%AC%EC%A1%B0" target="_blank" rel="noopener"
+>공개 키 기반구조 (Public Key Infrastructure, PKI)&lt;/a> 이라고 부른다. 그리고 PKI 의 ITU 표준이 &lt;a class="link" href="https://en.wikipedia.org/wiki/X.509" target="_blank" rel="noopener"
+>X.509&lt;/a> 인 것이다.&lt;/p>
+&lt;p>간략히 말하자면, 이 인증서에는 (1) 공개 키 (2) 서버의 신원 (3) 인증서에 사인을 해 준 기관 (Certificate Authority, CA) 이 포함되어 있다. CA 로부터 사인받지 않았다면 self-signed 로 표시된다.&lt;/p>
+&lt;div style="background-color: var(--body-background); width: 98%; margin:1px; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
+&lt;div style="width: 16px;margin-right: 7px; margin-left: 4px;">
+💡
+&lt;/div>
+&lt;div>
+&amp;lsquo;CA 의 비대칭 키 한 쌍&amp;rsquo; 을 &lt;strong>Root Certificate&lt;/strong> 라고 한다. &lt;br/>&lt;br/>일반적으로 클라이언트는 CA 의 비대칭 키 중 공개 키만 알면 되지만, Kubernetes Cluster 를 구축하거나 운영할 때는 master node 에 위치한 Root Certificate 를 다룰 수 있어야 한다. (K8s Cluster 의 다른 서비스와 보안 통신을 하기 위해서!)
+&lt;/div>
+&lt;/div>
+&lt;p>자, 이제 여기서 해커가 생각할 수 있는 건 무엇일까?&lt;/p>
+&lt;h2 id="self-signed-인증서">Self-signed 인증서&lt;/h2>
+&lt;p>위의 피싱 시나리오에서, 해커가 혼자 사인한 (self-signed) 인증서로 감싸서 던지면 되지 않을까?&lt;/p>
+&lt;p>&lt;strong>이제부터는 클라이언트 (좀 더 친숙한 표현으론, 웹 브라우저) 에서 경고를 뿜는다.&lt;/strong> &amp;ldquo;이 인증서를 받았는데, 발급 기관이 없는데요? (아니면 이상한데요?)&amp;rdquo; 라고 말이다. 쉽게 말하면, 주소창에 &lt;code>https://&lt;/code> 로 시작하는 주소를 입력했는데, 자물쇠 모양이 &lt;span style="color:red">빨갛게&lt;/span> 보이는 경우다.&lt;/p>
+&lt;h2 id="해커가-ca-를-만든다면">해커가 CA 를 만든다면?&lt;/h2>
+&lt;p>아예 악의적인 CA 를 만들어서, 거기서 인증서를 사인 해 주면 어떨까?&lt;/p>
+&lt;p>대부분의 웹 브라우저는 공인된 CA 의 공개 키를 이미 내장하고 있다. 이외의 CA 와 통신하고자 한다면 브라우저가 경고를 보낸다. &amp;ldquo;이 인증서가 진짜인지 확인하기 위해 , 인증서가 가리키는 CA 와 통신하려고 하는데요.. 제가 모르는 곳인데 괜찮나요?&amp;rdquo; 라고 말이다.&lt;/p>
+&lt;h1 id="정리-결국-암호화">정리: 결국 암호화&lt;/h1>
+&lt;p>정리를 해 보니 결국 통신 암호화를 확실히 하기 위한 일련의 역사를 되짚은 느낌이다. 용어에 통일성이 없으니 들을 때 마다 어색해지기 마련이었는데, 이렇게나마 나열해 보니 두려움이 조금 사라지긴 했다.&lt;/p>
+&lt;p>CKA 시험에는 CSR (Certificate Signing Request) 보내는 방법까지 배우긴 하는데&lt;/p></description></item><item><title>키보드 키가 자꾸 빠질 때</title><link>https://interp.blog/keyboard-key-pop-up-problem/</link><pubDate>Thu, 19 Jan 2023 17:00:00 +0900</pubDate><guid>https://interp.blog/keyboard-key-pop-up-problem/</guid><description>&lt;img src="https://interp.blog/keyboard-key-pop-up-problem/IMG_4745.JPG" alt="Featured image of post 키보드 키가 자꾸 빠질 때" />&lt;p>오랫동안 사무용/게이밍용으로 사용중인 기계식 키보드 레오폴드 FC750RT.&lt;/p>
 &lt;p>그런데 자주 써서 그런건지, 치다 보면 몇몇 키들이 마치 팝콘 튀긴 것 처럼 &amp;lsquo;퐁&amp;rsquo; 하고 튀어나왔다. 보통 반복적으로 튕기듯 누르는 키들이 잘 튀어나왔었는데, 내구성 테스트 겸 용의선상에 있는 친구들 중 하나인 &amp;lsquo;오른쪽 방향키&amp;rsquo; 를 계속 팅팅 눌러봤다.&lt;/p>
 &lt;figure class="align-center ">
 &lt;img loading="lazy" src="IMG_4748.JPG#center" width="70%"/>
@@ -738,7 +810,7 @@ AssertionError: Python 3.6 and below is not supported by this version of debugpy
 &lt;p>이번 포스팅을 시작으로, 직접 다양한 언어에서 BDD 를 적용하는 방법을 정리해 볼 예정이다. 첫 시간으로는 &lt;strong>파이썬&lt;/strong> (Python) 언어를 가지고 할 것이다. Python 라이브러리 중 하나인 &lt;a class="link" href="https://behave.readthedocs.io/en/stable/" target="_blank" rel="noopener"
 >behave&lt;/a> 를 통해, BDD 테스트 프레임워크를 구성하고, 예제 시나리오를 만들어서 테스트 자동화가 어떻게 이뤄질 수 있을지 알아보자.&lt;/p>
 &lt;h1 id="예제-프로젝트-생성">예제 프로젝트 생성&lt;/h1>
-&lt;div style="background-color: var(--body-background); width: 98%;padding: 10px;border-radius: 5px;font-size: .8em;display: flex;">
+&lt;div style="background-color: var(--body-background); width: 98%; margin:1px; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
 &lt;div style="width: 16px;margin-right: 7px; margin-left: 4px;">
 💡
 &lt;/div>
@@ -1238,7 +1310,7 @@ data-flex-basis="714px"
 >책 한번 써봅시다&lt;/a>&amp;rsquo; 에서, 나의 개성을 알아내는 질문으로 제시된 것 중 하나이다. 여기에 답하려면 가장 좋아하는 영화를 골라내고, 어떤 기준으로 영화의 순위가 갈라지는지 알아야 한다. 이런 질문은 글감을 찾아내기에도 안성 맞춤이라고 한다.&lt;/p>
 &lt;p>그래서 무턱대고, &lt;a class="link" href="https://pedia.watcha.com/" target="_blank" rel="noopener"
 >왓챠&lt;/a>에 기록한 내 영화 리스트를 죽 꺼내들어서 별점이 가장 높은 영화 중 5편만 꼽아봤다. 참고로 내 왓챠 평균 별점은 3.9점이다. 후해도 너무 후하다 (&amp;hellip;) 물론 철학적으로 사유하기 좋은 영화도 많고, 고전 영화도 심심찮게 많이 봤다. 하지만 어디까지나 개인적인 기준의 BEST5 이니 편한 마음으로 봐주시길.&lt;/p>
-&lt;div style="background-color: var(--body-background); width: 98%;padding: 10px;border-radius: 5px;font-size: .8em;display: flex;">
+&lt;div style="background-color: var(--body-background); width: 98%; margin:1px; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
 &lt;div style="width: 16px;margin-right: 7px; margin-left: 4px;">
 ❗
 &lt;/div>
@@ -1330,7 +1402,7 @@ data-flex-basis="167px"
 >암살&lt;/a>&amp;rsquo; 도 좋아하지만, 아무래도 타짜 뿐이다.&lt;/p>
 &lt;p>소재가 매력적이기도 하지만, 그것보다는 인물들의 개성에 딱 맞는 대사와 그 합을 아주 오밀조밀 잘 짜뒀기 때문이다. 그래서 이 영화는 지루하지가 않다. 다음 장면이 아 그거였지 싶어도 기대가 된다. 그 환상의 티키타카를 볼 생각을 하면 말이다.&lt;/p>
 &lt;h1 id="마치며">마치며&lt;/h1>
-&lt;p>이렇게 모아보니 나는 자주 본 순서대로 순위를 매겼다. 좋아한 만큼 자주 봤을테니 당연한 거 아닌가? 물론 자주 보지 않았음에도 기억에 남는 영화는 많다. 이런 영화를 또 모아서 &amp;lsquo;아차상!&amp;rsquo; 같은 포스팅을 하면 좋겠지만, 언제 시간이 될런지. 어쨌거나, 이렇게 나만의 순위를 매겨보고 그 이유를 탐구해보는 시간도 나쁘지 않은 것 같다. 다른 분들도 한번 해 보길 바라며, 다음에는 다른 분야에서 나만의 순위표를 만들어 볼 생각에 벌써 신났다. 감사해요, 장강명 작가님!&lt;/p></description></item><item><title>저작권 걱정 없는 무료 이미지 사이트 3개</title><link>https://interp.blog/license-free-image-3-sites/</link><pubDate>Thu, 28 Jul 2022 01:39:19 +0000</pubDate><guid>https://interp.blog/license-free-image-3-sites/</guid><description>&lt;img src="https://interp.blog/images/2022-07-28-glenn-carstens-peters-loatw2afdyu-unsplash.jpg" alt="Featured image of post 저작권 걱정 없는 무료 이미지 사이트 3개" />&lt;div style="background-color: var(--body-background); width: 98%;padding: 10px;border-radius: 5px;font-size: .8em;display: flex;">
+&lt;p>이렇게 모아보니 나는 자주 본 순서대로 순위를 매겼다. 좋아한 만큼 자주 봤을테니 당연한 거 아닌가? 물론 자주 보지 않았음에도 기억에 남는 영화는 많다. 이런 영화를 또 모아서 &amp;lsquo;아차상!&amp;rsquo; 같은 포스팅을 하면 좋겠지만, 언제 시간이 될런지. 어쨌거나, 이렇게 나만의 순위를 매겨보고 그 이유를 탐구해보는 시간도 나쁘지 않은 것 같다. 다른 분들도 한번 해 보길 바라며, 다음에는 다른 분야에서 나만의 순위표를 만들어 볼 생각에 벌써 신났다. 감사해요, 장강명 작가님!&lt;/p></description></item><item><title>저작권 걱정 없는 무료 이미지 사이트 3개</title><link>https://interp.blog/license-free-image-3-sites/</link><pubDate>Thu, 28 Jul 2022 01:39:19 +0000</pubDate><guid>https://interp.blog/license-free-image-3-sites/</guid><description>&lt;img src="https://interp.blog/images/2022-07-28-glenn-carstens-peters-loatw2afdyu-unsplash.jpg" alt="Featured image of post 저작권 걱정 없는 무료 이미지 사이트 3개" />&lt;div style="background-color: var(--body-background); width: 98%; margin:1px; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
 &lt;div style="width: 16px;margin-right: 7px; margin-left: 4px;">
 😉
 &lt;/div>
@@ -2364,7 +2436,7 @@ alt="이게 붙으면, 너도나도 찍먹하게 되는데 문제는&amp;amp;hel
 &lt;/ol>
 &lt;/blockquote>
 &lt;p>시간을 어떻게 보낼까? 보다는 &lt;strong>내가 보내는 시간은 나에게 의미가 있는가? 없다면 어떻게 진지하고 재미있게 그 시간을 보낼 수 있을까?&lt;/strong> 를 되돌아볼 수 있는 소중한 시간이 될 수 있을 것이다.&lt;/p>
-&lt;p>&lt;strong>무엇보다도, 책이 정말&amp;hellip; 정말 술술 읽힌다&lt;/strong>. 222페이지라 많지는 않은데, 여기에 여백도 많고 한 페이지에 적힌 글자 수도 적었기 때문도 있지만, 아무래도 어려운 내용 없이 옆에서 조언하는 걸 듣는 마음으로 가볍게 읽을 수 있었던 것 같았다. 😊&lt;/p></description></item><item><title>카카오/네이버 메일 아이폰 연동</title><link>https://interp.blog/kakao-naver-email-iphone-connect/</link><pubDate>Fri, 04 Feb 2022 16:35:37 +0000</pubDate><guid>https://interp.blog/kakao-naver-email-iphone-connect/</guid><description>&lt;img src="https://interp.blog/images/2022-02-04-kakao-email/feature-image.jpg" alt="Featured image of post 카카오/네이버 메일 아이폰 연동" />&lt;div style="background-color: var(--body-background); width: 98%;padding: 10px;border-radius: 5px;font-size: .8em;display: flex;">
+&lt;p>&lt;strong>무엇보다도, 책이 정말&amp;hellip; 정말 술술 읽힌다&lt;/strong>. 222페이지라 많지는 않은데, 여기에 여백도 많고 한 페이지에 적힌 글자 수도 적었기 때문도 있지만, 아무래도 어려운 내용 없이 옆에서 조언하는 걸 듣는 마음으로 가볍게 읽을 수 있었던 것 같았다. 😊&lt;/p></description></item><item><title>카카오/네이버 메일 아이폰 연동</title><link>https://interp.blog/kakao-naver-email-iphone-connect/</link><pubDate>Fri, 04 Feb 2022 16:35:37 +0000</pubDate><guid>https://interp.blog/kakao-naver-email-iphone-connect/</guid><description>&lt;img src="https://interp.blog/images/2022-02-04-kakao-email/feature-image.jpg" alt="Featured image of post 카카오/네이버 메일 아이폰 연동" />&lt;div style="background-color: var(--body-background); width: 98%; margin:1px; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
 &lt;div style="width: 16px;margin-right: 7px; margin-left: 4px;">
 🚧
 &lt;/div>

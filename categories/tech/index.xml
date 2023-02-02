@@ -1,4 +1,76 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>TECH 🛠️ on InterP Blog</title><link>https://interp.blog/categories/tech/</link><description>Recent content in TECH 🛠️ on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Fri, 23 Dec 2022 13:57:59 +0900</lastBuildDate><atom:link href="https://interp.blog/categories/tech/index.xml" rel="self" type="application/rss+xml"/><item><title>SSH 비대칭 키로 접속할 때 문제 해결</title><link>https://interp.blog/ssh-authorized-keys-problem/</link><pubDate>Fri, 23 Dec 2022 13:57:59 +0900</pubDate><guid>https://interp.blog/ssh-authorized-keys-problem/</guid><description>&lt;img src="https://interp.blog/ssh-authorized-keys-problem/feature.jpg" alt="Featured image of post SSH 비대칭 키로 접속할 때 문제 해결" />&lt;p>클라이언트에서 서버로 SSH 접속을 패스워드 없이 하기 위해&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>TECH 🛠️ on InterP Blog</title><link>https://interp.blog/categories/tech/</link><description>Recent content in TECH 🛠️ on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Thu, 02 Feb 2023 17:00:00 +0900</lastBuildDate><atom:link href="https://interp.blog/categories/tech/index.xml" rel="self" type="application/rss+xml"/><item><title>Secure Communication 에 대한 모든 것</title><link>https://interp.blog/ssl-tls-pki-x509-certificate/</link><pubDate>Thu, 02 Feb 2023 17:00:00 +0900</pubDate><guid>https://interp.blog/ssl-tls-pki-x509-certificate/</guid><description>&lt;img src="https://interp.blog/ssl-tls-pki-x509-certificate/feature.jpeg" alt="Featured image of post Secure Communication 에 대한 모든 것" />&lt;h1 id="시작하면서">시작하면서&lt;/h1>
+&lt;p>SSL/TLS/HTTPS 부터 알아보자.&lt;/p>
+&lt;ul>
+&lt;li>SSL (Secure Socket Layer): 클라이언트와 서버 간 보안 통신을 위한 프로토콜이다.&lt;/li>
+&lt;li>TLS (Transport Layer Security): SSL 에서 발전된 프로토콜. SSL/TLS 로 묶어서 부르고 있음.&lt;/li>
+&lt;li>HTTPS (HTTP Secure): SSL/TLS 위에서 통신하는 HTTP&lt;/li>
+&lt;/ul>
+&lt;p>결국은 셋 모두 &amp;lsquo;클라이언트와 서버가 주고받는 정보가 안전하게 만드는 프로토콜&amp;rsquo; 이라는 것인데, 그럼 TLS 에서는 어떻게 정보를 안전하게 만드는 걸까? 이해한 대로 최대한 쉽게 풀어내 보려고 한다.&lt;/p>
+&lt;p>대부분의 내용은 Udemy CKA 강의를 바탕으로 정리했다.&lt;/p>
+&lt;h1 id="시나리오-1-암호화-비대칭-키">시나리오 (1) 암호화, 비대칭 키&lt;/h1>
+&lt;p>태초에 (?) 클라이언트와 서버는 다음과 같이 통신을 시작한다.&lt;/p>
+&lt;blockquote>
+&lt;ol>
+&lt;li>클라이언트가 서버에 접속한다.&lt;/li>
+&lt;li>서버는 클라이언트에게 사용자 정보 (ID, Password) 를 요청한다.&lt;/li>
+&lt;li>클라이언트는 사용자 정보를 서버에게 보낸다.&lt;/li>
+&lt;li>이제 서버는 클라이언트의 사용자를 확인할 수 있다.&lt;/li>
+&lt;/ol>
+&lt;/blockquote>
+&lt;p>이 과정에 아무런 보안이 적용되지 않는다면, &lt;strong>해커가 패킷을 수집해서 ID 와 패스워드를 들여다 볼 수 있다.&lt;/strong> 평문 (plain text) 으로 전달되기 때문이다. 그렇다면 어떤 보안을 적용해야 할까? 그렇다, 암호화/복호화 (encryption/decryption) 를 해야 한다.&lt;/p>
+&lt;p>서버는 암호화와 복호화가 가능한 키 (key) 를 만들어 뒀다고 가정하자.&lt;/p>
+&lt;blockquote>
+&lt;ol start="2">
+&lt;li>서버는 클라이언트에게 &lt;strong>키&lt;/strong>를 준다. &amp;lsquo;이걸로 암호화해서 줘&amp;rsquo;&lt;/li>
+&lt;li>클라이언트는 &lt;strong>서버가 준 키를 가지고 사용자 정보를 암호화&lt;/strong>해서 보낸다.&lt;/li>
+&lt;li>서버는 암호화한 정보를 &lt;strong>복호화해서&lt;/strong> 안전하게 (?) 사용자를 확인한다.&lt;/li>
+&lt;/ol>
+&lt;/blockquote>
+&lt;p>이 시나리오의 문제는? &lt;strong>키를 보내는 패킷은 암호화되지 않는다는 점&lt;/strong>이다. (3) 에서 보낸 정보를 해커도 복호화 할 수 있다는 점이다. 그래서 나온 것이 비대칭 키 (asymmetric key) 이다. 오래 전부터 사용된 &lt;a class="link" href="https://en.wikipedia.org/wiki/RSA_%28cryptosystem%29" target="_blank" rel="noopener"
+>RSA&lt;/a> 같은 것들 말이다.&lt;/p>
+&lt;p>이번엔 서버가 공개 키와 비공개 키를 한 쌍 (public/private key pair) 만들었다고 하자.&lt;/p>
+&lt;blockquote>
+&lt;ol start="2">
+&lt;li>서버는 클라이언트에게 &lt;strong>공개 키&lt;/strong>를 준다. &amp;lsquo;이걸로 암호화해서 줘&amp;rsquo;&lt;/li>
+&lt;li>클라이언트는 서버가 준 &lt;strong>공개 키&lt;/strong>를 가지고 사용자 정보를 암호화해서 보낸다.&lt;/li>
+&lt;li>서버는 암호화한 정보를 &lt;strong>비공개 키로&lt;/strong> 복호화해서 안전하게 (?) 사용자를 확인한다.&lt;/li>
+&lt;/ol>
+&lt;/blockquote>
+&lt;p>여기서 주목할 점은, 공개 키는 암호화할 때 쓰고 비공개 키는 복호화 할 때만 쓴다는 점이다. 그러면 복호화에 필요한 비공개 키는 해커가 알 수 없으니 안전해 보인다.&lt;/p>
+&lt;h1 id="시나리오-2-피싱-그리고-인증서">시나리오 (2) 피싱, 그리고 인증서&lt;/h1>
+&lt;p>이번엔 해커가 패킷을 수집하는 것을 포기하고, &lt;strong>클라이언트나 사용자를 속여서 피싱을 했다&lt;/strong>고 가정하자.&lt;/p>
+&lt;p>(방법은 여러가지인데, 사회공학적 기법으로 구별하기 어려운 URL 을 사용자에게 제공하거나, 클라이언트나 DNS 를 속여먹거나..) 아무튼 해커가 준비한 가짜 사이트로 들어가게 되면, 위 시나리오 그대로 해커에게 사용자 정보가 고스란히 넘어가게 된다.&lt;/p>
+&lt;p>이런 시나리오를 방지하기 위해서, 서버가 보내는 공개 키에 &amp;lsquo;이 키는 안전합니다! &lt;del>안심하고 정보를 넘겨 주십시오&lt;/del>&amp;rsquo; 라는 &lt;strong>인증서&lt;/strong>가 필서하다.&lt;/p>
+&lt;blockquote>
+&lt;ol start="2">
+&lt;li>서버는 클라이언트에게 &lt;strong>공개 키가 담긴 인증서&lt;/strong>를 준다. &lt;br/>&amp;lsquo;이거 &lt;u>인증 받은&lt;/u> 공개키야, 이걸로 암호화해서 줘&amp;rsquo;&lt;/li>
+&lt;li>클라이언트는 서버가 준 인증서가 진짜인지 확인한다. (사인해 준 곳에 가서 물어보거나..)&lt;/li>
+&lt;li>클라이언트는 서버가 준 공개 키를 가지고 사용자 정보를 암호화해서 보낸다.&lt;/li>
+&lt;li>서버는 암호화한 정보를 비공개 키로 복호화해서 안전하게 (?) 사용자를 확인한다.&lt;/li>
+&lt;/ol>
+&lt;/blockquote>
+&lt;p>이렇게 공개 키를 인증받고 교환하는 모든 과정을 &lt;a class="link" href="https://ko.wikipedia.org/wiki/%EA%B3%B5%EA%B0%9C_%ED%82%A4_%EA%B8%B0%EB%B0%98_%EA%B5%AC%EC%A1%B0" target="_blank" rel="noopener"
+>공개 키 기반구조 (Public Key Infrastructure, PKI)&lt;/a> 이라고 부른다. 그리고 PKI 의 ITU 표준이 &lt;a class="link" href="https://en.wikipedia.org/wiki/X.509" target="_blank" rel="noopener"
+>X.509&lt;/a> 인 것이다.&lt;/p>
+&lt;p>간략히 말하자면, 이 인증서에는 (1) 공개 키 (2) 서버의 신원 (3) 인증서에 사인을 해 준 기관 (Certificate Authority, CA) 이 포함되어 있다. CA 로부터 사인받지 않았다면 self-signed 로 표시된다.&lt;/p>
+&lt;div style="background-color: var(--body-background); width: 98%; margin:1px; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
+&lt;div style="width: 16px;margin-right: 7px; margin-left: 4px;">
+💡
+&lt;/div>
+&lt;div>
+&amp;lsquo;CA 의 비대칭 키 한 쌍&amp;rsquo; 을 &lt;strong>Root Certificate&lt;/strong> 라고 한다. &lt;br/>&lt;br/>일반적으로 클라이언트는 CA 의 비대칭 키 중 공개 키만 알면 되지만, Kubernetes Cluster 를 구축하거나 운영할 때는 master node 에 위치한 Root Certificate 를 다룰 수 있어야 한다. (K8s Cluster 의 다른 서비스와 보안 통신을 하기 위해서!)
+&lt;/div>
+&lt;/div>
+&lt;p>자, 이제 여기서 해커가 생각할 수 있는 건 무엇일까?&lt;/p>
+&lt;h2 id="self-signed-인증서">Self-signed 인증서&lt;/h2>
+&lt;p>위의 피싱 시나리오에서, 해커가 혼자 사인한 (self-signed) 인증서로 감싸서 던지면 되지 않을까?&lt;/p>
+&lt;p>&lt;strong>이제부터는 클라이언트 (좀 더 친숙한 표현으론, 웹 브라우저) 에서 경고를 뿜는다.&lt;/strong> &amp;ldquo;이 인증서를 받았는데, 발급 기관이 없는데요? (아니면 이상한데요?)&amp;rdquo; 라고 말이다. 쉽게 말하면, 주소창에 &lt;code>https://&lt;/code> 로 시작하는 주소를 입력했는데, 자물쇠 모양이 &lt;span style="color:red">빨갛게&lt;/span> 보이는 경우다.&lt;/p>
+&lt;h2 id="해커가-ca-를-만든다면">해커가 CA 를 만든다면?&lt;/h2>
+&lt;p>아예 악의적인 CA 를 만들어서, 거기서 인증서를 사인 해 주면 어떨까?&lt;/p>
+&lt;p>대부분의 웹 브라우저는 공인된 CA 의 공개 키를 이미 내장하고 있다. 이외의 CA 와 통신하고자 한다면 브라우저가 경고를 보낸다. &amp;ldquo;이 인증서가 진짜인지 확인하기 위해 , 인증서가 가리키는 CA 와 통신하려고 하는데요.. 제가 모르는 곳인데 괜찮나요?&amp;rdquo; 라고 말이다.&lt;/p>
+&lt;h1 id="정리-결국-암호화">정리: 결국 암호화&lt;/h1>
+&lt;p>정리를 해 보니 결국 통신 암호화를 확실히 하기 위한 일련의 역사를 되짚은 느낌이다. 용어에 통일성이 없으니 들을 때 마다 어색해지기 마련이었는데, 이렇게나마 나열해 보니 두려움이 조금 사라지긴 했다.&lt;/p>
+&lt;p>CKA 시험에는 CSR (Certificate Signing Request) 보내는 방법까지 배우긴 하는데&lt;/p></description></item><item><title>SSH 비대칭 키로 접속할 때 문제 해결</title><link>https://interp.blog/ssh-authorized-keys-problem/</link><pubDate>Fri, 23 Dec 2022 13:57:59 +0900</pubDate><guid>https://interp.blog/ssh-authorized-keys-problem/</guid><description>&lt;img src="https://interp.blog/ssh-authorized-keys-problem/feature.jpg" alt="Featured image of post SSH 비대칭 키로 접속할 때 문제 해결" />&lt;p>클라이언트에서 서버로 SSH 접속을 패스워드 없이 하기 위해&lt;/p>
 &lt;ul>
 &lt;li>클라이언트 컴퓨터에서, RSA 알고리즘으로 비대칭 키를 생성했다.&lt;/li>
 &lt;li>비대칭 키의 Public Key 를 서버의 &lt;code>~/.ssh/authorized_keys&lt;/code> 파일에 붙여넣었다.&lt;/li>
@@ -405,7 +477,7 @@ AssertionError: Python 3.6 and below is not supported by this version of debugpy
 &lt;p>이번 포스팅을 시작으로, 직접 다양한 언어에서 BDD 를 적용하는 방법을 정리해 볼 예정이다. 첫 시간으로는 &lt;strong>파이썬&lt;/strong> (Python) 언어를 가지고 할 것이다. Python 라이브러리 중 하나인 &lt;a class="link" href="https://behave.readthedocs.io/en/stable/" target="_blank" rel="noopener"
 >behave&lt;/a> 를 통해, BDD 테스트 프레임워크를 구성하고, 예제 시나리오를 만들어서 테스트 자동화가 어떻게 이뤄질 수 있을지 알아보자.&lt;/p>
 &lt;h1 id="예제-프로젝트-생성">예제 프로젝트 생성&lt;/h1>
-&lt;div style="background-color: var(--body-background); width: 98%;padding: 10px;border-radius: 5px;font-size: .8em;display: flex;">
+&lt;div style="background-color: var(--body-background); width: 98%; margin:1px; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
 &lt;div style="width: 16px;margin-right: 7px; margin-left: 4px;">
 💡
 &lt;/div>
@@ -666,7 +738,7 @@ Then I should have 7 cucumbers
 &lt;h2 id="결론">결론&lt;/h2>
 &lt;p>&lt;a class="link" href="http://m.blog.naver.com/dondek77/140178945548" target="_blank" rel="noopener"
 >위 네이버 포스팅&lt;/a>에도 언급되지만, 100% 해결책은 아니다. &amp;lsquo;다&amp;rsquo; 를 치는데 &amp;lsquo;ㄷ&amp;rsquo; 키가 바운싱이 되는 사이에 &amp;lsquo;ㅏ&amp;rsquo;가 입력되면 OS 입장에서는 &amp;lsquo;ㄷㄷ&amp;rsquo; 같은 중복 키로 인식하지 않으므로 &amp;lsquo;닫&amp;rsquo; 같은 문자가 입력되기 때문이다. 이런 문제는 지금 포스팅을 쓰는데도 발생하고 있다 (이런!)&lt;/p>
-&lt;p>결국 지름신을 모셔야 할 것 같지만… 어느 정도 완화할 수는 있겠다 싶어서 작성한다.&lt;/p></description></item><item><title>저작권 걱정 없는 무료 이미지 사이트 3개</title><link>https://interp.blog/license-free-image-3-sites/</link><pubDate>Thu, 28 Jul 2022 01:39:19 +0000</pubDate><guid>https://interp.blog/license-free-image-3-sites/</guid><description>&lt;img src="https://interp.blog/images/2022-07-28-glenn-carstens-peters-loatw2afdyu-unsplash.jpg" alt="Featured image of post 저작권 걱정 없는 무료 이미지 사이트 3개" />&lt;div style="background-color: var(--body-background); width: 98%;padding: 10px;border-radius: 5px;font-size: .8em;display: flex;">
+&lt;p>결국 지름신을 모셔야 할 것 같지만… 어느 정도 완화할 수는 있겠다 싶어서 작성한다.&lt;/p></description></item><item><title>저작권 걱정 없는 무료 이미지 사이트 3개</title><link>https://interp.blog/license-free-image-3-sites/</link><pubDate>Thu, 28 Jul 2022 01:39:19 +0000</pubDate><guid>https://interp.blog/license-free-image-3-sites/</guid><description>&lt;img src="https://interp.blog/images/2022-07-28-glenn-carstens-peters-loatw2afdyu-unsplash.jpg" alt="Featured image of post 저작권 걱정 없는 무료 이미지 사이트 3개" />&lt;div style="background-color: var(--body-background); width: 98%; margin:1px; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
 &lt;div style="width: 16px;margin-right: 7px; margin-left: 4px;">
 😉
 &lt;/div>
@@ -1429,7 +1501,7 @@ data-ad-slot="1092971030">&lt;/ins>
 &lt;p>나에게 Controller 는 기술적인 개념이고, Operator 는 좀 더 포괄적이면서 논리적인 개념으로 받아들여진다. &lt;a class="link" href="https://blog.marcnuri.com/kubernetes-operator-vs-controller" target="_blank" rel="noopener"
 >문서&lt;/a>에서도 &amp;lsquo;모든 Operator 는 CR 을 관리하기 위해 쓰이는 Controller 라고 부를 수 있다.&amp;rsquo; 라고 하고 있으니까 말이다.&lt;/p>
 &lt;p>그리고 Controller 나 Operator 모두 어떤 프레임워크일 뿐이지, 언어에 국한된 것은 아니라고 언급한다. Go 언어와 Python 으로 모두 구현해 본 경험이 있는 나 역시, 이 부분에 동의한다.&lt;/p>
-&lt;p>다만 용어를 선택하거나 접할 때 좀 더 이해를 확실히 할 목적으로 정리하는게 더욱 낫지 않을까 하는 마음에, 이 비교글을 마친다.&lt;/p></description></item><item><title>카카오/네이버 메일 아이폰 연동</title><link>https://interp.blog/kakao-naver-email-iphone-connect/</link><pubDate>Fri, 04 Feb 2022 16:35:37 +0000</pubDate><guid>https://interp.blog/kakao-naver-email-iphone-connect/</guid><description>&lt;img src="https://interp.blog/images/2022-02-04-kakao-email/feature-image.jpg" alt="Featured image of post 카카오/네이버 메일 아이폰 연동" />&lt;div style="background-color: var(--body-background); width: 98%;padding: 10px;border-radius: 5px;font-size: .8em;display: flex;">
+&lt;p>다만 용어를 선택하거나 접할 때 좀 더 이해를 확실히 할 목적으로 정리하는게 더욱 낫지 않을까 하는 마음에, 이 비교글을 마친다.&lt;/p></description></item><item><title>카카오/네이버 메일 아이폰 연동</title><link>https://interp.blog/kakao-naver-email-iphone-connect/</link><pubDate>Fri, 04 Feb 2022 16:35:37 +0000</pubDate><guid>https://interp.blog/kakao-naver-email-iphone-connect/</guid><description>&lt;img src="https://interp.blog/images/2022-02-04-kakao-email/feature-image.jpg" alt="Featured image of post 카카오/네이버 메일 아이폰 연동" />&lt;div style="background-color: var(--body-background); width: 98%; margin:1px; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
 &lt;div style="width: 16px;margin-right: 7px; margin-left: 4px;">
 🚧
 &lt;/div>
