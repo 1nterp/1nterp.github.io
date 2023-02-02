@@ -43,7 +43,17 @@
     letter-spacing: -1px;
 
     @include respond(md) {
-        font-size: 1.7em;
+        font-size: 1.8em;
+    }
+  }
+  
+  h2 {
+    font-size: 1.3em;
+    margin: 2.2em 0 .67em 0;
+    letter-spacing: -1px;
+
+    @include respond(md) {
+        font-size: 1.4em;
     }
   }
   
@@ -99,7 +109,8 @@
   
   b,
   strong {
-    font-weight: 600;
+    font-weight: 500;
+    color: var(--accent-bold-color);
   }
   
   /**
