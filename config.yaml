@@ -76,8 +76,8 @@ params:
             category: General
             categoryID: MDE4OkRpc2N1c3Npb25DYXRlZ29yeTMyMjU4Mjgx
             mapping: pathname
-            reactionsEnabled: true
-            emitMetadata: true
+            reactionsEnabled: 1
+            emitMetadata: 1
             #lightTheme:
             lang: en
 
