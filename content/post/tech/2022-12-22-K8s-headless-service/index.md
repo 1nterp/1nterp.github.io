@@ -19,7 +19,7 @@ K8s Resource 를 보거나 Helm Chart 를 보거나 헷갈리는 개념 중 하�
 
 # 설명 먼저
 공식 문서 설명을 먼저 보자. [영어 원문](https://kubernetes.io/docs/concepts/services-networking/service/#headless-services)과 [한국어 번역본](https://kubernetes.io/ko/docs/concepts/services-networking/service/#%ED%97%A4%EB%93%9C%EB%A6%AC%EC%8A%A4-headless-%EC%84%9C%EB%B9%84%EC%8A%A4)을 적절히 믹스했다.
-> 로드 밸런싱 (Load-balancing) 이나 단일 서비스 IP 가 필요하지 않은 경우엔, "헤드리스" 서비스라는 것을 만들 수 있다. `.spec.clusterIP: None` 을 명시적으로 지정하면 된다.
+> 로드 밸런싱 (Load-balancing) 이나 단일 서비스 IP 가 필요하지 않은 경우엔, '헤드리스' 서비스라는 것을 만들 수 있다. `.spec.clusterIP: None` 을 명시적으로 지정하면 된다.
 >
 > 이 헤드리스 서비스를 통해, 쿠버네티스의 구현에 의존하지 않고도 다른 서비스 디스커버리 메커니즘과 인터페이스할 수 있다.
 >
@@ -41,11 +41,11 @@ K8s Resource 를 보거나 Helm Chart 를 보거나 헷갈리는 개념 중 하�
 >
 > 다행히도, Kubernetes 는 클라이언트에게 Pod IP 리스트를 알려주는 방법을 DNS Lookup 을 통해 제공합니다. 대개는, 어떤 Service 를 위한 DNS Lookup 를 수행하면 DNS 서버는 IP 주소 1개를 반환합니다. 바로 Service 의 Cluster IP 죠. 그런데 여러분이 Service 를 만들 때 Cluster IP 가 필요 없다고 알려주면, DNS 서버는 (해당 Service 를 위한 DNS Lookup 요청에) 소속된 Pod IP 주소 목록을 전부 반환합니다. 즉, DNS A 레코드 1개가 아니라, 각각의 Pod 과 통신할 수 있는 A 레코드 여러 개가 반환되는 것이죠. 그러면 클라이언트는 간단하게 이 A 레코드를 순회하면서 다시 DNS Lookup 을 할 수 있고 실제 Pod 들의 IP 를 얻을 수 있습니다.
 
-클라이언트 - Service - Pod 들이 있다고 하면, 클라이언트의 요청은 'Pod 중 하나' 만 받아서 처리하도록 중계하는 것이 Service 의 역할이다. 하지만 클라이언트가 'Pod 모두' 와 통신하고자 할 때는 이 방법은 못 쓰고, 그렇다고 API 서버에 물어서 IP 를 다 얻어오게 애플리케이션을 짜면 API 서버 위치에 의존적이게 되니 적절한 방법이 아닌 것이다. 
+보통 Service 의 역할은, Service 로 들어온 요청을 *여러 개의 Pod 중 하나* 에만 전달하는 것이다. 하지만 이 요청이 **모든 Pod 에** 전달되어야 하는 경우에는 적합하지 않다.
 
-따라서 Cluster IP 를 없앤 Service 를 만들면 DNS Server 가 모든 Pod 들의 A 레코드를 직접 알려주는 (resolving) 것이다. 중계해 줄 Cluster IP 가 없으니, 이게 머리가 없는 Service 가 아니겠는가.
+이를 위해서 k8s-api-server 에 요청해서, Service 에 속한 Pod 의 IP 리스트를 얻어오도록 애플리케이션을 구성할 수는 있겠지만, 그 때부터 애플리케이션은 해당 API 서버 위치에 의존해야 하기 때문에 적절한 방법이 아닌 것이다.
 
-여기서 설명을 더 하진 않았어도, '_클라이언트_' 부분을 '_Pod A_' 라고 바꿔도 말이 된다. Pod A 가 소속된 다른 Pod 들과 통신할 때도 Service 의 주소를 가지고 DNS Lookup 하면 Pod 주소 목록이 나올 것이니, 거기서 자기 것은 빼고 쓰면 되는 것이다.
+위의 설명대로라면, Cluster IP 를 없앤 Service 의 경우 DNS Server 가 모든 Pod 들의 A 레코드를 직접 알려주는 (resolving) 것이다. **요청을 수신받을 Cluster IP 가 없으니, 머리가 없는 Service 라고 부를 수 있겠다.**
 
 # 데모
 사실 데모는 다른 블로그에서 많이 찾아볼 수 있어서, 최소한으로 재현 할 수 있는 방법을 알아보도록 하자.
@@ -57,28 +57,26 @@ kubectl create deployment test-deploy --image=praqma/network-multitool --replica
 kubectl get pods -lapp=test-deploy -o wide
 ```
 ```
-NAME                           READY   STATUS    RESTARTS   AGE   IP            NODE        NOMINATED NODE   READINESS GATES
-test-deploy-7bff8c5f84-hxcfw   1/1     Running   0          24s   200.96.1.50   <blacked>   <none>           <none>
-test-deploy-7bff8c5f84-rjdm9   1/1     Running   0          24s   200.96.0.59   <blacked>   <none>           <none>
-test-deploy-7bff8c5f84-w5l8j   1/1     Running   0          24s   200.96.2.24   <blacked>   <none>           <none>
+NAME                           READY   STATUS   ...
+test-deploy-7bff8c5f84-hxcfw   1/1     Running  ...
+test-deploy-7bff8c5f84-rjdm9   1/1     Running  ...
+test-deploy-7bff8c5f84-w5l8j   1/1     Running  ...
 ```
 첫 번째 Pod 의 IP 가 `200.96.1.50` 이다. 두 번째 Pod 에서 첫 번째 Pod 으로 접속을 시도해 보자.
 ```bash
-kubectl exec test-deploy-7bff8c5f84-rjdm9 -it -- curl 200.96.1.50:80 # test-deploy-7bff8c5f84-hxcfw 
+# connect to test-deploy-7bff8c5f84-hxcfw 
+kubectl exec test-deploy-7bff8c5f84-rjdm9 -it -- curl 200.96.1.50:80 
 ```
 ```
-Praqma Network MultiTool (with NGINX) - test-deploy-7bff8c5f84-hxcfw - 200.96.1.50 - HTTP: 80 , HTTPS: 443
-<br>
-<hr>
-...
+Praqma Network MultiTool (with NGINX) - test-deploy-7bff8c5f84-hxcfw - ...
 ```
 접속이 잘 된다. 하지만 여기 보이는 Pod IP 는 **언제든지 바뀔 수 있기 때문에** 이런 식으로 쓰면 안 된다.
 
 ## Headless Service 생성
 이제 Headless Service 를 만들어보자. 이번에는 바로 만들지 말고 manifest 를 YAML 파일로 저장해 둔 다음에 수정이 좀 필요하다.
 ```bash
-kubectl create service clusterip test-cs-svc --clusterip="None" --tcp=80:80 --dry-run=client -oyaml \
-  > test-cs-svc.yaml
+kubectl create service clusterip test-cs-svc --clusterip="None" \
+  --tcp=80:80 --dry-run=client -oyaml > test-cs-svc.yaml
 ```
 Headless 로 만드는 핵심 옵션이 바로 `--clusterip="None"` 라는 걸 알 수 있다. 여기서 출력되는 파일을 열어서, `spec.selector` 를 deployment 의 것으로 바꿔줘야 한다.
 ```yaml
@@ -116,8 +114,7 @@ kubectl apply -f test-cs-svc.yaml
 kubectl exec test-deploy-7bff8c5f84-rjdm9 -it -- cat /etc/resolv.conf
 ```
 ```
-search default.svc.cluster.local svc.cluster.local cluster.local eu-central-1.compute.internal
-...
+search default.svc.cluster.local svc.cluster.local ...
 ```
 여기 잘 보면, 해당 Pod 위치에서 요청하는 domain name 에 `default.svc.cluster.local` 을 자동으로 붙여서 resolving 하려는 걸 볼 수 있다. (default namespace 에 있는 모든 Pod 들이 똑같을 것이다) 
 

@@ -38,18 +38,20 @@
    */
   
   h1 {
-    font-size: 1.5em;
-    margin: 2.2em 0 .67em 0;
+    font-size: 1.7em;
+    font-weight: 500;
+    margin: 3em 0 .67em 0;
     letter-spacing: -1px;
 
     @include respond(md) {
-        font-size: 1.8em;
+        font-size: 1.9em;
     }
   }
   
   h2 {
     font-size: 1.3em;
-    margin: 1.9em 0 .67em 0;
+    font-weight: 400;
+    margin: 2.4em 0 .67em 0;
     letter-spacing: -1px;
 
     @include respond(md) {
@@ -110,6 +112,10 @@
   b,
   strong {
     font-weight: 500;
+    color: var(--accent-bold-color);
+  }
+
+  em {
     color: var(--accent-bold-color);
   }
   
