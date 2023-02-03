@@ -68,7 +68,11 @@ SSL/TLS/HTTPS 부터 알아보자.
 간략히 말하자면, 이 인증서에는 (1) 공개 키 (2) 서버의 신원 (호스트네임, 기관이나 개인 이름 등) (3) 인증서에 사인을 해 준 기관 (Certificate Authority, *CA*) 이 포함되어 있다. (CA 로부터 사인받지 않았다면 self-signed 로 표시된다)
 
 
-{{< callout text="'CA 의 비대칭 키 한 쌍' 을 **Root Certificate** 라고 한다. <br/><br/>일반적으로 클라이언트는 CA 의 비대칭 키 중 공개 키만 알면 되지만, Kubernetes Cluster 를 구축하거나 운영할 때는 master node 에 위치한 Root Certificate 를 다룰 수 있어야 한다. (K8s Cluster 의 다른 서비스와 보안 통신을 하기 위해서!) " emoji=":bulb:" >}}
+{{< callout text=`
+'CA 의 비대칭 키 한 쌍' 은 **Root/Intermediate Certificate** 라고 한다. <br/><br/> 
+Root 와 Intermediate 의 차이는 CA 의 공개 키를 어디서 인증 받았는지 여부에 달렸다. Root Certificate 의 공개 키는 Self-signed 이고, **Intermediate Certificate 의 공개 키는 는 다른 CA 가 사인해 준 것**이다. CA 에서 발급받은 일반 인증서는 Leaf Certificate 라고 부른다. ([링크](https://cert-manager.io/docs/reference/tls-terminology/#whats-the-difference-between-root-intermediate-and-leaf-certificates)) <br/><br/> 
+일반적인 인터넷 환경이라면 이 차이를 굳이 알 필요가 없지만, Kubernetes Cluster 를 구축하거나 운영할 때는 master node 에 위치한 Root Certificate 부터 다룰 수 있어야 한다. (K8s Cluster 의 다른 서비스와 보안 통신을 하기 위해서!)
+` emoji=":bulb:" >}}
 
 자, 이제 여기서 해커가 생각할 수 있는 건 무엇일까?
 
