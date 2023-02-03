@@ -3,7 +3,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="SSL/TLS, 비대칭 키, PKI 와 X.509 까지"><title>Secure Communication 에 대한 모든 것</title>
 <style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500&display=swap'</style>
 <link rel=canonical href=https://interp.blog/ssl-tls-pki-x509-certificate/>
-<link rel=stylesheet href=/scss/style.min.04116a5fae6980b0f416df3193655a1bfb7d770f140cf2f17efb9aaa4f1a8825.css><meta property="title" content="Secure Communication 에 대한 모든 것">
+<link rel=stylesheet href=/scss/style.min.15aaf866c8fd598048997f389ff8d2c053d369411f0858ee7cfb3fbf2136b964.css><meta property="title" content="Secure Communication 에 대한 모든 것">
 <meta property="description" content="SSL/TLS, 비대칭 키, PKI 와 X.509 까지">
 <meta property="og:title" content="Secure Communication 에 대한 모든 것">
 <meta property="og:description" content="SSL/TLS, 비대칭 키, PKI 와 X.509 까지">
@@ -94,7 +94,7 @@ SSL/TLS, 비대칭 키, PKI 와 X.509 까지
 </div>
 <div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
 <time class=article-time--reading>
-4 분 소요
+5 분 소요
 </time>
 </div>
 </footer>
@@ -162,7 +162,9 @@ SSL/TLS, 비대칭 키, PKI 와 X.509 까지
 💡
 </div>
 <div>
-&lsquo;CA 의 비대칭 키 한 쌍&rsquo; 을 <strong>Root Certificate</strong> 라고 한다. <br><br>일반적으로 클라이언트는 CA 의 비대칭 키 중 공개 키만 알면 되지만, Kubernetes Cluster 를 구축하거나 운영할 때는 master node 에 위치한 Root Certificate 를 다룰 수 있어야 한다. (K8s Cluster 의 다른 서비스와 보안 통신을 하기 위해서!)
+&lsquo;CA 의 비대칭 키 한 쌍&rsquo; 은 <strong>Root/Intermediate Certificate</strong> 라고 한다. <br><br>
+Root 와 Intermediate 의 차이는 CA 의 공개 키를 어디서 인증 받았는지 여부에 달렸다. Root Certificate 의 공개 키는 Self-signed 이고, <strong>Intermediate Certificate 의 공개 키는 는 다른 CA 가 사인해 준 것</strong>이다. CA 에서 발급받은 일반 인증서는 Leaf Certificate 라고 부른다. (<a href=https://cert-manager.io/docs/reference/tls-terminology/#whats-the-difference-between-root-intermediate-and-leaf-certificates>링크</a>) <br><br>
+일반적인 인터넷 환경이라면 이 차이를 굳이 알 필요가 없지만, Kubernetes Cluster 를 구축하거나 운영할 때는 master node 에 위치한 Root Certificate 부터 다룰 수 있어야 한다. (K8s Cluster 의 다른 서비스와 보안 통신을 하기 위해서!)
 </div>
 </div>
 <p>자, 이제 여기서 해커가 생각할 수 있는 건 무엇일까?</p>

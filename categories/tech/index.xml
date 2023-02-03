@@ -59,7 +59,9 @@
 💡
 &lt;/div>
 &lt;div>
-&amp;lsquo;CA 의 비대칭 키 한 쌍&amp;rsquo; 을 &lt;strong>Root Certificate&lt;/strong> 라고 한다. &lt;br/>&lt;br/>일반적으로 클라이언트는 CA 의 비대칭 키 중 공개 키만 알면 되지만, Kubernetes Cluster 를 구축하거나 운영할 때는 master node 에 위치한 Root Certificate 를 다룰 수 있어야 한다. (K8s Cluster 의 다른 서비스와 보안 통신을 하기 위해서!)
+&amp;lsquo;CA 의 비대칭 키 한 쌍&amp;rsquo; 은 &lt;strong>Root/Intermediate Certificate&lt;/strong> 라고 한다. &lt;br/>&lt;br/>
+Root 와 Intermediate 의 차이는 CA 의 공개 키를 어디서 인증 받았는지 여부에 달렸다. Root Certificate 의 공개 키는 Self-signed 이고, &lt;strong>Intermediate Certificate 의 공개 키는 는 다른 CA 가 사인해 준 것&lt;/strong>이다. CA 에서 발급받은 일반 인증서는 Leaf Certificate 라고 부른다. (&lt;a href="https://cert-manager.io/docs/reference/tls-terminology/#whats-the-difference-between-root-intermediate-and-leaf-certificates">링크&lt;/a>) &lt;br/>&lt;br/>
+일반적인 인터넷 환경이라면 이 차이를 굳이 알 필요가 없지만, Kubernetes Cluster 를 구축하거나 운영할 때는 master node 에 위치한 Root Certificate 부터 다룰 수 있어야 한다. (K8s Cluster 의 다른 서비스와 보안 통신을 하기 위해서!)
 &lt;/div>
 &lt;/div>
 &lt;p>자, 이제 여기서 해커가 생각할 수 있는 건 무엇일까?&lt;/p>
