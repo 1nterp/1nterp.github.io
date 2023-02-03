@@ -68,8 +68,18 @@ params:
             enabled: 
 
     comments:
-        enabled: false
-        # provider: disqus
+        enabled: true
+        provider: giscus
+        giscus:
+            repo: 1nterp/1nterp.github.io
+            repoID: MDEwOlJlcG9zaXRvcnkyMzY5NzQ5Mzc=
+            category: General
+            categoryID: MDE4OkRpc2N1c3Npb25DYXRlZ29yeTMyMjU4Mjgx
+            mapping: pathname
+            reactionsEnabled: true
+            emitMetadata: true
+            #lightTheme:
+            lang: en
 
     widgets:
         homepage:
