@@ -1,18 +1,18 @@
 <!doctype html><html lang=ko-kr dir=ltr>
 <head><meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="사내 사정으로 인해 Gitlab의 External_Url 을 실제 서버 주소와 다르게 설정해서 쓰고 있다. 물론 실제 nginx 에도 해당 도메인으로 접근할 수 있도록 설정해야 하는 게 맞다. 그렇지"><title>Gitlab 아바타/첨부파일 상대 경로 설정</title>
+<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Ruby, C 파일을 건드려서 입맛대로 고쳐 써보자"><title>Gitlab Markdown Parser 고치기</title>
 <style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500&display=swap'</style>
-<link rel=canonical href=https://interp.blog/gitlab-%EC%95%84%EB%B0%94%ED%83%80-%EC%83%81%EB%8C%80-%EA%B2%BD%EB%A1%9C-%EC%84%A4%EC%A0%95/>
-<link rel=stylesheet href=/scss/style.min.04116a5fae6980b0f416df3193655a1bfb7d770f140cf2f17efb9aaa4f1a8825.css><meta property="title" content="Gitlab 아바타/첨부파일 상대 경로 설정">
-<meta property="description" content="사내 사정으로 인해 Gitlab의 External_Url 을 실제 서버 주소와 다르게 설정해서 쓰고 있다. 물론 실제 nginx 에도 해당 도메인으로 접근할 수 있도록 설정해야 하는 게 맞다. 그렇지">
-<meta property="og:title" content="Gitlab 아바타/첨부파일 상대 경로 설정">
-<meta property="og:description" content="사내 사정으로 인해 Gitlab의 External_Url 을 실제 서버 주소와 다르게 설정해서 쓰고 있다. 물론 실제 nginx 에도 해당 도메인으로 접근할 수 있도록 설정해야 하는 게 맞다. 그렇지">
-<meta property="og:url" content="https://interp.blog/gitlab-%EC%95%84%EB%B0%94%ED%83%80-%EC%83%81%EB%8C%80-%EA%B2%BD%EB%A1%9C-%EC%84%A4%EC%A0%95/">
+<link rel=canonical href=https://interp.blog/gitlab-markdown-parser-configuration/>
+<link rel=stylesheet href=/scss/style.min.04116a5fae6980b0f416df3193655a1bfb7d770f140cf2f17efb9aaa4f1a8825.css><meta property="title" content="Gitlab Markdown Parser 고치기">
+<meta property="description" content="Ruby, C 파일을 건드려서 입맛대로 고쳐 써보자">
+<meta property="og:title" content="Gitlab Markdown Parser 고치기">
+<meta property="og:description" content="Ruby, C 파일을 건드려서 입맛대로 고쳐 써보자">
+<meta property="og:url" content="https://interp.blog/gitlab-markdown-parser-configuration/">
 <meta property="og:site_name" content="InterP Blog">
-<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="gitlab"><meta property="article:published_time" content="2018-01-08T02:35:20+00:00"><meta property="article:modified_time" content="2018-01-08T02:35:20+00:00">
+<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="gitlab"><meta property="article:tag" content="markdown"><meta property="article:tag" content="redcarpet"><meta property="article:published_time" content="2018-01-03T02:29:21+00:00"><meta property="article:modified_time" content="2018-01-03T02:29:21+00:00">
 <meta name=twitter:site content="@interp_">
-<meta name=twitter:creator content="@interp_"><meta name=twitter:title content="Gitlab 아바타/첨부파일 상대 경로 설정">
-<meta name=twitter:description content="사내 사정으로 인해 Gitlab의 External_Url 을 실제 서버 주소와 다르게 설정해서 쓰고 있다. 물론 실제 nginx 에도 해당 도메인으로 접근할 수 있도록 설정해야 하는 게 맞다. 그렇지">
+<meta name=twitter:creator content="@interp_"><meta name=twitter:title content="Gitlab Markdown Parser 고치기">
+<meta name=twitter:description content="Ruby, C 파일을 건드려서 입맛대로 고쳐 써보자">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-KMRJ33V06X"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-KMRJ33V06X')</script>
 <script>(function(b,d,e,a,g){b[a]=b[a]||[],b[a].push({'gtm.start':(new Date).getTime(),event:'gtm.js'});var f=d.getElementsByTagName(e)[0],c=d.createElement(e),h=a!='dataLayer'?'&l='+a:'';c.async=!0,c.src='https://www.googletagmanager.com/gtm.js?id='+g+h,f.parentNode.insertBefore(c,f)})(window,document,'script','dataLayer','GTM-NBPHNHQ')</script>
@@ -76,16 +76,19 @@ TECH 🛠️
 </header>
 <div class=article-title-wrapper>
 <h2 class=article-title>
-<a href=/gitlab-%EC%95%84%EB%B0%94%ED%83%80-%EC%83%81%EB%8C%80-%EA%B2%BD%EB%A1%9C-%EC%84%A4%EC%A0%95/>Gitlab 아바타/첨부파일 상대 경로 설정</a>
+<a href=/gitlab-markdown-parser-configuration/>Gitlab Markdown Parser 고치기</a>
 </h2>
+<h3 class=article-subtitle>
+Ruby, C 파일을 건드려서 입맛대로 고쳐 써보자
+</h3>
 </div>
 <footer class=article-time>
 <div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
-<time class=article-time--published>2018-01-08</time>
+<time class=article-time--published>2018-01-03</time>
 </div>
 <div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
 <time class=article-time--reading>
-2 분 소요
+3 분 소요
 </time>
 </div>
 </footer>
@@ -96,64 +99,61 @@ TECH 🛠️
 <ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-0712823212859607 data-ad-slot=9016400576></ins>
 <script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
 <section class=article-content>
-<p>사내 사정으로 인해 Gitlab의 <code>External_Url</code> 을 실제 서버 주소와 다르게 설정해서 쓰고 있다.</p>
-<p>물론 실제 nginx 에도 해당 도메인으로 접근할 수 있도록 설정해야 하는 게 맞다. 그렇지 않으면, 첨부파일과 아바타 이미지가 모두 깨져나온다. 하지만 그러기 전에 Gitlab 차원에서 상대 경로로 아바타를 출력할 수 있도록 수정하는 방법 &lsquo;도&rsquo; 있으니 편법으로 수정했다. 아래는 그 편법 내용을 다룬다.</p>
-<h2 id=아바타-상대-경로-설정>아바타 상대 경로 설정</h2>
-<p><code>/opt/gitlab/embedded/service/gitlab-rails/app/models/concerns/avatarable.rb</code> 파일에서 절대 경로로 수정하는 코드가 있는데, url_base 에 덧붙이는 코드들을 전부 주석처리하면 된다.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=k>module</span> <span class=nn>Avatarable</span>
-  <span class=kp>extend</span> <span class=no>ActiveSupport</span><span class=o>::</span><span class=no>Concern</span>
+<p>Github 과 비슷한 서비스인 <a class=link href=https://about.gitlab.com/ target=_blank rel=noopener>Gitlab</a> 은 오픈소스이기 때문에 Community Edition 을 쓰건, Enterprise Edition 을 쓰건 on-premise 환경에서 설치한 뒤 마음대로 수정해서 사용이 가능하다. 수정하는 범위를 한정하지 않는다면, 루비 (<code>*.rb</code>) 파일까지 건드릴 수 있다.</p>
+<p>여기서는 Gitlab에서 문서 작성에 필요한 Markdown 의 Parser 부분을 미세하게 수정해서, 입맛에 맞게 바꾸기 위한 방법을 정리해 둔다. Ruby 개발자가 아니라서 전체 순서가 정공법처럼 보이진 않겠지만.</p>
+<h1 id=그런데-뭘-수정하나요>그런데 뭘 수정하나요?</h1>
+<p>내가 수정하고 싶었던 내용은, E<strong>nter 키를 한 번만 쳐도 줄이 바뀌도록 보이게 하는 것</strong>이었다. 원래 Markdown 문법에선 Enter 키를 두 번 치면 문단 바꿈, 줄 끝에 스페이스를 두 번 넣으면 줄바꿈이 된다. 그런데 Enter 키를 한 번만 쳐도 줄바꿈이 되면 좋겠다는 개발자가 많았다. <del>저기요, Markdown 안 써보셨어요? 라고 따질 순 없었다</del></p>
+<h1 id=gitlab-10x--redcarpet>Gitlab 10.x : Redcarpet</h1>
+<p>Gitlab 10.x 에서는 Markdown Parser 를 <a class=link href=https://github.com/vmg/redcarpet target=_blank rel=noopener>Redcarpet</a> 으로 사용한다. 아마 <a class=link href=https://jekyllrb-ko.github.io/ target=_blank rel=noopener>Jekyll</a> 도 기본적으로 Redcarpet 을 사용하는 것으로 알고 있다. 만약 Ruby의 Redcarpet 을 Markdown Parser 로 쓰는 경우라면 똑같이 적용이 가능하다.</p>
+<h2 id=parser-c-파일-수정하기>Parser C 파일 수정하기</h2>
+<p><code>/opt/gitlab/embedded/lib/ruby/gems/2.3.0/gems/redcarpet-3.4.0/</code> 으로 들어가면 Redcarpet의 소스코드가 존재한다. 여기서 <code>ext/redcarpet</code> 디렉토리가 Parser C 파일들이 위치한 곳이다.</p>
+<p>여기 <code>markdown.c</code> 파일을 보니 <code>char_linebreak()</code>  라는 함수가 존재한다. 여기서 해당 부분을 주석처리했다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=cm>/* char_linebreak • &#39;\n&#39; preceded by two spaces (assuming linebreak != 0) */</span>
+<span class=k>static</span> <span class=n>size_t</span>
+<span class=nf>char_linebreak</span><span class=p>(</span><span class=k>struct</span> <span class=nc>buf</span> <span class=o>*</span><span class=n>ob</span><span class=p>,</span> 
+              <span class=k>struct</span> <span class=nc>sd_markdown</span> <span class=o>*</span><span class=n>rndr</span><span class=p>,</span> 
+              <span class=kt>uint8_t</span> <span class=o>*</span><span class=n>data</span><span class=p>,</span> 
+              <span class=n>size_t</span> <span class=n>offset</span><span class=p>,</span> 
+              <span class=n>size_t</span> <span class=n>size</span><span class=p>)</span>
+<span class=p>{</span>
+    <span class=c1>//if (offset &lt; 2 || data[-1] != &#39; &#39; || data[-2] != &#39; &#39;) 
+</span><span class=c1></span>    <span class=c1>// return 0; /* removing the last space from ob and rendering */ 
+</span><span class=c1></span>    <span class=k>while</span> <span class=p>(</span><span class=n>ob</span><span class=o>-&gt;</span><span class=n>size</span> <span class=o>&amp;&amp;</span> <span class=n>ob</span><span class=o>-&gt;</span><span class=n>data</span><span class=p>[</span><span class=n>ob</span><span class=o>-&gt;</span><span class=n>size</span> <span class=o>-</span> <span class=mi>1</span><span class=p>]</span> <span class=o>==</span> <span class=sc>&#39; &#39;</span><span class=p>)</span>
+            <span class=n>ob</span><span class=o>-&gt;</span><span class=n>size</span><span class=o>--</span><span class=p>;</span>
 
-  <span class=k>def</span> <span class=nf>avatar_path</span><span class=p>(</span><span class=ss>only_path</span><span class=p>:</span> <span class=kp>true</span><span class=p>)</span>
-    <span class=k>return</span> <span class=k>unless</span> <span class=nb>self</span><span class=o>[</span><span class=ss>:avatar</span><span class=o>].</span><span class=n>present?</span>
+    <span class=k>return</span> <span class=n>rndr</span><span class=o>-&gt;</span><span class=n>cb</span><span class=p>.</span><span class=n>linebreak</span><span class=p>(</span><span class=n>ob</span><span class=p>,</span> <span class=n>rndr</span><span class=o>-&gt;</span><span class=n>opaque</span><span class=p>)</span> <span class=o>?</span> <span class=mi>1</span> <span class=o>:</span> <span class=mi>0</span><span class=p>;</span>
+<span class=p>}</span>
+</code></pre></div><h2 id=라이브러리-생성복사>라이브러리 생성/복사</h2>
+<p>수정이 끝나면 반드시 <code>ext/redcarpet</code> 디렉토리에서 <code>make</code> 를 수행해 주도록 하자. 그러면 Shared Library 파일인 <code>redcarpet.so</code> 이 생성된다.</p>
+<p>이 파일을, 다음 경로에 모두 복사해주도록 하자.</p>
+<ul>
+<li><code>/opt/gitlab/embedded/lib/ruby/gems/2.3.0/extensions/x86_64-linux/2.3.0/redcarpet-3.4.0/</code></li>
+<li><code>/opt/gitlab/embedded/lib/ruby/gems/2.3.0/gems/redcarpet-3.4.0/lib/</code></li>
+</ul>
+<h2 id=gitlab-재부팅>Gitlab 재부팅</h2>
+<p>마지막으로 <code>gitlab-ctl reconfigure && gitlab-ctl restart</code> 를 실행시켜 Gitlab 을 재부팅 하자.</p>
+<h1 id=gitlab-11x-이후--commonmark>Gitlab 11.x 이후 : Commonmark</h1>
+<p>11.x 부터는 Redcarpet 이 아니라 Commonmark 를 기본 파서로 사용한다. 구조가 달라져서 찾는게 귀찮아서 그렇지, 기본 원리는 비슷하다. 2칸 이상의 space 를 준 채로 줄바꿈하게 되면 <code>CMARK_NODE_LINEBREAK</code>, 그렇지 않고 줄바꿈하면 <code>CMARK_NODE_SOFTBREAK</code> 상태로 전이된다.</p>
+<p>옵션을 알아보고 정확히 적용했다면 더 없이 깔끔했겠지만, 나는 마음이 급했기 때문에 참고할 만한 소스코드만 붙이고 그만두기로 했다.</p>
+<p><code>html.c:283</code> 부터다. 여기서 직접 줄바꿈을 하도록 강제했다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=k>case</span> <span class=nl>CMARK_NODE_SOFTBREAK</span><span class=p>:</span>
+    <span class=k>if</span> <span class=p>(</span><span class=n>options</span> <span class=o>&amp;</span><span class=n>amp</span><span class=p>;</span> <span class=n>CMARK_OPT_HARDBREAKS</span><span class=p>)</span> <span class=p>{</span>
+        <span class=n>cmark_strbuf_puts</span><span class=p>(</span><span class=n>html</span><span class=p>,</span> <span class=s>&#34;&lt;br/&gt;</span><span class=se>\n</span><span class=s>&#34;</span><span class=p>);</span>
+    <span class=p>}</span> <span class=k>else</span> <span class=k>if</span> <span class=p>(</span><span class=n>options</span> <span class=o>&amp;</span><span class=n>amp</span><span class=p>;</span> <span class=n>CMARK_OPT_NOBREAKS</span><span class=p>)</span> <span class=p>{</span>
+        <span class=c1>// cmark_strbuf_putc(html, &#39; &#39;);     // 수정 전
+</span><span class=c1></span>        <span class=n>cmark_strbuf_puts</span><span class=p>(</span><span class=n>html</span><span class=p>,</span> <span class=s>&#34;&lt;br/&gt;</span><span class=se>\n</span><span class=s>&#34;</span><span class=p>);</span>  <span class=c1>// 수정 후
+</span><span class=c1></span>    <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+        <span class=n>cmark_strbuf_putc</span><span class=p>(</span><span class=n>html</span><span class=p>,</span> <span class=sc>&#39;\n&#39;</span><span class=p>);</span>
+    <span class=p>}</span>
+    <span class=k>break</span><span class=p>;</span>
 
-    <span class=n>asset_host</span> <span class=o>=</span> <span class=no>ActionController</span><span class=o>::</span><span class=no>Base</span><span class=o>.</span><span class=n>asset_host</span>
-    <span class=n>use_asset_host</span> <span class=o>=</span> <span class=n>asset_host</span><span class=o>.</span><span class=n>present?</span>
-
-    <span class=c1># Avatars for private and internal groups and projects require authentication to be viewed,</span>
-    <span class=c1># which means they can only be served by Rails, on the regular GitLab host.</span>
-    <span class=c1># If an asset host is configured, we need to return the fully qualified URL</span>
-    <span class=c1># instead of only the avatar path, so that Rails doesn&#39;t prefix it with the asset host.</span>
-    <span class=k>if</span> <span class=n>use_asset_host</span> <span class=o>&amp;&amp;</span> <span class=nb>respond_to?</span><span class=p>(</span><span class=ss>:public?</span><span class=p>)</span> <span class=o>&amp;&amp;</span> <span class=o>!</span><span class=kp>public</span><span class=p>?</span>
-      <span class=n>use_asset_host</span> <span class=o>=</span> <span class=kp>false</span>
-      <span class=n>only_path</span> <span class=o>=</span> <span class=kp>false</span>
-    <span class=k>end</span>
-
-    <span class=n>url_base</span> <span class=o>=</span> <span class=s2>&#34;&#34;</span>
-    <span class=c1># if use_asset_host</span>
-    <span class=c1>#   url_base &lt;&lt; asset_host unless only_path</span>
-    <span class=c1># else</span>
-    <span class=c1>#   url_base &lt;&lt; gitlab_config.base_url unless only_path</span>
-    <span class=c1>#   url_base &lt;&lt; gitlab_config.relative_url_root</span>
-    <span class=c1># end</span>
-
-    <span class=n>url_base</span> <span class=o>+</span> <span class=n>avatar</span><span class=o>.</span><span class=n>url</span>
-  <span class=k>end</span>
-<span class=k>end</span>
-</code></pre></div><p>당연히 <code>gitlab-ctl reconfigure && gitlab-ctl restart</code> 를 해 줘야 한다.</p>
-<p>참고 : <a class=link href=https://gitlab.com/gitlab-org/gitlab-ce/merge target=_blank rel=noopener>https://gitlab.com/gitlab-org/gitlab-ce/merge</a>_requests/11001/diffs#note_28659864</p>
-<h2 id=첨부파일-상대-경로-설정>첨부파일 상대 경로 설정</h2>
-<p>단서가 없어서 맨땅에 헤딩하듯이 뒤지고 다녔다. Markdown 언어에서 링크를 담당하는 라이브러리가 있는데, 이름이 &lsquo;<strong>banzai</strong>&rsquo; 이다 (…) <span style=color:gray><del>무슨 생각으로 이름을 지은건지 도저히 모르겠지만</del></span> 여기를 수정해야 한다.</p>
-<p><code>filter/upload_link_filter.rb</code> 를 보면, <code>build_url()</code> 이란 함수가 있다. 여기서 Geo node 여부에 따라 base_path 를 설정하는 코드가 있는데, 여기서 원하는 내부 주소로 변경하면 된다.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=k>def</span> <span class=nf>build_url</span><span class=p>(</span><span class=n>uri</span><span class=p>)</span>
-        <span class=n>base_path</span> <span class=o>=</span> <span class=k>if</span> <span class=no>Gitlab</span><span class=o>::</span><span class=no>Geo</span><span class=o>.</span><span class=n>secondary?</span>
-                      <span class=no>Gitlab</span><span class=o>::</span><span class=no>Geo</span><span class=o>.</span><span class=n>primary_node</span><span class=o>.</span><span class=n>url</span>
-                    <span class=k>else</span>
-                      <span class=c1># Gitlab.config.gitlab.url</span>
-                      <span class=s2>&#34;http://your.address.com/&#34;</span>
-                    <span class=k>end</span>
-
-        <span class=k>if</span> <span class=n>group</span>
-          <span class=n>urls</span> <span class=o>=</span> <span class=no>Gitlab</span><span class=o>::</span><span class=no>Routing</span><span class=o>.</span><span class=n>url_helpers</span>
-          <span class=c1># we need to get last 2 parts of the uri which are secret and filename</span>
-          <span class=n>uri_parts</span> <span class=o>=</span> <span class=n>uri</span><span class=o>.</span><span class=n>split</span><span class=p>(</span><span class=no>File</span><span class=o>::</span><span class=no>SEPARATOR</span><span class=p>)</span>
-          <span class=n>file_path</span> <span class=o>=</span> <span class=n>urls</span><span class=o>.</span><span class=n>show_group_uploads_path</span><span class=p>(</span><span class=n>group</span><span class=p>,</span> <span class=n>uri_parts</span><span class=o>[-</span><span class=mi>2</span><span class=o>]</span><span class=p>,</span> <span class=n>uri_parts</span><span class=o>[-</span><span class=mi>1</span><span class=o>]</span><span class=p>)</span>
-          <span class=no>File</span><span class=o>.</span><span class=n>join</span><span class=p>(</span><span class=n>base_path</span><span class=p>,</span> <span class=n>file_path</span><span class=p>)</span>
-        <span class=k>else</span>
-          <span class=no>File</span><span class=o>.</span><span class=n>join</span><span class=p>(</span><span class=n>base_path</span><span class=p>,</span> <span class=n>project</span><span class=o>.</span><span class=n>full_path</span><span class=p>,</span> <span class=n>uri</span><span class=p>)</span>
-        <span class=k>end</span>
-      <span class=k>end</span>
-
-</code></pre></div><p>Gitlab 11 버전 으로 업그레이드 되면서부터 해당 파일은 삭제되고, <code>absolute_link_filter.rb</code> 와 <code>external_link_filter.rb</code> , <code>relative_link_filter.rb</code> 가 남아있다. 여기 있는 <code>Gitlab.config.gitlab.url</code> 을 원하는 주소로 바꿔주면 가능하다. (relative.rb 의 경우 <code>Gitlab.config.gitlab.base_url</code>)</p>
+</code></pre></div><p>이렇게 하고 make 를 쳤더니, 어라? 빌드가 안 된다. 이 때는 banzai filter 가 위치한 곳의 ruby 파일을 수정하면 된다. <code>/opt/gitlab/embedded/service/gitlab-rails/</code> 까지 들어간 다음 <code>lib/banzai/filter/markdown_engines/common_mark.rb</code> 을 편집한다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=no>RENDER_OPTIONS</span> <span class=o>=</span> <span class=o>[</span>
+    <span class=ss>:DEFAULT</span><span class=p>,</span>     <span class=c1># default rendering system. Nothing special.</span>
+    <span class=ss>:HARDBREAKS</span>   <span class=c1># Treat `\n` as hardbreaks (by adding `&lt;br/&gt;`).  # 이 옵션을 추가한다.</span>
+  <span class=o>].</span><span class=n>freeze</span>
+</code></pre></div><p>반드시, Gitlab 재부팅을 잊지말자! <code>gitlab-ctl reconfigure && gitlab-ctl restart</code> 이다. Commonmark 는 라이브러리를 수정한 것이 아니라서 <code>make</code> 같은 건 안 해도 된다.</p>
+<p>이 방법으로 했을 때 한 가지 아쉬운 점은(?) 일부러 soft break 를 시도하는 경우에, 내부에서 line break 까지 겹쳐서 인식하기 때문에 결론적으로 <code>&lt;br/></code> 이 두번 붙는 사태가 일어난다. 깔끔하게 <code>&lt;p></code> 로 감싼 문단을 얻고 싶을 때는 이 방법이 소용이 없어서, 어쩔 수 없이 commonmark 를 한번 빌드하는 수밖에 없나.. 하는 생각이 들었다.</p>
 </section>
 <footer class=article-footer>
 <br>
@@ -162,6 +162,8 @@ TECH 🛠️
 <script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
 <section class=article-tags>
 <a href=/tags/gitlab/>gitlab</a>
+<a href=/tags/markdown/>markdown</a>
+<a href=/tags/redcarpet/>redcarpet</a>
 </section>
 </footer>
 </article>
@@ -177,9 +179,9 @@ TECH 🛠️
 </a>
 </article>
 <article>
-<a href=/gitlab-markdown-parser-configuration/>
+<a href=/gitlab-%EC%95%84%EB%B0%94%ED%83%80-%EC%83%81%EB%8C%80-%EA%B2%BD%EB%A1%9C-%EC%84%A4%EC%A0%95/>
 <div class=article-details>
-<h2 class=article-title>Gitlab Markdown Parser 고치기</h2>
+<h2 class=article-title>Gitlab 아바타/첨부파일 상대 경로 설정</h2>
 </div>
 </a>
 </article>
@@ -258,12 +260,15 @@ TECH 🛠️
 <div class=widget--toc>
 <nav id=TableOfContents>
 <ul>
-<li>
+<li><a href=#그런데-뭘-수정하나요>그런데 뭘 수정하나요?</a></li>
+<li><a href=#gitlab-10x--redcarpet>Gitlab 10.x : Redcarpet</a>
 <ul>
-<li><a href=#아바타-상대-경로-설정>아바타 상대 경로 설정</a></li>
-<li><a href=#첨부파일-상대-경로-설정>첨부파일 상대 경로 설정</a></li>
+<li><a href=#parser-c-파일-수정하기>Parser C 파일 수정하기</a></li>
+<li><a href=#라이브러리-생성복사>라이브러리 생성/복사</a></li>
+<li><a href=#gitlab-재부팅>Gitlab 재부팅</a></li>
 </ul>
 </li>
+<li><a href=#gitlab-11x-이후--commonmark>Gitlab 11.x 이후 : Commonmark</a></li>
 </ul>
 </nav>
 </div>

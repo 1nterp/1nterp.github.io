@@ -1,17 +1,22 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>redcarpet on InterP Blog</title><link>https://interp.blog/tags/redcarpet/</link><description>Recent content in redcarpet on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Wed, 03 Jan 2018 02:29:21 +0000</lastBuildDate><atom:link href="https://interp.blog/tags/redcarpet/index.xml" rel="self" type="application/rss+xml"/><item><title>Gitlab Markdown Parser 바꾸기</title><link>https://interp.blog/gitlab-markdown-parser-%EB%B0%94%EA%BE%B8%EA%B8%B0/</link><pubDate>Wed, 03 Jan 2018 02:29:21 +0000</pubDate><guid>https://interp.blog/gitlab-markdown-parser-%EB%B0%94%EA%BE%B8%EA%B8%B0/</guid><description>&lt;p>Github 과 비슷한 서비스인 &lt;a class="link" href="https://about.gitlab.com/" target="_blank" rel="noopener"
->Gitlab&lt;/a> 은 오픈소스이기 때문에 Community Edition 을 쓰건, Enterprise Edition 을 쓰건 on-premise 환경에서 설치한 뒤 맘대로 수정해서 사용이 가능하다. (물론 EE 는 라이센스가 필요하다) 수정하는 범위를 한정하지 않는다면, 일개 루비 (&lt;code>*.rb&lt;/code>) 파일까지 건드릴 수 있다.&lt;/p>
-&lt;p>여기서는 Gitlab에서 문서 작성에 필요한 Markdown 의 Parser 부분을 미세하게 수정해서, 입맛에 맞게 바꾸기 위한 트윅을 정리해 둔다. Ruby 개발자가 아니라서 전체 순서가 정공법처럼 보이진 않겠지만.&lt;/p>
-&lt;p>수정 내용은 다음과 같다. 원래 Markdown 문법에선 Enter 키를 두 번 치면 문단 바꿈, 줄 끝에 스페이스를 두 번 넣으면 줄바꿈이 된다. &lt;strong>그런데 Enter 키를 한 번만 쳐도 줄바꿈이 되면 좋겠다는 개발자가 많았다.&lt;/strong> &lt;del>님 Markdown 안 써보셨어요? 라고 따질 순 없었다.&lt;/del>&lt;/p>
-&lt;h2 id="gitlab-10x--redcarpet">Gitlab 10.x : Redcarpet&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>redcarpet on InterP Blog</title><link>https://interp.blog/tags/redcarpet/</link><description>Recent content in redcarpet on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Wed, 03 Jan 2018 02:29:21 +0000</lastBuildDate><atom:link href="https://interp.blog/tags/redcarpet/index.xml" rel="self" type="application/rss+xml"/><item><title>Gitlab Markdown Parser 고치기</title><link>https://interp.blog/gitlab-markdown-parser-configuration/</link><pubDate>Wed, 03 Jan 2018 02:29:21 +0000</pubDate><guid>https://interp.blog/gitlab-markdown-parser-configuration/</guid><description>&lt;p>Github 과 비슷한 서비스인 &lt;a class="link" href="https://about.gitlab.com/" target="_blank" rel="noopener"
+>Gitlab&lt;/a> 은 오픈소스이기 때문에 Community Edition 을 쓰건, Enterprise Edition 을 쓰건 on-premise 환경에서 설치한 뒤 마음대로 수정해서 사용이 가능하다. 수정하는 범위를 한정하지 않는다면, 루비 (&lt;code>*.rb&lt;/code>) 파일까지 건드릴 수 있다.&lt;/p>
+&lt;p>여기서는 Gitlab에서 문서 작성에 필요한 Markdown 의 Parser 부분을 미세하게 수정해서, 입맛에 맞게 바꾸기 위한 방법을 정리해 둔다. Ruby 개발자가 아니라서 전체 순서가 정공법처럼 보이진 않겠지만.&lt;/p>
+&lt;h1 id="그런데-뭘-수정하나요">그런데 뭘 수정하나요?&lt;/h1>
+&lt;p>내가 수정하고 싶었던 내용은, E&lt;strong>nter 키를 한 번만 쳐도 줄이 바뀌도록 보이게 하는 것&lt;/strong>이었다. 원래 Markdown 문법에선 Enter 키를 두 번 치면 문단 바꿈, 줄 끝에 스페이스를 두 번 넣으면 줄바꿈이 된다. 그런데 Enter 키를 한 번만 쳐도 줄바꿈이 되면 좋겠다는 개발자가 많았다. &lt;del>저기요, Markdown 안 써보셨어요? 라고 따질 순 없었다&lt;/del>&lt;/p>
+&lt;h1 id="gitlab-10x--redcarpet">Gitlab 10.x : Redcarpet&lt;/h1>
 &lt;p>Gitlab 10.x 에서는 Markdown Parser 를 &lt;a class="link" href="https://github.com/vmg/redcarpet" target="_blank" rel="noopener"
 >Redcarpet&lt;/a> 으로 사용한다. 아마 &lt;a class="link" href="https://jekyllrb-ko.github.io/" target="_blank" rel="noopener"
 >Jekyll&lt;/a> 도 기본적으로 Redcarpet 을 사용하는 것으로 알고 있다. 만약 Ruby의 Redcarpet 을 Markdown Parser 로 쓰는 경우라면 똑같이 적용이 가능하다.&lt;/p>
-&lt;h3 id="parser-c-파일-수정하기">Parser C 파일 수정하기&lt;/h3>
+&lt;h2 id="parser-c-파일-수정하기">Parser C 파일 수정하기&lt;/h2>
 &lt;p>&lt;code>/opt/gitlab/embedded/lib/ruby/gems/2.3.0/gems/redcarpet-3.4.0/&lt;/code> 으로 들어가면 Redcarpet의 소스코드가 존재한다. 여기서 &lt;code>ext/redcarpet&lt;/code> 디렉토리가 Parser C 파일들이 위치한 곳이다.&lt;/p>
-&lt;p>내가 수정하고 싶은 것은 &amp;lsquo;&lt;strong>엔터 키를 두번 쳐야 (혹은 줄 끝에 스페이스를 2개 이상 줘야) 줄바꿈이 되는 불편함&lt;/strong>&amp;rsquo; 을 해소하고 싶었다. &lt;code>markdown.c&lt;/code> 파일을 보니 &lt;code>char_linebreak()&lt;/code>  라는 함수가 존재한다. 여기서 해당 부분을 주석처리했다.&lt;/p>
+&lt;p>여기 &lt;code>markdown.c&lt;/code> 파일을 보니 &lt;code>char_linebreak()&lt;/code>  라는 함수가 존재한다. 여기서 해당 부분을 주석처리했다.&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="cm">/* char_linebreak • &amp;#39;\n&amp;#39; preceded by two spaces (assuming linebreak != 0) */&lt;/span>
 &lt;span class="k">static&lt;/span> &lt;span class="n">size_t&lt;/span>
-&lt;span class="nf">char_linebreak&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">struct&lt;/span> &lt;span class="nc">buf&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">ob&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="k">struct&lt;/span> &lt;span class="nc">sd_markdown&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">rndr&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">uint8_t&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">size_t&lt;/span> &lt;span class="n">offset&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">size_t&lt;/span> &lt;span class="n">size&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nf">char_linebreak&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">struct&lt;/span> &lt;span class="nc">buf&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">ob&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="k">struct&lt;/span> &lt;span class="nc">sd_markdown&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">rndr&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="kt">uint8_t&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="n">size_t&lt;/span> &lt;span class="n">offset&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="n">size_t&lt;/span> &lt;span class="n">size&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;span class="p">{&lt;/span>
 &lt;span class="c1">//if (offset &amp;lt; 2 || data[-1] != &amp;#39; &amp;#39; || data[-2] != &amp;#39; &amp;#39;)
 &lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">// return 0; /* removing the last space from ob and rendering */
@@ -19,20 +24,19 @@
 &lt;span class="n">ob&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">size&lt;/span>&lt;span class="o">--&lt;/span>&lt;span class="p">;&lt;/span>
 &lt;span class="k">return&lt;/span> &lt;span class="n">rndr&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">cb&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">linebreak&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ob&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">rndr&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">opaque&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">?&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
 &lt;span class="p">}&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="라이브러리-생성복사">라이브러리 생성/복사&lt;/h3>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="라이브러리-생성복사">라이브러리 생성/복사&lt;/h2>
 &lt;p>수정이 끝나면 반드시 &lt;code>ext/redcarpet&lt;/code> 디렉토리에서 &lt;code>make&lt;/code> 를 수행해 주도록 하자. 그러면 Shared Library 파일인 &lt;code>redcarpet.so&lt;/code> 이 생성된다.&lt;/p>
 &lt;p>이 파일을, 다음 경로에 모두 복사해주도록 하자.&lt;/p>
 &lt;ul>
 &lt;li>&lt;code>/opt/gitlab/embedded/lib/ruby/gems/2.3.0/extensions/x86_64-linux/2.3.0/redcarpet-3.4.0/&lt;/code>&lt;/li>
 &lt;li>&lt;code>/opt/gitlab/embedded/lib/ruby/gems/2.3.0/gems/redcarpet-3.4.0/lib/&lt;/code>&lt;/li>
 &lt;/ul>
-&lt;h3 id="gitlab-재부팅">Gitlab 재부팅&lt;/h3>
-&lt;p>대망의 재부팅이 남았다.&lt;/p>
-&lt;p>&lt;code>gitlab-ctl reconfigure &amp;amp;&amp;amp; gitlab-ctl restart&lt;/code> 를 실행시키면 반영이 된다!&lt;/p>
-&lt;p> &lt;/p>
-&lt;h2 id="gitlab-11x-이후--commonmark">Gitlab 11.x 이후 : Commonmark&lt;/h2>
+&lt;h2 id="gitlab-재부팅">Gitlab 재부팅&lt;/h2>
+&lt;p>마지막으로 &lt;code>gitlab-ctl reconfigure &amp;amp;&amp;amp; gitlab-ctl restart&lt;/code> 를 실행시켜 Gitlab 을 재부팅 하자.&lt;/p>
+&lt;h1 id="gitlab-11x-이후--commonmark">Gitlab 11.x 이후 : Commonmark&lt;/h1>
 &lt;p>11.x 부터는 Redcarpet 이 아니라 Commonmark 를 기본 파서로 사용한다. 구조가 달라져서 찾는게 귀찮아서 그렇지, 기본 원리는 비슷하다. 2칸 이상의 space 를 준 채로 줄바꿈하게 되면 &lt;code>CMARK_NODE_LINEBREAK&lt;/code>, 그렇지 않고 줄바꿈하면 &lt;code>CMARK_NODE_SOFTBREAK&lt;/code> 상태로 전이된다.&lt;/p>
-&lt;p>옵션을 쓸 수 있다면 좋겠지만, 본인은 마음이 급한지라 참고할 만한 소스코드만 붙이고 도망가도록 한다. &lt;code>html.c:283&lt;/code> 부터다. 여기서 직접 line break 를 하도록 강제했다.&lt;/p>
+&lt;p>옵션을 알아보고 정확히 적용했다면 더 없이 깔끔했겠지만, 나는 마음이 급했기 때문에 참고할 만한 소스코드만 붙이고 그만두기로 했다.&lt;/p>
+&lt;p>&lt;code>html.c:283&lt;/code> 부터다. 여기서 직접 줄바꿈을 하도록 강제했다.&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="k">case&lt;/span> &lt;span class="nl">CMARK_NODE_SOFTBREAK&lt;/span>&lt;span class="p">:&lt;/span>
 &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">options&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">amp&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="n">CMARK_OPT_HARDBREAKS&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
 &lt;span class="n">cmark_strbuf_puts&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">html&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;&amp;lt;br/&amp;gt;&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s">&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
@@ -43,11 +47,10 @@
 &lt;span class="n">cmark_strbuf_putc&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">html&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="sc">&amp;#39;\n&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
 &lt;span class="p">}&lt;/span>
 &lt;span class="k">break&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>이렇게 하고 make 를 치면.. 어? 빌드가 안 된다.&lt;/p>
-&lt;p>당황하지 말고, &lt;del>이름 때문에 보기 싫지만&lt;/del> banzai filter 가 위치한 곳의 ruby 파일을 수정하면 된다. 여기에서 사실 옵션 조절이 가능하다. 파일 위치는 &lt;code>/opt/gitlab/embedded/service/gitlab-rails/lib/banzai/filter/markdown_engines/common_mark.rb&lt;/code> 이다.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>이렇게 하고 make 를 쳤더니, 어라? 빌드가 안 된다. 이 때는 banzai filter 가 위치한 곳의 ruby 파일을 수정하면 된다. &lt;code>/opt/gitlab/embedded/service/gitlab-rails/&lt;/code> 까지 들어간 다음 &lt;code>lib/banzai/filter/markdown_engines/common_mark.rb&lt;/code> 을 편집한다.&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-ruby" data-lang="ruby">&lt;span class="no">RENDER_OPTIONS&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="o">[&lt;/span>
 &lt;span class="ss">:DEFAULT&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1"># default rendering system. Nothing special.&lt;/span>
-&lt;span class="ss">:HARDBREAKS&lt;/span> &lt;span class="c1"># Treat `\n` as hardbreaks (by adding `&amp;lt;br/&amp;gt;`). # 이걸 추가한다.&lt;/span>
+&lt;span class="ss">:HARDBREAKS&lt;/span> &lt;span class="c1"># Treat `\n` as hardbreaks (by adding `&amp;lt;br/&amp;gt;`). # 이 옵션을 추가한다.&lt;/span>
 &lt;span class="o">].&lt;/span>&lt;span class="n">freeze&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>반드시, Gitlab 재부팅을 잊지말자!&lt;/p>
-&lt;p>한 가지 아쉬운 점은(?) 일부러 soft break 를 시도하는 경우에, 내부에서 line break 까지 겹쳐서 인식하기 때문에 결론적으로 &lt;code>&amp;lt;br/&amp;gt;&lt;/code> 이 두번 붙는 사태가 일어난다. 어쩔 수 없이 commonmark 를 한번 빌드하는 수밖에 없나.. 하는 생각이 들고 있다.&lt;/p></description></item></channel></rss>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>반드시, Gitlab 재부팅을 잊지말자! &lt;code>gitlab-ctl reconfigure &amp;amp;&amp;amp; gitlab-ctl restart&lt;/code> 이다. Commonmark 는 라이브러리를 수정한 것이 아니라서 &lt;code>make&lt;/code> 같은 건 안 해도 된다.&lt;/p>
+&lt;p>이 방법으로 했을 때 한 가지 아쉬운 점은(?) 일부러 soft break 를 시도하는 경우에, 내부에서 line break 까지 겹쳐서 인식하기 때문에 결론적으로 &lt;code>&amp;lt;br/&amp;gt;&lt;/code> 이 두번 붙는 사태가 일어난다. 깔끔하게 &lt;code>&amp;lt;p&amp;gt;&lt;/code> 로 감싼 문단을 얻고 싶을 때는 이 방법이 소용이 없어서, 어쩔 수 없이 commonmark 를 한번 빌드하는 수밖에 없나.. 하는 생각이 들었다.&lt;/p></description></item></channel></rss>
