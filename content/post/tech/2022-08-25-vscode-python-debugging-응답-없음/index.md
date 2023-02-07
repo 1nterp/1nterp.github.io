@@ -66,8 +66,7 @@ AssertionError: Python 3.6 and below is not supported by this version of debugpy
 
 1. (requirements.txt 따위로 관리하고 있지 않는다면) `pip freeze > requirements.txt` 로 설치된 라이브러리 백업
 1. 기존 virtualenv directory 삭제 (예: `venv` 라고 가정하자)
-1. 더 높은 버전의 Python 설치 (예: `python3.9` 을 설치했다고 가정하자)
-1. `python3.9 -m virtualenv venv` 으로 virtualenv directory 생성
+1. (python3.9 를 설치했다면) `python3.9 -m virtualenv venv` 으로 virtualenv directory 생성
 1. `source venv/bin/activate && pip install -r requirements.txt` 로 라이브러리 재설치
 
 ## (2) Extension 다운그레이드 하기
@@ -86,4 +85,6 @@ Extension 탭에서 Python 을 찾은 다음, **Install Another Version** 을 �
 
 한 번은, symbolic link 경로로 workspace directory 를 열었을 때 디버깅 문제가 생겼었다. 반대로 말하면, symbolic link 경로가 아닌 **실제 directory 경로로 workspace 를 열어야** 한다.
 
-나는 `/home/interp/` 를 home directory 로 쓰고 있지만, 실제 경로는 `/SSD/home/interp` 이고 `$HOME` 경로는 Symbolic link 였었다. 이런 경우엔 *File > Open Folder...* 를 통해 workspace directory 를 열 때, 실제 경로인 _/SSD/home/interp/..._ 로 시작하도록 경로를 입력하자. 그래야 Python 디버거가 정상 작동했다.
+예를 들어, `/home/interp/` 는 사실 symbolic link 이고, 실제 경로는 `/SSD/homes/interp` 이라고 가정하자. 그렇다면, *File - Open Folder..* 메뉴로 directory 를 열 때, 다음 중 하나만 디버깅이 가능하다.
+* `/home/interp/workspace_python` :x:
+* `/SSD/homes/interp/workspace_python` :white_check_mark:
