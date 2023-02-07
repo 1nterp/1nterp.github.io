@@ -9,10 +9,11 @@
 <meta property="og:description" content="버전 문제일수도, Workspace 경로 문제일수도?">
 <meta property="og:url" content="https://interp.blog/vscode-python-debugging-no-response/">
 <meta property="og:site_name" content="InterP Blog">
-<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="Python"><meta property="article:tag" content="VSCode"><meta property="article:tag" content="Debug"><meta property="article:published_time" content="2022-08-23T22:26:07+09:00"><meta property="article:modified_time" content="2022-08-23T22:26:07+09:00">
+<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="Python"><meta property="article:tag" content="VSCode"><meta property="article:tag" content="Debug"><meta property="article:published_time" content="2022-08-23T22:26:07+09:00"><meta property="article:modified_time" content="2022-08-23T22:26:07+09:00"><meta property="og:image" content="https://interp.blog/vscode-python-debugging-no-response/feature.png">
 <meta name=twitter:site content="@interp_">
 <meta name=twitter:creator content="@interp_"><meta name=twitter:title content="VSCode Python 디버그 반응이 없을 때">
-<meta name=twitter:description content="버전 문제일수도, Workspace 경로 문제일수도?">
+<meta name=twitter:description content="버전 문제일수도, Workspace 경로 문제일수도?"><meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://interp.blog/vscode-python-debugging-no-response/feature.png">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-KMRJ33V06X"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-KMRJ33V06X')</script>
 <script>(function(b,d,e,a,g){b[a]=b[a]||[],b[a].push({'gtm.start':(new Date).getTime(),event:'gtm.js'});var f=d.getElementsByTagName(e)[0],c=d.createElement(e),h=a!='dataLayer'?'&l='+a:'';c.async=!0,c.src='https://www.googletagmanager.com/gtm.js?id='+g+h,f.parentNode.insertBefore(c,f)})(window,document,'script','dataLayer','GTM-NBPHNHQ')</script>
@@ -66,8 +67,13 @@
 </ol>
 </aside>
 <main class="main full-width">
-<article class=main-article>
+<article class="has-image main-article">
 <header class=article-header style=display:block>
+<div class=article-image>
+<a href=/vscode-python-debugging-no-response/>
+<img src=/vscode-python-debugging-no-response/feature_huab4f92b5cef58f16753956ed9b784205_206719_900x0_resize_q75_h2_box_3.webp srcset="/vscode-python-debugging-no-response/feature_huab4f92b5cef58f16753956ed9b784205_206719_900x0_resize_q75_h2_box_3.webp 800w, /vscode-python-debugging-no-response/feature_huab4f92b5cef58f16753956ed9b784205_206719_1800x0_resize_q75_h2_box_3.webp 1600w" width=900 height=409 loading=lazy style="object-position:50% 50%" alt="Featured image of post VSCode Python 디버그 반응이 없을 때">
+</a>
+</div>
 <div class=article-details>
 <header class=article-category>
 <a href=/categories/tech/ style=background-color:#1c8193;color:#fff>
@@ -99,38 +105,51 @@ TECH 🛠️
 <ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-0712823212859607 data-ad-slot=9016400576></ins>
 <script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
 <section class=article-content>
-<h2 id=증상>증상</h2>
-<p>VSCode 에서 Python 파일을 디버깅 (debugging) 하려 하면, <strong>아~무런 반응이 없고 곧바로 종료된다.</strong> 그냥 실행 자체를 하지 않은 것 같다!</p>
-<h2 id=분석>분석</h2>
-<p>관련 로그가 남아있지 않기 때문에, 분석이 쉽지 않다. 그나마 갱신되는 로그가 &lsquo;Python&rsquo; 에서 보이는 한 줄의 명령어인데&mldr;</p>
+<h1 id=증상>증상</h1>
+<p>Visual Studio Code 에서 Python 파일을 디버깅 (debugging) 하려 하면, <strong>아무런 반응이 없고 곧바로 종료된다.</strong> 그냥 실행 자체를 하지 않은 것 처럼 말이다..!</p>
+<h1 id=분석>분석</h1>
+<p>관련해서 메시지가 나타나지 않기 때문에, 단서를 찾기가 쉽진 않았다. 그나마 &lsquo;<em>Output</em>&rsquo; 패널에 있는 &lsquo;<em>Python</em>&rsquo; 에서 아래와 같은 로그가 한 줄 떠 있었다.</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>DAP Server launched with command: /home/interp/work/project/venv/bin/python \
   /home/interp/.vscode-server/extensions/ms-python.python-2022.12.1/pythonFiles/lib/python/debugpy/adapter
-</code></pre></div><p>이 명령어를 그대로 <strong>터미널에서</strong> 쳐 보니 해결책이 보였다.</p>
+</code></pre></div><p>저기서 <code>.. with command:</code> 이후의 명령어를 그대로 <strong>터미널에서</strong> 입력해 보았다.</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>Traceback <span class=o>(</span>most recent call last<span class=o>)</span>:
-  File <span class=s2>&#34;/home/i520508/.pyenv/versions/3.6.12/lib/python3.6/runpy.py&#34;</span>, line 193, in _run_module_as_main
+  File <span class=s2>&#34;/home/interp/.pyenv/versions/3.6.12/lib/python3.6/runpy.py&#34;</span>, line 193, in _run_module_as_main
     <span class=s2>&#34;__main__&#34;</span>, mod_spec<span class=o>)</span>
-  File <span class=s2>&#34;/home/i520508/.pyenv/versions/3.6.12/lib/python3.6/runpy.py&#34;</span>, line 85, in _run_code
+  File <span class=s2>&#34;/home/interp/.pyenv/versions/3.6.12/lib/python3.6/runpy.py&#34;</span>, line 85, in _run_code
     exec<span class=o>(</span>code, run_globals<span class=o>)</span>
-  File <span class=s2>&#34;/INT3/homes/i520508/.vscode-server/extensions/ms-python.python-2022.12.1/pythonFiles/lib/python/debugpy/adapter/__main__.py&#34;</span>, line 212, in &lt;module&gt;
+  File <span class=s2>&#34;/home/interp/.vscode-server/extensions/ms-python.python-2022.12.1/pythonFiles/lib/python/debugpy/adapter/__main__.py&#34;</span>, line 212, in &lt;module&gt;
     __import__<span class=o>(</span><span class=s2>&#34;debugpy&#34;</span><span class=o>)</span>
-  File <span class=s2>&#34;/INT3/homes/i520508/.vscode-server/extensions/ms-python.python-2022.12.1/pythonFiles/lib/python/debugpy/adapter/../../debugpy/__init__.py&#34;</span>, line 28, in &lt;module&gt;
+  File <span class=s2>&#34;/home/interp/.vscode-server/extensions/ms-python.python-2022.12.1/pythonFiles/lib/python/debugpy/adapter/../../debugpy/__init__.py&#34;</span>, line 28, in &lt;module&gt;
     <span class=s2>&#34;Python 3.6 and below is not supported by this version of debugpy; &#34;</span>
 AssertionError: Python 3.6 and below is not supported by this version of debugpy<span class=p>;</span> use debugpy 1.5.1 or earlier.
-</code></pre></div><h2 id=원인>원인</h2>
-<p>Python Extension 에서 debugpy 버전을 올렸는데, 이게 더 이상 Python 3.6 에서 호환되지 않는 것이다. <a class=link href=https://marketplace.visualstudio.com/items/ms-python.python/changelog target=_blank rel=noopener>Changelog</a>를 보니, 2022.10.0 버전부터 debugpy 를 1.6.2 로 올린 것을 확인할 수 있었다.</p>
-<h2 id=해결-1-python3-버전-업그레이드-하기>해결 (1) Python3 버전 업그레이드 하기</h2>
+</code></pre></div><h1 id=원인과-해결>원인과 해결</h1>
+<p>저기서 마지막 문장이 중요하다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>AssertionError: Python 3.6 and below is not supported by this version of debugpy; \
+    use debugpy 1.5.1 or earlier.
+</code></pre></div><p>찾아보니 Python Extension 에서 debugpy 버전을 업그레이드 했고, 더 이상 Python 3.6 에서 호환되지 않는 것이 문제였다. <a class=link href=https://marketplace.visualstudio.com/items/ms-python.python/changelog target=_blank rel=noopener>Changelog</a>를 보니, 2022.10.0 버전부터 debugpy 를 1.6.2 로 올린 것을 확인할 수 있었다.</p>
 <p>그러면 해결책은 간단하다. 원하는 대로 해주거나, 되돌아가거나.</p>
-<p>나는 virtualenv 를 사용하고 있어서, <code>pip freeze</code> 를 통해 설치된 라이브러리를 전부 백업해 두고, virtualenv 를 Python 3.7 버전으로 다시 만들어 환경을 구성했다.</p>
-<h2 id=해결-2-vscode-python-extension-다운그레이드-하기>해결 (2) VSCode Python Extension 다운그레이드 하기</h2>
-<p>다른 해결책으로는, extension 의 버전을 다운그레이드 하는 방법이다.</p>
+<h2 id=1-python36-에서-버전-업그레이드>(1) Python3.6 에서 버전 업그레이드</h2>
+<p>가장 간단한 방법은 더 높은 버전의 Python을 설치하고, 해당 버전을 기본 환경으로 설정하면 된다.</p>
+<p><code>virtualenv</code> 없이 Python 버전만 바꾼다면, VSCode 에서 Command Palette (<code>Ctrl/Cmd+Shift+P</code>) 를 열어서 <strong>Python: Select Interpreter</strong> 를 선택하는 것으로 버전 선택이 가능하다.</p>
+<p>나는 <code>virtualenv</code> 를 통해 개발 환경을 구성하기 때문에 아래와 같은 순서대로 업그레이드를 진행했다. 혹시 참고가 되길 바라며 정리해 둔다.</p>
+<ol>
+<li>(requirements.txt 따위로 관리하고 있지 않는다면) <code>pip freeze > requirements.txt</code> 로 설치된 라이브러리 백업</li>
+<li>기존 virtualenv directory 삭제 (예: <code>venv</code> 라고 가정하자)</li>
+<li>더 높은 버전의 Python 설치 (예: <code>python3.9</code> 을 설치했다고 가정하자)</li>
+<li><code>python3.9 -m virtualenv venv</code> 으로 virtualenv directory 생성</li>
+<li><code>source venv/bin/activate && pip install -r requirements.txt</code> 로 라이브러리 재설치</li>
+</ol>
+<h2 id=2-extension-다운그레이드-하기>(2) Extension 다운그레이드 하기</h2>
+<p>다른 해결책으로는, VSCode Python 의 Extension 버전을 다운그레이드 하는 방법이다.</p>
 <figure class=align-center>
 <img loading=lazy src=downgrade.png#center>
 </figure>
 <p>Extension 탭에서 Python 을 찾은 다음, <strong>Install Another Version</strong> 을 선택한다. 잠시 기다리면, 버전 목록이 나타나며, 초록색 부분 (그 아래도 상관없음) 을 클릭하면 된다.</p>
-<p>별로 추천하고 싶진 않다. Python 3.10 이 나온 마당에 이왕이면 Python 버전을 올리는게 좋을 것 같다.</p>
-<h2 id=해결-3-symbolic-link-경로-문제>해결 (3) Symbolic link 경로 문제</h2>
-<p>Symbolic link 경로로 workspace directory 를 열어 둔 경우에도 디버깅 문제가 생겼었다. 해결책은, 실제 directory 경로로 workspace 를 열어야 한다.</p>
-<p>나는 /home/interp/ 를 <code>$HOME</code> 으로 쓰지만, 사실은 /SSD/home/interp 를 /home/interp 라는 Symbolic link 로 만들어 쓰고 있다. 이 때는 디렉토리를 열 때 <em>/SSD/home/interp/&mldr;</em> 로 시작하도록 경로를 입력해야 Python 디버거가 정상 작동했다.</p>
+<p>하지만 별로 추천하고 싶진 않다. Python 3.10 까지 나온 마당에 특별한 이유가 없다면 (1) 번처럼 Python 버전을 올리는게 좋을 것 같다.</p>
+<h2 id=3-symbolic-link-경로-문제>(3) Symbolic link 경로 문제</h2>
+<p>혹시 (1) 이나 (2) 번을 전부 적용해도 (아니면 이미 Python 3.6 이상의 버전을 쓰고 있는데도) 디버깅이 안 된다면 이 해결책이 도움이 될 것이다.</p>
+<p>한 번은, symbolic link 경로로 workspace directory 를 열었을 때 디버깅 문제가 생겼었다. 반대로 말하면, symbolic link 경로가 아닌 <strong>실제 directory 경로로 workspace 를 열어야</strong> 한다.</p>
+<p>나는 <code>/home/interp/</code> 를 home directory 로 쓰고 있지만, 실제 경로는 <code>/SSD/home/interp</code> 이고 <code>$HOME</code> 경로는 Symbolic link 였었다. 이런 경우엔 <em>File > Open Folder&mldr;</em> 를 통해 workspace directory 를 열 때, 실제 경로인 <em>/SSD/home/interp/&mldr;</em> 로 시작하도록 경로를 입력하자. 그래야 Python 디버거가 정상 작동했다.</p>
 </section>
 <footer class=article-footer>
 <br>
@@ -237,14 +256,13 @@ AssertionError: Python 3.6 and below is not supported by this version of debugpy
 <div class=widget--toc>
 <nav id=TableOfContents>
 <ul>
-<li>
-<ul>
 <li><a href=#증상>증상</a></li>
 <li><a href=#분석>분석</a></li>
-<li><a href=#원인>원인</a></li>
-<li><a href=#해결-1-python3-버전-업그레이드-하기>해결 (1) Python3 버전 업그레이드 하기</a></li>
-<li><a href=#해결-2-vscode-python-extension-다운그레이드-하기>해결 (2) VSCode Python Extension 다운그레이드 하기</a></li>
-<li><a href=#해결-3-symbolic-link-경로-문제>해결 (3) Symbolic link 경로 문제</a></li>
+<li><a href=#원인과-해결>원인과 해결</a>
+<ul>
+<li><a href=#1-python36-에서-버전-업그레이드>(1) Python3.6 에서 버전 업그레이드</a></li>
+<li><a href=#2-extension-다운그레이드-하기>(2) Extension 다운그레이드 하기</a></li>
+<li><a href=#3-symbolic-link-경로-문제>(3) Symbolic link 경로 문제</a></li>
 </ul>
 </li>
 </ul>

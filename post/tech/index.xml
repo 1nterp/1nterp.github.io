@@ -441,39 +441,52 @@ alt="시방 저것이 뭔 소리여"/> &lt;figcaption>
 &lt;p>A closure is the combination of a function bundled together (enclosed) with references to its surrounding state (the lexical environment). In other words, a closure gives you access to an outer function&amp;rsquo;s scope from an inner function.&lt;br>
 클로저란, 클로저를 둘러싼 상태 (사전적 환경) 와의 참조를 함께 넣어 묶은, 함수의 조합입니다. 다른 표현으로, 클로저를 통해 함수 내부에서 함수 외부로 접근을 가능하게 만들 수 있습니다.&lt;/p>
 &lt;/blockquote>
-&lt;p>클로저를 둘러싼 상태, lexical environment 라는 말들 전부 &lt;strong>클로저 바깥&lt;/strong>을 말한다. 사실 뒷 문장이 다 설명을 해 주고 있다.&lt;/p></description></item><item><title>VSCode Python 디버그 반응이 없을 때</title><link>https://interp.blog/vscode-python-debugging-no-response/</link><pubDate>Tue, 23 Aug 2022 22:26:07 +0900</pubDate><guid>https://interp.blog/vscode-python-debugging-no-response/</guid><description>&lt;h2 id="증상">증상&lt;/h2>
-&lt;p>VSCode 에서 Python 파일을 디버깅 (debugging) 하려 하면, &lt;strong>아~무런 반응이 없고 곧바로 종료된다.&lt;/strong> 그냥 실행 자체를 하지 않은 것 같다!&lt;/p>
-&lt;h2 id="분석">분석&lt;/h2>
-&lt;p>관련 로그가 남아있지 않기 때문에, 분석이 쉽지 않다. 그나마 갱신되는 로그가 &amp;lsquo;Python&amp;rsquo; 에서 보이는 한 줄의 명령어인데&amp;hellip;&lt;/p>
+&lt;p>클로저를 둘러싼 상태, lexical environment 라는 말들 전부 &lt;strong>클로저 바깥&lt;/strong>을 말한다. 사실 뒷 문장이 다 설명을 해 주고 있다.&lt;/p></description></item><item><title>VSCode Python 디버그 반응이 없을 때</title><link>https://interp.blog/vscode-python-debugging-no-response/</link><pubDate>Tue, 23 Aug 2022 22:26:07 +0900</pubDate><guid>https://interp.blog/vscode-python-debugging-no-response/</guid><description>&lt;img src="https://interp.blog/vscode-python-debugging-no-response/feature.png" alt="Featured image of post VSCode Python 디버그 반응이 없을 때" />&lt;h1 id="증상">증상&lt;/h1>
+&lt;p>Visual Studio Code 에서 Python 파일을 디버깅 (debugging) 하려 하면, &lt;strong>아무런 반응이 없고 곧바로 종료된다.&lt;/strong> 그냥 실행 자체를 하지 않은 것 처럼 말이다..!&lt;/p>
+&lt;h1 id="분석">분석&lt;/h1>
+&lt;p>관련해서 메시지가 나타나지 않기 때문에, 단서를 찾기가 쉽진 않았다. 그나마 &amp;lsquo;&lt;em>Output&lt;/em>&amp;rsquo; 패널에 있는 &amp;lsquo;&lt;em>Python&lt;/em>&amp;rsquo; 에서 아래와 같은 로그가 한 줄 떠 있었다.&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">DAP Server launched with command: /home/interp/work/project/venv/bin/python \
 /home/interp/.vscode-server/extensions/ms-python.python-2022.12.1/pythonFiles/lib/python/debugpy/adapter
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>이 명령어를 그대로 &lt;strong>터미널에서&lt;/strong> 쳐 보니 해결책이 보였다.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>저기서 &lt;code>.. with command:&lt;/code> 이후의 명령어를 그대로 &lt;strong>터미널에서&lt;/strong> 입력해 보았다.&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">Traceback &lt;span class="o">(&lt;/span>most recent call last&lt;span class="o">)&lt;/span>:
-File &lt;span class="s2">&amp;#34;/home/i520508/.pyenv/versions/3.6.12/lib/python3.6/runpy.py&amp;#34;&lt;/span>, line 193, in _run_module_as_main
+File &lt;span class="s2">&amp;#34;/home/interp/.pyenv/versions/3.6.12/lib/python3.6/runpy.py&amp;#34;&lt;/span>, line 193, in _run_module_as_main
 &lt;span class="s2">&amp;#34;__main__&amp;#34;&lt;/span>, mod_spec&lt;span class="o">)&lt;/span>
-File &lt;span class="s2">&amp;#34;/home/i520508/.pyenv/versions/3.6.12/lib/python3.6/runpy.py&amp;#34;&lt;/span>, line 85, in _run_code
+File &lt;span class="s2">&amp;#34;/home/interp/.pyenv/versions/3.6.12/lib/python3.6/runpy.py&amp;#34;&lt;/span>, line 85, in _run_code
 exec&lt;span class="o">(&lt;/span>code, run_globals&lt;span class="o">)&lt;/span>
-File &lt;span class="s2">&amp;#34;/INT3/homes/i520508/.vscode-server/extensions/ms-python.python-2022.12.1/pythonFiles/lib/python/debugpy/adapter/__main__.py&amp;#34;&lt;/span>, line 212, in &amp;lt;module&amp;gt;
+File &lt;span class="s2">&amp;#34;/home/interp/.vscode-server/extensions/ms-python.python-2022.12.1/pythonFiles/lib/python/debugpy/adapter/__main__.py&amp;#34;&lt;/span>, line 212, in &amp;lt;module&amp;gt;
 __import__&lt;span class="o">(&lt;/span>&lt;span class="s2">&amp;#34;debugpy&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span>
-File &lt;span class="s2">&amp;#34;/INT3/homes/i520508/.vscode-server/extensions/ms-python.python-2022.12.1/pythonFiles/lib/python/debugpy/adapter/../../debugpy/__init__.py&amp;#34;&lt;/span>, line 28, in &amp;lt;module&amp;gt;
+File &lt;span class="s2">&amp;#34;/home/interp/.vscode-server/extensions/ms-python.python-2022.12.1/pythonFiles/lib/python/debugpy/adapter/../../debugpy/__init__.py&amp;#34;&lt;/span>, line 28, in &amp;lt;module&amp;gt;
 &lt;span class="s2">&amp;#34;Python 3.6 and below is not supported by this version of debugpy; &amp;#34;&lt;/span>
 AssertionError: Python 3.6 and below is not supported by this version of debugpy&lt;span class="p">;&lt;/span> use debugpy 1.5.1 or earlier.
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="원인">원인&lt;/h2>
-&lt;p>Python Extension 에서 debugpy 버전을 올렸는데, 이게 더 이상 Python 3.6 에서 호환되지 않는 것이다. &lt;a class="link" href="https://marketplace.visualstudio.com/items/ms-python.python/changelog" target="_blank" rel="noopener"
+&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="원인과-해결">원인과 해결&lt;/h1>
+&lt;p>저기서 마지막 문장이 중요하다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">AssertionError: Python 3.6 and below is not supported by this version of debugpy; \
+use debugpy 1.5.1 or earlier.
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>찾아보니 Python Extension 에서 debugpy 버전을 업그레이드 했고, 더 이상 Python 3.6 에서 호환되지 않는 것이 문제였다. &lt;a class="link" href="https://marketplace.visualstudio.com/items/ms-python.python/changelog" target="_blank" rel="noopener"
 >Changelog&lt;/a>를 보니, 2022.10.0 버전부터 debugpy 를 1.6.2 로 올린 것을 확인할 수 있었다.&lt;/p>
-&lt;h2 id="해결-1-python3-버전-업그레이드-하기">해결 (1) Python3 버전 업그레이드 하기&lt;/h2>
 &lt;p>그러면 해결책은 간단하다. 원하는 대로 해주거나, 되돌아가거나.&lt;/p>
-&lt;p>나는 virtualenv 를 사용하고 있어서, &lt;code>pip freeze&lt;/code> 를 통해 설치된 라이브러리를 전부 백업해 두고, virtualenv 를 Python 3.7 버전으로 다시 만들어 환경을 구성했다.&lt;/p>
-&lt;h2 id="해결-2-vscode-python-extension-다운그레이드-하기">해결 (2) VSCode Python Extension 다운그레이드 하기&lt;/h2>
-&lt;p>다른 해결책으로는, extension 의 버전을 다운그레이드 하는 방법이다.&lt;/p>
+&lt;h2 id="1-python36-에서-버전-업그레이드">(1) Python3.6 에서 버전 업그레이드&lt;/h2>
+&lt;p>가장 간단한 방법은 더 높은 버전의 Python을 설치하고, 해당 버전을 기본 환경으로 설정하면 된다.&lt;/p>
+&lt;p>&lt;code>virtualenv&lt;/code> 없이 Python 버전만 바꾼다면, VSCode 에서 Command Palette (&lt;code>Ctrl/Cmd+Shift+P&lt;/code>) 를 열어서 &lt;strong>Python: Select Interpreter&lt;/strong> 를 선택하는 것으로 버전 선택이 가능하다.&lt;/p>
+&lt;p>나는 &lt;code>virtualenv&lt;/code> 를 통해 개발 환경을 구성하기 때문에 아래와 같은 순서대로 업그레이드를 진행했다. 혹시 참고가 되길 바라며 정리해 둔다.&lt;/p>
+&lt;ol>
+&lt;li>(requirements.txt 따위로 관리하고 있지 않는다면) &lt;code>pip freeze &amp;gt; requirements.txt&lt;/code> 로 설치된 라이브러리 백업&lt;/li>
+&lt;li>기존 virtualenv directory 삭제 (예: &lt;code>venv&lt;/code> 라고 가정하자)&lt;/li>
+&lt;li>더 높은 버전의 Python 설치 (예: &lt;code>python3.9&lt;/code> 을 설치했다고 가정하자)&lt;/li>
+&lt;li>&lt;code>python3.9 -m virtualenv venv&lt;/code> 으로 virtualenv directory 생성&lt;/li>
+&lt;li>&lt;code>source venv/bin/activate &amp;amp;&amp;amp; pip install -r requirements.txt&lt;/code> 로 라이브러리 재설치&lt;/li>
+&lt;/ol>
+&lt;h2 id="2-extension-다운그레이드-하기">(2) Extension 다운그레이드 하기&lt;/h2>
+&lt;p>다른 해결책으로는, VSCode Python 의 Extension 버전을 다운그레이드 하는 방법이다.&lt;/p>
 &lt;figure class="align-center ">
 &lt;img loading="lazy" src="downgrade.png#center"/>
 &lt;/figure>
 &lt;p>Extension 탭에서 Python 을 찾은 다음, &lt;strong>Install Another Version&lt;/strong> 을 선택한다. 잠시 기다리면, 버전 목록이 나타나며, 초록색 부분 (그 아래도 상관없음) 을 클릭하면 된다.&lt;/p>
-&lt;p>별로 추천하고 싶진 않다. Python 3.10 이 나온 마당에 이왕이면 Python 버전을 올리는게 좋을 것 같다.&lt;/p>
-&lt;h2 id="해결-3-symbolic-link-경로-문제">해결 (3) Symbolic link 경로 문제&lt;/h2>
-&lt;p>Symbolic link 경로로 workspace directory 를 열어 둔 경우에도 디버깅 문제가 생겼었다. 해결책은, 실제 directory 경로로 workspace 를 열어야 한다.&lt;/p>
-&lt;p>나는 /home/interp/ 를 &lt;code>$HOME&lt;/code> 으로 쓰지만, 사실은 /SSD/home/interp 를 /home/interp 라는 Symbolic link 로 만들어 쓰고 있다. 이 때는 디렉토리를 열 때 &lt;em>/SSD/home/interp/&amp;hellip;&lt;/em> 로 시작하도록 경로를 입력해야 Python 디버거가 정상 작동했다.&lt;/p></description></item><item><title>BDD in Python: Behave</title><link>https://interp.blog/bdd-in-python-behave/</link><pubDate>Fri, 19 Aug 2022 09:00:36 +0900</pubDate><guid>https://interp.blog/bdd-in-python-behave/</guid><description>&lt;p>&lt;a class="link" href="https://interp.blog/bdd-behavior-driven-development/" >지난 포스팅&lt;/a>으로 BDD 는 어떤 개발방법론이고, 어떤 면에서 이 방법이 필요한지를 정리해 봤다. &lt;/p>
+&lt;p>하지만 별로 추천하고 싶진 않다. Python 3.10 까지 나온 마당에 특별한 이유가 없다면 (1) 번처럼 Python 버전을 올리는게 좋을 것 같다.&lt;/p>
+&lt;h2 id="3-symbolic-link-경로-문제">(3) Symbolic link 경로 문제&lt;/h2>
+&lt;p>혹시 (1) 이나 (2) 번을 전부 적용해도 (아니면 이미 Python 3.6 이상의 버전을 쓰고 있는데도) 디버깅이 안 된다면 이 해결책이 도움이 될 것이다.&lt;/p>
+&lt;p>한 번은, symbolic link 경로로 workspace directory 를 열었을 때 디버깅 문제가 생겼었다. 반대로 말하면, symbolic link 경로가 아닌 &lt;strong>실제 directory 경로로 workspace 를 열어야&lt;/strong> 한다.&lt;/p>
+&lt;p>나는 &lt;code>/home/interp/&lt;/code> 를 home directory 로 쓰고 있지만, 실제 경로는 &lt;code>/SSD/home/interp&lt;/code> 이고 &lt;code>$HOME&lt;/code> 경로는 Symbolic link 였었다. 이런 경우엔 &lt;em>File &amp;gt; Open Folder&amp;hellip;&lt;/em> 를 통해 workspace directory 를 열 때, 실제 경로인 &lt;em>/SSD/home/interp/&amp;hellip;&lt;/em> 로 시작하도록 경로를 입력하자. 그래야 Python 디버거가 정상 작동했다.&lt;/p></description></item><item><title>BDD in Python: Behave</title><link>https://interp.blog/bdd-in-python-behave/</link><pubDate>Fri, 19 Aug 2022 09:00:36 +0900</pubDate><guid>https://interp.blog/bdd-in-python-behave/</guid><description>&lt;p>&lt;a class="link" href="https://interp.blog/bdd-behavior-driven-development/" >지난 포스팅&lt;/a>으로 BDD 는 어떤 개발방법론이고, 어떤 면에서 이 방법이 필요한지를 정리해 봤다. &lt;/p>
 &lt;p>이번 포스팅을 시작으로, 직접 다양한 언어에서 BDD 를 적용하는 방법을 정리해 볼 예정이다. 첫 시간으로는 &lt;strong>파이썬&lt;/strong> (Python) 언어를 가지고 할 것이다. Python 라이브러리 중 하나인 &lt;a class="link" href="https://behave.readthedocs.io/en/stable/" target="_blank" rel="noopener"
 >behave&lt;/a> 를 통해, BDD 테스트 프레임워크를 구성하고, 예제 시나리오를 만들어서 테스트 자동화가 어떻게 이뤄질 수 있을지 알아보자.&lt;/p>
 &lt;h1 id="예제-프로젝트-생성">예제 프로젝트 생성&lt;/h1>
