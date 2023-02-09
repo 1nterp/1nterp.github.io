@@ -40,7 +40,7 @@
   h1 {
     font-size: 1.7em;
     font-weight: 500;
-    margin: 3em 0 .67em 0;
+    margin: 2em 0 .67em 0;
     letter-spacing: -1px;
 
     @include respond(md) {
@@ -51,7 +51,7 @@
   h2 {
     font-size: 1.3em;
     font-weight: 400;
-    margin: 2.4em 0 .67em 0;
+    margin: 1.6em 0 .67em 0;
     letter-spacing: -1px;
 
     @include respond(md) {
