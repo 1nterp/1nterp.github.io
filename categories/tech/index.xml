@@ -1,4 +1,37 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>TECH 🛠️ on InterP Blog</title><link>https://interp.blog/categories/tech/</link><description>Recent content in TECH 🛠️ on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Thu, 02 Feb 2023 17:00:00 +0900</lastBuildDate><atom:link href="https://interp.blog/categories/tech/index.xml" rel="self" type="application/rss+xml"/><item><title>Secure Communication 에 대한 모든 것</title><link>https://interp.blog/ssl-tls-pki-x509-certificate/</link><pubDate>Thu, 02 Feb 2023 17:00:00 +0900</pubDate><guid>https://interp.blog/ssl-tls-pki-x509-certificate/</guid><description>&lt;img src="https://interp.blog/ssl-tls-pki-x509-certificate/feature.jpeg" alt="Featured image of post Secure Communication 에 대한 모든 것" />&lt;h1 id="시작하면서">시작하면서&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>TECH 🛠️ on InterP Blog</title><link>https://interp.blog/categories/tech/</link><description>Recent content in TECH 🛠️ on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Thu, 09 Feb 2023 02:00:00 +0900</lastBuildDate><atom:link href="https://interp.blog/categories/tech/index.xml" rel="self" type="application/rss+xml"/><item><title>Docker Container 출력이 Disk 를 채운다</title><link>https://interp.blog/docker-container-print-uses-disk/</link><pubDate>Thu, 09 Feb 2023 02:00:00 +0900</pubDate><guid>https://interp.blog/docker-container-print-uses-disk/</guid><description>&lt;img src="https://interp.blog/docker-container-print-uses-disk/feature.png" alt="Featured image of post Docker Container 출력이 Disk 를 채운다" />&lt;p>어느 날, GCP 에서 알람이 날아왔다. 테스트로 docker container를 하나 올려 둔 VM (Compute Engine) 에서 &lt;em>Disk 가 꽉 차서 아무것도 할 수 없다&lt;/em>는 것이었다.&lt;/p>
+&lt;p>디스크를 쓴다고? 이 container 는 mount 된 volume 도 없었고, container 가 하는 일은 소스에서 데이터를 받아 계산한 뒤 GCP Cloud Storage 에 저장하는 것 밖에 하지 않는데?&lt;/p>
+&lt;h1 id="문제">문제&lt;/h1>
+&lt;p>Docker container 만 떠 있고 아무런 작업을 하지 않는 Host 의 &lt;strong>디스크 사용량이 계속해서 줄어든다.&lt;/strong> 결국, 디스크를 100% 가까이 쓰게 되어 시스템을 마비시킨다.&lt;/p>
+&lt;h1 id="진단">진단&lt;/h1>
+&lt;p>우선 해당 Host (VM 또는 on-premise) 에 접속해서 &lt;code>df -h&lt;/code> 를 실행하자. &lt;code>/&lt;/code> 경로에서 디스크 사용량이 압도적으로 많다면, 해당 문제에 접근한 것이다.&lt;/p>
+&lt;p>이제 이 부분을 실행해 보자. (root 가 아니라면, sudoer 권한이 필요하다)&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">sudo du -h -d &lt;span class="m">1&lt;/span> /var/lib/docker/containers
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>해당 경로에서 특정 container 의 디스크 사용량이 &lt;code>df -h&lt;/code> 를 입력했을 때의 사용량과 비슷하다면, 이 친구가 문제다.&lt;/p>
+&lt;h1 id="분석">분석&lt;/h1>
+&lt;p>그렇다면 왜 디스크를 쓰는 container 가 아닌데, 이렇게 디스크를 먹었던 것일까?&lt;/p>
+&lt;p>&lt;code>docker logs&lt;/code> 를 입력하면 container 의 stdout/stderr 출력 내용을 볼 수 있다. &lt;strong>문제는, Docker daemon 은 별다른 지시가 없다면 container 가 출력하는 내용을 전부 디스크에 쓴다는 것이다.&lt;/strong>&lt;/p>
+&lt;p>바로 &lt;code>/var/lib/docker/containers&lt;/code> 경로에 말이다!&lt;/p>
+&lt;br/>
+&lt;p>&lt;a class="link" href="https://docs.docker.com/config/containers/logging/configure/" target="_blank" rel="noopener"
+>Docker docs 페이지&lt;/a>에도 같은 내용을 경고하고 있다.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>By default, no log-rotation is performed.&lt;/strong> As a result, log-files stored by the default json-file logging driver logging driver can cause a significant amount of disk space to be used for containers that generate much output, which can lead to disk space exhaustion.&lt;/p>
+&lt;/blockquote>
+&lt;h1 id="해결">해결&lt;/h1>
+&lt;p>container directory 를 지우는 것은, 문제를 완화하고 서비스를 잠시 정상으로 되돌려 놓을 순 있지만 진짜 해결책은 아니다.&lt;/p>
+&lt;p>분석에서 말한 대로, container 가 출력하는 내용을 rotation 으로 기록하도록 만들어야 한다. 즉, &lt;em>최근 출력만 기억하게 하고 오래된 것은 삭제하도록&lt;/em> 말이다.&lt;/p>
+&lt;p>먼저, &lt;code>/etc/docker/daemon.json&lt;/code> 에 아래 내용을 넣는다. (없으면 만든다)&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="p">{&lt;/span>
+&lt;span class="nt">&amp;#34;log-driver&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;json-file&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nt">&amp;#34;log-opts&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nt">&amp;#34;max-size&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;10m&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nt">&amp;#34;max-file&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;3&amp;#34;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>container 가 출력하는 최신 내용을 JSON 포맷으로 10MB 씩 3개의 파일로 저장하고, 오래된 내용은 없애도록 하는 것이다. 원하는 값으로 수정하거나, &lt;a class="link" href="https://docs.docker.com/config/containers/logging/configure/" target="_blank" rel="noopener"
+>Docker docs 페이지&lt;/a> 를 참고해 다양한 설정으로 바꿔줘도 무방하다.&lt;/p>
+&lt;p>설정이 끝났다면, Docker daemon 을 재시작한다. 나의 경우엔 &lt;code>sudo service docker restart&lt;/code> 로 재시작했다.&lt;/p>
+&lt;p>이후 container 를 다시 실행시킨 뒤, 출력이 쌓일 때 까지 기다렸다가 &lt;code>/var/lib/docker/containers/&lt;/code> 에서 &lt;code>{container_id}&lt;/code> directory 에 있는 &lt;code>.log&lt;/code> 파일이 3개&lt;strong>만&lt;/strong> 생성되어 있는지 확인하면 된다.&lt;/p></description></item><item><title>Secure Communication 에 대한 모든 것</title><link>https://interp.blog/ssl-tls-pki-x509-certificate/</link><pubDate>Thu, 02 Feb 2023 17:00:00 +0900</pubDate><guid>https://interp.blog/ssl-tls-pki-x509-certificate/</guid><description>&lt;img src="https://interp.blog/ssl-tls-pki-x509-certificate/feature.jpeg" alt="Featured image of post Secure Communication 에 대한 모든 것" />&lt;h1 id="시작하면서">시작하면서&lt;/h1>
 &lt;p>SSL/TLS/HTTPS 부터 알아보자.&lt;/p>
 &lt;ul>
 &lt;li>SSL (Secure Socket Layer): 클라이언트와 서버 간 보안 통신을 위한 프로토콜이다.&lt;/li>
