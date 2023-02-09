@@ -1784,7 +1784,14 @@ Error: Error building site: logged 1 error(s)
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;/ul>
 &lt;p>그렇다, &lt;strong>extension version 이 아닌 일반 hugo 를 설치한 것이었다!&lt;/strong> &lt;a class="link" href="https://gohugo.io/getting-started/installing" target="_blank" rel="noopener"
->Install Hugo&lt;/a> 페이지에 다시 들어가 재설치하니 잘 되었다.&lt;/p></description></item><item><title>Visual Studio Code Remote Deployment</title><link>https://interp.blog/visual-studio-code-remote-deployment/</link><pubDate>Wed, 26 Jun 2019 05:11:21 +0000</pubDate><guid>https://interp.blog/visual-studio-code-remote-deployment/</guid><description>&lt;p>Vim 과 SSH 에 찌들어 있었는데, 이번 Visual Studio Code 의 베타 기능인 Remote Deployment 를 연결해 보고 나서, 학생 때 쓰던 IDE 로 돌아간 것 같아 너무 좋았다. 언제까지고 구식 도구를 쓰며 부심을 부릴 수만은 없다. 설치 과정이 조금 험난했지만, 간단히 요약해서 써본다.&lt;/p>
+>Install Hugo&lt;/a> 페이지에 다시 들어가 재설치하니 잘 되었다.&lt;/p></description></item><item><title>프로세서의 우선순위 값 : nice</title><link>https://interp.blog/%ED%94%84%EB%A1%9C%EC%84%B8%EC%84%9C%EC%9D%98-%EC%9A%B0%EC%84%A0%EC%88%9C%EC%9C%84-%EA%B0%92-nice/</link><pubDate>Thu, 28 Nov 2019 01:53:59 +0000</pubDate><guid>https://interp.blog/%ED%94%84%EB%A1%9C%EC%84%B8%EC%84%9C%EC%9D%98-%EC%9A%B0%EC%84%A0%EC%88%9C%EC%9C%84-%EA%B0%92-nice/</guid><description>&lt;p>&lt;a class="link" href="http://doc.mapr.com/display/MapR/node&amp;#43;metrics#nodemetrics-colnames" target="_blank" rel="noopener"
+>MapR의 Monitoring Metric&lt;/a> 을 보다가, &lt;code>CPUNICE&lt;/code> 라는 컬럼 이름에 다음과 같은 설명이 있다. &lt;em>Amount of CPU time used by processes with a positive nice value.&lt;/em> 오잉, 프로세스의 CPU 사용 시간인 것 까진 알겠는데, 양(positive) 의 좋은 값이라니?&lt;/p>
+&lt;p>실은, nice value가 다음과 같은 뜻이라고 한다.&lt;/p>
+&lt;blockquote>
+&lt;p>Nice 값은 CPU의 스케줄링 우선순위를 의미합니다. 값의 범위는 +19 ~ -20으로, &lt;strong>숫자가 높을 수록 우선 순위는 낮습니다&lt;/strong>. &lt;code>man 2 getpriority&lt;/code> 를 참고하시면, 더 자세한 정보가 나와 있습니다. 프로세스를 실행할 때 &lt;code>nice&lt;/code> 명령어로 우선 순위를 부여할 수 있고, &lt;code>renice&lt;/code> 명령어로 우선 순위를 조정할 수 있습니다. 우선 순위를 높이기 위해선, 슈퍼 유저 권한이 (root) 필요합니다. (&lt;a class="link" href="http://serverfault.com/questions/116950/what-does-nice-mean-on-cpu-utilization-graphs" target="_blank" rel="noopener"
+>출처&lt;/a>)&lt;/p>
+&lt;/blockquote>
+&lt;p>참고로, &lt;code>getpriority()&lt;/code> 는 프로세스의 현재 우선순위를 반환하는 인터페이스 이다. &lt;code>setpriority()&lt;/code> 역시 존재하는데, 이 함수를 실행할 때 값을 낮추려면 sudoer 권한이 있어야 한다고 한다.&lt;/p></description></item><item><title>Visual Studio Code Remote Deployment</title><link>https://interp.blog/visual-studio-code-remote-deployment/</link><pubDate>Wed, 26 Jun 2019 05:11:21 +0000</pubDate><guid>https://interp.blog/visual-studio-code-remote-deployment/</guid><description>&lt;p>Vim 과 SSH 에 찌들어 있었는데, 이번 Visual Studio Code 의 베타 기능인 Remote Deployment 를 연결해 보고 나서, 학생 때 쓰던 IDE 로 돌아간 것 같아 너무 좋았다. 언제까지고 구식 도구를 쓰며 부심을 부릴 수만은 없다. 설치 과정이 조금 험난했지만, 간단히 요약해서 써본다.&lt;/p>
 &lt;p>클라이언트 OS 는 윈도우 10 (빌드 1809), 서버 OS 는 Cent OS 7 기준으로 작성한다.&lt;/p>
 &lt;h2 id="클라이언트-윈도우-준비">클라이언트 (윈도우) 준비&lt;/h2>
 &lt;p>처음에 준비할 때는 &lt;a class="link" href="https://code.visualstudio.com/insiders/" target="_blank" rel="noopener"
