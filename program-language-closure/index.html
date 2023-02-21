@@ -1,18 +1,19 @@
 <!doctype html><html lang=ko-kr dir=ltr>
 <head><meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="함수인듯 함수아닌 함수같은 너"><title>클로저 (Closure)</title>
+<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="함수인듯 함수아닌 함수같은 너🎵"><title>클로저 (Closure)</title>
 <style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500&display=swap'</style>
 <link rel=canonical href=https://interp.blog/program-language-closure/>
-<link rel=stylesheet href=/scss/style.min.b8a97385a3daf2f5481f162823a74794c977727ccfd5f59a34fe457532ace67f.css><meta property="title" content="클로저 (Closure)">
-<meta property="description" content="함수인듯 함수아닌 함수같은 너">
+<link rel=stylesheet href=/scss/style.min.17d4b5ccc6ac1b0bbb212304272245288a7c8ac77336e3af4dd2a37bb9a3620f.css><meta property="title" content="클로저 (Closure)">
+<meta property="description" content="함수인듯 함수아닌 함수같은 너🎵">
 <meta property="og:title" content="클로저 (Closure)">
-<meta property="og:description" content="함수인듯 함수아닌 함수같은 너">
+<meta property="og:description" content="함수인듯 함수아닌 함수같은 너🎵">
 <meta property="og:url" content="https://interp.blog/program-language-closure/">
 <meta property="og:site_name" content="InterP Blog">
-<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="golang"><meta property="article:tag" content="closure"><meta property="article:published_time" content="2022-09-18T08:33:23+09:00"><meta property="article:modified_time" content="2022-09-18T08:33:23+09:00">
+<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="golang"><meta property="article:tag" content="Closure"><meta property="article:tag" content="Python"><meta property="article:published_time" content="2022-09-18T08:33:23+09:00"><meta property="article:modified_time" content="2022-09-18T08:33:23+09:00"><meta property="og:image" content="https://interp.blog/program-language-closure/feature.jpg">
 <meta name=twitter:site content="@interp_">
 <meta name=twitter:creator content="@interp_"><meta name=twitter:title content="클로저 (Closure)">
-<meta name=twitter:description content="함수인듯 함수아닌 함수같은 너">
+<meta name=twitter:description content="함수인듯 함수아닌 함수같은 너🎵"><meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://interp.blog/program-language-closure/feature.jpg">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-KMRJ33V06X"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-KMRJ33V06X')</script>
 <script>(function(b,d,e,a,g){b[a]=b[a]||[],b[a].push({'gtm.start':(new Date).getTime(),event:'gtm.js'});var f=d.getElementsByTagName(e)[0],c=d.createElement(e),h=a!='dataLayer'?'&l='+a:'';c.async=!0,c.src='https://www.googletagmanager.com/gtm.js?id='+g+h,f.parentNode.insertBefore(c,f)})(window,document,'script','dataLayer','GTM-NBPHNHQ')</script>
@@ -66,8 +67,13 @@
 </ol>
 </aside>
 <main class="main full-width">
-<article class=main-article>
+<article class="has-image main-article">
 <header class=article-header style=display:block>
+<div class=article-image>
+<a href=/program-language-closure/>
+<img src=/program-language-closure/feature_huc0f5d4c1286e8e5d1cad12c4be591944_1794231_900x0_resize_q75_h2_box.webp srcset="/program-language-closure/feature_huc0f5d4c1286e8e5d1cad12c4be591944_1794231_900x0_resize_q75_h2_box.webp 800w, /program-language-closure/feature_huc0f5d4c1286e8e5d1cad12c4be591944_1794231_1800x0_resize_q75_h2_box.webp 1600w" width=900 height=558 loading=lazy style="object-position:50% 76%" alt="Featured image of post 클로저 (Closure)">
+</a>
+</div>
 <div class=article-details>
 <header class=article-category>
 <a href=/categories/tech/ style=background-color:#1c8193;color:#fff>
@@ -79,7 +85,7 @@ TECH 🛠️
 <a href=/program-language-closure/>클로저 (Closure)</a>
 </h2>
 <h3 class=article-subtitle>
-함수인듯 함수아닌 함수같은 너
+함수인듯 함수아닌 함수같은 너🎵
 </h3>
 </div>
 <footer class=article-time>
@@ -99,30 +105,32 @@ TECH 🛠️
 <ins class=adsbygoogle style=display:block data-ad-client=ca-pub-0712823212859607 data-ad-slot=7246571541 data-ad-format=auto data-full-width-responsive=true></ins>
 <script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
 <section class=article-content>
-<p>개발자 친구랑 이런저런 이야기를 하던 중, 내 리뷰가 리젝당한 경험담을 이어서 꺼내기 시작했다. &ldquo;내가 클로저를 썼는데 리뷰어가 그게 뭐냐고, 함수로 빼달라고 하는거 있지?&rdquo; 한참을 듣던 그 친구가 대뜸 이렇게 반문했다.</p>
+<p>나와 같은 개발자 친구와 이런저런 이야기를 하던 중, 내 리뷰가 반려된 경험담을 꺼냈던 적이 있다.</p>
 <blockquote>
-<p>그런데, 클로저가 뭐야?</p>
+<p><strong>나:</strong> 내가 클로저를 사용해서 구현했거든. 그런데 리뷰어가 그게 뭐냐고, 아예 함수로 빼달라고 하는거 있지?<br>
+<strong>친구:</strong> 아~ 그런데, 클로저가 도대체 뭐야?<br>
+<strong>나:</strong> 어..? 그거, 있잖아! 함수 안에 함수 만드는 거! 그런데 그 함수 외부 변수 참조할 수 있는 거!</p>
 </blockquote>
-<p>&ldquo;어&mldr;그거 있잖아! 함수 안에 함수 만드는거! 그런데 그 함수 바깥도 참조할 수 있는거!&rdquo; 라고 얼버무렸다. 그러고 나자 (친구는 가만히 있는데) 나 혼자 이런 생각이 들었다. &lsquo;<em>함수면 함수지 왜 안에다 만들어? 변수 참조는 왜 해? 리펙터링 하기 싫어서 필요한 건가?</em>&rsquo; ㅠㅠ..</p>
-<p>일단 나부터 잘 모르고 쓰고 있다는 생각이 들어, 이참에 정리를 해 두려고 한다.</p>
-<h2 id=정의>정의</h2>
-<p>프로그래밍 언어에서 Closure 는, 함수 바깥에 있는 변수를 참조하는 함수 &lsquo;값&rsquo; 을 말한다. 한국어판 <a class=link href=https://ko.wikipedia.org/wiki/%ED%81%B4%EB%A1%9C%EC%A0%80_%28%EC%BB%B4%ED%93%A8%ED%84%B0_%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D%29 target=_blank rel=noopener>위키백과 설명</a>을 보도록 하자.</p>
+<p>그러고 나자 (친구는 가만히 있는데) 나 혼자 부끄러운 생각이 들었다. 제대로 알지도 못하고 쓰고 있었구나 😂 일단 나부터 잘 모르고 쓰고 있다는 생각이 들어, 이참에 정리를 해 두려고 한다.</p>
+<h1 id=정의>정의</h1>
+<p>프로그래밍 언어에서 Closure 는, <em>함수 바깥에 있는 변수를 참조하는 함수 &lsquo;값&rsquo;</em> 을 말한다..고 한다.</p>
+<p>한국어판 <a class=link href=https://ko.wikipedia.org/wiki/%ED%81%B4%EB%A1%9C%EC%A0%80_%28%EC%BB%B4%ED%93%A8%ED%84%B0_%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D%29 target=_blank rel=noopener>위키백과 설명</a>을 보도록 하자.</p>
 <blockquote>
-<p>컴퓨터 언어에서 클로저(Closure)는 <a class=link href=https://ko.wikipedia.org/wiki/%EC%9D%BC%EA%B8%89_%EA%B0%9D%EC%B2%B4 target=_blank rel=noopener>일급 객체 함수</a>(first-class functions)의 개념을 이용하여 스코프(scope)에 묶인 변수를 바인딩 하기 위한 일종의 기술이다.<br>
-기능상으로, 클로저는 함수를 저장한 <a class=link href=https://ko.wikipedia.org/wiki/%EB%A0%88%EC%BD%94%EB%93%9C target=_blank rel=noopener>레코드</a>(record)이며, 스코프(scope)의 인수(Factor)들은 클로저가 만들어질 때 정의(define)되며, 스코프 내의 영역이 소멸(remove)되었어도 그에 대한 접근(access)은 독립된 복사본인 클로저를 통해 이루어질 수 있다.</p>
+<p>컴퓨터 언어에서 클로저(Closure)는 <a class=link href=https://ko.wikipedia.org/wiki/%EC%9D%BC%EA%B8%89_%EA%B0%9D%EC%B2%B4 target=_blank rel=noopener>일급 객체 함수</a>(first-class functions)의 개념을 이용하여 스코프(scope)에 묶인 변수를 바인딩 하기 위한 일종의 기술이다.</p>
+<p>기능상으로, 클로저는 함수를 저장한 <a class=link href=https://ko.wikipedia.org/wiki/%EB%A0%88%EC%BD%94%EB%93%9C target=_blank rel=noopener>레코드</a>(record)이며, 스코프(scope)의 인수(Factor)들은 클로저가 만들어질 때 정의(define)되며, 스코프 내의 영역이 소멸(remove)되었어도 그에 대한 접근(access)은 독립된 복사본인 클로저를 통해 이루어질 수 있다.</p>
 </blockquote>
-<p><a class=link href=https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures target=_blank rel=noopener>MDN</a> 에서 말하는 클로저의 정의는?</p>
+<p><a class=link href=https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures target=_blank rel=noopener>MDN</a> 에 있는 정의도 찾아봤다.</p>
 <blockquote>
 <p>A closure is the combination of a function bundled together (enclosed) with references to its surrounding state (the <strong>lexical environment</strong>). In other words, a closure gives you access to an <strong>outer function&rsquo;s scope</strong> from an inner function.</p>
 </blockquote>
 <figure>
-<img loading=lazy src=giphy.webp alt="시방 저것이 뭔 소리여"> <figcaption>
-<p><del>시방 저것이 뭔 소리여</del></p>
+<img loading=lazy src=giphy.webp alt="시방 저것이.. 뭔 소리여?"> <figcaption>
+<p><del>시방 저것이.. 뭔 소리여?</del></p>
 </figcaption>
 </figure>
-<h2 id=golang-에서의-closure>Golang 에서의 Closure</h2>
+<h1 id=golang-에서의-closure>Golang 에서의 Closure</h1>
 <p>백문이 불여일견, 일단 보자.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kn>package</span> <span class=nx>main</span>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-golang data-lang=golang><span class=kn>package</span> <span class=nx>main</span>
 
 <span class=kn>import</span> <span class=s>&#34;fmt&#34;</span>
 
@@ -130,7 +138,7 @@ TECH 🛠️
 	<span class=nx>x</span> <span class=o>:=</span> <span class=mi>0</span>
 	<span class=k>return</span> <span class=kd>func</span><span class=p>()</span> <span class=kt>int</span> <span class=p>{</span>
 		<span class=nx>x</span><span class=o>++</span>
-		<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>x</span><span class=p>)</span>
+		<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Output:&#34;</span><span class=p>,</span> <span class=nx>x</span><span class=p>)</span>
 		<span class=k>return</span> <span class=nx>x</span>
 	<span class=p>}</span>
 <span class=p>}</span>
@@ -140,48 +148,68 @@ TECH 🛠️
 	<span class=nf>inner_f</span><span class=p>()</span>
 	<span class=nf>inner_f</span><span class=p>()</span>
 <span class=p>}</span>
-</code></pre></div><p>inner_f() 가 <strong>함수</strong>라면, 상태가 저장되는 곳이 있을 리 만무하며, 입력 값에 변화가 없기 때문에 (아예 입력 값 자체가 없다!) 두 번의 호출이 동일한 결과를 낼 것 같다. 하지만 현실은 그렇지 않다. 사실은, inner_f 는 함수가 아니라 <strong>클로저</strong>이기 때문이다. </p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>1
-2
-</code></pre></div><h2 id=일급-객체-일급-함수>일급 객체, 일급 함수</h2>
+</code></pre></div><p><code>main()</code> 에서 호출하는 두 번의 <code>inner_f()</code> 가 일반 함수 호출이었다고 생각해보자. 일반적인 함수에는 <em>상태가 저장되는 곳이 없다</em>. 즉, 입력 값에 변화가 없기 때문에 두 번의 호출이 동일한 결과를 낼 것 같다.</p>
+<p>하지만 현실은 그렇지 않다. <code>inner_f</code> 에서 받은 것은 <code>outer()</code> 라는 함수가 아니라 <strong>클로저</strong>이기 때문이다. 따라서 출력이 다음과 같을 것이다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>Output: 1
+Output: 2
+</code></pre></div><h1 id=python-에서의-closure>Python 에서의 Closure</h1>
+<p>이번에는 똑같은 결과를 내는 Python 코드를 짜 보자.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=k>def</span> <span class=nf>outer</span><span class=p>():</span>
+    <span class=n>x</span> <span class=o>=</span> <span class=mi>0</span>
+    <span class=k>def</span> <span class=nf>inner</span><span class=p>():</span>
+        <span class=k>nonlocal</span> <span class=n>x</span>
+        <span class=n>x</span> <span class=o>+=</span> <span class=mi>1</span>
+        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;Output:&#34;</span><span class=p>,</span> <span class=n>x</span><span class=p>)</span>
+        <span class=k>return</span> <span class=n>x</span>
+
+    <span class=k>return</span> <span class=n>inner</span>
+
+<span class=n>inner_f</span> <span class=o>=</span> <span class=n>outer</span><span class=p>()</span>
+<span class=n>inner_f</span><span class=p>()</span>
+<span class=n>inner_f</span><span class=p>()</span>
+</code></pre></div><p>거의 똑같지만, Python 에서는 <code>nonlocal</code> 키워드를 사용해서 외부 변수를 참조하겠다고 명시해야 한다.</p>
+<p><code>def inner()</code> 말고 Golang 처럼 unnamed function 을 정의해서 넘겨주려면 lambda function 을 참고하면 된다.</p>
+<h1 id=일급-객체-일급-함수>일급 객체, 일급 함수</h1>
 <p>잠시 일급 객체라는 개념을 먼저 짚고 넘어가자. 일급 객체가 되려면, 세 가지 조건이 있다.</p>
 <ul>
 <li>변수에 담을 수 있는 것</li>
 <li>인자로 전달이 가능한 것</li>
 <li>반환값으로도 전달이 가능한 것</li>
 </ul>
-<p>일급 함수는 함수형으로 된 일급 변수를 뜻하니까, 짧게 설명하면 <strong>변수처럼 다룰 수 있는 함수</strong> 일급 함수라 할 수 있다. (<a class=link href=https://velog.io/@mgm-dev/%EC%9D%BC%EA%B8%89%ED%95%A8%EC%88%98%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80 target=_blank rel=noopener>참조</a>)</p>
-<p>대부분의 스크립트 프로그래밍 언어가 일급 함수를 취급하지만, 오래된 언어들 (기본 C, Algol&mldr;) 은 위의 세 가지 조건 중 일부만 지원하기 때문에 일급 함수 취급이 불가능하다.</p>
-<h2 id=스코프>스코프</h2>
-<p>어떤 변수의 스코프는, 다른 말로 하면 변수가 어디까지 접근 가능한지를 나타낸 개념이다. 특정 변수의 수명 (lifetime) 으로도 나타내더라만, 나는 두 개념이 모두 포함된 것이라고 본다.</p>
+<p>일급 함수는 <em>함수형으로 된 일급 변수</em>를 뜻하니까, 짧게 설명하면 <strong>변수처럼 다룰 수 있는 함수</strong> 일급 함수라 할 수 있다. (<a class=link href=https://velog.io/@mgm-dev/%EC%9D%BC%EA%B8%89%ED%95%A8%EC%88%98%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80 target=_blank rel=noopener>참조</a>)</p>
+<p>대부분의 스크립트 프로그래밍 언어가 일급 함수를 취급한다. 하지만 오래된 언어들 (기본 C, Algol&mldr;) 의 경우엔 세 가지 조건 중 일부만 지원하기 때문에, 일급 함수를 취급할 수 없다.</p>
+<h1 id=스코프>스코프</h1>
+<p>어떤 변수의 스코프는, 다른 말로 하면 변수가 어디까지 접근 가능한지를 나타낸 개념이다. 특정 변수의 <em>수명 (lifetime)</em> 으로도 나타내지만, 나는 두 개념이 모두 포함된 것이라고 본다.</p>
 <p>앞서 본 것 처럼, 클로저는 함수가 선언된 스코프 (scope) 안에 선언된 어느 변수라도 접근이 가능하다. 즉, 함수 스코프의 상위 스코프 까지다. </p>
-<p>예제에서는 변수 x 가 이에 해당 한다. outer() 안에 선언된 클로저 안에는 x 가 없지만, 클로저가 선언된 스코프 (그러니까 outer() 전체) 에는 x 가 사용 가능하다. 물론 이건 클로저 역시 마찬가지다.</p>
+<p>예제를 다시 보자. 변수 <code>x</code> 가 이에 해당 한다. outer() 안에 선언된 클로저 안에는 x 가 없지만, 클로저가 선언된 스코프 (그러니까 outer() 전체) 에는 x 가 사용 가능하다. 물론 이건 클로저 역시 마찬가지다.</p>
 <p>수명 이야기를 했는데, outer() 가 호출되기 시작할 때 변수 x 는 스택에 쌓이고, 호출이 종료되면 x 는 스택에서 빠질 것이다. 하지만 클로저가 선언되어 있다면 이 변수 x 의 수명은 늘어나게 된다. 그럼 이렇게 수명이 늘어난 변수 x 는 어디에 저장될까?</p>
-<h2 id=자유-변수>자유 변수</h2>
-<p>클로저에서 숨어있는 개념이 바로 &lsquo;<a class=link href=https://ko.wikipedia.org/wiki/%EC%9E%90%EC%9C%A0_%EB%B3%80%EC%88%98%EC%99%80_%EC%A2%85%EC%86%8D_%EB%B3%80%EC%88%98 target=_blank rel=noopener>자유 변수 (free variable)</a>&rsquo; 이다. 수식 속에서 상수로 치환이 가능한 변수를 말한다. 그 외의 변수는 전부 종속 변수 (bound variable) 이라고 말한다.</p>
-<p>클로저에서 말하는 자유 변수는, 클로저를 선언한 스코프 안에 위치한다. 쉽게 말하면, <strong>자유 변수 = 클로저 바깥 변수</strong>다. 클로저가 그냥 함수였다면, 자유 변수가 어떤 값을 가지고 있건 상관 없이 작동해야 한다. (자유 변수라는 말 자체가 수학에서 나온 말이다) 이런 자유 변수로 인해 함수가 닫힐 수 있게 만든 것을, 우리는 클로저 (closure) 라고 부르는 것이다.</p>
-<p>클로저에겐 자유 변수가 필요충분 조건이다. 계속 살아있어야 한다.</p>
-<h2 id=다시-정의를-읽어보자>다시 정의를 읽어보자</h2>
+<h1 id=자유-변수>자유 변수</h1>
+<p>클로저에서 숨어있는 개념이 바로 &lsquo;<a class=link href=https://ko.wikipedia.org/wiki/%EC%9E%90%EC%9C%A0_%EB%B3%80%EC%88%98%EC%99%80_%EC%A2%85%EC%86%8D_%EB%B3%80%EC%88%98 target=_blank rel=noopener>자유 변수 (free variable)</a>&rsquo; 이다. 자유변수란 수학에서 나온 개념인데, 수식 속에서 상수로 치환이 가능한 변수를 말한다. 그 외의 변수는 전부 종속 변수 (bound variable) 이라고 말한다.</p>
+<p>위키 예제를 잠깐 빌려 이해해보자. $\textstyle\sum_{n=1}^1 m/n$ 에서 자유 변수는 무엇일까? 수식에서 자유로운 <code>m</code> 이 바로 자유 변수고, <code>n</code> 은 $\Sigma$ 에 종속된 종속 변수다.</p>
+<p>클로저에서 이 개념을 적용해 보자. 클로저를 선언한 스코프 바깥에 있는 변수지만, 참조를 하고 있는 변수가 자유 변수인 것이다.</p>
+<p>클로저가 그냥 함수였다면, 자유 변수가 어떤 값을 가지고 있건 상관 없이 작동해야 한다. 반대로 말하면 <strong>이런 자유 변수로 인해, 함수로써 닫힐 수 있게 만든 것</strong>을, 우리는 클로저 (closure) 라고 부르는 것이다. (써놓고도 무슨 말인지..)</p>
+<h1 id=다시-정의를-읽어보자>다시 정의를 읽어보자</h1>
 <blockquote>
 <p>컴퓨터 언어에서 클로저(Closure)는 <a class=link href=https://ko.wikipedia.org/wiki/%EC%9D%BC%EA%B8%89_%EA%B0%9D%EC%B2%B4 target=_blank rel=noopener>일급 객체 함수</a>(first-class functions)의 개념을 이용하여, 스코프(scope)에 묶인 변수를 바인딩 하기 위한 일종의 기술이다.</p>
 </blockquote>
 <ul>
-<li>참고로 일급 객체 함수와 클로저는 같은 말이 아니라, 일급 객체 함수 ∋ 클로저이다.</li>
-<li>스코프에 묶인 변수를 바인딩한다는 뜻은, 클로저가 사용할 수 있게 계속 유지한다는 말과 같을 것이다.</li>
+<li>참고로 일급 객체 함수와 클로저는 같은 말이 아니라, <strong>일급 객체 함수 ∋ 클로저</strong>이다.</li>
+<li><em>스코프에 묶인 변수를 바인딩한다</em>는 뜻은, 클로저가 사용할 수 있게 계속 유지한다는 말과 같을 것이다.</li>
 </ul>
 <blockquote>
 <p>기능상으로, 클로저는 함수를 저장한 <a class=link href=https://ko.wikipedia.org/wiki/%EB%A0%88%EC%BD%94%EB%93%9C target=_blank rel=noopener>레코드</a>(record)이며, 스코프(scope)의 인수(Factor)들은 클로저가 만들어질 때 정의(define)되며, 스코프 내의 영역이 소멸(remove)되었어도 그에 대한 접근(access)은 독립된 복사본인 클로저를 통해 이루어질 수 있다.</p>
 </blockquote>
 <ul>
-<li>클로저 = 함수를 저장한 레코드!</li>
-<li>스코프의 인수는, 달리 말하면 클로저가 선언된 스코프에 선언된 모든 변수/객체를 말한다. 이 것들이 클로저가 만들어질 때 (=선언될 때) 정의된다는 것이다. 어디에? 바로 레코드 안에.</li>
-<li>스코프 내의 영역이 실제로 소멸되는 시점은, 스코프가 호출이 끝난 시점 (=함수 호출이 끝난 시점) 일 것이다. 하지만 그 접근은 클로저 안에서는 영원히 계속될 수 있다.</li>
+<li>클로저 = <strong>함수를 저장한 레코드</strong>!</li>
+<li>스코프의 인수는, 달리 말하면 클로저가 선언된 스코프에 선언된 모든 변수/객체를 말한다. 이 것들이 <strong>클로저가 만들어질 때 (=선언될 때) 정의</strong>된다는 것이다. 어디에? 바로 레코드 안에.</li>
+<li>스코프 내의 영역이 실제로 소멸되는 시점은, 스코프가 호출이 끝난 시점 (=함수 호출이 끝난 시점) 일 것이다.<br>
+하지만 클로저 안에서는 해당 영역으로 영원히 접근 가능한 상태로 남아있게 된다.</li>
 </ul>
 <p>여기까지 해석해 보면, 간접적으로 메모리를 좀 더 쓸 것이라는 추측이 가능하다. 단순히 생각해도 지역 변수들의 수명이 클로저 때문에 계속 되도록 만들어야 하기 때문이다.</p>
 <p>MDN 정의도 다시 읽어보자. 이번엔 해석을 해 봤다.</p>
 <blockquote>
-<p>A closure is the combination of a function bundled together (enclosed) with references to its surrounding state (the lexical environment). In other words, a closure gives you access to an outer function&rsquo;s scope from an inner function.<br>
-클로저란, 클로저를 둘러싼 상태 (사전적 환경) 와의 참조를 함께 넣어 묶은, 함수의 조합입니다. 다른 표현으로, 클로저를 통해 함수 내부에서 함수 외부로 접근을 가능하게 만들 수 있습니다.</p>
+<p>A closure is the combination of a function bundled together (enclosed) with references to its surrounding state (the lexical environment). In other words, a closure gives you access to an outer function&rsquo;s scope from an inner function.</p>
+<p>클로저란, 클로저를 둘러싼 상태 (사전적 환경) 와의 참조를 함께 넣어 묶은, 함수의 조합입니다. 다른 표현으로, 클로저를 통해 함수 내부에서 함수 외부로 접근을 가능하게 만들 수 있습니다.</p>
 </blockquote>
 <p>클로저를 둘러싼 상태, lexical environment 라는 말들 전부 <strong>클로저 바깥</strong>을 말한다. 사실 뒷 문장이 다 설명을 해 주고 있다.</p>
 </section>
@@ -192,9 +220,11 @@ TECH 🛠️
 <script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
 <section class=article-tags>
 <a href=/tags/golang/>Golang</a>
-<a href=/tags/closure/>closure</a>
+<a href=/tags/closure/>Closure</a>
+<a href=/tags/python/>Python</a>
 </section>
 </footer>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css integrity="sha256-J+iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s=" crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js integrity="sha256-InsNdER1b2xUewP+pKCUJpkhiqwHgqiPXDlIk7GzBu4=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI=" crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{renderMathInElement(document.querySelector(`.article-content`),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}]})})</script>
 </article>
 <aside class=related-content--wrapper>
 <h2 class=section-title>관련 글</h2>
@@ -207,17 +237,20 @@ TECH 🛠️
 </div>
 </a>
 </article>
-<article>
-<a href=/tour-of-go-pointer-struct-array-slice/>
+<article class=has-image>
+<a href=/vscode-python-debugging-no-response/>
+<div class=article-image>
+<img src=/vscode-python-debugging-no-response/feature.ff9acece9622b8d1d2bb53f316021ea6_huab4f92b5cef58f16753956ed9b784205_206719_250x150_fill_box_smart1_3.png width=250 height=150 loading=lazy alt="Featured image of post VSCode Python 디버그 반응이 없을 때" data-hash="md5-/5rOzpYiuNHSu1PzFgIepg==">
+</div>
 <div class=article-details>
-<h2 class=article-title>A tour of Go: Pointer, Struct, Array, Slice</h2>
+<h2 class=article-title>VSCode Python 디버그 반응이 없을 때</h2>
 </div>
 </a>
 </article>
 <article>
-<a href=/golang-struct-tag/>
+<a href=/bdd-in-python-behave/>
 <div class=article-details>
-<h2 class=article-title>Golang struct tag: omitempty</h2>
+<h2 class=article-title>BDD in Python: Behave</h2>
 </div>
 </a>
 </article>
@@ -289,16 +322,13 @@ TECH 🛠️
 <div class=widget--toc>
 <nav id=TableOfContents>
 <ul>
-<li>
-<ul>
 <li><a href=#정의>정의</a></li>
 <li><a href=#golang-에서의-closure>Golang 에서의 Closure</a></li>
+<li><a href=#python-에서의-closure>Python 에서의 Closure</a></li>
 <li><a href=#일급-객체-일급-함수>일급 객체, 일급 함수</a></li>
 <li><a href=#스코프>스코프</a></li>
 <li><a href=#자유-변수>자유 변수</a></li>
 <li><a href=#다시-정의를-읽어보자>다시 정의를 읽어보자</a></li>
-</ul>
-</li>
 </ul>
 </nav>
 </div>
