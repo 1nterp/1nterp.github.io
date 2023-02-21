@@ -111,7 +111,7 @@ VSCode 와 Extension 충돌로 인한 문제, workaround 는?
 <p>우선 VSCodeVim 의 이슈에는 <a class=link href=https://github.com/VSCodeVim/Vim/issues/1490 target=_blank rel=noopener>몇년 전에 올라온 것</a> 이 있는데, 최근 코멘트를 뒤지다 보니 workaround 는 찾을 수 있었다. (<a class=link href=https://github.com/VSCodeVim/Vim/issues/2007#issuecomment-529924611 target=_blank rel=noopener>링크</a>)</p>
 <ol>
 <li>Command Palette 를 열어서 <strong>Preferences: Open User Settings (JSON)</strong> 을 검색해 선택한다.</li>
-<li>다음을 붙여넣고 Reload Window 를 선택해 VSCode 를 재시작한다.</li>
+<li>열린 JSON 파일에, 다음을 붙여넣는다.</li>
 </ol>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json>    <span class=s2>&#34;vim.normalModeKeyBindingsNonRecursive&#34;</span><span class=err>:</span> <span class=p>[</span>
         <span class=p>{</span>

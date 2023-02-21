@@ -6,7 +6,7 @@
 >링크&lt;/a>)&lt;/p>
 &lt;ol>
 &lt;li>Command Palette 를 열어서 &lt;strong>Preferences: Open User Settings (JSON)&lt;/strong> 을 검색해 선택한다.&lt;/li>
-&lt;li>다음을 붙여넣고 Reload Window 를 선택해 VSCode 를 재시작한다.&lt;/li>
+&lt;li>열린 JSON 파일에, 다음을 붙여넣는다.&lt;/li>
 &lt;/ol>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json"> &lt;span class="s2">&amp;#34;vim.normalModeKeyBindingsNonRecursive&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">[&lt;/span>
 &lt;span class="p">{&lt;/span>
