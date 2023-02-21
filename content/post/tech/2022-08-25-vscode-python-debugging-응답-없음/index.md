@@ -16,9 +16,14 @@ tags:
 - VSCode
 - Debug
 ---
+
 # 증상
 
 Visual Studio Code 에서 Python 파일을 디버깅 (debugging) 하려 하면, **아무런 반응이 없고 곧바로 종료된다.** 그냥 실행 자체를 하지 않은 것 처럼 말이다..!
+
+{{< callout text="2023년 2월 현재, 파이썬 버전이 낮으면 아래 경고 문구가 잘 나오는 것을 확인했다.<br/>그래도 Python 3.6 이하 버전을 사용해야겠다면 아래 내용을 참고하자." emoji=":joy:" >}}
+<br/>
+{{< figure src="warning.png" width="30%" align="center" >}}
 
 # 분석
 
