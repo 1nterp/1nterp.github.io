@@ -1,4 +1,38 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tech 🛠️ on InterP Blog</title><link>https://interp.blog/post/tech/</link><description>Recent content in Tech 🛠️ on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Thu, 09 Feb 2023 02:00:00 +0900</lastBuildDate><atom:link href="https://interp.blog/post/tech/index.xml" rel="self" type="application/rss+xml"/><item><title>Docker Container 출력이 Disk 를 채운다</title><link>https://interp.blog/docker-container-print-uses-disk/</link><pubDate>Thu, 09 Feb 2023 02:00:00 +0900</pubDate><guid>https://interp.blog/docker-container-print-uses-disk/</guid><description>&lt;img src="https://interp.blog/docker-container-print-uses-disk/feature.png" alt="Featured image of post Docker Container 출력이 Disk 를 채운다" />&lt;p>어느 날, GCP 에서 알람이 날아왔다. 테스트로 docker container를 하나 올려 둔 VM (Compute Engine) 에서 &lt;em>Disk 가 꽉 차서 아무것도 할 수 없다&lt;/em>는 것이었다.&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tech 🛠️ on InterP Blog</title><link>https://interp.blog/post/tech/</link><description>Recent content in Tech 🛠️ on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Tue, 21 Feb 2023 00:00:00 +0900</lastBuildDate><atom:link href="https://interp.blog/post/tech/index.xml" rel="self" type="application/rss+xml"/><item><title>VSCode Vim Undo/Redo 키 반복 입력이 안 될 때</title><link>https://interp.blog/vscode-vim-undo-redo-key-repeat/</link><pubDate>Tue, 21 Feb 2023 00:00:00 +0900</pubDate><guid>https://interp.blog/vscode-vim-undo-redo-key-repeat/</guid><description>&lt;img src="https://interp.blog/vscode-vim-undo-redo-key-repeat/feature.png" alt="Featured image of post VSCode Vim Undo/Redo 키 반복 입력이 안 될 때" />&lt;h1 id="문제">문제&lt;/h1>
+&lt;p>최근에 Undo 키인 &lt;code>u&lt;/code> 와 Reo 키인 &lt;code>Ctrl+r&lt;/code> 을 반복해서 입력해도, 딱 &lt;strong>한 번씩만&lt;/strong> 작동하는 현상을 겪었다.&lt;/p>
+&lt;h1 id="조치">조치&lt;/h1>
+&lt;p>우선 VSCodeVim 의 이슈에는 &lt;a class="link" href="https://github.com/VSCodeVim/Vim/issues/1490" target="_blank" rel="noopener"
+>몇년 전에 올라온 것&lt;/a> 이 있는데, 최근 코멘트를 뒤지다 보니 workaround 는 찾을 수 있었다. (&lt;a class="link" href="https://github.com/VSCodeVim/Vim/issues/2007#issuecomment-529924611" target="_blank" rel="noopener"
+>링크&lt;/a>)&lt;/p>
+&lt;ol>
+&lt;li>Command Palette 를 열어서 &lt;strong>Preferences: Open User Settings (JSON)&lt;/strong> 을 검색해 선택한다.&lt;/li>
+&lt;li>다음을 붙여넣고 Reload Window 를 선택해 VSCode 를 재시작한다.&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json"> &lt;span class="s2">&amp;#34;vim.normalModeKeyBindingsNonRecursive&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="nt">&amp;#34;before&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;span class="s2">&amp;#34;u&amp;#34;&lt;/span>
+&lt;span class="p">],&lt;/span>
+&lt;span class="nt">&amp;#34;after&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[],&lt;/span>
+&lt;span class="nt">&amp;#34;commands&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="nt">&amp;#34;command&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;undo&amp;#34;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">]&lt;/span>
+&lt;span class="p">},&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="nt">&amp;#34;before&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;span class="s2">&amp;#34;&amp;lt;C-r&amp;gt;&amp;#34;&lt;/span>
+&lt;span class="p">],&lt;/span>
+&lt;span class="nt">&amp;#34;after&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[],&lt;/span>
+&lt;span class="nt">&amp;#34;commands&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="nt">&amp;#34;command&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;redo&amp;#34;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">]&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>물론 특정 Workspace 에만 설정하고 싶다면, &lt;strong>Preferences: Open Workspace Settings (JSON)&lt;/strong> 을 선택해 편집하면 된다.&lt;/p></description></item><item><title>Docker Container 출력이 Disk 를 채운다</title><link>https://interp.blog/docker-container-print-uses-disk/</link><pubDate>Thu, 09 Feb 2023 02:00:00 +0900</pubDate><guid>https://interp.blog/docker-container-print-uses-disk/</guid><description>&lt;img src="https://interp.blog/docker-container-print-uses-disk/feature.png" alt="Featured image of post Docker Container 출력이 Disk 를 채운다" />&lt;p>어느 날, GCP 에서 알람이 날아왔다. 테스트로 docker container를 하나 올려 둔 VM (Compute Engine) 에서 &lt;em>Disk 가 꽉 차서 아무것도 할 수 없다&lt;/em>는 것이었다.&lt;/p>
 &lt;p>디스크를 쓴다고? 이 container 는 mount 된 volume 도 없었고, container 가 하는 일은 소스에서 데이터를 받아 계산한 뒤 GCP Cloud Storage 에 저장하는 것 밖에 하지 않는데?&lt;/p>
 &lt;h1 id="문제">문제&lt;/h1>
 &lt;p>Docker container 만 떠 있고 아무런 작업을 하지 않는 Host 의 &lt;strong>디스크 사용량이 계속해서 줄어든다.&lt;/strong> 결국, 디스크를 100% 가까이 쓰게 되어 시스템을 마비시킨다.&lt;/p>
