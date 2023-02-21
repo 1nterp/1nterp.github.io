@@ -19,7 +19,7 @@ tags:
 우선 VSCodeVim 의 이슈에는 [몇년 전에 올라온 것](https://github.com/VSCodeVim/Vim/issues/1490) 이 있는데, 최근 코멘트를 뒤지다 보니 workaround 는 찾을 수 있었다. ([링크](https://github.com/VSCodeVim/Vim/issues/2007#issuecomment-529924611))
 
 1. Command Palette 를 열어서 **Preferences: Open User Settings (JSON)** 을 검색해 선택한다.
-1. 다음을 붙여넣고 Reload Window 를 선택해 VSCode 를 재시작한다.
+2. 열린 JSON 파일에, 다음을 붙여넣는다.
 
 ```json
     "vim.normalModeKeyBindingsNonRecursive": [
