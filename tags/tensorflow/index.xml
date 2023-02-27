@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tensorflow on InterP Blog</title><link>https://interp.blog/tags/tensorflow/</link><description>Recent content in Tensorflow on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Mon, 27 Feb 2023 00:00:00 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/tensorflow/index.xml" rel="self" type="application/rss+xml"/><item><title>Apple Silicon Mac 에 Tensorflow 설치</title><link>https://interp.blog/apple-silicon-mac-tensorflow-install/</link><pubDate>Mon, 27 Feb 2023 00:00:00 +0900</pubDate><guid>https://interp.blog/apple-silicon-mac-tensorflow-install/</guid><description>&lt;img src="https://interp.blog/apple-silicon-mac-tensorflow-install/feature.png" alt="Featured image of post Apple Silicon Mac 에 Tensorflow 설치" />&lt;p>책 &lt;a class="link" href="http://www.yes24.com/Product/Goods/112028850" target="_blank" rel="noopener"
+>개발자를 위한 머신러닝&amp;amp;딥러닝&lt;/a> 을 구매해서 읽어보고 있는데, 실습을 해 보기 위해 M1 Pro 칩의 Macbook Pro 에 환경을 설정하려고 했다.&lt;/p>
+&lt;p>처음에는 virtualenv 로 가상 환경을 구성하고 tensorflow 를 pip 로 설치하면 되지 않을까? 하는 순진한 생각이었다. 그런데 예제 코드를 돌려보니 뿜어져 나오는 에러에 당황하고 말았다.&lt;/p>
+&lt;p>다른 가이드들도 많지만 한번 이해하는 차원에서 여기 다시 정리해 둔다.&lt;/p>
+&lt;h1 id="miniconda-설치">Miniconda 설치&lt;/h1>
+&lt;p>&lt;a class="link" href="https://www.anaconda.com/products/distribution" target="_blank" rel="noopener"
+>Anaconda&lt;/a> 에서 제공하는 tensorflow 관련 dependency 를 설치하기 위해, Anaconda 를 설치해야 한다. 하지만 여기서는 전체 설치를 할 필요는 없고 &lt;strong>Miniconda&lt;/strong> 만 설치해도 된다.&lt;/p>
+&lt;p>다음 경로 중 하나를 선택해 Shell script 파일을 다운로드 받는다. 두 번째가 직접 다운로드 가능한 경로이다.&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://docs.conda.io/en/latest/miniconda.html" target="_blank" rel="noopener"
+>Miniconda Download page&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh" target="_blank" rel="noopener"
+>Shell script 다운로드 링크&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>파일이 위치한 곳에서, 다음 명령을 차례대로 입력한다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">bash ./Miniconda3-latest-MacOSX-arm64.sh -b -p &lt;span class="nv">$HOME&lt;/span>/miniconda
+&lt;span class="nb">source&lt;/span> &lt;span class="nv">$HOME&lt;/span>/miniconda/bin/activate
+conda
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>conda&lt;/code> 명령에 에러가 없으면 설치가 완료되었다. 추가로 다음을 입력해 주자.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">conda init &lt;span class="o">{&lt;/span>shell&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>{shell}&lt;/code> 에는 현재 사용중인 쉘을 입력한다. bash, zsh 같은 것 말이다. 잘 모르겠다면 &lt;code>echo $SHELL&lt;/code> 을 입력해서 알아내자.&lt;/p>
+&lt;h1 id="conda-환경에서-tensorflow-설치">Conda 환경에서 Tensorflow 설치&lt;/h1>
+&lt;p>&lt;a class="link" href="https://developer.apple.com/metal/tensorflow-plugin/" target="_blank" rel="noopener"
+>Apple Developer Page&lt;/a> 에 안내된 대로 설치하면 완료된다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">conda create -n tf-env &lt;span class="nv">python&lt;/span>&lt;span class="o">=&lt;/span>3.8
+conda install -c apple tensorflow-deps
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>위와 같이 conda environment 를 설정한다.&lt;/p>
+&lt;p>Python 버전은 &lt;em>3.8&lt;/em> 이 테스트되었고 다른 버전에 대해서는 자잘한 문제를 일으킬 수 있으니, 버전 업그레이드는 추천하지 않는다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">conda activate tf-cert3.8
+pip install tensorflow-macos&lt;span class="o">==&lt;/span>2.9.0
+pip install tensorflow-metal&lt;span class="o">==&lt;/span>0.5.0
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>tensorflow-macos&lt;/code> 나 &lt;code>tensorflow-metal&lt;/code> 의 버전도 가급적이면 그대로 놔 두길 추천한다. 참고로 최신 버전은 현재 &lt;em>2.11.0&lt;/em> 까지 확인되었다.&lt;/p>
+&lt;h1 id="설치-확인">설치 확인&lt;/h1>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">import&lt;/span> &lt;span class="nn">tensorflow&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="nn">tf&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">__version__&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>버전이 잘 출력되면 성공이다.&lt;/p>
+&lt;h1 id="테스트-코드-확인">테스트 코드 확인&lt;/h1>
+&lt;p>여려 예제가 있겠지만, 책의 첫 번째 예제 코드를 실행해 보자.&lt;/p>
+&lt;p>&lt;a class="link" href="https://github.com/rickiepark/aiml4coders/blob/main/ch01/01-first-model.ipynb" target="_blank" rel="noopener"
+>여기에서&lt;/a> Jupyter Notebook 파일로 제공되고 있으니 코드만 긁어다가 파이썬으로 실행해서 문제가 없어야 한다. (혹시 코드가 궁금하다면, 책을 한 번 읽어보길 권한다!)&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">import&lt;/span> &lt;span class="nn">tensorflow&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="nn">tf&lt;/span>
+&lt;span class="kn">import&lt;/span> &lt;span class="nn">numpy&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="nn">np&lt;/span>
+&lt;span class="kn">from&lt;/span> &lt;span class="nn">tensorflow.keras&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Sequential&lt;/span>
+&lt;span class="kn">from&lt;/span> &lt;span class="nn">tensorflow.keras.layers&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Dense&lt;/span>
+&lt;span class="n">dense&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Dense&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">units&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">input_shape&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;span class="n">model&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Sequential&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="n">dense&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;span class="n">model&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">compile&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">optimizer&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;sgd&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">loss&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;mean_squared_error&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="n">xs&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">np&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">array&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mf">1.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">0.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">2.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">3.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">4.0&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="n">dtype&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nb">float&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="n">ys&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">np&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">array&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mf">3.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mf">1.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">3.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">5.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">7.0&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="n">dtype&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nb">float&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="n">model&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">fit&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">xs&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ys&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">epochs&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">500&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div></description></item></channel></rss>
