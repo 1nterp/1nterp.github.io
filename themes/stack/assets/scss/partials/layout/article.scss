@@ -275,12 +275,16 @@
     }
 
     code {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         color: var(--code-text-color);
         background-color: var(--code-background-color);
         padding: 2px 4px;
         border-radius: var(--tag-border-radius);
         font-family: var(--code-font-family);
+
+        @include respond(md) {
+            font-size: 1.5rem;
+        }
     }
 
     .gallery {
