@@ -1,4 +1,28 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>IT on InterP Blog</title><link>https://interp.blog/tags/it/</link><description>Recent content in IT on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Sun, 27 Nov 2022 12:00:01 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/it/index.xml" rel="self" type="application/rss+xml"/><item><title>스태프 엔지니어</title><link>https://interp.blog/staff-engineer/</link><pubDate>Sun, 27 Nov 2022 12:00:01 +0900</pubDate><guid>https://interp.blog/staff-engineer/</guid><description>&lt;img src="https://interp.blog/staff-engineer/feature.jpeg" alt="Featured image of post 스태프 엔지니어" />&lt;figure>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>IT on InterP Blog</title><link>https://interp.blog/tags/it/</link><description>Recent content in IT on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Fri, 31 Mar 2023 17:30:00 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/it/index.xml" rel="self" type="application/rss+xml"/><item><title>모두의 구글 애널리틱스4 를 읽고</title><link>https://interp.blog/everyones-google-analytics-4/</link><pubDate>Fri, 31 Mar 2023 17:30:00 +0900</pubDate><guid>https://interp.blog/everyones-google-analytics-4/</guid><description>&lt;img src="https://interp.blog/everyones-google-analytics-4/feature.jpeg" alt="Featured image of post 모두의 구글 애널리틱스4 를 읽고" />&lt;figure>
+&lt;img loading="lazy" src="feature.jpeg" width="55%"/>
+&lt;/figure>
+&lt;h1 id="디지털-마케팅-데이터-분석">디지털 마케팅? 데이터 분석?&lt;/h1>
+&lt;p>솔직히 말하자. 모두들 온라인 쇼핑몰을 운영하는 것은 아닌데, 왜 이 책이 필요한가?&lt;/p>
+&lt;p>부제목처럼 &amp;lsquo;디지털 마케팅 데이터 분석&amp;rsquo; 을 위한 구글 서비스, &lt;strong>Google Analytics 4 (GA4)&lt;/strong> 를 소개하고, 사용 방법을 매우 친절히 알려주는 책이다. 하지만 어쩐지 &amp;lsquo;모두의&amp;rsquo; 책이라고 하기엔 &amp;lsquo;디지털 마케팅&amp;rsquo; 이 생소하게 느껴진다.&lt;/p>
+&lt;p>&lt;strong>디지털 마케팅&lt;/strong>이란, 웹 페이지나 앱을 통해 수익을 창출하는 방법을 말한다. 말하자면 웹이나 앱 개발이 포함된다는 뜻이기도 하다. 이러니까 더욱 생소하다.&lt;/p>
+&lt;p>하지만 이 책은 그런 개발 과정을 소개하는 것이 아니라는 점을 분명히 하고 싶다. 이미 그런 마케팅을 하고 있다고 가정하기 때문이다. 그 안에서 수집할 수 있는 데이터를 효과적으로 &amp;lsquo;분석&amp;rsquo; 하기 위한 책이다. 즉, 개발과는 관련이 없다.&lt;/p>
+&lt;br/>
+&lt;p>그러면 GA4 는 수익 창출, 그러니까 물건이나 서비스를 팔 때만 쓸모있는 것일까? 물론 그렇겠지만, 꼭 그렇지만은 않다고 생각한다. 블로그 같은 퍼스널 브랜딩 도구 역시 웹 페이지이기 때문에, 일종의 디지털 마케팅 플랫폼이 될 수 있다.&lt;/p>
+&lt;p>쉽게 말하면, 그 옛날 싸이월드 미니홈피나 블로그 &lt;em>방문자 수&lt;/em>만 쳐다보던 걸 넘어서서, GA4 를 통해 어떤 경로로 접속했고 어느 국가에서 몇 시에 접속했는지를 볼 수 있다는 뜻이다. 부족한 수치는 메꿀 방법을 고민하고, 넘치는 수치는 기뻐하면서 말이다.&lt;/p>
+&lt;h1 id="모두-를-위해-쉽게-썼다">&amp;lsquo;모두&amp;rsquo; 를 위해 쉽게 썼다&lt;/h1>
+&lt;p>무엇보다도, 이 모든 설명들, 디지털 마케팅부터 시작해서 GA4 소개까지를 매우매우 친절하게 알려준다. 흡사 IT 기초 입문서가 아닐까 착각하게 만들 정도로 용어에 각주를 세심히 달았고, GA4 의 이전 버전 개념인 UA 와의 차이는 끊임없이 언급한다. &lt;del>읽다 보면 GA4 가 UA 대비 안 좋아진 것 처럼 느껴지긴 하지만&lt;/del>&lt;/p>
+&lt;p>그리고 이 책은 조금 특별한 가치가 있다. 공식 문서나 파편화된 인터넷 정보 또는 다른 서적에서는 잘 보이지 않던, &amp;lsquo;&lt;strong>번역된 단어&lt;/strong>&amp;rsquo; 를 충분히 이해시키기 위해 집중하는 모습을 보인다는 점이다. 처음 언급되는 개념은 한글과 영문을 같이 썼고 다음부터는 한글만 언급하는 식으로 구성되어 있지만, 이렇게 번역된 단어가 모호한 경우에는 어떤 의미인지 한번 더 풀어서 설명한다.&lt;/p>
+&lt;p>예를 들어, 서문에서도 나오던 &amp;lsquo;&lt;em>측정기준 (dimension)&lt;/em>&amp;rsquo; 과 &amp;lsquo;&lt;em>측정항목 (metric)&lt;/em>&amp;rsquo; 은 당장 이해하기 힘든 면이 있다. 하지만 수집 데이터에서 기준이 되는 &lt;strong>문자열 데이터&lt;/strong> (&amp;lsquo;초등학생&amp;rsquo; 이나 &amp;lsquo;대학생&amp;rsquo;) 가 기준이 되고, 이 데이터와 연결된 &lt;strong>수치 데이터&lt;/strong> (&amp;lsquo;평균 키&amp;rsquo; 또는 &amp;lsquo;평균 몸무게&amp;rsquo;) 가 항목이 될 것이다. 이런 부분을 세세하게 짚어주는 것이, 이 책의 장점이라 할 수 있겠다.&lt;/p>
+&lt;p>또한, 책을 촤르륵 넘겨 보면 스크린샷이 엄청나게 많은 걸 확인할 수 있다. 패널과 메뉴의 위치를 구분해서 설명하는 걸 넘어서서, 화면이 전환될 때 마다 스크린샷이 반드시 들어가 있다. 데이터 분석에 필수적인 보고서 영역이 종류마다 다르고 버튼이 많아서 설명할 양이 많은데도 불구하고, 나름 효과적으로 설명하고 있다.&lt;/p>
+&lt;h1 id="분석을-하지-않아도-좋다">분석을 하지 않아도 좋다&lt;/h1>
+&lt;p>당장 디지털 마케팅을 하고 있지 않아도, 분석가가 될 계획이 없어도, 심지어 블로그나 웹 페이지 따위가 없는 사람이라도 이 책을 추천하는 이유가 있다.&lt;/p>
+&lt;p>데이터를 수집한다는 것은, 웹 페이지 소스코드나 텍스트 입력 한 줄 까지 통째로 모은다는 뜻이 아니다 (가능하지도 않다). 책을 읽어보면 알겠지만 GA4 에서 수집하는 데이터는 방대하긴 하지만, 지극히 한정적이다.&lt;/p>
+&lt;p>그렇다면 여기서, 왜 &lt;em>이런 데이터만&lt;/em> 수집해 주는 것인지 우리가 이해해 볼 순 없을까? 그걸 GA4 는 어떻게 그룹지어 제공하고, 그 이유는 뭘까? 뻔한 답이지만, 간단히 말해서 그런 데이터들이 디지털 마케팅에서 가장 원하는 데이터들이기 때문이다. GA4 는 그런 면에서 거의 산업 표준에 가까운 셈이다.&lt;/p>
+&lt;hr>
+&lt;p>우리는 개발자도 분석가도 아니지만, 분명 웹 페이지를 들락날락하는 &amp;lsquo;방문자&amp;rsquo; 이다. 우리가 만드는 데이터 중 어떤 데이터를 구글에서 모아 주고, 어떻게 이걸 의미있는 결과로 분석할 수 있는지를 이해하는 것도 가치있는 일이라고 생각한다.&lt;/p>
+&lt;p>그렇다면, 정말 &amp;lsquo;&lt;strong>모두&lt;/strong>&amp;rsquo; 를 위한 이 책이 데이터 분석의 세계로 친절히 안내해 줄 것이다.&lt;/p>
+&lt;br/>
+&lt;p>&lt;em>※ 출판사의 서평 이벤트를 통해 증정받은 책으로 작성하였습니다.&lt;/em>&lt;/p></description></item><item><title>스태프 엔지니어</title><link>https://interp.blog/staff-engineer/</link><pubDate>Sun, 27 Nov 2022 12:00:01 +0900</pubDate><guid>https://interp.blog/staff-engineer/</guid><description>&lt;img src="https://interp.blog/staff-engineer/feature.jpeg" alt="Featured image of post 스태프 엔지니어" />&lt;figure>
 &lt;img loading="lazy" src="feature.jpeg" width="55%"/>
 &lt;/figure>
 &lt;p>여기 두 명의 개발자가 있다.&lt;/p>
