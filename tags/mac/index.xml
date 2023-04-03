@@ -1,4 +1,20 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>mac on InterP Blog</title><link>https://interp.blog/tags/mac/</link><description>Recent content in mac on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Tue, 20 Dec 2022 10:57:42 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/mac/index.xml" rel="self" type="application/rss+xml"/><item><title>Mac 에서 Eclipse Home/End 키 바인딩 하기</title><link>https://interp.blog/mac-eclipse-key-binding-home-end/</link><pubDate>Tue, 20 Dec 2022 10:57:42 +0900</pubDate><guid>https://interp.blog/mac-eclipse-key-binding-home-end/</guid><description>&lt;p>아이폰, 아이패드, 애플워치까지 갖고 있지만 macbook 을 본격적으로 써 본지 만 1년도 안 된다. 그래서 윈도우에서 즐겨 쓰던 Home/End 가 Mac 에서는 Cmd 키와 화살표로만 이뤄지는 걸 극복하는데 너무 힘들었다. 물론 적응하면 되겠지만, 습관이란 게 무서운 거라고.&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>mac on InterP Blog</title><link>https://interp.blog/tags/mac/</link><description>Recent content in mac on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Mon, 03 Apr 2023 16:17:59 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/mac/index.xml" rel="self" type="application/rss+xml"/><item><title>VSCode Vim 에서 키를 눌러 계속 입력하게 만들기</title><link>https://interp.blog/vscode-vim-mac-key-pressing-input/</link><pubDate>Mon, 03 Apr 2023 16:17:59 +0900</pubDate><guid>https://interp.blog/vscode-vim-mac-key-pressing-input/</guid><description>&lt;img src="https://interp.blog/vscode-vim-mac-key-pressing-input/feature.png" alt="Featured image of post VSCode Vim 에서 키를 눌러 계속 입력하게 만들기" />&lt;h1 id="문제">문제&lt;/h1>
+&lt;p>Visual Studio Code 에서 Vim Plugin 을 쓰던 중, 입력한 것을 되돌리기 위해 &lt;code>u&lt;/code> 를 꾹 눌렀다.&lt;/p>
+&lt;p>그러면 아래와 같이 &lt;strong>u&lt;/strong> 라는 알파벳에 어떤 변형을 가할 것인지 묻는다. 한/영만 필요한 나에게는 필요없는 기능인데..&lt;/p>
+&lt;figure>
+&lt;img loading="lazy" src="symptom.png"/>
+&lt;/figure>
+&lt;p>(참고로, &lt;code>u&lt;/code> 를 꾹 누르는게 아니라 반복해서 입력해도 한 번만 입력되는 경우엔 &lt;a class="link" href="https://interp.blog/vscode-vim-undo-redo-key-repeat" >블로그의 다른 포스팅&lt;/a>을 참고하자.)&lt;/p>
+&lt;h1 id="해결">해결&lt;/h1>
+&lt;p>터미널에서 다음을 입력하고, VSCode 를 &lt;strong>재시작&lt;/strong>한다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
+&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="참고">참고&lt;/h1>
+&lt;p>출처는 여기 &lt;a class="link" href="https://stackoverflow.com/questions/39972335/how-do-i-press-and-hold-a-key-and-have-it-repeat-in-vscode" target="_blank" rel="noopener"
+>Stack overflow&lt;/a> 페이지에서 찾을 수 있다.&lt;/p>
+&lt;p>참고로 모든 프로그램에서 저 변형 대화창을 끄고 싶다면 다음과 같이 입력한다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">defaults write -g ApplePressAndHoldEnabled -bool false
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>윗 부분의 출처는 &lt;a class="link" href="https://junho85.pe.kr/1462" target="_blank" rel="noopener"
+>준호씨의 블로그&lt;/a> 포스팅이다. (감사합니다!)&lt;/p></description></item><item><title>Mac 에서 Eclipse Home/End 키 바인딩 하기</title><link>https://interp.blog/mac-eclipse-key-binding-home-end/</link><pubDate>Tue, 20 Dec 2022 10:57:42 +0900</pubDate><guid>https://interp.blog/mac-eclipse-key-binding-home-end/</guid><description>&lt;p>아이폰, 아이패드, 애플워치까지 갖고 있지만 macbook 을 본격적으로 써 본지 만 1년도 안 된다. 그래서 윈도우에서 즐겨 쓰던 Home/End 가 Mac 에서는 Cmd 키와 화살표로만 이뤄지는 걸 극복하는데 너무 힘들었다. 물론 적응하면 되겠지만, 습관이란 게 무서운 거라고.&lt;/p>
 &lt;p>결국 어떻게 하면 고칠까 알아보면서 하나씩 적용하고 있다. 일단 KeyBindings 에서 Home/End 키로 줄 시작과 줄 끝으로 이동하도록 해 두는 걸 적용했다. (&lt;a class="link" href="https://apple.stackexchange.com/questions/16135/remap-home-and-end-to-beginning-and-end-of-line" target="_blank" rel="noopener"
 >링크&lt;/a>)&lt;/p>
 &lt;p>그런데 어째선지, Eclipse 기반의 에디터에서는 이것과 무관하게 Home/End 가 &amp;lsquo;페이지 시작/끝&amp;rsquo; 으로 작동하는게 아닌가! Page Up/Down 키가 옆에 버젓이 있는데도 말이다! 최근에 PostgreSQL (정확히는 &lt;a class="link" href="https://docs.timescale.com/" target="_blank" rel="noopener"
