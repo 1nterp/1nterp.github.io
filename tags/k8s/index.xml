@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>k8s on InterP Blog</title><link>https://interp.blog/tags/k8s/</link><description>Recent content in k8s on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Thu, 22 Dec 2022 11:13:12 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/k8s/index.xml" rel="self" type="application/rss+xml"/><item><title>K8s Headless Service, 왜 필요한가</title><link>https://interp.blog/k8s-headless-service-why/</link><pubDate>Thu, 22 Dec 2022 11:13:12 +0900</pubDate><guid>https://interp.blog/k8s-headless-service-why/</guid><description>&lt;p>K8s Resource 를 보거나 Helm Chart 를 보거나 헷갈리는 개념 중 하나가 바로 &lt;strong>&amp;lsquo;Headless Service&amp;rsquo;&lt;/strong> 이다.&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Kubernetes on InterP Blog</title><link>https://interp.blog/tags/k8s/</link><description>Recent content in Kubernetes on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Thu, 22 Dec 2022 11:13:12 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/k8s/index.xml" rel="self" type="application/rss+xml"/><item><title>K8s Headless Service, 왜 필요한가</title><link>https://interp.blog/k8s-headless-service-why/</link><pubDate>Thu, 22 Dec 2022 11:13:12 +0900</pubDate><guid>https://interp.blog/k8s-headless-service-why/</guid><description>&lt;p>K8s Resource 를 보거나 Helm Chart 를 보거나 헷갈리는 개념 중 하나가 바로 &lt;strong>&amp;lsquo;Headless Service&amp;rsquo;&lt;/strong> 이다.&lt;/p>
 &lt;figure>
 &lt;img loading="lazy" src="20221220_63a1afceb4826.jpg"
 alt="흐라챠!" width="40%"/> &lt;figcaption>
@@ -114,23 +114,91 @@ kubectl &lt;span class="nb">exec&lt;/span> test-deploy-7bff8c5f84-rjdm9 -it -- c
 >K8s Service&lt;/a>&lt;/li>
 &lt;li>&lt;a class="link" href="https://kubernetes.io/ko/docs/concepts/services-networking/dns-pod-service/" target="_blank" rel="noopener"
 >K8s DNS&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>k8s Operator vs. Controller</title><link>https://interp.blog/kubernetes-operator-vs-controller/</link><pubDate>Tue, 15 Mar 2022 02:44:57 +0000</pubDate><guid>https://interp.blog/kubernetes-operator-vs-controller/</guid><description>&lt;p>쿠버네티스에서 서비스를 개발하거나 운영하다 보면 자주 접하게 될 개념 중 하나가, 바로 이 Controller 와 Operator 일 것이다. 어떤 경우에는, 동일한 서비스를 두고 &amp;lsquo;이건 Controller 야&amp;rsquo; 라고 말 할 때도 있고 &amp;lsquo;이 Operator 는&amp;hellip;&amp;rsquo; 이라고 불릴 때도 있어서 헷갈릴 수 있다. 심지어 공식 문서에서도 두 개념에 대한 비교는 하지 않고 있어서 명확한 구분이 필요한 것 같다.&lt;/p>
+&lt;/ul></description></item><item><title>K8s Operator vs. Controller</title><link>https://interp.blog/kubernetes-operator-vs-controller/</link><pubDate>Tue, 15 Mar 2022 02:44:57 +0000</pubDate><guid>https://interp.blog/kubernetes-operator-vs-controller/</guid><description>&lt;p>쿠버네티스에서 서비스를 개발하거나 운영하다 보면 자주 접하게 될 개념 중 하나가, 바로 이 Controller 와 Operator 일 것이다. 어떤 경우에는, 동일한 서비스를 두고 &amp;lsquo;이건 Controller 야&amp;rsquo; 라고 말 할 때도 있고 &amp;lsquo;이 Operator 는&amp;hellip;&amp;rsquo; 이라고 불릴 때도 있어서 헷갈릴 수 있다. 심지어 공식 문서에서도 두 개념에 대한 비교는 하지 않고 있어서 명확한 구분이 필요한 것 같다.&lt;/p>
 &lt;p>와중에 &lt;a class="link" href="https://blog.marcnuri.com/kubernetes-operator-vs-controller" target="_blank" rel="noopener"
 >이 문서&lt;/a>를 발견했는데, 요약하자면 이렇다.&lt;/p>
-&lt;h3 id="controller">Controller&lt;/h3>
+&lt;h1 id="controller">Controller&lt;/h1>
 &lt;blockquote>
 &lt;p>So in the Kubernetes world, a controller will basically &lt;strong>monitor and measure the cluster resources state to adjust those resources that diverge from the desired state&lt;/strong>.&lt;/p>
 &lt;/blockquote>
-&lt;p>더 줄여보면, Controller 는 (1) K8s 리소스 (중 일부) 의 상태를 체크하고 (2) 이 리소스들의 상태를 &amp;lsquo;목표 상태 (desired state)&amp;rsquo; 로 조정하는 역할을 한다.&lt;/p>
-&lt;p>&lt;code>ReplicaSet&lt;/code>, &lt;code>StatefulSet&lt;/code>, &lt;code>DaemonSet&lt;/code> 이 대표적인 Controller 들이다. 속해 있는 Pod 들의 상태를 &amp;lsquo;목표한 상태&amp;rsquo; 로 조정하려고, Pod 을 추가하거나 삭제한다.&lt;/p>
-&lt;h3 id="operator">Operator&lt;/h3>
+&lt;p>더 줄여보면, Controller 는 (1) K8s 리소스의 상태를 체크하고 (2) 이 리소스들의 상태를 &amp;lsquo;목표 상태 (desired state)&amp;rsquo; 로 조정하는 역할을 한다.&lt;/p>
+&lt;p>&lt;code>ReplicaSet&lt;/code>, &lt;code>StatefulSet&lt;/code>, &lt;code>DaemonSet&lt;/code> 이 대표적인 Controller 들이다. 이 리소스에 속해 있는 Pod 들의 상태를 &amp;lsquo;목표 상태&amp;rsquo; 로 만들기 위해, Pod 을 추가하거나 삭제한다.&lt;/p>
+&lt;h1 id="operator">Operator&lt;/h1>
 &lt;p>CoreOS 에서 정의하는 Operator 는 다음과 같다.&lt;/p>
 &lt;blockquote>
-&lt;p>&lt;em>An Operator is &lt;strong>a method of packaging, deploying and managing a Kubernetes application.&lt;/strong>&lt;/em>&lt;/p>
+&lt;p>An Operator is &lt;strong>a method of packaging, deploying and managing a Kubernetes application&lt;/strong>.&lt;/p>
 &lt;/blockquote>
-&lt;p>그런데 이 개념을 구현하기 위해서는 필연적으로 Controller 가 들어가게 된다. 그렇다면 Controller 와 비교했을 때 Operator 의 차이점은 무엇일까?&lt;/p>
-&lt;p>저 &amp;lsquo;Kubernetes application&amp;rsquo; 에서 말하는 것은, 사용자가 직접 지정할 수 있는 CRD (Custom Resource Definition) 과 거기서 파생된 CR (Custom Resource) 까지 포함하고 있는 것이다. 아니면 정말 bare application 형태로 특정 microservice 를 관리할 때도 Operator 라고 부를 수 있겠다.&lt;/p>
-&lt;p>예를 들면, Orange 라는 CRD 를 하나 만들었고, 이 Orange CR 에는 1개의 &lt;code>Service&lt;/code> 와 1개의 &lt;code>Pod&lt;/code> 이 만들어져야 한다고 해보자. 그러면 Orange CR 을 관리하는 application 을 가리킬 때는 Orange *&lt;strong>Operator*&lt;/strong> 라고 부를 수 있다. 하지만 내부에 구현된 Reconcile Loop Code 는 일종의 Orange *&lt;strong>Controller*&lt;/strong> 라고도 부를 수 있는 것이다. 실제로 Service 와 Pod 을 만드는 역할은 이 Controller 에서 이뤄지지만, 전체적으로 Orange CR 의 명세를 관리하는 것은 전체 Operator 가 담당하는 것이다.&lt;/p>
+&lt;p>그런데 이 개념을 구현하기 위해서는 필연적으로 Controller 가 들어가게 된다.&lt;/p>
+&lt;p>그렇다면 Controller 와 비교했을 때 Operator 의 차이점은 무엇일까?&lt;/p>
+&lt;h1 id="operator-vs-controller">Operator vs. Controller&lt;/h1>
+&lt;p>여기에서 말하는 &amp;lsquo;&lt;em>Kubernetes application&lt;/em>&amp;rsquo; 란, 사용자가 직접 지정할 수 있는 CRD (Custom Resource Definition) 과 거기서 파생된 CR (Custom Resource) 까지 포함하고 있는 것이다.&lt;/p>
+&lt;p>예를 들면, Orange 라는 CRD 를 하나 만들어 보자.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">apiextensions.k8s.io/v1beta1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">CustomResourceDefinition&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">oranges.example.com&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">group&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">example.com&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">version&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">v1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">scope&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Namespaced&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">names&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">plural&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">oranges&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">singular&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">orange&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Orange&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">subresources&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">status&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{}&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>이 정의 (definition)를 가지고, &lt;code>orange1&lt;/code> 이란 CR 을 하나 만들 수 있을 것이다.&lt;/p>
+&lt;p>특정 Orange CR 이 만들어지거나 수정될 때, 삭제될 때엔 뭘 해야 하는지 정의하는 코드를 만들 수 있을 것이다. 예를 들면, Orange CR 에는 1개의 &lt;code>Service&lt;/code> 와 1개의 &lt;code>Pod&lt;/code> 이 만들어져야 한다고 해보자. 그걸 Golang 으로 아주 간단히 표현하면,&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">h&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">orangeHandler&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">Handle&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ctx&lt;/span> &lt;span class="nx">context&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Context&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">req&lt;/span> &lt;span class="nx">reconcile&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Request&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">reconcile&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Result&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">error&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="c1">// Get the Orange instance
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">orange&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">examplev1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Orange&lt;/span>&lt;span class="p">{}&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">sdk&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ctx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">req&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">NamespacedName&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">orange&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">errors&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">IsNotFound&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">err&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">reconcile&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Result&lt;/span>&lt;span class="p">{},&lt;/span> &lt;span class="kc">nil&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">reconcile&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Result&lt;/span>&lt;span class="p">{},&lt;/span> &lt;span class="nx">errors&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Wrap&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">err&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;failed to get Orange instance&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="c1">// Create the Pod for the Orange instance
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">pod&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">corev1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Pod&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="nx">ObjectMeta&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">metav1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ObjectMeta&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="nx">Name&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">orange&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Name&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="s">&amp;#34;-pod&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">Namespace&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">orange&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Namespace&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">Labels&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kd">map&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="s">&amp;#34;app&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">orange&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Name&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="p">},&lt;/span>
+&lt;span class="p">},&lt;/span>
+&lt;span class="nx">Spec&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">corev1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">PodSpec&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="nx">Containers&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="nx">corev1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Container&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="o">...&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="p">},&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">sdk&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Create&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ctx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">pod&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">reconcile&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Result&lt;/span>&lt;span class="p">{},&lt;/span> &lt;span class="nx">errors&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Wrap&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">err&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;failed to create Pod&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="c1">// Create the Service for the Orange instance
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">service&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">corev1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Service&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="nx">ObjectMeta&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">metav1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ObjectMeta&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="nx">Name&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">orange&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Name&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="s">&amp;#34;-service&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">Namespace&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">orange&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Namespace&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">Labels&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kd">map&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="s">&amp;#34;app&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">orange&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Name&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="p">},&lt;/span>
+&lt;span class="p">},&lt;/span>
+&lt;span class="nx">Spec&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">corev1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ServiceSpec&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="nx">Selector&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kd">map&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="s">&amp;#34;app&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">orange&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Name&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="p">},&lt;/span>
+&lt;span class="nx">Ports&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="nx">corev1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ServicePort&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="o">...&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="nx">Type&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">corev1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ServiceTypeClusterIP&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="p">},&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">sdk&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Create&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ctx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">service&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="c1">// Error creating the Service
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="nx">reconcile&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Result&lt;/span>&lt;span class="p">{},&lt;/span> &lt;span class="nx">errors&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Wrap&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">err&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;failed to create Service&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">reconcile&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Result&lt;/span>&lt;span class="p">{},&lt;/span> &lt;span class="kc">nil&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>이처럼 내부에 구현된 Reconcile Loop Code (특정 CR이 수정되는 이벤트를 관찰하고, 이벤트에 맞춰 코드를 실행하는 루프) 는 일종의 Orange &lt;em>&lt;strong>Controller&lt;/strong>&lt;/em> 라고도 부를 수 있다. (또는 이 코드가 실행되는 pod 도 controller 라고 볼 수 있다)&lt;/p>
+&lt;p>하지만 이렇게 Orange CR 을 &lt;em>관리&lt;/em>하는 application 자체를 가리킬 때, 또는 이렇게 관리하는 전체 패턴을 Orange CR 의 &lt;em>&lt;strong>Operator&lt;/strong>&lt;/em> 라고 부를 수 있다. 바꿔 말해서, 실재하는 K8s 리소스인 Service 와 Pod 을 만드는 역할은 Controller 에서 이뤄지지만, Orange CR 의 명세를 관리하는 전체 과정은 Operator 라고 부를 수 있다.&lt;/p>
 &lt;br/>
 &lt;script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607"
 crossorigin="anonymous">&lt;/script>
@@ -144,8 +212,139 @@ data-ad-slot="1092971030">&lt;/ins>
 (adsbygoogle = window.adsbygoogle || []).push({});
 &lt;/script>
 &lt;br/>
-&lt;h3 id="정리하면">정리하면&lt;/h3>
-&lt;p>나에게 Controller 는 기술적인 개념이고, Operator 는 좀 더 포괄적이면서 논리적인 개념으로 받아들여진다. &lt;a class="link" href="https://blog.marcnuri.com/kubernetes-operator-vs-controller" target="_blank" rel="noopener"
->문서&lt;/a>에서도 &amp;lsquo;모든 Operator 는 CR 을 관리하기 위해 쓰이는 Controller 라고 부를 수 있다.&amp;rsquo; 라고 하고 있으니까 말이다.&lt;/p>
-&lt;p>그리고 Controller 나 Operator 모두 어떤 프레임워크일 뿐이지, 언어에 국한된 것은 아니라고 언급한다. Go 언어와 Python 으로 모두 구현해 본 경험이 있는 나 역시, 이 부분에 동의한다.&lt;/p>
-&lt;p>다만 용어를 선택하거나 접할 때 좀 더 이해를 확실히 할 목적으로 정리하는게 더욱 낫지 않을까 하는 마음에, 이 비교글을 마친다.&lt;/p></description></item></channel></rss>
+&lt;h1 id="정리하면">정리하면&lt;/h1>
+&lt;p>개인적으로 Controller 는 기술적인 개념이고, Operator 는 좀 더 포괄적이면서 논리적인 개념으로 받아들여진다. &lt;a class="link" href="https://blog.marcnuri.com/kubernetes-operator-vs-controller" target="_blank" rel="noopener"
+>문서&lt;/a>에서도 &amp;lsquo;&lt;em>모든 Operator 는 CR 을 관리하기 위해 쓰이는 Controller 라고 부를 수 있다.&lt;/em>&amp;rsquo; 라고 하고 있으니까 말이다.&lt;/p>
+&lt;p>그리고 Controller 나 Operator 모두 어떤 프레임워크일 뿐이지, 프로그래밍 언어에 국한된 것은 아니라고 언급한다. 나 역시 Go 언어와 Python 으로 모두 구현해 봤기 때문이다. 다만 용어를 사용할 때 좀 더 확실히 이해하고 쓴다면 헷갈릴 여지가 없기를 바란다.&lt;/p></description></item><item><title>CKA 시험 후기</title><link>https://interp.blog/cka-exam-review/</link><pubDate>Tue, 18 Jan 2022 22:38:42 +0000</pubDate><guid>https://interp.blog/cka-exam-review/</guid><description>&lt;img src="https://interp.blog/images/featured/cka-exam.jpg" alt="Featured image of post CKA 시험 후기" />&lt;p>CKA (Certified K8s Administrator) 를 2021년 12월 말에 합격 통지를 받았다. 합격을 받고 나서 정리한 팁을 공유하고자 한다.&lt;/p>
+&lt;h1 id="강의">강의&lt;/h1>
+&lt;p>매우 유명한 Udemy 의 Mumshard 강의를 완강했다. 내가 너무 초보여서 그런지는 몰라도, 기초 강의도 기본을 다지고 한번 더 리마인드 하자는 차원에서 완강을 했고, 결론적으로는 시험 뿐만 아니라 업무에도 큰 도움이 되고 있다.&lt;/p>
+&lt;ul>
+&lt;li>이해가 쏙쏙 되는 강의&lt;/li>
+&lt;li>지속적인 업데이트&lt;/li>
+&lt;li>KodeCloud 를 통한 인터렉티브 연습 문제 (엄청 많다!)&lt;/li>
+&lt;li>3개의 모의고사 (요점은 다 나온다)&lt;/li>
+&lt;/ul>
+&lt;ul>
+&lt;li>유료 (이긴 한데 상시 할인이라 큰 부담은 없다. 등록하면 평생 수강이니, 할인율이 높을 때를 노려 구매해 두는 것을 추천.)&lt;/li>
+&lt;li>영어 (수준이 높다기 보다는 그냥 귀찮다. 영어 자막은, 거의 자동 생성인 경우가 많기 때문에 별 도움이 안 된다.)&lt;/li>
+&lt;/ul>
+&lt;h2 id="시험-등록">시험 등록&lt;/h2>
+&lt;p>보통 시험을 Linux Foundation 에서 볼 텐데, 그럼 아래와 같은 절차로 시험을 준비한다.&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>Global Candidate Agreement&lt;/strong> 를 읽고 &amp;lsquo;동의&amp;rsquo; 를 누른다.&lt;/li>
+&lt;li>&lt;strong>이름을 확인한다&lt;/strong>. 반드시 신분증에 있는 영어이름과 일치해야 한다. (여권이나 국제운전면허증 등등) 일치하지 않거나 하면 피곤해진다고 한다.&lt;/li>
+&lt;li>&lt;strong>시험에 사용될 OS 를 지정한다&lt;/strong>. 보통 우분투를 사용한다.&lt;/li>
+&lt;li>&lt;strong>시험 일정을 예약한다&lt;/strong>. 한번 시험 등록에 들어오면 시험 일정을 잡는데 유효기간이 있다. 그래서 가급적 스케줄을 확인하고 얼른 시험 일정을 예약해야 한다.&lt;/li>
+&lt;li>시스템 환경을 체크할 수 있다.
+&lt;ul>
+&lt;li>&lt;strong>Chrome 확장 프로그램&lt;/strong> 을 반드시 설치하고 시험을 시작해야 한다.&lt;/li>
+&lt;li>비인가된 프로그램을 사용하는지 감독관이 반드시 체크한다. 작업관리자를 &amp;lsquo;간단히&amp;rsquo; 버전으로 띄우도록 요청한다.&lt;/li>
+&lt;li>책상은 컴퓨터/노트북 외엔 깨끗해야 하며 (외부 모니터는 된다고 하던데 나는 치웠다) 책상 아래도 깨끗해야 한다. 이걸 증명하기 위해 웹캠이 필요하다. 노트북 내장 웹캠도 가능하다 (내가 그랬으니까)&lt;/li>
+&lt;li>방 안엔 누구도 있어선 안 되고, 밝고 조용한 환경이어야 한다. 단, 수험자 뒤에서 밝은 빛이 나오면 안 된다 (감독관 방해)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>다음 글을 읽어 본다&lt;/strong>. 만약 시간이 없으면 Important Instructions 만 읽어 보자.
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://docs.linuxfoundation.org/tc-docs/certification/tips-cka-and-ckad" target="_blank" rel="noopener"
+>Important Instructions: CKA, CKAD&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://docs.linuxfoundation.org/tc-docs/certification/lf-candidate-handbook" target="_blank" rel="noopener"
+>Handbook&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>시험 준비가 모두 끝났다고 생각되면, &lt;a class="link" href="http://killer.sh" target="_blank" rel="noopener"
+>killer.sh&lt;/a> 에 들어가서 모의고사 세션을 시작해보자.&lt;/li>
+&lt;/ol>
+&lt;h2 id="killersh">killer.sh&lt;/h2>
+&lt;p>Linux Foundation 에서 제공하는 마지막 모의고사 성격의 mock-up exam 환경이다.&lt;/p>
+&lt;ul>
+&lt;li>저기서도 경고하지만, 실제 시험보다 훨씬 까다롭고 광범위한 질문이 나온다. 좌절할 필요 없다.&lt;/li>
+&lt;li>2개의 세션이 제공되는데, 한 개당 36시간의 유효기간이 있다. 2시간 타이머가 돌긴 하지만, 타이머가 끝난다고 시험이 닫히진 않는다. 심리적인 압박 용이니, 2시간 시간관리 한다 생각하고 신경 써가며 풀어보자.&lt;/li>
+&lt;li>2개 세션 모두 같은 문제 세트를 가지고 있다. 하나는 시험 치듯 풀고, 끝나면 정답과 함께 채점을 해 주기 때문에 두 번째 세션은 오답노트 풀듯이 훓는 걸 추천한다.&lt;/li>
+&lt;/ul>
+&lt;br/>
+&lt;script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607"
+crossorigin="anonymous">&lt;/script>
+&lt;ins class="adsbygoogle"
+style="display:block"
+data-ad-format="fluid"
+data-ad-layout-key="-fx-q+4w-88+2u"
+data-ad-client="ca-pub-0712823212859607"
+data-ad-slot="1092971030">&lt;/ins>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br/>
+&lt;h1 id="팁">팁&lt;/h1>
+&lt;h2 id="시험-환경-준비">시험 환경 준비&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>감독관은 말 하지 않는다&lt;/strong>. 대신 채팅으로 말한다.
+&lt;ul>
+&lt;li>시험 전 20분부터 입장이 가능한데, 감독관이 준비되어야 사실 입장이 가능하다 (&amp;hellip;)&lt;/li>
+&lt;li>감독관을 만나면 하는 일은, 신분증으로 신원 확인, 방 주위를 둘러보기, 책상 보기, 책상 아래보기.. 정도만 했다.&lt;/li>
+&lt;li>시험 중간에는 웬만하면 어떤 채팅도 올라오지 않는다. 내가 본 건 딱 ‘15분 남았습니다’ 였다.&lt;/li>
+&lt;li>(내가 겪어 본 건 아니지만) 만약 허용되지 않은 웹 사이트를 실수로라도 방문하면, 경고성 채팅창이 올라올 것이다. 그런데 같은 짓을 4번 (3번?) 더 하면 시험이 그냥 종료되니 주의.
+(자세한 내용은 위 문서에서 인스트럭션을 읽어보면 된다)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>북마크 사용은 가능하다&lt;/strong>, 물론 허용된 사이트 안의 웹 페이지만이다.&lt;/li>
+&lt;li>&lt;strong>크롬이나 엣지 브라우저로 문제가 생길 수 있다는 이야기가 있다.&lt;/strong> 그러면 감독관이 &lt;a class="link" href="https://vivaldi.com/" target="_blank" rel="noopener"
+>&lt;strong>비발디 (Vivaldi)&lt;/strong>&lt;/a> 브라우저를 권한다고 한다.
+&lt;ul>
+&lt;li>문제는, 환경설정에 시간을 다 뺏기고 (준비에 시간을 주긴 할테지만 2 시간 스케쥴이 틀어진다) 준비해 간 북마크 호환하기 어려울 수 있으므로 당황할 여지가 생긴다.&lt;/li>
+&lt;li>추천: &lt;strong>그냥 ‘Vivaldi’ 브라우저를 설치하고, 거기다 환경을 구성해 두자.&lt;/strong> (물론 크롬 확장 프로그램 미리 깔아두는 것 잊지 말고)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>영어 해석에 애를 먹는다면, Google 번역 크롬 확장 프로그램을 설치해서 써도 된다.
+&lt;ul>
+&lt;li>K8s Docs 의 한글 번역본을 읽어도 아무런 제지가 없다.&lt;/li>
+&lt;li>문제 몇 개는 해석이 조금만 틀려도 산으로 가는 것들이 있다. (NetworkPolicy 를 생성할 때 라던지)&lt;/li>
+&lt;li>하지만 번역기는 만능이 아니다. 참고용으로만 쓰는 걸 추천한다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="시험칠-때">시험칠 때&lt;/h2>
+&lt;ul>
+&lt;li>클러스터 몇 개가 주어지고, 매 문제마다 처음에 context 를 바꾸라고 한다. &lt;strong>안 바꿔도 된다는 확신이 있어도 반드시 바꾸자&lt;/strong>. 안 바꾸면 정답이 엉뚱한 클러스터에 반영되고 채점도 안 된다.&lt;/li>
+&lt;li>15-20 개의 문제가 주어진다고 하고, 각 문제마다 배점이 있다. 컷 라인은 66점이니 &lt;strong>쉬운 것을 먼저 푸는게 좋다&lt;/strong>.&lt;/li>
+&lt;li>다른 합격 후기에서는, &lt;code>kubectl&lt;/code> 자동 완성을 위해 cheat sheet 를 적용하라고 하는데, 나는 이게 시험 환경에 이미 적용이 되어 있었다.
+&lt;ul>
+&lt;li>&lt;code>kubectl&lt;/code> = &lt;code>k&lt;/code>&lt;/li>
+&lt;li>명령어 자동 완성 가능 (예) &lt;code>k des&amp;lt;tab&amp;gt;&lt;/code> → &lt;code>k describe&lt;/code>&lt;/li>
+&lt;li>리소스 이름 자동 완성 가능 (예) &lt;code>interp&lt;/code> 라는 ns 가 있다고 하면, then &lt;code>k get pod -n int&amp;lt;tab&amp;gt;&lt;/code> → &lt;code>k get pod -n interp&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>리소스를 지우거나 업데이트 하기 전에, &lt;strong>반드시 그 리소스를 백업해 두자.&lt;/strong> 혹시 그 리소스를 원상복구 시킬 때가 있을 수 있는데, 백업 없이는 다른 방법이 없다.&lt;/li>
+&lt;/ul>
+&lt;br/>
+&lt;script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607"
+crossorigin="anonymous">&lt;/script>
+&lt;ins class="adsbygoogle"
+style="display:block"
+data-ad-client="ca-pub-0712823212859607"
+data-ad-slot="6929871144"
+data-ad-format="auto"
+data-full-width-responsive="true">&lt;/ins>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br/>
+&lt;h2 id="공부할-때">공부할 때&lt;/h2>
+&lt;ul>
+&lt;li>오픈북 시험에서 가장 중요한 건, 어떤 문제를 마주쳤을 때 어디를 봐야 하는지 기억해 두는 것이다.
+&lt;ul>
+&lt;li>좀 더 구체적으로, 어떤 키워드로 K8s docs 를 검색해야 하는지를 기억하는 것이 중요하다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>하지만 아래 키워드는 찾아보기도 전에 타이핑할 수 있도록 기억해두는 게 좋다.
+&lt;ul>
+&lt;li>Pod 을 생성할 때: &lt;code>k run {name} --image= ... --dry-run=client -o yaml&lt;/code> 로 YAML 파일을 얻어서 수정한 뒤 &lt;code>k apply -f {yaml_file}&lt;/code> 로 입력&lt;/li>
+&lt;li>리소스를 생성할 때 (가능하다면):
+&lt;ul>
+&lt;li>&lt;code>k create&lt;/code> 명령어로 어떤 리소스를 만들 수 있는지 보고,&lt;/li>
+&lt;li>&lt;code>k create {resource} --help&lt;/code> 로 해당 리소스를 만들 수 있는 다양한 예제를 확인한 뒤,&lt;/li>
+&lt;li>역시 &lt;code>--dry-run=client -oyaml&lt;/code> 을 붙여 YAML 파일을 얻을 수도 있다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul></description></item></channel></rss>

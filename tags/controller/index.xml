@@ -1,20 +1,88 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>controller on InterP Blog</title><link>https://interp.blog/tags/controller/</link><description>Recent content in controller on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Tue, 15 Mar 2022 02:44:57 +0000</lastBuildDate><atom:link href="https://interp.blog/tags/controller/index.xml" rel="self" type="application/rss+xml"/><item><title>k8s Operator vs. Controller</title><link>https://interp.blog/kubernetes-operator-vs-controller/</link><pubDate>Tue, 15 Mar 2022 02:44:57 +0000</pubDate><guid>https://interp.blog/kubernetes-operator-vs-controller/</guid><description>&lt;p>쿠버네티스에서 서비스를 개발하거나 운영하다 보면 자주 접하게 될 개념 중 하나가, 바로 이 Controller 와 Operator 일 것이다. 어떤 경우에는, 동일한 서비스를 두고 &amp;lsquo;이건 Controller 야&amp;rsquo; 라고 말 할 때도 있고 &amp;lsquo;이 Operator 는&amp;hellip;&amp;rsquo; 이라고 불릴 때도 있어서 헷갈릴 수 있다. 심지어 공식 문서에서도 두 개념에 대한 비교는 하지 않고 있어서 명확한 구분이 필요한 것 같다.&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>controller on InterP Blog</title><link>https://interp.blog/tags/controller/</link><description>Recent content in controller on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Tue, 15 Mar 2022 02:44:57 +0000</lastBuildDate><atom:link href="https://interp.blog/tags/controller/index.xml" rel="self" type="application/rss+xml"/><item><title>K8s Operator vs. Controller</title><link>https://interp.blog/kubernetes-operator-vs-controller/</link><pubDate>Tue, 15 Mar 2022 02:44:57 +0000</pubDate><guid>https://interp.blog/kubernetes-operator-vs-controller/</guid><description>&lt;p>쿠버네티스에서 서비스를 개발하거나 운영하다 보면 자주 접하게 될 개념 중 하나가, 바로 이 Controller 와 Operator 일 것이다. 어떤 경우에는, 동일한 서비스를 두고 &amp;lsquo;이건 Controller 야&amp;rsquo; 라고 말 할 때도 있고 &amp;lsquo;이 Operator 는&amp;hellip;&amp;rsquo; 이라고 불릴 때도 있어서 헷갈릴 수 있다. 심지어 공식 문서에서도 두 개념에 대한 비교는 하지 않고 있어서 명확한 구분이 필요한 것 같다.&lt;/p>
 &lt;p>와중에 &lt;a class="link" href="https://blog.marcnuri.com/kubernetes-operator-vs-controller" target="_blank" rel="noopener"
 >이 문서&lt;/a>를 발견했는데, 요약하자면 이렇다.&lt;/p>
-&lt;h3 id="controller">Controller&lt;/h3>
+&lt;h1 id="controller">Controller&lt;/h1>
 &lt;blockquote>
 &lt;p>So in the Kubernetes world, a controller will basically &lt;strong>monitor and measure the cluster resources state to adjust those resources that diverge from the desired state&lt;/strong>.&lt;/p>
 &lt;/blockquote>
-&lt;p>더 줄여보면, Controller 는 (1) K8s 리소스 (중 일부) 의 상태를 체크하고 (2) 이 리소스들의 상태를 &amp;lsquo;목표 상태 (desired state)&amp;rsquo; 로 조정하는 역할을 한다.&lt;/p>
-&lt;p>&lt;code>ReplicaSet&lt;/code>, &lt;code>StatefulSet&lt;/code>, &lt;code>DaemonSet&lt;/code> 이 대표적인 Controller 들이다. 속해 있는 Pod 들의 상태를 &amp;lsquo;목표한 상태&amp;rsquo; 로 조정하려고, Pod 을 추가하거나 삭제한다.&lt;/p>
-&lt;h3 id="operator">Operator&lt;/h3>
+&lt;p>더 줄여보면, Controller 는 (1) K8s 리소스의 상태를 체크하고 (2) 이 리소스들의 상태를 &amp;lsquo;목표 상태 (desired state)&amp;rsquo; 로 조정하는 역할을 한다.&lt;/p>
+&lt;p>&lt;code>ReplicaSet&lt;/code>, &lt;code>StatefulSet&lt;/code>, &lt;code>DaemonSet&lt;/code> 이 대표적인 Controller 들이다. 이 리소스에 속해 있는 Pod 들의 상태를 &amp;lsquo;목표 상태&amp;rsquo; 로 만들기 위해, Pod 을 추가하거나 삭제한다.&lt;/p>
+&lt;h1 id="operator">Operator&lt;/h1>
 &lt;p>CoreOS 에서 정의하는 Operator 는 다음과 같다.&lt;/p>
 &lt;blockquote>
-&lt;p>&lt;em>An Operator is &lt;strong>a method of packaging, deploying and managing a Kubernetes application.&lt;/strong>&lt;/em>&lt;/p>
+&lt;p>An Operator is &lt;strong>a method of packaging, deploying and managing a Kubernetes application&lt;/strong>.&lt;/p>
 &lt;/blockquote>
-&lt;p>그런데 이 개념을 구현하기 위해서는 필연적으로 Controller 가 들어가게 된다. 그렇다면 Controller 와 비교했을 때 Operator 의 차이점은 무엇일까?&lt;/p>
-&lt;p>저 &amp;lsquo;Kubernetes application&amp;rsquo; 에서 말하는 것은, 사용자가 직접 지정할 수 있는 CRD (Custom Resource Definition) 과 거기서 파생된 CR (Custom Resource) 까지 포함하고 있는 것이다. 아니면 정말 bare application 형태로 특정 microservice 를 관리할 때도 Operator 라고 부를 수 있겠다.&lt;/p>
-&lt;p>예를 들면, Orange 라는 CRD 를 하나 만들었고, 이 Orange CR 에는 1개의 &lt;code>Service&lt;/code> 와 1개의 &lt;code>Pod&lt;/code> 이 만들어져야 한다고 해보자. 그러면 Orange CR 을 관리하는 application 을 가리킬 때는 Orange *&lt;strong>Operator*&lt;/strong> 라고 부를 수 있다. 하지만 내부에 구현된 Reconcile Loop Code 는 일종의 Orange *&lt;strong>Controller*&lt;/strong> 라고도 부를 수 있는 것이다. 실제로 Service 와 Pod 을 만드는 역할은 이 Controller 에서 이뤄지지만, 전체적으로 Orange CR 의 명세를 관리하는 것은 전체 Operator 가 담당하는 것이다.&lt;/p>
+&lt;p>그런데 이 개념을 구현하기 위해서는 필연적으로 Controller 가 들어가게 된다.&lt;/p>
+&lt;p>그렇다면 Controller 와 비교했을 때 Operator 의 차이점은 무엇일까?&lt;/p>
+&lt;h1 id="operator-vs-controller">Operator vs. Controller&lt;/h1>
+&lt;p>여기에서 말하는 &amp;lsquo;&lt;em>Kubernetes application&lt;/em>&amp;rsquo; 란, 사용자가 직접 지정할 수 있는 CRD (Custom Resource Definition) 과 거기서 파생된 CR (Custom Resource) 까지 포함하고 있는 것이다.&lt;/p>
+&lt;p>예를 들면, Orange 라는 CRD 를 하나 만들어 보자.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">apiextensions.k8s.io/v1beta1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">CustomResourceDefinition&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">oranges.example.com&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">group&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">example.com&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">version&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">v1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">scope&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Namespaced&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">names&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">plural&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">oranges&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">singular&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">orange&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Orange&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">subresources&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">status&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{}&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>이 정의 (definition)를 가지고, &lt;code>orange1&lt;/code> 이란 CR 을 하나 만들 수 있을 것이다.&lt;/p>
+&lt;p>특정 Orange CR 이 만들어지거나 수정될 때, 삭제될 때엔 뭘 해야 하는지 정의하는 코드를 만들 수 있을 것이다. 예를 들면, Orange CR 에는 1개의 &lt;code>Service&lt;/code> 와 1개의 &lt;code>Pod&lt;/code> 이 만들어져야 한다고 해보자. 그걸 Golang 으로 아주 간단히 표현하면,&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">h&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">orangeHandler&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">Handle&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ctx&lt;/span> &lt;span class="nx">context&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Context&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">req&lt;/span> &lt;span class="nx">reconcile&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Request&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">reconcile&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Result&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">error&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="c1">// Get the Orange instance
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">orange&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">examplev1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Orange&lt;/span>&lt;span class="p">{}&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">sdk&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ctx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">req&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">NamespacedName&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">orange&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">errors&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">IsNotFound&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">err&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">reconcile&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Result&lt;/span>&lt;span class="p">{},&lt;/span> &lt;span class="kc">nil&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">reconcile&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Result&lt;/span>&lt;span class="p">{},&lt;/span> &lt;span class="nx">errors&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Wrap&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">err&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;failed to get Orange instance&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="c1">// Create the Pod for the Orange instance
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">pod&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">corev1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Pod&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="nx">ObjectMeta&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">metav1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ObjectMeta&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="nx">Name&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">orange&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Name&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="s">&amp;#34;-pod&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">Namespace&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">orange&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Namespace&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">Labels&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kd">map&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="s">&amp;#34;app&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">orange&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Name&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="p">},&lt;/span>
+&lt;span class="p">},&lt;/span>
+&lt;span class="nx">Spec&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">corev1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">PodSpec&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="nx">Containers&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="nx">corev1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Container&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="o">...&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="p">},&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">sdk&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Create&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ctx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">pod&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">reconcile&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Result&lt;/span>&lt;span class="p">{},&lt;/span> &lt;span class="nx">errors&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Wrap&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">err&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;failed to create Pod&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="c1">// Create the Service for the Orange instance
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">service&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">corev1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Service&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="nx">ObjectMeta&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">metav1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ObjectMeta&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="nx">Name&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">orange&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Name&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="s">&amp;#34;-service&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">Namespace&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">orange&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Namespace&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">Labels&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kd">map&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="s">&amp;#34;app&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">orange&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Name&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="p">},&lt;/span>
+&lt;span class="p">},&lt;/span>
+&lt;span class="nx">Spec&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">corev1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ServiceSpec&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="nx">Selector&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kd">map&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="s">&amp;#34;app&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">orange&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Name&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="p">},&lt;/span>
+&lt;span class="nx">Ports&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="nx">corev1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ServicePort&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="o">...&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="nx">Type&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">corev1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ServiceTypeClusterIP&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="p">},&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">sdk&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Create&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ctx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">service&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="c1">// Error creating the Service
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="nx">reconcile&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Result&lt;/span>&lt;span class="p">{},&lt;/span> &lt;span class="nx">errors&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Wrap&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">err&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;failed to create Service&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">reconcile&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Result&lt;/span>&lt;span class="p">{},&lt;/span> &lt;span class="kc">nil&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>이처럼 내부에 구현된 Reconcile Loop Code (특정 CR이 수정되는 이벤트를 관찰하고, 이벤트에 맞춰 코드를 실행하는 루프) 는 일종의 Orange &lt;em>&lt;strong>Controller&lt;/strong>&lt;/em> 라고도 부를 수 있다. (또는 이 코드가 실행되는 pod 도 controller 라고 볼 수 있다)&lt;/p>
+&lt;p>하지만 이렇게 Orange CR 을 &lt;em>관리&lt;/em>하는 application 자체를 가리킬 때, 또는 이렇게 관리하는 전체 패턴을 Orange CR 의 &lt;em>&lt;strong>Operator&lt;/strong>&lt;/em> 라고 부를 수 있다. 바꿔 말해서, 실재하는 K8s 리소스인 Service 와 Pod 을 만드는 역할은 Controller 에서 이뤄지지만, Orange CR 의 명세를 관리하는 전체 과정은 Operator 라고 부를 수 있다.&lt;/p>
 &lt;br/>
 &lt;script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607"
 crossorigin="anonymous">&lt;/script>
@@ -28,8 +96,7 @@ data-ad-slot="1092971030">&lt;/ins>
 (adsbygoogle = window.adsbygoogle || []).push({});
 &lt;/script>
 &lt;br/>
-&lt;h3 id="정리하면">정리하면&lt;/h3>
-&lt;p>나에게 Controller 는 기술적인 개념이고, Operator 는 좀 더 포괄적이면서 논리적인 개념으로 받아들여진다. &lt;a class="link" href="https://blog.marcnuri.com/kubernetes-operator-vs-controller" target="_blank" rel="noopener"
->문서&lt;/a>에서도 &amp;lsquo;모든 Operator 는 CR 을 관리하기 위해 쓰이는 Controller 라고 부를 수 있다.&amp;rsquo; 라고 하고 있으니까 말이다.&lt;/p>
-&lt;p>그리고 Controller 나 Operator 모두 어떤 프레임워크일 뿐이지, 언어에 국한된 것은 아니라고 언급한다. Go 언어와 Python 으로 모두 구현해 본 경험이 있는 나 역시, 이 부분에 동의한다.&lt;/p>
-&lt;p>다만 용어를 선택하거나 접할 때 좀 더 이해를 확실히 할 목적으로 정리하는게 더욱 낫지 않을까 하는 마음에, 이 비교글을 마친다.&lt;/p></description></item></channel></rss>
+&lt;h1 id="정리하면">정리하면&lt;/h1>
+&lt;p>개인적으로 Controller 는 기술적인 개념이고, Operator 는 좀 더 포괄적이면서 논리적인 개념으로 받아들여진다. &lt;a class="link" href="https://blog.marcnuri.com/kubernetes-operator-vs-controller" target="_blank" rel="noopener"
+>문서&lt;/a>에서도 &amp;lsquo;&lt;em>모든 Operator 는 CR 을 관리하기 위해 쓰이는 Controller 라고 부를 수 있다.&lt;/em>&amp;rsquo; 라고 하고 있으니까 말이다.&lt;/p>
+&lt;p>그리고 Controller 나 Operator 모두 어떤 프레임워크일 뿐이지, 프로그래밍 언어에 국한된 것은 아니라고 언급한다. 나 역시 Go 언어와 Python 으로 모두 구현해 봤기 때문이다. 다만 용어를 사용할 때 좀 더 확실히 이해하고 쓴다면 헷갈릴 여지가 없기를 바란다.&lt;/p></description></item></channel></rss>

@@ -1,17 +1,17 @@
 <!doctype html><html lang=ko-kr dir=ltr>
 <head><meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="쿠버네티스에서 서비스를 개발하거나 운영하다 보면 자주 접하게 될 개념 중 하나가, 바로 이 Controller 와 Operator 일 것이다. 어떤 경우에는, 동일한 서비스를 두고 &amp;lsquo;이"><title>k8s Operator vs. Controller</title>
+<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="쿠버네티스에서 서비스를 개발하거나 운영하다 보면 자주 접하게 될 개념 중 하나가, 바로 이 Controller 와 Operator 일 것이다. 어떤 경우에는, 동일한 서비스를 두고 &amp;lsquo;이"><title>K8s Operator vs. Controller</title>
 <style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500&display=swap'</style>
 <link rel=canonical href=https://interp.blog/kubernetes-operator-vs-controller/>
-<link rel=stylesheet href=/scss/style.min.3f1a5205a020209b2d4e6953422fef2b48bde8a394e11934e0fa3ff5b952ed30.css><meta property="title" content="k8s Operator vs. Controller">
+<link rel=stylesheet href=/scss/style.min.3f1a5205a020209b2d4e6953422fef2b48bde8a394e11934e0fa3ff5b952ed30.css><meta property="title" content="K8s Operator vs. Controller">
 <meta property="description" content="쿠버네티스에서 서비스를 개발하거나 운영하다 보면 자주 접하게 될 개념 중 하나가, 바로 이 Controller 와 Operator 일 것이다. 어떤 경우에는, 동일한 서비스를 두고 &amp;lsquo;이">
-<meta property="og:title" content="k8s Operator vs. Controller">
+<meta property="og:title" content="K8s Operator vs. Controller">
 <meta property="og:description" content="쿠버네티스에서 서비스를 개발하거나 운영하다 보면 자주 접하게 될 개념 중 하나가, 바로 이 Controller 와 Operator 일 것이다. 어떤 경우에는, 동일한 서비스를 두고 &amp;lsquo;이">
 <meta property="og:url" content="https://interp.blog/kubernetes-operator-vs-controller/">
 <meta property="og:site_name" content="InterP Blog">
-<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="k8s"><meta property="article:tag" content="controller"><meta property="article:tag" content="operator"><meta property="article:published_time" content="2022-03-15T02:44:57+00:00"><meta property="article:modified_time" content="2022-03-15T02:44:57+00:00">
+<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="K8s"><meta property="article:tag" content="controller"><meta property="article:tag" content="operator"><meta property="article:published_time" content="2022-03-15T02:44:57+00:00"><meta property="article:modified_time" content="2022-03-15T02:44:57+00:00">
 <meta name=twitter:site content="@interp_">
-<meta name=twitter:creator content="@interp_"><meta name=twitter:title content="k8s Operator vs. Controller">
+<meta name=twitter:creator content="@interp_"><meta name=twitter:title content="K8s Operator vs. Controller">
 <meta name=twitter:description content="쿠버네티스에서 서비스를 개발하거나 운영하다 보면 자주 접하게 될 개념 중 하나가, 바로 이 Controller 와 Operator 일 것이다. 어떤 경우에는, 동일한 서비스를 두고 &amp;lsquo;이">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-KMRJ33V06X"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-KMRJ33V06X')</script>
@@ -76,7 +76,7 @@ TECH 🛠️
 </header>
 <div class=article-title-wrapper>
 <h2 class=article-title>
-<a href=/kubernetes-operator-vs-controller/>k8s Operator vs. Controller</a>
+<a href=/kubernetes-operator-vs-controller/>K8s Operator vs. Controller</a>
 </h2>
 </div>
 <footer class=article-time>
@@ -85,7 +85,7 @@ TECH 🛠️
 </div>
 <div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
 <time class=article-time--reading>
-2 분 소요
+3 분 소요
 </time>
 </div>
 </footer>
@@ -98,29 +98,98 @@ TECH 🛠️
 <section class=article-content>
 <p>쿠버네티스에서 서비스를 개발하거나 운영하다 보면 자주 접하게 될 개념 중 하나가, 바로 이 Controller 와 Operator 일 것이다. 어떤 경우에는, 동일한 서비스를 두고 &lsquo;이건 Controller 야&rsquo; 라고 말 할 때도 있고 &lsquo;이 Operator 는&mldr;&rsquo; 이라고 불릴 때도 있어서 헷갈릴 수 있다. 심지어 공식 문서에서도 두 개념에 대한 비교는 하지 않고 있어서 명확한 구분이 필요한 것 같다.</p>
 <p>와중에 <a class=link href=https://blog.marcnuri.com/kubernetes-operator-vs-controller target=_blank rel=noopener>이 문서</a>를 발견했는데, 요약하자면 이렇다.</p>
-<h3 id=controller>Controller</h3>
+<h1 id=controller>Controller</h1>
 <blockquote>
 <p>So in the Kubernetes world, a controller will basically <strong>monitor and measure the cluster resources state to adjust those resources that diverge from the desired state</strong>.</p>
 </blockquote>
-<p>더 줄여보면, Controller 는 (1) K8s 리소스 (중 일부) 의 상태를 체크하고 (2) 이 리소스들의 상태를 &lsquo;목표 상태 (desired state)&rsquo; 로 조정하는 역할을 한다.</p>
-<p><code>ReplicaSet</code>, <code>StatefulSet</code>, <code>DaemonSet</code> 이 대표적인 Controller 들이다. 속해 있는 Pod 들의 상태를 &lsquo;목표한 상태&rsquo; 로 조정하려고, Pod 을 추가하거나 삭제한다.</p>
-<h3 id=operator>Operator</h3>
+<p>더 줄여보면, Controller 는 (1) K8s 리소스의 상태를 체크하고 (2) 이 리소스들의 상태를 &lsquo;목표 상태 (desired state)&rsquo; 로 조정하는 역할을 한다.</p>
+<p><code>ReplicaSet</code>, <code>StatefulSet</code>, <code>DaemonSet</code> 이 대표적인 Controller 들이다. 이 리소스에 속해 있는 Pod 들의 상태를 &lsquo;목표 상태&rsquo; 로 만들기 위해, Pod 을 추가하거나 삭제한다.</p>
+<h1 id=operator>Operator</h1>
 <p>CoreOS 에서 정의하는 Operator 는 다음과 같다.</p>
 <blockquote>
-<p><em>An Operator is <strong>a method of packaging, deploying and managing a Kubernetes application.</strong></em></p>
+<p>An Operator is <strong>a method of packaging, deploying and managing a Kubernetes application</strong>.</p>
 </blockquote>
-<p>그런데 이 개념을 구현하기 위해서는 필연적으로 Controller 가 들어가게 된다. 그렇다면 Controller 와 비교했을 때 Operator 의 차이점은 무엇일까?</p>
-<p>저 &lsquo;Kubernetes application&rsquo; 에서 말하는 것은, 사용자가 직접 지정할 수 있는 CRD (Custom Resource Definition) 과 거기서 파생된 CR (Custom Resource) 까지 포함하고 있는 것이다. 아니면 정말 bare application 형태로 특정 microservice 를 관리할 때도 Operator 라고 부를 수 있겠다.</p>
-<p>예를 들면, Orange 라는 CRD 를 하나 만들었고, 이 Orange CR 에는 1개의 <code>Service</code> 와 1개의 <code>Pod</code> 이 만들어져야 한다고 해보자. 그러면 Orange CR 을 관리하는 application 을 가리킬 때는 Orange *<strong>Operator*</strong> 라고 부를 수 있다. 하지만 내부에 구현된 Reconcile Loop Code 는 일종의 Orange *<strong>Controller*</strong> 라고도 부를 수 있는 것이다. 실제로 Service 와 Pod 을 만드는 역할은 이 Controller 에서 이뤄지지만, 전체적으로 Orange CR 의 명세를 관리하는 것은 전체 Operator 가 담당하는 것이다.</p>
+<p>그런데 이 개념을 구현하기 위해서는 필연적으로 Controller 가 들어가게 된다.</p>
+<p>그렇다면 Controller 와 비교했을 때 Operator 의 차이점은 무엇일까?</p>
+<h1 id=operator-vs-controller>Operator vs. Controller</h1>
+<p>여기에서 말하는 &lsquo;<em>Kubernetes application</em>&rsquo; 란, 사용자가 직접 지정할 수 있는 CRD (Custom Resource Definition) 과 거기서 파생된 CR (Custom Resource) 까지 포함하고 있는 것이다.</p>
+<p>예를 들면, Orange 라는 CRD 를 하나 만들어 보자.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class=l>apiextensions.k8s.io/v1beta1</span><span class=w>
+</span><span class=w></span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=l>CustomResourceDefinition</span><span class=w>
+</span><span class=w></span><span class=nt>metadata</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>oranges.example.com</span><span class=w>
+</span><span class=w></span><span class=nt>spec</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class=l>example.com</span><span class=w>
+</span><span class=w>  </span><span class=nt>version</span><span class=p>:</span><span class=w> </span><span class=l>v1</span><span class=w>
+</span><span class=w>  </span><span class=nt>scope</span><span class=p>:</span><span class=w> </span><span class=l>Namespaced</span><span class=w>
+</span><span class=w>  </span><span class=nt>names</span><span class=p>:</span><span class=w>
+</span><span class=w>    </span><span class=nt>plural</span><span class=p>:</span><span class=w> </span><span class=l>oranges</span><span class=w>
+</span><span class=w>    </span><span class=nt>singular</span><span class=p>:</span><span class=w> </span><span class=l>orange</span><span class=w>
+</span><span class=w>    </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=l>Orange</span><span class=w>
+</span><span class=w>  </span><span class=nt>subresources</span><span class=p>:</span><span class=w>
+</span><span class=w>    </span><span class=nt>status</span><span class=p>:</span><span class=w> </span>{}<span class=w>
+</span></code></pre></div><p>이 정의 (definition)를 가지고, <code>orange1</code> 이란 CR 을 하나 만들 수 있을 것이다.</p>
+<p>특정 Orange CR 이 만들어지거나 수정될 때, 삭제될 때엔 뭘 해야 하는지 정의하는 코드를 만들 수 있을 것이다. 예를 들면, Orange CR 에는 1개의 <code>Service</code> 와 1개의 <code>Pod</code> 이 만들어져야 한다고 해보자. 그걸 Golang 으로 아주 간단히 표현하면,</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kd>func</span> <span class=p>(</span><span class=nx>h</span> <span class=o>*</span><span class=nx>orangeHandler</span><span class=p>)</span> <span class=nf>Handle</span><span class=p>(</span><span class=nx>ctx</span> <span class=nx>context</span><span class=p>.</span><span class=nx>Context</span><span class=p>,</span> <span class=nx>req</span> <span class=nx>reconcile</span><span class=p>.</span><span class=nx>Request</span><span class=p>)</span> <span class=p>(</span><span class=nx>reconcile</span><span class=p>.</span><span class=nx>Result</span><span class=p>,</span> <span class=kt>error</span><span class=p>)</span> <span class=p>{</span>
+	<span class=c1>// Get the Orange instance
+</span><span class=c1></span>	<span class=nx>orange</span> <span class=o>:=</span> <span class=o>&amp;</span><span class=nx>examplev1</span><span class=p>.</span><span class=nx>Orange</span><span class=p>{}</span>
+	<span class=k>if</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>sdk</span><span class=p>.</span><span class=nf>Get</span><span class=p>(</span><span class=nx>ctx</span><span class=p>,</span> <span class=nx>req</span><span class=p>.</span><span class=nx>NamespacedName</span><span class=p>,</span> <span class=nx>orange</span><span class=p>);</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+		<span class=k>if</span> <span class=nx>errors</span><span class=p>.</span><span class=nf>IsNotFound</span><span class=p>(</span><span class=nx>err</span><span class=p>)</span> <span class=p>{</span>
+			<span class=k>return</span> <span class=nx>reconcile</span><span class=p>.</span><span class=nx>Result</span><span class=p>{},</span> <span class=kc>nil</span>
+		<span class=p>}</span>
+		<span class=k>return</span> <span class=nx>reconcile</span><span class=p>.</span><span class=nx>Result</span><span class=p>{},</span> <span class=nx>errors</span><span class=p>.</span><span class=nf>Wrap</span><span class=p>(</span><span class=nx>err</span><span class=p>,</span> <span class=s>&#34;failed to get Orange instance&#34;</span><span class=p>)</span>
+	<span class=p>}</span>
+
+	<span class=c1>// Create the Pod for the Orange instance
+</span><span class=c1></span>	<span class=nx>pod</span> <span class=o>:=</span> <span class=o>&amp;</span><span class=nx>corev1</span><span class=p>.</span><span class=nx>Pod</span><span class=p>{</span>
+		<span class=nx>ObjectMeta</span><span class=p>:</span> <span class=nx>metav1</span><span class=p>.</span><span class=nx>ObjectMeta</span><span class=p>{</span>
+			<span class=nx>Name</span><span class=p>:</span>      <span class=nx>orange</span><span class=p>.</span><span class=nx>Name</span> <span class=o>+</span> <span class=s>&#34;-pod&#34;</span><span class=p>,</span>
+			<span class=nx>Namespace</span><span class=p>:</span> <span class=nx>orange</span><span class=p>.</span><span class=nx>Namespace</span><span class=p>,</span>
+			<span class=nx>Labels</span><span class=p>:</span> <span class=kd>map</span><span class=p>[</span><span class=kt>string</span><span class=p>]</span><span class=kt>string</span><span class=p>{</span>
+				<span class=s>&#34;app&#34;</span><span class=p>:</span> <span class=nx>orange</span><span class=p>.</span><span class=nx>Name</span><span class=p>,</span>
+			<span class=p>},</span>
+		<span class=p>},</span>
+		<span class=nx>Spec</span><span class=p>:</span> <span class=nx>corev1</span><span class=p>.</span><span class=nx>PodSpec</span><span class=p>{</span>
+			<span class=nx>Containers</span><span class=p>:</span> <span class=p>[]</span><span class=nx>corev1</span><span class=p>.</span><span class=nx>Container</span><span class=p>{</span><span class=o>...</span><span class=p>},</span>
+		<span class=p>},</span>
+	<span class=p>}</span>
+	<span class=k>if</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>sdk</span><span class=p>.</span><span class=nf>Create</span><span class=p>(</span><span class=nx>ctx</span><span class=p>,</span> <span class=nx>pod</span><span class=p>);</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+		<span class=k>return</span> <span class=nx>reconcile</span><span class=p>.</span><span class=nx>Result</span><span class=p>{},</span> <span class=nx>errors</span><span class=p>.</span><span class=nf>Wrap</span><span class=p>(</span><span class=nx>err</span><span class=p>,</span> <span class=s>&#34;failed to create Pod&#34;</span><span class=p>)</span>
+	<span class=p>}</span>
+
+	<span class=c1>// Create the Service for the Orange instance
+</span><span class=c1></span>	<span class=nx>service</span> <span class=o>:=</span> <span class=o>&amp;</span><span class=nx>corev1</span><span class=p>.</span><span class=nx>Service</span><span class=p>{</span>
+		<span class=nx>ObjectMeta</span><span class=p>:</span> <span class=nx>metav1</span><span class=p>.</span><span class=nx>ObjectMeta</span><span class=p>{</span>
+			<span class=nx>Name</span><span class=p>:</span>      <span class=nx>orange</span><span class=p>.</span><span class=nx>Name</span> <span class=o>+</span> <span class=s>&#34;-service&#34;</span><span class=p>,</span>
+			<span class=nx>Namespace</span><span class=p>:</span> <span class=nx>orange</span><span class=p>.</span><span class=nx>Namespace</span><span class=p>,</span>
+			<span class=nx>Labels</span><span class=p>:</span> <span class=kd>map</span><span class=p>[</span><span class=kt>string</span><span class=p>]</span><span class=kt>string</span><span class=p>{</span>
+				<span class=s>&#34;app&#34;</span><span class=p>:</span> <span class=nx>orange</span><span class=p>.</span><span class=nx>Name</span><span class=p>,</span>
+			<span class=p>},</span>
+		<span class=p>},</span>
+		<span class=nx>Spec</span><span class=p>:</span> <span class=nx>corev1</span><span class=p>.</span><span class=nx>ServiceSpec</span><span class=p>{</span>
+			<span class=nx>Selector</span><span class=p>:</span> <span class=kd>map</span><span class=p>[</span><span class=kt>string</span><span class=p>]</span><span class=kt>string</span><span class=p>{</span>
+				<span class=s>&#34;app&#34;</span><span class=p>:</span> <span class=nx>orange</span><span class=p>.</span><span class=nx>Name</span><span class=p>,</span>
+			<span class=p>},</span>
+			<span class=nx>Ports</span><span class=p>:</span> <span class=p>[]</span><span class=nx>corev1</span><span class=p>.</span><span class=nx>ServicePort</span><span class=p>{</span><span class=o>...</span><span class=p>},</span>
+			<span class=nx>Type</span><span class=p>:</span> <span class=nx>corev1</span><span class=p>.</span><span class=nx>ServiceTypeClusterIP</span><span class=p>,</span>
+		<span class=p>},</span>
+	<span class=p>}</span>
+	<span class=k>if</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>sdk</span><span class=p>.</span><span class=nf>Create</span><span class=p>(</span><span class=nx>ctx</span><span class=p>,</span> <span class=nx>service</span><span class=p>);</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+		<span class=c1>// Error creating the Service
+</span><span class=c1></span>		<span class=k>return</span> <span class=nx>reconcile</span><span class=p>.</span><span class=nx>Result</span><span class=p>{},</span> <span class=nx>errors</span><span class=p>.</span><span class=nf>Wrap</span><span class=p>(</span><span class=nx>err</span><span class=p>,</span> <span class=s>&#34;failed to create Service&#34;</span><span class=p>)</span>
+	<span class=p>}</span>
+	<span class=k>return</span> <span class=nx>reconcile</span><span class=p>.</span><span class=nx>Result</span><span class=p>{},</span> <span class=kc>nil</span>
+<span class=p>}</span>
+</code></pre></div><p>이처럼 내부에 구현된 Reconcile Loop Code (특정 CR이 수정되는 이벤트를 관찰하고, 이벤트에 맞춰 코드를 실행하는 루프) 는 일종의 Orange <em><strong>Controller</strong></em> 라고도 부를 수 있다. (또는 이 코드가 실행되는 pod 도 controller 라고 볼 수 있다)</p>
+<p>하지만 이렇게 Orange CR 을 <em>관리</em>하는 application 자체를 가리킬 때, 또는 이렇게 관리하는 전체 패턴을 Orange CR 의 <em><strong>Operator</strong></em> 라고 부를 수 있다. 바꿔 말해서, 실재하는 K8s 리소스인 Service 와 Pod 을 만드는 역할은 Controller 에서 이뤄지지만, Orange CR 의 명세를 관리하는 전체 과정은 Operator 라고 부를 수 있다.</p>
 <br>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
 <ins class=adsbygoogle style=display:block data-ad-format=fluid data-ad-layout-key=-fx-q+4w-88+2u data-ad-client=ca-pub-0712823212859607 data-ad-slot=1092971030></ins>
 <script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
 <br>
-<h3 id=정리하면>정리하면</h3>
-<p>나에게 Controller 는 기술적인 개념이고, Operator 는 좀 더 포괄적이면서 논리적인 개념으로 받아들여진다. <a class=link href=https://blog.marcnuri.com/kubernetes-operator-vs-controller target=_blank rel=noopener>문서</a>에서도 &lsquo;모든 Operator 는 CR 을 관리하기 위해 쓰이는 Controller 라고 부를 수 있다.&rsquo; 라고 하고 있으니까 말이다.</p>
-<p>그리고 Controller 나 Operator 모두 어떤 프레임워크일 뿐이지, 언어에 국한된 것은 아니라고 언급한다. Go 언어와 Python 으로 모두 구현해 본 경험이 있는 나 역시, 이 부분에 동의한다.</p>
-<p>다만 용어를 선택하거나 접할 때 좀 더 이해를 확실히 할 목적으로 정리하는게 더욱 낫지 않을까 하는 마음에, 이 비교글을 마친다.</p>
+<h1 id=정리하면>정리하면</h1>
+<p>개인적으로 Controller 는 기술적인 개념이고, Operator 는 좀 더 포괄적이면서 논리적인 개념으로 받아들여진다. <a class=link href=https://blog.marcnuri.com/kubernetes-operator-vs-controller target=_blank rel=noopener>문서</a>에서도 &lsquo;<em>모든 Operator 는 CR 을 관리하기 위해 쓰이는 Controller 라고 부를 수 있다.</em>&rsquo; 라고 하고 있으니까 말이다.</p>
+<p>그리고 Controller 나 Operator 모두 어떤 프레임워크일 뿐이지, 프로그래밍 언어에 국한된 것은 아니라고 언급한다. 나 역시 Go 언어와 Python 으로 모두 구현해 봤기 때문이다. 다만 용어를 사용할 때 좀 더 확실히 이해하고 쓴다면 헷갈릴 여지가 없기를 바란다.</p>
 </section>
 <footer class=article-footer>
 <br>
@@ -128,7 +197,7 @@ TECH 🛠️
 <ins class=adsbygoogle style=display:block;height:300px;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-0712823212859607 data-ad-slot=7880266545></ins>
 <script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
 <section class=article-tags>
-<a href=/tags/k8s/>k8s</a>
+<a href=/tags/k8s/>Kubernetes</a>
 <a href=/tags/controller/>controller</a>
 <a href=/tags/operator/>operator</a>
 </section>
@@ -138,6 +207,23 @@ TECH 🛠️
 <h2 class=section-title>관련 글</h2>
 <div class=related-content>
 <div class="flex article-list--tile">
+<article>
+<a href=/k8s-headless-service-why/>
+<div class=article-details>
+<h2 class=article-title>K8s Headless Service, 왜 필요한가</h2>
+</div>
+</a>
+</article>
+<article class=has-image>
+<a href=/cka-exam-review/>
+<div class=article-image>
+<img src=/images/featured/cka-exam.jpg loading=lazy data-key data-hash=/images/featured/cka-exam.jpg>
+</div>
+<div class=article-details>
+<h2 class=article-title>CKA 시험 후기</h2>
+</div>
+</a>
+</article>
 <article class=has-image>
 <a href=/vscode-vim-mac-key-pressing-input/>
 <div class=article-image>
@@ -145,26 +231,6 @@ TECH 🛠️
 </div>
 <div class=article-details>
 <h2 class=article-title>VSCode Vim 에서 키를 눌러 계속 입력하게 만들기</h2>
-</div>
-</a>
-</article>
-<article class=has-image>
-<a href=/apple-silicon-mac-tensorflow-install/>
-<div class=article-image>
-<img src=/apple-silicon-mac-tensorflow-install/feature.b3f8182a8ac81370c25c75e6decd7d88_huf0548c6f5090259b22a2de3fd3dc97e4_9743739_250x150_fill_box_smart1_3.png width=250 height=150 loading=lazy alt="Featured image of post Apple Silicon Mac 에 Tensorflow 설치" data-hash="md5-s/gYKorIE3DCXHXm3s19iA==">
-</div>
-<div class=article-details>
-<h2 class=article-title>Apple Silicon Mac 에 Tensorflow 설치</h2>
-</div>
-</a>
-</article>
-<article class=has-image>
-<a href=/vscode-vim-undo-redo-key-repeat/>
-<div class=article-image>
-<img src=/vscode-vim-undo-redo-key-repeat/feature.fef7ff0c74d450bc93f200d746485e22_hu2a6902b8fda31323fd4b9c35c58d46fc_343150_250x150_fill_box_smart1_3.png width=250 height=150 loading=lazy alt="Featured image of post VSCode Vim Undo/Redo 키 반복 입력이 안 될 때" data-hash="md5-/vf/DHTUULyT8gDXRkheIg==">
-</div>
-<div class=article-details>
-<h2 class=article-title>VSCode Vim Undo/Redo 키 반복 입력이 안 될 때</h2>
 </div>
 </a>
 </article>
@@ -236,11 +302,10 @@ TECH 🛠️
 <div class=widget--toc>
 <nav id=TableOfContents>
 <ul>
-<li>
-<ul>
-<li></li>
-</ul>
-</li>
+<li><a href=#controller>Controller</a></li>
+<li><a href=#operator>Operator</a></li>
+<li><a href=#operator-vs-controller>Operator vs. Controller</a></li>
+<li><a href=#정리하면>정리하면</a></li>
 </ul>
 </nav>
 </div>
