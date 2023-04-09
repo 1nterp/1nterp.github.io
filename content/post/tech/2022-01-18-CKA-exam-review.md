@@ -7,7 +7,7 @@ aliases:
 - /entry/cka-exam-review/
 tags:
 - CKA
-- kubernetes
+- K8s
 - exam
 categories:
 - Tech
