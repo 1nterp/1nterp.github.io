@@ -7,10 +7,10 @@ url: /mac-eclipse-key-binding-home-end
 categories:
 - Tech
 tags:
-- eclipse
-- mac
+- Eclipse
+- Mac
+- Dbeaver
 - 단축키
-- dbeaver
 ---
 
 아이폰, 아이패드, 애플워치까지 갖고 있지만 macbook 을 본격적으로 써 본지 만 1년도 안 된다. 그래서 윈도우에서 즐겨 쓰던 Home/End 가 Mac 에서는 Cmd 키와 화살표로만 이뤄지는 걸 극복하는데 너무 힘들었다. 물론 적응하면 되겠지만, 습관이란 게 무서운 거라고. 

@@ -8,6 +8,7 @@ categories:
 - Tech
 image: feature.png
 tags:
+- Mac
 - Silicon
 - Macbook M1 Pro
 - Tensorflow
