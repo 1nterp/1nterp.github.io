@@ -1,4 +1,37 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>TECH 🛠️ on InterP Blog</title><link>https://interp.blog/categories/tech/</link><description>Recent content in TECH 🛠️ on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Mon, 03 Apr 2023 16:17:59 +0900</lastBuildDate><atom:link href="https://interp.blog/categories/tech/index.xml" rel="self" type="application/rss+xml"/><item><title>VSCode Vim 에서 키를 눌러 계속 입력하게 만들기</title><link>https://interp.blog/vscode-vim-mac-key-pressing-input/</link><pubDate>Mon, 03 Apr 2023 16:17:59 +0900</pubDate><guid>https://interp.blog/vscode-vim-mac-key-pressing-input/</guid><description>&lt;img src="https://interp.blog/vscode-vim-mac-key-pressing-input/feature.png" alt="Featured image of post VSCode Vim 에서 키를 눌러 계속 입력하게 만들기" />&lt;h1 id="문제">문제&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>TECH 🛠️ on InterP Blog</title><link>https://interp.blog/categories/tech/</link><description>Recent content in TECH 🛠️ on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Tue, 18 Apr 2023 14:04:01 +0900</lastBuildDate><atom:link href="https://interp.blog/categories/tech/index.xml" rel="self" type="application/rss+xml"/><item><title>Mac 디스플레이 해상도 조절 팁</title><link>https://interp.blog/mac-display-resolution-adjustment/</link><pubDate>Tue, 18 Apr 2023 14:04:01 +0900</pubDate><guid>https://interp.blog/mac-display-resolution-adjustment/</guid><description>&lt;img src="https://interp.blog/mac-display-resolution-adjustment/feature.png" alt="Featured image of post Mac 디스플레이 해상도 조절 팁" />&lt;p>내 Macbook M1 Pro 에는 두 개의 디스플레이가 있다.&lt;/p>
+&lt;ul>
+&lt;li>DELL U3818DW&lt;/li>
+&lt;li>BenQ EX2780Q&lt;/li>
+&lt;/ul>
+&lt;figure>
+&lt;img loading="lazy" src="monitor.png" width="50%"/>
+&lt;/figure>
+&lt;p>델 38인치 와이드 모니터는 주사율이 60Hz 밖에 지원되지 않지만, 벤큐의 27인치 모니터는 게이밍 답게 144Hz 까지 지원한다. &lt;del>나름 들어줄 만한 스피커도 있어서 서브로 잘 쓰는 중이다&lt;/del>&lt;/p>
+&lt;h1 id="증상">증상&lt;/h1>
+&lt;p>그런데 이 &amp;lsquo;디스플레이&amp;rsquo; 옵션에서는 HiDPI 설정만 하면 주사율이 50Hz 까지만 올릴 수 있다. HiDPI 를 끄면 144Hz 까지 선택할 수 있는데 말이다.&lt;/p>
+&lt;p>내가 원하는 것은, 자글거리는 폰트를 두고 고주사율로 쓰는 게 아니라, HiDPI 이면서 144Hz 로 쓰고 싶었다. 좋은 방법이 없을까?&lt;/p>
+&lt;figure>
+&lt;img loading="lazy" src="problem.png" width="50%"/>
+&lt;/figure>
+&lt;h1 id="해결-1-better-display-설치">해결 (1) Better Display 설치&lt;/h1>
+&lt;p>&lt;a class="link" href="https://github.com/waydabber/BetterDisplay" target="_blank" rel="noopener"
+>Better Display&lt;/a> 를 설치할 수 있다. 기본적으로 무료이고, 특정 기능을 사용하려면 구입해야 하지만 여기서는 무료 기능만 있어도 충분하다.&lt;/p>
+&lt;p>설치하고 실행하면, 아래와 같이 해상도, 주사율 설정이 가능하다. HiDPI 설정하고도 주사율을 144Hz 까지 올릴 수 있다!&lt;/p>
+&lt;figure>
+&lt;img loading="lazy" src="betterdisplay-option.png" width="70%"/>
+&lt;/figure>
+&lt;p>참고할 점은, 아까 디스플레이 설정에서 HiDPI 를 선택하면 자동으로 주사율 50Hz 가 선택될텐데, 이 상태에서 Better Display 를 실행시키면 해상도가 모두 보이지 않는다. 이 때는 &lt;strong>주사율을 먼저 50Hz 보다 높은 값으로 변경&lt;/strong>하면 된다. 그러면 해상도 옵션이 늘어난다.&lt;/p>
+&lt;h1 id="해결-2-더욱-세밀한-hidpi-해상도-설정">해결 (2) 더욱 세밀한 HiDPI 해상도 설정&lt;/h1>
+&lt;p>여기서 문제는, Better Display 를 해도 HiDPI 해상도 옵션이 몇개 없다는 사실이다. 나는 조금 더 큰 폰트 크기를 원했기 때문에, 두 개의 옵션 사이에 있는 중간 정도의 HiDPI 해상도를 원했다. 그렇다면 어떻게 해야 할까.&lt;/p>
+&lt;figure>
+&lt;img loading="lazy" src="all-resolution.png" width="50%"/>
+&lt;/figure>
+&lt;ol>
+&lt;li>먼저 &amp;lsquo;디스플레이&amp;rsquo; 옵션에서 모니터를 선택한 뒤, &amp;lsquo;&lt;em>모든 해상도 보기&lt;/em>&amp;rsquo; 를 클릭한다.&lt;/li>
+&lt;li>원하는 HiDPI 해상도를 선택한다. (나는 두 가지 옵션의 사이에 있는 1920x1080 을 선택했다)&lt;/li>
+&lt;li>Better Display 에 가서, &lt;em>아무것도 건드리지 말고&lt;/em> &lt;strong>주사율 (Refresh rate)&lt;/strong> 만 144Hz 로 올린다.&lt;/li>
+&lt;/ol>
+&lt;p>그러면 원하는 해상도로 고주사율의 디스플레이를 사용할 수 있다!&lt;/p></description></item><item><title>VSCode Vim 에서 키를 눌러 계속 입력하게 만들기</title><link>https://interp.blog/vscode-vim-mac-key-pressing-input/</link><pubDate>Mon, 03 Apr 2023 16:17:59 +0900</pubDate><guid>https://interp.blog/vscode-vim-mac-key-pressing-input/</guid><description>&lt;img src="https://interp.blog/vscode-vim-mac-key-pressing-input/feature.png" alt="Featured image of post VSCode Vim 에서 키를 눌러 계속 입력하게 만들기" />&lt;h1 id="문제">문제&lt;/h1>
 &lt;p>Visual Studio Code 에서 Vim Plugin 을 쓰던 중, 입력한 것을 되돌리기 위해 &lt;code>u&lt;/code> 를 꾹 눌렀다.&lt;/p>
 &lt;p>그러면 아래와 같이 &lt;strong>u&lt;/strong> 라는 알파벳에 어떤 변형을 가할 것인지 묻는다. 한/영만 필요한 나에게는 필요없는 기능인데..&lt;/p>
 &lt;figure>
