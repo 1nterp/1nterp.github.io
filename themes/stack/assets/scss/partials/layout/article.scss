@@ -281,6 +281,7 @@
         padding: 2px 4px;
         border-radius: var(--tag-border-radius);
         font-family: var(--code-font-family);
+        white-space: pre-wrap;
 
         @include respond(md) {
             font-size: 1.5rem;
