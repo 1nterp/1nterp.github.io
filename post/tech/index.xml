@@ -1,4 +1,46 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tech 🛠️ on InterP Blog</title><link>https://interp.blog/post/tech/</link><description>Recent content in Tech 🛠️ on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Tue, 18 Apr 2023 14:04:01 +0900</lastBuildDate><atom:link href="https://interp.blog/post/tech/index.xml" rel="self" type="application/rss+xml"/><item><title>Mac 디스플레이 해상도 조절 팁</title><link>https://interp.blog/mac-display-resolution-adjustment/</link><pubDate>Tue, 18 Apr 2023 14:04:01 +0900</pubDate><guid>https://interp.blog/mac-display-resolution-adjustment/</guid><description>&lt;img src="https://interp.blog/mac-display-resolution-adjustment/feature.png" alt="Featured image of post Mac 디스플레이 해상도 조절 팁" />&lt;p>내 Macbook M1 Pro 에는 두 개의 디스플레이가 있다.&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tech 🛠️ on InterP Blog</title><link>https://interp.blog/post/tech/</link><description>Recent content in Tech 🛠️ on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Wed, 19 Apr 2023 11:39:11 +0900</lastBuildDate><atom:link href="https://interp.blog/post/tech/index.xml" rel="self" type="application/rss+xml"/><item><title>Pyenv 로 Python 설치 할 때 Openssl 문제</title><link>https://interp.blog/pyenv-openssl-problem/</link><pubDate>Wed, 19 Apr 2023 11:39:11 +0900</pubDate><guid>https://interp.blog/pyenv-openssl-problem/</guid><description>&lt;h1 id="문제">문제&lt;/h1>
+&lt;p>&lt;a class="link" href="https://github.com/pyenv/pyenv" target="_blank" rel="noopener"
+>pyenv&lt;/a> 를 이용해 Python 3.7 버전 이상 (내 경우는 3.9 버전 이상) 설치할 때 다음의 에러를 만났다. (하다 보니 둘 다 만났다)&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">ERROR: The Python ssl extension was not compiled. Missing the OpenSSL lib?
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">*** WARNING: renaming &amp;#34;_hashlib&amp;#34; since importing it failed: /usr/lib64/libcrypto.so.1.1: version `OPENSSL_1_1_1&amp;#39; not found (required by /tmp/python-build.20230418192124.103279/Python-3.10.11/build/lib.linux-x86_64-3.10/_hashlib.cpython-310-x86_64-linux-gnu.so)
+&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="추적">추적&lt;/h1>
+&lt;p>결론은 OpenSSL 1.1.1 을 설치해야 한다는데, 내 경우엔 이 방법이 전부 힘들었다.&lt;/p>
+&lt;ul>
+&lt;li>1.1.1 을 패키지 매니저로 설치할 수 없는 Linux OS 였고&lt;/li>
+&lt;li>Homebrew 로 설치하면 무슨 이유에선지 엄청나게 꼬였다 (&lt;code>ld&lt;/code> 링크할 때 엉뚱한 곳을 본다던가..)&lt;/li>
+&lt;/ul>
+&lt;p>화면에 바로 안내되는 &lt;a class="link" href="https://github.com/pyenv/pyenv/wiki/Common-build-problems#error-the-python-ssl-extension-was-not-compiled-missing-the-openssl-lib" target="_blank" rel="noopener"
+>URL&lt;/a> 를 살펴보면, openssl 을 수동으로 설치하는 방법이 아래에 안내되어 있다. 가장 확실한 방법이다.&lt;/p>
+&lt;h1 id="해결">해결&lt;/h1>
+&lt;ol>
+&lt;li>&lt;a class="link" href="https://help.dreamhost.com/hc/en-us/articles/360001435926-Installing-OpenSSL-locally-under-your-username" target="_blank" rel="noopener"
+>Installing OpenSSL locally under your username&lt;/a> 으로 접속&lt;/li>
+&lt;li>&lt;strong>Installing OpenSSL&lt;/strong> 을 하나씩 따라하기 (매우 친절하다!)
+&lt;ul>
+&lt;li>&lt;code>username&lt;/code> 부분을 바꾸는 걸 잊지 말자.&lt;/li>
+&lt;li>이 때, &lt;code>make test&lt;/code> 가 실패할 수 있다. 그럴 땐 아쉽더라도 &lt;code>make install&lt;/code> 이후 과정을 진행한다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>다음을 입력한다.&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="nv">CPPFLAGS&lt;/span>&lt;span class="o">=&lt;/span>-I&lt;span class="nv">$HOME&lt;/span>/openssl/include &lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span>&lt;span class="nv">LDFLAGS&lt;/span>&lt;span class="o">=&lt;/span>-L&lt;span class="nv">$HOME&lt;/span>/openssl/lib &lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span>&lt;span class="nv">SSH&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nv">$HOME&lt;/span>/openssl
+pyenv install -v 3.7.2 &lt;span class="c1"># 원하는 버전을 입력&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="ssl-에러">SSL 에러?&lt;/h2>
+&lt;p>간혹, 다음 에러를 마주하게 될 수 있다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">pyenv install -v 3.9.15
+/tmp/python-build.20230419102453.2507312 ~
+Downloading Python-3.9.15.tar.xz...
+-&amp;gt; https://www.python.org/ftp/python/3.9.15/Python-3.9.15.tar.xz
+curl: (60) SSL certificate problem: unable to get local issuer certificate
+More details here: https://curl.haxx.se/docs/sslcerts.html
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>이럴 땐, 아까 OpenSSL 설치하면서 진행했던 환경변수 설정 부분에서 다음을 주석처리한다. 다시 설치를 시도하면 성공!&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback"># export PATH=$HOME/openssl/bin:$PATH
+# export LD_LIBRARY_PATH=$HOME/openssl/lib
+# export LC_ALL=&amp;#34;en_US.UTF-8&amp;#34;
+export LDFLAGS=&amp;#34;-L /home/username/openssl/lib -Wl,-rpath,/home/username/openssl/lib&amp;#34;
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Mac 디스플레이 해상도 조절 팁</title><link>https://interp.blog/mac-display-resolution-adjustment/</link><pubDate>Tue, 18 Apr 2023 14:04:01 +0900</pubDate><guid>https://interp.blog/mac-display-resolution-adjustment/</guid><description>&lt;img src="https://interp.blog/mac-display-resolution-adjustment/feature.png" alt="Featured image of post Mac 디스플레이 해상도 조절 팁" />&lt;p>내 Macbook M1 Pro 에는 두 개의 디스플레이가 있다.&lt;/p>
 &lt;ul>
 &lt;li>DELL U3818DW&lt;/li>
 &lt;li>BenQ EX2780Q&lt;/li>
