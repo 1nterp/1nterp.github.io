@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Jupyter Notebook on InterP Blog</title><link>https://interp.blog/tags/jupyter-notebook/</link><description>Recent content in Jupyter Notebook on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Mon, 08 May 2023 09:40:22 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/jupyter-notebook/index.xml" rel="self" type="application/rss+xml"/><item><title>Jupyter Notebook on VSCode</title><link>https://interp.blog/jupyter-notebook-vscode/</link><pubDate>Mon, 08 May 2023 09:40:22 +0900</pubDate><guid>https://interp.blog/jupyter-notebook-vscode/</guid><description>&lt;h1 id="jupyter-notebook-이란">Jupyter Notebook 이란&lt;/h1>
+&lt;p>웹 브라우저에서 Python 코드를 작성/실행하는 REPL (Read-Eval-Print Loop) 개발 도구이다. 주로 머신러닝이나 데이터분석 용도로 Python을 사용할 때 쓰이는 도구이다. 코드를 작성하고 곧바로 실행한 결과를 볼 수 있어 간편하며, Notebook 파일로 공유가 가능하다는 특징이 있다.&lt;/p>
+&lt;p>원래는 &lt;a class="link" href="https://www.anaconda.com/download" target="_blank" rel="noopener"
+>&lt;strong>Anaconda&lt;/strong>&lt;/a> 를 활용하면서 Notebook 웹 서비스를 컴퓨터에 띄우는 게 일반적인 사용 방법이다. 하지만, Anaconda 설치나 웹 서비스를 띄우지 않고도 VSCode 에서 곧바로 사용해 볼 수 있는 가장 빠른 방법 역시 정리해 봤다. (물론 &lt;code>conda&lt;/code> 를 쓰지 않는다 뿐이지, 나 또한 가상환경을 따로 설정해서 썼으니 사실상 원리는 똑같다.)&lt;/p>
+&lt;h1 id="visual-studio-code-에서">Visual Studio Code 에서&lt;/h1>
+&lt;h2 id="확장-프로그램-설치">확장 프로그램 설치&lt;/h2>
+&lt;p>&lt;em>View &amp;gt; Extensions&lt;/em> 으로 이동해서 &lt;code>jupyter&lt;/code> 라고 검색하자. Microsoft 에서 공인된 확장 프로그램이 여럿 나오는데, 맨 위에 있는 &lt;a class="link" href="https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter" target="_blank" rel="noopener"
+>&lt;strong>Jupyter&lt;/strong>&lt;/a> 만 설치해도 알아서 설치될 것이다.&lt;/p>
+&lt;p>아래 노란색으로 칠해 둔 것은 실험적인 기능을 위한 확장 프로그램이니, 필요한 경우에만 설치하도록 하자.&lt;/p>
+&lt;p>한 가지 더, &lt;code>Python&lt;/code> 확장 프로그램도 설치되었는지 확인하자.&lt;/p>
+&lt;figure>
+&lt;img loading="lazy" src="extension.png" width="50%"/>
+&lt;/figure>
+&lt;h2 id="환경-설정-1-python">환경 설정 (1) Python&lt;/h2>
+&lt;p>Anaconda 없이 쓸 경우, Python 이나 Virtualenv 와 이미 친숙한 경우라면 이 방법이 좀 더 수월할 수 있다. Python 설치가 안 되어 있다면 &lt;a class="link" href="https://www.python.org/downloads/" target="_blank" rel="noopener"
+>설치하면 되는데&lt;/a>, Python 버전은 3.8 이상이면 된다. (ipykernel 때문)&lt;/p>
+&lt;p>여기에 프로젝트 디렉터리를 만들고, 거기에만 사용할 가상 환경을 꾸리려면 virtualenv 를 사용하자.&lt;/p>
+&lt;p>현재 디렉터리가 프로젝트 디렉터리라고 가정하고, 다음을 실행하자. (Windows 의 경우엔 cmd, powershell 에 따라 활성화 방법이 조금 다르다.)&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">python -m pip install virtualenv
+python -m virtualenv venv
+&lt;span class="nb">source&lt;/span> venv/bin/activate
+pip install jupyter ipykernel
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="환경-설정-2-anaconda">환경 설정 (2) Anaconda&lt;/h2>
+&lt;p>파이썬 설치나 가상환경 만드는 것 자체가 귀찮거나, 파이썬과 친숙하지 않은 경우, 윈도우에서 한 방에 Jupyter Notebook 을 실행하고자 하는 경우라면 Anaconda 가 더 좋을 수 있다. 사용자가 필요없는 패키지도 설치하기 때문에 용량이 크고 시간이 오래 걸린다는 점은 단점이겠지만 말이다.&lt;/p>
+&lt;p>&lt;a class="link" href="https://www.anaconda.com/download" target="_blank" rel="noopener"
+>다운로드 사이트&lt;/a>에서 운영체제에 맞는 설치 파일을 내려받아 실행한 뒤, 설치가 끝나면 준비가 완료된 것이다.&lt;/p>
+&lt;p>여기서 가상환경을 만들고 싶다면 다음과 같이 한다. 이렇게 하면, 프로젝트 디렉터리 내부에 &lt;code>venv&lt;/code> 따위를 만들지 않아도 되는 편리함은 있다. 대신, 이 때 나오는 &lt;code>environment location&lt;/code> 을 잘 기억해 두자.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">conda create -n jupyter_env
+conda activate jupyter_env
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="실제-사용">실제 사용&lt;/h2>
+&lt;p>다른 예제에서는 ipykernel 을 설치하거나 웹 서비스를 띄워서 브라우저에서 접속한 뒤에 개발을 시작하는데 그럴 필요가 없다.&lt;/p>
+&lt;ol>
+&lt;li>프로젝트 디렉터리를 만든다. (virtualenv 를 사용한 경우라면 작업해 둔 디렉터리가 이미 있어야 한다)&lt;/li>
+&lt;li>VSCode 로 해당 디렉터리를 오픈한다. (File -&amp;gt; Open Folder..) 여기서 작업할 것이다.&lt;/li>
+&lt;li>Command Palette (&lt;code>Ctrl+Shift+P&lt;/code> 또는 &lt;code>Cmd+Shift+P&lt;/code>) 를 열어 &lt;strong>Create: New Jupyter Notebook&lt;/strong> 을 선택한다.&lt;/li>
+&lt;li>Notebook 파일이 하나 생성되었다. (아직 저장은 안 됨) 이 노트북이 사용할 커널 환경을 지정해야 하는데, 우리가 만든 가상환경 또는 파이썬 실행파일을 지정하기만 하면 알아서 다 해주니까 너무 걱정말자.&lt;/li>
+&lt;li>다시 Command Palette 를 열어, 이번엔 &lt;strong>Notebook: Select Notebook Kernel&lt;/strong> 을 선택한다. 반드시 Notebook 파일이 열린 상태에서 선택해야 하며, 다른 파일에서는 아무런 반응이 없으니 주의.&lt;/li>
+&lt;li>&lt;strong>Select Another Kernel..&lt;/strong> 을 선택.&lt;/li>
+&lt;li>&lt;strong>Python Environments..&lt;/strong> 를 선택.&lt;/li>
+&lt;li>이제 Anaconda 를 했건, Virtualenv 를 사용했건 간에 VSCode 가 인식할 수 있는 모든 Python binary 경로가 나온다. 원하는 경로에 있는 Python 을 선택하고, 만약 없으면 Python binary 의 경로를 직접 입력해 주자.&lt;/li>
+&lt;/ol>
+&lt;p>그러면 VSCode 가 알아서 jupyter 와 ipykernel 을 설치해 준다!&lt;/p>
+&lt;p>Virtualenv 의 경우에는 직접 설치하라고 귀띔해 주긴 했는데, 내 기억엔 저게 필요 없었던 것 같지만 보험 차원에서 설명한 것이니 &lt;del>이해해달라&lt;/del>.&lt;/p>
+&lt;h1 id="결과">결과&lt;/h1>
+&lt;p>나는 Anaconda 로 설치해 둔 게 있어서 환경만 새로 만들어 다음과 같이 바로 돌려봤다. 심지어 Notebook 파일을 저장하지 않았는데도 잘 도는 것을 확인할 수 있다!&lt;/p>
+&lt;figure>
+&lt;img loading="lazy" src="result.png" width="100%"/>
+&lt;/figure>
+&lt;h1 id="응용">응용&lt;/h1>
+&lt;p>만약 다른 튜토리얼처럼 웹 서버를 실행한 경우엔 어떡할까? 아까 눈치챘겠지만 `&lt;strong>Select Another Kernel..&lt;/strong>' 화면에서 &lt;em>Existing Jupyter Server&lt;/em> 를 선택할 수 있다. 거기서 오픈된 웹 서버 URL 을 입력하면 똑같이 VSCode 인터페이스에서 개발이 가능하다!&lt;/p></description></item></channel></rss>
