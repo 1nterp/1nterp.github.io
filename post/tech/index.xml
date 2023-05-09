@@ -1,4 +1,39 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tech 🛠️ on InterP Blog</title><link>https://interp.blog/post/tech/</link><description>Recent content in Tech 🛠️ on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Mon, 08 May 2023 09:40:22 +0900</lastBuildDate><atom:link href="https://interp.blog/post/tech/index.xml" rel="self" type="application/rss+xml"/><item><title>Jupyter Notebook on VSCode</title><link>https://interp.blog/jupyter-notebook-vscode/</link><pubDate>Mon, 08 May 2023 09:40:22 +0900</pubDate><guid>https://interp.blog/jupyter-notebook-vscode/</guid><description>&lt;h1 id="jupyter-notebook-이란">Jupyter Notebook 이란&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tech 🛠️ on InterP Blog</title><link>https://interp.blog/post/tech/</link><description>Recent content in Tech 🛠️ on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Tue, 09 May 2023 13:18:40 +0900</lastBuildDate><atom:link href="https://interp.blog/post/tech/index.xml" rel="self" type="application/rss+xml"/><item><title>자주 쓰는 3가지 파일 검색 터미널 도구</title><link>https://interp.blog/useful-3-terminal-tools/</link><pubDate>Tue, 09 May 2023 13:18:40 +0900</pubDate><guid>https://interp.blog/useful-3-terminal-tools/</guid><description>&lt;p>업무의 절반은 문서 작업, 나머지 절반은 코딩 작업이라고 생각한다. 코딩 작업 중에서도 가장 많이 하는 일은, 바로 &amp;lsquo;찾기&amp;rsquo; 이다. 내용을 찾을 때도 있고, 특정 파일을 찾을 때도 있다. 대부분의 경우엔 경로를 외워두거나 하긴 하는데, 정확히 외우지 않아도 되게끔 도와주는 효율 좋은 도구를 소개한다.&lt;/p>
+&lt;p>물론 아래 도구는 모두 터미널 기준이고, VSCode 나 PyCharm, Atom 같은 IDE 는 개별 가이드를 참고해서 써야 하겠다. 아래 도구들은 모두 homebrew 에서 설치가 가능하므로, &lt;code>brew&lt;/code> 를 이용한 설치 명령을 마지막에 추가해 두었다.&lt;/p>
+&lt;h1 id="ag-the-silver-searcher">ag, the silver searcher&lt;/h1>
+&lt;p>📌 &lt;a class="link" href="https://github.com/ggreer/the_silver_searcher" target="_blank" rel="noopener"
+>Github&lt;/a>&lt;/p>
+&lt;p>&lt;code>grep&lt;/code> 을 대신할 친구다. 나느 &lt;code>grep . -rn&lt;/code> 을 밥먹듯이 하는데, ag 를 사용하면 더욱 빠르게 찾을 수 있다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">brew install the_silver_searcher
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">ag &amp;lt;pattern&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="fzf-command-line-fuzzy-finder">fzf, command-line fuzzy finder&lt;/h1>
+&lt;p>📌 &lt;a class="link" href="https://github.com/junegunn/fzf" target="_blank" rel="noopener"
+>Github&lt;/a>&lt;/p>
+&lt;p>단독으로 입력하면 File 을 검색한다. 파이프라인에 태우면 앞선 출력에서 검색한다. 이게 마치 &amp;lsquo;검색어 입력&amp;rsquo; 처럼 키워드를 공백으로 띄워가며 입력해도 알아서 잘 찾아주고, 정규 표현식도 잘 먹는다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">brew install fzf
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="c1"># solo&lt;/span>
+fzf
+&lt;span class="c1"># or after a pipeline&lt;/span>
+cat file_list.dat &lt;span class="p">|&lt;/span> fzf
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>oh-my-zsh 에 fzf plugin 을 활성화하면, 단축키로 파일 검색 (&lt;code>Ctrl+T&lt;/code>) 이나 히스토리 검색 (&lt;code>Ctrl+R&lt;/code>) 이 가능하다.&lt;/p>
+&lt;h2 id="plugin-문제해결">plugin 문제해결&lt;/h2>
+&lt;p>참고로 homebrew 로 설치한 뒤 oh-my-zsh plugin 활성화를 한 다음, zsh 를 다시 실행시키면 다음 에러가 뜰 수 있다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">[&lt;/span>oh-my-zsh&lt;span class="o">]&lt;/span> fzf plugin: Cannot find fzf installation directory.
+Please add &lt;span class="sb">`&lt;/span>&lt;span class="nb">export&lt;/span> &lt;span class="nv">FZF_BASE&lt;/span>&lt;span class="o">=&lt;/span>/path/to/fzf/install/dir&lt;span class="sb">`&lt;/span> to your .zshrc
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>이 때는 homebrew 의 PATH 설정이 plugin 활성화 시점 이후일 가능성이 높다. 내 경우엔 &lt;code>$HOME/.zshrc&lt;/code> 에서 아래 라인을 &lt;code>plugin=(..)&lt;/code> 위에 두면 해결이 되었다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="c1"># in your $HOME/.zshrc&lt;/span>
+&lt;span class="nb">export&lt;/span> &lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>/opt/homebrew/bin:&lt;span class="nv">$PATH&lt;/span>
+&lt;span class="nb">eval&lt;/span> &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="k">$(&lt;/span>/opt/homebrew/bin/brew shellenv&lt;span class="k">)&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;span class="c1"># ...&lt;/span>
+plugin&lt;span class="o">(&lt;/span>fzf ...&lt;span class="o">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="fd-simple-and-fast-alternative-to-find">fd, simple and fast alternative to find&lt;/h1>
+&lt;p>📌 &lt;a class="link" href="https://github.com/sharkdp/fd" target="_blank" rel="noopener"
+>Github&lt;/a>&lt;/p>
+&lt;p>&lt;code>find&lt;/code> 을 대신할 친구다. 파일 찾기가 더 빠르다고 한다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">brew install fd
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>fzf&lt;/code> 역시 파일 검색을 할 수 있지만, 내부에서는 &lt;code>find&lt;/code> 결과를 얻어 처리하는 수준이다. 따라서, &lt;code>fzf&lt;/code> 가 &lt;code>fd&lt;/code> 를 사용하게 만드려면 다음의 환경변수가 추가로 필요하다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="nb">export&lt;/span> &lt;span class="nv">FZF_DEFAULT_COMMAND&lt;/span>&lt;span class="o">=&lt;/span>’fd — &lt;span class="nb">type&lt;/span> f’
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Jupyter Notebook on VSCode</title><link>https://interp.blog/jupyter-notebook-vscode/</link><pubDate>Mon, 08 May 2023 09:40:22 +0900</pubDate><guid>https://interp.blog/jupyter-notebook-vscode/</guid><description>&lt;h1 id="jupyter-notebook-이란">Jupyter Notebook 이란&lt;/h1>
 &lt;p>웹 브라우저에서 Python 코드를 작성/실행하는 REPL (Read-Eval-Print Loop) 개발 도구이다. 주로 머신러닝이나 데이터분석 용도로 Python을 사용할 때 쓰이는 도구이다. 코드를 작성하고 곧바로 실행한 결과를 볼 수 있어 간편하며, Notebook 파일로 공유가 가능하다는 특징이 있다.&lt;/p>
 &lt;p>원래는 &lt;a class="link" href="https://www.anaconda.com/download" target="_blank" rel="noopener"
 >&lt;strong>Anaconda&lt;/strong>&lt;/a> 를 활용하면서 Notebook 웹 서비스를 컴퓨터에 띄우는 게 일반적인 사용 방법이다. 하지만, Anaconda 설치나 웹 서비스를 띄우지 않고도 VSCode 에서 곧바로 사용해 볼 수 있는 가장 빠른 방법 역시 정리해 봤다. (물론 &lt;code>conda&lt;/code> 를 쓰지 않는다 뿐이지, 나 또한 가상환경을 따로 설정해서 썼으니 사실상 원리는 똑같다.)&lt;/p>
