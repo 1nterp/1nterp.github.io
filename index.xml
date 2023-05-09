@@ -34,7 +34,7 @@ plugin&lt;span class="o">(&lt;/span>fzf ...&lt;span class="o">)&lt;/span>
 >정창권&lt;/a> 님이시다. (감사합니다!)&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">brew install fd
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>fzf&lt;/code> 역시 파일 검색을 할 수 있지만, 내부에서는 &lt;code>find&lt;/code> 결과를 얻어 처리하는 수준이다. 따라서, &lt;code>fzf&lt;/code> 가 &lt;code>fd&lt;/code> 를 사용하게 만드려면 다음의 환경변수가 추가로 필요하다.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="nb">export&lt;/span> &lt;span class="nv">FZF_DEFAULT_COMMAND&lt;/span>&lt;span class="o">=&lt;/span>’fd — &lt;span class="nb">type&lt;/span> f’
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="nb">export&lt;/span> &lt;span class="nv">FZF_DEFAULT_COMMAND&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;fd — type f&amp;#39;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Jupyter Notebook on VSCode</title><link>https://interp.blog/jupyter-notebook-vscode/</link><pubDate>Mon, 08 May 2023 09:40:22 +0900</pubDate><guid>https://interp.blog/jupyter-notebook-vscode/</guid><description>&lt;h1 id="jupyter-notebook-이란">Jupyter Notebook 이란&lt;/h1>
 &lt;p>웹 브라우저에서 Python 코드를 작성/실행하는 REPL (Read-Eval-Print Loop) 개발 도구이다. 주로 머신러닝이나 데이터분석 용도로 Python을 사용할 때 쓰이는 도구이다. 코드를 작성하고 곧바로 실행한 결과를 볼 수 있어 간편하며, Notebook 파일로 공유가 가능하다는 특징이 있다.&lt;/p>
 &lt;p>원래는 &lt;a class="link" href="https://www.anaconda.com/download" target="_blank" rel="noopener"

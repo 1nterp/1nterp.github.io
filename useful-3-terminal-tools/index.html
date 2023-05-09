@@ -131,7 +131,7 @@ plugin<span class=o>(</span>fzf ...<span class=o>)</span>
 <p><code>find</code> 을 대신할 친구다. 파일 찾기가 더 빠르다고 한다. 참고로 <a class=link href=https://github.com/spearkkk/fd-kor target=_blank rel=noopener>README</a> 에 한국어가 지원되는데, 아니나 다를까 Main Contributor 가 한국 분이신 <a class=link href=https://spearkkk.dev/ target=_blank rel=noopener>정창권</a> 님이시다. (감사합니다!)</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>brew install fd
 </code></pre></div><p><code>fzf</code> 역시 파일 검색을 할 수 있지만, 내부에서는 <code>find</code> 결과를 얻어 처리하는 수준이다. 따라서, <code>fzf</code> 가 <code>fd</code> 를 사용하게 만드려면 다음의 환경변수가 추가로 필요하다.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=nb>export</span> <span class=nv>FZF_DEFAULT_COMMAND</span><span class=o>=</span>’fd — <span class=nb>type</span> f’
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=nb>export</span> <span class=nv>FZF_DEFAULT_COMMAND</span><span class=o>=</span><span class=s1>&#39;fd — type f&#39;</span>
 </code></pre></div>
 </section>
 <footer class=article-footer>
