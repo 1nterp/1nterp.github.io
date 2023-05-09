@@ -61,7 +61,7 @@ plugin(fzf ...)
 # fd, simple and fast alternative to find
 :pushpin: [Github](https://github.com/sharkdp/fd)
 
-`find` 을 대신할 친구다. 파일 찾기가 더 빠르다고 한다.
+`find` 을 대신할 친구다. 파일 찾기가 더 빠르다고 한다. 참고로 [README](https://github.com/spearkkk/fd-kor) 에 한국어가 지원되는데, 아니나 다를까 Main Contributor 가 한국 분이신 [정창권](https://spearkkk.dev/) 님이시다. (감사합니다!)
 ```bash
 brew install fd
 ```
