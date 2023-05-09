@@ -68,5 +68,5 @@ brew install fd
 
 `fzf` 역시 파일 검색을 할 수 있지만, 내부에서는 `find` 결과를 얻어 처리하는 수준이다. 따라서, `fzf` 가 `fd` 를 사용하게 만드려면 다음의 환경변수가 추가로 필요하다.
 ```bash
-export FZF_DEFAULT_COMMAND=’fd — type f’
+export FZF_DEFAULT_COMMAND='fd — type f'
 ```
