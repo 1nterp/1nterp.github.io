@@ -29,7 +29,9 @@ plugin&lt;span class="o">(&lt;/span>fzf ...&lt;span class="o">)&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="fd-simple-and-fast-alternative-to-find">fd, simple and fast alternative to find&lt;/h1>
 &lt;p>📌 &lt;a class="link" href="https://github.com/sharkdp/fd" target="_blank" rel="noopener"
 >Github&lt;/a>&lt;/p>
-&lt;p>&lt;code>find&lt;/code> 을 대신할 친구다. 파일 찾기가 더 빠르다고 한다.&lt;/p>
+&lt;p>&lt;code>find&lt;/code> 을 대신할 친구다. 파일 찾기가 더 빠르다고 한다. 참고로 &lt;a class="link" href="https://github.com/spearkkk/fd-kor" target="_blank" rel="noopener"
+>README&lt;/a> 에 한국어가 지원되는데, 아니나 다를까 Main Contributor 가 한국 분이신 &lt;a class="link" href="https://spearkkk.dev/" target="_blank" rel="noopener"
+>정창권&lt;/a> 님이시다. (감사합니다!)&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">brew install fd
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>fzf&lt;/code> 역시 파일 검색을 할 수 있지만, 내부에서는 &lt;code>find&lt;/code> 결과를 얻어 처리하는 수준이다. 따라서, &lt;code>fzf&lt;/code> 가 &lt;code>fd&lt;/code> 를 사용하게 만드려면 다음의 환경변수가 추가로 필요하다.&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="nb">export&lt;/span> &lt;span class="nv">FZF_DEFAULT_COMMAND&lt;/span>&lt;span class="o">=&lt;/span>’fd — &lt;span class="nb">type&lt;/span> f’
