@@ -1,7 +1,7 @@
 baseurl: https://interp.blog/
 languageCode: ko-kr
-theme: stack
-paginate: 6
+theme: puppet
+paginate: 7
 title: InterP Blog
 
 enableRobotsTXT: true
@@ -32,6 +32,8 @@ DefaultContentLanguage: ko
 # Set hasCJKLanguage to true if DefaultContentLanguage is in [zh-cn ja ko]
 # This will make .Summary and .WordCount behave correctly for CJK languages.
 hasCJKLanguage: true
+enableInlineShortcodes: true
+enableEmoji: true
 
 permalinks:
     post: /:slug/
