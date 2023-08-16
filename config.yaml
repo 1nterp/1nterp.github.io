@@ -35,11 +35,25 @@ hasCJKLanguage: true
 enableInlineShortcodes: true
 enableEmoji: true
 
+taxonomies:
+  category: "categories"
+  tag: "tags"
+  series: "series"
+
 permalinks:
     post: /:slug/
     page: /:slug/
 
+outputs:
+  home:
+  - "HTML"
+  - "JSON"
+  - "RSS"
+
 params:
+    # featured tag count (by puppet)
+    featuredTagCount: 6
+
     mainSections:
       - post
     featuredImageField: image
@@ -190,6 +204,3 @@ markup:
         lineNoStart: 1
         lineNos: false
         lineNumbersInTable: false
-        tabWidth: 4
-
-enableEmoji: true
