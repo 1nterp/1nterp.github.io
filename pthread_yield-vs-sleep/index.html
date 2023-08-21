@@ -3,7 +3,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="pthread_yield() 와 sleep() 의 차이를 묻는 Stack Overflow 글 의 답을 발췌한다. pthread_yield() 는, 호출한 쓰레드가 프로세서 사용을 그만두고, 스케쥴링이 될 때 까지 작업 큐(run queue)에서 기다립니"><title>pthread_yield vs. sleep</title>
 <style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500&display=swap'</style>
 <link rel=canonical href=https://interp.blog/pthread_yield-vs-sleep/>
-<link rel=stylesheet href=/scss/style.min.fa72b50e095064ea19ea873be58b2005ff09b71fdac012c917260e1cde2467d6.css><meta property="title" content="pthread_yield vs. sleep">
+<link rel=stylesheet href=/scss/style.min.0255fac7bbf896fe96822df4328fd1148cb1d396a547992ad765750e88e1128d.css><meta property="title" content="pthread_yield vs. sleep">
 <meta property="description" content="pthread_yield() 와 sleep() 의 차이를 묻는 Stack Overflow 글 의 답을 발췌한다. pthread_yield() 는, 호출한 쓰레드가 프로세서 사용을 그만두고, 스케쥴링이 될 때 까지 작업 큐(run queue)에서 기다립니">
 <meta property="og:title" content="pthread_yield vs. sleep">
 <meta property="og:description" content="pthread_yield() 와 sleep() 의 차이를 묻는 Stack Overflow 글 의 답을 발췌한다. pthread_yield() 는, 호출한 쓰레드가 프로세서 사용을 그만두고, 스케쥴링이 될 때 까지 작업 큐(run queue)에서 기다립니">
@@ -91,10 +91,6 @@ TECH 🛠️
 </footer>
 </div>
 </header>
-<br>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
-<ins class=adsbygoogle style=display:block;height:300px data-ad-client=ca-pub-0712823212859607 data-ad-slot=7246571541 data-ad-format=auto data-full-width-responsive=true></ins>
-<script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br>
 <section class=article-content>
 <p><code>pthread_yield()</code> 와 <code>sleep()</code> 의 차이를 묻는 <a class=link href=https://stackoverflow.com/questions/936993/pthread-what-is-the-difference-between-time-hsleep-and-pthread-hpthread target=_blank rel=noopener>Stack Overflow 글</a> 의 답을 발췌한다.</p>
 <blockquote>
