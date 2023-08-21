@@ -1,0 +1,5 @@
+<img loading="lazy" src="{{ .Get "src" }}"
+    {{- with .Get "float" }} style="float: {{ . }}; margin: 0 3rem 2rem;"{{ end -}}
+    {{- with .Get "width" }} width="{{ . }}"{{ end -}}
+    {{- with .Get "height" }} height="{{ . }}"{{ end -}}
+/> 

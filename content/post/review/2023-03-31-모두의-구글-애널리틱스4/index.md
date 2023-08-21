@@ -8,6 +8,7 @@ categories:
 - Review
 image: feature.jpeg
 image_y: "15%"
+# image_show: false
 tags: 
 - 책
 - IT
