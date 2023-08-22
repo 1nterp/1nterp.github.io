@@ -96,6 +96,7 @@ params:
         page:
             - type: search
             - type: toc
+            - type: adsense
 
     opengraph:
         twitter:
