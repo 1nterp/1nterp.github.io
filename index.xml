@@ -1,4 +1,90 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>InterP Blog</title><link>https://interp.blog/</link><description>Recent content on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Mon, 28 Aug 2023 11:41:01 +0900</lastBuildDate><atom:link href="https://interp.blog/index.xml" rel="self" type="application/rss+xml"/><item><title>내 현대/기아차에 호환되는 부품 검색하기</title><link>https://interp.blog/car-parts-search-hyundai-kia/</link><pubDate>Mon, 28 Aug 2023 11:41:01 +0900</pubDate><guid>https://interp.blog/car-parts-search-hyundai-kia/</guid><description>&lt;p>&lt;img src="https://interp.blog/car-parts-search-hyundai-kia/image-6.png"
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>InterP Blog</title><link>https://interp.blog/</link><description>Recent content on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Tue, 17 Oct 2023 21:23:43 +0900</lastBuildDate><atom:link href="https://interp.blog/index.xml" rel="self" type="application/rss+xml"/><item><title>Git merge vs. rebase</title><link>https://interp.blog/git-merge-rebase/</link><pubDate>Tue, 17 Oct 2023 21:23:43 +0900</pubDate><guid>https://interp.blog/git-merge-rebase/</guid><description>&lt;p>Git 에서 브랜치 (Branch) 를 합치는 방법은 &lt;em>merge&lt;/em> 와 &lt;em>rebase&lt;/em> 가 있다. 보통은 작업 브랜치를 Pull Request 로 등록할 때, 메인이 되는 &lt;code>main&lt;/code> 브랜치 (혹은 &lt;code>master&lt;/code>) 와 작업 브랜치 사이에 충돌 (conflict) 이 발생하는 경우에 사용하게 된다.&lt;/p>
+&lt;p>그런데, 주변 개발자들은 &lt;em>merge&lt;/em> 만 해도 충분하다고 생각하는 것 같다. 나는 &lt;em>rebase&lt;/em> 를 해서 깔끔하게 만든 다음에 Pull Request 를 만드는 것을 선호한다. 물론 내 고집만 피울 필요는 전혀 없는 것이, 사실 &lt;em>merge&lt;/em> 로 충돌을 제거하면 상관없기 때문이다.&lt;/p>
+&lt;p>그러니 우선은 내가 먼저 알아봐야 하겠다. 어느 것이 더 나은지, 언제 &lt;em>merge&lt;/em> 를 쓰고 언제 &lt;em>rebase&lt;/em> 를 써야 할지 먼저 알아보도록 하자.&lt;/p>
+&lt;br/>
+&lt;script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607"
+crossorigin="anonymous">&lt;/script>
+&lt;ins class="adsbygoogle"
+style="display:block"
+data-ad-format="fluid"
+data-ad-layout-key="-fx-q+4w-88+2u"
+data-ad-client="ca-pub-0712823212859607"
+data-ad-slot="1092971030">&lt;/ins>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br/>
+&lt;h1 id="git-merge">git merge&lt;/h1>
+&lt;p>좀 더 쉬운 방법이다. 작업 브랜치 &lt;code>feature&lt;/code> 에서 &lt;code>main&lt;/code> 브랜치 내용을 합치려면 다음과 같이 하면 된다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">git checkout feature
+git merge main
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>이러면 커밋 트리 (commit tree) 가 어떻게 생기는지 혹시 본 적이 있는가? &lt;code>git log&lt;/code> 만 하게 되면 commit 들이 나열되어 있지만, &lt;code>git log --graph&lt;/code> 로 보게 되면 &lt;strong>커밋 트리가 한 줄이 아니라 두 줄&lt;/strong>이 생긴 것을 확인할 수 있다. (Github Desktop 이나 다른 도구를 사용해서도 확인할 수 있다.)&lt;/p>
+&lt;figure class="align-center ">
+&lt;img loading="lazy" src="merge.svg#center"
+alt="출처: Atlassian Git Tutorial" width="80%"/> &lt;figcaption>
+&lt;p>출처: Atlassian Git Tutorial&lt;/p>
+&lt;/figcaption>
+&lt;/figure>
+&lt;p>이 그림을 잘 보자. 현재 브랜치인 &lt;code>feature&lt;/code> 의 헤드 커밋 (HEAD commit) 이 별표로 표시되어 있는데, 사실 merge 작업을 한다고 새로운 수정내역이 있는 것이 아닌데도 &lt;strong>새로운&lt;/strong> 커밋이 하나 더 생긴 것을 확인할 수 있다. 바로 &lt;code>main&lt;/code> 브랜치의 새로운 커밋을 연결하는 &amp;lsquo;&lt;em>머지 커밋 (merge commit)&lt;/em>&amp;rsquo; 이다.&lt;/p>
+&lt;p>나는 이 의미없는 (?) 커밋이 마음에 들지 않았다. 왜냐하면 그래프로 보지 않는 이상, 머지 커밋이 어떤 브랜치의 커밋들을 물고 왔는지 파악하기가 힘들다.&lt;/p>
+&lt;p>작업 브랜치와 메인 브랜치만 있다면 괜찮은데, 작업 브랜치가 낳은 또 다른 작업 브랜치가 있는 경우에는 여러 개의 머지 커밋이 중첩될 수 있다. 이럴 땐 커밋 트리가 두 줄이 아니라 세줄 이상도 우습게 생겨난다. 어떤 커밋이 이 아래에서 머지되었는지 파악하기가 점점 어려워진다.&lt;/p>
+&lt;figure class="align-center ">
+&lt;img loading="lazy" src="complex_graph.png#center"
+alt="어.. 음.. 그냥 지저분해요" width="70%"/> &lt;figcaption>
+&lt;p>어.. 음.. 그냥 지저분해요&lt;/p>
+&lt;/figcaption>
+&lt;/figure>
+&lt;br/>
+&lt;script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607"
+crossorigin="anonymous">&lt;/script>
+&lt;ins class="adsbygoogle"
+style="display:block"
+data-ad-client="ca-pub-0712823212859607"
+data-ad-slot="6929871144"
+data-ad-format="auto"
+data-full-width-responsive="true">&lt;/ins>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br/>
+&lt;h1 id="git-rebase">git rebase&lt;/h1>
+&lt;p>반면, &lt;em>rebase&lt;/em> 는 작업 브랜치의 내용을 메인 브랜치 &amp;lsquo;위에 (onto)&amp;rsquo; 올려두는 작업을 진행하는 것이다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">git rebase main
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>작업한 커밋들을 고스란히 메인 브랜치 위에 올려두기 때문에, 다음과 같은 커밋 트리가 생긴다.&lt;/p>
+&lt;figure class="align-center ">
+&lt;img loading="lazy" src="rebase.svg#center"
+alt="출처: Atlassian Git Tutorial" width="80%"/> &lt;figcaption>
+&lt;p>출처: Atlassian Git Tutorial&lt;/p>
+&lt;/figcaption>
+&lt;/figure>
+&lt;p>아까 그림과 다른 것이, 메인 브랜치 커밋이 따로 놀지 않고 작업 브랜치의 커밋들이 메인 브랜치 위에서 &lt;em>다시 커밋된 모습&lt;/em>을 볼 수 있다. 그래서 모든 작업 커밋들이 (별표 표시로) 수정된 것 처럼 보인다.&lt;/p>
+&lt;p>&lt;strong>머지 커밋? 없다!&lt;/strong> Pull Request 오픈할 때 충돌이 발생할까? 그럴리가! 메인 브랜치에 고스란히 얹기만 하면 되는데 충돌 해결이 필요없다. 물론 이렇게만 이야기하면 당연히 rebase 를 해야겠지만, 현실은 엄청나게 귀찮고 복잡해서 외면받는 경우가 많다.&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://git-scm.com/book/ko/v2/Git-%EB%B8%8C%EB%9E%9C%EC%B9%98-Rebase-%ED%95%98%EA%B8%B0" target="_blank" rel="noopener"
+>git rebase&lt;/a> 매뉴얼이 생각보다 복잡하다. 그냥 merge 하고싶은 생각이 들 정도다.&lt;/li>
+&lt;li>(나처럼) SVN 을 버전 관리 시스템으로 쓴 구세대 개발자들에겐, rebase 라는 개념이 생소해서 잘 안쓰게 된다. 동감한다.&lt;/li>
+&lt;li>충돌 해결만 하면 되는데, 굳이 rebase 를 해야 하냐는 개발자도 물론 존재한다. 이 또한 공감한다.&lt;/li>
+&lt;/ul>
+&lt;p>세 번째 이야기를 좀 더 해보자. rebase 에는 한 가지 귀찮은 점이 있는데, 바로 작업한 커밋 마다 충돌이 일어나면 그걸 하나씩 해결해주고 &amp;lsquo;rebase 진행&amp;rsquo; 을 시켜야 하기 때문이다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">git rebase main
+&lt;span class="c1"># conflict on commit A !! resolving..&lt;/span>
+git rebase --continue
+&lt;span class="c1"># conflict on commit B again !! resolving..&lt;/span>
+git rebase --continue
+&lt;span class="c1"># ...&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>A 와 B 에서의 충돌내용이 같을 경우, (운이 좋으면) 한 번만 해결해도 되지만 현실은 그렇지 않다. 그래서 rebase 를 하다보면 충돌 해결에 시간을 조금 더 많이 쓰게 된다는 점은 분명하다.&lt;/p>
+&lt;h1 id="어떤-걸-써야-할까">어떤 걸 써야 할까&lt;/h1>
+&lt;p>메인 브랜치에서는 rebase 를 하거나, squash 된 commit 만 merge 되도록 해서 커밋 트리를 깔끔하게 유지하자. 작업 브랜치에서 메인 브랜치 내용을 merge 할 때는 사실 어느 것을 써도 무방하지만, 나는 다음 기준으로 사용한다.&lt;/p>
+&lt;ul>
+&lt;li>커밋이 너무 많아서, rebase 하면서 충돌 해결에 시간을 너무 많이 잡아먹을 경우엔 merge 를 사용한다.&lt;br>
+(개인적으로는 merge &amp;ndash;no-commit 으로 작업 내용만 반영받고 충돌을 해결한 뒤 커밋을 따로 하기도 한다)&lt;/li>
+&lt;li>&lt;code>git bisect&lt;/code> 로 디버깅을 해야 하는 경우엔 rebase 를 사용한다. 머지 커밋이 끼게 되면 bisect 하기가 쉽지 않았었다.&lt;/li>
+&lt;/ul>
+&lt;h1 id="참고">참고&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://www.atlassian.com/git/tutorials/merging-vs-rebasing" target="_blank" rel="noopener"
+>https://www.atlassian.com/git/tutorials/merging-vs-rebasing&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>내 현대/기아차에 호환되는 부품 검색하기</title><link>https://interp.blog/car-parts-search-hyundai-kia/</link><pubDate>Mon, 28 Aug 2023 11:41:01 +0900</pubDate><guid>https://interp.blog/car-parts-search-hyundai-kia/</guid><description>&lt;p>&lt;img src="https://interp.blog/car-parts-search-hyundai-kia/image-6.png"
 width="4032"
 height="1219"
 srcset="https://interp.blog/car-parts-search-hyundai-kia/image-6_hu106820a5afde376740abe48360c31a65_978047_800x0_resize_q75_h2_box_3.webp 480w, https://interp.blog/car-parts-search-hyundai-kia/image-6_hu106820a5afde376740abe48360c31a65_978047_1600x0_resize_q75_h2_box_3.webp 1024w"

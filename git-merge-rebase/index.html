@@ -1,0 +1,288 @@
+<!doctype html><html lang=ko-kr dir=ltr>
+<head><meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="무엇이 좋고, 언제 써야 하는가?"><title>Git merge vs. rebase</title>
+<style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500&display=swap'</style>
+<link rel=canonical href=https://interp.blog/git-merge-rebase/>
+<link rel=stylesheet href=/scss/style.min.0255fac7bbf896fe96822df4328fd1148cb1d396a547992ad765750e88e1128d.css><meta property="title" content="Git merge vs. rebase">
+<meta property="description" content="무엇이 좋고, 언제 써야 하는가?">
+<meta property="og:title" content="Git merge vs. rebase">
+<meta property="og:description" content="무엇이 좋고, 언제 써야 하는가?">
+<meta property="og:url" content="https://interp.blog/git-merge-rebase/">
+<meta property="og:site_name" content="InterP Blog">
+<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="git"><meta property="article:tag" content="merge"><meta property="article:tag" content="rebase"><meta property="article:published_time" content="2023-10-17T21:23:43+09:00"><meta property="article:modified_time" content="2023-10-17T21:23:43+09:00">
+<meta name=twitter:site content="@interp_">
+<meta name=twitter:creator content="@interp_"><meta name=twitter:title content="Git merge vs. rebase">
+<meta name=twitter:description content="무엇이 좋고, 언제 써야 하는가?">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KMRJ33V06X"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-KMRJ33V06X')</script>
+<script>(function(b,d,e,a,g){b[a]=b[a]||[],b[a].push({'gtm.start':(new Date).getTime(),event:'gtm.js'});var f=d.getElementsByTagName(e)[0],c=d.createElement(e),h=a!='dataLayer'?'&l='+a:'';c.async=!0,c.src='https://www.googletagmanager.com/gtm.js?id='+g+h,f.parentNode.insertBefore(c,f)})(window,document,'script','dataLayer','GTM-NBPHNHQ')</script>
+</head>
+<body class=article-page>
+<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky">
+<button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 토글">
+<span class=hamburger-box>
+<span class=hamburger-inner></span>
+</span>
+</button>
+<header>
+<div class=site-meta>
+<h1 class=site-name><a href=/>InterP Blog</a></h1>
+<h2 class=site-description>Things I'm interested</h2>
+</div>
+</header><ol class=social-menu>
+<li>
+<a href=https://github.com/1nterp target=_blank title=GitHub><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+</a>
+</li>
+<li>
+<a href=https://linkedin.com/in/interp target=_blank title=LinkedIn><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-linkedin" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><rect x="4" y="4" width="16" height="16" rx="2"/><line x1="8" y1="11" x2="8" y2="16"/><line x1="8" y1="8" x2="8" y2="8.01"/><line x1="12" y1="16" x2="12" y2="11"/><path d="M16 16v-3a2 2 0 00-4 0"/></svg>
+</a>
+</li>
+</ol><ol class=menu id=main-menu>
+<li>
+<a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span>
+</a>
+</li>
+<li>
+<a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span>
+</a>
+</li>
+<li>
+<a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span>
+</a>
+</li>
+<div class=menu-bottom-section>
+<li id=i18n-switch><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5h7"/><path d="M9 3v2c0 4.418-2.239 8-5 8"/><path d="M5 9c-.003 2.144 2.952 3.908 6.7 4"/><path d="M12 20l4-9 4 9"/><path d="M19.1 18h-6.2"/></svg>
+<select name=language onchange="window.location.href=this.selectedOptions[0].value"><option value=https://interp.blog/ selected>한국어</option><option value=https://interp.blog/en/>English</option></select>
+</li>
+<li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>다크 모드</span>
+</li>
+</div>
+</ol>
+</aside>
+<main class="main full-width">
+<article class=main-article>
+<header class=article-header style=display:block>
+<div class=article-details>
+<header class=article-category>
+<a href=/categories/tech/ style=background-color:#1c8193;color:#fff>
+TECH 🛠️
+</a>
+</header>
+<div class=article-title-wrapper>
+<h2 class=article-title>
+<a href=/git-merge-rebase/>Git merge vs. rebase</a>
+</h2>
+<h3 class=article-subtitle>
+무엇이 좋고, 언제 써야 하는가?
+</h3>
+</div>
+<footer class=article-time>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>2023-10-17</time>
+</div>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>
+3 분 소요
+</time>
+</div>
+</footer>
+</div>
+</header>
+<section class=article-content>
+<p>Git 에서 브랜치 (Branch) 를 합치는 방법은 <em>merge</em> 와 <em>rebase</em> 가 있다. 보통은 작업 브랜치를 Pull Request 로 등록할 때, 메인이 되는 <code>main</code> 브랜치 (혹은 <code>master</code>) 와 작업 브랜치 사이에 충돌 (conflict) 이 발생하는 경우에 사용하게 된다.</p>
+<p>그런데, 주변 개발자들은 <em>merge</em> 만 해도 충분하다고 생각하는 것 같다. 나는 <em>rebase</em> 를 해서 깔끔하게 만든 다음에 Pull Request 를 만드는 것을 선호한다. 물론 내 고집만 피울 필요는 전혀 없는 것이, 사실 <em>merge</em> 로 충돌을 제거하면 상관없기 때문이다.</p>
+<p>그러니 우선은 내가 먼저 알아봐야 하겠다. 어느 것이 더 나은지, 언제 <em>merge</em> 를 쓰고 언제 <em>rebase</em> 를 써야 할지 먼저 알아보도록 하자.</p>
+<br>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
+<ins class=adsbygoogle style=display:block data-ad-format=fluid data-ad-layout-key=-fx-q+4w-88+2u data-ad-client=ca-pub-0712823212859607 data-ad-slot=1092971030></ins>
+<script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
+<br>
+<h1 id=git-merge>git merge</h1>
+<p>좀 더 쉬운 방법이다. 작업 브랜치 <code>feature</code> 에서 <code>main</code> 브랜치 내용을 합치려면 다음과 같이 하면 된다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>git checkout feature
+git merge main
+</code></pre></div><p>이러면 커밋 트리 (commit tree) 가 어떻게 생기는지 혹시 본 적이 있는가? <code>git log</code> 만 하게 되면 commit 들이 나열되어 있지만, <code>git log --graph</code> 로 보게 되면 <strong>커밋 트리가 한 줄이 아니라 두 줄</strong>이 생긴 것을 확인할 수 있다. (Github Desktop 이나 다른 도구를 사용해서도 확인할 수 있다.)</p>
+<figure class=align-center>
+<img loading=lazy src=merge.svg#center alt="출처: Atlassian Git Tutorial" width=80%> <figcaption>
+<p>출처: Atlassian Git Tutorial</p>
+</figcaption>
+</figure>
+<p>이 그림을 잘 보자. 현재 브랜치인 <code>feature</code> 의 헤드 커밋 (HEAD commit) 이 별표로 표시되어 있는데, 사실 merge 작업을 한다고 새로운 수정내역이 있는 것이 아닌데도 <strong>새로운</strong> 커밋이 하나 더 생긴 것을 확인할 수 있다. 바로 <code>main</code> 브랜치의 새로운 커밋을 연결하는 &lsquo;<em>머지 커밋 (merge commit)</em>&rsquo; 이다.</p>
+<p>나는 이 의미없는 (?) 커밋이 마음에 들지 않았다. 왜냐하면 그래프로 보지 않는 이상, 머지 커밋이 어떤 브랜치의 커밋들을 물고 왔는지 파악하기가 힘들다.</p>
+<p>작업 브랜치와 메인 브랜치만 있다면 괜찮은데, 작업 브랜치가 낳은 또 다른 작업 브랜치가 있는 경우에는 여러 개의 머지 커밋이 중첩될 수 있다. 이럴 땐 커밋 트리가 두 줄이 아니라 세줄 이상도 우습게 생겨난다. 어떤 커밋이 이 아래에서 머지되었는지 파악하기가 점점 어려워진다.</p>
+<figure class=align-center>
+<img loading=lazy src=complex_graph.png#center alt="어.. 음.. 그냥 지저분해요" width=70%> <figcaption>
+<p>어.. 음.. 그냥 지저분해요</p>
+</figcaption>
+</figure>
+<br>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
+<ins class=adsbygoogle style=display:block data-ad-client=ca-pub-0712823212859607 data-ad-slot=6929871144 data-ad-format=auto data-full-width-responsive=true></ins>
+<script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
+<br>
+<h1 id=git-rebase>git rebase</h1>
+<p>반면, <em>rebase</em> 는 작업 브랜치의 내용을 메인 브랜치 &lsquo;위에 (onto)&rsquo; 올려두는 작업을 진행하는 것이다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>git rebase main
+</code></pre></div><p>작업한 커밋들을 고스란히 메인 브랜치 위에 올려두기 때문에, 다음과 같은 커밋 트리가 생긴다.</p>
+<figure class=align-center>
+<img loading=lazy src=rebase.svg#center alt="출처: Atlassian Git Tutorial" width=80%> <figcaption>
+<p>출처: Atlassian Git Tutorial</p>
+</figcaption>
+</figure>
+<p>아까 그림과 다른 것이, 메인 브랜치 커밋이 따로 놀지 않고 작업 브랜치의 커밋들이 메인 브랜치 위에서 <em>다시 커밋된 모습</em>을 볼 수 있다. 그래서 모든 작업 커밋들이 (별표 표시로) 수정된 것 처럼 보인다.</p>
+<p><strong>머지 커밋? 없다!</strong> Pull Request 오픈할 때 충돌이 발생할까? 그럴리가! 메인 브랜치에 고스란히 얹기만 하면 되는데 충돌 해결이 필요없다. 물론 이렇게만 이야기하면 당연히 rebase 를 해야겠지만, 현실은 엄청나게 귀찮고 복잡해서 외면받는 경우가 많다.</p>
+<ul>
+<li><a class=link href=https://git-scm.com/book/ko/v2/Git-%EB%B8%8C%EB%9E%9C%EC%B9%98-Rebase-%ED%95%98%EA%B8%B0 target=_blank rel=noopener>git rebase</a> 매뉴얼이 생각보다 복잡하다. 그냥 merge 하고싶은 생각이 들 정도다.</li>
+<li>(나처럼) SVN 을 버전 관리 시스템으로 쓴 구세대 개발자들에겐, rebase 라는 개념이 생소해서 잘 안쓰게 된다. 동감한다.</li>
+<li>충돌 해결만 하면 되는데, 굳이 rebase 를 해야 하냐는 개발자도 물론 존재한다. 이 또한 공감한다.</li>
+</ul>
+<p>세 번째 이야기를 좀 더 해보자. rebase 에는 한 가지 귀찮은 점이 있는데, 바로 작업한 커밋 마다 충돌이 일어나면 그걸 하나씩 해결해주고 &lsquo;rebase 진행&rsquo; 을 시켜야 하기 때문이다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>git rebase main
+<span class=c1># conflict on commit A !! resolving..</span>
+git rebase --continue
+<span class=c1># conflict on commit B again !! resolving..</span>
+git rebase --continue
+<span class=c1># ...</span>
+</code></pre></div><p>A 와 B 에서의 충돌내용이 같을 경우, (운이 좋으면) 한 번만 해결해도 되지만 현실은 그렇지 않다. 그래서 rebase 를 하다보면 충돌 해결에 시간을 조금 더 많이 쓰게 된다는 점은 분명하다.</p>
+<h1 id=어떤-걸-써야-할까>어떤 걸 써야 할까</h1>
+<p>메인 브랜치에서는 rebase 를 하거나, squash 된 commit 만 merge 되도록 해서 커밋 트리를 깔끔하게 유지하자. 작업 브랜치에서 메인 브랜치 내용을 merge 할 때는 사실 어느 것을 써도 무방하지만, 나는 다음 기준으로 사용한다.</p>
+<ul>
+<li>커밋이 너무 많아서, rebase 하면서 충돌 해결에 시간을 너무 많이 잡아먹을 경우엔 merge 를 사용한다.<br>
+(개인적으로는 merge &ndash;no-commit 으로 작업 내용만 반영받고 충돌을 해결한 뒤 커밋을 따로 하기도 한다)</li>
+<li><code>git bisect</code> 로 디버깅을 해야 하는 경우엔 rebase 를 사용한다. 머지 커밋이 끼게 되면 bisect 하기가 쉽지 않았었다.</li>
+</ul>
+<h1 id=참고>참고</h1>
+<ul>
+<li><a class=link href=https://www.atlassian.com/git/tutorials/merging-vs-rebasing target=_blank rel=noopener>https://www.atlassian.com/git/tutorials/merging-vs-rebasing</a></li>
+</ul>
+</section>
+<footer class=article-footer>
+<br>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
+<ins class=adsbygoogle style=display:block;height:300px;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-0712823212859607 data-ad-slot=7880266545></ins>
+<script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
+<section class=article-tags>
+<a href=/tags/git/>git</a>
+<a href=/tags/merge/>merge</a>
+<a href=/tags/rebase/>rebase</a>
+</section>
+</footer>
+</article>
+<aside class=related-content--wrapper>
+<h2 class=section-title>관련 글</h2>
+<div class=related-content>
+<div class="flex article-list--tile">
+<article>
+<a href=/useful-3-terminal-tools/>
+<div class=article-details>
+<h2 class=article-title>자주 쓰는 3가지 파일 검색 터미널 도구</h2>
+</div>
+</a>
+</article>
+<article>
+<a href=/jupyter-notebook-vscode/>
+<div class=article-details>
+<h2 class=article-title>Jupyter Notebook on VSCode</h2>
+</div>
+</a>
+</article>
+<article>
+<a href=/pyenv-openssl-problem/>
+<div class=article-details>
+<h2 class=article-title>Pyenv 로 Python 설치 할 때 Openssl 문제</h2>
+</div>
+</a>
+</article>
+</div>
+</div>
+</aside>
+<script src=https://giscus.app/client.js data-repo=1nterp/1nterp.github.io data-repo-id="MDEwOlJlcG9zaXRvcnkyMzY5NzQ5Mzc=" data-category=General data-category-id=MDE4OkRpc2N1c3Npb25DYXRlZ29yeTMyMjU4Mjgx data-mapping=pathname data-reactions-enabled=1 data-emit-metadata=1 data-theme=light data-lang=en data-loading=lazy crossorigin=anonymous async></script>
+<script>function setGiscusTheme(b){let a=document.querySelector("iframe.giscus-frame");a&&a.contentWindow.postMessage({giscus:{setConfig:{theme:b}}},"https://giscus.app")}(function(){addEventListener("message",b=>{if(event.origin!=="https://giscus.app")return;a()}),window.addEventListener("onColorSchemeChange",a);function a(){document.documentElement.dataset.scheme==="light"?setGiscusTheme('light'):setGiscusTheme('dark_dimmed')}})()</script>
+<footer class=site-footer>
+<section class=copyright>
+&copy;
+2019 -
+2023 InterP Blog
+</section>
+<section class=powerby>
+<a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 기반 / <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.12.0>Stack</a></b> 테마를 사용 중입니다.
+</section>
+</footer>
+<div class=pswp tabindex=-1 role=dialog aria-hidden=true>
+<div class=pswp__bg></div>
+<div class=pswp__scroll-wrap>
+<div class=pswp__container>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+</div>
+<div class="pswp__ui pswp__ui--hidden">
+<div class=pswp__top-bar>
+<div class=pswp__counter></div>
+<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+<div class=pswp__preloader>
+<div class=pswp__preloader__icn>
+<div class=pswp__preloader__cut>
+<div class=pswp__preloader__donut></div>
+</div>
+</div>
+</div>
+</div>
+<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+<div class=pswp__share-tooltip></div>
+</div>
+<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+</button>
+<div class=pswp__caption>
+<div class=pswp__caption__center></div>
+</div>
+</div>
+</div>
+</div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous>
+</main>
+<aside class="sidebar right-sidebar sticky">
+<form action=/search/ class="search-form widget">
+<p>
+<label>검색</label>
+<input name=keyword required placeholder="검색어를 입력하세요...">
+<button title=검색><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+</button>
+</p>
+</form>
+<section class="widget archives">
+<div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg>
+</div>
+<h2 class="widget-title section-title">목차</h2>
+<div class=widget--toc>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#git-merge>git merge</a></li>
+<li><a href=#git-rebase>git rebase</a></li>
+<li><a href=#어떤-걸-써야-할까>어떤 걸 써야 할까</a></li>
+<li><a href=#참고>참고</a></li>
+</ul>
+</nav>
+</div>
+</section>
+<section class="widget adsense">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
+<ins class=adsbygoogle style=display:block data-ad-client=ca-pub-0712823212859607 data-ad-slot=8117949234 data-ad-format=auto data-full-width-responsive=true></ins>
+<script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
+</section>
+</aside>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script>
+<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
+</body>
+</html>
