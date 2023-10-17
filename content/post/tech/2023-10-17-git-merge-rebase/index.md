@@ -6,6 +6,8 @@ date: 2023-10-17 21:23:43 +0900
 url: /git-merge-rebase
 categories:
 - Tech
+image: feature.jpg
+image_y: "30%"
 tags:
 - git
 - merge
