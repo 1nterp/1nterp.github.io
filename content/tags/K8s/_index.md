@@ -1,5 +1,5 @@
 ---
-title: "Kubernetes"
+title: "Kubernetes ⚓"
 description: "쿠버네티스"
 slug: 
  - "Kubernetes"
