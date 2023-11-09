@@ -1,0 +1,264 @@
+<!doctype html><html lang=ko-kr dir=ltr>
+<head><meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="우아한 형제들은 어떻게 배달의 민족을 서비스하는가"><title>요즘 우아한 개발</title>
+<style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500&display=swap'</style>
+<link rel=canonical href=https://interp.blog/woowahan-dev/>
+<link rel=stylesheet href=/scss/style.min.0255fac7bbf896fe96822df4328fd1148cb1d396a547992ad765750e88e1128d.css><meta property="title" content="요즘 우아한 개발">
+<meta property="description" content="우아한 형제들은 어떻게 배달의 민족을 서비스하는가">
+<meta property="og:title" content="요즘 우아한 개발">
+<meta property="og:description" content="우아한 형제들은 어떻게 배달의 민족을 서비스하는가">
+<meta property="og:url" content="https://interp.blog/woowahan-dev/">
+<meta property="og:site_name" content="InterP Blog">
+<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="책"><meta property="article:tag" content="IT"><meta property="article:tag" content="개발자"><meta property="article:published_time" content="2023-11-09T15:23:26+09:00"><meta property="article:modified_time" content="2023-11-09T15:23:26+09:00"><meta property="og:image" content="https://interp.blog/woowahan-dev/feature.png">
+<meta name=twitter:site content="@interp_">
+<meta name=twitter:creator content="@interp_"><meta name=twitter:title content="요즘 우아한 개발">
+<meta name=twitter:description content="우아한 형제들은 어떻게 배달의 민족을 서비스하는가"><meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://interp.blog/woowahan-dev/feature.png">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KMRJ33V06X"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-KMRJ33V06X')</script>
+<script>(function(b,d,e,a,g){b[a]=b[a]||[],b[a].push({'gtm.start':(new Date).getTime(),event:'gtm.js'});var f=d.getElementsByTagName(e)[0],c=d.createElement(e),h=a!='dataLayer'?'&l='+a:'';c.async=!0,c.src='https://www.googletagmanager.com/gtm.js?id='+g+h,f.parentNode.insertBefore(c,f)})(window,document,'script','dataLayer','GTM-NBPHNHQ')</script>
+</head>
+<body class=article-page>
+<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky">
+<button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 토글">
+<span class=hamburger-box>
+<span class=hamburger-inner></span>
+</span>
+</button>
+<header>
+<div class=site-meta>
+<h1 class=site-name><a href=/>InterP Blog</a></h1>
+<h2 class=site-description>Things I'm interested</h2>
+</div>
+</header><ol class=social-menu>
+<li>
+<a href=https://github.com/1nterp target=_blank title=GitHub><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+</a>
+</li>
+<li>
+<a href=https://linkedin.com/in/interp target=_blank title=LinkedIn><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-linkedin" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><rect x="4" y="4" width="16" height="16" rx="2"/><line x1="8" y1="11" x2="8" y2="16"/><line x1="8" y1="8" x2="8" y2="8.01"/><line x1="12" y1="16" x2="12" y2="11"/><path d="M16 16v-3a2 2 0 00-4 0"/></svg>
+</a>
+</li>
+</ol><ol class=menu id=main-menu>
+<li>
+<a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span>
+</a>
+</li>
+<li>
+<a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span>
+</a>
+</li>
+<li>
+<a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span>
+</a>
+</li>
+<div class=menu-bottom-section>
+<li id=i18n-switch><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5h7"/><path d="M9 3v2c0 4.418-2.239 8-5 8"/><path d="M5 9c-.003 2.144 2.952 3.908 6.7 4"/><path d="M12 20l4-9 4 9"/><path d="M19.1 18h-6.2"/></svg>
+<select name=language onchange="window.location.href=this.selectedOptions[0].value"><option value=https://interp.blog/ selected>한국어</option><option value=https://interp.blog/en/>English</option></select>
+</li>
+<li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>다크 모드</span>
+</li>
+</div>
+</ol>
+</aside>
+<main class="main full-width">
+<article class="has-image main-article">
+<header class=article-header style=display:block>
+<div class=article-image>
+<a href=/woowahan-dev/>
+<img src=/woowahan-dev/feature_hu69e33152be318b706ba0c4fa2a7ef39d_56531_900x0_resize_q75_h2_box_3.webp srcset="/woowahan-dev/feature_hu69e33152be318b706ba0c4fa2a7ef39d_56531_900x0_resize_q75_h2_box_3.webp 800w, /woowahan-dev/feature_hu69e33152be318b706ba0c4fa2a7ef39d_56531_1800x0_resize_q75_h2_box_3.webp 1600w" width=900 height=1286 loading=lazy style="object-position:50% 32%" alt="Featured image of post 요즘 우아한 개발">
+</a>
+</div>
+<div class=article-details>
+<header class=article-category>
+<a href=/categories/review/ style=background-color:#933263;color:#fff>
+REVIEW 🔖
+</a>
+</header>
+<div class=article-title-wrapper>
+<h2 class=article-title>
+<a href=/woowahan-dev/>요즘 우아한 개발</a>
+</h2>
+<h3 class=article-subtitle>
+우아한 형제들은 어떻게 배달의 민족을 서비스하는가
+</h3>
+</div>
+<footer class=article-time>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>2023-11-09</time>
+</div>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>
+3 분 소요
+</time>
+</div>
+</footer>
+</div>
+</header>
+<section class=article-content>
+<p>배달의민족 개발사인 우아한형제들의 <a class=link href=https://techblog.woowahan.com/ target=_blank rel=noopener>기술 블로그</a> 에서 주제별로 발췌한, 일종의 모음집이다. 그러고 보니, 크고 유명한 대한민국 IT 기업들을 &lsquo;<em>네카라쿠배</em>&rsquo; 라고들 부르던데, 사실은 &lsquo;<em>네카라쿠<strong>우</strong></em>&rsquo; 가 되어야하나. <del><a class=link href=https://www.qoo.jp/ target=_blank rel=noopener>쿠우~?</a></del></p>
+<img loading=lazy src=feature.png style="float:right;margin:0 0 1rem 1.5rem" width=35%>
+<h1 id=회사-홍보물-개발자-일지>회사 홍보물? 개발자 일지!</h1>
+<p>성격이 성격이니만큼 회사 홍보 책자인지 심히 의심스러울 만하다. 읽다보면 자연스럽게 &lsquo;이 회사에 들어가면 이런 온보딩 과정이 있구나&rsquo;, &lsquo;이 회사는 이렇게 일하는구나&rsquo;, &lsquo;이 회사는 이렇게 생각하고 저렇게 논의하는구나&rsquo;, &lsquo;이 회사는&mldr;&rsquo; 으로 시작하기 때문이다.</p>
+<ul>
+<li>어떤 기술 스택을 쓰는지</li>
+<li>어떤 온보딩 프로세스가 있는지</li>
+<li>코드 리뷰 문화는 어떤지</li>
+<li>기술 부채는 어떻게 다루는지</li>
+<li>과연 페어 프로그래밍을 주로 하는지</li>
+<li>&mldr;</li>
+</ul>
+<p>그러나 이 책이 주는 의미는, 이런 내용이 비단 &lsquo;우아한형제들&rsquo; 에서만 일어나는 것은 아니기 때문이다. 아니 어쩌면, 이 글들이 다른 회사에서 하는 것과 겹치고 진부한 내용일 수도 있다.</p>
+<p>하지만 개발자들 스스로 글로 풀어낸 진정성이 담겨 있는 점은 분명하다. 그 진심이 닿는다면, 팔짱을 끼고 &lsquo;<em>그래 너네 회사 좋은데 뭐?</em>&rsquo; 같은 고까운 시선으로 읽을 수만은 없을 것이다. <strong>때로는 공감하면서, 때로는 &lsquo;우아한&rsquo; 작은 차이에 감탄하면서 읽었으니까.</strong></p>
+<p>우아한형제들 기술블로그는 최적의 방법을 찾았노라고 으스대지 않는다. 거기까지 간 험난한 여정을 토로한다. 그저 다른 회사의 이야기일수도 있지만, 그보다는 같은 개발자로서 고충을 나눌 수 있는 장, 그곳이 기술블로그일 것이다.</p>
+<h1 id=사내-명언>사내 명언</h1>
+<blockquote>
+<p>&lsquo;만드는 사람이 수고로우면 쓰는 사람이 편하고, 만드는 사람이 편하면 쓰는 사람이 수고롭다.&rsquo;</p>
+</blockquote>
+<p>사내에 붙어있는 말이라고 한다. 하지만 비단 우아한형제들 안에서만 적용되는 말은 것은 아닐 것이다. 고객에게 제공할 서비스를 만들 최적의 설계와 운영을 찾기 위해서 가장 먼저 필요한 것이 있다면, 더 나은 방법이 있는지 찾는 <strong>열정</strong>과 무수한 테스트와 반복 작업에도 굴하지 않는 <strong>끈기</strong>일 것이기 때문이다.</p>
+<h1 id=기억에-남는-구절>기억에 남는 구절</h1>
+<blockquote>
+<p>절차는 절차일 뿐, 대단한 무언가가 아닙니다. 항상 스스로 물어봐야 합니다. 우리가 절차를 이용하는지, 우리가 그 절차에 그냥 속해 있는지 말이죠.</p>
+</blockquote>
+<p>스프린트 회고 때 한다는 <em>KPT (keep, problem, try)</em> 소개글 말미에 나온 말인데, 읽고 나서 많은 생각이 들었다. 본래는 절차와 상관없이 항상 신경써야 한다는 것이겠지만, 어쩐지 무임승차적인 의미가 내포되어 있는 것 처럼 느껴졌다. 절차를 따르는 것은 그 자체로 의미가 생기지 않으며, 절차를 따르면서도 항상 의문을 가지고 있어야 한다는 것이겠다.</p>
+<hr>
+<p>기술 블로그를 운영하는 DR (Developer Relation) 팀이 말한 &lsquo;개발자 교류&rsquo; 가 단순 회사 차원의 활동이 아닌, 모든 개발자를 위한 사회공헌 활동일수도 있겠다는 <del>다소 오버스러운</del> 생각도 들었다. 이 책도 연장선상에 있다고 생각한다. (나도 블로그를 열심히 해야겠다.)</p>
+<p>백엔드/프론트엔드, 신입/경력 가리지 않고 현업에 있는 개발자라면 즐거이 읽을 수 있을 것이다. 아직 개발자가 아닌데 회사 분위기를 느끼고 싶다면 읽어볼 만 하지만, 기술적인 내용이 많이 나와서 이해하기 어려울 수도 있다는 점은 참고하자.</p>
+</section>
+<footer class=article-footer>
+<br>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
+<ins class=adsbygoogle style=display:block;height:300px;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-0712823212859607 data-ad-slot=7880266545></ins>
+<script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
+<section class=article-tags>
+<a href=/tags/%EC%B1%85/>책 📚</a>
+<a href=/tags/it/>IT</a>
+<a href=/tags/%EA%B0%9C%EB%B0%9C%EC%9E%90/>개발자</a>
+</section>
+</footer>
+</article>
+<aside class=related-content--wrapper>
+<h2 class=section-title>관련 글</h2>
+<div class=related-content>
+<div class="flex article-list--tile">
+<article class=has-image>
+<a href=/everyones-google-analytics-4/>
+<div class=article-image>
+<img src=/everyones-google-analytics-4/feature.65091632e071d79434bb9c8d924ab3d4_huca8ebde88dd41631c3db6bf7fb81938b_217389_250x150_fill_q75_box_smart1.jpeg width=250 height=150 loading=lazy alt="Featured image of post 모두의 구글 애널리틱스4 를 읽고" data-hash="md5-ZQkWMuBx15Q0u5yNkkqz1A==">
+</div>
+<div class=article-details>
+<h2 class=article-title>모두의 구글 애널리틱스4 를 읽고</h2>
+</div>
+</a>
+</article>
+<article class=has-image>
+<a href=/staff-engineer/>
+<div class=article-image>
+<img src=/staff-engineer/feature.20a3da64d236b65732f748e9a67ea153_hud1578cd0d46074ece940eaa78f048c19_92846_250x150_fill_q75_box_smart1.jpeg width=250 height=150 loading=lazy alt="Featured image of post 스태프 엔지니어" data-hash="md5-IKPaZNI2tlcy90jppn6hUw==">
+</div>
+<div class=article-details>
+<h2 class=article-title>스태프 엔지니어</h2>
+</div>
+</a>
+</article>
+<article class=has-image>
+<a href=/simple-software/>
+<div class=article-image>
+<img src=/simple-software/book.3b863d343de233533adbbff521813964_hu256dae5f239615f5a9a5f888ebdb8cf5_70504_250x150_fill_q75_box_smart1.jpg width=250 height=150 loading=lazy alt="Featured image of post 심플 소프트웨어" data-hash="md5-O4Y9ND3iM1M627/1IYE5ZA==">
+</div>
+<div class=article-details>
+<h2 class=article-title>심플 소프트웨어</h2>
+</div>
+</a>
+</article>
+</div>
+</div>
+</aside>
+<script src=https://giscus.app/client.js data-repo=1nterp/1nterp.github.io data-repo-id="MDEwOlJlcG9zaXRvcnkyMzY5NzQ5Mzc=" data-category=General data-category-id=MDE4OkRpc2N1c3Npb25DYXRlZ29yeTMyMjU4Mjgx data-mapping=pathname data-reactions-enabled=1 data-emit-metadata=1 data-theme=light data-lang=en data-loading=lazy crossorigin=anonymous async></script>
+<script>function setGiscusTheme(b){let a=document.querySelector("iframe.giscus-frame");a&&a.contentWindow.postMessage({giscus:{setConfig:{theme:b}}},"https://giscus.app")}(function(){addEventListener("message",b=>{if(event.origin!=="https://giscus.app")return;a()}),window.addEventListener("onColorSchemeChange",a);function a(){document.documentElement.dataset.scheme==="light"?setGiscusTheme('light'):setGiscusTheme('dark_dimmed')}})()</script>
+<footer class=site-footer>
+<section class=copyright>
+&copy;
+2019 -
+2023 InterP Blog
+</section>
+<section class=powerby>
+<a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 기반 / <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.12.0>Stack</a></b> 테마를 사용 중입니다.
+</section>
+</footer>
+<div class=pswp tabindex=-1 role=dialog aria-hidden=true>
+<div class=pswp__bg></div>
+<div class=pswp__scroll-wrap>
+<div class=pswp__container>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+</div>
+<div class="pswp__ui pswp__ui--hidden">
+<div class=pswp__top-bar>
+<div class=pswp__counter></div>
+<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+<div class=pswp__preloader>
+<div class=pswp__preloader__icn>
+<div class=pswp__preloader__cut>
+<div class=pswp__preloader__donut></div>
+</div>
+</div>
+</div>
+</div>
+<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+<div class=pswp__share-tooltip></div>
+</div>
+<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+</button>
+<div class=pswp__caption>
+<div class=pswp__caption__center></div>
+</div>
+</div>
+</div>
+</div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous>
+</main>
+<aside class="sidebar right-sidebar sticky">
+<form action=/search/ class="search-form widget">
+<p>
+<label>검색</label>
+<input name=keyword required placeholder="검색어를 입력하세요...">
+<button title=검색><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+</button>
+</p>
+</form>
+<section class="widget archives">
+<div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg>
+</div>
+<h2 class="widget-title section-title">목차</h2>
+<div class=widget--toc>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#회사-홍보물-개발자-일지>회사 홍보물? 개발자 일지!</a></li>
+<li><a href=#사내-명언>사내 명언</a></li>
+<li><a href=#기억에-남는-구절>기억에 남는 구절</a></li>
+</ul>
+</nav>
+</div>
+</section>
+<section class="widget adsense">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
+<ins class=adsbygoogle style=display:block data-ad-client=ca-pub-0712823212859607 data-ad-slot=8117949234 data-ad-format=auto data-full-width-responsive=true></ins>
+<script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
+</section>
+</aside>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script>
+<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
+</body>
+</html>

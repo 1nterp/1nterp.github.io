@@ -1,4 +1,34 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>InterP Blog</title><link>https://interp.blog/</link><description>Recent content on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Mon, 06 Nov 2023 13:41:01 +0900</lastBuildDate><atom:link href="https://interp.blog/index.xml" rel="self" type="application/rss+xml"/><item><title>Argo workflow 3가지 기본 개념</title><link>https://interp.blog/argo-workflow-intro/</link><pubDate>Mon, 06 Nov 2023 13:41:01 +0900</pubDate><guid>https://interp.blog/argo-workflow-intro/</guid><description>&lt;img src="https://interp.blog/argo-workflow-intro/feature.png" alt="Featured image of post Argo workflow 3가지 기본 개념" />&lt;p>&lt;a class="link" href="https://argoproj.github.io/argo-workflows/" target="_blank" rel="noopener"
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>InterP Blog</title><link>https://interp.blog/</link><description>Recent content on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Thu, 09 Nov 2023 15:23:26 +0900</lastBuildDate><atom:link href="https://interp.blog/index.xml" rel="self" type="application/rss+xml"/><item><title>요즘 우아한 개발</title><link>https://interp.blog/woowahan-dev/</link><pubDate>Thu, 09 Nov 2023 15:23:26 +0900</pubDate><guid>https://interp.blog/woowahan-dev/</guid><description>&lt;img src="https://interp.blog/woowahan-dev/feature.png" alt="Featured image of post 요즘 우아한 개발" />&lt;p>배달의민족 개발사인 우아한형제들의 &lt;a class="link" href="https://techblog.woowahan.com/" target="_blank" rel="noopener"
+>기술 블로그&lt;/a> 에서 주제별로 발췌한, 일종의 모음집이다. 그러고 보니, 크고 유명한 대한민국 IT 기업들을 &amp;lsquo;&lt;em>네카라쿠배&lt;/em>&amp;rsquo; 라고들 부르던데, 사실은 &amp;lsquo;&lt;em>네카라쿠&lt;strong>우&lt;/strong>&lt;/em>&amp;rsquo; 가 되어야하나. &lt;del>&lt;a class="link" href="https://www.qoo.jp/" target="_blank" rel="noopener"
+>쿠우~?&lt;/a>&lt;/del>&lt;/p>
+&lt;img loading="lazy" src="feature.png" style="float: right; margin: 0 0 1rem 1.5rem;"
+width="35%"/>
+&lt;h1 id="회사-홍보물-개발자-일지">회사 홍보물? 개발자 일지!&lt;/h1>
+&lt;p>성격이 성격이니만큼 회사 홍보 책자인지 심히 의심스러울 만하다. 읽다보면 자연스럽게 &amp;lsquo;이 회사에 들어가면 이런 온보딩 과정이 있구나&amp;rsquo;, &amp;lsquo;이 회사는 이렇게 일하는구나&amp;rsquo;, &amp;lsquo;이 회사는 이렇게 생각하고 저렇게 논의하는구나&amp;rsquo;, &amp;lsquo;이 회사는&amp;hellip;&amp;rsquo; 으로 시작하기 때문이다.&lt;/p>
+&lt;ul>
+&lt;li>어떤 기술 스택을 쓰는지&lt;/li>
+&lt;li>어떤 온보딩 프로세스가 있는지&lt;/li>
+&lt;li>코드 리뷰 문화는 어떤지&lt;/li>
+&lt;li>기술 부채는 어떻게 다루는지&lt;/li>
+&lt;li>과연 페어 프로그래밍을 주로 하는지&lt;/li>
+&lt;li>&amp;hellip;&lt;/li>
+&lt;/ul>
+&lt;p>그러나 이 책이 주는 의미는, 이런 내용이 비단 &amp;lsquo;우아한형제들&amp;rsquo; 에서만 일어나는 것은 아니기 때문이다. 아니 어쩌면, 이 글들이 다른 회사에서 하는 것과 겹치고 진부한 내용일 수도 있다.&lt;/p>
+&lt;p>하지만 개발자들 스스로 글로 풀어낸 진정성이 담겨 있는 점은 분명하다. 그 진심이 닿는다면, 팔짱을 끼고 &amp;lsquo;&lt;em>그래 너네 회사 좋은데 뭐?&lt;/em>&amp;rsquo; 같은 고까운 시선으로 읽을 수만은 없을 것이다. &lt;strong>때로는 공감하면서, 때로는 &amp;lsquo;우아한&amp;rsquo; 작은 차이에 감탄하면서 읽었으니까.&lt;/strong>&lt;/p>
+&lt;p>우아한형제들 기술블로그는 최적의 방법을 찾았노라고 으스대지 않는다. 거기까지 간 험난한 여정을 토로한다. 그저 다른 회사의 이야기일수도 있지만, 그보다는 같은 개발자로서 고충을 나눌 수 있는 장, 그곳이 기술블로그일 것이다.&lt;/p>
+&lt;h1 id="사내-명언">사내 명언&lt;/h1>
+&lt;blockquote>
+&lt;p>&amp;lsquo;만드는 사람이 수고로우면 쓰는 사람이 편하고, 만드는 사람이 편하면 쓰는 사람이 수고롭다.&amp;rsquo;&lt;/p>
+&lt;/blockquote>
+&lt;p>사내에 붙어있는 말이라고 한다. 하지만 비단 우아한형제들 안에서만 적용되는 말은 것은 아닐 것이다. 고객에게 제공할 서비스를 만들 최적의 설계와 운영을 찾기 위해서 가장 먼저 필요한 것이 있다면, 더 나은 방법이 있는지 찾는 &lt;strong>열정&lt;/strong>과 무수한 테스트와 반복 작업에도 굴하지 않는 &lt;strong>끈기&lt;/strong>일 것이기 때문이다.&lt;/p>
+&lt;h1 id="기억에-남는-구절">기억에 남는 구절&lt;/h1>
+&lt;blockquote>
+&lt;p>절차는 절차일 뿐, 대단한 무언가가 아닙니다. 항상 스스로 물어봐야 합니다. 우리가 절차를 이용하는지, 우리가 그 절차에 그냥 속해 있는지 말이죠.&lt;/p>
+&lt;/blockquote>
+&lt;p>스프린트 회고 때 한다는 &lt;em>KPT (keep, problem, try)&lt;/em> 소개글 말미에 나온 말인데, 읽고 나서 많은 생각이 들었다. 본래는 절차와 상관없이 항상 신경써야 한다는 것이겠지만, 어쩐지 무임승차적인 의미가 내포되어 있는 것 처럼 느껴졌다. 절차를 따르는 것은 그 자체로 의미가 생기지 않으며, 절차를 따르면서도 항상 의문을 가지고 있어야 한다는 것이겠다.&lt;/p>
+&lt;hr>
+&lt;p>기술 블로그를 운영하는 DR (Developer Relation) 팀이 말한 &amp;lsquo;개발자 교류&amp;rsquo; 가 단순 회사 차원의 활동이 아닌, 모든 개발자를 위한 사회공헌 활동일수도 있겠다는 &lt;del>다소 오버스러운&lt;/del> 생각도 들었다. 이 책도 연장선상에 있다고 생각한다. (나도 블로그를 열심히 해야겠다.)&lt;/p>
+&lt;p>백엔드/프론트엔드, 신입/경력 가리지 않고 현업에 있는 개발자라면 즐거이 읽을 수 있을 것이다. 아직 개발자가 아닌데 회사 분위기를 느끼고 싶다면 읽어볼 만 하지만, 기술적인 내용이 많이 나와서 이해하기 어려울 수도 있다는 점은 참고하자.&lt;/p></description></item><item><title>Argo workflow 3가지 기본 개념</title><link>https://interp.blog/argo-workflow-intro/</link><pubDate>Mon, 06 Nov 2023 13:41:01 +0900</pubDate><guid>https://interp.blog/argo-workflow-intro/</guid><description>&lt;img src="https://interp.blog/argo-workflow-intro/feature.png" alt="Featured image of post Argo workflow 3가지 기본 개념" />&lt;p>&lt;a class="link" href="https://argoproj.github.io/argo-workflows/" target="_blank" rel="noopener"
 >Argo workflow&lt;/a> 는, 쿠버네티스 환경에서 Job 을 효율적으로 실행하기 위한 컨테이너 기반의 워크플로우 엔진이다. 그리고 오픈소스이다.&lt;/p>
 &lt;p>K8s 에서 이미 Job 이나 Cronjob 을 지원하지만, 각각의 Job (여기서는 template) 에 대한 상관관계 (dependency) 를 List 나 DAG 로 지정할 수 있고, 관련이 없는 Job들을 병렬로 실행할 수 있는 것은 물론, 실행 결과를 쉽게 추적할 수 있는 등의 다양한 기능을 추가로 지원한다.&lt;/p>
 &lt;p>여기서는 Argo 의 클러스터 설치는 건너뛰고, Argo 를 클러스터에서 사용할 때 갖춰야 할 기본 개념만 간단히 정리해 보았다.&lt;/p>
@@ -210,7 +240,8 @@ class="gallery-image"
 data-flex-grow="246"
 data-flex-basis="591px"
 >&lt;/p>
-&lt;p>&lt;strong>방문 전에 반드시 전화로 재고 여부를 한번 더 확인하는 것이 중요하다.&lt;/strong> 실시간으로 재고 반영이 되질 않아서, 누군가가 먼저 구매해 버렸을 수도 있기 때문이다. 전화를 미리 해 두면, 부품을 빼 두기 때문에 헛걸음할 가능성을 없앨 수 있다.&lt;/p></description></item><item><title>세이노의 가르침을 읽고</title><link>https://interp.blog/learning-from-say-no/</link><pubDate>Mon, 21 Aug 2023 17:27:12 +0900</pubDate><guid>https://interp.blog/learning-from-say-no/</guid><description>&lt;img src="https://interp.blog/learning-from-say-no/feature.jpeg" alt="Featured image of post 세이노의 가르침을 읽고" />&lt;img loading="lazy" src="feature.jpeg" style="float: right; margin: 0 3rem 2rem;" width="35%"/>
+&lt;p>&lt;strong>방문 전에 반드시 전화로 재고 여부를 한번 더 확인하는 것이 중요하다.&lt;/strong> 실시간으로 재고 반영이 되질 않아서, 누군가가 먼저 구매해 버렸을 수도 있기 때문이다. 전화를 미리 해 두면, 부품을 빼 두기 때문에 헛걸음할 가능성을 없앨 수 있다.&lt;/p></description></item><item><title>세이노의 가르침을 읽고</title><link>https://interp.blog/learning-from-say-no/</link><pubDate>Mon, 21 Aug 2023 17:27:12 +0900</pubDate><guid>https://interp.blog/learning-from-say-no/</guid><description>&lt;img src="https://interp.blog/learning-from-say-no/feature.jpeg" alt="Featured image of post 세이노의 가르침을 읽고" />&lt;img loading="lazy" src="feature.jpeg" style="float: right; margin: 0 0 1rem 1.5rem;"
+width="35%"/>
 &lt;p>저자인 &amp;lsquo;세이노&amp;rsquo; 는 인세를 받지 않는다. 종이책도 원가에 가깝게 책정되었고 전자책은 심지어 &lt;strong>무료로 볼 수 있다.&lt;/strong> (내가 이 책을 접하게 된 결정적인 이유다) 그는 까페에 글을 쓰면서부터 수익화를 목적으로 하지 않을 것임을 천명했다. (그래서 부자가 되는 방법을 &amp;lsquo;파는&amp;rsquo; 사람들은 죄다 사기꾼이며, 실제로 부자가 아니라고 비난한다. 맞는 말이다.)&lt;/p>
 &lt;p>이 책을 한줄로 평한다면 &amp;lsquo;&lt;strong>욕쟁이 부자의 신랄한 인생 잔소리&lt;/strong>&amp;rsquo; 라고 봐야될 것 같다. 본인은 욕을 잘 안한다고는 하지만, 아무래도 책에 실린 사례가 일종의 &amp;lsquo;반례&amp;rsquo; 다 보니 &lt;em>별의별 연놈-년&lt;/em> 들이 다 나온다. 욕쟁이로 비춰지는 건 어쩔 수 없다.&lt;/p>
 &lt;br/>
@@ -1666,7 +1697,8 @@ git clone https://github.com/zsh-users/zsh-autosuggestions &lt;span class="se">\
 &lt;li>자세한 color 값은 &lt;a class="link" href="https://upload.wikimedia.org/wikipedia/commons/1/15/Xterm_256color_chart.svg" target="_blank" rel="noopener"
 >여기&lt;/a>를 참고하자. 물론 사용하려면 &lt;code>$TERM&lt;/code> 값이 &lt;strong>xterm-256color&lt;/strong> 여야 한다.&lt;/li>
 &lt;/ul>
-&lt;p>그리고 다시 로그인하면, 탭키(&lt;code>&amp;lt;tab&amp;gt;&lt;/code>) 를 통해 자동 완성이 잘 되는 것을 확인할 수 있다.&lt;/p></description></item><item><title>부자들의 초격차 독서법</title><link>https://interp.blog/%EB%B6%80%EC%9E%90%EB%93%A4%EC%9D%98-%EC%B4%88%EA%B2%A9%EC%B0%A8-%EB%8F%85%EC%84%9C%EB%B2%95/</link><pubDate>Fri, 12 Aug 2022 11:00:36 +0000</pubDate><guid>https://interp.blog/%EB%B6%80%EC%9E%90%EB%93%A4%EC%9D%98-%EC%B4%88%EA%B2%A9%EC%B0%A8-%EB%8F%85%EC%84%9C%EB%B2%95/</guid><description>&lt;img src="https://interp.blog/%EB%B6%80%EC%9E%90%EB%93%A4%EC%9D%98-%EC%B4%88%EA%B2%A9%EC%B0%A8-%EB%8F%85%EC%84%9C%EB%B2%95/feature.jpg" alt="Featured image of post 부자들의 초격차 독서법" />&lt;img loading="lazy" src="feature.jpg" style="float: right; margin: 0 3rem 2rem;" width="35%"/>
+&lt;p>그리고 다시 로그인하면, 탭키(&lt;code>&amp;lt;tab&amp;gt;&lt;/code>) 를 통해 자동 완성이 잘 되는 것을 확인할 수 있다.&lt;/p></description></item><item><title>부자들의 초격차 독서법</title><link>https://interp.blog/%EB%B6%80%EC%9E%90%EB%93%A4%EC%9D%98-%EC%B4%88%EA%B2%A9%EC%B0%A8-%EB%8F%85%EC%84%9C%EB%B2%95/</link><pubDate>Fri, 12 Aug 2022 11:00:36 +0000</pubDate><guid>https://interp.blog/%EB%B6%80%EC%9E%90%EB%93%A4%EC%9D%98-%EC%B4%88%EA%B2%A9%EC%B0%A8-%EB%8F%85%EC%84%9C%EB%B2%95/</guid><description>&lt;img src="https://interp.blog/%EB%B6%80%EC%9E%90%EB%93%A4%EC%9D%98-%EC%B4%88%EA%B2%A9%EC%B0%A8-%EB%8F%85%EC%84%9C%EB%B2%95/feature.jpg" alt="Featured image of post 부자들의 초격차 독서법" />&lt;img loading="lazy" src="feature.jpg" style="float: right; margin: 0 0 1rem 1.5rem;"
+width="35%"/>
 &lt;p>이 책을 두 문장으로 요약하면, &lt;strong>책을 완독하는 것도 좋지만 중요한 건 책이 내 인생에 어떤 도움이 되는지 얻어야 한다&lt;/strong>. 그 부분’만' 빠르게 하면, 짧은 시간에 엄청난 양의 책을 읽을 수 있고 인생에 큰 도움이 된다는 것이다.&lt;/p>
 &lt;h1 id="한-권-읽는-데-30분">한 권 읽는 데 30분&lt;/h1>
 &lt;p>한 권을 읽을 때는 30분을 잡는다고 한다. (물론 어려우면 더 많은 시간을 써도 된다. 요점은 한 권을 통독하는게 아니고, 찾고자 하는 요점을 반복적으로 시도하는 과정에 있다.&lt;/p>
