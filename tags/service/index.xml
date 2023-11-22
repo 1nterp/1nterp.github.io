@@ -13,7 +13,7 @@ alt="흐라챠!" width="40%"/> &lt;figcaption>
 &lt;blockquote>
 &lt;p>로드 밸런싱 (Load-balancing) 이나 단일 서비스 IP 가 필요하지 않은 경우엔, &amp;lsquo;헤드리스&amp;rsquo; 서비스라는 것을 만들 수 있다. &lt;code>.spec.clusterIP: None&lt;/code> 을 명시적으로 지정하면 된다.&lt;/p>
 &lt;p>이 헤드리스 서비스를 통해, 쿠버네티스의 구현에 의존하지 않고도 다른 서비스 디스커버리 메커니즘과 인터페이스할 수 있다.&lt;/p>
-&lt;p>헤드리스 서비스의 경우, 클러스터 IP가 할당되지 않고, kube-proxy가 이러한 서비스를 처리하지 않으며, 플랫폼에 의해 로드 밸런싱 또는 프록시를 하지 않는다. DNS가 자동으로 구성되는 방법은 서비스에 &lt;code>selector&lt;/code> 가 정의되어 있는지에 달려있다.&lt;/p>
+&lt;p>헤드리스 서비스의 경우 (각 node 에 상주하는) kube-proxy 가 해당 서비스를 처리하지 않는데, 즉 로드 밸런싱 또는 프록시를 하지 않는다. DNS가 자동으로 구성되는 방법은 서비스에 &lt;code>selector&lt;/code> 가 정의되어 있는지에 달려있다.&lt;/p>
 &lt;/blockquote>
 &lt;p>나름 의역을 섞어가며 최대한 쉽게 풀려고 노력했지만&amp;hellip; &lt;em>죄송합니다.&lt;/em> 지금 읽어봐도 무슨 소리를 하는지 잘 모르겠다.&lt;/p>
 &lt;p>아마도, 영어 설명에서 함의된 내용이 너무나 많기 때문인 것 같다.&lt;/p>
@@ -23,8 +23,9 @@ alt="흐라챠!" width="40%"/> &lt;figcaption>
 &lt;blockquote>
 &lt;p>Service 로 향하는 네트워크 연결은 결국 서비스 아래에 존재하는 여러 Pod 중 하나로 가게 될 겁니다. 그런데, &lt;strong>클라이언트가 Pod 1개가 아니라 모든 Pod 들과 통신해야 한다면요&lt;/strong>? 만약 &lt;strong>같은 서비스 아래에 있는 Pod A 와 Pod B 가 서로 통신해야 한다면요&lt;/strong>?&lt;/p>
 &lt;p>Service 를 통하는 건 확실한 방법은 아닙니다. 그럼 뭘까요?&lt;/p>
-&lt;p>모든 Pod 들과 통신해야 하는 클라이언트를 위해, 개별 Pod 의 IP 주소를 알아내는 게 필요하겠죠. 그러면 클라이언트가 K8s API Server 에 접속해서 해당 Pod 들의 IP 리스트를 얻어내는 방법이 있습니다. 이상적인 방법은 아닙니다. &lt;strong>여러분이 개발 중인 어플리케이션을 K8s Cluster 가 있는지조차 모르게 (K8s-agnostic) 만들고 싶어 하잖아요.&lt;/strong>&lt;/p>
-&lt;p>다행히도, Kubernetes 는 클라이언트에게 Pod IP 리스트를 알려주는 방법을 DNS Lookup 을 통해 제공합니다. 대개는, 어떤 Service 를 위한 DNS Lookup 를 수행하면 DNS 서버는 IP 주소 1개를 반환합니다. 바로 Service 의 Cluster IP 죠. 그런데 여러분이 Service 를 만들 때 Cluster IP 가 필요 없다고 알려주면, DNS 서버는 (해당 Service 를 위한 DNS Lookup 요청에) 소속된 Pod IP 주소 목록을 전부 반환합니다. 즉, DNS A 레코드 1개가 아니라, 각각의 Pod 과 통신할 수 있는 A 레코드 여러 개가 반환되는 것이죠. 그러면 클라이언트는 간단하게 이 A 레코드를 순회하면서 다시 DNS Lookup 을 할 수 있고 실제 Pod 들의 IP 를 얻을 수 있습니다.&lt;/p>
+&lt;p>모든 Pod 들과 통신해야 하는 클라이언트를 위해, 개별 Pod 의 IP 주소를 알아내는 게 필요하겠죠. 그러면 클라이언트가 K8s API Server 에 직접 요청해서 해당 Pod 들의 IP 리스트를 얻어내는 방법이 있습니다. 이상적인 방법은 아닙니다. &lt;strong>개발 중인 어플리케이션을 K8s Cluster 가 있는지조차 모르게 (K8s-agnostic) 만들고 싶어 하잖아요.&lt;/strong>&lt;/p>
+&lt;p>다행히도, Kubernetes 는 클라이언트에게 Pod IP 리스트를 알려주는 방법을 DNS Lookup 을 통해 제공합니다. 대개는, 어떤 Service 를 위한 DNS Lookup 를 수행하면 DNS 서버는 IP 주소 1개를 반환합니다. 바로 Service 의 &lt;em>Cluster IP&lt;/em> 죠.&lt;/p>
+&lt;p>그런데 여러분이 Service 를 만들 때 Cluster IP 가 필요 없다고 알려주면, 해당 Service 에 대한 DNS Lookup 요청이 DNS 서버에 오게 될 때, Service 에 소속된 Pod IP 주소 목록을 전부 반환합니다. &lt;strong>즉, DNS A 레코드 1개가 아니라, 각각의 Pod 과 통신할 수 있는 A 레코드 여러 개가 반환되는 것이죠.&lt;/strong> 그러면 클라이언트는 간단하게 이 A 레코드를 순회하면서 다시 DNS Lookup 을 할 수 있고 실제 Pod 들의 IP 를 얻을 수 있습니다.&lt;/p>
 &lt;/blockquote>
 &lt;p>보통 Service 의 역할은, Service 로 들어온 요청을 &lt;em>여러 개의 Pod 중 하나&lt;/em> 에만 전달하는 것이다. 하지만 이 요청이 &lt;strong>모든 Pod 에&lt;/strong> 전달되어야 하는 경우에는 적합하지 않다.&lt;/p>
 &lt;p>이를 위해서 k8s-api-server 에 요청해서, Service 에 속한 Pod 의 IP 리스트를 얻어오도록 애플리케이션을 구성할 수는 있겠지만, 그 때부터 애플리케이션은 해당 API 서버 위치에 의존해야 하기 때문에 적절한 방법이 아닌 것이다.&lt;/p>
@@ -90,8 +91,9 @@ Name: test-cs-svc.default.svc.cluster.local
 Address: 200.96.2.24
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>여러 개의 A 레코드로 이뤄진 Pod IP 목록을 얻을 수 있다. 그리고 &lt;code>test-cs-svc&lt;/code> 처럼 Service Name 만 입력했을 뿐인데 &lt;code>test-cs-svc.default.svc.cluster.local&lt;/code> 로 바뀐 것도 볼 수 있다.&lt;/p>
 &lt;h2 id="head-를-달아주면요">Head 를 달아주면요?&lt;/h2>
-&lt;p>이번에는 &lt;code>test-cs-svc-head&lt;/code> 라는 이름의 Service 를 하나 더 만들자. 단순히, &lt;code>spec.clusterIP: None&lt;/code> 부분만 없는 &lt;code>test-cs-svc&lt;/code> 나 다름없다. 아까 만들어 둔 파일에서 &lt;code>metadata.name&lt;/code> 부분과 &lt;code>spec.clusterIP&lt;/code> 부분만 바꿔서 &lt;code>kubectl apply -f&lt;/code> 로 적용해 보자.&lt;/p>
-&lt;p>여기에 대고 똑같이 &lt;code>nslookup&lt;/code> 을 해보자.&lt;/p>
+&lt;p>이번에는 &lt;code>test-cs-svc-head&lt;/code> 라는 이름의 Service 를 하나 더 만들자.&lt;/p>
+&lt;p>단순히, &lt;code>spec.clusterIP: None&lt;/code> 부분만 없는 &lt;code>test-cs-svc&lt;/code> 나 다름없다. 아까 만들어 둔 파일에서 &lt;code>metadata.name&lt;/code> 부분과 &lt;code>spec.clusterIP&lt;/code> 부분만 바꿔서 &lt;code>kubectl apply -f&lt;/code> 로 적용해 보자.&lt;/p>
+&lt;p>수정한 다음, 아까와 같이 &lt;code>nslookup&lt;/code> 을 해보자.&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">kubectl &lt;span class="nb">exec&lt;/span> test-deploy-7bff8c5f84-rjdm9 -it -- nslookup test-cs-svc-head
 &lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">Server: 200.64.0.10
 Address: 200.64.0.10#53
