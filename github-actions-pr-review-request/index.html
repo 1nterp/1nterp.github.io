@@ -1,0 +1,427 @@
+<!doctype html><html lang=ko-kr dir=ltr>
+<head><meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="feat. Github Actions, Slack, Github GraphQL API"><title>Github Pull Request 리뷰 요청 자동화하기</title>
+<style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500&display=swap'</style>
+<link rel=canonical href=https://interp.blog/github-actions-pr-review-request/>
+<link rel=stylesheet href=/scss/style.min.0255fac7bbf896fe96822df4328fd1148cb1d396a547992ad765750e88e1128d.css><meta property="title" content="Github Pull Request 리뷰 요청 자동화하기">
+<meta property="description" content="feat. Github Actions, Slack, Github GraphQL API">
+<meta property="og:title" content="Github Pull Request 리뷰 요청 자동화하기">
+<meta property="og:description" content="feat. Github Actions, Slack, Github GraphQL API">
+<meta property="og:url" content="https://interp.blog/github-actions-pr-review-request/">
+<meta property="og:site_name" content="InterP Blog">
+<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="Github"><meta property="article:tag" content="Github Actions"><meta property="article:tag" content="Slack"><meta property="article:tag" content="GraphQL"><meta property="article:published_time" content="2023-11-22T21:38:53+09:00"><meta property="article:modified_time" content="2023-11-22T21:38:53+09:00"><meta property="og:image" content="https://interp.blog/github-actions-pr-review-request/feature.jpg">
+<meta name=twitter:site content="@interp_">
+<meta name=twitter:creator content="@interp_"><meta name=twitter:title content="Github Pull Request 리뷰 요청 자동화하기">
+<meta name=twitter:description content="feat. Github Actions, Slack, Github GraphQL API"><meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://interp.blog/github-actions-pr-review-request/feature.jpg">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KMRJ33V06X"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-KMRJ33V06X')</script>
+<script>(function(b,d,e,a,g){b[a]=b[a]||[],b[a].push({'gtm.start':(new Date).getTime(),event:'gtm.js'});var f=d.getElementsByTagName(e)[0],c=d.createElement(e),h=a!='dataLayer'?'&l='+a:'';c.async=!0,c.src='https://www.googletagmanager.com/gtm.js?id='+g+h,f.parentNode.insertBefore(c,f)})(window,document,'script','dataLayer','GTM-NBPHNHQ')</script>
+</head>
+<body class=article-page>
+<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky">
+<button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 토글">
+<span class=hamburger-box>
+<span class=hamburger-inner></span>
+</span>
+</button>
+<header>
+<div class=site-meta>
+<h1 class=site-name><a href=/>InterP Blog</a></h1>
+<h2 class=site-description>Things I'm interested</h2>
+</div>
+</header><ol class=social-menu>
+<li>
+<a href=https://github.com/1nterp target=_blank title=GitHub><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+</a>
+</li>
+<li>
+<a href=https://linkedin.com/in/interp target=_blank title=LinkedIn><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-linkedin" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><rect x="4" y="4" width="16" height="16" rx="2"/><line x1="8" y1="11" x2="8" y2="16"/><line x1="8" y1="8" x2="8" y2="8.01"/><line x1="12" y1="16" x2="12" y2="11"/><path d="M16 16v-3a2 2 0 00-4 0"/></svg>
+</a>
+</li>
+</ol><ol class=menu id=main-menu>
+<li>
+<a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span>
+</a>
+</li>
+<li>
+<a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span>
+</a>
+</li>
+<li>
+<a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span>
+</a>
+</li>
+<div class=menu-bottom-section>
+<li id=i18n-switch><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5h7"/><path d="M9 3v2c0 4.418-2.239 8-5 8"/><path d="M5 9c-.003 2.144 2.952 3.908 6.7 4"/><path d="M12 20l4-9 4 9"/><path d="M19.1 18h-6.2"/></svg>
+<select name=language onchange="window.location.href=this.selectedOptions[0].value"><option value=https://interp.blog/ selected>한국어</option><option value=https://interp.blog/en/>English</option></select>
+</li>
+<li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>다크 모드</span>
+</li>
+</div>
+</ol>
+</aside>
+<main class="main full-width">
+<article class="has-image main-article">
+<header class=article-header style=display:block>
+<div class=article-image>
+<a href=/github-actions-pr-review-request/>
+<img src=/github-actions-pr-review-request/feature_hu3d03a01dcc18bc5be0e67db3d8d209a6_492338_900x0_resize_q75_h2_box.webp srcset="/github-actions-pr-review-request/feature_hu3d03a01dcc18bc5be0e67db3d8d209a6_492338_900x0_resize_q75_h2_box.webp 800w, /github-actions-pr-review-request/feature_hu3d03a01dcc18bc5be0e67db3d8d209a6_492338_1800x0_resize_q75_h2_box.webp 1600w" width=900 height=675 loading=lazy style="object-position:50% 50%" alt="Featured image of post Github Pull Request 리뷰 요청 자동화하기">
+</a>
+</div>
+<div class=article-details>
+<header class=article-category>
+<a href=/categories/tech/ style=background-color:#1c8193;color:#fff>
+TECH 🛠️
+</a>
+</header>
+<div class=article-title-wrapper>
+<h2 class=article-title>
+<a href=/github-actions-pr-review-request/>Github Pull Request 리뷰 요청 자동화하기</a>
+</h2>
+<h3 class=article-subtitle>
+feat. Github Actions, Slack, Github GraphQL API
+</h3>
+</div>
+<footer class=article-time>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>2023-11-22</time>
+</div>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>
+5 분 소요
+</time>
+</div>
+</footer>
+</div>
+</header>
+<section class=article-content>
+<p>Github 에서 Pull Request 를 생성하면, CI/CD 파이프라인을 통과해서 리뷰 받을 준비를 마쳤음에도 여전히 오픈되어 있는 경우가 있다. 스크럼 회의 시간에 리뷰를 요청해 보기도 하고, 직접 메시지를 보내기도 하지만.. Pull Request 가 많은 경우엔 이런 작업이 여간 귀찮은 일이 아니다.</p>
+<p><del>답답해서 내가 뛴다는 마음으로</del> Github Actions 를 이용해, Pull Request 가 특정 조건을 만족하면 매일 아침 팀 Slack 채널에 &lsquo;리뷰 요청&rsquo; 메시지를 보내는 Workflow 를 만들어 보기로 했다. 여기서는 Github Action 이나 Workflow 소개 없이, 문제 해결 과정만 적어 두었다.</p>
+<h1 id=대상-pull-request-조건>대상 Pull Request 조건</h1>
+<ul>
+<li>Open</li>
+<li>Approval 을 받지 않음</li>
+<li>마지막 커밋에서 CI/CD 파이프라인을 통과함</li>
+<li><code>Ready for review</code> 레이블이 존재함</li>
+</ul>
+<h1 id=workflow-기본-구조>Workflow 기본 구조</h1>
+<p>우선 <del>ChatGPT의 도움을 조금 받아</del> 다음 2개의 Step 이 포함된 Job 을 지정하는 것부터 출발했다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Notify PR Review Request</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=nt>on</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>schedule</span><span class=p>:</span><span class=w>
+</span><span class=w>    </span>- <span class=nt>cron</span><span class=p>:</span><span class=w> </span><span class=s1>&#39;0 0 * * *&#39;</span><span class=w> </span><span class=c># 매일 00:00</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=nt>jobs</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>notify</span><span class=p>:</span><span class=w>
+</span><span class=w>    </span><span class=nt>steps</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Get Pull Requests</span><span class=w>
+</span><span class=w>        </span><span class=nt>id</span><span class=p>:</span><span class=w> </span><span class=l>pulls</span><span class=w>
+</span><span class=w>        </span><span class=nt>uses</span><span class=p>:</span><span class=w> </span><span class=l>actions/github-script@v6</span><span class=w>
+</span><span class=w>        </span><span class=nt>with</span><span class=p>:</span><span class=w>
+</span><span class=w>          </span><span class=nt>github-token</span><span class=p>:</span><span class=w> </span><span class=l>${{secrets.GITHUB_TOKEN}}</span><span class=w>
+</span><span class=w>          </span><span class=nt>script</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
+</span><span class=sd>            // ...
+</span><span class=sd>            // return ...</span><span class=w>            
+</span><span class=w>
+</span><span class=w>      </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Send Slack message</span><span class=w>
+</span><span class=w>        </span><span class=nt>if</span><span class=p>:</span><span class=w> </span><span class=l>steps.pulls.outputs.result != &#39;&#39;</span><span class=w>
+</span><span class=w>        </span><span class=nt>uses</span><span class=p>:</span><span class=w> </span><span class=l>8398a7/action-slack@v3</span><span class=w>
+</span><span class=w>        </span><span class=nt>with</span><span class=p>:</span><span class=w>
+</span><span class=w>          </span><span class=nt>status</span><span class=p>:</span><span class=w> </span><span class=l>custom</span><span class=w>
+</span><span class=w>          </span><span class=nt>custom_payload</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
+</span><span class=sd>            </span><span class=w>            </span><span class=l>${{ fromJSON(steps.pulls.outputs.result) }}</span><span class=w>
+</span><span class=w>        </span><span class=nt>env</span><span class=p>:</span><span class=w>
+</span><span class=w>          </span><span class=nt>SLACK_WEBHOOK_URL</span><span class=p>:</span><span class=w> </span><span class=l>${{ secrets.SLACK_WEBHOOK_URL }}</span><span class=w>
+</span></code></pre></div><p><code>actions/github-script</code> 와 <code>8398a7/action-slack</code> 을 사용했고, 각각 <code>$GITHUB_TOKEN</code> 과 <code>$SLACK_WEBHOOK_URL</code> Variable 을 필요로 한다.</p>
+<p>Github Token 은 <a class=link href=https://docs.github.com/en/actions/security-guides/automatic-token-authentication#about-the-github_token-secret target=_blank rel=noopener>이미 내장되어 있지만</a>, Slack Webhook URL 은 직접 생성해서 등록해야 한다.</p>
+<h1 id=slack-app-생성>Slack App 생성</h1>
+<p>Slack Workspace 에 App 생성이 가능한 계정에 로그인 되어 있다면, 다음을 따르면 된다.</p>
+<ol>
+<li><a class=link href="https://api.slack.com/apps?new_app=1" target=_blank rel=noopener>다음 링크</a> 로 이동</li>
+<li>&lsquo;From scratch&rsquo; 를 선택</li>
+<li>App 이름을 지정하고, 대상 워크스페이스를 선택</li>
+<li>App 화면이 뜨면, &lsquo;Features > Incoming Webhooks&rsquo; 을 선택</li>
+<li>페이지 하단에 &lsquo;Add New Webhook to Workspace&rsquo; 를 클릭</li>
+<li>채널을 추가하면 채널의 Webhook URL 을 확인할 수 있다.</li>
+</ol>
+<div style=background-color:var(--body-background);width:98%;margin:1px;padding:20px;border-radius:5px;font-size:.8em;display:flex>
+<div style=width:16px;margin-right:7px;margin-left:4px>
+🪴
+</div>
+<div>
+&lsquo;Display Information&rsquo;에서 App 아이콘과 이름을 자유롭게 선택할 수도 있으니 참고하자.
+</div>
+</div>
+<p>이제 이 Webhook URL 을 Github Secret 으로 등록하면 된다. <em>Settings > Secrets and variables</em> 에서 등록이 가능하며, 위에서 지정한 것 처럼 <code>SLACK_WEBHOOK_URL</code> 이라는 이름으로 등록하면 된다.</p>
+<h1 id=rest-api-graphql-api>REST API? GraphQL API!</h1>
+<p>첫 번째 step 인 <code>actions/github-script</code> 을 채워보자.</p>
+<p>REST API 를 활용한 함수를 사용하는 방법과, GraphQL 을 짜서 한 번에 쿼리하는 방법이 있다. 코드가 좀 더 간결해질 것 같아 두 번째 방법을 사용했는데, 첫 번째 방법을 통해 순차적으로 쿼리하는 것도 물론 가능하다.</p>
+<p>GraphQL 에 대해 잘 모르겠다면, <a class=link href=https://graphql-kr.github.io/learn/ target=_blank rel=noopener>이 문서</a> 를 참고하자. Github GraphQL API 에 대한 자세한 내용은 <a class=link href=https://docs.github.com/ko/graphql target=_blank rel=noopener>이 문서</a> 도 참고하자.</p>
+<p>우선, 대상이 되는 정보(<em>제목, URL, 리뷰 상태, 레이블, 최근 커밋의 상태</em>) 를 모두 뽑아와야 하므로, 아래와 같은 쿼리가 필요하다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-graphql data-lang=graphql><span class=kd>query</span><span class=w> </span><span class=p>{</span><span class=w>
+</span><span class=w>    </span><span class=nc>repository</span><span class=p>(</span><span class=py>owner</span><span class=p>:</span><span class=w> </span><span class=s>&#34;${context.repo.owner}&#34;</span><span class=p>,</span><span class=w> </span><span class=nc>name</span><span class=p>:</span><span class=w> </span><span class=s>&#34;${context.repo.repo}&#34;</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span><span class=w>        </span><span class=nc>pullRequests</span><span class=p>(</span><span class=py>states</span><span class=p>:</span><span class=w> </span><span class=nc>OPEN</span><span class=p>,</span><span class=w> </span><span class=py>first</span><span class=p>:</span><span class=w> </span><span class=nc>100</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span><span class=w>            </span><span class=py>nodes</span><span class=w> </span><span class=p>{</span><span class=w>
+</span><span class=w>                </span><span class=py>title</span><span class=w>
+</span><span class=w>                </span><span class=py>url</span><span class=w>
+</span><span class=w>                </span><span class=py>reviewDecision</span><span class=w>
+</span><span class=w>                </span><span class=py>labels</span><span class=p>(</span><span class=py>first</span><span class=p>:</span><span class=w> </span><span class=nc>10</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span><span class=w>                    </span><span class=py>nodes</span><span class=w> </span><span class=p>{</span><span class=w>
+</span><span class=w>                    </span><span class=py>name</span><span class=w>
+</span><span class=w>                    </span><span class=p>}</span><span class=w>
+</span><span class=w>                </span><span class=p>}</span><span class=w>
+</span><span class=w>                </span><span class=py>commits</span><span class=p>(</span><span class=py>last</span><span class=p>:</span><span class=w> </span><span class=nc>1</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span><span class=w>                    </span><span class=py>nodes</span><span class=w> </span><span class=p>{</span><span class=w>
+</span><span class=w>                        </span><span class=py>commit</span><span class=w> </span><span class=p>{</span><span class=w>
+</span><span class=w>                            </span><span class=py>statusCheckRollup</span><span class=w> </span><span class=p>{</span><span class=w>
+</span><span class=w>                                </span><span class=py>state</span><span class=w>
+</span><span class=w>                            </span><span class=p>}</span><span class=w>
+</span><span class=w>                        </span><span class=p>}</span><span class=w>
+</span><span class=w>                    </span><span class=p>}</span><span class=w>
+</span><span class=w>                </span><span class=p>}</span><span class=w>
+</span><span class=w>            </span><span class=p>}</span><span class=w>
+</span><span class=w>        </span><span class=p>}</span><span class=w>
+</span><span class=w>    </span><span class=p>}</span><span class=w>
+</span><span class=w></span><span class=p>}</span><span class=w>
+</span></code></pre></div><p>이 쿼리는 현재 담당하는 프로젝트 크기에 맞춰 몇 가지 제약을 뒀다. Open 된 Pull Request 가 100개를 넘지 않고, Label 이 10개 미만으로 추가되는 프로젝트 환경이어야 유효하다. 커다란 프로젝트에서는 참고해야 한다.</p>
+<p>여기 <code>repository</code> 를 지정할 때 <code>${context.repo}</code> 의 값을 썼는데, 이는 <code>github-scripts</code> 에서 제공하는 변수이다. 자세한 내용은 <a class=link href=https://github.com/actions/toolkit/blob/main/packages/github/src/context.ts target=_blank rel=noopener>이 소스코드</a> 를 참고해도 되지만, 지금은 &lsquo;<em>현재 project 의 owner/repo 이름</em>&rsquo; 을 의미한다고만 알아두자.</p>
+<h1 id=github-scripts-완성>Github Scripts 완성</h1>
+<p>이제 GraphQL 을 사용해서 쿼리를 실행하고, 결과를 필터링해 Map 형태로 반환해보자. 참고로 <code>github-scripts</code> 는 Javascript 를 사용한다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=w>      </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Get Pull Requests</span><span class=w>
+</span><span class=w>        </span><span class=nt>id</span><span class=p>:</span><span class=w> </span><span class=l>pulls</span><span class=w>
+</span><span class=w>        </span><span class=nt>uses</span><span class=p>:</span><span class=w> </span><span class=l>actions/github-script@v6</span><span class=w>
+</span><span class=w>        </span><span class=nt>with</span><span class=p>:</span><span class=w>
+</span><span class=w>          </span><span class=nt>github-token</span><span class=p>:</span><span class=w> </span><span class=l>${{secrets.GITHUB_TOKEN}}</span><span class=w>
+</span><span class=w>          </span><span class=nt>script</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
+</span><span class=sd>            const query = `...` // 위의 GraphQL 쿼리
+</span><span class=sd>
+</span><span class=sd>            const result = await github.graphql(query);
+</span><span class=sd>            const prs = result.repository.pullRequests.nodes;
+</span><span class=sd>
+</span><span class=sd>            const filteredPRs = prs.filter(pr =&gt;
+</span><span class=sd>              pr.reviewDecision !== &#39;APPROVED&#39; &amp;&amp;
+</span><span class=sd>              pr.labels.nodes.find(label =&gt; label.name === &#39;Ready for review&#39;) &amp;&amp;
+</span><span class=sd>              pr.commits.nodes[0].commit.statusCheckRollup.state === &#34;SUCCESS&#34;
+</span><span class=sd>            );
+</span><span class=sd>
+</span><span class=sd>            if (filteredPRs.length &gt; 0) {
+</span><span class=sd>              // Slack message block 생성
+</span><span class=sd>            }</span><span class=w>            
+</span></code></pre></div><p><code>filteredPRs</code> 에는 위에서 정의한 조건을 만족하는 Pull Request 들이 담긴다. 이제 이 정보를 Slack message block 으로 만들어서 보내면 된다.</p>
+<h1 id=통합-문제>통합 문제</h1>
+<p>여기서 두 가지 난관이 있었는데,</p>
+<ul>
+<li>Step 간에 JSON 으로 정보 교환이 가능한가</li>
+<li>Slack message 를 일반 텍스트가 아니라, 멋지게 만드려면 어떻게 해야 하는가</li>
+</ul>
+<p>첫 번째는 쉽게 해결했다. <code>fromJSON()</code> 을 활용하면 <code>github-scripts</code> 에서 반환되는 (따옴표가 전부 escape 된) JSON String 을 그대로 받아다 쓸 수 있었다. 더욱 자세한 내용은 <a class=link href=https://github.blog/changelog/2020-04-15-github-actions-new-workflow-features/#expressions-in-jobcontinue-on-error target=_blank rel=noopener>블로그 문서</a> 를 참고하자.</p>
+<p>두 번째가 조금 어려웠는데, 결국 찾았다. 다음 매뉴얼과 Playground 페이지를 통해 Slack 의 (Block-kit 이라고 하는) custom message 구조를 이해하고 만들어 볼 수 있었다.</p>
+<ul>
+<li>매뉴얼: <a class=link href=https://api.slack.com/reference/block-kit target=_blank rel=noopener>https://api.slack.com/reference/block-kit</a></li>
+<li>Playground: <a class=link href=https://api.slack.com/tools/block-kit-builder target=_blank rel=noopener>https://api.slack.com/tools/block-kit-builder</a></li>
+</ul>
+<p>그러면 문제는 좀 더 간단해진다.</p>
+<ol>
+<li><code>github-scripts</code> 에서는 Slack Message 구조를 전부 만들어서 JSON 으로 내보내고</li>
+<li><code>action-slack</code> 에서는 JSON 자체를 받아서 출력하면 된다.</li>
+</ol>
+<h2 id=slack-message-구조-생성>Slack message 구조 생성</h2>
+<p>다시 <code>github-scripts</code> step 으로 돌아가 보자. 제일 처음에 헤더가 되는 block 을 미리 지정한다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript>  <span class=kd>let</span> <span class=nx>blocks</span> <span class=o>=</span> <span class=p>[</span>
+    <span class=p>{</span><span class=s2>&#34;type&#34;</span><span class=o>:</span> <span class=s2>&#34;header&#34;</span><span class=p>,</span> <span class=s2>&#34;text&#34;</span><span class=o>:</span> <span class=p>{</span><span class=s2>&#34;type&#34;</span><span class=o>:</span> <span class=s2>&#34;plain_text&#34;</span><span class=p>,</span> <span class=s2>&#34;text&#34;</span><span class=o>:</span> <span class=s2>&#34;👀 PR 목록&#34;</span><span class=p>}},</span>
+    <span class=p>{</span><span class=s2>&#34;type&#34;</span><span class=o>:</span> <span class=s2>&#34;divider&#34;</span><span class=p>}</span>
+  <span class=p>];</span>
+</code></pre></div><p>그 다음, <code>filteredPRs</code> 결과가 존재하는 경우에 <code>blocks</code> 안에 메시지를 채워넣는다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript>  <span class=k>if</span> <span class=p>(</span><span class=nx>filteredPRs</span><span class=p>.</span><span class=nx>length</span> <span class=o>&gt;</span> <span class=mi>0</span><span class=p>)</span> <span class=p>{</span>
+    <span class=c1>// Slack message block 생성
+</span><span class=c1></span>    <span class=nx>blocks</span><span class=p>.</span><span class=nx>push</span><span class=p>({</span>
+      <span class=s2>&#34;type&#34;</span><span class=o>:</span> <span class=s2>&#34;section&#34;</span><span class=p>,</span>
+      <span class=s2>&#34;text&#34;</span><span class=o>:</span> <span class=p>{</span> <span class=s2>&#34;type&#34;</span><span class=o>:</span> <span class=s2>&#34;mrkdwn&#34;</span><span class=p>,</span> <span class=s2>&#34;text&#34;</span><span class=o>:</span> <span class=nx>filteredPRs</span><span class=p>.</span><span class=nx>map</span><span class=p>(</span><span class=nx>pr</span> <span class=p>=&gt;</span> <span class=sb>`• &lt;</span><span class=si>${</span><span class=nx>pr</span><span class=p>.</span><span class=nx>url</span><span class=si>}</span><span class=sb>|*</span><span class=si>${</span><span class=nx>pr</span><span class=p>.</span><span class=nx>title</span><span class=si>}</span><span class=sb>*&gt; `</span><span class=p>).</span><span class=nx>join</span><span class=p>(</span><span class=s2>&#34;\n&#34;</span><span class=p>)</span> <span class=p>}</span>
+    <span class=p>});</span>
+  <span class=p>}</span>
+</code></pre></div><p>마지막으로, <code>blocks</code> 를 반환하면 된다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript>  <span class=c1>// 디버깅
+</span><span class=c1></span>  <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>JSON</span><span class=p>.</span><span class=nx>stringify</span><span class=p>({</span> <span class=nx>blocks</span> <span class=p>}));</span>
+  <span class=k>return</span> <span class=nx>JSON</span><span class=p>.</span><span class=nx>stringify</span><span class=p>({</span> <span class=nx>blocks</span> <span class=p>});</span>
+</code></pre></div><h2 id=slack-step-완성>Slack Step 완성</h2>
+<p><code>pulls</code> step 에서 반환된 값을 JSON 으로 변환해 그대로 넣는다. 맨 처음 Step 과 크게 달라진 것은 없다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=w>      </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Send Slack message</span><span class=w>
+</span><span class=w>        </span><span class=nt>if</span><span class=p>:</span><span class=w> </span><span class=l>steps.pulls.outputs.result != &#39;&#39;</span><span class=w>
+</span><span class=w>        </span><span class=nt>uses</span><span class=p>:</span><span class=w> </span><span class=l>8398a7/action-slack@v3</span><span class=w>
+</span><span class=w>        </span><span class=nt>with</span><span class=p>:</span><span class=w>
+</span><span class=w>          </span><span class=nt>status</span><span class=p>:</span><span class=w> </span><span class=l>custom</span><span class=w>
+</span><span class=w>          </span><span class=nt>custom_payload</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
+</span><span class=sd>            </span><span class=w>            </span><span class=l>${{ fromJSON(steps.pulls.outputs.result) }}</span><span class=w>
+</span><span class=w>        </span><span class=nt>env</span><span class=p>:</span><span class=w>
+</span><span class=w>          </span><span class=nt>SLACK_WEBHOOK_URL</span><span class=p>:</span><span class=w> </span><span class=l>${{ secrets.SLACK_WEBHOOK_URL }}</span><span class=w>
+</span></code></pre></div><h1 id=마무리-작업>마무리 작업</h1>
+<p>이제 작업은 끝났고 테스트만 남았다.</p>
+<h2 id=main-이-아닌-특정-브랜치에서-workflow-실행하기>main 이 아닌, 특정 브랜치에서 Workflow 실행하기</h2>
+<p>우선, 위 workflow 에서 <code>on:</code> 절에 다음이 추가되어야 한다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>on</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>workflow_dispatch</span><span class=p>:</span><span class=w> </span><span class=c># 뭘 더 넣을 필요없이 이게 전부다.</span><span class=w>
+</span></code></pre></div><p>나는 <code>gh</code> CLI 를 사용해서 로그인한 다음, 아래 명령어로 실행했다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>gh workflow run <span class=s1>&#39;Notify PR Review Request&#39;</span> --ref <span class=o>{</span>branch<span class=o>}</span>
+</code></pre></div><h2 id=github-scripts-디버깅>Github Scripts 디버깅</h2>
+<p>문법 오류를 잡기 위해서는, Javascript Linter 가 작동하는 IDE 에서 먼저 작성한 다음, 옮겨오는 것을 추천한다.</p>
+<h2 id=graphql-디버깅>GraphQL 디버깅</h2>
+<p>API 문서를 뒤져보면 Personal access token 을 사용해서 쿼리를 할 수 있는 방법이 존재한다. 원하는 값이 나오는지 확인한 뒤에 Github Scripts 에 적용해 주자.</p>
+<hr>
+<p>이 Workflow 는 특정 이벤트 기반이 아니라, 주기적으로 실행되면서 상태를 직접 체크해야 하기 때문에 Workflow 가 복잡해 진 것 같다. 그래도 Github Actions 를 이용하면, 일일히 리뷰 요청을 하지 않아도 된다. Github Scripts 에서 반환되는 값을 어떻게 받아 처리할지도 사실 막막했는데, <code>fromJSON()</code> 을 사용하니 간단했다.</p>
+<p>전혀 다른 문제를 Github Actions 로 자동화하려는 경우에도, 이 글이 여러모로 도움이 되었으면 좋겠다.</p>
+<figure class=align-center>
+<img loading=lazy src=image.png#center width=70%>
+</figure>
+</section>
+<footer class=article-footer>
+<br>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
+<ins class=adsbygoogle style=display:block;height:300px;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-0712823212859607 data-ad-slot=7880266545></ins>
+<script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
+<section class=article-tags>
+<a href=/tags/github/>Github</a>
+<a href=/tags/github-actions/>Github Actions</a>
+<a href=/tags/slack/>Slack</a>
+<a href=/tags/graphql/>GraphQL</a>
+</section>
+</footer>
+</article>
+<aside class=related-content--wrapper>
+<h2 class=section-title>관련 글</h2>
+<div class=related-content>
+<div class="flex article-list--tile">
+<article class=has-image>
+<a href=/argo-workflow-intro/>
+<div class=article-image>
+<img src=/argo-workflow-intro/feature.b8d18d95bd1505d3b97dd0dc781dc0b2_hud00911a79d15e0ce8ed34121b8f2ad3a_820902_250x150_fill_box_smart1_3.png width=250 height=150 loading=lazy alt="Featured image of post Argo workflow 3가지 기본 개념" data-hash="md5-uNGNlb0VBdO5fdDceB3Asg==">
+</div>
+<div class=article-details>
+<h2 class=article-title>Argo workflow 3가지 기본 개념</h2>
+</div>
+</a>
+</article>
+<article class=has-image>
+<a href=/git-merge-rebase/>
+<div class=article-image>
+<img src=/git-merge-rebase/feature.66207f04c55ec9783e2441274f7da377_hu3d03a01dcc18bc5be0e67db3d8d209a6_2538919_250x150_fill_q75_box_smart1.jpg width=250 height=150 loading=lazy alt="Featured image of post Git merge vs. rebase" data-hash="md5-ZiB/BMVeyXg+JEEnT32jdw==">
+</div>
+<div class=article-details>
+<h2 class=article-title>Git merge vs. rebase</h2>
+</div>
+</a>
+</article>
+<article>
+<a href=/useful-3-terminal-tools/>
+<div class=article-details>
+<h2 class=article-title>자주 쓰는 3가지 파일 검색 터미널 도구</h2>
+</div>
+</a>
+</article>
+</div>
+</div>
+</aside>
+<script src=https://giscus.app/client.js data-repo=1nterp/1nterp.github.io data-repo-id="MDEwOlJlcG9zaXRvcnkyMzY5NzQ5Mzc=" data-category=General data-category-id=MDE4OkRpc2N1c3Npb25DYXRlZ29yeTMyMjU4Mjgx data-mapping=pathname data-reactions-enabled=1 data-emit-metadata=1 data-theme=light data-lang=en data-loading=lazy crossorigin=anonymous async></script>
+<script>function setGiscusTheme(b){let a=document.querySelector("iframe.giscus-frame");a&&a.contentWindow.postMessage({giscus:{setConfig:{theme:b}}},"https://giscus.app")}(function(){addEventListener("message",b=>{if(event.origin!=="https://giscus.app")return;a()}),window.addEventListener("onColorSchemeChange",a);function a(){document.documentElement.dataset.scheme==="light"?setGiscusTheme('light'):setGiscusTheme('dark_dimmed')}})()</script>
+<footer class=site-footer>
+<section class=copyright>
+&copy;
+2019 -
+2023 InterP Blog
+</section>
+<section class=powerby>
+<a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 기반 / <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.12.0>Stack</a></b> 테마를 사용 중입니다.
+</section>
+</footer>
+<div class=pswp tabindex=-1 role=dialog aria-hidden=true>
+<div class=pswp__bg></div>
+<div class=pswp__scroll-wrap>
+<div class=pswp__container>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+</div>
+<div class="pswp__ui pswp__ui--hidden">
+<div class=pswp__top-bar>
+<div class=pswp__counter></div>
+<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+<div class=pswp__preloader>
+<div class=pswp__preloader__icn>
+<div class=pswp__preloader__cut>
+<div class=pswp__preloader__donut></div>
+</div>
+</div>
+</div>
+</div>
+<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+<div class=pswp__share-tooltip></div>
+</div>
+<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+</button>
+<div class=pswp__caption>
+<div class=pswp__caption__center></div>
+</div>
+</div>
+</div>
+</div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous>
+</main>
+<aside class="sidebar right-sidebar sticky">
+<form action=/search/ class="search-form widget">
+<p>
+<label>검색</label>
+<input name=keyword required placeholder="검색어를 입력하세요...">
+<button title=검색><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+</button>
+</p>
+</form>
+<section class="widget archives">
+<div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg>
+</div>
+<h2 class="widget-title section-title">목차</h2>
+<div class=widget--toc>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#대상-pull-request-조건>대상 Pull Request 조건</a></li>
+<li><a href=#workflow-기본-구조>Workflow 기본 구조</a></li>
+<li><a href=#slack-app-생성>Slack App 생성</a></li>
+<li><a href=#rest-api-graphql-api>REST API? GraphQL API!</a></li>
+<li><a href=#github-scripts-완성>Github Scripts 완성</a></li>
+<li><a href=#통합-문제>통합 문제</a>
+<ul>
+<li><a href=#slack-message-구조-생성>Slack message 구조 생성</a></li>
+<li><a href=#slack-step-완성>Slack Step 완성</a></li>
+</ul>
+</li>
+<li><a href=#마무리-작업>마무리 작업</a>
+<ul>
+<li><a href=#main-이-아닌-특정-브랜치에서-workflow-실행하기>main 이 아닌, 특정 브랜치에서 Workflow 실행하기</a></li>
+<li><a href=#github-scripts-디버깅>Github Scripts 디버깅</a></li>
+<li><a href=#graphql-디버깅>GraphQL 디버깅</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+</div>
+</section>
+<section class="widget adsense">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
+<ins class=adsbygoogle style=display:block data-ad-client=ca-pub-0712823212859607 data-ad-slot=8117949234 data-ad-format=auto data-full-width-responsive=true></ins>
+<script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
+</section>
+</aside>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script>
+<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
+</body>
+</html>
