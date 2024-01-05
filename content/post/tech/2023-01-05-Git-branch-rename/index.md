@@ -5,6 +5,7 @@ author: InterP
 date: 2024-01-05 17:41:29 +0900
 url: /git-branch-rename
 draft: false
+image: feature.png
 categories:
     - Tech
 tags:
