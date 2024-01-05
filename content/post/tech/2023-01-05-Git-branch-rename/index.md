@@ -78,7 +78,9 @@ Remote branch = issue-10, internal
 `remotes/origin/internal` 이 여전히 남아있다. 깔끔하지 못하다!
 
 # Remote branch 이름 바꾸기
-원격 저장소에 있는 branch 까지 이름을 바꾸려면 어떻게 해야 할까? 이미 눈치챘겠지만 그냥 옛날 Remote branch 를 삭제하면 된다.
+원격 저장소에 있는 branch 까지 이름을 바꾸려면 어떻게 해야 할까? 
+
+이미 눈치챘겠지만 그냥 옛날 Remote branch 를 삭제하면 된다.
 
 ```bash
 # (1)
@@ -88,7 +90,7 @@ git push origin --delete internal
 ```
 
 # 이러면 끝? Upstream 의 함정
-지금 예제에서는 *다행히* 새로운 이름의 branch 가 그대로 Remote branch 로 업로드 된 경우이다. 위의 결과 로그를 다시 가져와보면, `issue-10` 은 원격 저장소에 없었는데 이 Push 작업을 통해 새로 생긴 것이다.
+지금 예제에서는 *다행히* 새로운 이름의 branch 가 그대로 Remote branch 로 업로드 된 경우이다. 위의 결과를 다시 가져와보면, `issue-10` 은 원격 저장소에 없었는데 이 Push 작업을 통해 새로 생긴 것이다.
 ```
 To https://github.com/test/test-project.git
  * [new branch]      issue-10 -> issue-10
@@ -98,9 +100,11 @@ To https://github.com/test/test-project.git
 To https://github.com/test/test-project.git
 38b2c6e..7489f75 issue-10 -> internal
 ```
-음? 기존 Remote branch `internal` 에 그대로 반영되었다. 이러면 Remote branch `internal` 을 `git push origin --delete` 로 지워본들, `issue-10` branch 를 계속 push 할 때 마다 `internal` 이란 이름으로 계속 Remote branch 가 생길 것이다. 
+*음?* 기존 Remote branch 인 `internal` 에 그대로 반영되었다. 
 
-왜 이렇게 된 것일까? 답은 upstream 때문이다. 다음 명령으로 branch 의 상태를 확인해 보자.
+이러면 Remote branch `internal` 을 `git push origin --delete` 로 지워본들, `issue-10` branch 를 계속 push 할 때 마다 `internal` 이란 이름으로 계속 Remote branch 가 생길 것이다. 
+
+왜 이렇게 된 것일까? 답은 Upstream 때문이다. 다음 명령으로 branch 의 상태를 확인해 보자.
 ```bash
 git branch -vv | grep issue-10
 * issue-10  7489f75 [origin/internal] hello commit
