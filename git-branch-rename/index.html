@@ -146,20 +146,22 @@ git branch -a
 Remote branch = issue-10, internal
 </code></pre></div><p><code>remotes/origin/internal</code> 이 여전히 남아있다. 깔끔하지 못하다!</p>
 <h1 id=remote-branch-이름-바꾸기>Remote branch 이름 바꾸기</h1>
-<p>원격 저장소에 있는 branch 까지 이름을 바꾸려면 어떻게 해야 할까? 이미 눈치챘겠지만 그냥 옛날 Remote branch 를 삭제하면 된다.</p>
+<p>원격 저장소에 있는 branch 까지 이름을 바꾸려면 어떻게 해야 할까?</p>
+<p>이미 눈치챘겠지만 그냥 옛날 Remote branch 를 삭제하면 된다.</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=c1># (1)</span>
 git push origin :internal
 <span class=c1># (2)</span>
 git push origin --delete internal
 </code></pre></div><h1 id=이러면-끝-upstream-의-함정>이러면 끝? Upstream 의 함정</h1>
-<p>지금 예제에서는 <em>다행히</em> 새로운 이름의 branch 가 그대로 Remote branch 로 업로드 된 경우이다. 위의 결과 로그를 다시 가져와보면, <code>issue-10</code> 은 원격 저장소에 없었는데 이 Push 작업을 통해 새로 생긴 것이다.</p>
+<p>지금 예제에서는 <em>다행히</em> 새로운 이름의 branch 가 그대로 Remote branch 로 업로드 된 경우이다. 위의 결과를 다시 가져와보면, <code>issue-10</code> 은 원격 저장소에 없었는데 이 Push 작업을 통해 새로 생긴 것이다.</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>To https://github.com/test/test-project.git
  * [new branch]      issue-10 -&gt; issue-10
 </code></pre></div><p>다시 돌아가서, Local branch 이름만 바꾸고 Push 를 했는데 다음과 같은 상황이 발생했다면?</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>To https://github.com/test/test-project.git
 38b2c6e..7489f75 issue-10 -&gt; internal
-</code></pre></div><p>음? 기존 Remote branch <code>internal</code> 에 그대로 반영되었다. 이러면 Remote branch <code>internal</code> 을 <code>git push origin --delete</code> 로 지워본들, <code>issue-10</code> branch 를 계속 push 할 때 마다 <code>internal</code> 이란 이름으로 계속 Remote branch 가 생길 것이다.</p>
-<p>왜 이렇게 된 것일까? 답은 upstream 때문이다. 다음 명령으로 branch 의 상태를 확인해 보자.</p>
+</code></pre></div><p><em>음?</em> 기존 Remote branch 인 <code>internal</code> 에 그대로 반영되었다.</p>
+<p>이러면 Remote branch <code>internal</code> 을 <code>git push origin --delete</code> 로 지워본들, <code>issue-10</code> branch 를 계속 push 할 때 마다 <code>internal</code> 이란 이름으로 계속 Remote branch 가 생길 것이다.</p>
+<p>왜 이렇게 된 것일까? 답은 Upstream 때문이다. 다음 명령으로 branch 의 상태를 확인해 보자.</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>git branch -vv <span class=p>|</span> grep issue-10
 * issue-10  7489f75 <span class=o>[</span>origin/internal<span class=o>]</span> hello commit
 </code></pre></div><p><code>[]</code> 안에 표시된 내용이 Upsteam 이며, 연결된 Remote branch 내용이 들어가 있다. 이 부분이 아예 없다면 Upstream 이 없으니, 새로운 branch 를 Push + 옛날 branch 는 Remote 에서 삭제하는 위 방법만으로 이름을 바꿀 수 있다. 반대로 말하면, Upstream 이 존재하면 추가 조치가 필요하다.</p>
