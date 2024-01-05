@@ -1,0 +1,327 @@
+<!doctype html><html lang=ko-kr dir=ltr>
+<head><meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Local, Remote 까지 확실히 바꿔보자"><title>Git Branch 이름 바꾸기</title>
+<style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500&display=swap'</style>
+<link rel=canonical href=https://interp.blog/git-branch-rename/>
+<link rel=stylesheet href=/scss/style.min.0255fac7bbf896fe96822df4328fd1148cb1d396a547992ad765750e88e1128d.css><meta property="title" content="Git Branch 이름 바꾸기">
+<meta property="description" content="Local, Remote 까지 확실히 바꿔보자">
+<meta property="og:title" content="Git Branch 이름 바꾸기">
+<meta property="og:description" content="Local, Remote 까지 확실히 바꿔보자">
+<meta property="og:url" content="https://interp.blog/git-branch-rename/">
+<meta property="og:site_name" content="InterP Blog">
+<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="Git"><meta property="article:published_time" content="2024-01-05T17:41:29+09:00"><meta property="article:modified_time" content="2024-01-05T17:41:29+09:00">
+<meta name=twitter:site content="@interp_">
+<meta name=twitter:creator content="@interp_"><meta name=twitter:title content="Git Branch 이름 바꾸기">
+<meta name=twitter:description content="Local, Remote 까지 확실히 바꿔보자">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KMRJ33V06X"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-KMRJ33V06X')</script>
+<script>(function(b,d,e,a,g){b[a]=b[a]||[],b[a].push({'gtm.start':(new Date).getTime(),event:'gtm.js'});var f=d.getElementsByTagName(e)[0],c=d.createElement(e),h=a!='dataLayer'?'&l='+a:'';c.async=!0,c.src='https://www.googletagmanager.com/gtm.js?id='+g+h,f.parentNode.insertBefore(c,f)})(window,document,'script','dataLayer','GTM-NBPHNHQ')</script>
+</head>
+<body class=article-page>
+<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky">
+<button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 토글">
+<span class=hamburger-box>
+<span class=hamburger-inner></span>
+</span>
+</button>
+<header>
+<div class=site-meta>
+<h1 class=site-name><a href=/>InterP Blog</a></h1>
+<h2 class=site-description>Things I'm interested</h2>
+</div>
+</header><ol class=social-menu>
+<li>
+<a href=https://github.com/1nterp target=_blank title=GitHub><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+</a>
+</li>
+<li>
+<a href=https://linkedin.com/in/interp target=_blank title=LinkedIn><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-linkedin" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><rect x="4" y="4" width="16" height="16" rx="2"/><line x1="8" y1="11" x2="8" y2="16"/><line x1="8" y1="8" x2="8" y2="8.01"/><line x1="12" y1="16" x2="12" y2="11"/><path d="M16 16v-3a2 2 0 00-4 0"/></svg>
+</a>
+</li>
+</ol><ol class=menu id=main-menu>
+<li>
+<a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span>
+</a>
+</li>
+<li>
+<a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span>
+</a>
+</li>
+<li>
+<a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span>
+</a>
+</li>
+<div class=menu-bottom-section>
+<li id=i18n-switch><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5h7"/><path d="M9 3v2c0 4.418-2.239 8-5 8"/><path d="M5 9c-.003 2.144 2.952 3.908 6.7 4"/><path d="M12 20l4-9 4 9"/><path d="M19.1 18h-6.2"/></svg>
+<select name=language onchange="window.location.href=this.selectedOptions[0].value"><option value=https://interp.blog/ selected>한국어</option><option value=https://interp.blog/en/>English</option></select>
+</li>
+<li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>다크 모드</span>
+</li>
+</div>
+</ol>
+</aside>
+<main class="main full-width">
+<article class=main-article>
+<header class=article-header style=display:block>
+<div class=article-details>
+<header class=article-category>
+<a href=/categories/tech/ style=background-color:#1c8193;color:#fff>
+TECH 🛠️
+</a>
+</header>
+<div class=article-title-wrapper>
+<h2 class=article-title>
+<a href=/git-branch-rename/>Git Branch 이름 바꾸기</a>
+</h2>
+<h3 class=article-subtitle>
+Local, Remote 까지 확실히 바꿔보자
+</h3>
+</div>
+<footer class=article-time>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>2024-01-05</time>
+</div>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>
+3 분 소요
+</time>
+</div>
+</footer>
+</div>
+</header>
+<section class=article-content>
+<p>Git 에서 Branch 이름을 바꾸는 방법에 대해 제대로 정리가 안 되어 있는 것 같아서, 짧지만 예제와 함께 확실히 정리해 보려고 한다.</p>
+<h1 id=상황>상황</h1>
+<p>Github, Gitlab 같은 원격 저장소에 있는 <code>internal</code> 이란 이름의 branch 가 있다고 가정하자. 이 branch 를 로컬 환경에서 (예: PC, 개발 서버) checkout 받아서 작업을 하고 있었다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>git checkout internal
+<span class=c1># do something</span>
+</code></pre></div><p>어? 갑자기 <code>internal</code> 에서 작업하던 내용이 <strong>Issue#10</strong> 으로 등록되었다. 이제 이 작업은 &lsquo;내부적&rsquo;인 작업이 아니게 된 것이다. 그래서 Issue 번호를 붙인 branch 이름, <code>issue-10</code> 으로 바꾸고 싶다.</p>
+<p>즉, 이런 상황이다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>Local branch  = internal
+Remote branch = internal
+</code></pre></div><h1 id=local-branch-이름-바꾸기>Local branch 이름 바꾸기</h1>
+<p>아직 원격 저장소에는 반영하기 싫고, 로컬에서만 이름을 바꾸고 싶다면.. 아주 간단하게 바꿀 수 있다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=c1># (1) on `internal`` branch</span>
+git branch -m issue-10
+<span class=c1># (2) not on `internal` branch</span>
+git branch -m internal issue-10
+
+git checkout issue-10
+git rev-parse --abbrev-ref HEAD <span class=c1># issue-10</span>
+</code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>Local branch  = issue-10
+Remote branch = internal
+</code></pre></div><p>이 상태에서 그대로 push 하면 바뀌겠지? 라는 순진한 생각을 실험으로 옮겨보자.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>git push origin issue-10
+Enumerating objects: 1, <span class=k>done</span>.
+Counting objects: 100% <span class=o>(</span>1/1<span class=o>)</span>, <span class=k>done</span>.
+Writing objects: 100% <span class=o>(</span>1/1<span class=o>)</span>, <span class=m>181</span> bytes <span class=p>|</span> 181.00 KiB/s, <span class=k>done</span>.
+Total <span class=m>1</span> <span class=o>(</span>delta 0<span class=o>)</span>, reused <span class=m>0</span> <span class=o>(</span>delta 0<span class=o>)</span>, pack-reused <span class=m>0</span>
+remote: 
+remote: Create a pull request <span class=k>for</span> <span class=s1>&#39;issue-10&#39;</span> on GitHub by visiting:
+remote:      https://github.com/test/test-project/pull/new/issue-10
+remote: 
+To https://github.com/test/test-project.git
+ * <span class=o>[</span>new branch<span class=o>]</span>      issue-10 -&gt; issue-10
+</code></pre></div><p><em>와! 바뀐거 아니예요?</em> 그럴리가요!</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>git fetch origin
+git branch -a
+
+* issue-10
+  main
+  remotes/origin/internal
+  remotes/origin/issue-10
+  remotes/origin/main
+</code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>Local branch  = issue-10
+Remote branch = issue-10, internal
+</code></pre></div><p><code>remotes/origin/internal</code> 이 여전히 남아있다. 깔끔하지 못하다!</p>
+<h1 id=remote-branch-이름-바꾸기>Remote branch 이름 바꾸기</h1>
+<p>원격 저장소에 있는 branch 까지 이름을 바꾸려면 어떻게 해야 할까? 이미 눈치챘겠지만 그냥 옛날 Remote branch 를 삭제하면 된다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=c1># (1)</span>
+git push origin :internal
+<span class=c1># (2)</span>
+git push origin --delete internal
+</code></pre></div><h1 id=이러면-끝-upstream-의-함정>이러면 끝? Upstream 의 함정</h1>
+<p>지금 예제에서는 <em>다행히</em> 새로운 이름의 branch 가 그대로 Remote branch 로 업로드 된 경우이다. 위의 결과 로그를 다시 가져와보면, <code>issue-10</code> 은 원격 저장소에 없었는데 이 Push 작업을 통해 새로 생긴 것이다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>To https://github.com/test/test-project.git
+ * [new branch]      issue-10 -&gt; issue-10
+</code></pre></div><p>다시 돌아가서, Local branch 이름만 바꾸고 Push 를 했는데 다음과 같은 상황이 발생했다면?</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>To https://github.com/test/test-project.git
+38b2c6e..7489f75 issue-10 -&gt; internal
+</code></pre></div><p>음? 기존 Remote branch <code>internal</code> 에 그대로 반영되었다. 이러면 Remote branch <code>internal</code> 을 <code>git push origin --delete</code> 로 지워본들, <code>issue-10</code> branch 를 계속 push 할 때 마다 <code>internal</code> 이란 이름으로 계속 Remote branch 가 생길 것이다.</p>
+<p>왜 이렇게 된 것일까? 답은 upstream 때문이다. 다음 명령으로 branch 의 상태를 확인해 보자.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>git branch -vv <span class=p>|</span> grep issue-10
+* issue-10  7489f75 <span class=o>[</span>origin/internal<span class=o>]</span> hello commit
+</code></pre></div><p><code>[]</code> 안에 표시된 내용이 Upsteam 이며, 연결된 Remote branch 내용이 들어가 있다. 이 부분이 아예 없다면 Upstream 이 없으니, 새로운 branch 를 Push + 옛날 branch 는 Remote 에서 삭제하는 위 방법만으로 이름을 바꿀 수 있다. 반대로 말하면, Upstream 이 존재하면 추가 조치가 필요하다.</p>
+<h1 id=마지막-조치>마지막 조치</h1>
+<p>이름을 바꾼 Local branch 를 Push 하기 전에, Upstream 을 삭제하는 과정이 필요하다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>git branch --unset-upstream issue-10
+</code></pre></div><p><div style=background-color:var(--pre-background-color);width:98%;margin:2rem;padding:20px;border-radius:5px;font-size:.8em;display:flex>
+<div style=width:16px;margin-right:7px;margin-left:4px>
+💡
+</div>
+<div>
+참고로, <code>git branch --set-upstream-to=</code> 명령으로 기존 Remote branch 에 Upstream 을 연결하는 방법도 있지만, Remote branch 가 존재하지 않으면 에러가 발생한다.
+</div>
+</div>
+그리고 Upstream 을 연결하기 위해 다음과 같이 <code>-u</code> 옵션을 써서 <code>git push</code> 하면 된다!</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>git push -u origin issue-10
+</code></pre></div><h1 id=한-번에-하기>한 번에 하기</h1>
+<p>귀찮으신 분들을 위해 한 번에 하는 방법을 소개한다. 그냥 변수를 바꾸시면 되겠다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=nv>NEW_BRANCH</span><span class=o>=</span><span class=s2>&#34;internal&#34;</span>
+<span class=nv>OLD_BRANCH</span><span class=o>=</span><span class=s2>&#34;issue-10&#34;</span>
+
+<span class=c1># Local branch</span>
+git checkout <span class=si>${</span><span class=nv>OLD_BRANCH</span><span class=si>}</span>
+git branch -m <span class=si>${</span><span class=nv>NEW_BRANCH</span><span class=si>}</span>
+
+<span class=c1># Unset existing upstream and push with new upstream</span>
+git branch --unset-upstream
+git push -u origin <span class=si>${</span><span class=nv>NEW_BRANCH</span><span class=si>}</span>
+
+<span class=c1># Check whether new branch is okay on the remote</span>
+
+<span class=c1># Delete old remote branch</span>
+git push origin --delete <span class=si>${</span><span class=nv>OLD_BRANCH</span><span class=si>}</span>
+</code></pre></div><h1 id=당부>당부</h1>
+<p>어떻게 하든 예전 Remote branch 를 삭제하는 것은 동일하다. 하지만, Local branch 가 존재하는 로컬 환경이 어떻게 될지 아무도 모른다. 사람 일은 모르기 때문에 Remote branch 를 먼저 삭제해버렸더니, Local branch 를 못 쓰게 될 수도 있다. (disk 가 고장나거나 PC 가 먹통이 되거나!)</p>
+<p>따라서 <strong>반드시 Local branch 를 먼저 Push 한 다음에 Remote branch 를 삭제해야 한다.</strong></p>
+</section>
+<footer class=article-footer>
+<br>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
+<ins class=adsbygoogle style=display:block;height:300px;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-0712823212859607 data-ad-slot=7880266545></ins>
+<script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
+<section class=article-tags>
+<a href=/tags/git/>Git</a>
+</section>
+</footer>
+</article>
+<aside class=related-content--wrapper>
+<h2 class=section-title>관련 글</h2>
+<div class=related-content>
+<div class="flex article-list--tile">
+<article class=has-image>
+<a href=/backup-from-icloud-obsidian/>
+<div class=article-image>
+<img src=/backup-from-icloud-obsidian/feature.733fea06f52cb01084c577110197599f_hu4b4ed757e4b1c0b24b15644c97bf58e9_228493_250x150_fill_box_smart1_3.png width=250 height=150 loading=lazy alt="Featured image of post iCloud Obsidian 주기적으로 백업하기" data-hash="md5-cz/qBvUssBCExXcRAZdZnw==">
+</div>
+<div class=article-details>
+<h2 class=article-title>iCloud Obsidian 주기적으로 백업하기</h2>
+</div>
+</a>
+</article>
+<article class=has-image>
+<a href=/github-actions-pr-review-request/>
+<div class=article-image>
+<img src=/github-actions-pr-review-request/feature.1d0dca8612c75f0c44a6a22c6bc77855_hu3d03a01dcc18bc5be0e67db3d8d209a6_492338_250x150_fill_q75_box_smart1.jpg width=250 height=150 loading=lazy alt="Featured image of post Github Pull Request 리뷰 요청 자동화하기" data-hash="md5-HQ3KhhLHXwxEpqIsa8d4VQ==">
+</div>
+<div class=article-details>
+<h2 class=article-title>Github Pull Request 리뷰 요청 자동화하기</h2>
+</div>
+</a>
+</article>
+<article class=has-image>
+<a href=/argo-workflow-intro/>
+<div class=article-image>
+<img src=/argo-workflow-intro/feature.b8d18d95bd1505d3b97dd0dc781dc0b2_hud00911a79d15e0ce8ed34121b8f2ad3a_820902_250x150_fill_box_smart1_3.png width=250 height=150 loading=lazy alt="Featured image of post Argo workflow 3가지 기본 개념" data-hash="md5-uNGNlb0VBdO5fdDceB3Asg==">
+</div>
+<div class=article-details>
+<h2 class=article-title>Argo workflow 3가지 기본 개념</h2>
+</div>
+</a>
+</article>
+</div>
+</div>
+</aside>
+<script src=https://giscus.app/client.js data-repo=1nterp/1nterp.github.io data-repo-id="MDEwOlJlcG9zaXRvcnkyMzY5NzQ5Mzc=" data-category=General data-category-id=MDE4OkRpc2N1c3Npb25DYXRlZ29yeTMyMjU4Mjgx data-mapping=pathname data-reactions-enabled=1 data-emit-metadata=1 data-theme=light data-lang=en data-loading=lazy crossorigin=anonymous async></script>
+<script>function setGiscusTheme(b){let a=document.querySelector("iframe.giscus-frame");a&&a.contentWindow.postMessage({giscus:{setConfig:{theme:b}}},"https://giscus.app")}(function(){addEventListener("message",b=>{if(event.origin!=="https://giscus.app")return;a()}),window.addEventListener("onColorSchemeChange",a);function a(){document.documentElement.dataset.scheme==="light"?setGiscusTheme('light'):setGiscusTheme('dark_dimmed')}})()</script>
+<footer class=site-footer>
+<section class=copyright>
+&copy;
+2019 -
+2024 InterP Blog
+</section>
+<section class=powerby>
+<a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 기반 / <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.12.0>Stack</a></b> 테마를 사용 중입니다.
+</section>
+</footer>
+<div class=pswp tabindex=-1 role=dialog aria-hidden=true>
+<div class=pswp__bg></div>
+<div class=pswp__scroll-wrap>
+<div class=pswp__container>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+</div>
+<div class="pswp__ui pswp__ui--hidden">
+<div class=pswp__top-bar>
+<div class=pswp__counter></div>
+<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+<div class=pswp__preloader>
+<div class=pswp__preloader__icn>
+<div class=pswp__preloader__cut>
+<div class=pswp__preloader__donut></div>
+</div>
+</div>
+</div>
+</div>
+<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+<div class=pswp__share-tooltip></div>
+</div>
+<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+</button>
+<div class=pswp__caption>
+<div class=pswp__caption__center></div>
+</div>
+</div>
+</div>
+</div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous>
+</main>
+<aside class="sidebar right-sidebar sticky">
+<form action=/search/ class="search-form widget">
+<p>
+<label>검색</label>
+<input name=keyword required placeholder="검색어를 입력하세요...">
+<button title=검색><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+</button>
+</p>
+</form>
+<section class="widget archives">
+<div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg>
+</div>
+<h2 class="widget-title section-title">목차</h2>
+<div class=widget--toc>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#상황>상황</a></li>
+<li><a href=#local-branch-이름-바꾸기>Local branch 이름 바꾸기</a></li>
+<li><a href=#remote-branch-이름-바꾸기>Remote branch 이름 바꾸기</a></li>
+<li><a href=#이러면-끝-upstream-의-함정>이러면 끝? Upstream 의 함정</a></li>
+<li><a href=#마지막-조치>마지막 조치</a></li>
+<li><a href=#한-번에-하기>한 번에 하기</a></li>
+<li><a href=#당부>당부</a></li>
+</ul>
+</nav>
+</div>
+</section>
+<section class="widget adsense">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
+<ins class=adsbygoogle style=display:block data-ad-client=ca-pub-0712823212859607 data-ad-slot=8117949234 data-ad-format=auto data-full-width-responsive=true></ins>
+<script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
+</section>
+</aside>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script>
+<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
+</body>
+</html>

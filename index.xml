@@ -1,4 +1,92 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>InterP Blog</title><link>https://interp.blog/</link><description>Recent content on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Sun, 17 Dec 2023 13:27:40 +0900</lastBuildDate><atom:link href="https://interp.blog/index.xml" rel="self" type="application/rss+xml"/><item><title>iCloud Obsidian 주기적으로 백업하기</title><link>https://interp.blog/backup-from-icloud-obsidian/</link><pubDate>Sun, 17 Dec 2023 13:27:40 +0900</pubDate><guid>https://interp.blog/backup-from-icloud-obsidian/</guid><description>&lt;img src="https://interp.blog/backup-from-icloud-obsidian/feature.png" alt="Featured image of post iCloud Obsidian 주기적으로 백업하기" />&lt;p>나는 개인 노트 작성에 &lt;a class="link" href="https://obsidian.md/" target="_blank" rel="noopener"
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>InterP Blog</title><link>https://interp.blog/</link><description>Recent content on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Fri, 05 Jan 2024 17:41:29 +0900</lastBuildDate><atom:link href="https://interp.blog/index.xml" rel="self" type="application/rss+xml"/><item><title>Git Branch 이름 바꾸기</title><link>https://interp.blog/git-branch-rename/</link><pubDate>Fri, 05 Jan 2024 17:41:29 +0900</pubDate><guid>https://interp.blog/git-branch-rename/</guid><description>&lt;p>Git 에서 Branch 이름을 바꾸는 방법에 대해 제대로 정리가 안 되어 있는 것 같아서, 짧지만 예제와 함께 확실히 정리해 보려고 한다.&lt;/p>
+&lt;h1 id="상황">상황&lt;/h1>
+&lt;p>Github, Gitlab 같은 원격 저장소에 있는 &lt;code>internal&lt;/code> 이란 이름의 branch 가 있다고 가정하자. 이 branch 를 로컬 환경에서 (예: PC, 개발 서버) checkout 받아서 작업을 하고 있었다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">git checkout internal
+&lt;span class="c1"># do something&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>어? 갑자기 &lt;code>internal&lt;/code> 에서 작업하던 내용이 &lt;strong>Issue#10&lt;/strong> 으로 등록되었다. 이제 이 작업은 &amp;lsquo;내부적&amp;rsquo;인 작업이 아니게 된 것이다. 그래서 Issue 번호를 붙인 branch 이름, &lt;code>issue-10&lt;/code> 으로 바꾸고 싶다.&lt;/p>
+&lt;p>즉, 이런 상황이다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">Local branch = internal
+Remote branch = internal
+&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="local-branch-이름-바꾸기">Local branch 이름 바꾸기&lt;/h1>
+&lt;p>아직 원격 저장소에는 반영하기 싫고, 로컬에서만 이름을 바꾸고 싶다면.. 아주 간단하게 바꿀 수 있다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="c1"># (1) on `internal`` branch&lt;/span>
+git branch -m issue-10
+&lt;span class="c1"># (2) not on `internal` branch&lt;/span>
+git branch -m internal issue-10
+git checkout issue-10
+git rev-parse --abbrev-ref HEAD &lt;span class="c1"># issue-10&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">Local branch = issue-10
+Remote branch = internal
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>이 상태에서 그대로 push 하면 바뀌겠지? 라는 순진한 생각을 실험으로 옮겨보자.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">git push origin issue-10
+Enumerating objects: 1, &lt;span class="k">done&lt;/span>.
+Counting objects: 100% &lt;span class="o">(&lt;/span>1/1&lt;span class="o">)&lt;/span>, &lt;span class="k">done&lt;/span>.
+Writing objects: 100% &lt;span class="o">(&lt;/span>1/1&lt;span class="o">)&lt;/span>, &lt;span class="m">181&lt;/span> bytes &lt;span class="p">|&lt;/span> 181.00 KiB/s, &lt;span class="k">done&lt;/span>.
+Total &lt;span class="m">1&lt;/span> &lt;span class="o">(&lt;/span>delta 0&lt;span class="o">)&lt;/span>, reused &lt;span class="m">0&lt;/span> &lt;span class="o">(&lt;/span>delta 0&lt;span class="o">)&lt;/span>, pack-reused &lt;span class="m">0&lt;/span>
+remote:
+remote: Create a pull request &lt;span class="k">for&lt;/span> &lt;span class="s1">&amp;#39;issue-10&amp;#39;&lt;/span> on GitHub by visiting:
+remote: https://github.com/test/test-project/pull/new/issue-10
+remote:
+To https://github.com/test/test-project.git
+* &lt;span class="o">[&lt;/span>new branch&lt;span class="o">]&lt;/span> issue-10 -&amp;gt; issue-10
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;em>와! 바뀐거 아니예요?&lt;/em> 그럴리가요!&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">git fetch origin
+git branch -a
+* issue-10
+main
+remotes/origin/internal
+remotes/origin/issue-10
+remotes/origin/main
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">Local branch = issue-10
+Remote branch = issue-10, internal
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>remotes/origin/internal&lt;/code> 이 여전히 남아있다. 깔끔하지 못하다!&lt;/p>
+&lt;h1 id="remote-branch-이름-바꾸기">Remote branch 이름 바꾸기&lt;/h1>
+&lt;p>원격 저장소에 있는 branch 까지 이름을 바꾸려면 어떻게 해야 할까? 이미 눈치챘겠지만 그냥 옛날 Remote branch 를 삭제하면 된다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="c1"># (1)&lt;/span>
+git push origin :internal
+&lt;span class="c1"># (2)&lt;/span>
+git push origin --delete internal
+&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="이러면-끝-upstream-의-함정">이러면 끝? Upstream 의 함정&lt;/h1>
+&lt;p>지금 예제에서는 &lt;em>다행히&lt;/em> 새로운 이름의 branch 가 그대로 Remote branch 로 업로드 된 경우이다. 위의 결과 로그를 다시 가져와보면, &lt;code>issue-10&lt;/code> 은 원격 저장소에 없었는데 이 Push 작업을 통해 새로 생긴 것이다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">To https://github.com/test/test-project.git
+* [new branch] issue-10 -&amp;gt; issue-10
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>다시 돌아가서, Local branch 이름만 바꾸고 Push 를 했는데 다음과 같은 상황이 발생했다면?&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">To https://github.com/test/test-project.git
+38b2c6e..7489f75 issue-10 -&amp;gt; internal
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>음? 기존 Remote branch &lt;code>internal&lt;/code> 에 그대로 반영되었다. 이러면 Remote branch &lt;code>internal&lt;/code> 을 &lt;code>git push origin --delete&lt;/code> 로 지워본들, &lt;code>issue-10&lt;/code> branch 를 계속 push 할 때 마다 &lt;code>internal&lt;/code> 이란 이름으로 계속 Remote branch 가 생길 것이다.&lt;/p>
+&lt;p>왜 이렇게 된 것일까? 답은 upstream 때문이다. 다음 명령으로 branch 의 상태를 확인해 보자.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">git branch -vv &lt;span class="p">|&lt;/span> grep issue-10
+* issue-10 7489f75 &lt;span class="o">[&lt;/span>origin/internal&lt;span class="o">]&lt;/span> hello commit
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>[]&lt;/code> 안에 표시된 내용이 Upsteam 이며, 연결된 Remote branch 내용이 들어가 있다. 이 부분이 아예 없다면 Upstream 이 없으니, 새로운 branch 를 Push + 옛날 branch 는 Remote 에서 삭제하는 위 방법만으로 이름을 바꿀 수 있다. 반대로 말하면, Upstream 이 존재하면 추가 조치가 필요하다.&lt;/p>
+&lt;h1 id="마지막-조치">마지막 조치&lt;/h1>
+&lt;p>이름을 바꾼 Local branch 를 Push 하기 전에, Upstream 을 삭제하는 과정이 필요하다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">git branch --unset-upstream issue-10
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;div style="background-color: var(--pre-background-color); width: 98%; margin:2rem; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
+&lt;div style="width: 16px;margin-right: 7px; margin-left: 4px;">
+💡
+&lt;/div>
+&lt;div>
+참고로, &lt;code>git branch --set-upstream-to=&lt;/code> 명령으로 기존 Remote branch 에 Upstream 을 연결하는 방법도 있지만, Remote branch 가 존재하지 않으면 에러가 발생한다.
+&lt;/div>
+&lt;/div>
+그리고 Upstream 을 연결하기 위해 다음과 같이 &lt;code>-u&lt;/code> 옵션을 써서 &lt;code>git push&lt;/code> 하면 된다!&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">git push -u origin issue-10
+&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="한-번에-하기">한 번에 하기&lt;/h1>
+&lt;p>귀찮으신 분들을 위해 한 번에 하는 방법을 소개한다. 그냥 변수를 바꾸시면 되겠다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="nv">NEW_BRANCH&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;internal&amp;#34;&lt;/span>
+&lt;span class="nv">OLD_BRANCH&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;issue-10&amp;#34;&lt;/span>
+&lt;span class="c1"># Local branch&lt;/span>
+git checkout &lt;span class="si">${&lt;/span>&lt;span class="nv">OLD_BRANCH&lt;/span>&lt;span class="si">}&lt;/span>
+git branch -m &lt;span class="si">${&lt;/span>&lt;span class="nv">NEW_BRANCH&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;span class="c1"># Unset existing upstream and push with new upstream&lt;/span>
+git branch --unset-upstream
+git push -u origin &lt;span class="si">${&lt;/span>&lt;span class="nv">NEW_BRANCH&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;span class="c1"># Check whether new branch is okay on the remote&lt;/span>
+&lt;span class="c1"># Delete old remote branch&lt;/span>
+git push origin --delete &lt;span class="si">${&lt;/span>&lt;span class="nv">OLD_BRANCH&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="당부">당부&lt;/h1>
+&lt;p>어떻게 하든 예전 Remote branch 를 삭제하는 것은 동일하다. 하지만, Local branch 가 존재하는 로컬 환경이 어떻게 될지 아무도 모른다. 사람 일은 모르기 때문에 Remote branch 를 먼저 삭제해버렸더니, Local branch 를 못 쓰게 될 수도 있다. (disk 가 고장나거나 PC 가 먹통이 되거나!)&lt;/p>
+&lt;p>따라서 &lt;strong>반드시 Local branch 를 먼저 Push 한 다음에 Remote branch 를 삭제해야 한다.&lt;/strong>&lt;/p></description></item><item><title>iCloud Obsidian 주기적으로 백업하기</title><link>https://interp.blog/backup-from-icloud-obsidian/</link><pubDate>Sun, 17 Dec 2023 13:27:40 +0900</pubDate><guid>https://interp.blog/backup-from-icloud-obsidian/</guid><description>&lt;img src="https://interp.blog/backup-from-icloud-obsidian/feature.png" alt="Featured image of post iCloud Obsidian 주기적으로 백업하기" />&lt;p>나는 개인 노트 작성에 &lt;a class="link" href="https://obsidian.md/" target="_blank" rel="noopener"
 >옵시디언 (obsidian)&lt;/a> 을 사용한다.&lt;/p>
 &lt;p>작년까지는 &lt;a class="link" href="https://www.notion.so/" target="_blank" rel="noopener"
 >노션 (Notion)&lt;/a> 을 주로 사용했지만, 노션은 데이터베이스 형태로 기록할 만한 것들만 남겨두고, 실제 글들을 아이디어로 엮는 작업은 옵시디언에서 하고 있다. 주로 Macbook 앞에서 작성하지만, 컴퓨터를 쓰지 않을 때는 iPhone 에서 끄적이고 싶을 때 옵시디언 앱을 연다. 어느 쪽에서 쓰더라도, iCloud 를 통해 동기화가 이루어지므로 끊임없이 적을 수 있는 장점도 있다. (최근 워크스페이스가 늘어나면서 모바일 로딩 속도가 느려지는 문제가 있는 듯 하다. 이 때문에 임시 메모장 용도로만 다시 노션을 써야하나 고민 중이긴 하다.)&lt;/p>
@@ -168,7 +256,7 @@ which rsync &lt;span class="c1"># 확인&lt;/span>
 &lt;li>페이지 하단에 &amp;lsquo;Add New Webhook to Workspace&amp;rsquo; 를 클릭&lt;/li>
 &lt;li>채널을 추가하면 채널의 Webhook URL 을 확인할 수 있다.&lt;/li>
 &lt;/ol>
-&lt;div style="background-color: var(--body-background); width: 98%; margin:1px; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
+&lt;div style="background-color: var(--pre-background-color); width: 98%; margin:2rem; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
 &lt;div style="width: 16px;margin-right: 7px; margin-left: 4px;">
 🪴
 &lt;/div>
@@ -957,7 +1045,7 @@ pip install tensorflow-metal&lt;span class="o">==&lt;/span>0.5.0
 >공개 키 기반 구조 (Public Key Infrastructure, PKI)&lt;/a> 이라고 부른다. 그리고 PKI 의 ITU 표준이 &lt;a class="link" href="https://en.wikipedia.org/wiki/X.509" target="_blank" rel="noopener"
 >X.509&lt;/a> 인 것이다.&lt;/p>
 &lt;p>간략히 말하자면, 이 인증서에는 (1) 공개 키 (2) 서버의 신원 (호스트네임, 기관이나 개인 이름 등) (3) 인증서에 사인을 해 준 기관 (Certificate Authority, &lt;em>CA&lt;/em>) 이 포함되어 있다. (CA 로부터 사인받지 않았다면 self-signed 로 표시된다)&lt;/p>
-&lt;div style="background-color: var(--body-background); width: 98%; margin:1px; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
+&lt;div style="background-color: var(--pre-background-color); width: 98%; margin:2rem; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
 &lt;div style="width: 16px;margin-right: 7px; margin-left: 4px;">
 💡
 &lt;/div>
@@ -1701,7 +1789,7 @@ Output: 2
 &lt;/blockquote>
 &lt;p>클로저를 둘러싼 상태, lexical environment 라는 말들 전부 &lt;strong>클로저 바깥&lt;/strong>을 말한다. 사실 뒷 문장이 다 설명을 해 주고 있다.&lt;/p></description></item><item><title>VSCode Python 디버그 반응이 없을 때</title><link>https://interp.blog/vscode-python-debugging-no-response/</link><pubDate>Tue, 23 Aug 2022 22:26:07 +0900</pubDate><guid>https://interp.blog/vscode-python-debugging-no-response/</guid><description>&lt;img src="https://interp.blog/vscode-python-debugging-no-response/feature.png" alt="Featured image of post VSCode Python 디버그 반응이 없을 때" />&lt;h1 id="증상">증상&lt;/h1>
 &lt;p>Visual Studio Code 에서 Python 파일을 디버깅 (debugging) 하려 하면, &lt;strong>아무런 반응이 없고 곧바로 종료된다.&lt;/strong> 그냥 실행 자체를 하지 않은 것 처럼 말이다..!&lt;/p>
-&lt;p>&lt;div style="background-color: var(--body-background); width: 98%; margin:1px; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
+&lt;p>&lt;div style="background-color: var(--pre-background-color); width: 98%; margin:2rem; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
 &lt;div style="width: 16px;margin-right: 7px; margin-left: 4px;">
 😂
 &lt;/div>
@@ -1764,7 +1852,7 @@ use debugpy 1.5.1 or earlier.
 &lt;p>이번 포스팅을 시작으로, 직접 다양한 언어에서 BDD 를 적용하는 방법을 정리해 볼 예정이다. 첫 시간으로는 &lt;strong>파이썬&lt;/strong> (Python) 언어를 가지고 할 것이다. Python 라이브러리 중 하나인 &lt;a class="link" href="https://behave.readthedocs.io/en/stable/" target="_blank" rel="noopener"
 >behave&lt;/a> 를 통해, BDD 테스트 프레임워크를 구성하고, 예제 시나리오를 만들어서 테스트 자동화가 어떻게 이뤄질 수 있을지 알아보자.&lt;/p>
 &lt;h1 id="예제-프로젝트-생성">예제 프로젝트 생성&lt;/h1>
-&lt;div style="background-color: var(--body-background); width: 98%; margin:1px; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
+&lt;div style="background-color: var(--pre-background-color); width: 98%; margin:2rem; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
 &lt;div style="width: 16px;margin-right: 7px; margin-left: 4px;">
 💡
 &lt;/div>
@@ -2290,7 +2378,7 @@ data-flex-basis="714px"
 >책 한번 써봅시다&lt;/a>&amp;rsquo; 에서, 나의 개성을 알아내는 질문으로 제시된 것 중 하나이다. 여기에 답하려면 가장 좋아하는 영화를 골라내고, 어떤 기준으로 영화의 순위가 갈라지는지 알아야 한다. 이런 질문은 글감을 찾아내기에도 안성 맞춤이라고 한다.&lt;/p>
 &lt;p>그래서 무턱대고, &lt;a class="link" href="https://pedia.watcha.com/" target="_blank" rel="noopener"
 >왓챠&lt;/a>에 기록한 내 영화 리스트를 죽 꺼내들어서 별점이 가장 높은 영화 중 5편만 꼽아봤다. 참고로 내 왓챠 평균 별점은 3.9점이다. 후해도 너무 후하다 (&amp;hellip;) 물론 철학적으로 사유하기 좋은 영화도 많고, 고전 영화도 심심찮게 많이 봤다. 하지만 어디까지나 개인적인 기준의 BEST5 이니 편한 마음으로 봐주시길.&lt;/p>
-&lt;div style="background-color: var(--body-background); width: 98%; margin:1px; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
+&lt;div style="background-color: var(--pre-background-color); width: 98%; margin:2rem; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
 &lt;div style="width: 16px;margin-right: 7px; margin-left: 4px;">
 ❗
 &lt;/div>
@@ -2382,7 +2470,7 @@ data-flex-basis="167px"
 >암살&lt;/a>&amp;rsquo; 도 좋아하지만, 아무래도 타짜 뿐이다.&lt;/p>
 &lt;p>소재가 매력적이기도 하지만, 그것보다는 인물들의 개성에 딱 맞는 대사와 그 합을 아주 오밀조밀 잘 짜뒀기 때문이다. 그래서 이 영화는 지루하지가 않다. 다음 장면이 아 그거였지 싶어도 기대가 된다. 그 환상의 티키타카를 볼 생각을 하면 말이다.&lt;/p>
 &lt;h1 id="마치며">마치며&lt;/h1>
-&lt;p>이렇게 모아보니 나는 자주 본 순서대로 순위를 매겼다. 좋아한 만큼 자주 봤을테니 당연한 거 아닌가? 물론 자주 보지 않았음에도 기억에 남는 영화는 많다. 이런 영화를 또 모아서 &amp;lsquo;아차상!&amp;rsquo; 같은 포스팅을 하면 좋겠지만, 언제 시간이 될런지. 어쨌거나, 이렇게 나만의 순위를 매겨보고 그 이유를 탐구해보는 시간도 나쁘지 않은 것 같다. 다른 분들도 한번 해 보길 바라며, 다음에는 다른 분야에서 나만의 순위표를 만들어 볼 생각에 벌써 신났다. 감사해요, 장강명 작가님!&lt;/p></description></item><item><title>저작권 걱정 없는 무료 이미지 사이트 3개</title><link>https://interp.blog/license-free-image-3-sites/</link><pubDate>Thu, 28 Jul 2022 01:39:19 +0000</pubDate><guid>https://interp.blog/license-free-image-3-sites/</guid><description>&lt;img src="https://interp.blog/images/2022-07-28-glenn-carstens-peters-loatw2afdyu-unsplash.jpg" alt="Featured image of post 저작권 걱정 없는 무료 이미지 사이트 3개" />&lt;div style="background-color: var(--body-background); width: 98%; margin:1px; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
+&lt;p>이렇게 모아보니 나는 자주 본 순서대로 순위를 매겼다. 좋아한 만큼 자주 봤을테니 당연한 거 아닌가? 물론 자주 보지 않았음에도 기억에 남는 영화는 많다. 이런 영화를 또 모아서 &amp;lsquo;아차상!&amp;rsquo; 같은 포스팅을 하면 좋겠지만, 언제 시간이 될런지. 어쨌거나, 이렇게 나만의 순위를 매겨보고 그 이유를 탐구해보는 시간도 나쁘지 않은 것 같다. 다른 분들도 한번 해 보길 바라며, 다음에는 다른 분야에서 나만의 순위표를 만들어 볼 생각에 벌써 신났다. 감사해요, 장강명 작가님!&lt;/p></description></item><item><title>저작권 걱정 없는 무료 이미지 사이트 3개</title><link>https://interp.blog/license-free-image-3-sites/</link><pubDate>Thu, 28 Jul 2022 01:39:19 +0000</pubDate><guid>https://interp.blog/license-free-image-3-sites/</guid><description>&lt;img src="https://interp.blog/images/2022-07-28-glenn-carstens-peters-loatw2afdyu-unsplash.jpg" alt="Featured image of post 저작권 걱정 없는 무료 이미지 사이트 3개" />&lt;div style="background-color: var(--pre-background-color); width: 98%; margin:2rem; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
 &lt;div style="width: 16px;margin-right: 7px; margin-left: 4px;">
 😉
 &lt;/div>
@@ -3483,7 +3571,7 @@ alt="이게 붙으면, 너도나도 찍먹하게 되는데 문제는&amp;amp;hel
 &lt;/ol>
 &lt;/blockquote>
 &lt;p>시간을 어떻게 보낼까? 보다는 &lt;strong>내가 보내는 시간은 나에게 의미가 있는가? 없다면 어떻게 진지하고 재미있게 그 시간을 보낼 수 있을까?&lt;/strong> 를 되돌아볼 수 있는 소중한 시간이 될 수 있을 것이다.&lt;/p>
-&lt;p>&lt;strong>무엇보다도, 책이 정말&amp;hellip; 정말 술술 읽힌다&lt;/strong>. 222페이지라 많지는 않은데, 여기에 여백도 많고 한 페이지에 적힌 글자 수도 적었기 때문도 있지만, 아무래도 어려운 내용 없이 옆에서 조언하는 걸 듣는 마음으로 가볍게 읽을 수 있었던 것 같았다. 😊&lt;/p></description></item><item><title>카카오/네이버 메일 아이폰 연동</title><link>https://interp.blog/kakao-naver-email-iphone-connect/</link><pubDate>Fri, 04 Feb 2022 16:35:37 +0000</pubDate><guid>https://interp.blog/kakao-naver-email-iphone-connect/</guid><description>&lt;img src="https://interp.blog/images/2022-02-04-kakao-email/feature-image.jpg" alt="Featured image of post 카카오/네이버 메일 아이폰 연동" />&lt;div style="background-color: var(--body-background); width: 98%; margin:1px; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
+&lt;p>&lt;strong>무엇보다도, 책이 정말&amp;hellip; 정말 술술 읽힌다&lt;/strong>. 222페이지라 많지는 않은데, 여기에 여백도 많고 한 페이지에 적힌 글자 수도 적었기 때문도 있지만, 아무래도 어려운 내용 없이 옆에서 조언하는 걸 듣는 마음으로 가볍게 읽을 수 있었던 것 같았다. 😊&lt;/p></description></item><item><title>카카오/네이버 메일 아이폰 연동</title><link>https://interp.blog/kakao-naver-email-iphone-connect/</link><pubDate>Fri, 04 Feb 2022 16:35:37 +0000</pubDate><guid>https://interp.blog/kakao-naver-email-iphone-connect/</guid><description>&lt;img src="https://interp.blog/images/2022-02-04-kakao-email/feature-image.jpg" alt="Featured image of post 카카오/네이버 메일 아이폰 연동" />&lt;div style="background-color: var(--pre-background-color); width: 98%; margin:2rem; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
 &lt;div style="width: 16px;margin-right: 7px; margin-left: 4px;">
 🚧
 &lt;/div>

@@ -1,4 +1,92 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>git on InterP Blog</title><link>https://interp.blog/tags/git/</link><description>Recent content in git on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Tue, 17 Oct 2023 21:23:43 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/git/index.xml" rel="self" type="application/rss+xml"/><item><title>Git merge vs. rebase</title><link>https://interp.blog/git-merge-rebase/</link><pubDate>Tue, 17 Oct 2023 21:23:43 +0900</pubDate><guid>https://interp.blog/git-merge-rebase/</guid><description>&lt;img src="https://interp.blog/git-merge-rebase/feature.jpg" alt="Featured image of post Git merge vs. rebase" />&lt;p>Git 에서 브랜치 (Branch) 를 합치는 방법은 &lt;em>merge&lt;/em> 와 &lt;em>rebase&lt;/em> 가 있다. 보통은 작업 브랜치를 Pull Request 로 등록할 때, 메인이 되는 &lt;code>main&lt;/code> 브랜치 (혹은 &lt;code>master&lt;/code>) 와 작업 브랜치 사이에 충돌 (conflict) 이 발생하는 경우에 사용하게 된다.&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Git on InterP Blog</title><link>https://interp.blog/tags/git/</link><description>Recent content in Git on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Fri, 05 Jan 2024 17:41:29 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/git/index.xml" rel="self" type="application/rss+xml"/><item><title>Git Branch 이름 바꾸기</title><link>https://interp.blog/git-branch-rename/</link><pubDate>Fri, 05 Jan 2024 17:41:29 +0900</pubDate><guid>https://interp.blog/git-branch-rename/</guid><description>&lt;p>Git 에서 Branch 이름을 바꾸는 방법에 대해 제대로 정리가 안 되어 있는 것 같아서, 짧지만 예제와 함께 확실히 정리해 보려고 한다.&lt;/p>
+&lt;h1 id="상황">상황&lt;/h1>
+&lt;p>Github, Gitlab 같은 원격 저장소에 있는 &lt;code>internal&lt;/code> 이란 이름의 branch 가 있다고 가정하자. 이 branch 를 로컬 환경에서 (예: PC, 개발 서버) checkout 받아서 작업을 하고 있었다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">git checkout internal
+&lt;span class="c1"># do something&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>어? 갑자기 &lt;code>internal&lt;/code> 에서 작업하던 내용이 &lt;strong>Issue#10&lt;/strong> 으로 등록되었다. 이제 이 작업은 &amp;lsquo;내부적&amp;rsquo;인 작업이 아니게 된 것이다. 그래서 Issue 번호를 붙인 branch 이름, &lt;code>issue-10&lt;/code> 으로 바꾸고 싶다.&lt;/p>
+&lt;p>즉, 이런 상황이다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">Local branch = internal
+Remote branch = internal
+&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="local-branch-이름-바꾸기">Local branch 이름 바꾸기&lt;/h1>
+&lt;p>아직 원격 저장소에는 반영하기 싫고, 로컬에서만 이름을 바꾸고 싶다면.. 아주 간단하게 바꿀 수 있다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="c1"># (1) on `internal`` branch&lt;/span>
+git branch -m issue-10
+&lt;span class="c1"># (2) not on `internal` branch&lt;/span>
+git branch -m internal issue-10
+git checkout issue-10
+git rev-parse --abbrev-ref HEAD &lt;span class="c1"># issue-10&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">Local branch = issue-10
+Remote branch = internal
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>이 상태에서 그대로 push 하면 바뀌겠지? 라는 순진한 생각을 실험으로 옮겨보자.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">git push origin issue-10
+Enumerating objects: 1, &lt;span class="k">done&lt;/span>.
+Counting objects: 100% &lt;span class="o">(&lt;/span>1/1&lt;span class="o">)&lt;/span>, &lt;span class="k">done&lt;/span>.
+Writing objects: 100% &lt;span class="o">(&lt;/span>1/1&lt;span class="o">)&lt;/span>, &lt;span class="m">181&lt;/span> bytes &lt;span class="p">|&lt;/span> 181.00 KiB/s, &lt;span class="k">done&lt;/span>.
+Total &lt;span class="m">1&lt;/span> &lt;span class="o">(&lt;/span>delta 0&lt;span class="o">)&lt;/span>, reused &lt;span class="m">0&lt;/span> &lt;span class="o">(&lt;/span>delta 0&lt;span class="o">)&lt;/span>, pack-reused &lt;span class="m">0&lt;/span>
+remote:
+remote: Create a pull request &lt;span class="k">for&lt;/span> &lt;span class="s1">&amp;#39;issue-10&amp;#39;&lt;/span> on GitHub by visiting:
+remote: https://github.com/test/test-project/pull/new/issue-10
+remote:
+To https://github.com/test/test-project.git
+* &lt;span class="o">[&lt;/span>new branch&lt;span class="o">]&lt;/span> issue-10 -&amp;gt; issue-10
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;em>와! 바뀐거 아니예요?&lt;/em> 그럴리가요!&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">git fetch origin
+git branch -a
+* issue-10
+main
+remotes/origin/internal
+remotes/origin/issue-10
+remotes/origin/main
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">Local branch = issue-10
+Remote branch = issue-10, internal
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>remotes/origin/internal&lt;/code> 이 여전히 남아있다. 깔끔하지 못하다!&lt;/p>
+&lt;h1 id="remote-branch-이름-바꾸기">Remote branch 이름 바꾸기&lt;/h1>
+&lt;p>원격 저장소에 있는 branch 까지 이름을 바꾸려면 어떻게 해야 할까? 이미 눈치챘겠지만 그냥 옛날 Remote branch 를 삭제하면 된다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="c1"># (1)&lt;/span>
+git push origin :internal
+&lt;span class="c1"># (2)&lt;/span>
+git push origin --delete internal
+&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="이러면-끝-upstream-의-함정">이러면 끝? Upstream 의 함정&lt;/h1>
+&lt;p>지금 예제에서는 &lt;em>다행히&lt;/em> 새로운 이름의 branch 가 그대로 Remote branch 로 업로드 된 경우이다. 위의 결과 로그를 다시 가져와보면, &lt;code>issue-10&lt;/code> 은 원격 저장소에 없었는데 이 Push 작업을 통해 새로 생긴 것이다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">To https://github.com/test/test-project.git
+* [new branch] issue-10 -&amp;gt; issue-10
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>다시 돌아가서, Local branch 이름만 바꾸고 Push 를 했는데 다음과 같은 상황이 발생했다면?&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">To https://github.com/test/test-project.git
+38b2c6e..7489f75 issue-10 -&amp;gt; internal
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>음? 기존 Remote branch &lt;code>internal&lt;/code> 에 그대로 반영되었다. 이러면 Remote branch &lt;code>internal&lt;/code> 을 &lt;code>git push origin --delete&lt;/code> 로 지워본들, &lt;code>issue-10&lt;/code> branch 를 계속 push 할 때 마다 &lt;code>internal&lt;/code> 이란 이름으로 계속 Remote branch 가 생길 것이다.&lt;/p>
+&lt;p>왜 이렇게 된 것일까? 답은 upstream 때문이다. 다음 명령으로 branch 의 상태를 확인해 보자.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">git branch -vv &lt;span class="p">|&lt;/span> grep issue-10
+* issue-10 7489f75 &lt;span class="o">[&lt;/span>origin/internal&lt;span class="o">]&lt;/span> hello commit
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>[]&lt;/code> 안에 표시된 내용이 Upsteam 이며, 연결된 Remote branch 내용이 들어가 있다. 이 부분이 아예 없다면 Upstream 이 없으니, 새로운 branch 를 Push + 옛날 branch 는 Remote 에서 삭제하는 위 방법만으로 이름을 바꿀 수 있다. 반대로 말하면, Upstream 이 존재하면 추가 조치가 필요하다.&lt;/p>
+&lt;h1 id="마지막-조치">마지막 조치&lt;/h1>
+&lt;p>이름을 바꾼 Local branch 를 Push 하기 전에, Upstream 을 삭제하는 과정이 필요하다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">git branch --unset-upstream issue-10
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;div style="background-color: var(--pre-background-color); width: 98%; margin:2rem; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
+&lt;div style="width: 16px;margin-right: 7px; margin-left: 4px;">
+💡
+&lt;/div>
+&lt;div>
+참고로, &lt;code>git branch --set-upstream-to=&lt;/code> 명령으로 기존 Remote branch 에 Upstream 을 연결하는 방법도 있지만, Remote branch 가 존재하지 않으면 에러가 발생한다.
+&lt;/div>
+&lt;/div>
+그리고 Upstream 을 연결하기 위해 다음과 같이 &lt;code>-u&lt;/code> 옵션을 써서 &lt;code>git push&lt;/code> 하면 된다!&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">git push -u origin issue-10
+&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="한-번에-하기">한 번에 하기&lt;/h1>
+&lt;p>귀찮으신 분들을 위해 한 번에 하는 방법을 소개한다. 그냥 변수를 바꾸시면 되겠다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="nv">NEW_BRANCH&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;internal&amp;#34;&lt;/span>
+&lt;span class="nv">OLD_BRANCH&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;issue-10&amp;#34;&lt;/span>
+&lt;span class="c1"># Local branch&lt;/span>
+git checkout &lt;span class="si">${&lt;/span>&lt;span class="nv">OLD_BRANCH&lt;/span>&lt;span class="si">}&lt;/span>
+git branch -m &lt;span class="si">${&lt;/span>&lt;span class="nv">NEW_BRANCH&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;span class="c1"># Unset existing upstream and push with new upstream&lt;/span>
+git branch --unset-upstream
+git push -u origin &lt;span class="si">${&lt;/span>&lt;span class="nv">NEW_BRANCH&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;span class="c1"># Check whether new branch is okay on the remote&lt;/span>
+&lt;span class="c1"># Delete old remote branch&lt;/span>
+git push origin --delete &lt;span class="si">${&lt;/span>&lt;span class="nv">OLD_BRANCH&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="당부">당부&lt;/h1>
+&lt;p>어떻게 하든 예전 Remote branch 를 삭제하는 것은 동일하다. 하지만, Local branch 가 존재하는 로컬 환경이 어떻게 될지 아무도 모른다. 사람 일은 모르기 때문에 Remote branch 를 먼저 삭제해버렸더니, Local branch 를 못 쓰게 될 수도 있다. (disk 가 고장나거나 PC 가 먹통이 되거나!)&lt;/p>
+&lt;p>따라서 &lt;strong>반드시 Local branch 를 먼저 Push 한 다음에 Remote branch 를 삭제해야 한다.&lt;/strong>&lt;/p></description></item><item><title>Git merge vs. rebase</title><link>https://interp.blog/git-merge-rebase/</link><pubDate>Tue, 17 Oct 2023 21:23:43 +0900</pubDate><guid>https://interp.blog/git-merge-rebase/</guid><description>&lt;img src="https://interp.blog/git-merge-rebase/feature.jpg" alt="Featured image of post Git merge vs. rebase" />&lt;p>Git 에서 브랜치 (Branch) 를 합치는 방법은 &lt;em>merge&lt;/em> 와 &lt;em>rebase&lt;/em> 가 있다. 보통은 작업 브랜치를 Pull Request 로 등록할 때, 메인이 되는 &lt;code>main&lt;/code> 브랜치 (혹은 &lt;code>master&lt;/code>) 와 작업 브랜치 사이에 충돌 (conflict) 이 발생하는 경우에 사용하게 된다.&lt;/p>
 &lt;p>그런데, 주변 개발자들은 &lt;em>merge&lt;/em> 만 해도 충분하다고 생각하는 것 같다. 나는 &lt;em>rebase&lt;/em> 를 해서 깔끔하게 만든 다음에 Pull Request 를 만드는 것을 선호한다. 물론 내 고집만 피울 필요는 전혀 없는 것이, 사실 &lt;em>merge&lt;/em> 로 충돌을 제거하면 상관없기 때문이다.&lt;/p>
 &lt;p>그러니 우선은 내가 먼저 알아봐야 하겠다. 어느 것이 더 나은지, 언제 &lt;em>merge&lt;/em> 를 쓰고 언제 &lt;em>rebase&lt;/em> 를 써야 할지 먼저 알아보도록 하자.&lt;/p>
 &lt;br/>
