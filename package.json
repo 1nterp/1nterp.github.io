@@ -1,0 +1,27 @@
+{
+  "name": "1nterp.github.io",
+  "version": "1.0.0",
+  "description": "VS Code with following plugins\r * Hugofy\r * Hugo Snippet",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/1nterp/1nterp.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/1nterp/1nterp.github.io/issues"
+  },
+  "homepage": "https://github.com/1nterp/1nterp.github.io#readme",
+  "dependencies": {
+    "tinacms": "^1.5.28"
+  },
+  "devDependencies": {
+    "@tinacms/cli": "^1.5.39",
+    "@types/node": "^20.11.11"
+  }
+}
