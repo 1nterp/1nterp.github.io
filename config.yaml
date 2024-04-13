@@ -138,11 +138,11 @@ menu:
               icon: home
 
     social:
-        - identifier: linkedin
-          name: LinkedIn
-          url: https://linkedin.com/in/interp
-          params:
-              icon: brand-linkedin
+    #    - identifier: linkedin
+    #      name: LinkedIn
+    #      url: https://linkedin.com/in/interp
+    #      params:
+    #          icon: brand-linkedin
 
         - identifier: github
           name: GitHub
@@ -156,11 +156,11 @@ menu:
     #       params:
     #           icon: brand-facebook
 
-    #     - identifier: instagram
-    #       name: Instagram
-    #       url: https://www.instagram.com/interp/
-    #       params:
-    #           icon: brand-instagram
+        - identifier: instagram
+          name: Instagram
+          url: https://www.instagram.com/interp/
+          params:
+              icon: brand-instagram
 
 related:
     includeNewer: true
