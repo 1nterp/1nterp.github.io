@@ -17,7 +17,7 @@ categories:
 
 Pull Request (PR) 를 등록할 때, Github Workflow 를 이용해서 PR Comment 를 등록하는 방법을 찾아보았다. 이 글에서는, Github Workflow 에서 실행한 결과물을 그대로 PR Comment 로 등록하는 방법을 소개한다. 
 
-## 언제 실행되어야 할까
+# 언제 실행되어야 할까
 ```yaml
 name: Data Check on PR
 
@@ -28,7 +28,7 @@ on:
 ```
 `data/**` 내용이 변경되는 PR 인 경우에만 해당 Workflow 가 작동하도록 했다.
 
-## 두 개의 checkout
+# 두 개의 checkout
 ```yaml
 jobs:
   check-data:
@@ -57,7 +57,7 @@ jobs:
         working-directory: ./pr-branch
 ```
 
-## Diff 출력하기
+# Diff 출력하기
 두 결과가 각각 `main-branch/result` 와 `pr-branch/result` 에 저장되었다면, 이를 diff 로 출력해보자.
 
 ```yaml
@@ -84,7 +84,7 @@ jobs:
 - `echo 'DIFF_REPORT<<EOF'` 이하 내용들은, `$GITHUB_OUTPUT` 에 저장된 내용을 `$DIFF_REPORT` 라는 사용자 환경변수에 저장한다는 의미이다. 이는 Workflow 내에서 출력할 수 있는 변수로, 이를 이용해서 PR Comment 에 출력할 수 있다. ([예제](https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#example-masking-a-generated-output-within-a-single-job))
   - 여기서 markdown syntax 를 한꺼번에 적용하기 위해서 \```diff 와 ``` 를 앞뒤로 미리 출력했다.  
 
-## PR Comment 등록
+# PR Comment 등록
 이번에는 `github-script` 를 사용한다. 그렇기 때문에 `GITHUB_TOKEN` 등록이 필요하다. 자세한 내용은 [이 블로그](https://zeddios.tistory.com/1047)에 정리가 잘 되어 있다.
 
 ```yaml
