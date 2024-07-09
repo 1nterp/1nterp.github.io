@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Action on InterP Blog</title><link>https://interp.blog/tags/action/</link><description>Recent content in Action on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Tue, 09 Jul 2024 09:56:16 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/action/index.xml" rel="self" type="application/rss+xml"/><item><title>Github Workflow 로 PR Comment 등록하기</title><link>https://interp.blog/github-workflow-pr-comment/</link><pubDate>Tue, 09 Jul 2024 09:56:16 +0900</pubDate><guid>https://interp.blog/github-workflow-pr-comment/</guid><description>&lt;p>현재 하고 있는 작은 프로젝트는, 변경 내용을 main branch 에 반영하고 나서 추가 작업이 이루어지는 구조를 하고 있다. 문제는 이 &lt;em>&amp;lsquo;추가 작업&amp;rsquo;&lt;/em> 을 Pull Request 에서 진행하더라도, main branch 와 working branch 사이에 어떤 결과물 차이가 있는지 눈으로 확인하기가 쉽지 않았다. 그래서, 아예 두 branch 에서 작업을 진행시키고, 진행한 결과를 diff 로 확인하면 어떨까 싶었다.&lt;/p>
 &lt;p>Pull Request (PR) 를 등록할 때, Github Workflow 를 이용해서 PR Comment 를 등록하는 방법을 찾아보았다. 이 글에서는, Github Workflow 에서 실행한 결과물을 그대로 PR Comment 로 등록하는 방법을 소개한다.&lt;/p>
-&lt;h2 id="언제-실행되어야-할까">언제 실행되어야 할까&lt;/h2>
+&lt;h1 id="언제-실행되어야-할까">언제 실행되어야 할까&lt;/h1>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Data Check on PR&lt;/span>&lt;span class="w">
 &lt;/span>&lt;span class="w">
 &lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">on&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
@@ -8,7 +8,7 @@
 &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">paths&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
 &lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="s1">&amp;#39;data/**&amp;#39;&lt;/span>&lt;span class="w">
 &lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>data/**&lt;/code> 내용이 변경되는 PR 인 경우에만 해당 Workflow 가 작동하도록 했다.&lt;/p>
-&lt;h2 id="두-개의-checkout">두 개의 checkout&lt;/h2>
+&lt;h1 id="두-개의-checkout">두 개의 checkout&lt;/h1>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">jobs&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
 &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">check-data&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
 &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">runs-on&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">self-hosted&lt;/span>&lt;span class="w">
@@ -31,7 +31,7 @@
 &lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Run &amp;#39;task&amp;#39; on PR branch&lt;/span>&lt;span class="w">
 &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">run&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">... do something ...&lt;/span>&lt;span class="w">
 &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">working-directory&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">./pr-branch&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="diff-출력하기">Diff 출력하기&lt;/h2>
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="diff-출력하기">Diff 출력하기&lt;/h1>
 &lt;p>두 결과가 각각 &lt;code>main-branch/result&lt;/code> 와 &lt;code>pr-branch/result&lt;/code> 에 저장되었다면, 이를 diff 로 출력해보자.&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Diff&lt;/span>&lt;span class="w">
 &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">id&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">diff&lt;/span>&lt;span class="w">
@@ -60,7 +60,7 @@
 &lt;/ul>
 &lt;/li>
 &lt;/ul>
-&lt;h2 id="pr-comment-등록">PR Comment 등록&lt;/h2>
+&lt;h1 id="pr-comment-등록">PR Comment 등록&lt;/h1>
 &lt;p>이번에는 &lt;code>github-script&lt;/code> 를 사용한다. 그렇기 때문에 &lt;code>GITHUB_TOKEN&lt;/code> 등록이 필요하다. 자세한 내용은 &lt;a class="link" href="https://zeddios.tistory.com/1047" target="_blank" rel="noopener"
 >이 블로그&lt;/a>에 정리가 잘 되어 있다.&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Upload diff to PR comment&lt;/span>&lt;span class="w">
