@@ -1,4 +1,75 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tech 🛠️ on InterP Blog</title><link>https://interp.blog/post/tech/</link><description>Recent content in Tech 🛠️ on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Tue, 09 Jul 2024 09:56:16 +0900</lastBuildDate><atom:link href="https://interp.blog/post/tech/index.xml" rel="self" type="application/rss+xml"/><item><title>Github Workflow 로 PR Comment 등록하기</title><link>https://interp.blog/github-workflow-pr-comment/</link><pubDate>Tue, 09 Jul 2024 09:56:16 +0900</pubDate><guid>https://interp.blog/github-workflow-pr-comment/</guid><description>&lt;p>현재 하고 있는 작은 프로젝트는, 변경 내용을 main branch 에 반영하고 나서 추가 작업이 이루어지는 구조를 하고 있다. 문제는 이 &lt;em>&amp;lsquo;추가 작업&amp;rsquo;&lt;/em> 을 Pull Request 에서 진행하더라도, main branch 와 working branch 사이에 어떤 결과물 차이가 있는지 눈으로 확인하기가 쉽지 않았다. 그래서, 아예 두 branch 에서 작업을 진행시키고, 진행한 결과를 diff 로 확인하면 어떨까 싶었다.&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tech 🛠️ on InterP Blog</title><link>https://interp.blog/post/tech/</link><description>Recent content in Tech 🛠️ on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Wed, 07 Aug 2024 09:59:24 +0900</lastBuildDate><atom:link href="https://interp.blog/post/tech/index.xml" rel="self" type="application/rss+xml"/><item><title>Helm Template Value 의 문자열 값 보존하기</title><link>https://interp.blog/helm-template-value-preserve-string/</link><pubDate>Wed, 07 Aug 2024 09:59:24 +0900</pubDate><guid>https://interp.blog/helm-template-value-preserve-string/</guid><description>&lt;p>Helm Templating 을 하다 보면, 값에 들어가 있는 따옴표를 그대로 보존해야 하는 상황이 발생한다. 다음과 같은 경우엔 어떻게 할 것인가?&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Secret&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">data&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">password&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{{&lt;span class="w"> &lt;/span>&lt;span class="l">.Values.password }}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">helm template mychart --set &lt;span class="nv">password&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;my&amp;#39;password&amp;#34;&lt;/span> &lt;span class="c1"># 성공&lt;/span>
+helm template mychart --set &lt;span class="nv">password&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;my\&amp;#34;&amp;#39;password&amp;#34;&lt;/span> &lt;span class="c1"># YAML parse error&lt;/span>
+helm template mychart --set &lt;span class="nv">password&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;my&amp;#34;password&amp;#39;&lt;/span> &lt;span class="c1"># YAML parse error&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="--사용하기">&lt;code>&amp;gt;-&lt;/code> 사용하기&lt;/h1>
+&lt;p>처음으로 할 일은 &lt;code>spec.data.password&lt;/code> 을 다음과 같이 &lt;code>&amp;gt;&lt;/code> (angle bracket, greater-than-sign 이라고 부르더라) 와 &lt;code>-&lt;/code> 의 조합으로 바꾸는 것이다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="w"> &lt;/span>&lt;span class="nt">password&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">&amp;gt;-&lt;/span>&lt;span class="sd">
+&lt;/span>&lt;span class="sd"> &lt;/span>&lt;span class="w"> &lt;/span>{{&lt;span class="w"> &lt;/span>&lt;span class="l">.Values.password }}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>이게 뭔가요? 이건 Helm Template Engine 기술이 아니라 YAML 테크닉의 일종이고, 문자열 보존을 위한 목적도 아니다. &lt;a class="link" href="https://helm.sh/docs/chart_template_guide/yaml_techniques/#folded-multi-line-strings" target="_blank" rel="noopener"
+>Helm 문서&lt;/a>&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>를 먼저 보면,&lt;/p>
+&lt;blockquote>
+&lt;p>Sometimes you want to represent a string in your YAML with multiple lines, but want it to be treated as one long line when it is interpreted. This is called &amp;ldquo;folding&amp;rdquo;. To declare a folded block, use &lt;code>&amp;gt;&lt;/code>.&lt;/p>
+&lt;p>YAML에서 문자열을 여러 줄로 표현하고 싶지만, 하나의 긴 줄로 나타내고 싶을 때가 있습니다. 이것을 &amp;ldquo;&lt;em>접기(folding)&lt;/em>&amp;ldquo;라고 부르죠. 접혀야 할 블록을 선언하려면, &lt;code>&amp;gt;&lt;/code> 를 사용하세요.&lt;/p>
+&lt;/blockquote>
+&lt;p>더 정확한 설명을 해 주는 &lt;a class="link" href="https://yaml-multiline.info/" target="_blank" rel="noopener"
+>YAML Multiline 문서&lt;/a>&lt;sup id="fnref:2">&lt;a href="#fn:2" class="footnote-ref" role="doc-noteref">2&lt;/a>&lt;/sup>를 요약해 보면,&lt;/p>
+&lt;ul>
+&lt;li>Block 을 유지하려면 &lt;code>|&lt;/code>, 한 줄로 접으려면 &lt;code>&amp;gt;&lt;/code>&lt;/li>
+&lt;li>Block 마지막에 줄바꿈을 넣는 것이 기본값, 넣지 않으려면 &lt;code>-&lt;/code> 를 붙이고, 모든 줄바꿈을 유지하려면 (&lt;code>|&lt;/code> 일 때만) &lt;code>+&lt;/code> 를 붙인다.&lt;/li>
+&lt;/ul>
+&lt;p>그래서 &lt;code>&amp;gt;&lt;/code> 만 사용하면 줄바꿈이 들어간 값을 얻기 때문에, 정확히 우리가 원하는 것은 아니다. &lt;code>&amp;gt;-&lt;/code> 를 써야 한다.&lt;/p>
+&lt;h1 id="예제-적용하기">예제 적용하기&lt;/h1>
+&lt;p>앞서 &lt;code>helm template&lt;/code> 결과는 다음과 같이 나오는데,&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="c"># helm template mychart --set password=&amp;#34;my\&amp;#34;&amp;#39;password&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nn">---&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Secret&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">data&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">password&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">&amp;gt;-&lt;/span>&lt;span class="sd">
+&lt;/span>&lt;span class="sd"> &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">my&amp;#34;&amp;#39;password&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="c"># helm template mychart --set password=&amp;#39;my&amp;#34;password&amp;#39;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Secret&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">data&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">password&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">&amp;gt;-&lt;/span>&lt;span class="sd">
+&lt;/span>&lt;span class="sd"> &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">my&amp;#34;password&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="c"># helm template mychart --set password=&amp;#34;my&amp;#39;password&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Secret&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">data&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">password&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">&amp;gt;-&lt;/span>&lt;span class="sd">
+&lt;/span>&lt;span class="sd"> &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">my&amp;#39;password&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>어? &lt;code>spec.data.password&lt;/code> 에 여전히 &lt;code>&amp;gt;-&lt;/code> 가 남아있고, 값 앞에 줄바꿈도 되어 있는데 읽으면 이상한거 아니예요? 그렇지 않다.&lt;/p>
+&lt;p>&lt;a class="link" href="https://github.com/mikefarah/yq/" target="_blank" rel="noopener"
+>mikefarah/yq&lt;/a>&lt;sup id="fnref:3">&lt;a href="#fn:3" class="footnote-ref" role="doc-noteref">3&lt;/a>&lt;/sup>을 사용해서 쿼리해 보면 정상적으로 나오는 것을 확인할 수 있다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">helm template mychart --set &lt;span class="nv">password&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;my\&amp;#34;password&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> yq &lt;span class="s1">&amp;#39;.spec.data.password&amp;#39;&lt;/span> -r
+my&lt;span class="s2">&amp;#34;password
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">helm template mychart --set &lt;span class="nv">password&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;my\&amp;#34;&amp;#39;password&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> yq &lt;span class="s1">&amp;#39;.spec.data.password&amp;#39;&lt;/span> -r
+my&lt;span class="s2">&amp;#34;&amp;#39;password
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">helm template mychart --set &lt;span class="nv">password&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;my&amp;#34;password&amp;#39;&lt;/span> &lt;span class="p">|&lt;/span> yq &lt;span class="s1">&amp;#39;.spec.data.password&amp;#39;&lt;/span> -r
+my&lt;span class="s2">&amp;#34;password
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;section class="footnotes" role="doc-endnotes">
+&lt;hr>
+&lt;ol>
+&lt;li id="fn:1" role="doc-endnote">
+&lt;p>&lt;a class="link" href="https://helm.sh/docs/chart_template_guide/yaml_techniques/#folded-multi-line-strings" target="_blank" rel="noopener"
+>https://helm.sh/docs/chart_template_guide/yaml_techniques/#folded-multi-line-strings&lt;/a>&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:2" role="doc-endnote">
+&lt;p>&lt;a class="link" href="https://yaml-multiline.info/" target="_blank" rel="noopener"
+>https://yaml-multiline.info/&lt;/a>&amp;#160;&lt;a href="#fnref:2" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:3" role="doc-endnote">
+&lt;p>&lt;a class="link" href="https://github.com/mikefarah/yq/" target="_blank" rel="noopener"
+>https://github.com/mikefarah/yq/&lt;/a>&amp;#160;&lt;a href="#fnref:3" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/section></description></item><item><title>Github Workflow 로 PR Comment 등록하기</title><link>https://interp.blog/github-workflow-pr-comment/</link><pubDate>Tue, 09 Jul 2024 09:56:16 +0900</pubDate><guid>https://interp.blog/github-workflow-pr-comment/</guid><description>&lt;p>현재 하고 있는 작은 프로젝트는, 변경 내용을 main branch 에 반영하고 나서 추가 작업이 이루어지는 구조를 하고 있다. 문제는 이 &lt;em>&amp;lsquo;추가 작업&amp;rsquo;&lt;/em> 을 Pull Request 에서 진행하더라도, main branch 와 working branch 사이에 어떤 결과물 차이가 있는지 눈으로 확인하기가 쉽지 않았다. 그래서, 아예 두 branch 에서 작업을 진행시키고, 진행한 결과를 diff 로 확인하면 어떨까 싶었다.&lt;/p>
 &lt;p>Pull Request (PR) 를 등록할 때, Github Workflow 를 이용해서 PR Comment 를 등록하는 방법을 찾아보았다. 이 글에서는, Github Workflow 에서 실행한 결과물을 그대로 PR Comment 로 등록하는 방법을 소개한다.&lt;/p>
 &lt;h1 id="언제-실행되어야-할까">언제 실행되어야 할까&lt;/h1>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Data Check on PR&lt;/span>&lt;span class="w">
@@ -2106,8 +2177,7 @@ target="_blank" rel="noopener"
 &lt;h2 id="사소한-문제">사소한 문제?&lt;/h2>
 &lt;p>아까 Go 언어 기본값이 들어있는 필드는 JSON encoding package 에서 비어있는 필드로 간주한다는 말을 했었다. 그런데, 이 값들이 유의미한 값이라면 어떻게 해야 할까? 이 때는 &lt;code>omitempty&lt;/code> 옵션 사용을 자제해야 한다.&lt;/p>
 &lt;p>예를 들면, 통장 내역을 나타내는 struct type 에서, 잔고를 나타내는 &lt;code>balance&lt;/code> 필드가 있다고 가정하자. 만약, 이 필드가 정확히 0을 가진다면 이 0이란 숫자는 유효한 숫자다. 그런데 이 필드에 대고 &lt;code>omitempty&lt;/code> 를 붙이게 되면, 사용자가 반환받을 JSON 문서에 &lt;code>balance&lt;/code> 자체가 없게 되고 큰 혼란 (?) 이 올 수 있다. 잔고라는 필드는 프로그램에서 필수적으로 있을 것이라 가정하기 때문에 일종의 &lt;em>AssertionError&lt;/em> 에 빠질 수 있다는 뜻이다.&lt;/p>
-&lt;p>Marshalling 할 때 JSON 문서의 다이어트 목적으로 이 옵션을 종종 쓸 텐데, 항상 주의해서 써야 한다는 것으로 끝맺는다.&lt;/p></description></item><item><title>A tour of Go: Flow control statements</title><link>https://interp.blog/tour-of-go-flow-control-stmts/</link><pubDate>Mon, 20 Jun 2022 02:36:25 +0000</pubDate><guid>https://interp.blog/tour-of-go-flow-control-stmts/</guid><description>&lt;p>&lt;a class="link" href="https://interp.blog/tour-of-go-package-function-variable/" target="_blank" rel="noopener"
->지난 시간&lt;/a>에 이어서, 여기서는 Flow Control Statement 에 대해 정리해 보았다.&lt;/p>
+&lt;p>Marshalling 할 때 JSON 문서의 다이어트 목적으로 이 옵션을 종종 쓸 텐데, 항상 주의해서 써야 한다는 것으로 끝맺는다.&lt;/p></description></item><item><title>A tour of Go: Flow control statements</title><link>https://interp.blog/tour-of-go-flow-control-stmts/</link><pubDate>Mon, 20 Jun 2022 02:36:25 +0000</pubDate><guid>https://interp.blog/tour-of-go-flow-control-stmts/</guid><description>&lt;p>&lt;a class="link" href="https://interp.blog/tour-of-go-package-function-variable" >지난 시간&lt;/a>에 이어서, 여기서는 Flow Control Statement 에 대해 정리해 보았다.&lt;/p>
 &lt;h2 id="a-tour-of-go">A tour of Go&lt;/h2>
 &lt;ul>
 &lt;li>English: &lt;a class="link" href="https://go.dev/tour/" title="https://go.dev/tour/"

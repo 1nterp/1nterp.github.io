@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>yaml on InterP Blog</title><link>https://interp.blog/tags/yaml/</link><description>Recent content in yaml on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Wed, 07 Aug 2024 09:59:24 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/yaml/index.xml" rel="self" type="application/rss+xml"/><item><title>Helm Template Value 의 문자열 값 보존하기</title><link>https://interp.blog/helm-template-value-preserve-string/</link><pubDate>Wed, 07 Aug 2024 09:59:24 +0900</pubDate><guid>https://interp.blog/helm-template-value-preserve-string/</guid><description>&lt;p>Helm Templating 을 하다 보면, 값에 들어가 있는 따옴표를 그대로 보존해야 하는 상황이 발생한다. 다음과 같은 경우엔 어떻게 할 것인가?&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Secret&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">data&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">password&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{{&lt;span class="w"> &lt;/span>&lt;span class="l">.Values.password }}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">helm template mychart --set &lt;span class="nv">password&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;my&amp;#39;password&amp;#34;&lt;/span> &lt;span class="c1"># 성공&lt;/span>
+helm template mychart --set &lt;span class="nv">password&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;my\&amp;#34;&amp;#39;password&amp;#34;&lt;/span> &lt;span class="c1"># YAML parse error&lt;/span>
+helm template mychart --set &lt;span class="nv">password&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;my&amp;#34;password&amp;#39;&lt;/span> &lt;span class="c1"># YAML parse error&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="--사용하기">&lt;code>&amp;gt;-&lt;/code> 사용하기&lt;/h1>
+&lt;p>처음으로 할 일은 &lt;code>spec.data.password&lt;/code> 을 다음과 같이 &lt;code>&amp;gt;&lt;/code> (angle bracket, greater-than-sign 이라고 부르더라) 와 &lt;code>-&lt;/code> 의 조합으로 바꾸는 것이다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="w"> &lt;/span>&lt;span class="nt">password&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">&amp;gt;-&lt;/span>&lt;span class="sd">
+&lt;/span>&lt;span class="sd"> &lt;/span>&lt;span class="w"> &lt;/span>{{&lt;span class="w"> &lt;/span>&lt;span class="l">.Values.password }}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>이게 뭔가요? 이건 Helm Template Engine 기술이 아니라 YAML 테크닉의 일종이고, 문자열 보존을 위한 목적도 아니다. &lt;a class="link" href="https://helm.sh/docs/chart_template_guide/yaml_techniques/#folded-multi-line-strings" target="_blank" rel="noopener"
+>Helm 문서&lt;/a>&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>를 먼저 보면,&lt;/p>
+&lt;blockquote>
+&lt;p>Sometimes you want to represent a string in your YAML with multiple lines, but want it to be treated as one long line when it is interpreted. This is called &amp;ldquo;folding&amp;rdquo;. To declare a folded block, use &lt;code>&amp;gt;&lt;/code>.&lt;/p>
+&lt;p>YAML에서 문자열을 여러 줄로 표현하고 싶지만, 하나의 긴 줄로 나타내고 싶을 때가 있습니다. 이것을 &amp;ldquo;&lt;em>접기(folding)&lt;/em>&amp;ldquo;라고 부르죠. 접혀야 할 블록을 선언하려면, &lt;code>&amp;gt;&lt;/code> 를 사용하세요.&lt;/p>
+&lt;/blockquote>
+&lt;p>더 정확한 설명을 해 주는 &lt;a class="link" href="https://yaml-multiline.info/" target="_blank" rel="noopener"
+>YAML Multiline 문서&lt;/a>&lt;sup id="fnref:2">&lt;a href="#fn:2" class="footnote-ref" role="doc-noteref">2&lt;/a>&lt;/sup>를 요약해 보면,&lt;/p>
+&lt;ul>
+&lt;li>Block 을 유지하려면 &lt;code>|&lt;/code>, 한 줄로 접으려면 &lt;code>&amp;gt;&lt;/code>&lt;/li>
+&lt;li>Block 마지막에 줄바꿈을 넣는 것이 기본값, 넣지 않으려면 &lt;code>-&lt;/code> 를 붙이고, 모든 줄바꿈을 유지하려면 (&lt;code>|&lt;/code> 일 때만) &lt;code>+&lt;/code> 를 붙인다.&lt;/li>
+&lt;/ul>
+&lt;p>그래서 &lt;code>&amp;gt;&lt;/code> 만 사용하면 줄바꿈이 들어간 값을 얻기 때문에, 정확히 우리가 원하는 것은 아니다. &lt;code>&amp;gt;-&lt;/code> 를 써야 한다.&lt;/p>
+&lt;h1 id="예제-적용하기">예제 적용하기&lt;/h1>
+&lt;p>앞서 &lt;code>helm template&lt;/code> 결과는 다음과 같이 나오는데,&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="c"># helm template mychart --set password=&amp;#34;my\&amp;#34;&amp;#39;password&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nn">---&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Secret&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">data&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">password&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">&amp;gt;-&lt;/span>&lt;span class="sd">
+&lt;/span>&lt;span class="sd"> &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">my&amp;#34;&amp;#39;password&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="c"># helm template mychart --set password=&amp;#39;my&amp;#34;password&amp;#39;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Secret&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">data&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">password&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">&amp;gt;-&lt;/span>&lt;span class="sd">
+&lt;/span>&lt;span class="sd"> &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">my&amp;#34;password&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="c"># helm template mychart --set password=&amp;#34;my&amp;#39;password&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Secret&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">data&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">password&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">&amp;gt;-&lt;/span>&lt;span class="sd">
+&lt;/span>&lt;span class="sd"> &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">my&amp;#39;password&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>어? &lt;code>spec.data.password&lt;/code> 에 여전히 &lt;code>&amp;gt;-&lt;/code> 가 남아있고, 값 앞에 줄바꿈도 되어 있는데 읽으면 이상한거 아니예요? 그렇지 않다.&lt;/p>
+&lt;p>&lt;a class="link" href="https://github.com/mikefarah/yq/" target="_blank" rel="noopener"
+>mikefarah/yq&lt;/a>&lt;sup id="fnref:3">&lt;a href="#fn:3" class="footnote-ref" role="doc-noteref">3&lt;/a>&lt;/sup>을 사용해서 쿼리해 보면 정상적으로 나오는 것을 확인할 수 있다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">helm template mychart --set &lt;span class="nv">password&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;my\&amp;#34;password&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> yq &lt;span class="s1">&amp;#39;.spec.data.password&amp;#39;&lt;/span> -r
+my&lt;span class="s2">&amp;#34;password
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">helm template mychart --set &lt;span class="nv">password&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;my\&amp;#34;&amp;#39;password&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> yq &lt;span class="s1">&amp;#39;.spec.data.password&amp;#39;&lt;/span> -r
+my&lt;span class="s2">&amp;#34;&amp;#39;password
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">helm template mychart --set &lt;span class="nv">password&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;my&amp;#34;password&amp;#39;&lt;/span> &lt;span class="p">|&lt;/span> yq &lt;span class="s1">&amp;#39;.spec.data.password&amp;#39;&lt;/span> -r
+my&lt;span class="s2">&amp;#34;password
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;section class="footnotes" role="doc-endnotes">
+&lt;hr>
+&lt;ol>
+&lt;li id="fn:1" role="doc-endnote">
+&lt;p>&lt;a class="link" href="https://helm.sh/docs/chart_template_guide/yaml_techniques/#folded-multi-line-strings" target="_blank" rel="noopener"
+>https://helm.sh/docs/chart_template_guide/yaml_techniques/#folded-multi-line-strings&lt;/a>&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:2" role="doc-endnote">
+&lt;p>&lt;a class="link" href="https://yaml-multiline.info/" target="_blank" rel="noopener"
+>https://yaml-multiline.info/&lt;/a>&amp;#160;&lt;a href="#fnref:2" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:3" role="doc-endnote">
+&lt;p>&lt;a class="link" href="https://github.com/mikefarah/yq/" target="_blank" rel="noopener"
+>https://github.com/mikefarah/yq/&lt;/a>&amp;#160;&lt;a href="#fnref:3" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/section></description></item></channel></rss>
