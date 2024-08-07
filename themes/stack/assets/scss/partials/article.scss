@@ -267,3 +267,17 @@
         }
     }
 }
+
+.footnotes {
+    font-size:0.8em;
+    ol {
+        display: block;
+        list-style-type: decimal;
+        padding-inline-start: 2em;
+
+        li p {
+            margin-block-start: .2rem;
+            margin-block-end: .2rem;
+        }
+    }
+}

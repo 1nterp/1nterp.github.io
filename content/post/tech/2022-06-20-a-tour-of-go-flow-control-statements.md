@@ -9,7 +9,7 @@ title = "A tour of Go: Flow control statements"
 url = "/tour-of-go-flow-control-stmts/"
 
 +++
-[지난 시간](https://interp.blog/tour-of-go-package-function-variable/)에 이어서, 여기서는 Flow Control Statement 에 대해 정리해 보았다.
+[지난 시간](/tour-of-go-package-function-variable)에 이어서, 여기서는 Flow Control Statement 에 대해 정리해 보았다.
 
 ## A tour of Go
 
