@@ -1,4 +1,55 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tech 🛠️ on InterP Blog</title><link>https://interp.blog/post/tech/</link><description>Recent content in Tech 🛠️ on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Wed, 07 Aug 2024 09:59:24 +0900</lastBuildDate><atom:link href="https://interp.blog/post/tech/index.xml" rel="self" type="application/rss+xml"/><item><title>Helm Template Value 의 문자열 값 보존하기</title><link>https://interp.blog/helm-template-value-preserve-string/</link><pubDate>Wed, 07 Aug 2024 09:59:24 +0900</pubDate><guid>https://interp.blog/helm-template-value-preserve-string/</guid><description>&lt;p>Helm Templating 을 하다 보면, 값에 들어가 있는 따옴표를 그대로 보존해야 하는 상황이 발생한다. 다음과 같은 경우엔 어떻게 할 것인가?&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tech 🛠️ on InterP Blog</title><link>https://interp.blog/post/tech/</link><description>Recent content in Tech 🛠️ on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Thu, 08 Aug 2024 21:57:01 +0900</lastBuildDate><atom:link href="https://interp.blog/post/tech/index.xml" rel="self" type="application/rss+xml"/><item><title>Helm Template 공백 유지하는 방법</title><link>https://interp.blog/helm-template-preserve-space/</link><pubDate>Thu, 08 Aug 2024 21:57:01 +0900</pubDate><guid>https://interp.blog/helm-template-preserve-space/</guid><description>&lt;p>&lt;a class="link" href="https://interp.blog/helm-template-value-preserve-string/" >지난 포스팅&lt;/a> 에 이어, 오늘은 Template 내부에 생성되는 공백을 유지하는 방법을 알아보자. 사실 이 부분 역시 &lt;a class="link" href="https://helm.sh/docs/chart_template_guide/control_structures/#controlling-whitespace" target="_blank" rel="noopener"
+>Helm 문서&lt;/a>에 나와있는 내용을 요약한 것이다.&lt;/p>
+&lt;h1 id="준비">준비&lt;/h1>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">helm create tempchart
+rm -rf tempchart/charts tempchart/templates/* tempchart/values.yaml
+cat &lt;span class="s">&amp;lt;&amp;lt;EOF &amp;gt; tempchart/templates/test.yaml
+&lt;/span>&lt;span class="s">data:
+&lt;/span>&lt;span class="s"> drink: {{ .Values.drink }}
+&lt;/span>&lt;span class="s"> {{ if eq .Values.drink &amp;#34;coffee&amp;#34; }}
+&lt;/span>&lt;span class="s"> mug: &amp;#34;true&amp;#34;
+&lt;/span>&lt;span class="s"> {{ end }}
+&lt;/span>&lt;span class="s">EOF&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>이렇게 만든 &lt;code>test.yaml&lt;/code> 파일을 보면, &lt;code>.Values.drink&lt;/code> 값이 &lt;code>coffee&lt;/code> 일 때에는 추가로 &lt;code>data.mug&lt;/code> attribute 를 &lt;code>true&lt;/code> 로 추가한다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">data&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">drink&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{{&lt;span class="w"> &lt;/span>&lt;span class="l">.Values.drink }}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>{{&lt;span class="w"> &lt;/span>&lt;span class="l">if eq .Values.drink &amp;#34;coffee&amp;#34; }}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">mug&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;true&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>{{&lt;span class="w"> &lt;/span>&lt;span class="l">end }}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="공백이-그대로-남아요">공백이 그대로 남아요!&lt;/h1>
+&lt;p>drink 가 coffee 가 아닌 경우라면, 아래와 같이 &lt;code>data.drink&lt;/code> 만 가지는 yaml 파일이 생성된다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">helm template tempchart --set &lt;span class="nv">drink&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;tea&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nn">---&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="c"># Source: tempchart/templates/test.yaml&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">data&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">drink&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">tea&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>coffee 로 설정하면 &lt;code>data.mug&lt;/code> attribute 가 추가될텐데..&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">helm template tempchart --set &lt;span class="nv">drink&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;coffee&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>뭔가 이상하다. 저 공백은 무엇인가?&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nn">---&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="c"># Source: tempchart/templates/test.yaml&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">data&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">drink&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">coffee&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">mug&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;true&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="해결방법">해결방법&lt;/h1>
+&lt;p>&lt;a class="link" href="https://helm.sh/docs/chart_template_guide/control_structures/#controlling-whitespace" target="_blank" rel="noopener"
+>Helm 문서&lt;/a>의 설명은 다음과 같다.&lt;/p>
+&lt;blockquote>
+&lt;p>First, the curly brace syntax of template declarations can be modified with special characters to tell the template engine to chomp whitespace. {{- (with the dash and space added) indicates that whitespace should be chomped left, while -}} means whitespace to the right should be consumed. Be careful! Newlines are whitespace!&lt;/p>
+&lt;p>먼저, 템플릿 선언의 중괄호 (&lt;code>{&lt;/code> 와 &lt;code>}&lt;/code>) 구문은 특수 문자를 사용하여 템플릿 엔진에 공백을 제거하도록 지시할 수 있습니다. &lt;code>{{-&lt;/code> (대시와 공백이 추가된 경우) 는 왼쪽의 공백을 제거해 달라는 것이고, &lt;code>-}}&lt;/code> 는 오른쪽의 공백을 제거해 달라는 것을 의미합니다. &lt;strong>주의하세요! 줄 바꿈도 공백입니다!&lt;/strong>&lt;/p>
+&lt;/blockquote>
+&lt;p>따라서 이 줄바꿈을 제거하기 위해 &lt;code>{{-&lt;/code> 를 사용하면 된다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">data&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">drink&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{{&lt;span class="w"> &lt;/span>&lt;span class="l">.Values.drink }}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>{{- &lt;span class="l">if eq .Values.drink &amp;#34;coffee&amp;#34; }}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">mug&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;true&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>{{- &lt;span class="l">end }}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>양쪽에 다 사용하면 안 된다. 이렇게 에러가 발생한다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">Error: YAML parse error on tempchart/templates/test.yaml: error converting YAML to JSON: yaml: line 2&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">mapping values are not allowed in this context&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="l">Use --debug flag to render out invalid YAML&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Helm Template Value 의 문자열 값 보존하기</title><link>https://interp.blog/helm-template-value-preserve-string/</link><pubDate>Wed, 07 Aug 2024 09:59:24 +0900</pubDate><guid>https://interp.blog/helm-template-value-preserve-string/</guid><description>&lt;p>Helm Templating 을 하다 보면, 값에 들어가 있는 따옴표를 그대로 보존해야 하는 상황이 발생한다. 다음과 같은 경우엔 어떻게 할 것인가?&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Secret&lt;/span>&lt;span class="w">
 &lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
 &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">data&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
