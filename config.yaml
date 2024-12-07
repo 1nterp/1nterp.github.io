@@ -137,30 +137,29 @@ menu:
           params:
               icon: home
 
-    social:
-    #    - identifier: linkedin
-    #      name: LinkedIn
-    #      url: https://linkedin.com/in/interp
-    #      params:
-    #          icon: brand-linkedin
-
-        - identifier: github
-          name: GitHub
-          url: https://github.com/1nterp
-          params:
-              icon: brand-github
+    # social:
+    # - identifier: github
+    #   name: GitHub
+    #   url: https://github.com/1nterp
+    #   params:
+    #       icon: brand-github
+    # - identifier: instagram
+    #   name: Instagram
+    #   url: https://www.instagram.com/interp/
+    #   params:
+    #       icon: brand-instagram
 
     #     - identifier: facebook
     #       name: Facebook
     #       url: https://www.facebook.com/1nterp
     #       params:
     #           icon: brand-facebook
+    #    - identifier: linkedin
+    #      name: LinkedIn
+    #      url: https://linkedin.com/in/interp
+    #      params:
+    #          icon: brand-linkedin
 
-        - identifier: instagram
-          name: Instagram
-          url: https://www.instagram.com/interp/
-          params:
-              icon: brand-instagram
 
 related:
     includeNewer: true

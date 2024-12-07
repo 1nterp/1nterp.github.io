@@ -9,7 +9,7 @@ categories:
 image: feature.jpg
 image_y: "30%"
 tags:
-- git
+- Git
 - merge
 - rebase
 ---

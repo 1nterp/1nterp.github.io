@@ -30,7 +30,7 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
     --scrollbar-track: var(--body-background);
 
     &[data-scheme="dark"] {
-        --body-background: #303030;
+        --body-background: #1a1a1a;
         --accent-color: #84bce1;
         --accent-bold-color: #ec6196;
         --accent-color-darker: #96aab7;
@@ -70,13 +70,16 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
     --card-border-radius: 10px;
 
     --card-padding: 25px;
+    --article-padding: 15px;
 
     @include respond(md) {
         --card-padding: 30px;
+        --article-padding: 20px;
     }
 
     @include respond(xl) {
         --card-padding: 40px;
+        --article-padding: 25px;
     }
 
     --small-card-padding: 25px 20px;
@@ -86,7 +89,7 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
     }
 
     &[data-scheme="dark"] {
-        --card-background: #424242;
+        --card-background: #0d0d0d;
         --card-background-selected: rgba(255, 255, 255, 0.16);
         --card-text-color-main: rgba(255, 255, 255, 0.9);
         --card-text-color-secondary: rgba(255, 255, 255, 0.7);
@@ -147,10 +150,10 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
 *   Thanks to https://www.figma.com/community/plugin/744987207861965946/Shadow-picker
 */
 :root {
-    --shadow-l1: 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 2px rgba(0, 0, 0, 0.06), 0px 0px 1px rgba(0, 0, 0, 0.04);
-    --shadow-l2: 0px 10px 20px rgba(0, 0, 0, 0.04), 0px 2px 6px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04);
-    --shadow-l3: 0px 10px 20px rgba(0, 0, 0, 0.04), 0px 2px 6px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04);
-    --shadow-l4: 0px 24px 32px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04),
+    --shadow-l1: 0px 4px 8px rgba(0, 0, 0, 0.03), 0px 0px 2px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.03);
+    --shadow-l2: 0px 10px 20px rgba(0, 0, 0, 0.03), 0px 2px 6px rgba(0, 0, 0, 0.03), 0px 0px 1px rgba(0, 0, 0, 0.03);
+    --shadow-l3: 0px 10px 20px rgba(0, 0, 0, 0.03), 0px 2px 6px rgba(0, 0, 0, 0.03), 0px 0px 1px rgba(0, 0, 0, 0.03);
+    --shadow-l4: 0px 24px 32px rgba(0, 0, 0, 0.03), 0px 16px 24px rgba(0, 0, 0, 0.03), 0px 4px 8px rgba(0, 0, 0, 0.03),
         0px 0px 1px rgba(0, 0, 0, 0.04);
 }
 

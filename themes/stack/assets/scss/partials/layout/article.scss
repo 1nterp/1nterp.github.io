@@ -31,13 +31,13 @@
             }
 
             .article-details {
-                padding: var(--card-padding);
+                padding: var(--article-padding);
                 padding-bottom: 1rem;
             }
         }
 
         .article-content {
-            margin: var(--card-padding) 0;
+            margin: var(--article-padding) 0;
             color: var(--card-text-color-main);
             font-weight: 300;
 
@@ -52,11 +52,11 @@
         }
 
         .article-footer {
-            margin: var(--card-padding);
-            padding-top: var(--card-padding);
+            margin: var(--article-padding);
+            padding-top: var(--article-padding);
 
             section:not(:first-child) {
-                margin-top: var(--card-padding);
+                margin-top: var(--article-padding);
             }
 
             section {
@@ -111,6 +111,8 @@
     #TableOfContents {
         overflow-x: auto;
         max-height: 75vh;
+        line-height: 0.85;
+        padding: 1.5rem;
 
         ol,
         ul {
@@ -131,17 +133,17 @@
         }
 
         & > ul {
-            padding: 0 1.5em;
+            padding: 0 1.5rem;
         }
 
         li {
-            margin: 10px 0 10px 12px;
+            margin: 5px 0 5px 6px;
             padding: 5px;
 
             & > ol,
             & > ul {
                 margin-top: 10px;
-                padding-left: 10px;
+                padding-left: 5px;
                 margin-bottom: -5px;
 
                 & > li:last-child {
@@ -216,7 +218,7 @@
 .article-content {
     font-family: var(--article-font-family);
     font-size: var(--article-font-size);
-    padding: 0 calc(var(--card-padding)*1.3) 0 var(--card-padding);
+    padding: 0 calc(var(--article-padding)*1.2) 0 var(--article-padding);
     line-height: var(--article-line-height);
 
     & > p {
@@ -233,8 +235,8 @@
     h4,
     h5,
     h6 {
-        margin-inline-start: calc((var(--card-padding)) * -1);
-        padding-inline-start: calc(var(--card-padding) - var(--heading-border-size));
+        margin-inline-start: calc((var(--article-padding)) * -1);
+        padding-inline-start: calc(var(--article-padding) - var(--heading-border-size));
         border-inline-start: var(--heading-border-size) solid var(--accent-color);
     }
 
@@ -251,7 +253,7 @@
         position: relative;
         margin: 1.5em 0;
         border-inline-start: var(--blockquote-border-size) solid var(--card-separator-color);
-        padding: 15px calc(var(--card-padding)*1.3) 15px calc(var(--card-padding)*1.1);
+        padding: 15px calc(var(--article-padding)*1.3) 15px calc(var(--article-padding)*1.1);
         background-color: var(--blockquote-background-color);
 
         .cite {
@@ -309,7 +311,7 @@
         font-family: var(--code-font-family);
         line-height: 1.428571429;
         word-break: break-all;
-        padding: var(--card-padding);
+        padding: var(--article-padding);
         font-size: 1.3rem;
         //  keep Codeblocks LTR
         [dir="rtl"] & {
@@ -329,7 +331,7 @@
 
     .highlight {
         background-color: var(--pre-background-color);
-        padding: var(--card-padding);
+        padding: var(--article-padding);
         position: relative;
 
         &:hover {
@@ -351,8 +353,8 @@
 
     .copyCodeButton {
         position: absolute;
-        top: calc(var(--card-padding));
-        right: calc(var(--card-padding));
+        top: calc(var(--article-padding));
+        right: calc(var(--article-padding));
         background: var(--card-background);
         border: none;
         box-shadow: var(--shadow-l2);
@@ -366,7 +368,7 @@
     }
 
     .table-wrapper {
-        padding: 0 var(--card-padding);
+        padding: 0 var(--article-padding);
         overflow-x: auto;
         display: block;
     }
@@ -437,8 +439,8 @@
     .video-wrapper,
     .table-wrapper,
     .s_video_simple {
-        width: calc(100% + var(--card-padding) * 2.3);
-        margin: 0.5rem calc((var(--card-padding)) * -1);
+        width: calc(100% + var(--article-padding) * 2.3);
+        margin: 0.5rem calc((var(--article-padding)) * -1);
     }
 
     ul {
