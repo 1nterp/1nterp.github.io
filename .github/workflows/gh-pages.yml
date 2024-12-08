@@ -34,8 +34,8 @@ jobs:
           publish_dir: ./public
           publish_branch: master
 
-      - name: Build TinaCMS
-        env:
-          TINA_PUBLIC_CLIENT_ID: ${{ secrets.TINA_PUBLIC_CLIENT_ID }}
-          TINA_TOKEN: ${{ secrets.TINA_TOKEN }}
-        run: npx tinacms build
+      # - name: Build TinaCMS
+      #   env:
+      #     TINA_PUBLIC_CLIENT_ID: ${{ secrets.TINA_PUBLIC_CLIENT_ID }}
+      #     TINA_TOKEN: ${{ secrets.TINA_TOKEN }}
+      #   run: npx tinacms build
