@@ -1,0 +1,234 @@
+<!doctype html><html lang=ko-kr dir=ltr>
+<head><meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="JSON에 jq가 있다면 YAML에는?"><title>yq: YAML Parser</title>
+<style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500&display=swap';@import "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"</style>
+<link rel=canonical href=https://interp.blog/yq-yaml-parser/>
+<link rel=stylesheet href=/scss/style.min.7ae474c9ff3ff8b03eb231797ff4217e6dc3205fddf477138e9bd916cdb83c30.css><meta property="title" content="yq: YAML Parser">
+<meta property="description" content="JSON에 jq가 있다면 YAML에는?">
+<meta property="og:title" content="yq: YAML Parser">
+<meta property="og:description" content="JSON에 jq가 있다면 YAML에는?">
+<meta property="og:url" content="https://interp.blog/yq-yaml-parser/">
+<meta property="og:site_name" content="InterP Blog">
+<meta property="og:type" content="article"><meta property="article:section" content="Post">
+<meta name=twitter:site content="@interp_">
+<meta name=twitter:creator content="@interp_"><meta name=twitter:title content="yq: YAML Parser">
+<meta name=twitter:description content="JSON에 jq가 있다면 YAML에는?">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KMRJ33V06X"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-KMRJ33V06X')</script>
+<script>(function(b,d,e,a,g){b[a]=b[a]||[],b[a].push({'gtm.start':(new Date).getTime(),event:'gtm.js'});var f=d.getElementsByTagName(e)[0],c=d.createElement(e),h=a!='dataLayer'?'&l='+a:'';c.async=!0,c.src='https://www.googletagmanager.com/gtm.js?id='+g+h,f.parentNode.insertBefore(c,f)})(window,document,'script','dataLayer','GTM-NBPHNHQ')</script>
+</head>
+<body class=article-page>
+<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky">
+<button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 토글">
+<span class=hamburger-box>
+<span class=hamburger-inner></span>
+</span>
+</button>
+<header>
+<div class=site-meta>
+<h1 class=site-name><a href=/>InterP Blog</a></h1>
+<h2 class=site-description>Things I'm interested</h2>
+</div>
+</header><ol class=menu id=main-menu>
+<li>
+<a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span>
+</a>
+</li>
+<li>
+<a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span>
+</a>
+</li>
+<li>
+<a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span>
+</a>
+</li>
+<div class=menu-bottom-section>
+<li id=i18n-switch><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5h7"/><path d="M9 3v2c0 4.418-2.239 8-5 8"/><path d="M5 9c-.003 2.144 2.952 3.908 6.7 4"/><path d="M12 20l4-9 4 9"/><path d="M19.1 18h-6.2"/></svg>
+<select name=language onchange="window.location.href=this.selectedOptions[0].value"><option value=https://interp.blog/ selected>한국어</option><option value=https://interp.blog/en/>English</option></select>
+</li>
+<li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>다크 모드</span>
+</li>
+</div>
+</ol>
+</aside>
+<main class="main full-width">
+<article class=main-article>
+<header class=article-header style=display:block>
+<div class=article-details>
+<div class=article-title-wrapper>
+<h2 class=article-title>
+<a href=/yq-yaml-parser/>yq: YAML Parser</a>
+</h2>
+<h3 class=article-subtitle>
+JSON에 jq가 있다면 YAML에는?
+</h3>
+</div>
+<footer class=article-time>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>
+2 분 소요
+</time>
+</div>
+</footer>
+</div>
+</header>
+<section class=article-content>
+<p><strong>yq</strong>는 <code>jq</code> 에서 쓸 수 있는 jsonpath 를 YAML 파일에 구사할 수 있는 CLI 도구이다. 여기서 소개하는 yq 는 <a class=link href=https://github.com/mikefarah/yq target=_blank rel=noopener>mikefarah/yq</a> 를 뜻한다.</p>
+<p>이 글에서는 yq의 설치 방법과 기본적인 사용법을 간단히 살펴본다.</p>
+<h1 id=yq-설치-방법>yq 설치 방법</h1>
+<h2 id=homebrew로-설치-macoslinux>Homebrew로 설치 (macOS/Linux)</h2>
+<p>Homebrew를 사용하면 yq를 간단히 설치할 수 있다. 터미널에서 아래 명령어를 입력하면 된다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>brew install yq
+</code></pre></div><p>설치가 끝난 뒤에는 <code>yq --version</code> 명령어로 설치 여부를 확인할 수 있다.</p>
+<h2 id=기타-설치-방법>기타 설치 방법</h2>
+<p>Homebrew 외에도 yq는 여러 가지 방법으로 설치할 수 있다. 운영 체제와 환경에 맞는 방법을 선택하면 된다.</p>
+<ul>
+<li><a class=link href=https://github.com/mikefarah/yq/releases/latest target=_blank rel=noopener>공식 다운로드 링크</a>: 바이너리를 직접 다운로드해서 설치</li>
+<li>Snap 패키지 (Linux): <code>snap install yq</code></li>
+<li>Windows: Chocolatey 또는 Scoop으로 설치</li>
+</ul>
+<p>더 자세한 설치 방법은 <a class=link href=https://mikefarah.gitbook.io/yq target=_blank rel=noopener>공식 문서</a>에서 확인할 수 있다.</p>
+<h1 id=yq의-주요-기능>yq의 주요 기능</h1>
+<p>yq는 YAML 데이터를 쉽게 관리할 수 있는 다양한 기능을 제공한다.</p>
+<h2 id=yaml-읽기>YAML 읽기</h2>
+<p>YAML 파일에서 특정 데이터를 읽는 것은 아주 간단하다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>yq <span class=s1>&#39;.person.name&#39;</span> file.yaml
+</code></pre></div><p>위 명령어는 <code>file.yaml</code> 파일에서 <code>person</code> 아래 <code>name</code> 값을 출력한다.</p>
+<h2 id=yaml-수정>YAML 수정</h2>
+<p>YAML 데이터를 업데이트할 수도 있다. <code>-i</code> 옵션을 사용하면 파일을 직접 수정할 수 있다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>yq -i <span class=s1>&#39;.person.name = &#34;인터피&#34;&#39;</span> file.yaml
+</code></pre></div><h2 id=json과-yaml-간-변환>JSON과 YAML 간 변환</h2>
+<p>yq는 JSON과 YAML을 손쉽게 변환할 수 있다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>yq -Poy sample.json
+</code></pre></div><p>이 명령어는 <code>sample.json</code> 파일을 YAML 형식으로 변환한다.</p>
+<h2 id=4-여러-파일-병합>4. 여러 파일 병합</h2>
+<p>여러 YAML 파일을 병합하는 것도 가능하다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>yq -n <span class=s1>&#39;load(&#34;file1.yaml&#34;) * load(&#34;file2.yaml&#34;)&#39;</span>
+</code></pre></div><h2 id=5-환경-변수-사용>5. 환경 변수 사용</h2>
+<p>환경 변수를 활용할 때는 <code>strenv()</code> 를 사용해야 한다. <code>$...</code> 는 먹지 않으므로 주의. 아래 예제는 환경변수 <code>$NAME</code> 을 가지고 YAML 데이터를 업데이트한다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>bash
+NAME=&#34;인터피&#34;
+yq -i &#39;.person.name = strenv(NAME)&#39; file.yaml
+</code></pre></div><h1 id=yq-의-장점>yq 의 장점</h1>
+<ol>
+<li><strong>다양한 형식 지원</strong>: YAML뿐만 아니라 JSON, XML, CSV 등도 다룰 수 있다.</li>
+<li><strong>유연한 구문</strong>: <code>jq</code> 에서 쓸 수 있는 jsonpath syntax 로 간단히 작업할 수 있다.</li>
+<li><strong>데이터 보존</strong>: YAML 의 주석과 포맷을 유지하면서 데이터를 수정할 수 있다.</li>
+<li><strong>개발자 친화적</strong>: CI/CD 파이프라인에도 쉽게 통합할 수 있다.</li>
+</ol>
+<h1 id=공식-문서와-커뮤니티>공식 문서와 커뮤니티</h1>
+<p>yq에 대해 더 알고 싶다면 공식 문서를 확인해 보자. 명령어 사용법과 고급 기능에 대한 예제가 잘 정리되어 있다.</p>
+<ul>
+<li><strong><a class=link href=https://mikefarah.gitbook.io/yq target=_blank rel=noopener>공식 문서</a></strong></li>
+<li><strong>GitHub Repository</strong>: <a class=link href=https://github.com/mikefarah/yq target=_blank rel=noopener>mikefarah/yq</a></li>
+</ul>
+</section>
+<footer class=article-footer>
+<br>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
+<ins class=adsbygoogle style=display:block;height:300px;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-0712823212859607 data-ad-slot=7880266545></ins>
+<script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
+</footer>
+</article>
+<script src=https://giscus.app/client.js data-repo=1nterp/1nterp.github.io data-repo-id="MDEwOlJlcG9zaXRvcnkyMzY5NzQ5Mzc=" data-category=General data-category-id=MDE4OkRpc2N1c3Npb25DYXRlZ29yeTMyMjU4Mjgx data-mapping=pathname data-reactions-enabled=1 data-emit-metadata=1 data-theme=light data-lang=en data-loading=lazy crossorigin=anonymous async></script>
+<script>function setGiscusTheme(b){let a=document.querySelector("iframe.giscus-frame");a&&a.contentWindow.postMessage({giscus:{setConfig:{theme:b}}},"https://giscus.app")}(function(){addEventListener("message",b=>{if(event.origin!=="https://giscus.app")return;a()}),window.addEventListener("onColorSchemeChange",a);function a(){document.documentElement.dataset.scheme==="light"?setGiscusTheme('light'):setGiscusTheme('dark_dimmed')}})()</script>
+<footer class=site-footer>
+<section class=copyright>
+&copy;
+2019 -
+2024 InterP Blog
+</section>
+<section class=powerby>
+<a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 기반 / <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.12.0>Stack</a></b> 테마를 사용 중입니다.
+</section>
+</footer>
+<div class=pswp tabindex=-1 role=dialog aria-hidden=true>
+<div class=pswp__bg></div>
+<div class=pswp__scroll-wrap>
+<div class=pswp__container>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+</div>
+<div class="pswp__ui pswp__ui--hidden">
+<div class=pswp__top-bar>
+<div class=pswp__counter></div>
+<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+<div class=pswp__preloader>
+<div class=pswp__preloader__icn>
+<div class=pswp__preloader__cut>
+<div class=pswp__preloader__donut></div>
+</div>
+</div>
+</div>
+</div>
+<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+<div class=pswp__share-tooltip></div>
+</div>
+<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+</button>
+<div class=pswp__caption>
+<div class=pswp__caption__center></div>
+</div>
+</div>
+</div>
+</div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous>
+</main>
+<aside class="sidebar right-sidebar sticky">
+<form action=/search/ class="search-form widget">
+<p>
+<label>검색</label>
+<input name=keyword required placeholder="검색어를 입력하세요...">
+<button title=검색><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+</button>
+</p>
+</form>
+<section class="widget archives">
+<div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg>
+</div>
+<h2 class="widget-title section-title">목차</h2>
+<div class=widget--toc>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#yq-설치-방법>yq 설치 방법</a>
+<ul>
+<li><a href=#homebrew로-설치-macoslinux>Homebrew로 설치 (macOS/Linux)</a></li>
+<li><a href=#기타-설치-방법>기타 설치 방법</a></li>
+</ul>
+</li>
+<li><a href=#yq의-주요-기능>yq의 주요 기능</a>
+<ul>
+<li><a href=#yaml-읽기>YAML 읽기</a></li>
+<li><a href=#yaml-수정>YAML 수정</a></li>
+<li><a href=#json과-yaml-간-변환>JSON과 YAML 간 변환</a></li>
+<li><a href=#4-여러-파일-병합>4. 여러 파일 병합</a></li>
+<li><a href=#5-환경-변수-사용>5. 환경 변수 사용</a></li>
+</ul>
+</li>
+<li><a href=#yq-의-장점>yq 의 장점</a></li>
+<li><a href=#공식-문서와-커뮤니티>공식 문서와 커뮤니티</a></li>
+</ul>
+</nav>
+</div>
+</section>
+<section class="widget adsense">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
+<ins class=adsbygoogle style=display:block data-ad-client=ca-pub-0712823212859607 data-ad-slot=8117949234 data-ad-format=auto data-full-width-responsive=true></ins>
+<script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
+</section>
+</aside>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script>
+<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
+</body>
+</html>
