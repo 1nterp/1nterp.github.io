@@ -1,8 +1,11 @@
 ---
 title: "yq: YAML Parser"
+date: 2024-12-13 14:07:39 +0900
 description: "JSON에 jq가 있다면 YAML에는?"
 url: "/yq-yaml-parser"
-tag: ["yq", "YAML", "CLI", "tool"]
+tags: ["yq", "YAML", "CLI", "tool"]
+categories:
+- Tech
 ---
 
 **yq**는 `jq` 에서 쓸 수 있는 jsonpath 를 YAML 파일에 구사할 수 있는 CLI 도구이다. 여기서 소개하는 yq 는 [mikefarah/yq](https://github.com/mikefarah/yq) 를 뜻한다.
