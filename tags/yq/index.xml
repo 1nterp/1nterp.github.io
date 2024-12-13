@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>yq on InterP Blog</title><link>https://interp.blog/tags/yq/</link><description>Recent content in yq on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Fri, 13 Dec 2024 14:07:39 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/yq/index.xml" rel="self" type="application/rss+xml"/><item><title>yq: YAML Parser</title><link>https://interp.blog/yq-yaml-parser/</link><pubDate>Fri, 13 Dec 2024 14:07:39 +0900</pubDate><guid>https://interp.blog/yq-yaml-parser/</guid><description>&lt;p>&lt;strong>yq&lt;/strong>는 &lt;code>jq&lt;/code> 에서 쓸 수 있는 jsonpath 를 YAML 파일에 구사할 수 있는 CLI 도구이다. 여기서 소개하는 yq 는 &lt;a class="link" href="https://github.com/mikefarah/yq" target="_blank" rel="noopener"
+>mikefarah/yq&lt;/a> 를 뜻한다.&lt;/p>
+&lt;p>이 글에서는 yq의 설치 방법과 기본적인 사용법을 간단히 살펴본다.&lt;/p>
+&lt;h1 id="yq-설치-방법">yq 설치 방법&lt;/h1>
+&lt;h2 id="homebrew로-설치-macoslinux">Homebrew로 설치 (macOS/Linux)&lt;/h2>
+&lt;p>Homebrew를 사용하면 yq를 간단히 설치할 수 있다. 터미널에서 아래 명령어를 입력하면 된다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">brew install yq
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>설치가 끝난 뒤에는 &lt;code>yq --version&lt;/code> 명령어로 설치 여부를 확인할 수 있다.&lt;/p>
+&lt;h2 id="기타-설치-방법">기타 설치 방법&lt;/h2>
+&lt;p>Homebrew 외에도 yq는 여러 가지 방법으로 설치할 수 있다. 운영 체제와 환경에 맞는 방법을 선택하면 된다.&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/mikefarah/yq/releases/latest" target="_blank" rel="noopener"
+>공식 다운로드 링크&lt;/a>: 바이너리를 직접 다운로드해서 설치&lt;/li>
+&lt;li>Snap 패키지 (Linux): &lt;code>snap install yq&lt;/code>&lt;/li>
+&lt;li>Windows: Chocolatey 또는 Scoop으로 설치&lt;/li>
+&lt;/ul>
+&lt;p>더 자세한 설치 방법은 &lt;a class="link" href="https://mikefarah.gitbook.io/yq" target="_blank" rel="noopener"
+>공식 문서&lt;/a>에서 확인할 수 있다.&lt;/p>
+&lt;h1 id="yq의-주요-기능">yq의 주요 기능&lt;/h1>
+&lt;p>yq는 YAML 데이터를 쉽게 관리할 수 있는 다양한 기능을 제공한다.&lt;/p>
+&lt;h2 id="yaml-읽기">YAML 읽기&lt;/h2>
+&lt;p>YAML 파일에서 특정 데이터를 읽는 것은 아주 간단하다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">yq &lt;span class="s1">&amp;#39;.person.name&amp;#39;&lt;/span> file.yaml
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>위 명령어는 &lt;code>file.yaml&lt;/code> 파일에서 &lt;code>person&lt;/code> 아래 &lt;code>name&lt;/code> 값을 출력한다.&lt;/p>
+&lt;h2 id="yaml-수정">YAML 수정&lt;/h2>
+&lt;p>YAML 데이터를 업데이트할 수도 있다. &lt;code>-i&lt;/code> 옵션을 사용하면 파일을 직접 수정할 수 있다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">yq -i &lt;span class="s1">&amp;#39;.person.name = &amp;#34;인터피&amp;#34;&amp;#39;&lt;/span> file.yaml
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="json과-yaml-간-변환">JSON과 YAML 간 변환&lt;/h2>
+&lt;p>yq는 JSON과 YAML을 손쉽게 변환할 수 있다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">yq -Poy sample.json
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>이 명령어는 &lt;code>sample.json&lt;/code> 파일을 YAML 형식으로 변환한다.&lt;/p>
+&lt;h2 id="4-여러-파일-병합">4. 여러 파일 병합&lt;/h2>
+&lt;p>여러 YAML 파일을 병합하는 것도 가능하다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">yq -n &lt;span class="s1">&amp;#39;load(&amp;#34;file1.yaml&amp;#34;) * load(&amp;#34;file2.yaml&amp;#34;)&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="5-환경-변수-사용">5. 환경 변수 사용&lt;/h2>
+&lt;p>환경 변수를 활용할 때는 &lt;code>strenv()&lt;/code> 를 사용해야 한다. &lt;code>$...&lt;/code> 는 먹지 않으므로 주의. 아래 예제는 환경변수 &lt;code>$NAME&lt;/code> 을 가지고 YAML 데이터를 업데이트한다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">bash
+NAME=&amp;#34;인터피&amp;#34;
+yq -i &amp;#39;.person.name = strenv(NAME)&amp;#39; file.yaml
+&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="yq-의-장점">yq 의 장점&lt;/h1>
+&lt;ol>
+&lt;li>&lt;strong>다양한 형식 지원&lt;/strong>: YAML뿐만 아니라 JSON, XML, CSV 등도 다룰 수 있다.&lt;/li>
+&lt;li>&lt;strong>유연한 구문&lt;/strong>: &lt;code>jq&lt;/code> 에서 쓸 수 있는 jsonpath syntax 로 간단히 작업할 수 있다.&lt;/li>
+&lt;li>&lt;strong>데이터 보존&lt;/strong>: YAML 의 주석과 포맷을 유지하면서 데이터를 수정할 수 있다.&lt;/li>
+&lt;li>&lt;strong>개발자 친화적&lt;/strong>: CI/CD 파이프라인에도 쉽게 통합할 수 있다.&lt;/li>
+&lt;/ol>
+&lt;h1 id="공식-문서와-커뮤니티">공식 문서와 커뮤니티&lt;/h1>
+&lt;p>yq에 대해 더 알고 싶다면 공식 문서를 확인해 보자. 명령어 사용법과 고급 기능에 대한 예제가 잘 정리되어 있다.&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>&lt;a class="link" href="https://mikefarah.gitbook.io/yq" target="_blank" rel="noopener"
+>공식 문서&lt;/a>&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>GitHub Repository&lt;/strong>: &lt;a class="link" href="https://github.com/mikefarah/yq" target="_blank" rel="noopener"
+>mikefarah/yq&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>
