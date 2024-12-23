@@ -1,0 +1,304 @@
+<!doctype html><html lang=ko-kr dir=ltr>
+<head><meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="텔레메트리 데이터를 수집, 분석, 내보낼 수 있는 오픈 소스 도구 모음"><title>성능 관찰 및 시스템 분석을 위한 OpenTelemetry</title>
+<style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500&display=swap';@import "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"</style>
+<link rel=canonical href=https://interp.blog/opentelemetry-introduction/>
+<link rel=stylesheet href=/scss/style.min.7ae474c9ff3ff8b03eb231797ff4217e6dc3205fddf477138e9bd916cdb83c30.css><meta property="title" content="성능 관찰 및 시스템 분석을 위한 OpenTelemetry">
+<meta property="description" content="텔레메트리 데이터를 수집, 분석, 내보낼 수 있는 오픈 소스 도구 모음">
+<meta property="og:title" content="성능 관찰 및 시스템 분석을 위한 OpenTelemetry">
+<meta property="og:description" content="텔레메트리 데이터를 수집, 분석, 내보낼 수 있는 오픈 소스 도구 모음">
+<meta property="og:url" content="https://interp.blog/opentelemetry-introduction/">
+<meta property="og:site_name" content="InterP Blog">
+<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="OpenTelemetry"><meta property="article:tag" content="소프트웨어 성능"><meta property="article:tag" content="트레이스"><meta property="article:tag" content="메트릭"><meta property="article:tag" content="로그"><meta property="article:tag" content="모니터링"><meta property="article:tag" content="분산 시스템"><meta property="article:tag" content="CNCF"><meta property="article:tag" content="불가지론"><meta property="article:published_time" content="2024-12-23T09:30:00+09:00"><meta property="article:modified_time" content="2024-12-23T09:30:00+09:00">
+<meta name=twitter:site content="@interp_">
+<meta name=twitter:creator content="@interp_"><meta name=twitter:title content="성능 관찰 및 시스템 분석을 위한 OpenTelemetry">
+<meta name=twitter:description content="텔레메트리 데이터를 수집, 분석, 내보낼 수 있는 오픈 소스 도구 모음">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KMRJ33V06X"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-KMRJ33V06X')</script>
+<script>(function(b,d,e,a,g){b[a]=b[a]||[],b[a].push({'gtm.start':(new Date).getTime(),event:'gtm.js'});var f=d.getElementsByTagName(e)[0],c=d.createElement(e),h=a!='dataLayer'?'&l='+a:'';c.async=!0,c.src='https://www.googletagmanager.com/gtm.js?id='+g+h,f.parentNode.insertBefore(c,f)})(window,document,'script','dataLayer','GTM-NBPHNHQ')</script>
+</head>
+<body class=article-page>
+<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky">
+<button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 토글">
+<span class=hamburger-box>
+<span class=hamburger-inner></span>
+</span>
+</button>
+<header>
+<div class=site-meta>
+<h1 class=site-name><a href=/>InterP Blog</a></h1>
+<h2 class=site-description>Things I'm interested</h2>
+</div>
+</header><ol class=menu id=main-menu>
+<li>
+<a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span>
+</a>
+</li>
+<li>
+<a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span>
+</a>
+</li>
+<li>
+<a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span>
+</a>
+</li>
+<div class=menu-bottom-section>
+<li id=i18n-switch><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5h7"/><path d="M9 3v2c0 4.418-2.239 8-5 8"/><path d="M5 9c-.003 2.144 2.952 3.908 6.7 4"/><path d="M12 20l4-9 4 9"/><path d="M19.1 18h-6.2"/></svg>
+<select name=language onchange="window.location.href=this.selectedOptions[0].value"><option value=https://interp.blog/ selected>한국어</option><option value=https://interp.blog/en/>English</option></select>
+</li>
+<li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>다크 모드</span>
+</li>
+</div>
+</ol>
+</aside>
+<main class="main full-width">
+<article class=main-article>
+<header class=article-header style=display:block>
+<div class=article-details>
+<header class=article-category>
+<a href=/categories/tech/ style=background-color:#1c8193;color:#fff>
+TECH 🛠️
+</a>
+</header>
+<div class=article-title-wrapper>
+<h2 class=article-title>
+<a href=/opentelemetry-introduction/>성능 관찰 및 시스템 분석을 위한 OpenTelemetry</a>
+</h2>
+<h3 class=article-subtitle>
+텔레메트리 데이터를 수집, 분석, 내보낼 수 있는 오픈 소스 도구 모음
+</h3>
+</div>
+<footer class=article-time>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>2024-12-23</time>
+</div>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>
+5 분 소요
+</time>
+</div>
+</footer>
+</div>
+</header>
+<section class=article-content>
+<p>OpenTelemetry는 소프트웨어의 성능과 동작을 분석하기 위한 텔레메트리 데이터(메트릭, 로그, 트레이스)를 생성하고 수집하며 내보내는 데 도움을 주는 API, SDK 및 도구 모음이다. 이는 개발자와 운영팀이 소프트웨어 시스템을 관찰하고 문제를 해결하는 데 필수적인 정보를 제공한다. OpenTelemetry는 여러 프로그래밍 언어에 걸쳐 일반적으로 사용할 수 있으며, 생산 환경에서도 안정적으로 사용할 수 있도록 설계되었다.</p>
+<h1 id=opentelemetry의-핵심-요소>OpenTelemetry의 핵심 요소</h1>
+<h2 id=트레이스traces><strong>트레이스(Traces)</strong></h2>
+<p>트레이스는 요청이 시스템을 통해 이동하는 경로를 기록한다. 트레이스를 통해 애플리케이션의 각 서비스가 어떻게 상호작용하는지, 성능 병목 현상은 어디에 있는지를 파악할 수 있다. 이는 문제 해결에 필수적인 정보를 제공한다.</p>
+<h2 id=메트릭metrics><strong>메트릭(Metrics)</strong></h2>
+<p>메트릭은 시스템의 성능 지표를 수집하고 이를 분석하는 데 도움을 준다. 예를 들어, 요청 처리 시간, 시스템 리소스 사용량, 응답 속도 등을 모니터링할 수 있다. 이를 통해 시스템의 상태를 주기적으로 평가하고, 비정상적인 상태를 빠르게 감지할 수 있다.</p>
+<h2 id=로그logs><strong>로그(Logs)</strong></h2>
+<p>로그는 시스템에서 발생한 사건을 기록한 텍스트 데이터를 의미한다. 오류 메시지나 경고를 포함한 로그는 시스템의 문제를 추적하는 데 매우 유용하다. OpenTelemetry는 로그 데이터를 수집하여 관련된 트레이스나 메트릭과 결합하여 보다 명확한 관찰 정보를 제공한다.</p>
+<h1 id=opentelemetry의-특징>OpenTelemetry의 특징</h1>
+<h2 id=통합성-및-호환성><strong>통합성 및 호환성</strong></h2>
+<p>OpenTelemetry는 여러 인기 있는 라이브러리와 프레임워크와 쉽게 통합된다. 코드 기반의 계측뿐만 아니라 제로 코드 계측도 지원하므로 개발자는 쉽게 OpenTelemetry를 기존 시스템에 적용할 수 있다.</p>
+<h2 id=오픈-소스-및-공급업체-중립성><strong>오픈 소스 및 공급업체 중립성</strong></h2>
+<p>OpenTelemetry는 100% 무료이며 오픈 소스이다. OpenTelemetry의 가장 큰 특징 중 하나는 바로 <strong>제품 불가지론적(product agnostic)</strong> 이라는 점이다. 이는 특정 제품이나 플랫폼에 종속되지 않고, 다양한 시스템과 기술 스택에서 동일한 방식으로 사용할 수 있음을 의미한다.</p>
+<p>&ldquo;불가지론(不可知論)&rdquo; 이란 특정한 명제에 대해 의견을 강하게 주장하지 않는 태도를 의미한다. 이 말을 적용해 보면, OpenTelemetry는 특정 벤더나 도구에 의존하지 않고 다양한 환경에서 독립적으로 작동할 수 있는 특성을 가진다는 것을 의미한다. 이로 인해 OpenTelemetry는 여러 기업이나 팀들이 서로 다른 기술 스택을 사용하고 있더라도 손쉽게 통합할 수 있는 장점을 제공한다.</p>
+<h2 id=cncf-인큐베이팅-프로젝트><strong>CNCF 인큐베이팅 프로젝트</strong></h2>
+<p>OpenTelemetry는 클라우드 네이티브 컴퓨팅 재단(CNCF)에서 <a class=link href=https://www.cncf.io/projects/opentelemetry/ target=_blank rel=noopener>인큐베이팅 중인 프로젝트</a>로, 업계의 여러 주요 기업들이 채택하고 지원하고 있다.</p>
+<h1 id=실제-예제>실제 예제</h1>
+<h2 id=instrumentation-sdk-예제><strong>Instrumentation SDK 예제</strong></h2>
+<p>OpenTelemetry를 사용하여 애플리케이션에 계측을 추가하는 첫 번째 단계는 <strong>Instrumentation SDK</strong>를 사용하는 것이다.</p>
+<p>아래는 Python을 예로 든 간단한 코드이다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=kn>from</span> <span class=nn>opentelemetry</span> <span class=kn>import</span> <span class=n>trace</span>
+<span class=kn>from</span> <span class=nn>opentelemetry.ext</span> <span class=kn>import</span> <span class=n>requests</span>
+<span class=kn>from</span> <span class=nn>opentelemetry.sdk.trace</span> <span class=kn>import</span> <span class=n>TracerProvider</span>
+<span class=kn>from</span> <span class=nn>opentelemetry.sdk.trace.export</span> <span class=kn>import</span> <span class=n>ConsoleSpanExporter</span><span class=p>,</span> <span class=n>SimpleSpanProcessor</span>
+
+<span class=c1># 트레이서 프로바이더 설정</span>
+<span class=n>trace</span><span class=o>.</span><span class=n>set_tracer_provider</span><span class=p>(</span><span class=n>TracerProvider</span><span class=p>())</span>
+<span class=n>tracer</span> <span class=o>=</span> <span class=n>trace</span><span class=o>.</span><span class=n>get_tracer</span><span class=p>(</span><span class=vm>__name__</span><span class=p>)</span>
+
+<span class=c1># Span을 추적하고 로그를 출력하는 예제</span>
+<span class=k>with</span> <span class=n>tracer</span><span class=o>.</span><span class=n>start_as_current_span</span><span class=p>(</span><span class=s2>&#34;foo&#34;</span><span class=p>):</span>
+    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;Hello from OpenTelemetry!&#34;</span><span class=p>)</span>
+
+</code></pre></div><p>이 코드는 OpenTelemetry SDK를 사용하여 &ldquo;foo"라는 트레이스를 시작하고, 그 트레이스 내에서 print 명령을 실행한다. 이를 통해 애플리케이션에서 트레이스를 추적할 수 있다.</p>
+<h2 id=otel-collector-예제>OTel Collector 예제</h2>
+<p>OpenTelemetry Collector는 여러 출처에서 수집된 텔레메트리 데이터를 중앙화하여 내보내는 데 사용된다. 아래는 OTel Collector를 설정하는 간단한 예제이다.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>receivers</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>otlp</span><span class=p>:</span><span class=w>
+</span><span class=w>    </span><span class=nt>protocols</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=nt>grpc</span><span class=p>:</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=nt>exporters</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>logging</span><span class=p>:</span><span class=w>
+</span><span class=w>    </span><span class=nt>loglevel</span><span class=p>:</span><span class=w> </span><span class=l>debug</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=nt>service</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>pipelines</span><span class=p>:</span><span class=w>
+</span><span class=w>    </span><span class=nt>traces</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=nt>receivers</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=l>otlp]</span><span class=w>
+</span><span class=w>      </span><span class=nt>exporters</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=l>logging]</span><span class=w>
+</span></code></pre></div><p>이 설정 파일은 OTLP(OpenTelemetry Protocol) 수신기를 설정하여 데이터를 수집하고, 수집된 트레이스를 로깅으로 출력한다. OTel Collector를 통해 여러 데이터 출처에서 수집된 데이터를 중앙에서 관리할 수 있다.</p>
+<h1 id=장점과-한계점>장점과 한계점</h1>
+<p>OTel 의 장점은 다음과 같다:</p>
+<ul>
+<li><strong>효율적인 관찰 가능성</strong>: OpenTelemetry를 통해 시스템의 모든 동작을 상세히 추적하고 모니터링할 수 있다. 이는 성능을 최적화하고 문제를 빠르게 해결하는 데 중요한 역할을 한다.</li>
+<li><strong>다양한 언어 지원</strong>: OpenTelemetry는 여러 프로그래밍 언어를 지원하며, 각 언어의 특징에 맞는 SDK와 도구들을 제공한다.</li>
+<li><strong>확장성</strong>: OpenTelemetry는 대규모 시스템에서도 문제없이 사용할 수 있도록 설계되어, 분산 환경에서의 관찰 가능성을 극대화한다.</li>
+</ul>
+<p>그러나, OpenTelemetry에는 다음과 같은 한계점도 존재한다:</p>
+<ul>
+<li>높은 학습 곡선: OpenTelemetry는 많은 기능을 제공하지만, 이를 제대로 활용하기 위한 학습 곡선이 존재한다. 다양한 구성 요소와 설정이 있기 때문에 처음 시작할 때 복잡할 수 있다. 특히, 분산 시스템에서 여러 서비스를 모니터링하려면 관련 개념과 툴에 대한 충분한 이해가 필요하다.</li>
+<li>자원 소모: OpenTelemetry는 많은 데이터를 수집하고 처리하기 때문에 시스템 자원을 소모할 수 있다. 대규모 애플리케이션에서는 데이터 수집량이 많아지며, 그에 따라 네트워크 대역폭, CPU, 메모리 등을 많이 사용할 수 있다. 따라서 OpenTelemetry를 설정할 때 성능을 고려해야 한다.</li>
+<li>데이터 정확도: OpenTelemetry는 다양한 소스에서 데이터를 수집하고 이를 통합하지만, 모든 환경에서 정확한 데이터를 보장하지는 않는다. 일부 환경에서는 계측이 제대로 작동하지 않거나, 데이터 누락이 발생할 수 있다. 이는 OpenTelemetry가 아직 발전 중인 기술이기 때문에 발생할 수 있는 문제다.</li>
+<li>설정 복잡성: OpenTelemetry는 매우 유연하지만, 그만큼 설정이 복잡해질 수 있다. 특히 대규모 분산 시스템에서는 각 서비스마다 별도의 설정과 구성이 필요할 수 있으며, 여러 시스템과의 통합이 점점 더 어려워질 수 있다.</li>
+</ul>
+<h1 id=결론>결론</h1>
+<p>OpenTelemetry는 소프트웨어 시스템의 성능을 관찰하고 문제를 해결하는 데 필수적인 도구이다. 트레이스, 메트릭, 로그 데이터를 종합적으로 분석할 수 있어 시스템의 상태를 명확하게 파악하고, 효율적으로 성능을 개선할 수 있다. 오픈 소스이며 다양한 언어와 통합이 가능하다는 점에서 개발자와 운영팀에게 매우 유용한 도구이다.</p>
+</section>
+<footer class=article-footer>
+<br>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
+<ins class=adsbygoogle style=display:block;height:300px;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-0712823212859607 data-ad-slot=7880266545></ins>
+<script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
+<section class=article-tags>
+<a href=/tags/opentelemetry/>OpenTelemetry</a>
+<a href=/tags/%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4-%EC%84%B1%EB%8A%A5/>소프트웨어 성능</a>
+<a href=/tags/%ED%8A%B8%EB%A0%88%EC%9D%B4%EC%8A%A4/>트레이스</a>
+<a href=/tags/%EB%A9%94%ED%8A%B8%EB%A6%AD/>메트릭</a>
+<a href=/tags/%EB%A1%9C%EA%B7%B8/>로그</a>
+<a href=/tags/%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81/>모니터링</a>
+<a href=/tags/%EB%B6%84%EC%82%B0-%EC%8B%9C%EC%8A%A4%ED%85%9C/>분산 시스템</a>
+<a href=/tags/cncf/>CNCF</a>
+<a href=/tags/%EB%B6%88%EA%B0%80%EC%A7%80%EB%A1%A0/>불가지론</a>
+</section>
+</footer>
+</article>
+<aside class=related-content--wrapper>
+<h2 class=section-title>관련 글</h2>
+<div class=related-content>
+<div class="flex article-list--tile">
+<article>
+<a href=/yq-yaml-parser/>
+<div class=article-details>
+<h2 class=article-title>yq: YAML Parser</h2>
+</div>
+</a>
+</article>
+<article>
+<a href=/helm-template-preserve-space/>
+<div class=article-details>
+<h2 class=article-title>Helm Template 공백 유지하는 방법</h2>
+</div>
+</a>
+</article>
+<article>
+<a href=/helm-template-value-preserve-string/>
+<div class=article-details>
+<h2 class=article-title>Helm Template Value 의 문자열 값 보존하기</h2>
+</div>
+</a>
+</article>
+</div>
+</div>
+</aside>
+<script src=https://giscus.app/client.js data-repo=1nterp/1nterp.github.io data-repo-id="MDEwOlJlcG9zaXRvcnkyMzY5NzQ5Mzc=" data-category=General data-category-id=MDE4OkRpc2N1c3Npb25DYXRlZ29yeTMyMjU4Mjgx data-mapping=pathname data-reactions-enabled=1 data-emit-metadata=1 data-theme=light data-lang=en data-loading=lazy crossorigin=anonymous async></script>
+<script>function setGiscusTheme(b){let a=document.querySelector("iframe.giscus-frame");a&&a.contentWindow.postMessage({giscus:{setConfig:{theme:b}}},"https://giscus.app")}(function(){addEventListener("message",b=>{if(event.origin!=="https://giscus.app")return;a()}),window.addEventListener("onColorSchemeChange",a);function a(){document.documentElement.dataset.scheme==="light"?setGiscusTheme('light'):setGiscusTheme('dark_dimmed')}})()</script>
+<footer class=site-footer>
+<section class=copyright>
+&copy;
+2019 -
+2024 InterP Blog
+</section>
+<section class=powerby>
+<a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 기반 / <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.12.0>Stack</a></b> 테마를 사용 중입니다.
+</section>
+</footer>
+<div class=pswp tabindex=-1 role=dialog aria-hidden=true>
+<div class=pswp__bg></div>
+<div class=pswp__scroll-wrap>
+<div class=pswp__container>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+</div>
+<div class="pswp__ui pswp__ui--hidden">
+<div class=pswp__top-bar>
+<div class=pswp__counter></div>
+<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+<div class=pswp__preloader>
+<div class=pswp__preloader__icn>
+<div class=pswp__preloader__cut>
+<div class=pswp__preloader__donut></div>
+</div>
+</div>
+</div>
+</div>
+<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+<div class=pswp__share-tooltip></div>
+</div>
+<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+</button>
+<div class=pswp__caption>
+<div class=pswp__caption__center></div>
+</div>
+</div>
+</div>
+</div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous>
+</main>
+<aside class="sidebar right-sidebar sticky">
+<form action=/search/ class="search-form widget">
+<p>
+<label>검색</label>
+<input name=keyword required placeholder="검색어를 입력하세요...">
+<button title=검색><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+</button>
+</p>
+</form>
+<section class="widget archives">
+<div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg>
+</div>
+<h2 class="widget-title section-title">목차</h2>
+<div class=widget--toc>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#opentelemetry의-핵심-요소>OpenTelemetry의 핵심 요소</a>
+<ul>
+<li><a href=#트레이스traces><strong>트레이스(Traces)</strong></a></li>
+<li><a href=#메트릭metrics><strong>메트릭(Metrics)</strong></a></li>
+<li><a href=#로그logs><strong>로그(Logs)</strong></a></li>
+</ul>
+</li>
+<li><a href=#opentelemetry의-특징>OpenTelemetry의 특징</a>
+<ul>
+<li><a href=#통합성-및-호환성><strong>통합성 및 호환성</strong></a></li>
+<li><a href=#오픈-소스-및-공급업체-중립성><strong>오픈 소스 및 공급업체 중립성</strong></a></li>
+<li><a href=#cncf-인큐베이팅-프로젝트><strong>CNCF 인큐베이팅 프로젝트</strong></a></li>
+</ul>
+</li>
+<li><a href=#실제-예제>실제 예제</a>
+<ul>
+<li><a href=#instrumentation-sdk-예제><strong>Instrumentation SDK 예제</strong></a></li>
+<li><a href=#otel-collector-예제>OTel Collector 예제</a></li>
+</ul>
+</li>
+<li><a href=#장점과-한계점>장점과 한계점</a></li>
+<li><a href=#결론>결론</a></li>
+</ul>
+</nav>
+</div>
+</section>
+<section class="widget adsense">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
+<ins class=adsbygoogle style=display:block data-ad-client=ca-pub-0712823212859607 data-ad-slot=8117949234 data-ad-format=auto data-full-width-responsive=true></ins>
+<script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
+</section>
+</aside>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script>
+<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
+</body>
+</html>
