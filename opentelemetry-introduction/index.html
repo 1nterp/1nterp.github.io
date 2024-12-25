@@ -3,7 +3,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="텔레메트리 데이터를 수집, 분석, 내보낼 수 있는 오픈 소스 도구 모음"><title>성능 관찰 및 시스템 분석을 위한 OpenTelemetry</title>
 <style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500&display=swap';@import "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"</style>
 <link rel=canonical href=https://interp.blog/opentelemetry-introduction/>
-<link rel=stylesheet href=/scss/style.min.7ae474c9ff3ff8b03eb231797ff4217e6dc3205fddf477138e9bd916cdb83c30.css><meta property="title" content="성능 관찰 및 시스템 분석을 위한 OpenTelemetry">
+<link rel=stylesheet href=/scss/style.min.f795e00156f8206e6dbdd95f73c925761efd27cd6ee68e4ccd0542d21cf30d70.css><meta property="title" content="성능 관찰 및 시스템 분석을 위한 OpenTelemetry">
 <meta property="description" content="텔레메트리 데이터를 수집, 분석, 내보낼 수 있는 오픈 소스 도구 모음">
 <meta property="og:title" content="성능 관찰 및 시스템 분석을 위한 OpenTelemetry">
 <meta property="og:description" content="텔레메트리 데이터를 수집, 분석, 내보낼 수 있는 오픈 소스 도구 모음">
@@ -88,22 +88,22 @@ TECH 🛠️
 <section class=article-content>
 <p>OpenTelemetry는 소프트웨어의 성능과 동작을 분석하기 위한 텔레메트리 데이터(메트릭, 로그, 트레이스)를 생성하고 수집하며 내보내는 데 도움을 주는 API, SDK 및 도구 모음이다. 이는 개발자와 운영팀이 소프트웨어 시스템을 관찰하고 문제를 해결하는 데 필수적인 정보를 제공한다. OpenTelemetry는 여러 프로그래밍 언어에 걸쳐 일반적으로 사용할 수 있으며, 생산 환경에서도 안정적으로 사용할 수 있도록 설계되었다.</p>
 <h1 id=opentelemetry의-핵심-요소>OpenTelemetry의 핵심 요소</h1>
-<h2 id=트레이스traces><strong>트레이스(Traces)</strong></h2>
+<h2 id=트레이스traces>트레이스(Traces)</h2>
 <p>트레이스는 요청이 시스템을 통해 이동하는 경로를 기록한다. 트레이스를 통해 애플리케이션의 각 서비스가 어떻게 상호작용하는지, 성능 병목 현상은 어디에 있는지를 파악할 수 있다. 이는 문제 해결에 필수적인 정보를 제공한다.</p>
-<h2 id=메트릭metrics><strong>메트릭(Metrics)</strong></h2>
+<h2 id=메트릭metrics>메트릭(Metrics)</h2>
 <p>메트릭은 시스템의 성능 지표를 수집하고 이를 분석하는 데 도움을 준다. 예를 들어, 요청 처리 시간, 시스템 리소스 사용량, 응답 속도 등을 모니터링할 수 있다. 이를 통해 시스템의 상태를 주기적으로 평가하고, 비정상적인 상태를 빠르게 감지할 수 있다.</p>
-<h2 id=로그logs><strong>로그(Logs)</strong></h2>
+<h2 id=로그logs>로그(Logs)</h2>
 <p>로그는 시스템에서 발생한 사건을 기록한 텍스트 데이터를 의미한다. 오류 메시지나 경고를 포함한 로그는 시스템의 문제를 추적하는 데 매우 유용하다. OpenTelemetry는 로그 데이터를 수집하여 관련된 트레이스나 메트릭과 결합하여 보다 명확한 관찰 정보를 제공한다.</p>
 <h1 id=opentelemetry의-특징>OpenTelemetry의 특징</h1>
-<h2 id=통합성-및-호환성><strong>통합성 및 호환성</strong></h2>
+<h2 id=통합성-및-호환성>통합성 및 호환성</h2>
 <p>OpenTelemetry는 여러 인기 있는 라이브러리와 프레임워크와 쉽게 통합된다. 코드 기반의 계측뿐만 아니라 제로 코드 계측도 지원하므로 개발자는 쉽게 OpenTelemetry를 기존 시스템에 적용할 수 있다.</p>
-<h2 id=오픈-소스-및-공급업체-중립성><strong>오픈 소스 및 공급업체 중립성</strong></h2>
+<h2 id=오픈-소스-및-공급업체-중립성>오픈 소스 및 공급업체 중립성</h2>
 <p>OpenTelemetry는 100% 무료이며 오픈 소스이다. OpenTelemetry의 가장 큰 특징 중 하나는 바로 <strong>제품 불가지론적(product agnostic)</strong> 이라는 점이다. 이는 특정 제품이나 플랫폼에 종속되지 않고, 다양한 시스템과 기술 스택에서 동일한 방식으로 사용할 수 있음을 의미한다.</p>
 <p>&ldquo;불가지론(不可知論)&rdquo; 이란 특정한 명제에 대해 의견을 강하게 주장하지 않는 태도를 의미한다. 이 말을 적용해 보면, OpenTelemetry는 특정 벤더나 도구에 의존하지 않고 다양한 환경에서 독립적으로 작동할 수 있는 특성을 가진다는 것을 의미한다. 이로 인해 OpenTelemetry는 여러 기업이나 팀들이 서로 다른 기술 스택을 사용하고 있더라도 손쉽게 통합할 수 있는 장점을 제공한다.</p>
-<h2 id=cncf-인큐베이팅-프로젝트><strong>CNCF 인큐베이팅 프로젝트</strong></h2>
+<h2 id=cncf-인큐베이팅-프로젝트>CNCF 인큐베이팅 프로젝트</h2>
 <p>OpenTelemetry는 클라우드 네이티브 컴퓨팅 재단(CNCF)에서 <a class=link href=https://www.cncf.io/projects/opentelemetry/ target=_blank rel=noopener>인큐베이팅 중인 프로젝트</a>로, 업계의 여러 주요 기업들이 채택하고 지원하고 있다.</p>
 <h1 id=실제-예제>실제 예제</h1>
-<h2 id=instrumentation-sdk-예제><strong>Instrumentation SDK 예제</strong></h2>
+<h2 id=instrumentation-sdk-예제>Instrumentation SDK 예제</h2>
 <p>OpenTelemetry를 사용하여 애플리케이션에 계측을 추가하는 첫 번째 단계는 <strong>Instrumentation SDK</strong>를 사용하는 것이다.</p>
 <p>아래는 Python을 예로 든 간단한 코드이다.</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=kn>from</span> <span class=nn>opentelemetry</span> <span class=kn>import</span> <span class=n>trace</span>
@@ -267,21 +267,21 @@ TECH 🛠️
 <ul>
 <li><a href=#opentelemetry의-핵심-요소>OpenTelemetry의 핵심 요소</a>
 <ul>
-<li><a href=#트레이스traces><strong>트레이스(Traces)</strong></a></li>
-<li><a href=#메트릭metrics><strong>메트릭(Metrics)</strong></a></li>
-<li><a href=#로그logs><strong>로그(Logs)</strong></a></li>
+<li><a href=#트레이스traces>트레이스(Traces)</a></li>
+<li><a href=#메트릭metrics>메트릭(Metrics)</a></li>
+<li><a href=#로그logs>로그(Logs)</a></li>
 </ul>
 </li>
 <li><a href=#opentelemetry의-특징>OpenTelemetry의 특징</a>
 <ul>
-<li><a href=#통합성-및-호환성><strong>통합성 및 호환성</strong></a></li>
-<li><a href=#오픈-소스-및-공급업체-중립성><strong>오픈 소스 및 공급업체 중립성</strong></a></li>
-<li><a href=#cncf-인큐베이팅-프로젝트><strong>CNCF 인큐베이팅 프로젝트</strong></a></li>
+<li><a href=#통합성-및-호환성>통합성 및 호환성</a></li>
+<li><a href=#오픈-소스-및-공급업체-중립성>오픈 소스 및 공급업체 중립성</a></li>
+<li><a href=#cncf-인큐베이팅-프로젝트>CNCF 인큐베이팅 프로젝트</a></li>
 </ul>
 </li>
 <li><a href=#실제-예제>실제 예제</a>
 <ul>
-<li><a href=#instrumentation-sdk-예제><strong>Instrumentation SDK 예제</strong></a></li>
+<li><a href=#instrumentation-sdk-예제>Instrumentation SDK 예제</a></li>
 <li><a href=#otel-collector-예제>OTel Collector 예제</a></li>
 </ul>
 </li>
