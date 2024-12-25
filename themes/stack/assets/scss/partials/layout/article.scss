@@ -137,13 +137,14 @@
         }
 
         li {
-            margin: 5px 0 5px 6px;
-            padding: 5px;
+            margin: .5rem 0;
+            padding: .5rem 0;
+            list-style-type: none;
 
             & > ol,
             & > ul {
                 margin-top: 10px;
-                padding-left: 5px;
+                padding-left: 1rem;
                 margin-bottom: -5px;
 
                 & > li:last-child {
@@ -171,15 +172,15 @@
         // Support up to 6 levels of indentation for lists in ToCs
         @for $i from 0 to 5 {
             & > ul #{repeat("> li > ul", $i)} > li.active-class > a {
-                $n: 25 + $i * 35;
-                margin-left: calc(-#{$n}px - 1em);
-                padding-left: calc(#{$n}px + 1em - var(--heading-border-size));
+                $n: if($i == 0, 25, $i * 35);
+                margin-left: calc(-#{$n}px - .5rem);
+                padding-left: calc(#{$n}px + .5rem - var(--heading-border-size));
             }
 
             & > ol #{repeat("> li > ol", $i)} > li.active-class > a {
                 $n: 9 + $i * 35;
-                margin-left: calc(-#{$n}px - 1em);
-                padding-left: calc(#{$n}px + 1em - var(--heading-border-size));
+                margin-left: calc(-#{$n}px - .5rem);
+                padding-left: calc(#{$n}px + .5rem - var(--heading-border-size));
                 display: block;
             }
         }
