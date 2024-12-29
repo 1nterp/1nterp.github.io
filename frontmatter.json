@@ -67,51 +67,39 @@
       "previewPath": null,
       "fields": [
         {
-          "title": "Title",
+          "title": "title",
           "name": "title",
           "type": "string"
         },
         {
-          "title": "Description",
+          "title": "description",
           "name": "description",
-          "type": "string"
+          "type": "datetime"
         },
         {
-          "title": "Publishing date",
+          "title": "date",
           "name": "date",
-          "type": "datetime",
-          "default": "{{now}}",
-          "isPublishDate": true
-        },
-        {
-          "title": "Content preview",
-          "name": "preview",
-          "type": "image"
-        },
-        {
-          "title": "Is in draft",
-          "name": "draft",
-          "type": "draft"
-        },
-        {
-          "title": "Tags",
-          "name": "tags",
-          "type": "tags"
-        },
-        {
-          "title": "Categories",
-          "name": "categories",
-          "type": "categories"
-        },
-        {
-          "title": "author",
-          "name": "author",
-          "type": "string"
+          "type": "datetime"
         },
         {
           "title": "url",
           "name": "url",
           "type": "string"
+        },
+        {
+          "title": "categories",
+          "name": "categories",
+          "type": "categories"
+        },
+        {
+          "title": "image",
+          "name": "image",
+          "type": "image"
+        },
+        {
+          "title": "tags",
+          "name": "tags",
+          "type": "tags"
         }
       ]
     }

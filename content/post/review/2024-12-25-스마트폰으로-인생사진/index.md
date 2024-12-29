@@ -5,7 +5,7 @@ date: 2024-12-25 21:14:18 +0900
 url: /photography-with-smartphone
 categories:
     - Review
-image: feature.jpeg
+image: feature2.jpg
 tags:
     - 책
     - 사진
