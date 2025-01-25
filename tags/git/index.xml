@@ -63,7 +63,7 @@ git push origin --delete internal
 &lt;h1 id="마지막-조치">마지막 조치&lt;/h1>
 &lt;p>이름을 바꾼 Local branch 를 Push 하기 전에, Upstream 을 삭제하는 과정이 필요하다.&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">git branch --unset-upstream issue-10
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;div style="background-color: var(--pre-background-color); width: 98%; margin:2rem; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;div style="background-color: var(--pre-background-color); width: 95%; margin:2rem; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
 &lt;div style="width: 16px;margin-right: 7px; margin-left: 4px;">
 💡
 &lt;/div>

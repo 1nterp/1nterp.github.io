@@ -408,7 +408,7 @@ git push origin --delete internal
 &lt;h1 id="마지막-조치">마지막 조치&lt;/h1>
 &lt;p>이름을 바꾼 Local branch 를 Push 하기 전에, Upstream 을 삭제하는 과정이 필요하다.&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">git branch --unset-upstream issue-10
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;div style="background-color: var(--pre-background-color); width: 98%; margin:2rem; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;div style="background-color: var(--pre-background-color); width: 95%; margin:2rem; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
 &lt;div style="width: 16px;margin-right: 7px; margin-left: 4px;">
 💡
 &lt;/div>
@@ -556,7 +556,7 @@ which rsync &lt;span class="c1"># 확인&lt;/span>
 &lt;li>페이지 하단에 &amp;lsquo;Add New Webhook to Workspace&amp;rsquo; 를 클릭&lt;/li>
 &lt;li>채널을 추가하면 채널의 Webhook URL 을 확인할 수 있다.&lt;/li>
 &lt;/ol>
-&lt;div style="background-color: var(--pre-background-color); width: 98%; margin:2rem; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
+&lt;div style="background-color: var(--pre-background-color); width: 95%; margin:2rem; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
 &lt;div style="width: 16px;margin-right: 7px; margin-left: 4px;">
 🪴
 &lt;/div>
@@ -1167,7 +1167,7 @@ pip install tensorflow-metal&lt;span class="o">==&lt;/span>0.5.0
 >공개 키 기반 구조 (Public Key Infrastructure, PKI)&lt;/a> 이라고 부른다. 그리고 PKI 의 ITU 표준이 &lt;a class="link" href="https://en.wikipedia.org/wiki/X.509" target="_blank" rel="noopener"
 >X.509&lt;/a> 인 것이다.&lt;/p>
 &lt;p>간략히 말하자면, 이 인증서에는 (1) 공개 키 (2) 서버의 신원 (호스트네임, 기관이나 개인 이름 등) (3) 인증서에 사인을 해 준 기관 (Certificate Authority, &lt;em>CA&lt;/em>) 이 포함되어 있다. (CA 로부터 사인받지 않았다면 self-signed 로 표시된다)&lt;/p>
-&lt;div style="background-color: var(--pre-background-color); width: 98%; margin:2rem; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
+&lt;div style="background-color: var(--pre-background-color); width: 95%; margin:2rem; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
 &lt;div style="width: 16px;margin-right: 7px; margin-left: 4px;">
 💡
 &lt;/div>
@@ -1578,7 +1578,7 @@ Output: 2
 &lt;/blockquote>
 &lt;p>클로저를 둘러싼 상태, lexical environment 라는 말들 전부 &lt;strong>클로저 바깥&lt;/strong>을 말한다. 사실 뒷 문장이 다 설명을 해 주고 있다.&lt;/p></description></item><item><title>VSCode Python 디버그 반응이 없을 때</title><link>https://interp.blog/vscode-python-debugging-no-response/</link><pubDate>Tue, 23 Aug 2022 22:26:07 +0900</pubDate><guid>https://interp.blog/vscode-python-debugging-no-response/</guid><description>&lt;img src="https://interp.blog/vscode-python-debugging-no-response/feature.png" alt="Featured image of post VSCode Python 디버그 반응이 없을 때" />&lt;h1 id="증상">증상&lt;/h1>
 &lt;p>Visual Studio Code 에서 Python 파일을 디버깅 (debugging) 하려 하면, &lt;strong>아무런 반응이 없고 곧바로 종료된다.&lt;/strong> 그냥 실행 자체를 하지 않은 것 처럼 말이다..!&lt;/p>
-&lt;p>&lt;div style="background-color: var(--pre-background-color); width: 98%; margin:2rem; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
+&lt;p>&lt;div style="background-color: var(--pre-background-color); width: 95%; margin:2rem; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
 &lt;div style="width: 16px;margin-right: 7px; margin-left: 4px;">
 😂
 &lt;/div>
@@ -1641,7 +1641,7 @@ use debugpy 1.5.1 or earlier.
 &lt;p>이번 포스팅을 시작으로, 직접 다양한 언어에서 BDD 를 적용하는 방법을 정리해 볼 예정이다. 첫 시간으로는 &lt;strong>파이썬&lt;/strong> (Python) 언어를 가지고 할 것이다. Python 라이브러리 중 하나인 &lt;a class="link" href="https://behave.readthedocs.io/en/stable/" target="_blank" rel="noopener"
 >behave&lt;/a> 를 통해, BDD 테스트 프레임워크를 구성하고, 예제 시나리오를 만들어서 테스트 자동화가 어떻게 이뤄질 수 있을지 알아보자.&lt;/p>
 &lt;h1 id="예제-프로젝트-생성">예제 프로젝트 생성&lt;/h1>
-&lt;div style="background-color: var(--pre-background-color); width: 98%; margin:2rem; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
+&lt;div style="background-color: var(--pre-background-color); width: 95%; margin:2rem; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
 &lt;div style="width: 16px;margin-right: 7px; margin-left: 4px;">
 💡
 &lt;/div>
@@ -1902,7 +1902,7 @@ Then I should have 7 cucumbers
 &lt;h2 id="결론">결론&lt;/h2>
 &lt;p>&lt;a class="link" href="http://m.blog.naver.com/dondek77/140178945548" target="_blank" rel="noopener"
 >위 네이버 포스팅&lt;/a>에도 언급되지만, 100% 해결책은 아니다. &amp;lsquo;다&amp;rsquo; 를 치는데 &amp;lsquo;ㄷ&amp;rsquo; 키가 바운싱이 되는 사이에 &amp;lsquo;ㅏ&amp;rsquo;가 입력되면 OS 입장에서는 &amp;lsquo;ㄷㄷ&amp;rsquo; 같은 중복 키로 인식하지 않으므로 &amp;lsquo;닫&amp;rsquo; 같은 문자가 입력되기 때문이다. 이런 문제는 지금 포스팅을 쓰는데도 발생하고 있다 (이런!)&lt;/p>
-&lt;p>결국 지름신을 모셔야 할 것 같지만… 어느 정도 완화할 수는 있겠다 싶어서 작성한다.&lt;/p></description></item><item><title>저작권 걱정 없는 무료 이미지 사이트 3개</title><link>https://interp.blog/license-free-image-3-sites/</link><pubDate>Thu, 28 Jul 2022 01:39:19 +0000</pubDate><guid>https://interp.blog/license-free-image-3-sites/</guid><description>&lt;img src="https://interp.blog/images/2022-07-28-glenn-carstens-peters-loatw2afdyu-unsplash.jpg" alt="Featured image of post 저작권 걱정 없는 무료 이미지 사이트 3개" />&lt;div style="background-color: var(--pre-background-color); width: 98%; margin:2rem; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
+&lt;p>결국 지름신을 모셔야 할 것 같지만… 어느 정도 완화할 수는 있겠다 싶어서 작성한다.&lt;/p></description></item><item><title>저작권 걱정 없는 무료 이미지 사이트 3개</title><link>https://interp.blog/license-free-image-3-sites/</link><pubDate>Thu, 28 Jul 2022 01:39:19 +0000</pubDate><guid>https://interp.blog/license-free-image-3-sites/</guid><description>&lt;img src="https://interp.blog/images/2022-07-28-glenn-carstens-peters-loatw2afdyu-unsplash.jpg" alt="Featured image of post 저작권 걱정 없는 무료 이미지 사이트 3개" />&lt;div style="background-color: var(--pre-background-color); width: 95%; margin:2rem; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
 &lt;div style="width: 16px;margin-right: 7px; margin-left: 4px;">
 😉
 &lt;/div>
@@ -2731,7 +2731,7 @@ data-ad-slot="1092971030">&lt;/ins>
 &lt;h1 id="정리하면">정리하면&lt;/h1>
 &lt;p>개인적으로 Controller 는 기술적인 개념이고, Operator 는 좀 더 포괄적이면서 논리적인 개념으로 받아들여진다. &lt;a class="link" href="https://blog.marcnuri.com/kubernetes-operator-vs-controller" target="_blank" rel="noopener"
 >문서&lt;/a>에서도 &amp;lsquo;&lt;em>모든 Operator 는 CR 을 관리하기 위해 쓰이는 Controller 라고 부를 수 있다.&lt;/em>&amp;rsquo; 라고 하고 있으니까 말이다.&lt;/p>
-&lt;p>그리고 Controller 나 Operator 모두 어떤 프레임워크일 뿐이지, 프로그래밍 언어에 국한된 것은 아니라고 언급한다. 나 역시 Go 언어와 Python 으로 모두 구현해 봤기 때문이다. 다만 용어를 사용할 때 좀 더 확실히 이해하고 쓴다면 헷갈릴 여지가 없기를 바란다.&lt;/p></description></item><item><title>카카오/네이버 메일 아이폰 연동</title><link>https://interp.blog/kakao-naver-email-iphone-connect/</link><pubDate>Fri, 04 Feb 2022 16:35:37 +0000</pubDate><guid>https://interp.blog/kakao-naver-email-iphone-connect/</guid><description>&lt;img src="https://interp.blog/images/2022-02-04-kakao-email/feature-image.jpg" alt="Featured image of post 카카오/네이버 메일 아이폰 연동" />&lt;div style="background-color: var(--pre-background-color); width: 98%; margin:2rem; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
+&lt;p>그리고 Controller 나 Operator 모두 어떤 프레임워크일 뿐이지, 프로그래밍 언어에 국한된 것은 아니라고 언급한다. 나 역시 Go 언어와 Python 으로 모두 구현해 봤기 때문이다. 다만 용어를 사용할 때 좀 더 확실히 이해하고 쓴다면 헷갈릴 여지가 없기를 바란다.&lt;/p></description></item><item><title>카카오/네이버 메일 아이폰 연동</title><link>https://interp.blog/kakao-naver-email-iphone-connect/</link><pubDate>Fri, 04 Feb 2022 16:35:37 +0000</pubDate><guid>https://interp.blog/kakao-naver-email-iphone-connect/</guid><description>&lt;img src="https://interp.blog/images/2022-02-04-kakao-email/feature-image.jpg" alt="Featured image of post 카카오/네이버 메일 아이폰 연동" />&lt;div style="background-color: var(--pre-background-color); width: 95%; margin:2rem; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
 &lt;div style="width: 16px;margin-right: 7px; margin-left: 4px;">
 🚧
 &lt;/div>

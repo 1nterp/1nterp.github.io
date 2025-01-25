@@ -122,7 +122,7 @@ title="YouTube Video"
 &lt;/div>
 &lt;p>조금 이상한 부분은, 참조해야 할 파일을 한 번 수정하거나 저장해야 적용이 되는 것 처럼 보이기는 했는데&amp;hellip; 조금 더 써보고 업데이트 해야겠다.&lt;/p></description></item><item><title>VSCode Python 디버그 반응이 없을 때</title><link>https://interp.blog/vscode-python-debugging-no-response/</link><pubDate>Tue, 23 Aug 2022 22:26:07 +0900</pubDate><guid>https://interp.blog/vscode-python-debugging-no-response/</guid><description>&lt;img src="https://interp.blog/vscode-python-debugging-no-response/feature.png" alt="Featured image of post VSCode Python 디버그 반응이 없을 때" />&lt;h1 id="증상">증상&lt;/h1>
 &lt;p>Visual Studio Code 에서 Python 파일을 디버깅 (debugging) 하려 하면, &lt;strong>아무런 반응이 없고 곧바로 종료된다.&lt;/strong> 그냥 실행 자체를 하지 않은 것 처럼 말이다..!&lt;/p>
-&lt;p>&lt;div style="background-color: var(--pre-background-color); width: 98%; margin:2rem; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
+&lt;p>&lt;div style="background-color: var(--pre-background-color); width: 95%; margin:2rem; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
 &lt;div style="width: 16px;margin-right: 7px; margin-left: 4px;">
 😂
 &lt;/div>
