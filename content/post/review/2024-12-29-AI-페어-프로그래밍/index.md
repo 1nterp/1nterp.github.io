@@ -15,6 +15,9 @@ tags:
 slug: ai-pair-programming-book-review
 ---
 
+{{< callout text="[도서 정보](https://product.kyobobook.co.kr/detail/S000213131985)" emoji=":orange_book:" >}}
+{{< figure src="book.png" width="50%">}}
+
 Github Copilot 을 사내에서 쓰면서, 단순 코딩 작업이나 반복작업을 떠넘기기 바빴었다. 물론 그것만으로도 효율이 올랐지만, 좀 더 스마트한 사용 케이스가 분명 있을 것이라는 기대가 있었다. 
 
 종종 다른 팀원의 코드를 리뷰할 때 `/explain` 도 사용하는데, 이 내용을 기반으로 코드를 읽으면 훨씬 더 잘 보이는 것도 같아서 말이다. 최근에는 아예 Copilot 이 자체적으로 Code Review 해주는 기능도 추가되었으니, 다른 곳에서도 더 빠르면서도 준수한 결과를 내 줄 수 있지 않을까? 하는 궁금증이 생겼다. 말 그대로 '완벽한' 결과가 아닌 '일정한 수준의 결과를 빨리 처리할 수 있는' 그런 기대 말이다.

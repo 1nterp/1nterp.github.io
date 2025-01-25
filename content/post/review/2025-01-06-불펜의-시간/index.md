@@ -14,6 +14,9 @@ tags:
 slug: time-of-the-bullpen
 ---
 
+{{< callout text="[도서 정보](https://product.kyobobook.co.kr/detail/S000001790506)" emoji=":orange_book:" >}}
+{{< figure src="feature.jpeg" width="50%">}}
+
 작년 일기를 들추다, 너무나 빨리 읽어버린 소설 한 권이 생각났다. 천만관중의 스포츠라 입이 아픈, 그렇다고 어린이 야구단을 했다거나 골수팬은 아니어서 어떤 부심을 부리기도 뭣한 야구 소설. 실상은 야구라는 탈만 썼지, 현실이라는 룰 속에서 낙오된 주인공들의 이야기. [불펜의 시간](https://m.yes24.com/Goods/Detail/102701952). 
 
 정말 너무나 빨리 읽어버렸다. 내용이 적어서가 아니라, 그만큼 재밌어서였다. 괜히 문학상 수상작이 아니었나보다.
