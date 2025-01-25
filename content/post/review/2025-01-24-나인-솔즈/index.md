@@ -3,8 +3,8 @@ title: 나인 솔즈
 date: 2025-01-24 21:04:24 +0900
 categories:
 - Review
-image: feature.png
-image_y: 10%
+image: feature.jpg
+image_y: 25%
 description: 할로우 나이트와 비교되는, 대만 메트로베니아 소울라이크
 url: /nine-sols
 tags:
