@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Outlook on InterP Blog</title><link>https://interp.blog/tags/outlook/</link><description>Recent content in Outlook on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Sat, 25 Jan 2025 22:29:39 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/outlook/index.xml" rel="self" type="application/rss+xml"/><item><title>Mac 용 달력 프로그램, itsycal</title><link>https://interp.blog/itsycal-mac-calendar/</link><pubDate>Sat, 25 Jan 2025 22:29:39 +0900</pubDate><guid>https://interp.blog/itsycal-mac-calendar/</guid><description>&lt;img src="https://interp.blog/itsycal-mac-calendar/feature.jpg" alt="Featured image of post Mac 용 달력 프로그램, itsycal" />&lt;p>Mac 을 업무에 사용하면서 가장 많이 쓰는 앱을 소개하면 좋겠다고 생각했다. 뭐가 있을까? &lt;del>당연히 Visual Studio Code 겠지만&lt;/del> 개발자가 아니더라도 범용적으로 쓸 수 있는 앱을 찾아보기로 했다.&lt;/p>
+&lt;p>갑자기, 작업표시줄 위에 떠 있는 &lt;strong>1월 25일 (토)&lt;/strong> 가 보였다. 오늘이 몇월 몇일인지 바로 확인할 수 있는, 이번 주가 몇 번째 주인지 확인할 수 있는, 다른 캘린더와 연결해서 일정을 간단히 확인할 수 있는 앱, &lt;a class="link" href="https://www.mowglii.com/itsycal/" target="_blank" rel="noopener"
+>itsycal&lt;/a> 이다.&lt;/p>
+&lt;figure>
+&lt;img loading="lazy" src="./image.png"
+alt="실제 사용화면" width="70%"/> &lt;figcaption>
+&lt;p>실제 사용화면&lt;/p>
+&lt;/figcaption>
+&lt;/figure>
+&lt;h1 id="시간말고-날짜도-확인하고-싶어">시간말고 날짜도 확인하고 싶어&lt;/h1>
+&lt;p>내가 잘 모를 순 있겠지만, 작업표시줄에 시간만 나타낼 수 밖에 없어서 날짜도 바로 확인하고 싶었다.&lt;/p>
+&lt;p>홈페이지에서는 영어 포맷으로 나타나나 있지만, 지금처럼 얼마든지 한글로 바꿀 수 있다.&lt;/p>
+&lt;h1 id="몇째-주인지-확인하고-싶어">몇째 주인지 확인하고 싶어&lt;/h1>
+&lt;p>회사 특성상, 일정을 이야기해야 할 때 주 번호 (Calendar Week) 를 자주 언급해야 할 때가 있다. 그래서 지금이 몇째 주인지 빠르게 파악할 수 있어야 하는데, 메일 프로그램인 아웃룩에서도 지원은 한다.&lt;/p>
+&lt;figure>
+&lt;img loading="lazy" src="outlook.png"
+alt="&amp;amp;lsquo;설정 &amp;amp;gt; 캘린더 &amp;amp;gt; 주 번호 표시&amp;amp;rsquo; 선택하면 이렇게 보인다 (스크린샷은 영문판)" width="100%"/> &lt;figcaption>
+&lt;p>&amp;lsquo;설정 &amp;gt; 캘린더 &amp;gt; 주 번호 표시&amp;rsquo; 선택하면 이렇게 보인다 (스크린샷은 영문판)&lt;/p>
+&lt;/figcaption>
+&lt;/figure>
+&lt;p>아웃룩 열고 보고 하는게 번거로워 보이기도 했고, 무엇보다 현재 주가 아니라 4월 첫째주는 몇 번째 주야? 를 알려면 그때부터 더욱 복잡해졌기 때문이다. 휙휙 넘겨서 보는게 훨씬 더 쉬운 이 캘린더가 마음에 들었던 이유다.&lt;/p>
+&lt;h1 id="다른-앱들은-뭐예요">다른 앱들은 뭐예요?&lt;/h1>
+&lt;p>아, 표시줄에 있는 다른 앱은 다음과 같다. 따로 소개해 드릴 시간이 있을 것 같다.&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://apps.apple.com/kr/app/flow-%EB%BD%80%EB%AA%A8%EB%8F%84%EB%A1%9C-%EC%A7%91%EC%A4%91-%EC%8B%9C%EA%B0%84%EA%B4%80%EB%A6%AC-%EA%B3%B5%EB%B6%80-%ED%83%80%EC%9D%B4%EB%A8%B8/id1423210932" target="_blank" rel="noopener"
+>Flow&lt;/a>: 뽀모도로 앱이다. 무료로 쓰고, 업무 시간을 기록하기 위한 용도로 간단히 쓴다.&lt;/li>
+&lt;li>&lt;a class="link" href="https://maccy.app/" target="_blank" rel="noopener"
+>Maccy&lt;/a>: 남들 다 쓰는 클립보드 저장 앱이다.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;em>가볍고 귀여운 캘린더, 바로 확인할 수 있는 간단한 캘린더를 원하십니까? 그렇다면 지금 바로 설치하세요!&lt;/em> 라고 추천해 주고 싶다.&lt;/p></description></item></channel></rss>
