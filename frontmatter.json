@@ -74,7 +74,12 @@
         {
           "title": "description",
           "name": "description",
-          "type": "datetime"
+          "type": "string"
+        },
+        {
+          "title": "author",
+          "name": "author",
+          "type": "string"
         },
         {
           "title": "date",
@@ -87,14 +92,19 @@
           "type": "string"
         },
         {
-          "title": "categories",
-          "name": "categories",
-          "type": "categories"
-        },
-        {
           "title": "image",
           "name": "image",
           "type": "image"
+        },
+        {
+          "title": "image_y",
+          "name": "image_y",
+          "type": "image"
+        },
+        {
+          "title": "categories",
+          "name": "categories",
+          "type": "categories"
         },
         {
           "title": "tags",
