@@ -4,7 +4,7 @@ description: 시작이 반이라지만, 시작이 있다면 끝도 있어야 하
 author: InterP
 date: 2025-02-14 07:19:44 +0900
 url: /ende-gut-alles-gut
-image: ""
+image: feature.jpg
 image_y: ""
 categories:
     - Essay
@@ -69,3 +69,5 @@ draft: false
 
 일도, 삶도 말이다. 그래야 다 좋다 (alles gut).
 
+
+{{< callout text="이 포스팅의 대표 이미지는 Unsplash 에서 찾은 [Sydney Rae](https://unsplash.com/ko/@srz) 의 사진이다." emoji=":wink:" >}}

@@ -14,8 +14,6 @@ tags:
 - 회의
 ---
 
-{{< callout text="이 포스팅의 대표 이미지는 Unsplash 에서 찾은 [Juri Gianfrancesco](https://unsplash.com/ko/@jurigianfra?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) 의 사진이다. Thanks, Juri!" emoji=":wink:" >}}
-
 예전에도 비슷한 느낌을 받아서 기록을 하나 남긴다. 
 
 다른 사람들은 (특히 팀장이나 선임은) 당신이 하는 모든 일의 디테일을 알지 못한다. 큰 흐름만 알지. 해결할 문제가 무엇이고, 예상되는 결과가 무엇인지 정도? 심지어는 기억해야 할 의무도 없다. 
@@ -70,3 +68,5 @@ tags:
 
 그런데 최소한 상대방을 '친절히' 대하려 노력한다면, 위에서 말한 것들이 자연스럽게 이뤄질 거라 믿는다. *저 사람은 나보다 돈을 더 받으니 (혹은 경력이 더 많으니) 분명히 알아들을 수 있어야 해* 같은 접근 말고... 순수히 사람 대 사람으로 대하면, 내가 배려해 준 만큼 남도 나를 배려할 수 있을 것이다.
 
+
+{{< callout text="이 포스팅의 대표 이미지는 Unsplash 에서 찾은 [Juri Gianfrancesco](https://unsplash.com/ko/@jurigianfra?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) 의 사진이다." emoji=":wink:" >}}
