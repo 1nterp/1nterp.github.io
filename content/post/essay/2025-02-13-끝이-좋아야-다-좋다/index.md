@@ -8,7 +8,11 @@ image: feature.jpg
 image_y: ""
 categories:
     - Essay
-tags: []
+tags:
+    - 결말
+    - 과정
+    - 죽음
+    - 시작
 draft: false
 ---
 
