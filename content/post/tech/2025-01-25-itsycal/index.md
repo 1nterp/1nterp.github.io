@@ -3,7 +3,7 @@ title: Mac 용 달력 프로그램, itsycal
 date: 2025-01-25 22:29:39 +0900
 description: 가볍게 작업 표시줄에서 볼 수 있는 귀여운 달력
 url: "/itsycal-mac-calendar"
-tags: ["달력", "Mac", "App", "Outlook", "주 번호"]
+tags: ["달력", "Mac", "App", "Outlook", "주 번호", "유틸리티"]
 image: feature.jpg
 categories:
 - Tech
