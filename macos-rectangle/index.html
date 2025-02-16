@@ -1,0 +1,350 @@
+<!doctype html><html lang=ko-kr dir=ltr>
+<head><meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="왼쪽 오른쪽, 3분할, 모니터 간 이동을 자유자재로"><title>Rectangle, MacOS 창 이동 프로그램</title>
+<style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500&display=swap';@import "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"</style>
+<link rel=canonical href=https://interp.blog/macos-rectangle/>
+<link rel=stylesheet href=/scss/style.min.7b8c9f1702ca58c50af6f4f5159182ec068e123e6f132306249046ad2ace4a6c.css><meta property="title" content="Rectangle, MacOS 창 이동 프로그램">
+<meta property="description" content="왼쪽 오른쪽, 3분할, 모니터 간 이동을 자유자재로">
+<meta property="og:title" content="Rectangle, MacOS 창 이동 프로그램">
+<meta property="og:description" content="왼쪽 오른쪽, 3분할, 모니터 간 이동을 자유자재로">
+<meta property="og:url" content="https://interp.blog/macos-rectangle/">
+<meta property="og:site_name" content="InterP Blog">
+<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="Mac"><meta property="article:tag" content="App"><meta property="article:tag" content="창 이동"><meta property="article:tag" content="창 분할"><meta property="article:tag" content="유틸리티"><meta property="article:published_time" content="2025-02-16T21:00:23+09:00"><meta property="article:modified_time" content="2025-02-16T21:00:23+09:00"><meta property="og:image" content="https://interp.blog/macos-rectangle/feature.jpg">
+<meta name=twitter:site content="@interp_">
+<meta name=twitter:creator content="@interp_"><meta name=twitter:title content="Rectangle, MacOS 창 이동 프로그램">
+<meta name=twitter:description content="왼쪽 오른쪽, 3분할, 모니터 간 이동을 자유자재로"><meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://interp.blog/macos-rectangle/feature.jpg">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KMRJ33V06X"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-KMRJ33V06X')</script>
+<script>(function(b,d,e,a,g){b[a]=b[a]||[],b[a].push({'gtm.start':(new Date).getTime(),event:'gtm.js'});var f=d.getElementsByTagName(e)[0],c=d.createElement(e),h=a!='dataLayer'?'&l='+a:'';c.async=!0,c.src='https://www.googletagmanager.com/gtm.js?id='+g+h,f.parentNode.insertBefore(c,f)})(window,document,'script','dataLayer','GTM-NBPHNHQ')</script>
+</head>
+<body class=article-page>
+<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky">
+<button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 토글">
+<span class=hamburger-box>
+<span class=hamburger-inner></span>
+</span>
+</button>
+<header>
+<div class=site-meta>
+<h1 class=site-name><a href=/>InterP Blog</a></h1>
+<h2 class=site-description>Things I'm interested</h2>
+</div>
+</header><ol class=menu id=main-menu>
+<li>
+<a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span>
+</a>
+</li>
+<li>
+<a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span>
+</a>
+</li>
+<li>
+<a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span>
+</a>
+</li>
+<div class=menu-bottom-section>
+<li id=i18n-switch><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5h7"/><path d="M9 3v2c0 4.418-2.239 8-5 8"/><path d="M5 9c-.003 2.144 2.952 3.908 6.7 4"/><path d="M12 20l4-9 4 9"/><path d="M19.1 18h-6.2"/></svg>
+<select name=language onchange="window.location.href=this.selectedOptions[0].value"><option value=https://interp.blog/ selected>한국어</option><option value=https://interp.blog/en/>English</option></select>
+</li>
+<li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>다크 모드</span>
+</li>
+</div>
+</ol>
+</aside>
+<main class="main full-width">
+<article class="has-image main-article">
+<header class=article-header style=display:block>
+<div class=article-image>
+<a href=/macos-rectangle/>
+<img src=/macos-rectangle/feature_hu311737e22db1a0054658bbf8125d285e_577943_900x0_resize_q75_h2_box.webp srcset="/macos-rectangle/feature_hu311737e22db1a0054658bbf8125d285e_577943_900x0_resize_q75_h2_box.webp 800w, /macos-rectangle/feature_hu311737e22db1a0054658bbf8125d285e_577943_1800x0_resize_q75_h2_box.webp 1600w" width=900 height=280 loading=lazy style="object-position:50% 50%" alt="Featured image of post Rectangle, MacOS 창 이동 프로그램">
+</a>
+</div>
+<div class=article-details>
+<header class=article-category>
+<a href=/categories/tech/ style=background-color:#1c8193;color:#fff>
+TECH 🛠️
+</a>
+</header>
+<div class=article-title-wrapper>
+<h2 class=article-title>
+<a href=/macos-rectangle/>Rectangle, MacOS 창 이동 프로그램</a>
+</h2>
+<h3 class=article-subtitle>
+왼쪽 오른쪽, 3분할, 모니터 간 이동을 자유자재로
+</h3>
+</div>
+<footer class=article-time>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>2025-02-16</time>
+</div>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>
+5 분 소요
+</time>
+</div>
+</footer>
+</div>
+</header>
+<section class=article-content>
+<p>대학 다닐 때부터 듀얼 모니터를 썼고, 모니터 간 창 이동 기능을 위해 여러 프로그램을 썼던 기억이 있다. <del>뭔지는 정확히 기억이 안 난다</del></p>
+<p>Windows 7 부터는 운영체제에서 기본으로 제공되었는데, 바로 윈도우 키와 방향키 조합이다. <a class=link href=https://coolenjoy.net/bbs/37/220952 target=_blank rel=noopener>쿨앤조이 게시글</a> 에서도 잘 정리되어 있지만, 내가 창 이동할 때 가장 많이 쓰는 단축키는 사실 이 4개이다.</p>
+<div class=table-wrapper><table>
+<thead>
+<tr>
+<th>단축키</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Win키 + 왼쪽/오른쪽</code></td>
+<td>현재 모니터에서 창을 왼쪽 (또는 오른쪽) 절반만큼 조정</td>
+</tr>
+<tr>
+<td><code>Win키 + 위쪽</code></td>
+<td>창을 최대화</td>
+</tr>
+<tr>
+<td><code>Win키 + 아래쪽</code></td>
+<td>창을 최소화</td>
+</tr>
+<tr>
+<td><code>Win키 + Shift + 왼쪽/오른쪽</code></td>
+<td>창이 위치한 모니터에서 다음 (또는 이전) 모니터로 창을 이동</td>
+</tr>
+</tbody>
+</table></div>
+<p>2년 전에 MacOS 를 영접하고 나서 두려웠던 것이, 이런 창 이동 기능이 기본적으로 제공되지 않았다는 것이다. 찾아보니 <a class=link href="https://apps.apple.com/kr/app/magnet/id441258766?mt=12" target=_blank rel=noopener>Magnet</a>, <a class=link href="https://apps.apple.com/kr/app/bettersnaptool/id417375580?mt=12" target=_blank rel=noopener>BetterSnapTool</a> 이라는 프로그램이 있긴 했지만, 모두 유료였다. 그냥 단축키 몇 개만 바랄 뿐인데 돈을 받는다고&mldr;?</p>
+<p>그러던 중, 공짜이면서 내가 딱 원하는 기능만 갖춘 무료 앱을 찾았다. 바로 <a class=link href=https://rectangleapp.com/ target=_blank rel=noopener>Rectangle</a> 되시겠다.</p>
+<h1 id=설치>설치</h1>
+<p>다른 두 앱과는 달리, 이 앱은 인터넷에서 다운로드 받아 설치해야 한다. 간혹 이런 메시지를 발견하게 되면, 우선은 MacOS 의 기능을 끄고 나서 설치를 시도해 보자.</p>
+<figure>
+<img loading=lazy src=error.png width=30%>
+</figure>
+<p>Rectangle 의 가장자리 기능이 마음에 안 들면, 뒤따라 나오는 메시지처럼 &lsquo;<em>시스템 설정 → 데스크탑 및 Dock → 윈도우</em>&rsquo; 에서 다시 켜주면 된다. (Rectangle 설정에서는 &lsquo;<em>드래그하여 창 배치</em>&rsquo; 기능을 끄고!)</p>
+<h1 id=사용법과-단축키>사용법과 단축키</h1>
+<img loading=lazy src=menu.jpg width=20% style=float:left;margin:2rem>
+<p>설치한 후에 Mac 의 메뉴 막대 (Windows 로 치면 작업 표시줄) 에 상태 아이콘 (트레이 아이콘) 이 생긴다. Mac 에서의 창 모양처럼 왼쪽 위에 구멍이 세개 나 있는 그 친구 말이다! 클릭해 보면 아래와 같이 장황한 메뉴가 나온다.</p>
+<p>빨간색이나 초록색, 파란색 박스가 자주 쓰게 될 기능이다. 물론 단축키로 말이다! 기본적으로 쓰이는 단축키를 정리해 보면 다음과 같다.</p>
+<div class=table-wrapper><table>
+<thead>
+<tr>
+<th>단축키</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Control + Option + 왼쪽/오른쪽</code></td>
+<td>창을 왼쪽 (또는 오른쪽) 절반만큼</td>
+</tr>
+<tr>
+<td><code>Control + Option + 위쪽/아래쪽</code></td>
+<td>창을 위쪽 (또는 아래쪽) 절반만큼</td>
+</tr>
+<tr>
+<td><code>Control + Option + D</code></td>
+<td>창을 3분할해서 가장 왼쪽</td>
+</tr>
+<tr>
+<td><code>Control + Option + F</code></td>
+<td>창을 3분할해서 중간에</td>
+</tr>
+<tr>
+<td><code>Control + Option + G</code></td>
+<td>창을 3분할해서 가장 오른쪽에</td>
+</tr>
+<tr>
+<td><code>Control + Option + E</code></td>
+<td>창을 3분할해서 왼쪽 2/3 만큼</td>
+</tr>
+<tr>
+<td><code>Control + Option + T</code></td>
+<td>창을 3분할해서 오른쪽 2/3 만큼</td>
+</tr>
+<tr>
+<td><code>Control + Option + Enter</code></td>
+<td>창을 최대화</td>
+</tr>
+<tr>
+<td><code>Control + Option + Command + 왼쪽/오른쪽</code></td>
+<td>창을 다음 (또는 이전) 모니터로 이동</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id=기본-단축키>기본 단축키</h2>
+<p>Windows 는 윈도우 키만 누르면 되는데, 여기서는 키를 3개나 눌러야 한다. 하지만 적응하고 나면 그렇게 불편하지 않다.</p>
+<p>잘 와닿지 않는다면, 키보드 아래를 내려다 보자. 스페이스 바 왼쪽에 (Fn/언어 키를 제외하고) 왼쪽부터 Control, Option, Command 가 있다. 이 세 개 중 가장 자주 쓰이는 Command 를 제외한 나머지 키 2개를 나란히 누르고, 화살표로 창을 이동하면 된다.</p>
+<p>Windows 와 다른 점은, 위쪽/아래쪽 화살표와의 조합이다. 창 최소화/최대화가 아닌 창 위쪽/아래쪽 이동이다. 이렇게 쓸 일이 얼마나 많을지 모르겠고 가능하면 통일시키고 싶어서, 이 단축키는 따로 설정에서 창 최소화/최대화로 바꿔놨다!</p>
+<h2 id=화면-3분할>화면 3분할</h2>
+<p>화살표가 아닌 DFG / ET 를 누르는 경우는 조금 감이 안 올 수도 있지만, 와이드 모니터를 사용할 때는 더욱 효과적인 단축키이므로 같이 알아두면 편리하다. 그림에서처럼 매우 친절하게 &lsquo;<em>창이 이렇게 움직입나다요</em>&rsquo; 를 표시하기 때문에 감을 잡기는 쉬울 것이다.</p>
+<p>키보드를 내려다 보면, 한 줄에 나란히 있는 D, F, G 키가 1/3 씩의 크기를 나타내고, 왼쪽/오른쪽 1/3 을 나타내는 D, G키 바로 위에 있는 E, T키가 왼쪽/오른쪽 2/3 씩의 크기를 나타낸다. 몇 번 하다보면 금새 와이드 모니터에서 넓게 봤다 좁게 봤다를 할 수 있을 것이다.</p>
+<h2 id=창을-최대화>창을 최대화</h2>
+<p>기본 단축키 기준으로 Control + Option + Enter 를 누르면 창이 최대화된다. 주의할 점은, Mac 에서의 창 최대화 버튼 (초록색) 이 창을 전체화면으로 만들어주는 것과는 다르게 현재 데스크톱 화면에서만 최대화된다.</p>
+<p>현재 Windows 도 Mac 도 모두 지원하는 멀티 데스크톱 기능과 관련이 있다. 이건 나중에 따로 다루면 좋겠지만, 아무튼 창 최대화가 Mac 의 것과 다르단 것만 알면 되고.. 정 궁금하면 직접 확인해보면 좋겠다.</p>
+<h2 id=모니터-이동>모니터 이동</h2>
+<p>이번에는 아예 Command 까지 전부 누르고 왼쪽/오른쪽 화살표를 누르면 모니터간 이동이 가능하다.</p>
+<h1 id=설정>설정</h1>
+<figure>
+<img loading=lazy src=setting.png alt="Rectangle 의 설정 창" width=50%> <figcaption>
+<p>Rectangle 의 설정 창</p>
+</figcaption>
+</figure>
+<p>사실 &lsquo;로그인 시 실행&rsquo; 부분만 체크가 잘 되어 있는지 확인하면 설정을 굳이 건드리진 않았다. 단축키 변경은 상단 메뉴 아이콘 중에서 가장 왼쪽을 선택하면 바꿀 수 있다.</p>
+<p>또 한가지 설명해야 할 부분이 &lsquo;커맨드 반복 입력시&rsquo; 라는 선택 창이다. 기본값은 &lsquo;인접한 왼쪽 또는 오른쪽 디스플레이로 이동&rsquo; 이다. 이게 <code>Control + Option + Command + 화살표</code> 기능이 아니라, 똑같이 화면 분할을 해 두고 반복적으로 이동한다는 뜻이다.</p>
+<p>예를 들어, 듀얼 모니터를 쓰는 환경에서 모니터1에 <code>Control + Option + 왼쪽 화살표</code> 를 입력해서 창을 왼쪽 절반으로 보냈다고 하자. 똑같은 단축키를 입력하면 어떻게 될까?</p>
+<ol>
+<li>모니터2의 왼쪽</li>
+<li><strong>모니터2의 오른쪽</strong></li>
+</ol>
+<p>정답은 2번이다. 모니터1의 왼쪽에서 더 왼쪽으로 간다면, 모니터2의 오른쪽으로 <strong>밀려나갔다</strong>고 이해하면 편하다. 재미있는 건 3분할에서는 모니터 이동이 되지 않는다. 이건 설명과 다르니까 버그라고 봐야 할지 의도적인 건지 모르겠다.</p>
+<hr>
+<p>무료 앱이면서 윈도우 창 이동의 거의 모든 기능을 제공하는 Rectangle. 물론 유료 앱들이 더 많은 기능을 제공할 수 있겠지만, 내가 필요한 것은 이 정도면 충분하다!</p>
+</section>
+<footer class=article-footer>
+<br>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
+<ins class=adsbygoogle style=display:block;height:300px;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-0712823212859607 data-ad-slot=7880266545></ins>
+<script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
+<section class=article-tags>
+<a href=/tags/mac/>Mac</a>
+<a href=/tags/app/>App</a>
+<a href=/tags/%EC%B0%BD-%EC%9D%B4%EB%8F%99/>창 이동</a>
+<a href=/tags/%EC%B0%BD-%EB%B6%84%ED%95%A0/>창 분할</a>
+<a href=/tags/%EC%9C%A0%ED%8B%B8%EB%A6%AC%ED%8B%B0/>유틸리티</a>
+</section>
+</footer>
+</article>
+<aside class=related-content--wrapper>
+<h2 class=section-title>관련 글</h2>
+<div class=related-content>
+<div class="flex article-list--tile">
+<article class=has-image>
+<a href=/itsycal-mac-calendar/>
+<div class=article-image>
+<img src=/itsycal-mac-calendar/feature.96a4eca305b8d57b14561e56d00daec5_hud8f2c8a2587efb728b7a4f247aa68186_803385_250x150_fill_q75_box_smart1.jpg width=250 height=150 loading=lazy alt="Featured image of post Mac 용 달력 프로그램, itsycal" data-hash="md5-lqTsowW41XsUVh5W0A2uxQ==">
+</div>
+<div class=article-details>
+<h2 class=article-title>Mac 용 달력 프로그램, itsycal</h2>
+</div>
+</a>
+</article>
+<article class=has-image>
+<a href=/backup-from-icloud-obsidian/>
+<div class=article-image>
+<img src=/backup-from-icloud-obsidian/feature.733fea06f52cb01084c577110197599f_hu4b4ed757e4b1c0b24b15644c97bf58e9_228493_250x150_fill_box_smart1_3.png width=250 height=150 loading=lazy alt="Featured image of post iCloud Obsidian 주기적으로 백업하기" data-hash="md5-cz/qBvUssBCExXcRAZdZnw==">
+</div>
+<div class=article-details>
+<h2 class=article-title>iCloud Obsidian 주기적으로 백업하기</h2>
+</div>
+</a>
+</article>
+<article class=has-image>
+<a href=/mac-display-resolution-adjustment/>
+<div class=article-image>
+<img src=/mac-display-resolution-adjustment/feature.d5d5e6b3ebb4c7db5ba6561230aaf6bb_hu43356a195e024c64166fce239cf0e8d2_1638563_250x150_fill_box_smart1_3.png width=250 height=150 loading=lazy alt="Featured image of post Mac 디스플레이 해상도 조절 팁" data-hash="md5-1dXms+u0x9tbplYSMKr2uw==">
+</div>
+<div class=article-details>
+<h2 class=article-title>Mac 디스플레이 해상도 조절 팁</h2>
+</div>
+</a>
+</article>
+</div>
+</div>
+</aside>
+<script src=https://giscus.app/client.js data-repo=1nterp/1nterp.github.io data-repo-id="MDEwOlJlcG9zaXRvcnkyMzY5NzQ5Mzc=" data-category=General data-category-id=MDE4OkRpc2N1c3Npb25DYXRlZ29yeTMyMjU4Mjgx data-mapping=pathname data-reactions-enabled=1 data-emit-metadata=1 data-theme=light data-lang=en data-loading=lazy crossorigin=anonymous async></script>
+<script>function setGiscusTheme(b){let a=document.querySelector("iframe.giscus-frame");a&&a.contentWindow.postMessage({giscus:{setConfig:{theme:b}}},"https://giscus.app")}(function(){addEventListener("message",b=>{if(event.origin!=="https://giscus.app")return;a()}),window.addEventListener("onColorSchemeChange",a);function a(){document.documentElement.dataset.scheme==="light"?setGiscusTheme('light'):setGiscusTheme('dark_dimmed')}})()</script>
+<footer class=site-footer>
+<section class=copyright>
+&copy;
+2019 -
+2025 InterP Blog
+</section>
+<section class=powerby>
+<a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 기반 / <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.12.0>Stack</a></b> 테마를 사용 중입니다.
+</section>
+</footer>
+<div class=pswp tabindex=-1 role=dialog aria-hidden=true>
+<div class=pswp__bg></div>
+<div class=pswp__scroll-wrap>
+<div class=pswp__container>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+</div>
+<div class="pswp__ui pswp__ui--hidden">
+<div class=pswp__top-bar>
+<div class=pswp__counter></div>
+<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+<div class=pswp__preloader>
+<div class=pswp__preloader__icn>
+<div class=pswp__preloader__cut>
+<div class=pswp__preloader__donut></div>
+</div>
+</div>
+</div>
+</div>
+<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+<div class=pswp__share-tooltip></div>
+</div>
+<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+</button>
+<div class=pswp__caption>
+<div class=pswp__caption__center></div>
+</div>
+</div>
+</div>
+</div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous>
+</main>
+<aside class="sidebar right-sidebar sticky">
+<form action=/search/ class="search-form widget">
+<p>
+<label>검색</label>
+<input name=keyword required placeholder="검색어를 입력하세요...">
+<button title=검색><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+</button>
+</p>
+</form>
+<section class="widget archives">
+<div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg>
+</div>
+<h2 class="widget-title section-title">목차</h2>
+<div class=widget--toc>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#설치>설치</a></li>
+<li><a href=#사용법과-단축키>사용법과 단축키</a>
+<ul>
+<li><a href=#기본-단축키>기본 단축키</a></li>
+<li><a href=#화면-3분할>화면 3분할</a></li>
+<li><a href=#창을-최대화>창을 최대화</a></li>
+<li><a href=#모니터-이동>모니터 이동</a></li>
+</ul>
+</li>
+<li><a href=#설정>설정</a></li>
+</ul>
+</nav>
+</div>
+</section>
+<section class="widget adsense">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
+<ins class=adsbygoogle style=display:block data-ad-client=ca-pub-0712823212859607 data-ad-slot=8117949234 data-ad-format=auto data-full-width-responsive=true></ins>
+<script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
+</section>
+</aside>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script>
+<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
+</body>
+</html>
