@@ -1,4 +1,73 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Microsoft on InterP Blog</title><link>https://interp.blog/tags/microsoft/</link><description>Recent content in Microsoft on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Tue, 30 Apr 2024 21:23:23 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/microsoft/index.xml" rel="self" type="application/rss+xml"/><item><title>Microsoft AI Tour 후기</title><link>https://interp.blog/microsoft-ai-tour-review/</link><pubDate>Tue, 30 Apr 2024 21:23:23 +0900</pubDate><guid>https://interp.blog/microsoft-ai-tour-review/</guid><description>&lt;img src="https://interp.blog/microsoft-ai-tour-review/feature.jpeg" alt="Featured image of post Microsoft AI Tour 후기" />&lt;p>개발자들에게 위기인지 기회인지 모를 물결을 이해하기 위해 OpenAI 관련 내용을 보여줄 수 있는 Microsoft AI Tour 에 신청해 다녀왔다. 코로나 위기가 찾아오기 이전에 열렸던 MS Ignite 행사를 코엑스에 다녀온 이후로, 두 번째 MS 컨퍼런스 행사에 참석한 것이다. 이번에는 코엑스가 아닌, 양재 aT 센터이다.&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Microsoft on InterP Blog</title><link>https://interp.blog/tags/microsoft/</link><description>Recent content in Microsoft on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Thu, 27 Mar 2025 18:09:46 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/microsoft/index.xml" rel="self" type="application/rss+xml"/><item><title>Microsoft AI Tour Seoul 2025 후기</title><link>https://interp.blog/microsoft-ai-tour-seoul-2025-review/</link><pubDate>Thu, 27 Mar 2025 18:09:46 +0900</pubDate><guid>https://interp.blog/microsoft-ai-tour-seoul-2025-review/</guid><description>&lt;img src="https://interp.blog/microsoft-ai-tour-seoul-2025-review/feature.jpeg" alt="Featured image of post Microsoft AI Tour Seoul 2025 후기" />&lt;p>AI Tour 2년 연속 개근이다! &lt;a class="link" href="https://interp.blog/microsoft-ai-tour-review" >지난 해 후기&lt;/a>에 이어 올해도 후기를 남긴다.&lt;/p>
+&lt;p>사실 전날 오후 1시에 미리 배지를 받았는데, 이유는 키노트 우선지정석이 선착순으로 배포되기 때문이었다. 배지와 우선지정석 카드, 그리고 럭키드로우 27번을 받았다. &lt;del>내 앞의 26명은 누구인가&amp;hellip;&lt;/del>&lt;/p>
+&lt;figure>
+&lt;img loading="lazy" src="79FAA4FF-539A-454D-83F4-747C9E99CBC6_1_102_o.jpeg"
+alt="행사장인 aT센터 입구" width="100%"/> &lt;figcaption>
+&lt;p>행사장인 aT센터 입구&lt;/p>
+&lt;/figcaption>
+&lt;/figure>
+&lt;p>행사 당일엔 오전 9시 10분쯤에 aT센터에 도착했다. 등록데스크에 사람이 바글바글.. 곧바로 세션 하나를 골라 들어가 보았다. &amp;lsquo;AI와 교육의 만남&amp;rsquo; 이라는 대담이 포함된 세션이었는데, AI 가 교육에 어떻게 기여했나.. 사용사례 보여주고&amp;hellip; 사람들이 영 흥미가 없어 보였다. 그래도 기억에 남는 부분은,&lt;/p>
+&lt;ul>
+&lt;li>생성형 AI 는 학생들에게는 보조교사의 역할을, 교사와 교직원에겐 보조적인 동료/비서로서의 역할을 하기 때문에 교육 현장에서 매우 중요한 부분을 차지할 수 있다.&lt;/li>
+&lt;li>기본적으로 AI 는 성인을 기준해서 제공되고 있다. &lt;em>미성년자들에겐 생성형 AI 의 답이 올바른지, 혹은 윤리적인지 판단할 수 있다고 단언하기 어렵기 때문이다.&lt;/em> - 많은 생각을 하게 만드는 문장이다. AI 가 보조교사로 쓰이려면 매우 조심스러운 접근이 필요하다는 것이다.&lt;/li>
+&lt;li>&amp;lsquo;&lt;em>도입이 끝이 아니다, 구성원들의 AI 사용 수준을 끌어올려야 한다&lt;/em>&amp;rsquo; 였다.
+&lt;ul>
+&lt;li>대담에 참석하신 성균관대 교수님도, LG CNS 부스에서 AX 관련 대화를 나눴을 때도 강조된 부분이다.&lt;/li>
+&lt;li>구성원 간에 활발한 프롬프트/에이전트 공유 문화가 필요하다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>정부에서는 교육기관/공공기관에서 국내 Cloud Provider 를 쓰라고 압박하는데, 데이터 주권 문제, 보안 문제 때문이라고 본다. 하지만 더 많은 기회를 잡으려면 글로벌 Cloud Provider 를 쓸 수 있도록 장려해 줄 필요도 있다고 본다.
+&lt;ul>
+&lt;li>MS Azure 가 &lt;a class="link" href="https://www.msn.com/ko-kr/news/other/ms-csap-%EC%9D%B8%EC%A6%9D-%ED%9A%8D%EB%93%9D-%EA%B3%B5%EA%B3%B5%EA%B8%B0%EA%B4%80-%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C-%EC%A7%84%EC%B6%9C-%EB%B9%97%EC%9E%A5-%EC%97%B4%EC%97%88%EB%8B%A4/ar-AA1v5mgE?ocid=BingNewsSerp" target="_blank" rel="noopener"
+>CSAP 를 통과했다&lt;/a>는 언급을 여기서 같이 하더라.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>생성형 AI 는 만능이 아니다. 대체제가 아니라, 도구일 뿐이다.&lt;/strong> 그래서 &lt;em>CoPilot&lt;/em> 이라는 네이밍이 굉장히 좋다고 생각한다.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;p>다음으로 워크샵 세션을 가서 VSCode 에서의 Github CoPilot 을 들으러 갔다.&lt;/p>
+&lt;ul>
+&lt;li>Use Instruction Files 를 사용해 (시스템 프롬프트를 주는 것 처럼) CoPilot Chat 에 적용할 수 있었다. 이런 기능을 여태 왜 안 썼지? 데모에서는 &amp;lsquo;조직의 Coding Convention 을 설명하는 마크다운&amp;rsquo; 따위를 집어넣으면 &lt;strong>거기에 맞춰 짜주거나, 기존 코드를 리펙터링 할 수 있다&lt;/strong>고 한다!
+&lt;ul>
+&lt;li>Commit Message 에 대한 안내도 할 수 있다. 파일로 줘도 되고, 직접 적어도 된다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Agent Mode (insider 에서만 사용 가능) 에서는 reasoning 하는 방식으로 단계별 수행이 가능하다. 단계마다 사용자의 확인을 받는 부분이 인상적이었다.&lt;/li>
+&lt;/ul>
+&lt;p>이걸 보면서, Instruction Files 를 여러개 줘서 Configuration Data 를 쉽게 작성할 수 있게 하면 너무 좋겠단 생각을 했다.&lt;/p>
+&lt;hr>
+&lt;p>키노트 세션 입장은 너무 힘들었다. 작년보다 사람이 더 많아 보였다. 그래서 키노트 장소를 작년 커뮤니티 룸으로 잡은 이유기도 하겠지. 워크샵 세션이 1층이었는데, 키노트 세션 장소는 3층이라서 올라가는 에스컬레이터를 10분 넘게 기다렸다. 그만큼 3층에 사람이 꽉 차 있었단 이야기. 그나마 3층에 올라가보니 우선 입장은 줄을 안 서도 된다고 해서 곧바로 앉을 수 있었다. 앞에 열 줄 정도만 있어서 나름 잘 보였다.&lt;/p>
+&lt;figure>
+&lt;img loading="lazy" src="performance.jpeg"
+alt="여기 공식이 있습니다&amp;amp;hellip;" width="100%"/> &lt;figcaption>
+&lt;p>여기 공식이 있습니다&amp;hellip;&lt;/p>
+&lt;/figcaption>
+&lt;/figure>
+&lt;p>&lt;del>기를 받기 위해&lt;/del> 가까이서 보고싶었던 MS CEO 인 사티아 나델라가 등장하면서 키노트를 열었다. 초반 슬라이드가 인상적인데, AI 퍼포먼스는 결국 Token 대비 전력과 비용을 줄이는 것이라고.&lt;/p>
+&lt;p>간단히 요약하면, 세 가지 키워드로 요약할 수 있다. &lt;strong>Agent, AMD, 그리고 신뢰 (Trustworthy)&lt;/strong>. M365 CoPilot 위주의 발표와 데모가 있었는데, Teams 미팅에서 내용을 요약하고, 그 내용을 파워포인트 슬라이드로 만들어달라는 부분이 인상깊었다. Agent 공유 기능도 좋아보였고.&lt;/p>
+&lt;p>M365 CoPilot 의 Reasoning Agent 발표, AMD 와의 협업, 국내 기업의 사용 사례 (GS리테일, 아모레퍼시픽) 를 언급하면서, 마지막에는 양자컴퓨팅 칩인 마요라나1 을 소개했다. 동영상 퀄리티가 매우 뛰어나서 홀린 듯이 본 기억이 있다. (찾아보니 &amp;lsquo;&lt;em>자기자신이 자신의 반물질 성질을 가진 입자&lt;/em>&amp;rsquo; 를 뜻하는 마요라나 페르미온 (Majorana Fermion) 에서 따온 이름이라고)&lt;/p>
+&lt;figure>
+&lt;img loading="lazy" src="feature.jpeg"
+alt="동영상이 굉장히 예뻤던 (&amp;amp;hellip;) 마요라나1 소개" width="100%"/> &lt;figcaption>
+&lt;p>동영상이 굉장히 예뻤던 (&amp;hellip;) 마요라나1 소개&lt;/p>
+&lt;/figcaption>
+&lt;/figure>
+&lt;hr>
+&lt;p>점심은 작년과 같았는데, 먹을 수 있는 장소가 작년보다 더 찾기 힘들었다. 한 층 내려가서 카페에 양해를 구하고, 음료를 주문하고 동료와 앉아서 편하게 먹었다. 여기에서조차 자리를 찾긴 힘들었지만, 적어도 시장바닥같은 곳에서 먹는 것보다는 나았다.&lt;/p>
+&lt;figure>
+&lt;img loading="lazy" src="20707427-5CEC-497F-9C78-4B9CBD4FBF32_1_102_a.jpeg" width="100%"/>
+&lt;/figure>
+&lt;p>오후에는 세션을 더 이상 듣지 않고, 부스를 돌아다녔다. 인상깊었던 곳은 LG CNS 와 슈어였는데.. AX (AI Transformation) 를 어떻게 도와주는지에 대한 프로세스를 열성적으로 말씀하신 책임님이 생각난다. 그 분도 &amp;lsquo;&lt;em>도입이 끝이 아니다, 교육이 필요하다&lt;/em>&amp;rsquo; 는 것이다. 백번 공감한다. 슈어는 마이크 브랜드로만 알았는데, 수음기를 엄청나게 많이 달아 둔 천장형 스피커로 AI 미팅 시장 파이를 먹겠다는 부분이 인상 깊었다.&lt;/p>
+&lt;p>그리고.. 동료와 함께 더 이상 듣는 것이 큰 의미가 있을까 싶어 (!) 행사장을 일찍 빠져나왔다.&lt;/p>
+&lt;figure>
+&lt;img loading="lazy" src="87DD1B81-25E8-482B-90FF-844CC18BE191_1_105_c.jpeg"
+alt="행사장에서 받은 것들.. 포장된 것은 레고 캘린더/외장 배터리" width="100%"/> &lt;figcaption>
+&lt;p>행사장에서 받은 것들.. 포장된 것은 레고 캘린더/외장 배터리&lt;/p>
+&lt;/figcaption>
+&lt;/figure>
+&lt;hr>
+&lt;p>이제 2년차에 접어든 MS AI Tour Seoul. 아무래도 이것저것 많이 접해본 개발자들에겐 신선한 소재나 배울 거리가 없었던 것 같다. 작년도, 그리고 올해도.&lt;/p>
+&lt;p>물론 잘 아는 분야라도 책을 읽거나 대화를 하다 보면 &lt;strong>틈새를 채울 만한 새로운 깨달음을 얻을 수 있으니&lt;/strong>, 아주 시간낭비라고 생각하진 않았다. 혹은, 내가 가고 있는 방향이 맞는지, &lt;strong>비슷한 방향을 향하는 사람들이 얼마나 많은지 동향 파악&lt;/strong>을 할 수도 있었던 것 같다.&lt;/p></description></item><item><title>Microsoft AI Tour 후기</title><link>https://interp.blog/microsoft-ai-tour-review/</link><pubDate>Tue, 30 Apr 2024 21:23:23 +0900</pubDate><guid>https://interp.blog/microsoft-ai-tour-review/</guid><description>&lt;img src="https://interp.blog/microsoft-ai-tour-review/feature.jpeg" alt="Featured image of post Microsoft AI Tour 후기" />&lt;p>개발자들에게 위기인지 기회인지 모를 물결을 이해하기 위해 OpenAI 관련 내용을 보여줄 수 있는 Microsoft AI Tour 에 신청해 다녀왔다. 코로나 위기가 찾아오기 이전에 열렸던 MS Ignite 행사를 코엑스에 다녀온 이후로, 두 번째 MS 컨퍼런스 행사에 참석한 것이다. 이번에는 코엑스가 아닌, 양재 aT 센터이다.&lt;/p>
 &lt;p>우선 초대장에 선착순이라는 문구가 몇 번이고 보였다. 늦으면 아침도 없다는 것 처럼 들렸기 때문에, 7시 30분 정도에 도착해서 등록하고 기다렸다. 아침은 다양한 빵과 우유/커피. 마들렌과 고구마 파이가 맛있었다. 아침이 컨퍼런스의 목적은 아니었지만, 맛있으면 기분 좋게 들을 수 있으니까!&lt;/p>
 &lt;figure>
 &lt;img loading="lazy" src="breakfast.jpeg"
