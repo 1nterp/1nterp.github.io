@@ -11,6 +11,7 @@ tags:
 - Dataverse
 categories:
 - Tech
+draft: true
 ---
 
 # 제작동기
