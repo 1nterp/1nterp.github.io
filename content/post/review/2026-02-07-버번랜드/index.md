@@ -4,11 +4,15 @@ title: 버번 랜드
 description: 에드워드 리 셰프의, 버번과 음식이 함께하는 따뜻한 이야기
 url: /bourbon-land
 image: feature.jpg
+image_y: 15%
 tags: ['버번', '위스키', '에드워드 리']
 categories: ['Review']
 ---
 
-흑백요리사에서 준우승을 차지한 이균, 아니 에드워드 리 셰프의 버번 위스키 가이드 북.
+{{< callout text="[도서 정보](https://product.kyobobook.co.kr/detail/S000217402059)" emoji=":orange_book:" >}}
+{{< figure src="./feature.jpg" width="70%">}}
+
+흑백요리사에서 준우승을 차지한 이균, 에드워드 리 셰프의 버번 위스키 가이드 북.
 
 그가 켄터키에 자리를 잡은 이유 중 하나가 버번이라고 할 정도로, 그의 위스키 애정이 듬뿍 묻어난 책이다. 대중에게는 흑백요리사의 준우승자로 더 익숙하지만, 이 책에서는 쇼의 얼굴보다 켄터키에 살고 있는 푸근한 셰프의 모습이 먼저 보인다.
 
