@@ -1,0 +1,1260 @@
+diff --git a/themes/stack/assets/icons/brand-facebook.svg b/themes/stack/assets/icons/brand-facebook.svg
+new file mode 100644
+index 000000000..1e8b3bf66
+--- /dev/null
++++ b/themes/stack/assets/icons/brand-facebook.svg
+@@ -0,0 +1,4 @@
++<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-facebook" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
++  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
++  <path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" />
++</svg>
+\ No newline at end of file
+diff --git a/themes/stack/assets/icons/brand-instagram.svg b/themes/stack/assets/icons/brand-instagram.svg
+new file mode 100644
+index 000000000..4d76e2790
+--- /dev/null
++++ b/themes/stack/assets/icons/brand-instagram.svg
+@@ -0,0 +1,6 @@
++<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-instagram" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
++  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
++  <rect x="4" y="4" width="16" height="16" rx="4" />
++  <circle cx="12" cy="12" r="3" />
++  <line x1="16.5" y1="7.5" x2="16.5" y2="7.501" />
++</svg>
+\ No newline at end of file
+diff --git a/themes/stack/assets/icons/brand-linkedin.svg b/themes/stack/assets/icons/brand-linkedin.svg
+new file mode 100644
+index 000000000..597629669
+--- /dev/null
++++ b/themes/stack/assets/icons/brand-linkedin.svg
+@@ -0,0 +1,8 @@
++<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-linkedin" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
++  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
++  <rect x="4" y="4" width="16" height="16" rx="2" />
++  <line x1="8" y1="11" x2="8" y2="16" />
++  <line x1="8" y1="8" x2="8" y2="8.01" />
++  <line x1="12" y1="16" x2="12" y2="11" />
++  <path d="M16 16v-3a2 2 0 0 0 -4 0" />
++</svg>
+\ No newline at end of file
+diff --git a/themes/stack/assets/scss/breakpoints.scss b/themes/stack/assets/scss/breakpoints.scss
+index e9e9de73a..6a0fdf3e5 100644
+--- a/themes/stack/assets/scss/breakpoints.scss
++++ b/themes/stack/assets/scss/breakpoints.scss
+@@ -15,3 +15,13 @@ $breakpoints: (
+         }
+     }
+ }
++
++@mixin respond_max($breakpoint) {
++    @if not map-has-key($breakpoints, $breakpoint) {
++        @warn "'#{$breakpoint}' is not a valid breakpoint";
++    } @else {
++        @media (max-width: map-get($breakpoints, $breakpoint)) {
++            @content;
++        }
++    }
++}
+diff --git a/themes/stack/assets/scss/external/normalize.scss b/themes/stack/assets/scss/external/normalize.scss
+index c45a85f89..66d2824f0 100644
+--- a/themes/stack/assets/scss/external/normalize.scss
++++ b/themes/stack/assets/scss/external/normalize.scss
+@@ -38,8 +38,25 @@
+    */
+   
+   h1 {
+-    font-size: 2em;
+-    margin: 0.67em 0;
++    font-size: 1.7em;
++    font-weight: 500;
++    margin: 2em 0 .67em 0;
++    letter-spacing: -1px;
++
++    @include respond(md) {
++        font-size: 1.9em;
++    }
++  }
++  
++  h2 {
++    font-size: 1.3em;
++    font-weight: 400;
++    margin: 1.6em 0 .67em 0;
++    letter-spacing: -1px;
++
++    @include respond(md) {
++        font-size: 1.4em;
++    }
+   }
+   
+   /* Grouping content
+@@ -94,7 +111,12 @@
+   
+   b,
+   strong {
+-    font-weight: bolder;
++    font-weight: 500;
++    color: var(--accent-bold-color);
++  }
++
++  em {
++    color: var(--accent-bold-color);
+   }
+   
+   /**
+diff --git a/themes/stack/assets/scss/general.scss b/themes/stack/assets/scss/general.scss
+index e12bb0e42..c57fa208b 100644
+--- a/themes/stack/assets/scss/general.scss
++++ b/themes/stack/assets/scss/general.scss
+@@ -22,7 +22,7 @@ a {
+     margin-bottom: 10px;
+     display: block;
+     font-size: 1.6rem;
+-    font-weight: bold;
++    font-weight: 600;
+     color: var(--body-text-color);
+ 
+     a {
+diff --git a/themes/stack/assets/scss/grid.scss b/themes/stack/assets/scss/grid.scss
+index 84967efe6..1af16e167 100644
+--- a/themes/stack/assets/scss/grid.scss
++++ b/themes/stack/assets/scss/grid.scss
+@@ -79,6 +79,7 @@ main.main {
+     display: flex;
+     flex-direction: column;
+     gap: var(--section-separation);
++    font-family: var(--article-font-family);
+ 
+     @include respond(md) {
+         padding-top: var(--main-top-padding);
+diff --git a/themes/stack/assets/scss/partials/article.scss b/themes/stack/assets/scss/partials/article.scss
+index f085ff0f0..f299f9561 100644
+--- a/themes/stack/assets/scss/partials/article.scss
++++ b/themes/stack/assets/scss/partials/article.scss
+@@ -21,11 +21,11 @@
+         .article-image {
+             img {
+                 width: 100%;
+-                height: 150px;
++                height: 140px;
+                 object-fit: cover;
+ 
+                 @include respond(md) {
+-                    height: 200px;
++                    height: 180px;
+                 }
+ 
+                 @include respond(xl) {
+@@ -57,10 +57,11 @@
+     font-weight: 600;
+     margin: 0;
+     color: var(--card-text-color-main);
+-    font-size: 2.2rem;
++    font-size: 1.8em;
++    letter-spacing: -1px;
+ 
+     @include respond(xl) {
+-        font-size: 2.4rem;
++        font-size: 2em;
+     }
+ 
+     a {
+@@ -73,13 +74,14 @@
+ }
+ 
+ .article-subtitle {
+-    font-weight: normal;
++    font-weight: 300;
+     color: var(--card-text-color-secondary);
+     line-height: 1.5;
+-    margin: 0;
+-    font-size: 1.75rem;
++    letter-spacing: -1px;
++    margin: .5rem 0 0 0;
++    font-size: 1.5rem;
+     @include respond(xl) {
+-        font-size: 2rem;
++        font-size: 1.7rem;
+     }
+ }
+ 
+@@ -94,7 +96,7 @@
+     display: flex;
+     align-items: center;
+     color: var(--card-text-color-tertiary);
+-    gap: 15px;
++    gap: 12px;
+     flex-wrap: wrap;
+ 
+     svg {
+@@ -113,7 +115,7 @@
+     & > div {
+         display: inline-flex;
+         align-items: center;
+-        gap: 15px;
++        gap: 6px;
+     }
+ }
+ 
+@@ -125,7 +127,7 @@
+     a {
+         color: var(--accent-color-text);
+         background-color: var(--accent-color);
+-        padding: 8px 16px;
++        padding: 6px 8px;
+         border-radius: var(--tag-border-radius);
+         display: inline-block;
+         font-size: 1.4rem;
+@@ -170,10 +172,10 @@
+ 
+         .article-title {
+             margin: 0;
+-            font-size: 1.6rem;
++            font-size: 1.8rem;
+ 
+             @include respond(md) {
+-                font-size: 1.8rem;
++                font-size: 2.1rem;
+             }
+         }
+ 
+@@ -256,7 +258,7 @@
+ 
+         .article-title {
+             font-size: 2rem;
+-            font-weight: 500;
++            font-weight: 600;
+             color: var(--card-text-color-main);
+ 
+             @include respond(sm) {
+@@ -265,3 +267,17 @@
+         }
+     }
+ }
++
++.footnotes {
++    font-size:0.8em;
++    ol {
++        display: block;
++        list-style-type: decimal;
++        padding-inline-start: 2em;
++
++        li p {
++            margin-block-start: .2rem;
++            margin-block-end: .2rem;
++        }
++    }
++}
+diff --git a/themes/stack/assets/scss/partials/base.scss b/themes/stack/assets/scss/partials/base.scss
+index efb4b8f3e..3912e38ae 100644
+--- a/themes/stack/assets/scss/partials/base.scss
++++ b/themes/stack/assets/scss/partials/base.scss
+@@ -12,7 +12,7 @@ body {
+     margin: 0;
+     font-family: var(--base-font-family);
+     font-size: 1.6rem;
+-    -webkit-font-smoothing: antialiased;
++    -webkit-font-smoothing: auto;
+     -moz-osx-font-smoothing: grayscale;
+ }
+ 
+diff --git a/themes/stack/assets/scss/partials/comments/disqusjs.scss b/themes/stack/assets/scss/partials/comments/disqusjs.scss
+index eb270e3e1..f9cde0425 100644
+--- a/themes/stack/assets/scss/partials/comments/disqusjs.scss
++++ b/themes/stack/assets/scss/partials/comments/disqusjs.scss
+@@ -210,7 +210,7 @@
+ 
+ #dsqjs .dsqjs-load-more {
+     font-size: 14px;
+-    font-weight: 400;
++    font-weight: 300;
+     display: block;
+     text-align: center;
+     padding: 11px 14px;
+diff --git a/themes/stack/assets/scss/partials/footer.scss b/themes/stack/assets/scss/partials/footer.scss
+index ccb739401..d5fed7fee 100644
+--- a/themes/stack/assets/scss/partials/footer.scss
++++ b/themes/stack/assets/scss/partials/footer.scss
+@@ -14,13 +14,13 @@ footer.site-footer {
+ 
+     .copyright {
+         color: var(--accent-color);
+-        font-weight: bold;
++        font-weight: 600;
+         margin-bottom: 5px;
+     }
+ 
+     .powerby {
+         color: var(--body-text-color);
+-        font-weight: normal;
++        font-weight: 300;
+         font-size: 1.2rem;
+ 
+         a {
+diff --git a/themes/stack/assets/scss/partials/highlight/dark.scss b/themes/stack/assets/scss/partials/highlight/dark.scss
+index 2c13946ea..67f300dd8 100644
+--- a/themes/stack/assets/scss/partials/highlight/dark.scss
++++ b/themes/stack/assets/scss/partials/highlight/dark.scss
+@@ -366,7 +366,7 @@
+ 
+ /* GenericStrong */
+ .chroma .gs {
+-    font-weight: bold
++    font-weight: 600
+ }
+ 
+ /* GenericSubheading */
+diff --git a/themes/stack/assets/scss/partials/highlight/light.scss b/themes/stack/assets/scss/partials/highlight/light.scss
+index 1798218e1..f597f85eb 100644
+--- a/themes/stack/assets/scss/partials/highlight/light.scss
++++ b/themes/stack/assets/scss/partials/highlight/light.scss
+@@ -392,7 +392,7 @@
+ }
+ /* GenericStrong */
+ .chroma .gs {
+-    font-weight: bold;
++    font-weight: 600;
+ }
+ /* GenericSubheading */
+ .chroma .gu {
+diff --git a/themes/stack/assets/scss/partials/layout/article.scss b/themes/stack/assets/scss/partials/layout/article.scss
+index 6199118f7..20333217d 100644
+--- a/themes/stack/assets/scss/partials/layout/article.scss
++++ b/themes/stack/assets/scss/partials/layout/article.scss
+@@ -14,37 +14,56 @@
+         overflow: hidden;
+ 
+         .article-header {
++            @include respond_max(sm) {
++                display: block !important
++            }
++
+             .article-image {
+                 img {
+                     height: auto;
+                     width: 100%;
+-                    max-height: 50vh;
++                    height: 140px;
+                     object-fit: cover;
++                    @media (max-width: 400px) {
++                        max-height: 15vh;
++                    }
++                    @include respond(md) {
++                        height: 180px;
++                    }
++
++                    @include respond(xl) {
++                        height: 250px;
++                    }
+                 }
+             }
+ 
+             .article-details {
+-                padding: var(--card-padding);
+-                padding-bottom: 0;
++                padding: var(--article-padding);
++                padding-bottom: 1rem;
+             }
+         }
+ 
+         .article-content {
+-            margin: var(--card-padding) 0;
++            margin: var(--article-padding) 0;
+             color: var(--card-text-color-main);
++            font-weight: 300;
+ 
+             img {
+                 max-width: 100%;
+                 height: auto;
+             }
++
++            img[alt=center] {
++                max-width: 50%;
++            }
+         }
+ 
+         .article-footer {
+-            margin: var(--card-padding);
+-            margin-top: 0;
++            margin: var(--article-padding);
++            padding-top: var(--article-padding);
+ 
+             section:not(:first-child) {
+-                margin-top: var(--card-padding);
++                margin-top: var(--article-padding);
+             }
+ 
+             section {
+@@ -53,7 +72,7 @@
+                 display: flex;
+                 align-items: center;
+                 font-size: 1.4rem;
+-                gap: 15px;
++                gap: 5px;
+ 
+                 svg {
+                     width: 20px;
+@@ -89,6 +108,8 @@
+     flex-direction: column;
+     color: var(--card-text-color-main);
+     overflow: hidden;
++    font-weight: 300 !important;
++    letter-spacing: -1px;
+ 
+     ::-webkit-scrollbar-thumb {
+         background-color: var(--card-separator-color);
+@@ -97,6 +118,8 @@
+     #TableOfContents {
+         overflow-x: auto;
+         max-height: 75vh;
++        line-height: 0.85;
++        padding: 1.5rem;
+ 
+         ol,
+         ul {
+@@ -111,23 +134,24 @@
+             li a:first-of-type::before {
+                 counter-increment: item;
+                 content: counters(item, ".") ". ";
+-                font-weight: bold;
++                font-weight: 600;
+                 margin-right: 5px;
+             }
+         }
+ 
+         & > ul {
+-            padding: 0 1em;
++            padding: 0 1.5rem;
+         }
+ 
+         li {
+-            margin: 15px 0 15px 20px;
+-            padding: 5px;
++            margin: .5rem 0;
++            padding: .5rem 0;
++            list-style-type: none;
+ 
+             & > ol,
+             & > ul {
+                 margin-top: 10px;
+-                padding-left: 10px;
++                padding-left: 1rem;
+                 margin-bottom: -5px;
+ 
+                 & > li:last-child {
+@@ -137,12 +161,12 @@
+         }
+         li.active-class > a {
+             border-left: var(--heading-border-size) solid var(--accent-color);
+-            font-weight: bold;
++            font-weight: 600;
+         }
+ 
+-        ul li.active-class > a {
+-            display: block;
+-        }
++        // ul li.active-class > a {
++        //     display: block;
++        // }
+ 
+         @function repeat($str, $n) {
+             $result: "";
+@@ -155,15 +179,15 @@
+         // Support up to 6 levels of indentation for lists in ToCs
+         @for $i from 0 to 5 {
+             & > ul #{repeat("> li > ul", $i)} > li.active-class > a {
+-                $n: 25 + $i * 35;
+-                margin-left: calc(-#{$n}px - 1em);
+-                padding-left: calc(#{$n}px + 1em - var(--heading-border-size));
++                $n: if($i == 0, 25, $i * 35);
++                margin-left: calc(-#{$n}px - .5rem);
++                padding-left: calc(#{$n}px + .5rem - var(--heading-border-size));
+             }
+ 
+             & > ol #{repeat("> li > ol", $i)} > li.active-class > a {
+                 $n: 9 + $i * 35;
+-                margin-left: calc(-#{$n}px - 1em);
+-                padding-left: calc(#{$n}px + 1em - var(--heading-border-size));
++                margin-left: calc(-#{$n}px - .5rem);
++                padding-left: calc(#{$n}px + .5rem - var(--heading-border-size));
+                 display: block;
+             }
+         }
+@@ -202,11 +226,15 @@
+ .article-content {
+     font-family: var(--article-font-family);
+     font-size: var(--article-font-size);
+-    padding: 0 var(--card-padding);
++    padding: 0 calc(var(--article-padding)*1.2) 0 var(--article-padding);
+     line-height: var(--article-line-height);
+ 
+     & > p {
+-        margin: 1.5em 0;
++        margin: 1.8em 0;
++    }
++
++    del {
++        color: var(--drip-del-color)
+     }
+ 
+     h1,
+@@ -215,8 +243,8 @@
+     h4,
+     h5,
+     h6 {
+-        margin-inline-start: calc((var(--card-padding)) * -1);
+-        padding-inline-start: calc(var(--card-padding) - var(--heading-border-size));
++        margin-inline-start: calc((var(--article-padding)) * -1);
++        padding-inline-start: calc(var(--article-padding) - var(--heading-border-size));
+         border-inline-start: var(--heading-border-size) solid var(--accent-color);
+     }
+ 
+@@ -233,7 +261,7 @@
+         position: relative;
+         margin: 1.5em 0;
+         border-inline-start: var(--blockquote-border-size) solid var(--card-separator-color);
+-        padding: 15px calc(var(--card-padding) - var(--blockquote-border-size));
++        padding: 15px calc(var(--article-padding)*1.3) 15px calc(var(--article-padding)*1.1);
+         background-color: var(--blockquote-background-color);
+ 
+         .cite {
+@@ -257,11 +285,17 @@
+     }
+ 
+     code {
++        font-size: .9em;
+         color: var(--code-text-color);
+         background-color: var(--code-background-color);
+         padding: 2px 4px;
+         border-radius: var(--tag-border-radius);
+         font-family: var(--code-font-family);
++        white-space: pre-wrap;
++
++        // @include respond(md) {
++        //     font-size: 1.5rem;
++        // }
+     }
+ 
+     .gallery {
+@@ -285,7 +319,8 @@
+         font-family: var(--code-font-family);
+         line-height: 1.428571429;
+         word-break: break-all;
+-        padding: var(--card-padding);
++        padding: var(--article-padding);
++        font-size: 1.3rem;
+         //  keep Codeblocks LTR
+         [dir="rtl"] & {
+             direction: ltr;
+@@ -296,11 +331,15 @@
+             background: none;
+             padding: 0;
+         }
++
++        @include respond(md) {
++            font-size: 1.4rem;
++        }
+     }
+ 
+     .highlight {
+         background-color: var(--pre-background-color);
+-        padding: var(--card-padding);
++        padding: var(--article-padding);
+         position: relative;
+ 
+         &:hover {
+@@ -322,8 +361,8 @@
+ 
+     .copyCodeButton {
+         position: absolute;
+-        top: calc(var(--card-padding));
+-        right: calc(var(--card-padding));
++        top: calc(var(--article-padding));
++        right: calc(var(--article-padding));
+         background: var(--card-background);
+         border: none;
+         box-shadow: var(--shadow-l2);
+@@ -337,7 +376,7 @@
+     }
+ 
+     .table-wrapper {
+-        padding: 0 var(--card-padding);
++        padding: 0 var(--article-padding);
+         overflow-x: auto;
+         display: block;
+     }
+@@ -408,8 +447,11 @@
+     .video-wrapper,
+     .table-wrapper,
+     .s_video_simple {
+-        margin-left: calc((var(--card-padding)) * -1);
+-        margin-right: calc((var(--card-padding)) * -1);
+-        width: calc(100% + var(--card-padding) * 2);
++        width: calc(100% + var(--article-padding) * 2.3);
++        margin: 0.5rem calc((var(--article-padding)) * -1);
++    }
++
++    ul {
++        padding-inline-start: 2rem;
+     }
+ }
+diff --git a/themes/stack/assets/scss/partials/layout/list.scss b/themes/stack/assets/scss/partials/layout/list.scss
+index d7815cadc..0dbea5367 100644
+--- a/themes/stack/assets/scss/partials/layout/list.scss
++++ b/themes/stack/assets/scss/partials/layout/list.scss
+@@ -16,7 +16,7 @@
+     }
+ 
+     .section-description {
+-        font-weight: normal;
++        font-weight: 300;
+         color: var(--card-text-color-secondary);
+         font-size: 1.6rem;
+         margin: 0;
+@@ -40,7 +40,7 @@
+         color: var(--card-text-color-tertiary);
+         font-size: 1.4rem;
+         margin: 0;
+-        font-weight: bold;
++        font-weight: 600;
+         text-transform: uppercase;
+     }
+ }
+@@ -60,7 +60,7 @@
+ 
+             .article-title {
+                 margin: 0;
+-                font-size: 1.8rem;
++                font-size: 2.5rem;
+             }
+ 
+             .article-details {
+diff --git a/themes/stack/assets/scss/partials/menu.scss b/themes/stack/assets/scss/partials/menu.scss
+index 4f29c9fc8..c3d802cf2 100644
+--- a/themes/stack/assets/scss/partials/menu.scss
++++ b/themes/stack/assets/scss/partials/menu.scss
+@@ -197,7 +197,7 @@
+         &.current {
+             a {
+                 color: var(--accent-color);
+-                font-weight: bold;
++                font-weight: 600;
+             }
+         }
+     }
+diff --git a/themes/stack/assets/scss/partials/pagination.scss b/themes/stack/assets/scss/partials/pagination.scss
+index ca46780d4..14971d3fa 100644
+--- a/themes/stack/assets/scss/partials/pagination.scss
++++ b/themes/stack/assets/scss/partials/pagination.scss
+@@ -11,7 +11,7 @@
+         display: inline-flex;
+ 
+         &.current {
+-            font-weight: bold;
++            font-weight: 600;
+             background-color: var(--card-background-selected);
+             color: var(--card-text-color-main);
+         }
+diff --git a/themes/stack/assets/scss/partials/sidebar.scss b/themes/stack/assets/scss/partials/sidebar.scss
+index 95310cae5..21f939409 100644
+--- a/themes/stack/assets/scss/partials/sidebar.scss
++++ b/themes/stack/assets/scss/partials/sidebar.scss
+@@ -141,7 +141,7 @@
+ 
+     .site-description {
+         color: var(--body-text-color);
+-        font-weight: normal;
++        font-weight: 300;
+         margin: 0;
+         font-size: 1.4rem;
+ 
+@@ -154,7 +154,8 @@
+ [data-scheme="dark"] {
+     #dark-mode-toggle {
+         color: var(--accent-color);
+-        font-weight: 700;
++        color: var(--body-text-color);
++        font-weight: 600;
+ 
+         .icon-tabler-toggle-left {
+             display: none;
+diff --git a/themes/stack/assets/scss/partials/widgets.scss b/themes/stack/assets/scss/partials/widgets.scss
+index 42cfcc2c2..95e17aa1c 100644
+--- a/themes/stack/assets/scss/partials/widgets.scss
++++ b/themes/stack/assets/scss/partials/widgets.scss
+@@ -56,7 +56,7 @@
+             span.year {
+                 flex: 1;
+                 color: var(--card-text-color-main);
+-                font-weight: bold;
++                font-weight: 600;
+             }
+ 
+             span.count {
+diff --git a/themes/stack/assets/scss/variables.scss b/themes/stack/assets/scss/variables.scss
+index afddb80bc..98f702d51 100644
+--- a/themes/stack/assets/scss/variables.scss
++++ b/themes/stack/assets/scss/variables.scss
+@@ -11,12 +11,16 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
+         --main-top-padding: 50px;
+     }
+ 
+-    --body-background: #f5f5fa;
++    --body-background: #fff;
++    // --body-background: #f9f9f9;
++    // --body-background: #f5f5fa;
+ 
+-    --accent-color: #34495e;
+-    --accent-color-darker: #2c3e50;
++    --accent-color: #1b87af;
++    --accent-bold-color: #cb4377;
++    --accent-color-darker: #6e5036;
+     --accent-color-text: #fff;
+     --body-text-color: #bababa;
++    --drip-del-color: #ccc;
+ 
+     --tag-border-radius: 4px;
+ 
+@@ -26,10 +30,12 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
+     --scrollbar-track: var(--body-background);
+ 
+     &[data-scheme="dark"] {
+-        --body-background: #303030;
+-        --accent-color: #ecf0f1;
+-        --accent-color-darker: #bdc3c7;
++        --body-background: #1a1a1a;
++        --accent-color: #84bce1;
++        --accent-bold-color: #ec6196;
++        --accent-color-darker: #96aab7;
+         --accent-color-text: #000;
++        --drip-del-color: #a7a7a7;
+         --body-text-color: rgba(255, 255, 255, 0.7);
+         --scrollbar-thumb: hsl(0, 0%, 40%);
+         --scrollbar-track: var(--body-background);
+@@ -43,8 +49,10 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
+     --sys-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Droid Sans", "Helvetica Neue";
+     --zh-font-family: "PingFang SC", "Hiragino Sans GB", "Droid Sans Fallback", "Microsoft YaHei";
+ 
+-    --base-font-family: "Lato", var(--sys-font-family), var(--zh-font-family), sans-serif;
++    // --base-font-family: "Lato", "IBM Plex Sans KR", var(--sys-font-family), var(--zh-font-family), sans-serif;
++    --base-font-family: "Pretendard", var(--sys-font-family), var(--zh-font-family), sans-serif;
+     --code-font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
++    // --code-font-family: "D2Coding", Menlo, Monaco, Consolas, "Courier New", monospace;
+ }
+ 
+ /*
+@@ -54,21 +62,24 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
+     --card-background: #fff;
+     --card-background-selected: #eaeaea;
+ 
+-    --card-text-color-main: #000;
++    --card-text-color-main: #333;
+     --card-text-color-secondary: #747474;
+     --card-text-color-tertiary: #bababa;
+     --card-separator-color: rgba(218, 218, 218, 0.5);
+ 
+     --card-border-radius: 10px;
+ 
+-    --card-padding: 20px;
++    --card-padding: 25px;
++    --article-padding: 15px;
+ 
+     @include respond(md) {
+-        --card-padding: 25px;
++        --card-padding: 30px;
++        --article-padding: 20px;
+     }
+ 
+     @include respond(xl) {
+-        --card-padding: 30px;
++        --card-padding: 40px;
++        --article-padding: 25px;
+     }
+ 
+     --small-card-padding: 25px 20px;
+@@ -78,7 +89,7 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
+     }
+ 
+     &[data-scheme="dark"] {
+-        --card-background: #424242;
++        --card-background: #0d0d0d;
+         --card-background-selected: rgba(255, 255, 255, 0.16);
+         --card-text-color-main: rgba(255, 255, 255, 0.9);
+         --card-text-color-secondary: rgba(255, 255, 255, 0.7);
+@@ -91,14 +102,14 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
+ *   Article content font settings
+ */
+ :root {
+-    --article-font-family: var(--base-font-family);
++    --article-font-family: "SUIT Variable", var(--sys-font-family), var(--zh-font-family), sans-serif;
+     --article-font-size: 1.6rem;
++    --article-line-height: 1.8;
++    // letter-spacing: -1px;
+ 
+     @include respond(md) {
+-        --article-font-size: 1.7rem;
++        --article-font-size: 1.9rem;
+     }
+-
+-    --article-line-height: 1.85;
+ }
+ 
+ /*
+@@ -110,22 +121,22 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
+ 
+     --heading-border-size: 4px;
+ 
+-    --link-background-color: 189, 195, 199;
++    --link-background-color: #ccc;
+     --link-background-opacity: 0.5;
+     --link-background-opacity-hover: 0.7;
+ 
+     --pre-background-color: #272822;
+     --pre-text-color: #f8f8f2;
+ 
+-    --code-background-color: rgba(0, 0, 0, 0.12);
++    --code-background-color: rgba(0, 0, 0, 0.04);
+     --code-text-color: #808080;
+ 
+     --table-border-color: #dadada;
+     --tr-even-background-color: #efefee;
+ 
+     &[data-scheme="dark"] {
+-        --code-background-color: #272822;
+-        --code-text-color: rgba(255, 255, 255, 0.9);
++        --code-background-color: #89898966;
++        --code-text-color: rgb(200 217 247 / 90%);
+ 
+         --table-border-color: #717171;
+         --tr-even-background-color: #545454;
+@@ -139,10 +150,10 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
+ *   Thanks to https://www.figma.com/community/plugin/744987207861965946/Shadow-picker
+ */
+ :root {
+-    --shadow-l1: 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 2px rgba(0, 0, 0, 0.06), 0px 0px 1px rgba(0, 0, 0, 0.04);
+-    --shadow-l2: 0px 10px 20px rgba(0, 0, 0, 0.04), 0px 2px 6px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04);
+-    --shadow-l3: 0px 10px 20px rgba(0, 0, 0, 0.04), 0px 2px 6px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04);
+-    --shadow-l4: 0px 24px 32px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04),
++    --shadow-l1: 0px 4px 8px rgba(0, 0, 0, 0.03), 0px 0px 2px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.03);
++    --shadow-l2: 0px 10px 20px rgba(0, 0, 0, 0.03), 0px 2px 6px rgba(0, 0, 0, 0.03), 0px 0px 1px rgba(0, 0, 0, 0.03);
++    --shadow-l3: 0px 10px 20px rgba(0, 0, 0, 0.03), 0px 2px 6px rgba(0, 0, 0, 0.03), 0px 0px 1px rgba(0, 0, 0, 0.03);
++    --shadow-l4: 0px 24px 32px rgba(0, 0, 0, 0.03), 0px 16px 24px rgba(0, 0, 0, 0.03), 0px 4px 8px rgba(0, 0, 0, 0.03),
+         0px 0px 1px rgba(0, 0, 0, 0.04);
+ }
+ 
+@@ -159,7 +170,7 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
+ }
+ 
+ :root {
+-    --menu-icon-separation: 40px;
++    --menu-icon-separation: 12px;
+     --container-padding: 15px;
+     --widget-separation: var(--section-separation);
+ }
+diff --git a/themes/stack/exampleSite/config.yaml b/themes/stack/exampleSite/config.yaml
+index 18b63467c..7d6ea3a9d 100644
+--- a/themes/stack/exampleSite/config.yaml
++++ b/themes/stack/exampleSite/config.yaml
+@@ -224,7 +224,7 @@ markup:
+             unsafe: false
+     tableOfContents:
+         endLevel: 4
+-        ordered: true
++        ordered: false
+         startLevel: 2
+     highlight:
+         noClasses: false
+diff --git a/themes/stack/i18n/ko.yaml b/themes/stack/i18n/ko.yaml
+index e6a8d95ec..dfa06768e 100644
+--- a/themes/stack/i18n/ko.yaml
++++ b/themes/stack/i18n/ko.yaml
+@@ -1,5 +1,5 @@
+ toggleMenu:
+-    other: 메뉴 여닫기
++    other: 메뉴 토글
+ 
+ darkMode:
+     other: 다크 모드
+@@ -16,6 +16,12 @@ list:
+         one: 서브섹션
+         other: 서브섹션
+ 
++    tags:
++        other: 태그
++
++    categories:
++        other: 카테고리
++
+ article:
+     back:
+         other: 뒤로가기
+@@ -50,6 +56,9 @@ widget:
+     tagCloud:
+         title:
+             other: 태그
++    categoriesCloud:
++        title:
++            other: 카테고리
+ 
+ search:
+     title:
+@@ -63,6 +72,6 @@ search:
+ 
+ footer:
+     builtWith:
+-        other: "{{ .Generator }}로 만듦"
++        other: "{{ .Generator }} 기반"
+     designedBy:
+-        other: "{{ .DesignedBy }}의 {{ .Theme }} 테마 사용 중"
++        other: "{{ .DesignedBy }} 의 {{ .Theme }} 테마를 사용 중입니다."
+diff --git a/themes/stack/layouts/_default/_markup/render-image.html b/themes/stack/layouts/_default/_markup/render-image.html
+index 0ed55841a..cac8ee5a4 100644
+--- a/themes/stack/layouts/_default/_markup/render-image.html
++++ b/themes/stack/layouts/_default/_markup/render-image.html
+@@ -18,8 +18,8 @@
+ 		{{- $galleryImage = true -}}
+ 
+ 		{{- if (default true .Page.Site.Params.imageProcessing.content.enabled) -}}
+-			{{- $small := $image.Resize `480x` -}}
+-			{{- $big := $image.Resize `1024x` -}}
++			{{- $small := $image.Resize `800x webp` -}}
++			{{- $big := $image.Resize `1600x webp` -}}
+ 			{{- $Srcset = printf `%s 480w, %s 1024w` $small.RelPermalink $big.RelPermalink -}}
+ 		{{- end -}}
+ 	{{- end -}}
+diff --git a/themes/stack/layouts/_default/archives.html b/themes/stack/layouts/_default/archives.html
+index 5d5243c26..0994b298a 100644
+--- a/themes/stack/layouts/_default/archives.html
++++ b/themes/stack/layouts/_default/archives.html
+@@ -4,7 +4,7 @@
+         {{- $taxonomy := $.Site.GetPage "taxonomyTerm" "categories" -}}
+         {{- $terms := $taxonomy.Pages -}}
+         {{ if $terms }}
+-        <h2 class="section-title">{{ $taxonomy.Title }}</h2>
++        <h2 class="section-title">{{ T "list.categories" }}</h2>
+         <div class="subsection-list">
+             <div class="article-list--tile">
+                 {{ range $terms }}
+diff --git a/themes/stack/layouts/_default/list.html b/themes/stack/layouts/_default/list.html
+index 9bc618d9a..29e39aa7e 100644
+--- a/themes/stack/layouts/_default/list.html
++++ b/themes/stack/layouts/_default/list.html
+@@ -4,7 +4,7 @@
+             {{ if eq .Parent (.GetPage "/") }}
+                 {{ T "list.section" }}
+             {{ else }}
+-                {{ .Parent.Title }}
++                {{ (default .Parent.Title (T (printf "list.%s" (lower .Parent.Title)))) }}
+             {{ end }}
+         </h3>
+ 
+@@ -26,7 +26,7 @@
+                         {{- $Height := $image.resource.Height -}}
+     
+                         {{- if (default true .Page.Site.Params.imageProcessing.cover.enabled) -}}
+-                            {{- $thumbnail := $image.resource.Fill "120x120" -}}
++                            {{- $thumbnail := $image.resource.Fill "240x240 webp" -}}
+                             {{- $Permalink = $thumbnail.RelPermalink -}}
+                             {{- $Width = $thumbnail.Width -}}
+                             {{- $Height = $thumbnail.Height -}}
+diff --git a/themes/stack/layouts/partials/article-list/compact.html b/themes/stack/layouts/partials/article-list/compact.html
+index 376512a16..646fbfb20 100644
+--- a/themes/stack/layouts/partials/article-list/compact.html
++++ b/themes/stack/layouts/partials/article-list/compact.html
+@@ -20,7 +20,7 @@
+                     {{- $Height := $image.resource.Height -}}
+ 
+                     {{- if (default true .Page.Site.Params.imageProcessing.cover.enabled) -}}
+-                        {{- $thumbnail := $image.resource.Fill "120x120" -}}
++                        {{- $thumbnail := $image.resource.Fill "240x240 webp" -}}
+                         {{- $Permalink = $thumbnail.RelPermalink -}}
+                         {{- $Width = $thumbnail.Width -}}
+                         {{- $Height = $thumbnail.Height -}}
+diff --git a/themes/stack/layouts/partials/article/article.html b/themes/stack/layouts/partials/article/article.html
+index f3f7e903e..d9e961c77 100644
+--- a/themes/stack/layouts/partials/article/article.html
++++ b/themes/stack/layouts/partials/article/article.html
+@@ -1,6 +1,8 @@
+ <article class="{{ if .Params.image }}has-image {{ end }}main-article">
+     {{ partial "article/components/header" . }}
+ 
++    {{ partial "article/components/adsense-top" . }}
++
+     {{ partial "article/components/content" . }}
+ 
+     {{ partial "article/components/footer" . }}
+diff --git a/themes/stack/layouts/partials/article/components/adsense-top.html b/themes/stack/layouts/partials/article/components/adsense-top.html
+new file mode 100644
+index 000000000..2f9de40ba
+--- /dev/null
++++ b/themes/stack/layouts/partials/article/components/adsense-top.html
+@@ -0,0 +1,15 @@
++{{ if .Params.show_top_ad }}
++<br/>
++<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607"
++     crossorigin="anonymous"></script>
++<!-- horizontal-bottom -->
++<ins class="adsbygoogle"
++     style="display:block; height:300px"
++     data-ad-client="ca-pub-0712823212859607"
++     data-ad-slot="7246571541"
++     data-ad-format="auto"
++     data-full-width-responsive="true"></ins>
++<script>
++     (adsbygoogle = window.adsbygoogle || []).push({});
++</script><br/>
++{{ end }}
+\ No newline at end of file
+diff --git a/themes/stack/layouts/partials/article/components/adsense.html b/themes/stack/layouts/partials/article/components/adsense.html
+new file mode 100644
+index 000000000..8c0c1d290
+--- /dev/null
++++ b/themes/stack/layouts/partials/article/components/adsense.html
+@@ -0,0 +1,13 @@
++<br/>
++<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607"
++     crossorigin="anonymous"></script>
++<!-- inpost1 -->
++<ins class="adsbygoogle"
++     style="display:block; height:300px; text-align:center;"
++     data-ad-layout="in-article"
++     data-ad-format="fluid"
++     data-ad-client="ca-pub-0712823212859607"
++     data-ad-slot="7880266545"></ins>
++<script>
++     (adsbygoogle = window.adsbygoogle || []).push({});
++</script>
+\ No newline at end of file
+diff --git a/themes/stack/layouts/partials/article/components/details.html b/themes/stack/layouts/partials/article/components/details.html
+index 4cd26e3a4..83a2508cb 100644
+--- a/themes/stack/layouts/partials/article/components/details.html
++++ b/themes/stack/layouts/partials/article/components/details.html
+@@ -42,17 +42,15 @@
+                 </time>
+             </div>
+         {{ end }}
+-    </footer>
+-    {{ end }}
+ 
+-    {{ if .IsTranslated }}
+-        <footer class="article-translations">
+-            {{ partial "helper/icon" "language" }}
++        {{ if .IsTranslated }}
+             <div>
++                {{ partial "helper/icon" "language" }}
+                 {{ range .Translations }}
+                     <a href="{{ .Permalink }}" class="link">{{ .Language.LanguageName }}</a>
+                 {{ end }}
+             </div>
+-        </footer>
++        {{ end }}
++    </footer>
+     {{ end }}
+ </div>
+\ No newline at end of file
+diff --git a/themes/stack/layouts/partials/article/components/footer.html b/themes/stack/layouts/partials/article/components/footer.html
+index 685392184..dd3a360ad 100644
+--- a/themes/stack/layouts/partials/article/components/footer.html
++++ b/themes/stack/layouts/partials/article/components/footer.html
+@@ -1,4 +1,5 @@
+ <footer class="article-footer">
++    {{ partial "article/components/adsense" . }}
+     {{ partial "article/components/tags" . }}
+ 
+     {{ if and (.Site.Params.article.license.enabled) (not (eq .Params.license false)) }}
+diff --git a/themes/stack/layouts/partials/article/components/header.html b/themes/stack/layouts/partials/article/components/header.html
+index 7582ec25b..f74fe1c24 100644
+--- a/themes/stack/layouts/partials/article/components/header.html
++++ b/themes/stack/layouts/partials/article/components/header.html
+@@ -1,6 +1,6 @@
+-<header class="article-header">
++<header class="article-header" style="display: {{ if .Page.Params.image_left }}flex{{ else }}block{{ end }}">
+     {{- $image := partialCached "helper/image" (dict "Context" . "Type" "article") .RelPermalink "article" -}}
+-    {{ if $image.exists }}
++    {{ if and ($image.exists) (default true .Page.Params.image_show) }}
+         <div class="article-image">
+             <a href="{{ .RelPermalink }}">
+                 {{ if $image.resource }}
+@@ -10,8 +10,8 @@
+                     {{- $Srcset := "" -}}
+                     
+                     {{- if (default true .Page.Site.Params.imageProcessing.cover.enabled) -}}
+-                        {{- $thumbnail := $image.resource.Resize "800x" -}}
+-                        {{- $thumbnailRetina := $image.resource.Resize "1600x" -}}
++                        {{- $thumbnail := $image.resource.Resize "900x webp" -}}
++                        {{- $thumbnailRetina := $image.resource.Resize "1800x webp" -}}
+                         {{- $Srcset = printf "%s 800w, %s 1600w" $thumbnail.RelPermalink $thumbnailRetina.RelPermalink -}}
+                         {{- $Permalink = $thumbnail.RelPermalink -}}
+                         {{- $Width = $thumbnail.Width -}}
+@@ -23,9 +23,12 @@
+                         width="{{ $Width }}" 
+                         height="{{ $Height }}" 
+                         loading="lazy"
++                        style="object-position: 50% {{ (default `50%` .Page.Params.image_y) | safeCSS }};{{ with .Page.Params.image_height }} max-height: {{ . }}{{ end }}"
+                         alt="Featured image of post {{ .Title }}" />
+                 {{ else }}
+-                    <img src="{{ $image.permalink }}" loading="lazy" alt="Featured image of post {{ .Title }}" />
++                    <img src="{{ $image.permalink }}" loading="lazy" 
++                        style="object-position: 50% {{ (default `50%` .Page.Params.image_y) | safeCSS }};{{ with .Page.Params.image_height }} max-height: {{ . }}{{ end }}"
++                        alt="Featured image of post {{ .Title }}" />
+                 {{ end }}
+             </a>
+         </div>
+diff --git a/themes/stack/layouts/partials/article/components/related-content.html b/themes/stack/layouts/partials/article/components/related-content.html
+index aba88e33c..5e8a5e8d2 100644
+--- a/themes/stack/layouts/partials/article/components/related-content.html
++++ b/themes/stack/layouts/partials/article/components/related-content.html
+@@ -1,4 +1,4 @@
+-{{ $related := (where (.Site.RegularPages.Related .) "Params.hidden" "!=" true) | first 5 }}
++{{ $related := (where (.Site.RegularPages.Related .) "Params.hidden" "!=" true) | first 3 }}
+ {{ with $related }}
+ <aside class="related-content--wrapper">
+     <h2 class="section-title">{{ T "article.relatedContent" }}</h2>
+diff --git a/themes/stack/layouts/partials/comments/provider/giscus.html b/themes/stack/layouts/partials/comments/provider/giscus.html
+index abe345faf..04f61e5b6 100644
+--- a/themes/stack/layouts/partials/comments/provider/giscus.html
++++ b/themes/stack/layouts/partials/comments/provider/giscus.html
+@@ -10,6 +10,7 @@
+     data-emit-metadata="{{- default 0 .emitMetadata -}}"
+     data-theme="{{- default `light` .lightTheme -}}"
+     data-lang="{{- default `en` .lang -}}"
++    data-loading="lazy"
+     crossorigin="anonymous"
+     async
+ ></script>
+diff --git a/themes/stack/layouts/partials/head/analytics-gtag.html b/themes/stack/layouts/partials/head/analytics-gtag.html
+new file mode 100644
+index 000000000..5afc47855
+--- /dev/null
++++ b/themes/stack/layouts/partials/head/analytics-gtag.html
+@@ -0,0 +1,17 @@
++<!-- Google tag (gtag.js) -->
++<script async src="https://www.googletagmanager.com/gtag/js?id=G-KMRJ33V06X"></script>
++<script>
++  window.dataLayer = window.dataLayer || [];
++  function gtag(){dataLayer.push(arguments);}
++  gtag('js', new Date());
++
++  gtag('config', 'G-KMRJ33V06X');
++</script>
++
++<!-- Google Tag Manager -->
++<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
++  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
++  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
++  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
++  })(window,document,'script','dataLayer','GTM-NBPHNHQ');</script>
++  <!-- End Google Tag Manager -->
+\ No newline at end of file
+diff --git a/themes/stack/layouts/partials/head/custom.html b/themes/stack/layouts/partials/head/custom.html
+index e69de29bb..b4cb52086 100644
+--- a/themes/stack/layouts/partials/head/custom.html
++++ b/themes/stack/layouts/partials/head/custom.html
+@@ -0,0 +1,31 @@
++{{- /* Analytics */}}
++<script async src="https://www.googletagmanager.com/gtag/js?id=UA-126809878-1"></script>
++<script>
++  window.dataLayer = window.dataLayer || [];
++  function gtag(){dataLayer.push(arguments);}
++  gtag('js', new Date());
++
++  gtag('config', 'UA-126809878-1');
++</script>
++<link rel="preconnect" href="https://fonts.googleapis.com">
++<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
++<!-- Global site tag (gtag.js) - Google Analytics -->
++<script async src="https://www.googletagmanager.com/gtag/js?id=G-KMRJ33V06X"></script>
++<script>
++  window.dataLayer = window.dataLayer || [];
++  function gtag(){dataLayer.push(arguments);}
++  gtag('js', new Date());
++
++  gtag('config', 'G-KMRJ33V06X');
++</script>
++
++{{- /* AdSense */}}
++<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607"
++     crossorigin="anonymous"></script>
++<script>
++  (adsbygoogle = window.adsbygoogle || []).push({
++    google_ad_client: "ca-pub-0712823212859607",
++    enable_page_level_ads: true,
++    overlays: {bottom: true}
++  });
++</script>
+\ No newline at end of file
+diff --git a/themes/stack/layouts/partials/head/head.html b/themes/stack/layouts/partials/head/head.html
+index 4d89b8965..221944a27 100644
+--- a/themes/stack/layouts/partials/head/head.html
++++ b/themes/stack/layouts/partials/head/head.html
+@@ -7,6 +7,14 @@
+ {{- $title := partialCached "data/title" . .RelPermalink -}}
+ <title>{{ $title }}</title>
+ 
++<style>
++    /* @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700&family=Noto+Serif+SC:wght@300;400;500;600&display=swap'); */
++    /* @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500&display=swap'); */
++    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500&display=swap');
++    @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
++</style>
++<link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css" rel="stylesheet">
++
+ <link rel='canonical' href='{{ .Permalink }}'>
+ 
+ {{- partial "head/style.html" . -}}
+@@ -21,5 +29,7 @@
+     <link rel="shortcut icon" href="{{ . }}" />
+ {{ end }}
+ 
+-{{- template "_internal/google_analytics.html" . -}}
+-{{- partial "head/custom.html" . -}}
++{{ partial "head/analytics-gtag.html" . }}
++
++<!--{{- template "_internal/google_analytics.html" . -}}-->
++<!-- {{- partial "head/custom.html" . -}} -->
+diff --git a/themes/stack/layouts/partials/head/opengraph/provider/base.html b/themes/stack/layouts/partials/head/opengraph/provider/base.html
+index 3e51d37cc..9e82f9627 100644
+--- a/themes/stack/layouts/partials/head/opengraph/provider/base.html
++++ b/themes/stack/layouts/partials/head/opengraph/provider/base.html
+@@ -1,6 +1,8 @@
+ {{- $title := partialCached "data/title" . .RelPermalink -}}
+ {{- $description := partialCached "data/description" . .RelPermalink -}}
+ 
++<meta property='title' content='{{ $title }}'>
++<meta property='description' content='{{ $description }}'>
+ <meta property='og:title' content='{{ $title }}'>
+ <meta property='og:description' content='{{ $description }}'>
+ <meta property='og:url' content='{{ .Permalink }}'>
+diff --git a/themes/stack/layouts/partials/sidebar/left.html b/themes/stack/layouts/partials/sidebar/left.html
+index f255389f0..1f7a10a18 100644
+--- a/themes/stack/layouts/partials/sidebar/left.html
++++ b/themes/stack/layouts/partials/sidebar/left.html
+@@ -25,7 +25,7 @@
+                 {{ end }}
+                 </a>
+                 {{ with $.Site.Params.sidebar.emoji }}
+-                    <span class="emoji">{{ . }}</span>
++                    <span class="emoji">{{ emojify . }}</span>
+                 {{ end }}
+             </figure>
+             {{ end }}
+diff --git a/themes/stack/layouts/partials/widget/adsense.html b/themes/stack/layouts/partials/widget/adsense.html
+new file mode 100644
+index 000000000..80fdcf76c
+--- /dev/null
++++ b/themes/stack/layouts/partials/widget/adsense.html
+@@ -0,0 +1,14 @@
++<section class="widget adsense">
++    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607"
++        crossorigin="anonymous"></script>
++    <!-- vertical1 -->
++    <ins class="adsbygoogle"
++        style="display:block"
++        data-ad-client="ca-pub-0712823212859607"
++        data-ad-slot="8117949234"
++        data-ad-format="auto"
++        data-full-width-responsive="true"></ins>
++    <script>
++        (adsbygoogle = window.adsbygoogle || []).push({});
++    </script>
++</section>
+\ No newline at end of file
