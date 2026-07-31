@@ -54,11 +54,20 @@
 .toc-nav {
     overflow-x: auto;
     max-height: 75vh;
+    padding: var(--spacing-md) 0;
 
     ol,
     ul {
         margin: 0;
         padding: 0;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    li {
+        line-height: 1.4;
     }
 
     ol {
@@ -78,8 +87,8 @@
     }
 
     li {
-        margin: var(--spacing-md) 0 var(--spacing-md) var(--spacing-lg);
-        padding: var(--spacing-xs);
+        margin: var(--spacing-sm) 0 var(--spacing-sm) var(--spacing-md);
+        padding: 0;
 
         &>ol,
         &>ul {

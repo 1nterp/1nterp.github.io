@@ -1,8 +1,28 @@
-<div style="background-color: var(--pre-background-color); width: 95%; margin:2rem; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
-    <div style="width: 16px;margin-right: 7px; margin-left: 4px;">
-        {{ default ":bulb:" (.Get "emoji") | emojify }}
+{{- $type := .Get "type" | default "note" -}}
+{{- $title := .Get "title" -}}
+{{- $emoji := .Get "emoji" -}}
+
+{{- $defaults := dict
+    "book"      (dict "emoji" "📚" "color" "var(--alert-tip-color)"       "bg" "var(--alert-tip-background)")
+    "note"      (dict "emoji" "📝" "color" "var(--alert-note-color)"      "bg" "var(--alert-note-background)")
+    "tip"       (dict "emoji" "💡" "color" "var(--alert-tip-color)"       "bg" "var(--alert-tip-background)")
+    "important" (dict "emoji" "❗" "color" "var(--alert-important-color)" "bg" "var(--alert-important-background)")
+    "warning"   (dict "emoji" "⚠️" "color" "var(--alert-warning-color)"  "bg" "var(--alert-warning-background)")
+    "caution"   (dict "emoji" "🔥" "color" "var(--alert-caution-color)"  "bg" "var(--alert-caution-background)")
+-}}
+
+{{- $def := index $defaults $type | default (index $defaults "note") -}}
+{{- $color := $def.color -}}
+{{- $bg    := $def.bg -}}
+{{- $icon  := $emoji | default $def.emoji -}}
+{{- $label := $title | default (title $type) -}}
+
+<blockquote class="alert" style="{{ printf "border-color: %s; background-color: %s;" $color $bg | safeCSS }}">
+    <div class="alert-header">
+        <span class="alert-icon">{{ $icon }}</span>
+        <span class="alert-title" style="{{ printf "color: %s;" $color | safeCSS }}">{{ $label }}</span>
     </div>
-    <div>
-        {{ .Get "text" | markdownify }}
+    <div class="alert-body">
+        {{ .Inner | markdownify }}
     </div>
-</div>
+</blockquote>
