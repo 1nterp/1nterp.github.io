@@ -9,7 +9,9 @@ tags: ['버번', '위스키', '에드워드 리']
 categories: ['Review']
 ---
 
-{{< callout text="[도서 정보](https://product.kyobobook.co.kr/detail/S000217402059)" emoji=":orange_book:" >}}
+{{< callout emoji=":orange_book:" >}}
+[도서 정보](https://product.kyobobook.co.kr/detail/S000217402059)
+{{< /callout >}}
 {{< figure src="./feature.jpg" width="70%">}}
 
 흑백요리사에서 준우승을 차지한 이균, 에드워드 리 셰프의 버번 위스키 가이드 북.

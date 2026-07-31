@@ -75,4 +75,6 @@ draft: false
 일도, 삶도 말이다. 그래야 다 좋다 (alles gut).
 
 
-{{< callout text="이 포스팅의 대표 이미지는 Unsplash 에서 찾은 [Sydney Rae](https://unsplash.com/ko/@srz) 의 사진이다." emoji=":wink:" >}}
+{{< callout emoji=":wink:" >}}
+이 포스팅의 대표 이미지는 Unsplash 에서 찾은 [Sydney Rae](https://unsplash.com/ko/@srz) 의 사진이다.
+{{< /callout >}}

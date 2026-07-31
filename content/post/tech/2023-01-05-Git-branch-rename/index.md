@@ -116,7 +116,9 @@ git branch -vv | grep issue-10
 ```bash
 git branch --unset-upstream issue-10
 ```
-{{< callout text="참고로, `git branch --set-upstream-to=` 명령으로 기존 Remote branch 에 Upstream 을 연결하는 방법도 있지만, Remote branch 가 존재하지 않으면 에러가 발생한다." >}}
+{{< callout >}}
+참고로, `git branch --set-upstream-to=` 명령으로 기존 Remote branch 에 Upstream 을 연결하는 방법도 있지만, Remote branch 가 존재하지 않으면 에러가 발생한다.
+{{< /callout >}}
 그리고 Upstream 을 연결하기 위해 다음과 같이 `-u` 옵션을 써서 `git push` 하면 된다!
 ```bash
 git push -u origin issue-10

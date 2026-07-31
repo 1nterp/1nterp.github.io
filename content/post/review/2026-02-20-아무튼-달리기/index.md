@@ -9,7 +9,9 @@ tags: ['러닝', '에세이', '아무튼']
 categories: ['Review']
 ---
 
-{{< callout text="[도서 정보](https://product.kyobobook.co.kr/detail/S000001888678)" emoji=":orange_book:" >}}
+{{< callout emoji=":orange_book:" >}}
+[도서 정보](https://product.kyobobook.co.kr/detail/S000001888678)
+{{< /callout >}}
 {{< figure src="./feature.jpg" width="50%">}}
 
 아무튼, 달리기는 ‘테니스’와 ‘술’에 이어 달리기를 다룬 에세이다. 초보 러너인 나조차도 읽는 내내 가슴이 몽글몽글해졌다. 이미 아침 러닝을 마친 날이었는데도, 책장을 덮고 나니 또 한 번 뛰고 싶다는 마음이 들었다.

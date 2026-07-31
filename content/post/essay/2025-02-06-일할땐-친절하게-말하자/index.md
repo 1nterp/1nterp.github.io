@@ -69,4 +69,6 @@ tags:
 그런데 최소한 상대방을 '친절히' 대하려 노력한다면, 위에서 말한 것들이 자연스럽게 이뤄질 거라 믿는다. *저 사람은 나보다 돈을 더 받으니 (혹은 경력이 더 많으니) 분명히 알아들을 수 있어야 해* 같은 접근 말고... 순수히 사람 대 사람으로 대하면, 내가 배려해 준 만큼 남도 나를 배려할 수 있을 것이다.
 
 
-{{< callout text="이 포스팅의 대표 이미지는 Unsplash 에서 찾은 [Juri Gianfrancesco](https://unsplash.com/ko/@jurigianfra?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) 의 사진이다." emoji=":wink:" >}}
+{{< callout emoji=":wink:" >}}
+이 포스팅의 대표 이미지는 Unsplash 에서 찾은 [Juri Gianfrancesco](https://unsplash.com/ko/@jurigianfra?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) 의 사진이다.
+{{< /callout >}}

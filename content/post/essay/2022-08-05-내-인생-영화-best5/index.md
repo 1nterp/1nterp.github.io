@@ -14,7 +14,9 @@ url = "/my-life-best-5-movies/"
 
 그래서 무턱대고, [왓챠](https://pedia.watcha.com/)에 기록한 내 영화 리스트를 죽 꺼내들어서 별점이 가장 높은 영화 중 5편만 꼽아봤다. 참고로 내 왓챠 평균 별점은 3.9점이다. 후해도 너무 후하다 (...) 물론 철학적으로 사유하기 좋은 영화도 많고, 고전 영화도 심심찮게 많이 봤다. 하지만 어디까지나 개인적인 기준의 BEST5 이니 편한 마음으로 봐주시길.
 
-{{< callout text="스포일러가 있을 수 있습니다!" emoji=":exclamation:" >}}
+{{< callout emoji=":exclamation:" >}}
+스포일러가 있을 수 있습니다!
+{{< /callout >}}
 
 # 5. [반지의 제왕 : 두 개의 탑](https://movie.naver.com/movie/bi/mi/basic.naver?code=31795) (2002)
 

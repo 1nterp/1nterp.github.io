@@ -9,8 +9,9 @@ tags: ['심리', '자기계발', '해결지향']
 categories: ['Review']
 ---
 
-{{< callout text="[도서 정보](https://product.kyobobook.co.kr/detail/S000219014661)" emoji=":orange_book:" >}}
-{{< figure src="./feature.jpg" width="50%">}}
+{{< callout type="book" title="도서 정보">}}
+https://product.kyobobook.co.kr/detail/S000219014661
+{{< /callout >}}
 
 문제를 오래 들여다본다고 해결되는 것은 아니다. 우리는 자주 원인을 분석하는 데 많은 시간을 쓴다. 그러나 이 책 '관성 끊기' 는 다른 방향을 제시한다. 원제 **Do One Thing Different** 이 말하듯, 단 하나라도 다르게 행동해 보라는 제안이다.
 

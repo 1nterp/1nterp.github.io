@@ -15,7 +15,9 @@ tags:
 slug: ai-pair-programming-book-review
 ---
 
-{{< callout text="[도서 정보](https://product.kyobobook.co.kr/detail/S000213131985)" emoji=":orange_book:" >}}
+{{< callout emoji=":orange_book:" >}}
+[도서 정보](https://product.kyobobook.co.kr/detail/S000213131985)
+{{< /callout >}}
 {{< figure src="book.png" width="50%">}}
 
 Github Copilot 을 사내에서 쓰면서, 단순 코딩 작업이나 반복작업을 떠넘기기 바빴었다. 물론 그것만으로도 효율이 올랐지만, 좀 더 스마트한 사용 케이스가 분명 있을 것이라는 기대가 있었다. 

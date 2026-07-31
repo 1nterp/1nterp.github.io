@@ -13,7 +13,9 @@ tags:
     - 인생사진
 slug: 오늘도-스마트폰으로-인생사진을-찍습니다
 ---
-{{< callout text="[도서 정보](https://product.kyobobook.co.kr/detail/S000203182297)" emoji=":orange_book:" >}}
+{{< callout emoji=":orange_book:" >}}
+[도서 정보](https://product.kyobobook.co.kr/detail/S000203182297)
+{{< /callout >}}
 {{< figure src="book.png" width="50%">}}
 
 책 리뷰를 쓰기 전에, 거의 1년 넘게 리뷰를 쓰지 않았다는 사실이 충격적이다. 작년보다 책은 더 많이 읽었는데, 오히려 '이거 써서 뭐하나, 누가 읽어주는 것도 아니고' 같은 생각이 머리를 지배하고 있었던 것 같다. 문득 블로그를 하는 이유에 대해 진지하게 고민했는데, 늘 같은 결론에 도달하게 되었다. _'쌓아가는 습관' 을 들이고 그것을 증명할 수 있는 수단으로써 블로그를 하는 것이다_, 라고. 

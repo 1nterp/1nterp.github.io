@@ -16,7 +16,9 @@ tags:
     - 켄터키
 ---
 
-{{< callout text="[도서 정보](https://product.kyobobook.co.kr/detail/S000001938250)" emoji=":orange_book:" >}}
+{{< callout emoji=":orange_book:" >}}
+[도서 정보](https://product.kyobobook.co.kr/detail/S000001938250)
+{{< /callout >}}
 {{< figure src="./book.png" width="50%">}}
 
 MBC 조승원 기자가 쓴 버번 위스키 책. 도입부를 읽어보니, 위스키 관련된 책을 이미 두 권이나 앞서 펴냈다고 한다. 

@@ -17,7 +17,9 @@ draft: true
 
 Python 을 자주 쓰다 보면 default parameter 의 유혹에 빠지기 쉽다. 물론 너무 많이 사용하면 유지보수가 어려워지지만 말이다. 그런데 Golang 에서는 이 default parameter 가 허용되지 않는다. 그러면 다양한 파라메터를 가진 constructor 를 만들어야 할까? 라는 질문을 가지고 찾아보던 중, **Functional Option** 이라는 패턴을 찾아냈다.
 
-{{< callout text="아래 내용은 [Functional options for friendly APIs](https://dave.cheney.net/2014/10/17/functional-options-for-friendly-apis) 를 기반으로 다시 정리했다." emoji="🔗" >}}
+{{< callout emoji="🔗" >}}
+아래 내용은 [Functional options for friendly APIs](https://dave.cheney.net/2014/10/17/functional-options-for-friendly-apis) 를 기반으로 다시 정리했다.
+{{< /callout >}}
 
 # 요구사항은 끊임없이 들어온다
 

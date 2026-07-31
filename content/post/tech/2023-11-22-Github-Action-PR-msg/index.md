@@ -70,7 +70,9 @@ Slack Workspace 에 App 생성이 가능한 계정에 로그인 되어 있다면
 1. 페이지 하단에 'Add New Webhook to Workspace' 를 클릭
 1. 채널을 추가하면 채널의 Webhook URL 을 확인할 수 있다.
 
-{{< callout text="'Display Information'에서 App 아이콘과 이름을 자유롭게 선택할 수도 있으니 참고하자." emoji=":potted_plant:" >}}
+{{< callout emoji=":potted_plant:" >}}
+'Display Information'에서 App 아이콘과 이름을 자유롭게 선택할 수도 있으니 참고하자.
+{{< /callout >}}
 
 이제 이 Webhook URL 을 Github Secret 으로 등록하면 된다. *Settings > Secrets and variables* 에서 등록이 가능하며, 위에서 지정한 것 처럼 `SLACK_WEBHOOK_URL` 이라는 이름으로 등록하면 된다.
 

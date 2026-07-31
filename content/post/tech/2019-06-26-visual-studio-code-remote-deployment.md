@@ -27,7 +27,7 @@ Vim 과 SSH 에 찌들어 있었는데, 이번 Visual Studio Code 의 베타 기
 ![](/uploads/2019/06/img_5d11df55e7f29.png)
 ![](/uploads/2019/06/img_5d11df39e0722.png)
 
->  만약에 여러분이 윈도우 10 빌드 1807 이하 버전의 윈도우 OS 라면&#8230; 조금 귀찮아진다. [이 문서]("https://code.visualstudio.com/docs/remote/troubleshooting#_installing-a-supported-ssh-client") 에 따르면, [Git for windows]("https://git-scm.com/download/win") 를 설치하면서 옵션에서 <strong>Use Git and optional Unix tools from the Command Prompt </strong>를 선택하면 된다.   
+>  만약에 여러분이 윈도우 10 빌드 1807 이하 버전의 윈도우 OS 라면&#8230; 조금 귀찮아진다. [이 문서](https://code.visualstudio.com/docs/remote/troubleshooting#_installing-a-supported-ssh-client) 에 따르면, [Git for windows](https://git-scm.com/download/win) 를 설치하면서 옵션에서 <strong>Use Git and optional Unix tools from the Command Prompt </strong>를 선택하면 된다.   
 > 그러면, 같이 설치된 mingw 내부의 SSH 를 클라이언트로 사용한다고 한다. 물론 난 테스트해 보진 않았다! 권한 문제 등등으로 생각보다 꼬일 가능성이 있으므로, 조심해야 한다.
 
 이제 ssh key 를 만들어야 한다. 비대칭 키에 대한 지식이 없다면 [암호 대신 SSH Key 로 인증하기][4] 포스팅을 참고하면 된다. 혹시 PuTTY 에서 생성한 비공개 키를 등록하고 쓰고 있으니 이걸로 충분하지 않을까? 그렇게 준비하면.. 실제 접속할 때 아마 잘 안 될 것이다.
