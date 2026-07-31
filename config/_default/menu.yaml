@@ -1,0 +1,7 @@
+main:
+    - identifier: home
+      name: Home
+      weight: -90
+      url: /
+      params:
+          icon: home

@@ -1,0 +1,16 @@
+baseurl: https://interp.blog/
+locale: ko-kr
+theme: stack
+paginate: 6
+title: InterP Blog
+
+enableRobotsTXT: true
+enableEmoji: true
+hasCJKLanguage: true
+DefaultContentLanguage: ko
+
+googleAnalyticsID: "G-KMRJ33V06X"
+
+permalinks:
+    post: /:slug/
+    page: /:slug/

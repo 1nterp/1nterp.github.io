@@ -1,0 +1,8 @@
+ko:
+    label: 한국어
+    title: InterP Blog
+    weight: 1
+en:
+    label: English
+    title: InterP Blog
+    weight: 2
