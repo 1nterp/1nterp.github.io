@@ -1,204 +1,209 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>VSCode on InterP Blog</title><link>https://interp.blog/tags/vscode/</link><description>Recent content in VSCode on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Mon, 08 May 2023 09:40:22 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/vscode/index.xml" rel="self" type="application/rss+xml"/><item><title>Jupyter Notebook on VSCode</title><link>https://interp.blog/jupyter-notebook-vscode/</link><pubDate>Mon, 08 May 2023 09:40:22 +0900</pubDate><guid>https://interp.blog/jupyter-notebook-vscode/</guid><description>&lt;h1 id="jupyter-notebook-이란">Jupyter Notebook 이란&lt;/h1>
-&lt;p>웹 브라우저에서 Python 코드를 작성/실행하는 REPL (Read-Eval-Print Loop) 개발 도구이다. 주로 머신러닝이나 데이터분석 용도로 Python을 사용할 때 쓰이는 도구이다. 코드를 작성하고 곧바로 실행한 결과를 볼 수 있어 간편하며, Notebook 파일로 공유가 가능하다는 특징이 있다.&lt;/p>
-&lt;p>원래는 &lt;a class="link" href="https://www.anaconda.com/download" target="_blank" rel="noopener"
->&lt;strong>Anaconda&lt;/strong>&lt;/a> 를 활용하면서 Notebook 웹 서비스를 컴퓨터에 띄우는 게 일반적인 사용 방법이다. 하지만, Anaconda 설치나 웹 서비스를 띄우지 않고도 VSCode 에서 곧바로 사용해 볼 수 있는 가장 빠른 방법 역시 정리해 봤다. (물론 &lt;code>conda&lt;/code> 를 쓰지 않는다 뿐이지, 나 또한 가상환경을 따로 설정해서 썼으니 사실상 원리는 똑같다.)&lt;/p>
-&lt;h1 id="visual-studio-code-에서">Visual Studio Code 에서&lt;/h1>
-&lt;h2 id="확장-프로그램-설치">확장 프로그램 설치&lt;/h2>
-&lt;p>&lt;em>View &amp;gt; Extensions&lt;/em> 으로 이동해서 &lt;code>jupyter&lt;/code> 라고 검색하자. Microsoft 에서 공인된 확장 프로그램이 여럿 나오는데, 맨 위에 있는 &lt;a class="link" href="https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter" target="_blank" rel="noopener"
->&lt;strong>Jupyter&lt;/strong>&lt;/a> 만 설치해도 알아서 설치될 것이다.&lt;/p>
-&lt;p>아래 노란색으로 칠해 둔 것은 실험적인 기능을 위한 확장 프로그램이니, 필요한 경우에만 설치하도록 하자.&lt;/p>
-&lt;p>한 가지 더, &lt;code>Python&lt;/code> 확장 프로그램도 설치되었는지 확인하자.&lt;/p>
-&lt;figure>
-&lt;img loading="lazy" src="extension.png" width="50%"/>
-&lt;/figure>
-&lt;h2 id="환경-설정-1-python">환경 설정 (1) Python&lt;/h2>
-&lt;p>Anaconda 없이 쓸 경우, Python 이나 Virtualenv 와 이미 친숙한 경우라면 이 방법이 좀 더 수월할 수 있다. Python 설치가 안 되어 있다면 &lt;a class="link" href="https://www.python.org/downloads/" target="_blank" rel="noopener"
->설치하면 되는데&lt;/a>, Python 버전은 3.8 이상이면 된다. (ipykernel 때문)&lt;/p>
-&lt;p>여기에 프로젝트 디렉터리를 만들고, 거기에만 사용할 가상 환경을 꾸리려면 virtualenv 를 사용하자.&lt;/p>
-&lt;p>현재 디렉터리가 프로젝트 디렉터리라고 가정하고, 다음을 실행하자. (Windows 의 경우엔 cmd, powershell 에 따라 활성화 방법이 조금 다르다.)&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">python -m pip install virtualenv
-python -m virtualenv venv
-&lt;span class="nb">source&lt;/span> venv/bin/activate
-pip install jupyter ipykernel
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="환경-설정-2-anaconda">환경 설정 (2) Anaconda&lt;/h2>
-&lt;p>파이썬 설치나 가상환경 만드는 것 자체가 귀찮거나, 파이썬과 친숙하지 않은 경우, 윈도우에서 한 방에 Jupyter Notebook 을 실행하고자 하는 경우라면 Anaconda 가 더 좋을 수 있다. 사용자가 필요없는 패키지도 설치하기 때문에 용량이 크고 시간이 오래 걸린다는 점은 단점이겠지만 말이다.&lt;/p>
-&lt;p>&lt;a class="link" href="https://www.anaconda.com/download" target="_blank" rel="noopener"
->다운로드 사이트&lt;/a>에서 운영체제에 맞는 설치 파일을 내려받아 실행한 뒤, 설치가 끝나면 준비가 완료된 것이다.&lt;/p>
-&lt;p>여기서 가상환경을 만들고 싶다면 다음과 같이 한다. 이렇게 하면, 프로젝트 디렉터리 내부에 &lt;code>venv&lt;/code> 따위를 만들지 않아도 되는 편리함은 있다. 대신, 이 때 나오는 &lt;code>environment location&lt;/code> 을 잘 기억해 두자.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">conda create -n jupyter_env
-conda activate jupyter_env
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="실제-사용">실제 사용&lt;/h2>
-&lt;p>다른 예제에서는 ipykernel 을 설치하거나 웹 서비스를 띄워서 브라우저에서 접속한 뒤에 개발을 시작하는데 그럴 필요가 없다.&lt;/p>
-&lt;ol>
-&lt;li>프로젝트 디렉터리를 만든다. (virtualenv 를 사용한 경우라면 작업해 둔 디렉터리가 이미 있어야 한다)&lt;/li>
-&lt;li>VSCode 로 해당 디렉터리를 오픈한다. (File -&amp;gt; Open Folder..) 여기서 작업할 것이다.&lt;/li>
-&lt;li>Command Palette (&lt;code>Ctrl+Shift+P&lt;/code> 또는 &lt;code>Cmd+Shift+P&lt;/code>) 를 열어 &lt;strong>Create: New Jupyter Notebook&lt;/strong> 을 선택한다.&lt;/li>
-&lt;li>Notebook 파일이 하나 생성되었다. (아직 저장은 안 됨) 이 노트북이 사용할 커널 환경을 지정해야 하는데, 우리가 만든 가상환경 또는 파이썬 실행파일을 지정하기만 하면 알아서 다 해주니까 너무 걱정말자.&lt;/li>
-&lt;li>다시 Command Palette 를 열어, 이번엔 &lt;strong>Notebook: Select Notebook Kernel&lt;/strong> 을 선택한다. 반드시 Notebook 파일이 열린 상태에서 선택해야 하며, 다른 파일에서는 아무런 반응이 없으니 주의.&lt;/li>
-&lt;li>&lt;strong>Select Another Kernel..&lt;/strong> 을 선택.&lt;/li>
-&lt;li>&lt;strong>Python Environments..&lt;/strong> 를 선택.&lt;/li>
-&lt;li>이제 Anaconda 를 했건, Virtualenv 를 사용했건 간에 VSCode 가 인식할 수 있는 모든 Python binary 경로가 나온다. 원하는 경로에 있는 Python 을 선택하고, 만약 없으면 Python binary 의 경로를 직접 입력해 주자.&lt;/li>
-&lt;/ol>
-&lt;p>그러면 VSCode 가 알아서 jupyter 와 ipykernel 을 설치해 준다!&lt;/p>
-&lt;p>Virtualenv 의 경우에는 직접 설치하라고 귀띔해 주긴 했는데, 내 기억엔 저게 필요 없었던 것 같지만 보험 차원에서 설명한 것이니 &lt;del>이해해달라&lt;/del>.&lt;/p>
-&lt;h1 id="결과">결과&lt;/h1>
-&lt;p>나는 Anaconda 로 설치해 둔 게 있어서 환경만 새로 만들어 다음과 같이 바로 돌려봤다. 심지어 Notebook 파일을 저장하지 않았는데도 잘 도는 것을 확인할 수 있다!&lt;/p>
-&lt;figure>
-&lt;img loading="lazy" src="result.png" width="100%"/>
-&lt;/figure>
-&lt;h1 id="응용">응용&lt;/h1>
-&lt;p>만약 다른 튜토리얼처럼 웹 서버를 실행한 경우엔 어떡할까? 아까 눈치챘겠지만 `&lt;strong>Select Another Kernel..&lt;/strong>' 화면에서 &lt;em>Existing Jupyter Server&lt;/em> 를 선택할 수 있다. 거기서 오픈된 웹 서버 URL 을 입력하면 똑같이 VSCode 인터페이스에서 개발이 가능하다!&lt;/p></description></item><item><title>VSCode Vim 에서 키를 눌러 계속 입력하게 만들기</title><link>https://interp.blog/vscode-vim-mac-key-pressing-input/</link><pubDate>Mon, 03 Apr 2023 16:17:59 +0900</pubDate><guid>https://interp.blog/vscode-vim-mac-key-pressing-input/</guid><description>&lt;img src="https://interp.blog/vscode-vim-mac-key-pressing-input/feature.png" alt="Featured image of post VSCode Vim 에서 키를 눌러 계속 입력하게 만들기" />&lt;h1 id="문제">문제&lt;/h1>
-&lt;p>Visual Studio Code 에서 Vim Plugin 을 쓰던 중, 입력한 것을 되돌리기 위해 &lt;code>u&lt;/code> 를 꾹 눌렀다.&lt;/p>
-&lt;p>그러면 아래와 같이 &lt;strong>u&lt;/strong> 라는 알파벳에 어떤 변형을 가할 것인지 묻는다. 한/영만 필요한 나에게는 필요없는 기능인데..&lt;/p>
-&lt;figure>
-&lt;img loading="lazy" src="symptom.png"/>
-&lt;/figure>
-&lt;p>(참고로, &lt;code>u&lt;/code> 를 꾹 누르는게 아니라 반복해서 입력해도 한 번만 입력되는 경우엔 &lt;a class="link" href="https://interp.blog/vscode-vim-undo-redo-key-repeat" >블로그의 다른 포스팅&lt;/a>을 참고하자.)&lt;/p>
-&lt;h1 id="해결">해결&lt;/h1>
-&lt;p>터미널에서 다음을 입력하고, VSCode 를 &lt;strong>재시작&lt;/strong>한다.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
-&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="참고">참고&lt;/h1>
-&lt;p>출처는 여기 &lt;a class="link" href="https://stackoverflow.com/questions/39972335/how-do-i-press-and-hold-a-key-and-have-it-repeat-in-vscode" target="_blank" rel="noopener"
->Stack overflow&lt;/a> 페이지에서 찾을 수 있다.&lt;/p>
-&lt;p>참고로 모든 프로그램에서 저 변형 대화창을 끄고 싶다면 다음과 같이 입력한다.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">defaults write -g ApplePressAndHoldEnabled -bool false
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>윗 부분의 출처는 &lt;a class="link" href="https://junho85.pe.kr/1462" target="_blank" rel="noopener"
->준호씨의 블로그&lt;/a> 포스팅이다. (감사합니다!)&lt;/p></description></item><item><title>VSCode Vim Undo/Redo 키 반복 입력이 안 될 때</title><link>https://interp.blog/vscode-vim-undo-redo-key-repeat/</link><pubDate>Tue, 21 Feb 2023 00:00:00 +0900</pubDate><guid>https://interp.blog/vscode-vim-undo-redo-key-repeat/</guid><description>&lt;img src="https://interp.blog/vscode-vim-undo-redo-key-repeat/feature.png" alt="Featured image of post VSCode Vim Undo/Redo 키 반복 입력이 안 될 때" />&lt;h1 id="문제">문제&lt;/h1>
-&lt;p>최근에 Undo 키인 &lt;code>u&lt;/code> 와 Reo 키인 &lt;code>Ctrl+r&lt;/code> 을 반복해서 입력해도, 딱 &lt;strong>한 번씩만&lt;/strong> 작동하는 현상을 겪었다.&lt;/p>
-&lt;h1 id="조치">조치&lt;/h1>
-&lt;p>우선 VSCodeVim 의 이슈에는 &lt;a class="link" href="https://github.com/VSCodeVim/Vim/issues/1490" target="_blank" rel="noopener"
->몇년 전에 올라온 것&lt;/a> 이 있는데, 최근 코멘트를 뒤지다 보니 workaround 는 찾을 수 있었다. (&lt;a class="link" href="https://github.com/VSCodeVim/Vim/issues/2007#issuecomment-529924611" target="_blank" rel="noopener"
->링크&lt;/a>)&lt;/p>
-&lt;ol>
-&lt;li>Command Palette 를 열어서 &lt;strong>Preferences: Open User Settings (JSON)&lt;/strong> 을 검색해 선택한다.&lt;/li>
-&lt;li>열린 JSON 파일에, 다음을 붙여넣는다.&lt;/li>
-&lt;/ol>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json"> &lt;span class="s2">&amp;#34;vim.normalModeKeyBindingsNonRecursive&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">[&lt;/span>
-&lt;span class="p">{&lt;/span>
-&lt;span class="nt">&amp;#34;before&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>
-&lt;span class="s2">&amp;#34;u&amp;#34;&lt;/span>
-&lt;span class="p">],&lt;/span>
-&lt;span class="nt">&amp;#34;after&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[],&lt;/span>
-&lt;span class="nt">&amp;#34;commands&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>
-&lt;span class="p">{&lt;/span>
-&lt;span class="nt">&amp;#34;command&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;undo&amp;#34;&lt;/span>
-&lt;span class="p">}&lt;/span>
-&lt;span class="p">]&lt;/span>
-&lt;span class="p">},&lt;/span>
-&lt;span class="p">{&lt;/span>
-&lt;span class="nt">&amp;#34;before&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>
-&lt;span class="s2">&amp;#34;&amp;lt;C-r&amp;gt;&amp;#34;&lt;/span>
-&lt;span class="p">],&lt;/span>
-&lt;span class="nt">&amp;#34;after&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[],&lt;/span>
-&lt;span class="nt">&amp;#34;commands&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>
-&lt;span class="p">{&lt;/span>
-&lt;span class="nt">&amp;#34;command&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;redo&amp;#34;&lt;/span>
-&lt;span class="p">}&lt;/span>
-&lt;span class="p">]&lt;/span>
-&lt;span class="p">}&lt;/span>
-&lt;span class="p">]&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>물론 특정 Workspace 에만 설정하고 싶다면, &lt;strong>Preferences: Open Workspace Settings (JSON)&lt;/strong> 을 선택해 편집하면 된다.&lt;/p></description></item><item><title>VSCode 문자열 자동완성 설정</title><link>https://interp.blog/vscode-string-suggestion-config/</link><pubDate>Wed, 21 Dec 2022 14:33:07 +0900</pubDate><guid>https://interp.blog/vscode-string-suggestion-config/</guid><description>&lt;p>프로그래밍 언어 키워드나 객체 이름만 추천받을 때 유용하게 쓸 수 있는 IntelliSense. VSCode 에도 물론 내장되어 있어 유용하게 쓸 순 있지만 다음 경우에는 잘 되지 않았다.&lt;/p>
-&lt;ul>
-&lt;li>반복되는 문자열을 복사/붙여넣기 하지 않고 물 흐르듯 쓰고 싶을 때&lt;br>
-(복사할 대상이 여러개이고, 번갈아 반복되는 경우라면 더더욱.. A/B/A/B 이런 식으로)&lt;/li>
-&lt;li>다른 형식의 확장자로 된 파일 내용에서 반복되는 문자열을 추천받고 싶을 때&lt;/li>
-&lt;/ul>
-&lt;p>나의 경우는, 한 쪽에는 &lt;code>.env&lt;/code> 파일을 열어두고 다른 쪽에는 &lt;code>docker-compose.yaml&lt;/code> 을 열어둔 경우가 여기에 해당한다. 설정 가능한 변수는 &lt;code>.env&lt;/code> 에 변수로 등록하고, &lt;code>docker-compose.yaml&lt;/code> 파일 작업할 때 참조해서 쓰고 싶은데 자동완성이 안 돼서 힘들었다. 결국 검색해서 찾아내긴 했는데, 이게 기본 설정인지 아닌지는 잘 모르겠다.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">{
-&amp;#34;editor.quickSuggestions&amp;#34;: {
-&amp;#34;strings&amp;#34;: &amp;#34;on&amp;#34;
-},
-&amp;#34;editor.wordBasedSuggestions&amp;#34;: true,
-&amp;#34;editor.wordBasedSuggestionsMode&amp;#34;: &amp;#34;allDocuments&amp;#34;
-}
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>이렇게 두면, 필요한 파일을 열어두기만 하면 모든 문자열을 추천받을 수 있다.&lt;/p>
-&lt;div class="video-wrapper">
-&lt;iframe loading="lazy"
-src="https://www.youtube.com/embed/2-98NrJ9rG4"
-allowfullscreen
-title="YouTube Video"
->
-&lt;/iframe>
-&lt;/div>
-&lt;p>조금 이상한 부분은, 참조해야 할 파일을 한 번 수정하거나 저장해야 적용이 되는 것 처럼 보이기는 했는데&amp;hellip; 조금 더 써보고 업데이트 해야겠다.&lt;/p></description></item><item><title>VSCode Python 디버그 반응이 없을 때</title><link>https://interp.blog/vscode-python-debugging-no-response/</link><pubDate>Tue, 23 Aug 2022 22:26:07 +0900</pubDate><guid>https://interp.blog/vscode-python-debugging-no-response/</guid><description>&lt;img src="https://interp.blog/vscode-python-debugging-no-response/feature.png" alt="Featured image of post VSCode Python 디버그 반응이 없을 때" />&lt;h1 id="증상">증상&lt;/h1>
-&lt;p>Visual Studio Code 에서 Python 파일을 디버깅 (debugging) 하려 하면, &lt;strong>아무런 반응이 없고 곧바로 종료된다.&lt;/strong> 그냥 실행 자체를 하지 않은 것 처럼 말이다..!&lt;/p>
-&lt;p>&lt;div style="background-color: var(--pre-background-color); width: 95%; margin:2rem; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
-&lt;div style="width: 16px;margin-right: 7px; margin-left: 4px;">
-😂
-&lt;/div>
-&lt;div>
-2023년 2월 현재, 파이썬 버전이 낮으면 아래 경고 문구가 잘 나오는 것을 확인했다.&lt;br/>그래도 Python 3.6 이하 버전을 사용해야겠다면 아래 내용을 참고하자.
-&lt;/div>
-&lt;/div>
-&lt;br/>
-&lt;figure class="align-center ">
-&lt;img loading="lazy" src="warning.png#center" width="30%"/>
-&lt;/figure>
-&lt;/p>
-&lt;h1 id="분석">분석&lt;/h1>
-&lt;p>관련해서 메시지가 나타나지 않기 때문에, 단서를 찾기가 쉽진 않았다. 그나마 &amp;lsquo;&lt;em>Output&lt;/em>&amp;rsquo; 패널에 있는 &amp;lsquo;&lt;em>Python&lt;/em>&amp;rsquo; 에서 아래와 같은 로그가 한 줄 떠 있었다.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">DAP Server launched with command: /home/interp/work/project/venv/bin/python \
-/home/interp/.vscode-server/extensions/ms-python.python-2022.12.1/pythonFiles/lib/python/debugpy/adapter
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>저기서 &lt;code>.. with command:&lt;/code> 이후의 명령어를 그대로 &lt;strong>터미널에서&lt;/strong> 입력해 보았다.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">Traceback &lt;span class="o">(&lt;/span>most recent call last&lt;span class="o">)&lt;/span>:
-File &lt;span class="s2">&amp;#34;/home/interp/.pyenv/versions/3.6.12/lib/python3.6/runpy.py&amp;#34;&lt;/span>, line 193, in _run_module_as_main
-&lt;span class="s2">&amp;#34;__main__&amp;#34;&lt;/span>, mod_spec&lt;span class="o">)&lt;/span>
-File &lt;span class="s2">&amp;#34;/home/interp/.pyenv/versions/3.6.12/lib/python3.6/runpy.py&amp;#34;&lt;/span>, line 85, in _run_code
-exec&lt;span class="o">(&lt;/span>code, run_globals&lt;span class="o">)&lt;/span>
-File &lt;span class="s2">&amp;#34;/home/interp/.vscode-server/extensions/ms-python.python-2022.12.1/pythonFiles/lib/python/debugpy/adapter/__main__.py&amp;#34;&lt;/span>, line 212, in &amp;lt;module&amp;gt;
-__import__&lt;span class="o">(&lt;/span>&lt;span class="s2">&amp;#34;debugpy&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span>
-File &lt;span class="s2">&amp;#34;/home/interp/.vscode-server/extensions/ms-python.python-2022.12.1/pythonFiles/lib/python/debugpy/adapter/../../debugpy/__init__.py&amp;#34;&lt;/span>, line 28, in &amp;lt;module&amp;gt;
-&lt;span class="s2">&amp;#34;Python 3.6 and below is not supported by this version of debugpy; &amp;#34;&lt;/span>
-AssertionError: Python 3.6 and below is not supported by this version of debugpy&lt;span class="p">;&lt;/span> use debugpy 1.5.1 or earlier.
-&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="원인과-해결">원인과 해결&lt;/h1>
-&lt;p>저기서 마지막 문장이 중요하다.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">AssertionError: Python 3.6 and below is not supported by this version of debugpy; \
-use debugpy 1.5.1 or earlier.
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>찾아보니 Python Extension 에서 debugpy 버전을 업그레이드 했고, 더 이상 Python 3.6 에서 호환되지 않는 것이 문제였다. &lt;a class="link" href="https://marketplace.visualstudio.com/items/ms-python.python/changelog" target="_blank" rel="noopener"
->Changelog&lt;/a>를 보니, 2022.10.0 버전부터 debugpy 를 1.6.2 로 올린 것을 확인할 수 있었다.&lt;/p>
-&lt;p>그러면 해결책은 간단하다. 원하는 대로 해주거나, 되돌아가거나.&lt;/p>
-&lt;h2 id="1-python36-에서-버전-업그레이드">(1) Python3.6 에서 버전 업그레이드&lt;/h2>
-&lt;p>가장 간단한 방법은 더 높은 버전의 Python을 설치하고, 해당 버전을 기본 환경으로 설정하면 된다.&lt;/p>
-&lt;p>&lt;code>virtualenv&lt;/code> 없이 Python 버전만 바꾼다면, VSCode 에서 Command Palette (&lt;code>Ctrl/Cmd+Shift+P&lt;/code>) 를 열어서 &lt;strong>Python: Select Interpreter&lt;/strong> 를 선택하는 것으로 버전 선택이 가능하다.&lt;/p>
-&lt;p>나는 &lt;code>virtualenv&lt;/code> 를 통해 개발 환경을 구성하기 때문에 아래와 같은 순서대로 업그레이드를 진행했다. 혹시 참고가 되길 바라며 정리해 둔다.&lt;/p>
-&lt;ol>
-&lt;li>(requirements.txt 따위로 관리하고 있지 않는다면) &lt;code>pip freeze &amp;gt; requirements.txt&lt;/code> 로 설치된 라이브러리 백업&lt;/li>
-&lt;li>기존 virtualenv directory 삭제 (예: &lt;code>venv&lt;/code> 라고 가정하자)&lt;/li>
-&lt;li>(python3.9 를 설치했다면) &lt;code>python3.9 -m virtualenv venv&lt;/code> 으로 virtualenv directory 생성&lt;/li>
-&lt;li>&lt;code>source venv/bin/activate &amp;amp;&amp;amp; pip install -r requirements.txt&lt;/code> 로 라이브러리 재설치&lt;/li>
-&lt;/ol>
-&lt;h2 id="2-extension-다운그레이드-하기">(2) Extension 다운그레이드 하기&lt;/h2>
-&lt;p>다른 해결책으로는, VSCode Python 의 Extension 버전을 다운그레이드 하는 방법이다.&lt;/p>
-&lt;figure class="align-center ">
-&lt;img loading="lazy" src="downgrade.png#center"/>
-&lt;/figure>
-&lt;p>Extension 탭에서 Python 을 찾은 다음, &lt;strong>Install Another Version&lt;/strong> 을 선택한다. 잠시 기다리면, 버전 목록이 나타나며, 초록색 부분 (그 아래도 상관없음) 을 클릭하면 된다.&lt;/p>
-&lt;p>하지만 별로 추천하고 싶진 않다. Python 3.10 까지 나온 마당에 특별한 이유가 없다면 (1) 번처럼 Python 버전을 올리는게 좋을 것 같다.&lt;/p>
-&lt;h2 id="3-symbolic-link-경로-문제">(3) Symbolic link 경로 문제&lt;/h2>
-&lt;p>혹시 (1) 이나 (2) 번을 전부 적용해도 (아니면 이미 Python 3.6 이상의 버전을 쓰고 있는데도) 디버깅이 안 된다면 이 해결책이 도움이 될 것이다.&lt;/p>
-&lt;p>한 번은, symbolic link 경로로 workspace directory 를 열었을 때 디버깅 문제가 생겼었다. 반대로 말하면, symbolic link 경로가 아닌 &lt;strong>실제 directory 경로로 workspace 를 열어야&lt;/strong> 한다.&lt;/p>
-&lt;p>예를 들어, &lt;code>/home/interp/&lt;/code> 는 사실 symbolic link 이고, 실제 경로는 &lt;code>/SSD/homes/interp&lt;/code> 이라고 가정하자. 그렇다면, &lt;em>File - Open Folder..&lt;/em> 메뉴로 directory 를 열 때, 다음 중 하나만 디버깅이 가능하다.&lt;/p>
-&lt;ul>
-&lt;li>&lt;code>/home/interp/workspace_python&lt;/code> ❌&lt;/li>
-&lt;li>&lt;code>/SSD/homes/interp/workspace_python&lt;/code> ✅&lt;/li>
-&lt;/ul></description></item><item><title>VSCodeVim: 분리된 줄 위/아래로 커서 이동하기</title><link>https://interp.blog/vim-wrapping-line-cursor-up-down/</link><pubDate>Fri, 15 Apr 2022 02:45:00 +0900</pubDate><guid>https://interp.blog/vim-wrapping-line-cursor-up-down/</guid><description>&lt;p>VSCode 에서도 Vim 환경을 쓰고 싶어서 &lt;a class="link" href="https://github.com/VSCodeVim/Vim" target="_blank" rel="noopener"
->VSCodeVim&lt;/a> 을 설치해서 쓰고 있다.&lt;/p>
-&lt;p>&lt;img src="https://interp.blog/images/2022-04-15-vscodevim.png"
-loading="lazy"
->&lt;/p>
-&lt;p>그런데 위와 같이 markdown 편집을 할 때 처럼 줄 분리가 이뤄져서 (line wrapping) 사실 한 줄인데 여러 줄로 보여지는 경우에는, 커서를 아래로 내릴 경우에 &lt;em>실제&lt;/em> 다음 줄 로 이동한다. &lt;strong>화면에 보이는 줄이 아니라, 실제 줄로 이동하기 때문에&lt;/strong>, 커서를 옮길 때 여간 불편한 게 아니다.&lt;/p>
-&lt;h2 id="해결-방법">해결 방법&lt;/h2>
-&lt;p>Vim 도 사실 line wrapping 이 되었을 때 같은 문제가 있고, (문제라기 보다는 특성인데) 원하는 방법대로 우회할 수 있는 방법을 &lt;a class="link" href="https://vim.fandom.com/wiki/Move_cursor_by_display_lines_when_wrapping" target="_blank" rel="noopener"
->여기&lt;/a>서 찾았다. 이 방법을 그대로 VSCode 에도 적용한 것이다.&lt;/p>
-&lt;p>먼저 Settings 를 열어서 &lt;strong>Vim: Normal Mode Key Bindings&lt;/strong> 로 이동하면, Edit in settings.json 링크가 있다. 이걸 눌러서 다음을 추가하자.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json"> &lt;span class="s2">&amp;#34;vim.normalModeKeyBindings&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">[&lt;/span>
-&lt;span class="p">{&lt;/span>
-&lt;span class="nt">&amp;#34;before&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;&amp;lt;Up&amp;gt;&amp;#34;&lt;/span>&lt;span class="p">],&lt;/span>
-&lt;span class="nt">&amp;#34;after&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;g&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;k&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>
-&lt;span class="p">},&lt;/span>
-&lt;span class="p">{&lt;/span>
-&lt;span class="nt">&amp;#34;before&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;&amp;lt;Down&amp;gt;&amp;#34;&lt;/span>&lt;span class="p">],&lt;/span>
-&lt;span class="nt">&amp;#34;after&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;g&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;j&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>
-&lt;span class="p">}&lt;/span>
-&lt;span class="p">]&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>적용하고 곧바로 편집 중인 파일로 돌아오면 적용이 되어 있는 걸 볼 수 있다. 이제 커서를 위/아래로 움직여도 화면에 보이는 윗줄/아랫줄로 이동한다!&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>VSCode on InterP Blog</title><link>https://interp.blog/tags/vscode/</link><description>Recent content in VSCode on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Mon, 08 May 2023 09:40:22 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/vscode/index.xml" rel="self" type="application/rss+xml"/><item><title>Jupyter Notebook on VSCode</title><link>https://interp.blog/jupyter-notebook-vscode/</link><pubDate>Mon, 08 May 2023 09:40:22 +0900</pubDate><guid>https://interp.blog/jupyter-notebook-vscode/</guid><description>&lt;h1 id="jupyter-notebook-이란"&gt;Jupyter Notebook 이란
+&lt;/h1&gt;&lt;p&gt;웹 브라우저에서 Python 코드를 작성/실행하는 REPL (Read-Eval-Print Loop) 개발 도구이다. 주로 머신러닝이나 데이터분석 용도로 Python을 사용할 때 쓰이는 도구이다. 코드를 작성하고 곧바로 실행한 결과를 볼 수 있어 간편하며, Notebook 파일로 공유가 가능하다는 특징이 있다.&lt;/p&gt;
+&lt;p&gt;원래는 &lt;a class="link" href="https://www.anaconda.com/download" target="_blank" rel="noopener"
+ &gt;&lt;strong&gt;Anaconda&lt;/strong&gt;&lt;/a&gt; 를 활용하면서 Notebook 웹 서비스를 컴퓨터에 띄우는 게 일반적인 사용 방법이다. 하지만, Anaconda 설치나 웹 서비스를 띄우지 않고도 VSCode 에서 곧바로 사용해 볼 수 있는 가장 빠른 방법 역시 정리해 봤다. (물론 &lt;code&gt;conda&lt;/code&gt; 를 쓰지 않는다 뿐이지, 나 또한 가상환경을 따로 설정해서 썼으니 사실상 원리는 똑같다.)&lt;/p&gt;
+&lt;h1 id="visual-studio-code-에서"&gt;Visual Studio Code 에서
+&lt;/h1&gt;&lt;h2 id="확장-프로그램-설치"&gt;확장 프로그램 설치
+&lt;/h2&gt;&lt;p&gt;&lt;em&gt;View &amp;gt; Extensions&lt;/em&gt; 으로 이동해서 &lt;code&gt;jupyter&lt;/code&gt; 라고 검색하자. Microsoft 에서 공인된 확장 프로그램이 여럿 나오는데, 맨 위에 있는 &lt;a class="link" href="https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter" target="_blank" rel="noopener"
+ &gt;&lt;strong&gt;Jupyter&lt;/strong&gt;&lt;/a&gt; 만 설치해도 알아서 설치될 것이다.&lt;/p&gt;
+&lt;p&gt;아래 노란색으로 칠해 둔 것은 실험적인 기능을 위한 확장 프로그램이니, 필요한 경우에만 설치하도록 하자.&lt;/p&gt;
+&lt;p&gt;한 가지 더, &lt;code&gt;Python&lt;/code&gt; 확장 프로그램도 설치되었는지 확인하자.&lt;/p&gt;
+&lt;figure&gt;
+ &lt;img loading="lazy" src="extension.png" width="50%"/&gt; 
+&lt;/figure&gt;
+
+&lt;h2 id="환경-설정-1-python"&gt;환경 설정 (1) Python
+&lt;/h2&gt;&lt;p&gt;Anaconda 없이 쓸 경우, Python 이나 Virtualenv 와 이미 친숙한 경우라면 이 방법이 좀 더 수월할 수 있다. Python 설치가 안 되어 있다면 &lt;a class="link" href="https://www.python.org/downloads/" target="_blank" rel="noopener"
+ &gt;설치하면 되는데&lt;/a&gt;, Python 버전은 3.8 이상이면 된다. (ipykernel 때문)&lt;/p&gt;
+&lt;p&gt;여기에 프로젝트 디렉터리를 만들고, 거기에만 사용할 가상 환경을 꾸리려면 virtualenv 를 사용하자.&lt;/p&gt;
+&lt;p&gt;현재 디렉터리가 프로젝트 디렉터리라고 가정하고, 다음을 실행하자. (Windows 의 경우엔 cmd, powershell 에 따라 활성화 방법이 조금 다르다.)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;python -m pip install virtualenv
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;python -m virtualenv venv
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;source&lt;/span&gt; venv/bin/activate 
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;pip install jupyter ipykernel
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="환경-설정-2-anaconda"&gt;환경 설정 (2) Anaconda
+&lt;/h2&gt;&lt;p&gt;파이썬 설치나 가상환경 만드는 것 자체가 귀찮거나, 파이썬과 친숙하지 않은 경우, 윈도우에서 한 방에 Jupyter Notebook 을 실행하고자 하는 경우라면 Anaconda 가 더 좋을 수 있다. 사용자가 필요없는 패키지도 설치하기 때문에 용량이 크고 시간이 오래 걸린다는 점은 단점이겠지만 말이다.&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="https://www.anaconda.com/download" target="_blank" rel="noopener"
+ &gt;다운로드 사이트&lt;/a&gt;에서 운영체제에 맞는 설치 파일을 내려받아 실행한 뒤, 설치가 끝나면 준비가 완료된 것이다.&lt;/p&gt;
+&lt;p&gt;여기서 가상환경을 만들고 싶다면 다음과 같이 한다. 이렇게 하면, 프로젝트 디렉터리 내부에 &lt;code&gt;venv&lt;/code&gt; 따위를 만들지 않아도 되는 편리함은 있다. 대신, 이 때 나오는 &lt;code&gt;environment location&lt;/code&gt; 을 잘 기억해 두자.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;conda create -n jupyter_env
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;conda activate jupyter_env
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="실제-사용"&gt;실제 사용
+&lt;/h2&gt;&lt;p&gt;다른 예제에서는 ipykernel 을 설치하거나 웹 서비스를 띄워서 브라우저에서 접속한 뒤에 개발을 시작하는데 그럴 필요가 없다.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;프로젝트 디렉터리를 만든다. (virtualenv 를 사용한 경우라면 작업해 둔 디렉터리가 이미 있어야 한다)&lt;/li&gt;
+&lt;li&gt;VSCode 로 해당 디렉터리를 오픈한다. (File -&amp;gt; Open Folder..) 여기서 작업할 것이다.&lt;/li&gt;
+&lt;li&gt;Command Palette (&lt;code&gt;Ctrl+Shift+P&lt;/code&gt; 또는 &lt;code&gt;Cmd+Shift+P&lt;/code&gt;) 를 열어 &lt;strong&gt;Create: New Jupyter Notebook&lt;/strong&gt; 을 선택한다.&lt;/li&gt;
+&lt;li&gt;Notebook 파일이 하나 생성되었다. (아직 저장은 안 됨) 이 노트북이 사용할 커널 환경을 지정해야 하는데, 우리가 만든 가상환경 또는 파이썬 실행파일을 지정하기만 하면 알아서 다 해주니까 너무 걱정말자.&lt;/li&gt;
+&lt;li&gt;다시 Command Palette 를 열어, 이번엔 &lt;strong&gt;Notebook: Select Notebook Kernel&lt;/strong&gt; 을 선택한다. 반드시 Notebook 파일이 열린 상태에서 선택해야 하며, 다른 파일에서는 아무런 반응이 없으니 주의.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Select Another Kernel..&lt;/strong&gt; 을 선택.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Python Environments..&lt;/strong&gt; 를 선택.&lt;/li&gt;
+&lt;li&gt;이제 Anaconda 를 했건, Virtualenv 를 사용했건 간에 VSCode 가 인식할 수 있는 모든 Python binary 경로가 나온다. 원하는 경로에 있는 Python 을 선택하고, 만약 없으면 Python binary 의 경로를 직접 입력해 주자.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;그러면 VSCode 가 알아서 jupyter 와 ipykernel 을 설치해 준다!&lt;/p&gt;
+&lt;p&gt;Virtualenv 의 경우에는 직접 설치하라고 귀띔해 주긴 했는데, 내 기억엔 저게 필요 없었던 것 같지만 보험 차원에서 설명한 것이니 &lt;del&gt;이해해달라&lt;/del&gt;.&lt;/p&gt;
+&lt;h1 id="결과"&gt;결과
+&lt;/h1&gt;&lt;p&gt;나는 Anaconda 로 설치해 둔 게 있어서 환경만 새로 만들어 다음과 같이 바로 돌려봤다. 심지어 Notebook 파일을 저장하지 않았는데도 잘 도는 것을 확인할 수 있다!&lt;/p&gt;
+&lt;figure&gt;
+ &lt;img loading="lazy" src="result.png" width="100%"/&gt; 
+&lt;/figure&gt;
+
+&lt;h1 id="응용"&gt;응용
+&lt;/h1&gt;&lt;p&gt;만약 다른 튜토리얼처럼 웹 서버를 실행한 경우엔 어떡할까? 아까 눈치챘겠지만 `&lt;strong&gt;Select Another Kernel..&lt;/strong&gt;&amp;rsquo; 화면에서 &lt;em&gt;Existing Jupyter Server&lt;/em&gt; 를 선택할 수 있다. 거기서 오픈된 웹 서버 URL 을 입력하면 똑같이 VSCode 인터페이스에서 개발이 가능하다!&lt;/p&gt;</description></item><item><title>VSCode Vim 에서 키를 눌러 계속 입력하게 만들기</title><link>https://interp.blog/vscode-vim-mac-key-pressing-input/</link><pubDate>Mon, 03 Apr 2023 16:17:59 +0900</pubDate><guid>https://interp.blog/vscode-vim-mac-key-pressing-input/</guid><description>&lt;img src="https://interp.blog/vscode-vim-mac-key-pressing-input/feature.png" alt="Featured image of post VSCode Vim 에서 키를 눌러 계속 입력하게 만들기" /&gt;&lt;h1 id="문제"&gt;문제
+&lt;/h1&gt;&lt;p&gt;Visual Studio Code 에서 Vim Plugin 을 쓰던 중, 입력한 것을 되돌리기 위해 &lt;code&gt;u&lt;/code&gt; 를 꾹 눌렀다.&lt;/p&gt;
+&lt;p&gt;그러면 아래와 같이 &lt;strong&gt;u&lt;/strong&gt; 라는 알파벳에 어떤 변형을 가할 것인지 묻는다. 한/영만 필요한 나에게는 필요없는 기능인데..&lt;/p&gt;
+&lt;figure&gt;
+ &lt;img loading="lazy" src="symptom.png"/&gt; 
+&lt;/figure&gt;
+
+&lt;p&gt;(참고로, &lt;code&gt;u&lt;/code&gt; 를 꾹 누르는게 아니라 반복해서 입력해도 한 번만 입력되는 경우엔 &lt;a class="link" href="https://interp.blog/vscode-vim-undo-redo-key-repeat" &gt;블로그의 다른 포스팅&lt;/a&gt;을 참고하자.)&lt;/p&gt;
+&lt;h1 id="해결"&gt;해결
+&lt;/h1&gt;&lt;p&gt;터미널에서 다음을 입력하고, VSCode 를 &lt;strong&gt;재시작&lt;/strong&gt;한다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="참고"&gt;참고
+&lt;/h1&gt;&lt;p&gt;출처는 여기 &lt;a class="link" href="https://stackoverflow.com/questions/39972335/how-do-i-press-and-hold-a-key-and-have-it-repeat-in-vscode" target="_blank" rel="noopener"
+ &gt;Stack overflow&lt;/a&gt; 페이지에서 찾을 수 있다.&lt;/p&gt;
+&lt;p&gt;참고로 모든 프로그램에서 저 변형 대화창을 끄고 싶다면 다음과 같이 입력한다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;defaults write -g ApplePressAndHoldEnabled -bool false
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;윗 부분의 출처는 &lt;a class="link" href="https://junho85.pe.kr/1462" target="_blank" rel="noopener"
+ &gt;준호씨의 블로그&lt;/a&gt; 포스팅이다. (감사합니다!)&lt;/p&gt;</description></item><item><title>VSCode Vim Undo/Redo 키 반복 입력이 안 될 때</title><link>https://interp.blog/vscode-vim-undo-redo-key-repeat/</link><pubDate>Tue, 21 Feb 2023 00:00:00 +0900</pubDate><guid>https://interp.blog/vscode-vim-undo-redo-key-repeat/</guid><description>&lt;img src="https://interp.blog/vscode-vim-undo-redo-key-repeat/feature.png" alt="Featured image of post VSCode Vim Undo/Redo 키 반복 입력이 안 될 때" /&gt;&lt;h1 id="문제"&gt;문제
+&lt;/h1&gt;&lt;p&gt;최근에 Undo 키인 &lt;code&gt;u&lt;/code&gt; 와 Reo 키인 &lt;code&gt;Ctrl+r&lt;/code&gt; 을 반복해서 입력해도, 딱 &lt;strong&gt;한 번씩만&lt;/strong&gt; 작동하는 현상을 겪었다.&lt;/p&gt;
+&lt;h1 id="조치"&gt;조치
+&lt;/h1&gt;&lt;p&gt;우선 VSCodeVim 의 이슈에는 &lt;a class="link" href="https://github.com/VSCodeVim/Vim/issues/1490" target="_blank" rel="noopener"
+ &gt;몇년 전에 올라온 것&lt;/a&gt; 이 있는데, 최근 코멘트를 뒤지다 보니 workaround 는 찾을 수 있었다. (&lt;a class="link" href="https://github.com/VSCodeVim/Vim/issues/2007#issuecomment-529924611" target="_blank" rel="noopener"
+ &gt;링크&lt;/a&gt;)&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Command Palette 를 열어서 &lt;strong&gt;Preferences: Open User Settings (JSON)&lt;/strong&gt; 을 검색해 선택한다.&lt;/li&gt;
+&lt;li&gt;열린 JSON 파일에, 다음을 붙여넣는다.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-json" data-lang="json"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="s2"&gt;&amp;#34;vim.normalModeKeyBindingsNonRecursive&amp;#34;&lt;/span&gt;&lt;span class="err"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;before&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="s2"&gt;&amp;#34;u&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;],&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;after&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[],&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;commands&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;command&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;undo&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;before&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="s2"&gt;&amp;#34;&amp;lt;C-r&amp;gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;],&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;after&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[],&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;commands&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;command&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;redo&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;물론 특정 Workspace 에만 설정하고 싶다면, &lt;strong&gt;Preferences: Open Workspace Settings (JSON)&lt;/strong&gt; 을 선택해 편집하면 된다.&lt;/p&gt;</description></item><item><title>VSCode 문자열 자동완성 설정</title><link>https://interp.blog/vscode-string-suggestion-config/</link><pubDate>Wed, 21 Dec 2022 14:33:07 +0900</pubDate><guid>https://interp.blog/vscode-string-suggestion-config/</guid><description>&lt;p&gt;프로그래밍 언어 키워드나 객체 이름만 추천받을 때 유용하게 쓸 수 있는 IntelliSense. VSCode 에도 물론 내장되어 있어 유용하게 쓸 순 있지만 다음 경우에는 잘 되지 않았다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;반복되는 문자열을 복사/붙여넣기 하지 않고 물 흐르듯 쓰고 싶을 때&lt;br&gt;
+(복사할 대상이 여러개이고, 번갈아 반복되는 경우라면 더더욱.. A/B/A/B 이런 식으로)&lt;/li&gt;
+&lt;li&gt;다른 형식의 확장자로 된 파일 내용에서 반복되는 문자열을 추천받고 싶을 때&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;나의 경우는, 한 쪽에는 &lt;code&gt;.env&lt;/code&gt; 파일을 열어두고 다른 쪽에는 &lt;code&gt;docker-compose.yaml&lt;/code&gt; 을 열어둔 경우가 여기에 해당한다. 설정 가능한 변수는 &lt;code&gt;.env&lt;/code&gt; 에 변수로 등록하고, &lt;code&gt;docker-compose.yaml&lt;/code&gt; 파일 작업할 때 참조해서 쓰고 싶은데 자동완성이 안 돼서 힘들었다. 결국 검색해서 찾아내긴 했는데, 이게 기본 설정인지 아닌지는 잘 모르겠다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &amp;#34;editor.quickSuggestions&amp;#34;: {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &amp;#34;strings&amp;#34;: &amp;#34;on&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; },
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &amp;#34;editor.wordBasedSuggestions&amp;#34;: true,
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &amp;#34;editor.wordBasedSuggestionsMode&amp;#34;: &amp;#34;allDocuments&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;이렇게 두면, 필요한 파일을 열어두기만 하면 모든 문자열을 추천받을 수 있다.&lt;/p&gt;
+&lt;div class="video-wrapper"&gt;
+ &lt;iframe loading="lazy" 
+ src="https://www.youtube.com/embed/2-98NrJ9rG4" 
+ allowfullscreen 
+ title="YouTube Video"
+ &gt;
+ &lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;p&gt;조금 이상한 부분은, 참조해야 할 파일을 한 번 수정하거나 저장해야 적용이 되는 것 처럼 보이기는 했는데&amp;hellip; 조금 더 써보고 업데이트 해야겠다.&lt;/p&gt;</description></item><item><title>VSCode Python 디버그 반응이 없을 때</title><link>https://interp.blog/vscode-python-debugging-no-response/</link><pubDate>Tue, 23 Aug 2022 22:26:07 +0900</pubDate><guid>https://interp.blog/vscode-python-debugging-no-response/</guid><description>&lt;img src="https://interp.blog/vscode-python-debugging-no-response/feature.png" alt="Featured image of post VSCode Python 디버그 반응이 없을 때" /&gt;&lt;h1 id="증상"&gt;증상
+&lt;/h1&gt;&lt;p&gt;Visual Studio Code 에서 Python 파일을 디버깅 (debugging) 하려 하면, &lt;strong&gt;아무런 반응이 없고 곧바로 종료된다.&lt;/strong&gt; 그냥 실행 자체를 하지 않은 것 처럼 말이다..!&lt;/p&gt;
+&lt;p&gt;&lt;blockquote class="alert" style="border-color: var(--alert-note-color); background-color: var(--alert-note-background);"&gt;
+ &lt;div class="alert-header"&gt;
+ &lt;span class="alert-icon"&gt;:joy:&lt;/span&gt;
+ &lt;span class="alert-title" style="color: var(--alert-note-color);"&gt;Note&lt;/span&gt;
+ &lt;/div&gt;
+ &lt;div class="alert-body"&gt;
+ 2023년 2월 현재, 파이썬 버전이 낮으면 아래 경고 문구가 잘 나오는 것을 확인했다.&lt;br/&gt;그래도 Python 3.6 이하 버전을 사용해야겠다면 아래 내용을 참고하자.
+ &lt;/div&gt;
+&lt;/blockquote&gt;
+
+&lt;br/&gt;
+&lt;figure class="align-center "&gt;
+ &lt;img loading="lazy" src="warning.png#center" width="30%"/&gt; 
+&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h1 id="분석"&gt;분석
+&lt;/h1&gt;&lt;p&gt;관련해서 메시지가 나타나지 않기 때문에, 단서를 찾기가 쉽진 않았다. 그나마 &amp;lsquo;&lt;em&gt;Output&lt;/em&gt;&amp;rsquo; 패널에 있는 &amp;lsquo;&lt;em&gt;Python&lt;/em&gt;&amp;rsquo; 에서 아래와 같은 로그가 한 줄 떠 있었다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;DAP Server launched with command: /home/interp/work/project/venv/bin/python \
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; /home/interp/.vscode-server/extensions/ms-python.python-2022.12.1/pythonFiles/lib/python/debugpy/adapter
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;저기서 &lt;code&gt;.. with command:&lt;/code&gt; 이후의 명령어를 그대로 &lt;strong&gt;터미널에서&lt;/strong&gt; 입력해 보았다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Traceback &lt;span class="o"&gt;(&lt;/span&gt;most recent call last&lt;span class="o"&gt;)&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; File &lt;span class="s2"&gt;&amp;#34;/home/interp/.pyenv/versions/3.6.12/lib/python3.6/runpy.py&amp;#34;&lt;/span&gt;, line 193, in _run_module_as_main
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="s2"&gt;&amp;#34;__main__&amp;#34;&lt;/span&gt;, mod_spec&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; File &lt;span class="s2"&gt;&amp;#34;/home/interp/.pyenv/versions/3.6.12/lib/python3.6/runpy.py&amp;#34;&lt;/span&gt;, line 85, in _run_code
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; exec&lt;span class="o"&gt;(&lt;/span&gt;code, run_globals&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; File &lt;span class="s2"&gt;&amp;#34;/home/interp/.vscode-server/extensions/ms-python.python-2022.12.1/pythonFiles/lib/python/debugpy/adapter/__main__.py&amp;#34;&lt;/span&gt;, line 212, in &amp;lt;module&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; __import__&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;debugpy&amp;#34;&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; File &lt;span class="s2"&gt;&amp;#34;/home/interp/.vscode-server/extensions/ms-python.python-2022.12.1/pythonFiles/lib/python/debugpy/adapter/../../debugpy/__init__.py&amp;#34;&lt;/span&gt;, line 28, in &amp;lt;module&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="s2"&gt;&amp;#34;Python 3.6 and below is not supported by this version of debugpy; &amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;AssertionError: Python 3.6 and below is not supported by this version of debugpy&lt;span class="p"&gt;;&lt;/span&gt; use debugpy 1.5.1 or earlier.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="원인과-해결"&gt;원인과 해결
+&lt;/h1&gt;&lt;p&gt;저기서 마지막 문장이 중요하다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;AssertionError: Python 3.6 and below is not supported by this version of debugpy; \
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; use debugpy 1.5.1 or earlier.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;찾아보니 Python Extension 에서 debugpy 버전을 업그레이드 했고, 더 이상 Python 3.6 에서 호환되지 않는 것이 문제였다. &lt;a class="link" href="https://marketplace.visualstudio.com/items/ms-python.python/changelog" target="_blank" rel="noopener"
+ &gt;Changelog&lt;/a&gt;를 보니, 2022.10.0 버전부터 debugpy 를 1.6.2 로 올린 것을 확인할 수 있었다.&lt;/p&gt;
+&lt;p&gt;그러면 해결책은 간단하다. 원하는 대로 해주거나, 되돌아가거나.&lt;/p&gt;
+&lt;h2 id="1-python36-에서-버전-업그레이드"&gt;(1) Python3.6 에서 버전 업그레이드
+&lt;/h2&gt;&lt;p&gt;가장 간단한 방법은 더 높은 버전의 Python을 설치하고, 해당 버전을 기본 환경으로 설정하면 된다.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;virtualenv&lt;/code&gt; 없이 Python 버전만 바꾼다면, VSCode 에서 Command Palette (&lt;code&gt;Ctrl/Cmd+Shift+P&lt;/code&gt;) 를 열어서 &lt;strong&gt;Python: Select Interpreter&lt;/strong&gt; 를 선택하는 것으로 버전 선택이 가능하다.&lt;/p&gt;
+&lt;p&gt;나는 &lt;code&gt;virtualenv&lt;/code&gt; 를 통해 개발 환경을 구성하기 때문에 아래와 같은 순서대로 업그레이드를 진행했다. 혹시 참고가 되길 바라며 정리해 둔다.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;(requirements.txt 따위로 관리하고 있지 않는다면) &lt;code&gt;pip freeze &amp;gt; requirements.txt&lt;/code&gt; 로 설치된 라이브러리 백업&lt;/li&gt;
+&lt;li&gt;기존 virtualenv directory 삭제 (예: &lt;code&gt;venv&lt;/code&gt; 라고 가정하자)&lt;/li&gt;
+&lt;li&gt;(python3.9 를 설치했다면) &lt;code&gt;python3.9 -m virtualenv venv&lt;/code&gt; 으로 virtualenv directory 생성&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;source venv/bin/activate &amp;amp;&amp;amp; pip install -r requirements.txt&lt;/code&gt; 로 라이브러리 재설치&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="2-extension-다운그레이드-하기"&gt;(2) Extension 다운그레이드 하기
+&lt;/h2&gt;&lt;p&gt;다른 해결책으로는, VSCode Python 의 Extension 버전을 다운그레이드 하는 방법이다.&lt;/p&gt;
+&lt;figure class="align-center "&gt;
+ &lt;img loading="lazy" src="downgrade.png#center"/&gt; 
+&lt;/figure&gt;
+
+&lt;p&gt;Extension 탭에서 Python 을 찾은 다음, &lt;strong&gt;Install Another Version&lt;/strong&gt; 을 선택한다. 잠시 기다리면, 버전 목록이 나타나며, 초록색 부분 (그 아래도 상관없음) 을 클릭하면 된다.&lt;/p&gt;
+&lt;p&gt;하지만 별로 추천하고 싶진 않다. Python 3.10 까지 나온 마당에 특별한 이유가 없다면 (1) 번처럼 Python 버전을 올리는게 좋을 것 같다.&lt;/p&gt;
+&lt;h2 id="3-symbolic-link-경로-문제"&gt;(3) Symbolic link 경로 문제
+&lt;/h2&gt;&lt;p&gt;혹시 (1) 이나 (2) 번을 전부 적용해도 (아니면 이미 Python 3.6 이상의 버전을 쓰고 있는데도) 디버깅이 안 된다면 이 해결책이 도움이 될 것이다.&lt;/p&gt;
+&lt;p&gt;한 번은, symbolic link 경로로 workspace directory 를 열었을 때 디버깅 문제가 생겼었다. 반대로 말하면, symbolic link 경로가 아닌 &lt;strong&gt;실제 directory 경로로 workspace 를 열어야&lt;/strong&gt; 한다.&lt;/p&gt;
+&lt;p&gt;예를 들어, &lt;code&gt;/home/interp/&lt;/code&gt; 는 사실 symbolic link 이고, 실제 경로는 &lt;code&gt;/SSD/homes/interp&lt;/code&gt; 이라고 가정하자. 그렇다면, &lt;em&gt;File - Open Folder..&lt;/em&gt; 메뉴로 directory 를 열 때, 다음 중 하나만 디버깅이 가능하다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;/home/interp/workspace_python&lt;/code&gt; &amp;#x274c;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/SSD/homes/interp/workspace_python&lt;/code&gt; &amp;#x2705;&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>VSCodeVim: 분리된 줄 위/아래로 커서 이동하기</title><link>https://interp.blog/vim-wrapping-line-cursor-up-down/</link><pubDate>Fri, 15 Apr 2022 02:45:00 +0900</pubDate><guid>https://interp.blog/vim-wrapping-line-cursor-up-down/</guid><description>&lt;p&gt;VSCode 에서도 Vim 환경을 쓰고 싶어서 &lt;a class="link" href="https://github.com/VSCodeVim/Vim" target="_blank" rel="noopener"
+ &gt;VSCodeVim&lt;/a&gt; 을 설치해서 쓰고 있다.&lt;/p&gt;
+&lt;p&gt;&lt;img loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://interp.blog/images/2022-04-15-vscodevim.png"&gt;&lt;/p&gt;
+&lt;p&gt;그런데 위와 같이 markdown 편집을 할 때 처럼 줄 분리가 이뤄져서 (line wrapping) 사실 한 줄인데 여러 줄로 보여지는 경우에는, 커서를 아래로 내릴 경우에 &lt;em&gt;실제&lt;/em&gt; 다음 줄 로 이동한다. &lt;strong&gt;화면에 보이는 줄이 아니라, 실제 줄로 이동하기 때문에&lt;/strong&gt;, 커서를 옮길 때 여간 불편한 게 아니다.&lt;/p&gt;
+&lt;h2 id="해결-방법"&gt;해결 방법
+&lt;/h2&gt;&lt;p&gt;Vim 도 사실 line wrapping 이 되었을 때 같은 문제가 있고, (문제라기 보다는 특성인데) 원하는 방법대로 우회할 수 있는 방법을 &lt;a class="link" href="https://vim.fandom.com/wiki/Move_cursor_by_display_lines_when_wrapping" target="_blank" rel="noopener"
+ &gt;여기&lt;/a&gt;서 찾았다. 이 방법을 그대로 VSCode 에도 적용한 것이다.&lt;/p&gt;
+&lt;p&gt;먼저 Settings 를 열어서 &lt;strong&gt;Vim: Normal Mode Key Bindings&lt;/strong&gt; 로 이동하면, Edit in settings.json 링크가 있다. 이걸 눌러서 다음을 추가하자.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-json" data-lang="json"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="s2"&gt;&amp;#34;vim.normalModeKeyBindings&amp;#34;&lt;/span&gt;&lt;span class="err"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;before&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&amp;lt;Up&amp;gt;&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;after&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;g&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;k&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;before&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&amp;lt;Down&amp;gt;&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;after&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;g&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;j&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;적용하고 곧바로 편집 중인 파일로 돌아오면 적용이 되어 있는 걸 볼 수 있다. 이제 커서를 위/아래로 움직여도 화면에 보이는 윗줄/아랫줄로 이동한다!&lt;/p&gt;</description></item></channel></rss>

@@ -1,394 +1,410 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Kubernetes ⚓ on InterP Blog</title><link>https://interp.blog/tags/k8s/</link><description>Recent content in Kubernetes ⚓ on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Mon, 06 Nov 2023 13:41:01 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/k8s/index.xml" rel="self" type="application/rss+xml"/><item><title>Argo workflow 3가지 기본 개념</title><link>https://interp.blog/argo-workflow-intro/</link><pubDate>Mon, 06 Nov 2023 13:41:01 +0900</pubDate><guid>https://interp.blog/argo-workflow-intro/</guid><description>&lt;img src="https://interp.blog/argo-workflow-intro/feature.png" alt="Featured image of post Argo workflow 3가지 기본 개념" />&lt;p>&lt;a class="link" href="https://argoproj.github.io/argo-workflows/" target="_blank" rel="noopener"
->Argo workflow&lt;/a> 는, 쿠버네티스 환경에서 Job 을 효율적으로 실행하기 위한 컨테이너 기반의 워크플로우 엔진이다. 그리고 오픈소스이다.&lt;/p>
-&lt;p>K8s 에서 이미 Job 이나 Cronjob 을 지원하지만, 각각의 Job (여기서는 template) 에 대한 상관관계 (dependency) 를 List 나 DAG 로 지정할 수 있고, 관련이 없는 Job들을 병렬로 실행할 수 있는 것은 물론, 실행 결과를 쉽게 추적할 수 있는 등의 다양한 기능을 추가로 지원한다.&lt;/p>
-&lt;p>여기서는 Argo 의 클러스터 설치는 건너뛰고, Argo 를 클러스터에서 사용할 때 갖춰야 할 기본 개념만 간단히 정리해 보았다.&lt;/p>
-&lt;h1 id="workflow">Workflow&lt;/h1>
-&lt;p>&lt;a class="link" href="https://argoproj.github.io/argo-workflows/workflow-concepts/" target="_blank" rel="noopener"
->Core concepts&lt;/a> 에서 소개된 대로, &lt;strong>Workflow&lt;/strong> CR (custom-resource) 는 정적인 정의 리소스 (a static definition resource) 처럼 보이지만, 일종의 워크플로우 실행 &amp;lsquo;인스턴스&amp;rsquo; 로 취급된다. 무엇을 실행할지 정의해 둔 객체이면서도, 동시에 (Job 이나 Cronjob 처럼) Succeeded 와 같은 &lt;em>상태&lt;/em>를 남기는 것과 같다고 보면 된다.&lt;/p>
-&lt;p>Workflow CR 에서 정의되는 &amp;lsquo;할 일 (work)&amp;rsquo; 의 개념은 &lt;code>spec.templates&lt;/code> 에서 정의된다. 할 일이 여러 개일 때, 작업 순서가 Step 형태인지, DAG 형태인지에 따라 steps 또는 tasks 라는 이름으로 세분화되기는 하지만, 기본적으로 Workflow 는 하나 또는 여러 개의 template 을 가진다고 생각하면 된다. (template = work)&lt;/p>
-&lt;p>&lt;a class="link" href="https://argoproj.github.io/argo-workflows/walk-through/hello-world/" target="_blank" rel="noopener"
->Getting Started&lt;/a> 에서 Hello World Workflow 를 심어보도록 하자. &lt;code>kubectl&lt;/code> 을 이용해 Workflow CR 자체를 클러스터에 바로 적용해도 되고, &lt;code>argo&lt;/code> CLI 명령을 이용해서 입력해도 된다.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="c1"># 둘 모두 결과는 같다.&lt;/span>
-kubectl apply -f https://raw.githubusercontent.com/argoproj/argo-workflows/master/examples/hello-world.yaml
-argo submit https://raw.githubusercontent.com/argoproj/argo-workflows/master/examples/hello-world.yaml
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Workflow 확인은 argo CLI 를 쓰는게 편하다.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">argo get @latest
-&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="template">template&lt;/h1>
-&lt;p>&lt;strong>template&lt;/strong> 은 여섯가지의 타입으로 나뉘어 지는데, 여기 정리하는 것보다는 각각 매뉴얼을 보는게 훨씬 나을 것이므로 종류만 간단히 소개한다.&lt;/p>
-&lt;h2 id="template-정의httpsargoprojgithubioargo-workflowsworkflow-conceptstemplate-definitions">&lt;a class="link" href="https://argoproj.github.io/argo-workflows/workflow-concepts/#template-definitions" target="_blank" rel="noopener"
->template 정의&lt;/a>&lt;/h2>
-&lt;p>Definition 이라고도 하고, work 라고도 한다. 즉, 실제로 무엇을 할지 정의하는 부분이다. 아래 4가지는 모두 이름 (name) 이 반드시 포함되어야 한다.&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>Container&lt;/strong>: docker image 를 내려받아, 클러스터 안에서 컨테이너를 확보해 &lt;code>args&lt;/code> 를 실행한다.&lt;/li>
-&lt;li>&lt;strong>Script&lt;/strong>: &lt;em>Container&lt;/em> 와 유사하지만 &lt;code>source&lt;/code> 에 정의된 스크립트 내용을 실행한다. Shell Script 나 Python 코드 블럭이 주로 사용된다.&lt;/li>
-&lt;li>&lt;strong>Resource&lt;/strong>: 클러스터 안에 있는 리소스를 직접 생성하거나 삭제한다. &lt;code>manifest&lt;/code> 에 정의된 리소스를 생성하거나 삭제한다. 당연하게도 이 부분엔 제약이 있는데, 연결된 ServiceAccount 에 리소스를 제어할 수 있는 적절한 RoleBinding 이 걸려있어야 한다.&lt;/li>
-&lt;li>&lt;strong>Suspend&lt;/strong>: 단순히 Workflow 를 잠시금 멈추게 한다. 여기서 걸려서 쉬고있을 때 &lt;code>argo resume&lt;/code> 을 통해 다음으로 진행이 가능하다.&lt;/li>
-&lt;/ul>
-&lt;h2 id="template-실행httpsargoprojgithubioargo-workflowsworkflow-conceptstemplate-invocators">&lt;a class="link" href="https://argoproj.github.io/argo-workflows/workflow-concepts/#template-invocators" target="_blank" rel="noopener"
->template 실행&lt;/a>&lt;/h2>
-&lt;p>Invocator 라고도 하고, orchestration 이라고도 한다. 즉, 앞서 정의해 둔 template 을 어떻게 실행할지 정의하는 부분이다. 따라서 &lt;code>template:&lt;/code> 부분에는, 이미 정의된 template 이름을 참조하게 된다.&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>Steps&lt;/strong>: 여러 개의 step 을 정의하고, 순차적으로 (혹은 병렬로) 실행한다.&lt;/li>
-&lt;li>&lt;strong>DAG&lt;/strong>: 여러 개의 task 를 DAG 로 정의할 수 있다. 이 때 edge 는 template 의 이름이 아닌 task 의 이름이어야 한다.&lt;/li>
-&lt;/ul>
-&lt;h1 id="workflowtemplate">WorkflowTemplate&lt;/h1>
-&lt;p>Argo 를 접하면서 가장 헷갈렸던 부분이 바로 &lt;strong>WorkflowTemplate&lt;/strong> CR 이었다. 아까 들은 &lt;em>template&lt;/em> 이랑 무슨 관계인가?&lt;/p>
-&lt;p>&lt;a class="link" href="https://argoproj.github.io/argo-workflows/workflow-templates/" target="_blank" rel="noopener"
->소개 페이지&lt;/a> 에서 짚어준 내용을 들여다 보면, 이 CR 은 Workflow 를 템플릿한다는 뜻이고 앞선 template 과는 관련이 적다는 점을 알 수 있다.&lt;/p>
-&lt;ol>
-&lt;li>&lt;em>WorkflowTemplate&lt;/em> CR 은 Workflow 를 재사용하기 위해 만든 CR 이다. 즉, Workflow 에서 &amp;lsquo;정적인 정의&amp;rsquo; 부분을 저장해두려고 만든 것이다.&lt;/li>
-&lt;li>&lt;em>template&lt;/em> 은 Workflow 의 &amp;lsquo;할 일&amp;rsquo; 을 정의한 것이다. &lt;strong>Workflow CR 도, WorkflowTemplate CR 도 한 개의 (또는 여러 개의) template 을 가지고 있어야 한다.&lt;/strong>&lt;/li>
-&lt;/ol>
-&lt;hr>
-&lt;p>Argo workflow 에서 주로 사용되는 &lt;del>그러면서 엄청나게 헷갈리는&lt;/del> 세 가지 개념을 먼저 짚어봤다. 다음에는 어떻게 workflow 를 관리하고 모니터링 할 수 있는지 CLI 와 UI 도구를 잘 써 봐야겠다.&lt;/p></description></item><item><title>K8s Headless Service, 왜 필요한가</title><link>https://interp.blog/k8s-headless-service-why/</link><pubDate>Thu, 22 Dec 2022 11:13:12 +0900</pubDate><guid>https://interp.blog/k8s-headless-service-why/</guid><description>&lt;p>K8s Resource 를 보거나 Helm Chart 를 보거나 헷갈리는 개념 중 하나가 바로 &lt;strong>&amp;lsquo;Headless Service&amp;rsquo;&lt;/strong> 이다.&lt;/p>
-&lt;figure>
-&lt;img loading="lazy" src="20221220_63a1afceb4826.jpg"
-alt="흐라챠!" width="40%"/> &lt;figcaption>
-&lt;p>흐라챠!&lt;/p>
-&lt;/figcaption>
-&lt;/figure>
-&lt;p>머리가 없는 서비스를 &lt;del>위 짤방처럼&lt;/del> 왜 만드는 건지부터 이해하려면, 먼저 서비스가 왜 필요한지 알아야 한다.&lt;/p>
-&lt;h1 id="설명-먼저">설명 먼저&lt;/h1>
-&lt;p>공식 문서 설명을 먼저 보자. &lt;a class="link" href="https://kubernetes.io/docs/concepts/services-networking/service/#headless-services" target="_blank" rel="noopener"
->영어 원문&lt;/a>과 &lt;a class="link" href="https://kubernetes.io/ko/docs/concepts/services-networking/service/#%ED%97%A4%EB%93%9C%EB%A6%AC%EC%8A%A4-headless-%EC%84%9C%EB%B9%84%EC%8A%A4" target="_blank" rel="noopener"
->한국어 번역본&lt;/a>을 적절히 믹스했다.&lt;/p>
-&lt;blockquote>
-&lt;p>로드 밸런싱 (Load-balancing) 이나 단일 서비스 IP 가 필요하지 않은 경우엔, &amp;lsquo;헤드리스&amp;rsquo; 서비스라는 것을 만들 수 있다. &lt;code>.spec.clusterIP: None&lt;/code> 을 명시적으로 지정하면 된다.&lt;/p>
-&lt;p>이 헤드리스 서비스를 통해, 쿠버네티스의 구현에 의존하지 않고도 다른 서비스 디스커버리 메커니즘과 인터페이스할 수 있다.&lt;/p>
-&lt;p>헤드리스 서비스의 경우 (각 node 에 상주하는) kube-proxy 가 해당 서비스를 처리하지 않는데, 즉 로드 밸런싱 또는 프록시를 하지 않는다. DNS가 자동으로 구성되는 방법은 서비스에 &lt;code>selector&lt;/code> 가 정의되어 있는지에 달려있다.&lt;/p>
-&lt;/blockquote>
-&lt;p>나름 의역을 섞어가며 최대한 쉽게 풀려고 노력했지만&amp;hellip; &lt;em>죄송합니다.&lt;/em> 지금 읽어봐도 무슨 소리를 하는지 잘 모르겠다.&lt;/p>
-&lt;p>아마도, 영어 설명에서 함의된 내용이 너무나 많기 때문인 것 같다.&lt;/p>
-&lt;hr>
-&lt;p>내가 가장 마음에 들어하는 다른 설명을 가져와 봤다. 이번엔 &lt;a class="link" href="https://stackoverflow.com/questions/52707840/what-is-a-headless-service-what-does-it-do-accomplish-and-what-are-some-legiti" target="_blank" rel="noopener"
->스택 오버플로우 답변&lt;/a>이다.&lt;/p>
-&lt;blockquote>
-&lt;p>Service 로 향하는 네트워크 연결은 결국 서비스 아래에 존재하는 여러 Pod 중 하나로 가게 될 겁니다. 그런데, &lt;strong>클라이언트가 Pod 1개가 아니라 모든 Pod 들과 통신해야 한다면요&lt;/strong>? 만약 &lt;strong>같은 서비스 아래에 있는 Pod A 와 Pod B 가 서로 통신해야 한다면요&lt;/strong>?&lt;/p>
-&lt;p>Service 를 통하는 건 확실한 방법은 아닙니다. 그럼 뭘까요?&lt;/p>
-&lt;p>모든 Pod 들과 통신해야 하는 클라이언트를 위해, 개별 Pod 의 IP 주소를 알아내는 게 필요하겠죠. 그러면 클라이언트가 K8s API Server 에 직접 요청해서 해당 Pod 들의 IP 리스트를 얻어내는 방법이 있습니다. 이상적인 방법은 아닙니다. &lt;strong>개발 중인 어플리케이션을 K8s Cluster 가 있는지조차 모르게 (K8s-agnostic) 만들고 싶어 하잖아요.&lt;/strong>&lt;/p>
-&lt;p>다행히도, Kubernetes 는 클라이언트에게 Pod IP 리스트를 알려주는 방법을 DNS Lookup 을 통해 제공합니다. 대개는, 어떤 Service 를 위한 DNS Lookup 를 수행하면 DNS 서버는 IP 주소 1개를 반환합니다. 바로 Service 의 &lt;em>Cluster IP&lt;/em> 죠.&lt;/p>
-&lt;p>그런데 여러분이 Service 를 만들 때 Cluster IP 가 필요 없다고 알려주면, 해당 Service 에 대한 DNS Lookup 요청이 DNS 서버에 오게 될 때, Service 에 소속된 Pod IP 주소 목록을 전부 반환합니다. &lt;strong>즉, DNS A 레코드 1개가 아니라, 각각의 Pod 과 통신할 수 있는 A 레코드 여러 개가 반환되는 것이죠.&lt;/strong> 그러면 클라이언트는 간단하게 이 A 레코드를 순회하면서 다시 DNS Lookup 을 할 수 있고 실제 Pod 들의 IP 를 얻을 수 있습니다.&lt;/p>
-&lt;/blockquote>
-&lt;p>보통 Service 의 역할은, Service 로 들어온 요청을 &lt;em>여러 개의 Pod 중 하나&lt;/em> 에만 전달하는 것이다. 하지만 이 요청이 &lt;strong>모든 Pod 에&lt;/strong> 전달되어야 하는 경우에는 적합하지 않다.&lt;/p>
-&lt;p>이를 위해서 k8s-api-server 에 요청해서, Service 에 속한 Pod 의 IP 리스트를 얻어오도록 애플리케이션을 구성할 수는 있겠지만, 그 때부터 애플리케이션은 해당 API 서버 위치에 의존해야 하기 때문에 적절한 방법이 아닌 것이다.&lt;/p>
-&lt;p>위의 설명대로라면, Cluster IP 를 없앤 Service 의 경우 DNS Server 가 모든 Pod 들의 A 레코드를 직접 알려주는 (resolving) 것이다. &lt;strong>요청을 수신받을 Cluster IP 가 없으니, 머리가 없는 Service 라고 부를 수 있겠다.&lt;/strong>&lt;/p>
-&lt;h1 id="데모">데모&lt;/h1>
-&lt;p>사실 데모는 다른 블로그에서 많이 찾아볼 수 있어서, 최소한으로 재현 할 수 있는 방법을 알아보도록 하자.&lt;/p>
-&lt;h2 id="deployment-생성">Deployment 생성&lt;/h2>
-&lt;p>우리는 &lt;code>nginx&lt;/code> 로 포트 오픈도 해 두고 &lt;code>curl&lt;/code> 이나 &lt;code>nslookup&lt;/code> 으로 Pod 간 통신을 체크해야 하니, &lt;code>praqma/network-multitool&lt;/code> 이미지로 replica 3개의 deployment 를 하나 만들도록 하자.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">kubectl create deployment test-deploy --image&lt;span class="o">=&lt;/span>praqma/network-multitool --replicas&lt;span class="o">=&lt;/span>&lt;span class="m">3&lt;/span> --port&lt;span class="o">=&lt;/span>&lt;span class="m">80&lt;/span>
-kubectl get pods -lapp&lt;span class="o">=&lt;/span>test-deploy -o wide
-&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">NAME READY STATUS ...
-test-deploy-7bff8c5f84-hxcfw 1/1 Running ...
-test-deploy-7bff8c5f84-rjdm9 1/1 Running ...
-test-deploy-7bff8c5f84-w5l8j 1/1 Running ...
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>첫 번째 Pod 의 IP 가 &lt;code>200.96.1.50&lt;/code> 이다. 두 번째 Pod 에서 첫 번째 Pod 으로 접속을 시도해 보자.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="c1"># connect to test-deploy-7bff8c5f84-hxcfw &lt;/span>
-kubectl &lt;span class="nb">exec&lt;/span> test-deploy-7bff8c5f84-rjdm9 -it -- curl 200.96.1.50:80
-&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">Praqma Network MultiTool (with NGINX) - test-deploy-7bff8c5f84-hxcfw - ...
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>접속이 잘 된다. 하지만 여기 보이는 Pod IP 는 &lt;strong>언제든지 바뀔 수 있기 때문에&lt;/strong> 이런 식으로 쓰면 안 된다.&lt;/p>
-&lt;h2 id="headless-service-생성">Headless Service 생성&lt;/h2>
-&lt;p>이제 Headless Service 를 만들어보자. 이번에는 바로 만들지 말고 manifest 를 YAML 파일로 저장해 둔 다음에 수정이 좀 필요하다.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">kubectl create service clusterip test-cs-svc --clusterip&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;None&amp;#34;&lt;/span> &lt;span class="se">\
-&lt;/span>&lt;span class="se">&lt;/span> --tcp&lt;span class="o">=&lt;/span>80:80 --dry-run&lt;span class="o">=&lt;/span>client -oyaml &amp;gt; test-cs-svc.yaml
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Headless 로 만드는 핵심 옵션이 바로 &lt;code>--clusterip=&amp;quot;None&amp;quot;&lt;/code> 라는 걸 알 수 있다. 여기서 출력되는 파일을 열어서, &lt;code>spec.selector&lt;/code> 를 deployment 의 것으로 바꿔줘야 한다.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">v1&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Service&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">creationTimestamp&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">null&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">labels&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">app&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">test-cs-svc&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">test-cs-svc&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">clusterIP&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">None&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">ports&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">80-80&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">port&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">80&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">protocol&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">TCP&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">targetPort&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">80&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">selector&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">app&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">test-deploy&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># test-deploy deployment 가 가지고 있던 app label&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ClusterIP&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">status&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">loadBalancer&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{}&lt;span class="w">
-&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>저장해 주고, 해당 YAML 파일을 적용하자.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">kubectl apply -f test-cs-svc.yaml
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="dns-lookup-하기">DNS Lookup 하기&lt;/h2>
-&lt;p>이제 남은 일은 Service 의 domain name 을 가지고 DNS Lookup 을 한 결과를 받아오는 일이다.&lt;/p>
-&lt;p>그런데, domain name 을 어떻게 아냐고? 마지막 참고 자료에 있는 &lt;a class="link" href="https://kubernetes.io/ko/docs/concepts/services-networking/dns-pod-service/" target="_blank" rel="noopener"
->K8s DNS&lt;/a> 를 읽어봐도 좋지만, 직접 알아보기 위해서는 아까 생성한 Pod 에서 &lt;code>/etc/resolv.conf&lt;/code> 가 어떻게 설정되어 있는지 확인하면 된다.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">kubectl &lt;span class="nb">exec&lt;/span> test-deploy-7bff8c5f84-rjdm9 -it -- cat /etc/resolv.conf
-&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">search default.svc.cluster.local svc.cluster.local ...
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>여기 잘 보면, 해당 Pod 위치에서 요청하는 domain name 에 &lt;code>default.svc.cluster.local&lt;/code> 을 자동으로 붙여서 resolving 하려는 걸 볼 수 있다. (default namespace 에 있는 모든 Pod 들이 똑같을 것이다)&lt;/p>
-&lt;p>즉, 우리는 전체 domain name 을 알 필요가 없이 Service Name 만 가지고도 DNS Lookup 을 할 수 있다.&lt;/p>
-&lt;p>바로 Lookup 을 하러 가보자. 똑같이 &lt;code>kubectl exec&lt;/code> 를 할 텐데, 이번에는 &lt;code>nslookup&lt;/code> 을 해보도록 한다. domain name 은 그냥 Service Name 을 입력한다.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">kubectl &lt;span class="nb">exec&lt;/span> test-deploy-7bff8c5f84-rjdm9 -it -- nslookup test-cs-svc
-&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">Server: 200.64.0.10
-Address: 200.64.0.10#53
-Name: test-cs-svc.default.svc.cluster.local
-Address: 200.96.1.50
-Name: test-cs-svc.default.svc.cluster.local
-Address: 200.96.0.59
-Name: test-cs-svc.default.svc.cluster.local
-Address: 200.96.2.24
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>여러 개의 A 레코드로 이뤄진 Pod IP 목록을 얻을 수 있다. 그리고 &lt;code>test-cs-svc&lt;/code> 처럼 Service Name 만 입력했을 뿐인데 &lt;code>test-cs-svc.default.svc.cluster.local&lt;/code> 로 바뀐 것도 볼 수 있다.&lt;/p>
-&lt;h2 id="head-를-달아주면요">Head 를 달아주면요?&lt;/h2>
-&lt;p>이번에는 &lt;code>test-cs-svc-head&lt;/code> 라는 이름의 Service 를 하나 더 만들자.&lt;/p>
-&lt;p>단순히, &lt;code>spec.clusterIP: None&lt;/code> 부분만 없는 &lt;code>test-cs-svc&lt;/code> 나 다름없다. 아까 만들어 둔 파일에서 &lt;code>metadata.name&lt;/code> 부분과 &lt;code>spec.clusterIP&lt;/code> 부분만 바꿔서 &lt;code>kubectl apply -f&lt;/code> 로 적용해 보자.&lt;/p>
-&lt;p>수정한 다음, 아까와 같이 &lt;code>nslookup&lt;/code> 을 해보자.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">kubectl &lt;span class="nb">exec&lt;/span> test-deploy-7bff8c5f84-rjdm9 -it -- nslookup test-cs-svc-head
-&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">Server: 200.64.0.10
-Address: 200.64.0.10#53
-Name: test-cs-svc-head.default.svc.cluster.local
-Address: 200.68.238.114
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>이 IP 는 어디서 왔을까? 바로 Service 의 Cluster IP 되시겠다.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">kubectl get svc test-cs-svc-head
-&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">NAME TYPE CLUSTER-IP EXTERNAL-IP PORT(S) AGE
-test-cs-svc-head ClusterIP 200.68.238.114 &amp;lt;none&amp;gt; 80/TCP 2m32s
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="주의할-점">주의할 점&lt;/h2>
-&lt;p>&lt;code>test-cs-svc&lt;/code> 나 &lt;code>test-cs-svc-head&lt;/code> 는 DNS Lookup 에서는 차이를 보이지만, &lt;code>curl&lt;/code> 결과는 차이가 없다. 더 자세히 말하면, &lt;strong>두 요청 모두 3개의 Pod 중 1개에만 랜덤하게 전달된다는 것이다.&lt;/strong>&lt;/p>
-&lt;p>다음 명령들을 반복적으로 실행해 보자. 목적지 Pod 주소가 매번 다를 것이다.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">kubectl &lt;span class="nb">exec&lt;/span> test-deploy-7bff8c5f84-rjdm9 -it -- curl test-cs-svc:80 &lt;span class="p">|&lt;/span> head -2
-kubectl &lt;span class="nb">exec&lt;/span> test-deploy-7bff8c5f84-rjdm9 -it -- curl test-cs-svc-head:80 &lt;span class="p">|&lt;/span> head -2
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>왜 이렇게 되는 것일까? Headless Service 의 경우, DNS Lookup 하는 A 레코드 순서가 랜덤으로 전달되고 &lt;code>curl&lt;/code> 은 그저 맨 위의 것을 쓰기 때문이다. &lt;code>nslookup&lt;/code> 을 반복적으로 해 보면 보다 더 확실해 질 것이다.&lt;/p>
-&lt;h1 id="이해를-돕기-위한-기초자료">이해를 돕기 위한 기초자료&lt;/h1>
-&lt;p>혹시 아직도 이해가 잘 안된다면, 기초자료로 다음을 참고해보자. &lt;del>혹은 &lt;a class="link" href="https://interp.blog/cka-exam-review/" >CKA 시험 준비&lt;/a>를 하는 것도 좋은 방법이다!&lt;/del>&lt;/p>
-&lt;ul>
-&lt;li>&lt;a class="link" href="https://kubernetes.io/ko/docs/concepts/services-networking/service/" target="_blank" rel="noopener"
->K8s Service&lt;/a>&lt;/li>
-&lt;li>&lt;a class="link" href="https://kubernetes.io/ko/docs/concepts/services-networking/dns-pod-service/" target="_blank" rel="noopener"
->K8s DNS&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>K8s Operator vs. Controller</title><link>https://interp.blog/kubernetes-operator-vs-controller/</link><pubDate>Tue, 15 Mar 2022 02:44:57 +0000</pubDate><guid>https://interp.blog/kubernetes-operator-vs-controller/</guid><description>&lt;p>쿠버네티스에서 서비스를 개발하거나 운영하다 보면 자주 접하게 될 개념 중 하나가, 바로 이 Controller 와 Operator 일 것이다. 어떤 경우에는, 동일한 서비스를 두고 &amp;lsquo;이건 Controller 야&amp;rsquo; 라고 말 할 때도 있고 &amp;lsquo;이 Operator 는&amp;hellip;&amp;rsquo; 이라고 불릴 때도 있어서 헷갈릴 수 있다. 심지어 공식 문서에서도 두 개념에 대한 비교는 하지 않고 있어서 명확한 구분이 필요한 것 같다.&lt;/p>
-&lt;p>와중에 &lt;a class="link" href="https://blog.marcnuri.com/kubernetes-operator-vs-controller" target="_blank" rel="noopener"
->이 문서&lt;/a>를 발견했는데, 요약하자면 이렇다.&lt;/p>
-&lt;h1 id="controller">Controller&lt;/h1>
-&lt;blockquote>
-&lt;p>So in the Kubernetes world, a controller will basically &lt;strong>monitor and measure the cluster resources state to adjust those resources that diverge from the desired state&lt;/strong>.&lt;/p>
-&lt;/blockquote>
-&lt;p>더 줄여보면, Controller 는 (1) K8s 리소스의 상태를 체크하고 (2) 이 리소스들의 상태를 &amp;lsquo;목표 상태 (desired state)&amp;rsquo; 로 조정하는 역할을 한다.&lt;/p>
-&lt;p>&lt;code>ReplicaSet&lt;/code>, &lt;code>StatefulSet&lt;/code>, &lt;code>DaemonSet&lt;/code> 이 대표적인 Controller 들이다. 이 리소스에 속해 있는 Pod 들의 상태를 &amp;lsquo;목표 상태&amp;rsquo; 로 만들기 위해, Pod 을 추가하거나 삭제한다.&lt;/p>
-&lt;h1 id="operator">Operator&lt;/h1>
-&lt;p>CoreOS 에서 정의하는 Operator 는 다음과 같다.&lt;/p>
-&lt;blockquote>
-&lt;p>An Operator is &lt;strong>a method of packaging, deploying and managing a Kubernetes application&lt;/strong>.&lt;/p>
-&lt;/blockquote>
-&lt;p>그런데 이 개념을 구현하기 위해서는 필연적으로 Controller 가 들어가게 된다.&lt;/p>
-&lt;p>그렇다면 Controller 와 비교했을 때 Operator 의 차이점은 무엇일까?&lt;/p>
-&lt;h1 id="operator-vs-controller">Operator vs. Controller&lt;/h1>
-&lt;p>여기에서 말하는 &amp;lsquo;&lt;em>Kubernetes application&lt;/em>&amp;rsquo; 란, 사용자가 직접 지정할 수 있는 CRD (Custom Resource Definition) 과 거기서 파생된 CR (Custom Resource) 까지 포함하고 있는 것이다.&lt;/p>
-&lt;p>예를 들면, Orange 라는 CRD 를 하나 만들어 보자.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">apiextensions.k8s.io/v1beta1&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">CustomResourceDefinition&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">oranges.example.com&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">group&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">example.com&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">version&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">v1&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">scope&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Namespaced&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">names&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">plural&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">oranges&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">singular&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">orange&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Orange&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">subresources&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">status&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{}&lt;span class="w">
-&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>이 정의 (definition)를 가지고, &lt;code>orange1&lt;/code> 이란 CR 을 하나 만들 수 있을 것이다.&lt;/p>
-&lt;p>특정 Orange CR 이 만들어지거나 수정될 때, 삭제될 때엔 뭘 해야 하는지 정의하는 코드를 만들 수 있을 것이다. 예를 들면, Orange CR 에는 1개의 &lt;code>Service&lt;/code> 와 1개의 &lt;code>Pod&lt;/code> 이 만들어져야 한다고 해보자. 그걸 Golang 으로 아주 간단히 표현하면,&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">h&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">orangeHandler&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">Handle&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ctx&lt;/span> &lt;span class="nx">context&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Context&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">req&lt;/span> &lt;span class="nx">reconcile&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Request&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">reconcile&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Result&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">error&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;span class="c1">// Get the Orange instance
-&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">orange&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">examplev1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Orange&lt;/span>&lt;span class="p">{}&lt;/span>
-&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">sdk&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ctx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">req&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">NamespacedName&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">orange&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;span class="k">if&lt;/span> &lt;span class="nx">errors&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">IsNotFound&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">err&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;span class="k">return&lt;/span> &lt;span class="nx">reconcile&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Result&lt;/span>&lt;span class="p">{},&lt;/span> &lt;span class="kc">nil&lt;/span>
-&lt;span class="p">}&lt;/span>
-&lt;span class="k">return&lt;/span> &lt;span class="nx">reconcile&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Result&lt;/span>&lt;span class="p">{},&lt;/span> &lt;span class="nx">errors&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Wrap&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">err&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;failed to get Orange instance&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;span class="p">}&lt;/span>
-&lt;span class="c1">// Create the Pod for the Orange instance
-&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">pod&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">corev1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Pod&lt;/span>&lt;span class="p">{&lt;/span>
-&lt;span class="nx">ObjectMeta&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">metav1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ObjectMeta&lt;/span>&lt;span class="p">{&lt;/span>
-&lt;span class="nx">Name&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">orange&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Name&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="s">&amp;#34;-pod&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;span class="nx">Namespace&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">orange&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Namespace&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;span class="nx">Labels&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kd">map&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">{&lt;/span>
-&lt;span class="s">&amp;#34;app&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">orange&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Name&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;span class="p">},&lt;/span>
-&lt;span class="p">},&lt;/span>
-&lt;span class="nx">Spec&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">corev1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">PodSpec&lt;/span>&lt;span class="p">{&lt;/span>
-&lt;span class="nx">Containers&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="nx">corev1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Container&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="o">...&lt;/span>&lt;span class="p">},&lt;/span>
-&lt;span class="p">},&lt;/span>
-&lt;span class="p">}&lt;/span>
-&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">sdk&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Create&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ctx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">pod&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;span class="k">return&lt;/span> &lt;span class="nx">reconcile&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Result&lt;/span>&lt;span class="p">{},&lt;/span> &lt;span class="nx">errors&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Wrap&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">err&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;failed to create Pod&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;span class="p">}&lt;/span>
-&lt;span class="c1">// Create the Service for the Orange instance
-&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">service&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">corev1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Service&lt;/span>&lt;span class="p">{&lt;/span>
-&lt;span class="nx">ObjectMeta&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">metav1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ObjectMeta&lt;/span>&lt;span class="p">{&lt;/span>
-&lt;span class="nx">Name&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">orange&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Name&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="s">&amp;#34;-service&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;span class="nx">Namespace&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">orange&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Namespace&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;span class="nx">Labels&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kd">map&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">{&lt;/span>
-&lt;span class="s">&amp;#34;app&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">orange&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Name&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;span class="p">},&lt;/span>
-&lt;span class="p">},&lt;/span>
-&lt;span class="nx">Spec&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">corev1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ServiceSpec&lt;/span>&lt;span class="p">{&lt;/span>
-&lt;span class="nx">Selector&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kd">map&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">{&lt;/span>
-&lt;span class="s">&amp;#34;app&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">orange&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Name&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;span class="p">},&lt;/span>
-&lt;span class="nx">Ports&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="nx">corev1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ServicePort&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="o">...&lt;/span>&lt;span class="p">},&lt;/span>
-&lt;span class="nx">Type&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">corev1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ServiceTypeClusterIP&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;span class="p">},&lt;/span>
-&lt;span class="p">}&lt;/span>
-&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">sdk&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Create&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ctx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">service&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;span class="c1">// Error creating the Service
-&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="nx">reconcile&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Result&lt;/span>&lt;span class="p">{},&lt;/span> &lt;span class="nx">errors&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Wrap&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">err&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;failed to create Service&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;span class="p">}&lt;/span>
-&lt;span class="k">return&lt;/span> &lt;span class="nx">reconcile&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Result&lt;/span>&lt;span class="p">{},&lt;/span> &lt;span class="kc">nil&lt;/span>
-&lt;span class="p">}&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>이처럼 내부에 구현된 Reconcile Loop Code (특정 CR이 수정되는 이벤트를 관찰하고, 이벤트에 맞춰 코드를 실행하는 루프) 는 일종의 Orange &lt;em>&lt;strong>Controller&lt;/strong>&lt;/em> 라고도 부를 수 있다. (또는 이 코드가 실행되는 pod 도 controller 라고 볼 수 있다)&lt;/p>
-&lt;p>하지만 이렇게 Orange CR 을 &lt;em>관리&lt;/em>하는 application 자체를 가리킬 때, 또는 이렇게 관리하는 전체 패턴을 Orange CR 의 &lt;em>&lt;strong>Operator&lt;/strong>&lt;/em> 라고 부를 수 있다. 바꿔 말해서, 실재하는 K8s 리소스인 Service 와 Pod 을 만드는 역할은 Controller 에서 이뤄지지만, Orange CR 의 명세를 관리하는 전체 과정은 Operator 라고 부를 수 있다.&lt;/p>
-&lt;br/>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Kubernetes ⚓ on InterP Blog</title><link>https://interp.blog/tags/k8s/</link><description>Recent content in Kubernetes ⚓ on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Mon, 06 Nov 2023 13:41:01 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/k8s/index.xml" rel="self" type="application/rss+xml"/><item><title>Argo workflow 3가지 기본 개념</title><link>https://interp.blog/argo-workflow-intro/</link><pubDate>Mon, 06 Nov 2023 13:41:01 +0900</pubDate><guid>https://interp.blog/argo-workflow-intro/</guid><description>&lt;img src="https://interp.blog/argo-workflow-intro/feature.png" alt="Featured image of post Argo workflow 3가지 기본 개념" /&gt;&lt;p&gt;&lt;a class="link" href="https://argoproj.github.io/argo-workflows/" target="_blank" rel="noopener"
+ &gt;Argo workflow&lt;/a&gt; 는, 쿠버네티스 환경에서 Job 을 효율적으로 실행하기 위한 컨테이너 기반의 워크플로우 엔진이다. 그리고 오픈소스이다.&lt;/p&gt;
+&lt;p&gt;K8s 에서 이미 Job 이나 Cronjob 을 지원하지만, 각각의 Job (여기서는 template) 에 대한 상관관계 (dependency) 를 List 나 DAG 로 지정할 수 있고, 관련이 없는 Job들을 병렬로 실행할 수 있는 것은 물론, 실행 결과를 쉽게 추적할 수 있는 등의 다양한 기능을 추가로 지원한다.&lt;/p&gt;
+&lt;p&gt;여기서는 Argo 의 클러스터 설치는 건너뛰고, Argo 를 클러스터에서 사용할 때 갖춰야 할 기본 개념만 간단히 정리해 보았다.&lt;/p&gt;
+&lt;h1 id="workflow"&gt;Workflow
+&lt;/h1&gt;&lt;p&gt;&lt;a class="link" href="https://argoproj.github.io/argo-workflows/workflow-concepts/" target="_blank" rel="noopener"
+ &gt;Core concepts&lt;/a&gt; 에서 소개된 대로, &lt;strong&gt;Workflow&lt;/strong&gt; CR (custom-resource) 는 정적인 정의 리소스 (a static definition resource) 처럼 보이지만, 일종의 워크플로우 실행 &amp;lsquo;인스턴스&amp;rsquo; 로 취급된다. 무엇을 실행할지 정의해 둔 객체이면서도, 동시에 (Job 이나 Cronjob 처럼) Succeeded 와 같은 &lt;em&gt;상태&lt;/em&gt;를 남기는 것과 같다고 보면 된다.&lt;/p&gt;
+&lt;p&gt;Workflow CR 에서 정의되는 &amp;lsquo;할 일 (work)&amp;rsquo; 의 개념은 &lt;code&gt;spec.templates&lt;/code&gt; 에서 정의된다. 할 일이 여러 개일 때, 작업 순서가 Step 형태인지, DAG 형태인지에 따라 steps 또는 tasks 라는 이름으로 세분화되기는 하지만, 기본적으로 Workflow 는 하나 또는 여러 개의 template 을 가진다고 생각하면 된다. (template = work)&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="https://argoproj.github.io/argo-workflows/walk-through/hello-world/" target="_blank" rel="noopener"
+ &gt;Getting Started&lt;/a&gt; 에서 Hello World Workflow 를 심어보도록 하자. &lt;code&gt;kubectl&lt;/code&gt; 을 이용해 Workflow CR 자체를 클러스터에 바로 적용해도 되고, &lt;code&gt;argo&lt;/code&gt; CLI 명령을 이용해서 입력해도 된다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 둘 모두 결과는 같다.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;kubectl apply -f https://raw.githubusercontent.com/argoproj/argo-workflows/master/examples/hello-world.yaml
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;argo submit https://raw.githubusercontent.com/argoproj/argo-workflows/master/examples/hello-world.yaml
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Workflow 확인은 argo CLI 를 쓰는게 편하다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;argo get @latest
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="template"&gt;template
+&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;template&lt;/strong&gt; 은 여섯가지의 타입으로 나뉘어 지는데, 여기 정리하는 것보다는 각각 매뉴얼을 보는게 훨씬 나을 것이므로 종류만 간단히 소개한다.&lt;/p&gt;
+&lt;h2 id="template-정의"&gt;&lt;a class="link" href="https://argoproj.github.io/argo-workflows/workflow-concepts/#template-definitions" target="_blank" rel="noopener"
+ &gt;template 정의&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;Definition 이라고도 하고, work 라고도 한다. 즉, 실제로 무엇을 할지 정의하는 부분이다. 아래 4가지는 모두 이름 (name) 이 반드시 포함되어야 한다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Container&lt;/strong&gt;: docker image 를 내려받아, 클러스터 안에서 컨테이너를 확보해 &lt;code&gt;args&lt;/code&gt; 를 실행한다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Script&lt;/strong&gt;: &lt;em&gt;Container&lt;/em&gt; 와 유사하지만 &lt;code&gt;source&lt;/code&gt; 에 정의된 스크립트 내용을 실행한다. Shell Script 나 Python 코드 블럭이 주로 사용된다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Resource&lt;/strong&gt;: 클러스터 안에 있는 리소스를 직접 생성하거나 삭제한다. &lt;code&gt;manifest&lt;/code&gt; 에 정의된 리소스를 생성하거나 삭제한다. 당연하게도 이 부분엔 제약이 있는데, 연결된 ServiceAccount 에 리소스를 제어할 수 있는 적절한 RoleBinding 이 걸려있어야 한다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Suspend&lt;/strong&gt;: 단순히 Workflow 를 잠시금 멈추게 한다. 여기서 걸려서 쉬고있을 때 &lt;code&gt;argo resume&lt;/code&gt; 을 통해 다음으로 진행이 가능하다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="template-실행"&gt;&lt;a class="link" href="https://argoproj.github.io/argo-workflows/workflow-concepts/#template-invocators" target="_blank" rel="noopener"
+ &gt;template 실행&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;Invocator 라고도 하고, orchestration 이라고도 한다. 즉, 앞서 정의해 둔 template 을 어떻게 실행할지 정의하는 부분이다. 따라서 &lt;code&gt;template:&lt;/code&gt; 부분에는, 이미 정의된 template 이름을 참조하게 된다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Steps&lt;/strong&gt;: 여러 개의 step 을 정의하고, 순차적으로 (혹은 병렬로) 실행한다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;DAG&lt;/strong&gt;: 여러 개의 task 를 DAG 로 정의할 수 있다. 이 때 edge 는 template 의 이름이 아닌 task 의 이름이어야 한다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id="workflowtemplate"&gt;WorkflowTemplate
+&lt;/h1&gt;&lt;p&gt;Argo 를 접하면서 가장 헷갈렸던 부분이 바로 &lt;strong&gt;WorkflowTemplate&lt;/strong&gt; CR 이었다. 아까 들은 &lt;em&gt;template&lt;/em&gt; 이랑 무슨 관계인가?&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="https://argoproj.github.io/argo-workflows/workflow-templates/" target="_blank" rel="noopener"
+ &gt;소개 페이지&lt;/a&gt; 에서 짚어준 내용을 들여다 보면, 이 CR 은 Workflow 를 템플릿한다는 뜻이고 앞선 template 과는 관련이 적다는 점을 알 수 있다.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;em&gt;WorkflowTemplate&lt;/em&gt; CR 은 Workflow 를 재사용하기 위해 만든 CR 이다. 즉, Workflow 에서 &amp;lsquo;정적인 정의&amp;rsquo; 부분을 저장해두려고 만든 것이다.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;template&lt;/em&gt; 은 Workflow 의 &amp;lsquo;할 일&amp;rsquo; 을 정의한 것이다. &lt;strong&gt;Workflow CR 도, WorkflowTemplate CR 도 한 개의 (또는 여러 개의) template 을 가지고 있어야 한다.&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;p&gt;Argo workflow 에서 주로 사용되는 &lt;del&gt;그러면서 엄청나게 헷갈리는&lt;/del&gt; 세 가지 개념을 먼저 짚어봤다. 다음에는 어떻게 workflow 를 관리하고 모니터링 할 수 있는지 CLI 와 UI 도구를 잘 써 봐야겠다.&lt;/p&gt;</description></item><item><title>K8s Headless Service, 왜 필요한가</title><link>https://interp.blog/k8s-headless-service-why/</link><pubDate>Thu, 22 Dec 2022 11:13:12 +0900</pubDate><guid>https://interp.blog/k8s-headless-service-why/</guid><description>&lt;p&gt;K8s Resource 를 보거나 Helm Chart 를 보거나 헷갈리는 개념 중 하나가 바로 &lt;strong&gt;&amp;lsquo;Headless Service&amp;rsquo;&lt;/strong&gt; 이다.&lt;/p&gt;
+&lt;figure&gt;
+ &lt;img loading="lazy" src="20221220_63a1afceb4826.jpg"
+ alt="흐라챠!" width="40%"/&gt; &lt;figcaption&gt;
+ &lt;p&gt;흐라챠!&lt;/p&gt;
+ &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;머리가 없는 서비스를 &lt;del&gt;위 짤방처럼&lt;/del&gt; 왜 만드는 건지부터 이해하려면, 먼저 서비스가 왜 필요한지 알아야 한다.&lt;/p&gt;
+&lt;h1 id="설명-먼저"&gt;설명 먼저
+&lt;/h1&gt;&lt;p&gt;공식 문서 설명을 먼저 보자. &lt;a class="link" href="https://kubernetes.io/docs/concepts/services-networking/service/#headless-services" target="_blank" rel="noopener"
+ &gt;영어 원문&lt;/a&gt;과 &lt;a class="link" href="https://kubernetes.io/ko/docs/concepts/services-networking/service/#%ED%97%A4%EB%93%9C%EB%A6%AC%EC%8A%A4-headless-%EC%84%9C%EB%B9%84%EC%8A%A4" target="_blank" rel="noopener"
+ &gt;한국어 번역본&lt;/a&gt;을 적절히 믹스했다.&lt;/p&gt;
+
+ &lt;blockquote&gt;
+ &lt;p&gt;로드 밸런싱 (Load-balancing) 이나 단일 서비스 IP 가 필요하지 않은 경우엔, &amp;lsquo;헤드리스&amp;rsquo; 서비스라는 것을 만들 수 있다. &lt;code&gt;.spec.clusterIP: None&lt;/code&gt; 을 명시적으로 지정하면 된다.&lt;/p&gt;
+&lt;p&gt;이 헤드리스 서비스를 통해, 쿠버네티스의 구현에 의존하지 않고도 다른 서비스 디스커버리 메커니즘과 인터페이스할 수 있다.&lt;/p&gt;
+&lt;p&gt;헤드리스 서비스의 경우 (각 node 에 상주하는) kube-proxy 가 해당 서비스를 처리하지 않는데, 즉 로드 밸런싱 또는 프록시를 하지 않는다. DNS가 자동으로 구성되는 방법은 서비스에 &lt;code&gt;selector&lt;/code&gt; 가 정의되어 있는지에 달려있다.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;p&gt;나름 의역을 섞어가며 최대한 쉽게 풀려고 노력했지만&amp;hellip; &lt;em&gt;죄송합니다.&lt;/em&gt; 지금 읽어봐도 무슨 소리를 하는지 잘 모르겠다.&lt;/p&gt;
+&lt;p&gt;아마도, 영어 설명에서 함의된 내용이 너무나 많기 때문인 것 같다.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;내가 가장 마음에 들어하는 다른 설명을 가져와 봤다. 이번엔 &lt;a class="link" href="https://stackoverflow.com/questions/52707840/what-is-a-headless-service-what-does-it-do-accomplish-and-what-are-some-legiti" target="_blank" rel="noopener"
+ &gt;스택 오버플로우 답변&lt;/a&gt;이다.&lt;/p&gt;
+
+ &lt;blockquote&gt;
+ &lt;p&gt;Service 로 향하는 네트워크 연결은 결국 서비스 아래에 존재하는 여러 Pod 중 하나로 가게 될 겁니다. 그런데, &lt;strong&gt;클라이언트가 Pod 1개가 아니라 모든 Pod 들과 통신해야 한다면요&lt;/strong&gt;? 만약 &lt;strong&gt;같은 서비스 아래에 있는 Pod A 와 Pod B 가 서로 통신해야 한다면요&lt;/strong&gt;?&lt;/p&gt;
+&lt;p&gt;Service 를 통하는 건 확실한 방법은 아닙니다. 그럼 뭘까요?&lt;/p&gt;
+&lt;p&gt;모든 Pod 들과 통신해야 하는 클라이언트를 위해, 개별 Pod 의 IP 주소를 알아내는 게 필요하겠죠. 그러면 클라이언트가 K8s API Server 에 직접 요청해서 해당 Pod 들의 IP 리스트를 얻어내는 방법이 있습니다. 이상적인 방법은 아닙니다. &lt;strong&gt;개발 중인 어플리케이션을 K8s Cluster 가 있는지조차 모르게 (K8s-agnostic) 만들고 싶어 하잖아요.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;다행히도, Kubernetes 는 클라이언트에게 Pod IP 리스트를 알려주는 방법을 DNS Lookup 을 통해 제공합니다. 대개는, 어떤 Service 를 위한 DNS Lookup 를 수행하면 DNS 서버는 IP 주소 1개를 반환합니다. 바로 Service 의 &lt;em&gt;Cluster IP&lt;/em&gt; 죠.&lt;/p&gt;
+&lt;p&gt;그런데 여러분이 Service 를 만들 때 Cluster IP 가 필요 없다고 알려주면, 해당 Service 에 대한 DNS Lookup 요청이 DNS 서버에 오게 될 때, Service 에 소속된 Pod IP 주소 목록을 전부 반환합니다. &lt;strong&gt;즉, DNS A 레코드 1개가 아니라, 각각의 Pod 과 통신할 수 있는 A 레코드 여러 개가 반환되는 것이죠.&lt;/strong&gt; 그러면 클라이언트는 간단하게 이 A 레코드를 순회하면서 다시 DNS Lookup 을 할 수 있고 실제 Pod 들의 IP 를 얻을 수 있습니다.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;p&gt;보통 Service 의 역할은, Service 로 들어온 요청을 &lt;em&gt;여러 개의 Pod 중 하나&lt;/em&gt; 에만 전달하는 것이다. 하지만 이 요청이 &lt;strong&gt;모든 Pod 에&lt;/strong&gt; 전달되어야 하는 경우에는 적합하지 않다.&lt;/p&gt;
+&lt;p&gt;이를 위해서 k8s-api-server 에 요청해서, Service 에 속한 Pod 의 IP 리스트를 얻어오도록 애플리케이션을 구성할 수는 있겠지만, 그 때부터 애플리케이션은 해당 API 서버 위치에 의존해야 하기 때문에 적절한 방법이 아닌 것이다.&lt;/p&gt;
+&lt;p&gt;위의 설명대로라면, Cluster IP 를 없앤 Service 의 경우 DNS Server 가 모든 Pod 들의 A 레코드를 직접 알려주는 (resolving) 것이다. &lt;strong&gt;요청을 수신받을 Cluster IP 가 없으니, 머리가 없는 Service 라고 부를 수 있겠다.&lt;/strong&gt;&lt;/p&gt;
+&lt;h1 id="데모"&gt;데모
+&lt;/h1&gt;&lt;p&gt;사실 데모는 다른 블로그에서 많이 찾아볼 수 있어서, 최소한으로 재현 할 수 있는 방법을 알아보도록 하자.&lt;/p&gt;
+&lt;h2 id="deployment-생성"&gt;Deployment 생성
+&lt;/h2&gt;&lt;p&gt;우리는 &lt;code&gt;nginx&lt;/code&gt; 로 포트 오픈도 해 두고 &lt;code&gt;curl&lt;/code&gt; 이나 &lt;code&gt;nslookup&lt;/code&gt; 으로 Pod 간 통신을 체크해야 하니, &lt;code&gt;praqma/network-multitool&lt;/code&gt; 이미지로 replica 3개의 deployment 를 하나 만들도록 하자.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;kubectl create deployment test-deploy --image&lt;span class="o"&gt;=&lt;/span&gt;praqma/network-multitool --replicas&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt; --port&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;80&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;kubectl get pods -lapp&lt;span class="o"&gt;=&lt;/span&gt;test-deploy -o wide
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;NAME READY STATUS ...
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;test-deploy-7bff8c5f84-hxcfw 1/1 Running ...
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;test-deploy-7bff8c5f84-rjdm9 1/1 Running ...
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;test-deploy-7bff8c5f84-w5l8j 1/1 Running ...
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;첫 번째 Pod 의 IP 가 &lt;code&gt;200.96.1.50&lt;/code&gt; 이다. 두 번째 Pod 에서 첫 번째 Pod 으로 접속을 시도해 보자.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# connect to test-deploy-7bff8c5f84-hxcfw &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;kubectl &lt;span class="nb"&gt;exec&lt;/span&gt; test-deploy-7bff8c5f84-rjdm9 -it -- curl 200.96.1.50:80 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Praqma Network MultiTool (with NGINX) - test-deploy-7bff8c5f84-hxcfw - ...
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;접속이 잘 된다. 하지만 여기 보이는 Pod IP 는 &lt;strong&gt;언제든지 바뀔 수 있기 때문에&lt;/strong&gt; 이런 식으로 쓰면 안 된다.&lt;/p&gt;
+&lt;h2 id="headless-service-생성"&gt;Headless Service 생성
+&lt;/h2&gt;&lt;p&gt;이제 Headless Service 를 만들어보자. 이번에는 바로 만들지 말고 manifest 를 YAML 파일로 저장해 둔 다음에 수정이 좀 필요하다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;kubectl create service clusterip test-cs-svc --clusterip&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;None&amp;#34;&lt;/span&gt; &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; --tcp&lt;span class="o"&gt;=&lt;/span&gt;80:80 --dry-run&lt;span class="o"&gt;=&lt;/span&gt;client -oyaml &amp;gt; test-cs-svc.yaml
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Headless 로 만드는 핵심 옵션이 바로 &lt;code&gt;--clusterip=&amp;quot;None&amp;quot;&lt;/code&gt; 라는 걸 알 수 있다. 여기서 출력되는 파일을 열어서, &lt;code&gt;spec.selector&lt;/code&gt; 를 deployment 의 것으로 바꿔줘야 한다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-yaml" data-lang="yaml"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;apiVersion&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;v1&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;kind&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;Service&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;metadata&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;creationTimestamp&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;null&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;labels&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;app&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;test-cs-svc&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;test-cs-svc&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;spec&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;clusterIP&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;None&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;ports&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;- &lt;span class="nt"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;80-80&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;port&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;80&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;protocol&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;TCP&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;targetPort&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;80&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;selector&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;app&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;test-deploy&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c"&gt;# test-deploy deployment 가 가지고 있던 app label&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;type&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;ClusterIP&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;status&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;loadBalancer&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;{}&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;저장해 주고, 해당 YAML 파일을 적용하자.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;kubectl apply -f test-cs-svc.yaml
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="dns-lookup-하기"&gt;DNS Lookup 하기
+&lt;/h2&gt;&lt;p&gt;이제 남은 일은 Service 의 domain name 을 가지고 DNS Lookup 을 한 결과를 받아오는 일이다.&lt;/p&gt;
+&lt;p&gt;그런데, domain name 을 어떻게 아냐고? 마지막 참고 자료에 있는 &lt;a class="link" href="https://kubernetes.io/ko/docs/concepts/services-networking/dns-pod-service/" target="_blank" rel="noopener"
+ &gt;K8s DNS&lt;/a&gt; 를 읽어봐도 좋지만, 직접 알아보기 위해서는 아까 생성한 Pod 에서 &lt;code&gt;/etc/resolv.conf&lt;/code&gt; 가 어떻게 설정되어 있는지 확인하면 된다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;kubectl &lt;span class="nb"&gt;exec&lt;/span&gt; test-deploy-7bff8c5f84-rjdm9 -it -- cat /etc/resolv.conf
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;search default.svc.cluster.local svc.cluster.local ...
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;여기 잘 보면, 해당 Pod 위치에서 요청하는 domain name 에 &lt;code&gt;default.svc.cluster.local&lt;/code&gt; 을 자동으로 붙여서 resolving 하려는 걸 볼 수 있다. (default namespace 에 있는 모든 Pod 들이 똑같을 것이다)&lt;/p&gt;
+&lt;p&gt;즉, 우리는 전체 domain name 을 알 필요가 없이 Service Name 만 가지고도 DNS Lookup 을 할 수 있다.&lt;/p&gt;
+&lt;p&gt;바로 Lookup 을 하러 가보자. 똑같이 &lt;code&gt;kubectl exec&lt;/code&gt; 를 할 텐데, 이번에는 &lt;code&gt;nslookup&lt;/code&gt; 을 해보도록 한다. domain name 은 그냥 Service Name 을 입력한다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;kubectl &lt;span class="nb"&gt;exec&lt;/span&gt; test-deploy-7bff8c5f84-rjdm9 -it -- nslookup test-cs-svc
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Server:		200.64.0.10
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Address:	200.64.0.10#53
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Name:	test-cs-svc.default.svc.cluster.local
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Address: 200.96.1.50
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Name:	test-cs-svc.default.svc.cluster.local
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Address: 200.96.0.59
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Name:	test-cs-svc.default.svc.cluster.local
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Address: 200.96.2.24
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;여러 개의 A 레코드로 이뤄진 Pod IP 목록을 얻을 수 있다. 그리고 &lt;code&gt;test-cs-svc&lt;/code&gt; 처럼 Service Name 만 입력했을 뿐인데 &lt;code&gt;test-cs-svc.default.svc.cluster.local&lt;/code&gt; 로 바뀐 것도 볼 수 있다.&lt;/p&gt;
+&lt;h2 id="head-를-달아주면요"&gt;Head 를 달아주면요?
+&lt;/h2&gt;&lt;p&gt;이번에는 &lt;code&gt;test-cs-svc-head&lt;/code&gt; 라는 이름의 Service 를 하나 더 만들자.&lt;/p&gt;
+&lt;p&gt;단순히, &lt;code&gt;spec.clusterIP: None&lt;/code&gt; 부분만 없는 &lt;code&gt;test-cs-svc&lt;/code&gt; 나 다름없다. 아까 만들어 둔 파일에서 &lt;code&gt;metadata.name&lt;/code&gt; 부분과 &lt;code&gt;spec.clusterIP&lt;/code&gt; 부분만 바꿔서 &lt;code&gt;kubectl apply -f&lt;/code&gt; 로 적용해 보자.&lt;/p&gt;
+&lt;p&gt;수정한 다음, 아까와 같이 &lt;code&gt;nslookup&lt;/code&gt; 을 해보자.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;kubectl &lt;span class="nb"&gt;exec&lt;/span&gt; test-deploy-7bff8c5f84-rjdm9 -it -- nslookup test-cs-svc-head
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Server:		200.64.0.10
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Address:	200.64.0.10#53
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Name:	test-cs-svc-head.default.svc.cluster.local
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Address: 200.68.238.114
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;이 IP 는 어디서 왔을까? 바로 Service 의 Cluster IP 되시겠다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;kubectl get svc test-cs-svc-head
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;NAME TYPE CLUSTER-IP EXTERNAL-IP PORT(S) AGE
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;test-cs-svc-head ClusterIP 200.68.238.114 &amp;lt;none&amp;gt; 80/TCP 2m32s
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="주의할-점"&gt;주의할 점
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;test-cs-svc&lt;/code&gt; 나 &lt;code&gt;test-cs-svc-head&lt;/code&gt; 는 DNS Lookup 에서는 차이를 보이지만, &lt;code&gt;curl&lt;/code&gt; 결과는 차이가 없다. 더 자세히 말하면, &lt;strong&gt;두 요청 모두 3개의 Pod 중 1개에만 랜덤하게 전달된다는 것이다.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;다음 명령들을 반복적으로 실행해 보자. 목적지 Pod 주소가 매번 다를 것이다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;kubectl &lt;span class="nb"&gt;exec&lt;/span&gt; test-deploy-7bff8c5f84-rjdm9 -it -- curl test-cs-svc:80 &lt;span class="p"&gt;|&lt;/span&gt; head -2
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;kubectl &lt;span class="nb"&gt;exec&lt;/span&gt; test-deploy-7bff8c5f84-rjdm9 -it -- curl test-cs-svc-head:80 &lt;span class="p"&gt;|&lt;/span&gt; head -2
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;왜 이렇게 되는 것일까? Headless Service 의 경우, DNS Lookup 하는 A 레코드 순서가 랜덤으로 전달되고 &lt;code&gt;curl&lt;/code&gt; 은 그저 맨 위의 것을 쓰기 때문이다. &lt;code&gt;nslookup&lt;/code&gt; 을 반복적으로 해 보면 보다 더 확실해 질 것이다.&lt;/p&gt;
+&lt;h1 id="이해를-돕기-위한-기초자료"&gt;이해를 돕기 위한 기초자료
+&lt;/h1&gt;&lt;p&gt;혹시 아직도 이해가 잘 안된다면, 기초자료로 다음을 참고해보자. &lt;del&gt;혹은 &lt;a class="link" href="https://interp.blog/cka-exam-review/" &gt;CKA 시험 준비&lt;/a&gt;를 하는 것도 좋은 방법이다!&lt;/del&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class="link" href="https://kubernetes.io/ko/docs/concepts/services-networking/service/" target="_blank" rel="noopener"
+ &gt;K8s Service&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://kubernetes.io/ko/docs/concepts/services-networking/dns-pod-service/" target="_blank" rel="noopener"
+ &gt;K8s DNS&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>K8s Operator vs. Controller</title><link>https://interp.blog/kubernetes-operator-vs-controller/</link><pubDate>Tue, 15 Mar 2022 02:44:57 +0000</pubDate><guid>https://interp.blog/kubernetes-operator-vs-controller/</guid><description>&lt;p&gt;쿠버네티스에서 서비스를 개발하거나 운영하다 보면 자주 접하게 될 개념 중 하나가, 바로 이 Controller 와 Operator 일 것이다. 어떤 경우에는, 동일한 서비스를 두고 &amp;lsquo;이건 Controller 야&amp;rsquo; 라고 말 할 때도 있고 &amp;lsquo;이 Operator 는&amp;hellip;&amp;rsquo; 이라고 불릴 때도 있어서 헷갈릴 수 있다. 심지어 공식 문서에서도 두 개념에 대한 비교는 하지 않고 있어서 명확한 구분이 필요한 것 같다.&lt;/p&gt;
+&lt;p&gt;와중에 &lt;a class="link" href="https://blog.marcnuri.com/kubernetes-operator-vs-controller" target="_blank" rel="noopener"
+ &gt;이 문서&lt;/a&gt;를 발견했는데, 요약하자면 이렇다.&lt;/p&gt;
+&lt;h1 id="controller"&gt;Controller
+&lt;/h1&gt;
+ &lt;blockquote&gt;
+ &lt;p&gt;So in the Kubernetes world, a controller will basically &lt;strong&gt;monitor and measure the cluster resources state to adjust those resources that diverge from the desired state&lt;/strong&gt;.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;p&gt;더 줄여보면, Controller 는 (1) K8s 리소스의 상태를 체크하고 (2) 이 리소스들의 상태를 &amp;lsquo;목표 상태 (desired state)&amp;rsquo; 로 조정하는 역할을 한다.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ReplicaSet&lt;/code&gt;, &lt;code&gt;StatefulSet&lt;/code&gt;, &lt;code&gt;DaemonSet&lt;/code&gt; 이 대표적인 Controller 들이다. 이 리소스에 속해 있는 Pod 들의 상태를 &amp;lsquo;목표 상태&amp;rsquo; 로 만들기 위해, Pod 을 추가하거나 삭제한다.&lt;/p&gt;
+&lt;h1 id="operator"&gt;Operator
+&lt;/h1&gt;&lt;p&gt;CoreOS 에서 정의하는 Operator 는 다음과 같다.&lt;/p&gt;
+
+ &lt;blockquote&gt;
+ &lt;p&gt;An Operator is &lt;strong&gt;a method of packaging, deploying and managing a Kubernetes application&lt;/strong&gt;.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;p&gt;그런데 이 개념을 구현하기 위해서는 필연적으로 Controller 가 들어가게 된다.&lt;/p&gt;
+&lt;p&gt;그렇다면 Controller 와 비교했을 때 Operator 의 차이점은 무엇일까?&lt;/p&gt;
+&lt;h1 id="operator-vs-controller"&gt;Operator vs. Controller
+&lt;/h1&gt;&lt;p&gt;여기에서 말하는 &amp;lsquo;&lt;em&gt;Kubernetes application&lt;/em&gt;&amp;rsquo; 란, 사용자가 직접 지정할 수 있는 CRD (Custom Resource Definition) 과 거기서 파생된 CR (Custom Resource) 까지 포함하고 있는 것이다.&lt;/p&gt;
+&lt;p&gt;예를 들면, Orange 라는 CRD 를 하나 만들어 보자.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-yaml" data-lang="yaml"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;apiVersion&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;apiextensions.k8s.io/v1beta1&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;kind&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;CustomResourceDefinition&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;metadata&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;oranges.example.com&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;spec&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;group&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;example.com&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;version&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;v1&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;scope&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;Namespaced&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;names&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;plural&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;oranges&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;singular&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;orange&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;kind&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;Orange&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;subresources&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;status&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;{}&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;이 정의 (definition)를 가지고, &lt;code&gt;orange1&lt;/code&gt; 이란 CR 을 하나 만들 수 있을 것이다.&lt;/p&gt;
+&lt;p&gt;특정 Orange CR 이 만들어지거나 수정될 때, 삭제될 때엔 뭘 해야 하는지 정의하는 코드를 만들 수 있을 것이다. 예를 들면, Orange CR 에는 1개의 &lt;code&gt;Service&lt;/code&gt; 와 1개의 &lt;code&gt;Pod&lt;/code&gt; 이 만들어져야 한다고 해보자. 그걸 Golang 으로 아주 간단히 표현하면,&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kd"&gt;func&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;h&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="nx"&gt;orangeHandler&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;Handle&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;ctx&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;context&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Context&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;req&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;reconcile&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Request&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;reconcile&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Result&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kt"&gt;error&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;	&lt;/span&gt;&lt;span class="c1"&gt;// Get the Orange instance&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;	&lt;/span&gt;&lt;span class="nx"&gt;orange&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nx"&gt;examplev1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Orange&lt;/span&gt;&lt;span class="p"&gt;{}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;	&lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;sdk&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;ctx&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;req&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;NamespacedName&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;orange&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;!=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;nil&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;		&lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;errors&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;IsNotFound&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;			&lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;reconcile&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Result&lt;/span&gt;&lt;span class="p"&gt;{},&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;nil&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;		&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;		&lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;reconcile&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Result&lt;/span&gt;&lt;span class="p"&gt;{},&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;errors&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Wrap&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;failed to get Orange instance&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;	&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;	&lt;/span&gt;&lt;span class="c1"&gt;// Create the Pod for the Orange instance&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;	&lt;/span&gt;&lt;span class="nx"&gt;pod&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nx"&gt;corev1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Pod&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;		&lt;/span&gt;&lt;span class="nx"&gt;ObjectMeta&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;metav1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ObjectMeta&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;			&lt;/span&gt;&lt;span class="nx"&gt;Name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;orange&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;-pod&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;			&lt;/span&gt;&lt;span class="nx"&gt;Namespace&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;orange&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Namespace&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;			&lt;/span&gt;&lt;span class="nx"&gt;Labels&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;map&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;				&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;app&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;orange&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;			&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;		&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;		&lt;/span&gt;&lt;span class="nx"&gt;Spec&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;corev1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;PodSpec&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;			&lt;/span&gt;&lt;span class="nx"&gt;Containers&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt;&lt;span class="nx"&gt;corev1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Container&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="o"&gt;...&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;		&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;	&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;	&lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;sdk&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Create&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;ctx&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;pod&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;!=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;nil&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;		&lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;reconcile&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Result&lt;/span&gt;&lt;span class="p"&gt;{},&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;errors&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Wrap&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;failed to create Pod&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;	&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;	&lt;/span&gt;&lt;span class="c1"&gt;// Create the Service for the Orange instance&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;	&lt;/span&gt;&lt;span class="nx"&gt;service&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nx"&gt;corev1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Service&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;		&lt;/span&gt;&lt;span class="nx"&gt;ObjectMeta&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;metav1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ObjectMeta&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;			&lt;/span&gt;&lt;span class="nx"&gt;Name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;orange&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;-service&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;			&lt;/span&gt;&lt;span class="nx"&gt;Namespace&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;orange&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Namespace&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;			&lt;/span&gt;&lt;span class="nx"&gt;Labels&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;map&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;				&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;app&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;orange&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;			&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;		&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;		&lt;/span&gt;&lt;span class="nx"&gt;Spec&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;corev1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ServiceSpec&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;			&lt;/span&gt;&lt;span class="nx"&gt;Selector&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;map&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;				&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;app&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;orange&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;			&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;			&lt;/span&gt;&lt;span class="nx"&gt;Ports&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt;&lt;span class="nx"&gt;corev1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ServicePort&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="o"&gt;...&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;			&lt;/span&gt;&lt;span class="nx"&gt;Type&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;corev1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ServiceTypeClusterIP&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;		&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;	&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;	&lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;sdk&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Create&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;ctx&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;service&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;!=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;nil&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;		&lt;/span&gt;&lt;span class="c1"&gt;// Error creating the Service&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;		&lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;reconcile&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Result&lt;/span&gt;&lt;span class="p"&gt;{},&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;errors&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Wrap&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;failed to create Service&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;	&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;	&lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;reconcile&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Result&lt;/span&gt;&lt;span class="p"&gt;{},&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;nil&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;이처럼 내부에 구현된 Reconcile Loop Code (특정 CR이 수정되는 이벤트를 관찰하고, 이벤트에 맞춰 코드를 실행하는 루프) 는 일종의 Orange &lt;em&gt;&lt;strong&gt;Controller&lt;/strong&gt;&lt;/em&gt; 라고도 부를 수 있다. (또는 이 코드가 실행되는 pod 도 controller 라고 볼 수 있다)&lt;/p&gt;
+&lt;p&gt;하지만 이렇게 Orange CR 을 &lt;em&gt;관리&lt;/em&gt;하는 application 자체를 가리킬 때, 또는 이렇게 관리하는 전체 패턴을 Orange CR 의 &lt;em&gt;&lt;strong&gt;Operator&lt;/strong&gt;&lt;/em&gt; 라고 부를 수 있다. 바꿔 말해서, 실재하는 K8s 리소스인 Service 와 Pod 을 만드는 역할은 Controller 에서 이뤄지지만, Orange CR 의 명세를 관리하는 전체 과정은 Operator 라고 부를 수 있다.&lt;/p&gt;
+&lt;br/&gt;
 &lt;script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607"
-crossorigin="anonymous">&lt;/script>
+ crossorigin="anonymous"&gt;&lt;/script&gt;
+
 &lt;ins class="adsbygoogle"
-style="display:block"
-data-ad-format="fluid"
-data-ad-layout-key="-fx-q+4w-88+2u"
-data-ad-client="ca-pub-0712823212859607"
-data-ad-slot="1092971030">&lt;/ins>
-&lt;script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-&lt;/script>
-&lt;br/>
-&lt;h1 id="정리하면">정리하면&lt;/h1>
-&lt;p>개인적으로 Controller 는 기술적인 개념이고, Operator 는 좀 더 포괄적이면서 논리적인 개념으로 받아들여진다. &lt;a class="link" href="https://blog.marcnuri.com/kubernetes-operator-vs-controller" target="_blank" rel="noopener"
->문서&lt;/a>에서도 &amp;lsquo;&lt;em>모든 Operator 는 CR 을 관리하기 위해 쓰이는 Controller 라고 부를 수 있다.&lt;/em>&amp;rsquo; 라고 하고 있으니까 말이다.&lt;/p>
-&lt;p>그리고 Controller 나 Operator 모두 어떤 프레임워크일 뿐이지, 프로그래밍 언어에 국한된 것은 아니라고 언급한다. 나 역시 Go 언어와 Python 으로 모두 구현해 봤기 때문이다. 다만 용어를 사용할 때 좀 더 확실히 이해하고 쓴다면 헷갈릴 여지가 없기를 바란다.&lt;/p></description></item><item><title>CKA 시험 후기</title><link>https://interp.blog/cka-exam-review/</link><pubDate>Tue, 18 Jan 2022 22:38:42 +0000</pubDate><guid>https://interp.blog/cka-exam-review/</guid><description>&lt;img src="https://interp.blog/images/featured/cka-exam.jpg" alt="Featured image of post CKA 시험 후기" />&lt;p>CKA (Certified K8s Administrator) 를 2021년 12월 말에 합격 통지를 받았다. 합격을 받고 나서 정리한 팁을 공유하고자 한다.&lt;/p>
-&lt;h1 id="강의">강의&lt;/h1>
-&lt;p>매우 유명한 Udemy 의 Mumshard 강의를 완강했다. 내가 너무 초보여서 그런지는 몰라도, 기초 강의도 기본을 다지고 한번 더 리마인드 하자는 차원에서 완강을 했고, 결론적으로는 시험 뿐만 아니라 업무에도 큰 도움이 되고 있다.&lt;/p>
-&lt;ul>
-&lt;li>이해가 쏙쏙 되는 강의&lt;/li>
-&lt;li>지속적인 업데이트&lt;/li>
-&lt;li>KodeCloud 를 통한 인터렉티브 연습 문제 (엄청 많다!)&lt;/li>
-&lt;li>3개의 모의고사 (요점은 다 나온다)&lt;/li>
-&lt;/ul>
-&lt;ul>
-&lt;li>유료 (이긴 한데 상시 할인이라 큰 부담은 없다. 등록하면 평생 수강이니, 할인율이 높을 때를 노려 구매해 두는 것을 추천.)&lt;/li>
-&lt;li>영어 (수준이 높다기 보다는 그냥 귀찮다. 영어 자막은, 거의 자동 생성인 경우가 많기 때문에 별 도움이 안 된다.)&lt;/li>
-&lt;/ul>
-&lt;h2 id="시험-등록">시험 등록&lt;/h2>
-&lt;p>보통 시험을 Linux Foundation 에서 볼 텐데, 그럼 아래와 같은 절차로 시험을 준비한다.&lt;/p>
-&lt;ol>
-&lt;li>&lt;strong>Global Candidate Agreement&lt;/strong> 를 읽고 &amp;lsquo;동의&amp;rsquo; 를 누른다.&lt;/li>
-&lt;li>&lt;strong>이름을 확인한다&lt;/strong>. 반드시 신분증에 있는 영어이름과 일치해야 한다. (여권이나 국제운전면허증 등등) 일치하지 않거나 하면 피곤해진다고 한다.&lt;/li>
-&lt;li>&lt;strong>시험에 사용될 OS 를 지정한다&lt;/strong>. 보통 우분투를 사용한다.&lt;/li>
-&lt;li>&lt;strong>시험 일정을 예약한다&lt;/strong>. 한번 시험 등록에 들어오면 시험 일정을 잡는데 유효기간이 있다. 그래서 가급적 스케줄을 확인하고 얼른 시험 일정을 예약해야 한다.&lt;/li>
-&lt;li>시스템 환경을 체크할 수 있다.
-&lt;ul>
-&lt;li>&lt;strong>Chrome 확장 프로그램&lt;/strong> 을 반드시 설치하고 시험을 시작해야 한다.&lt;/li>
-&lt;li>비인가된 프로그램을 사용하는지 감독관이 반드시 체크한다. 작업관리자를 &amp;lsquo;간단히&amp;rsquo; 버전으로 띄우도록 요청한다.&lt;/li>
-&lt;li>책상은 컴퓨터/노트북 외엔 깨끗해야 하며 (외부 모니터는 된다고 하던데 나는 치웠다) 책상 아래도 깨끗해야 한다. 이걸 증명하기 위해 웹캠이 필요하다. 노트북 내장 웹캠도 가능하다 (내가 그랬으니까)&lt;/li>
-&lt;li>방 안엔 누구도 있어선 안 되고, 밝고 조용한 환경이어야 한다. 단, 수험자 뒤에서 밝은 빛이 나오면 안 된다 (감독관 방해)&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>&lt;strong>다음 글을 읽어 본다&lt;/strong>. 만약 시간이 없으면 Important Instructions 만 읽어 보자.
-&lt;ul>
-&lt;li>&lt;a class="link" href="https://docs.linuxfoundation.org/tc-docs/certification/tips-cka-and-ckad" target="_blank" rel="noopener"
->Important Instructions: CKA, CKAD&lt;/a>&lt;/li>
-&lt;li>&lt;a class="link" href="https://docs.linuxfoundation.org/tc-docs/certification/lf-candidate-handbook" target="_blank" rel="noopener"
->Handbook&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>시험 준비가 모두 끝났다고 생각되면, &lt;a class="link" href="http://killer.sh" target="_blank" rel="noopener"
->killer.sh&lt;/a> 에 들어가서 모의고사 세션을 시작해보자.&lt;/li>
-&lt;/ol>
-&lt;h2 id="killersh">killer.sh&lt;/h2>
-&lt;p>Linux Foundation 에서 제공하는 마지막 모의고사 성격의 mock-up exam 환경이다.&lt;/p>
-&lt;ul>
-&lt;li>저기서도 경고하지만, 실제 시험보다 훨씬 까다롭고 광범위한 질문이 나온다. 좌절할 필요 없다.&lt;/li>
-&lt;li>2개의 세션이 제공되는데, 한 개당 36시간의 유효기간이 있다. 2시간 타이머가 돌긴 하지만, 타이머가 끝난다고 시험이 닫히진 않는다. 심리적인 압박 용이니, 2시간 시간관리 한다 생각하고 신경 써가며 풀어보자.&lt;/li>
-&lt;li>2개 세션 모두 같은 문제 세트를 가지고 있다. 하나는 시험 치듯 풀고, 끝나면 정답과 함께 채점을 해 주기 때문에 두 번째 세션은 오답노트 풀듯이 훓는 걸 추천한다.&lt;/li>
-&lt;/ul>
-&lt;br/>
+ style="display:block"
+ data-ad-format="fluid"
+ data-ad-layout-key="-fx-q+4w-88+2u"
+ data-ad-client="ca-pub-0712823212859607"
+ data-ad-slot="1092971030"&gt;&lt;/ins&gt;
+&lt;script&gt;
+ (adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script&gt;
+&lt;br/&gt;
+&lt;h1 id="정리하면"&gt;정리하면
+&lt;/h1&gt;&lt;p&gt;개인적으로 Controller 는 기술적인 개념이고, Operator 는 좀 더 포괄적이면서 논리적인 개념으로 받아들여진다. &lt;a class="link" href="https://blog.marcnuri.com/kubernetes-operator-vs-controller" target="_blank" rel="noopener"
+ &gt;문서&lt;/a&gt;에서도 &amp;lsquo;&lt;em&gt;모든 Operator 는 CR 을 관리하기 위해 쓰이는 Controller 라고 부를 수 있다.&lt;/em&gt;&amp;rsquo; 라고 하고 있으니까 말이다.&lt;/p&gt;
+&lt;p&gt;그리고 Controller 나 Operator 모두 어떤 프레임워크일 뿐이지, 프로그래밍 언어에 국한된 것은 아니라고 언급한다. 나 역시 Go 언어와 Python 으로 모두 구현해 봤기 때문이다. 다만 용어를 사용할 때 좀 더 확실히 이해하고 쓴다면 헷갈릴 여지가 없기를 바란다.&lt;/p&gt;</description></item><item><title>CKA 시험 후기</title><link>https://interp.blog/cka-exam-review/</link><pubDate>Tue, 18 Jan 2022 22:38:42 +0000</pubDate><guid>https://interp.blog/cka-exam-review/</guid><description>&lt;img src="https://interp.blog/images/featured/cka-exam.jpg" alt="Featured image of post CKA 시험 후기" /&gt;&lt;p&gt;CKA (Certified K8s Administrator) 를 2021년 12월 말에 합격 통지를 받았다. 합격을 받고 나서 정리한 팁을 공유하고자 한다.&lt;/p&gt;
+&lt;h1 id="강의"&gt;강의
+&lt;/h1&gt;&lt;p&gt;매우 유명한 Udemy 의 Mumshard 강의를 완강했다. 내가 너무 초보여서 그런지는 몰라도, 기초 강의도 기본을 다지고 한번 더 리마인드 하자는 차원에서 완강을 했고, 결론적으로는 시험 뿐만 아니라 업무에도 큰 도움이 되고 있다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;이해가 쏙쏙 되는 강의&lt;/li&gt;
+&lt;li&gt;지속적인 업데이트&lt;/li&gt;
+&lt;li&gt;KodeCloud 를 통한 인터렉티브 연습 문제 (엄청 많다!)&lt;/li&gt;
+&lt;li&gt;3개의 모의고사 (요점은 다 나온다)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;유료 (이긴 한데 상시 할인이라 큰 부담은 없다. 등록하면 평생 수강이니, 할인율이 높을 때를 노려 구매해 두는 것을 추천.)&lt;/li&gt;
+&lt;li&gt;영어 (수준이 높다기 보다는 그냥 귀찮다. 영어 자막은, 거의 자동 생성인 경우가 많기 때문에 별 도움이 안 된다.)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="시험-등록"&gt;시험 등록
+&lt;/h2&gt;&lt;p&gt;보통 시험을 Linux Foundation 에서 볼 텐데, 그럼 아래와 같은 절차로 시험을 준비한다.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Global Candidate Agreement&lt;/strong&gt; 를 읽고 &amp;lsquo;동의&amp;rsquo; 를 누른다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;이름을 확인한다&lt;/strong&gt;. 반드시 신분증에 있는 영어이름과 일치해야 한다. (여권이나 국제운전면허증 등등) 일치하지 않거나 하면 피곤해진다고 한다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;시험에 사용될 OS 를 지정한다&lt;/strong&gt;. 보통 우분투를 사용한다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;시험 일정을 예약한다&lt;/strong&gt;. 한번 시험 등록에 들어오면 시험 일정을 잡는데 유효기간이 있다. 그래서 가급적 스케줄을 확인하고 얼른 시험 일정을 예약해야 한다.&lt;/li&gt;
+&lt;li&gt;시스템 환경을 체크할 수 있다.
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Chrome 확장 프로그램&lt;/strong&gt; 을 반드시 설치하고 시험을 시작해야 한다.&lt;/li&gt;
+&lt;li&gt;비인가된 프로그램을 사용하는지 감독관이 반드시 체크한다. 작업관리자를 &amp;lsquo;간단히&amp;rsquo; 버전으로 띄우도록 요청한다.&lt;/li&gt;
+&lt;li&gt;책상은 컴퓨터/노트북 외엔 깨끗해야 하며 (외부 모니터는 된다고 하던데 나는 치웠다) 책상 아래도 깨끗해야 한다. 이걸 증명하기 위해 웹캠이 필요하다. 노트북 내장 웹캠도 가능하다 (내가 그랬으니까)&lt;/li&gt;
+&lt;li&gt;방 안엔 누구도 있어선 안 되고, 밝고 조용한 환경이어야 한다. 단, 수험자 뒤에서 밝은 빛이 나오면 안 된다 (감독관 방해)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;다음 글을 읽어 본다&lt;/strong&gt;. 만약 시간이 없으면 Important Instructions 만 읽어 보자.
+&lt;ul&gt;
+&lt;li&gt;&lt;a class="link" href="https://docs.linuxfoundation.org/tc-docs/certification/tips-cka-and-ckad" target="_blank" rel="noopener"
+ &gt;Important Instructions: CKA, CKAD&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://docs.linuxfoundation.org/tc-docs/certification/lf-candidate-handbook" target="_blank" rel="noopener"
+ &gt;Handbook&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;시험 준비가 모두 끝났다고 생각되면, &lt;a class="link" href="http://killer.sh" target="_blank" rel="noopener"
+ &gt;killer.sh&lt;/a&gt; 에 들어가서 모의고사 세션을 시작해보자.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="killersh"&gt;killer.sh
+&lt;/h2&gt;&lt;p&gt;Linux Foundation 에서 제공하는 마지막 모의고사 성격의 mock-up exam 환경이다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;저기서도 경고하지만, 실제 시험보다 훨씬 까다롭고 광범위한 질문이 나온다. 좌절할 필요 없다.&lt;/li&gt;
+&lt;li&gt;2개의 세션이 제공되는데, 한 개당 36시간의 유효기간이 있다. 2시간 타이머가 돌긴 하지만, 타이머가 끝난다고 시험이 닫히진 않는다. 심리적인 압박 용이니, 2시간 시간관리 한다 생각하고 신경 써가며 풀어보자.&lt;/li&gt;
+&lt;li&gt;2개 세션 모두 같은 문제 세트를 가지고 있다. 하나는 시험 치듯 풀고, 끝나면 정답과 함께 채점을 해 주기 때문에 두 번째 세션은 오답노트 풀듯이 훓는 걸 추천한다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br/&gt;
 &lt;script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607"
-crossorigin="anonymous">&lt;/script>
+ crossorigin="anonymous"&gt;&lt;/script&gt;
+
 &lt;ins class="adsbygoogle"
-style="display:block"
-data-ad-format="fluid"
-data-ad-layout-key="-fx-q+4w-88+2u"
-data-ad-client="ca-pub-0712823212859607"
-data-ad-slot="1092971030">&lt;/ins>
-&lt;script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-&lt;/script>
-&lt;br/>
-&lt;h1 id="팁">팁&lt;/h1>
-&lt;h2 id="시험-환경-준비">시험 환경 준비&lt;/h2>
-&lt;ul>
-&lt;li>&lt;strong>감독관은 말 하지 않는다&lt;/strong>. 대신 채팅으로 말한다.
-&lt;ul>
-&lt;li>시험 전 20분부터 입장이 가능한데, 감독관이 준비되어야 사실 입장이 가능하다 (&amp;hellip;)&lt;/li>
-&lt;li>감독관을 만나면 하는 일은, 신분증으로 신원 확인, 방 주위를 둘러보기, 책상 보기, 책상 아래보기.. 정도만 했다.&lt;/li>
-&lt;li>시험 중간에는 웬만하면 어떤 채팅도 올라오지 않는다. 내가 본 건 딱 ‘15분 남았습니다’ 였다.&lt;/li>
-&lt;li>(내가 겪어 본 건 아니지만) 만약 허용되지 않은 웹 사이트를 실수로라도 방문하면, 경고성 채팅창이 올라올 것이다. 그런데 같은 짓을 4번 (3번?) 더 하면 시험이 그냥 종료되니 주의.
-(자세한 내용은 위 문서에서 인스트럭션을 읽어보면 된다)&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>&lt;strong>북마크 사용은 가능하다&lt;/strong>, 물론 허용된 사이트 안의 웹 페이지만이다.&lt;/li>
-&lt;li>&lt;strong>크롬이나 엣지 브라우저로 문제가 생길 수 있다는 이야기가 있다.&lt;/strong> 그러면 감독관이 &lt;a class="link" href="https://vivaldi.com/" target="_blank" rel="noopener"
->&lt;strong>비발디 (Vivaldi)&lt;/strong>&lt;/a> 브라우저를 권한다고 한다.
-&lt;ul>
-&lt;li>문제는, 환경설정에 시간을 다 뺏기고 (준비에 시간을 주긴 할테지만 2 시간 스케쥴이 틀어진다) 준비해 간 북마크 호환하기 어려울 수 있으므로 당황할 여지가 생긴다.&lt;/li>
-&lt;li>추천: &lt;strong>그냥 ‘Vivaldi’ 브라우저를 설치하고, 거기다 환경을 구성해 두자.&lt;/strong> (물론 크롬 확장 프로그램 미리 깔아두는 것 잊지 말고)&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>영어 해석에 애를 먹는다면, Google 번역 크롬 확장 프로그램을 설치해서 써도 된다.
-&lt;ul>
-&lt;li>K8s Docs 의 한글 번역본을 읽어도 아무런 제지가 없다.&lt;/li>
-&lt;li>문제 몇 개는 해석이 조금만 틀려도 산으로 가는 것들이 있다. (NetworkPolicy 를 생성할 때 라던지)&lt;/li>
-&lt;li>하지만 번역기는 만능이 아니다. 참고용으로만 쓰는 걸 추천한다.&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;h2 id="시험칠-때">시험칠 때&lt;/h2>
-&lt;ul>
-&lt;li>클러스터 몇 개가 주어지고, 매 문제마다 처음에 context 를 바꾸라고 한다. &lt;strong>안 바꿔도 된다는 확신이 있어도 반드시 바꾸자&lt;/strong>. 안 바꾸면 정답이 엉뚱한 클러스터에 반영되고 채점도 안 된다.&lt;/li>
-&lt;li>15-20 개의 문제가 주어진다고 하고, 각 문제마다 배점이 있다. 컷 라인은 66점이니 &lt;strong>쉬운 것을 먼저 푸는게 좋다&lt;/strong>.&lt;/li>
-&lt;li>다른 합격 후기에서는, &lt;code>kubectl&lt;/code> 자동 완성을 위해 cheat sheet 를 적용하라고 하는데, 나는 이게 시험 환경에 이미 적용이 되어 있었다.
-&lt;ul>
-&lt;li>&lt;code>kubectl&lt;/code> = &lt;code>k&lt;/code>&lt;/li>
-&lt;li>명령어 자동 완성 가능 (예) &lt;code>k des&amp;lt;tab&amp;gt;&lt;/code> → &lt;code>k describe&lt;/code>&lt;/li>
-&lt;li>리소스 이름 자동 완성 가능 (예) &lt;code>interp&lt;/code> 라는 ns 가 있다고 하면, then &lt;code>k get pod -n int&amp;lt;tab&amp;gt;&lt;/code> → &lt;code>k get pod -n interp&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>리소스를 지우거나 업데이트 하기 전에, &lt;strong>반드시 그 리소스를 백업해 두자.&lt;/strong> 혹시 그 리소스를 원상복구 시킬 때가 있을 수 있는데, 백업 없이는 다른 방법이 없다.&lt;/li>
-&lt;/ul>
-&lt;br/>
+ style="display:block"
+ data-ad-format="fluid"
+ data-ad-layout-key="-fx-q+4w-88+2u"
+ data-ad-client="ca-pub-0712823212859607"
+ data-ad-slot="1092971030"&gt;&lt;/ins&gt;
+&lt;script&gt;
+ (adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script&gt;
+&lt;br/&gt;
+&lt;h1 id="팁"&gt;팁
+&lt;/h1&gt;&lt;h2 id="시험-환경-준비"&gt;시험 환경 준비
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;감독관은 말 하지 않는다&lt;/strong&gt;. 대신 채팅으로 말한다.
+&lt;ul&gt;
+&lt;li&gt;시험 전 20분부터 입장이 가능한데, 감독관이 준비되어야 사실 입장이 가능하다 (&amp;hellip;)&lt;/li&gt;
+&lt;li&gt;감독관을 만나면 하는 일은, 신분증으로 신원 확인, 방 주위를 둘러보기, 책상 보기, 책상 아래보기.. 정도만 했다.&lt;/li&gt;
+&lt;li&gt;시험 중간에는 웬만하면 어떤 채팅도 올라오지 않는다. 내가 본 건 딱 ‘15분 남았습니다’ 였다.&lt;/li&gt;
+&lt;li&gt;(내가 겪어 본 건 아니지만) 만약 허용되지 않은 웹 사이트를 실수로라도 방문하면, 경고성 채팅창이 올라올 것이다. 그런데 같은 짓을 4번 (3번?) 더 하면 시험이 그냥 종료되니 주의.
+(자세한 내용은 위 문서에서 인스트럭션을 읽어보면 된다)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;북마크 사용은 가능하다&lt;/strong&gt;, 물론 허용된 사이트 안의 웹 페이지만이다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;크롬이나 엣지 브라우저로 문제가 생길 수 있다는 이야기가 있다.&lt;/strong&gt; 그러면 감독관이 &lt;a class="link" href="https://vivaldi.com/" target="_blank" rel="noopener"
+ &gt;&lt;strong&gt;비발디 (Vivaldi)&lt;/strong&gt;&lt;/a&gt; 브라우저를 권한다고 한다.
+&lt;ul&gt;
+&lt;li&gt;문제는, 환경설정에 시간을 다 뺏기고 (준비에 시간을 주긴 할테지만 2 시간 스케쥴이 틀어진다) 준비해 간 북마크 호환하기 어려울 수 있으므로 당황할 여지가 생긴다.&lt;/li&gt;
+&lt;li&gt;추천: &lt;strong&gt;그냥 ‘Vivaldi’ 브라우저를 설치하고, 거기다 환경을 구성해 두자.&lt;/strong&gt; (물론 크롬 확장 프로그램 미리 깔아두는 것 잊지 말고)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;영어 해석에 애를 먹는다면, Google 번역 크롬 확장 프로그램을 설치해서 써도 된다.
+&lt;ul&gt;
+&lt;li&gt;K8s Docs 의 한글 번역본을 읽어도 아무런 제지가 없다.&lt;/li&gt;
+&lt;li&gt;문제 몇 개는 해석이 조금만 틀려도 산으로 가는 것들이 있다. (NetworkPolicy 를 생성할 때 라던지)&lt;/li&gt;
+&lt;li&gt;하지만 번역기는 만능이 아니다. 참고용으로만 쓰는 걸 추천한다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="시험칠-때"&gt;시험칠 때
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;클러스터 몇 개가 주어지고, 매 문제마다 처음에 context 를 바꾸라고 한다. &lt;strong&gt;안 바꿔도 된다는 확신이 있어도 반드시 바꾸자&lt;/strong&gt;. 안 바꾸면 정답이 엉뚱한 클러스터에 반영되고 채점도 안 된다.&lt;/li&gt;
+&lt;li&gt;15-20 개의 문제가 주어진다고 하고, 각 문제마다 배점이 있다. 컷 라인은 66점이니 &lt;strong&gt;쉬운 것을 먼저 푸는게 좋다&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;다른 합격 후기에서는, &lt;code&gt;kubectl&lt;/code&gt; 자동 완성을 위해 cheat sheet 를 적용하라고 하는데, 나는 이게 시험 환경에 이미 적용이 되어 있었다.
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;kubectl&lt;/code&gt; = &lt;code&gt;k&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;명령어 자동 완성 가능 (예) &lt;code&gt;k des&amp;lt;tab&amp;gt;&lt;/code&gt; → &lt;code&gt;k describe&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;리소스 이름 자동 완성 가능 (예) &lt;code&gt;interp&lt;/code&gt; 라는 ns 가 있다고 하면, then &lt;code&gt;k get pod -n int&amp;lt;tab&amp;gt;&lt;/code&gt; → &lt;code&gt;k get pod -n interp&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;리소스를 지우거나 업데이트 하기 전에, &lt;strong&gt;반드시 그 리소스를 백업해 두자.&lt;/strong&gt; 혹시 그 리소스를 원상복구 시킬 때가 있을 수 있는데, 백업 없이는 다른 방법이 없다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br/&gt;
 &lt;script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607"
-crossorigin="anonymous">&lt;/script>
+ crossorigin="anonymous"&gt;&lt;/script&gt;
+
 &lt;ins class="adsbygoogle"
-style="display:block"
-data-ad-client="ca-pub-0712823212859607"
-data-ad-slot="6929871144"
-data-ad-format="auto"
-data-full-width-responsive="true">&lt;/ins>
-&lt;script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-&lt;/script>
-&lt;br/>
-&lt;h2 id="공부할-때">공부할 때&lt;/h2>
-&lt;ul>
-&lt;li>오픈북 시험에서 가장 중요한 건, 어떤 문제를 마주쳤을 때 어디를 봐야 하는지 기억해 두는 것이다.
-&lt;ul>
-&lt;li>좀 더 구체적으로, 어떤 키워드로 K8s docs 를 검색해야 하는지를 기억하는 것이 중요하다.&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>하지만 아래 키워드는 찾아보기도 전에 타이핑할 수 있도록 기억해두는 게 좋다.
-&lt;ul>
-&lt;li>Pod 을 생성할 때: &lt;code>k run {name} --image= ... --dry-run=client -o yaml&lt;/code> 로 YAML 파일을 얻어서 수정한 뒤 &lt;code>k apply -f {yaml_file}&lt;/code> 로 입력&lt;/li>
-&lt;li>리소스를 생성할 때 (가능하다면):
-&lt;ul>
-&lt;li>&lt;code>k create&lt;/code> 명령어로 어떤 리소스를 만들 수 있는지 보고,&lt;/li>
-&lt;li>&lt;code>k create {resource} --help&lt;/code> 로 해당 리소스를 만들 수 있는 다양한 예제를 확인한 뒤,&lt;/li>
-&lt;li>역시 &lt;code>--dry-run=client -oyaml&lt;/code> 을 붙여 YAML 파일을 얻을 수도 있다.&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul></description></item></channel></rss>
+ style="display:block"
+ data-ad-client="ca-pub-0712823212859607"
+ data-ad-slot="6929871144"
+ data-ad-format="auto"
+ data-full-width-responsive="true"&gt;&lt;/ins&gt;
+&lt;script&gt;
+ (adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script&gt;
+&lt;br/&gt;
+&lt;h2 id="공부할-때"&gt;공부할 때
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;오픈북 시험에서 가장 중요한 건, 어떤 문제를 마주쳤을 때 어디를 봐야 하는지 기억해 두는 것이다.
+&lt;ul&gt;
+&lt;li&gt;좀 더 구체적으로, 어떤 키워드로 K8s docs 를 검색해야 하는지를 기억하는 것이 중요하다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;하지만 아래 키워드는 찾아보기도 전에 타이핑할 수 있도록 기억해두는 게 좋다.
+&lt;ul&gt;
+&lt;li&gt;Pod 을 생성할 때: &lt;code&gt;k run {name} --image= ... --dry-run=client -o yaml&lt;/code&gt; 로 YAML 파일을 얻어서 수정한 뒤 &lt;code&gt;k apply -f {yaml_file}&lt;/code&gt; 로 입력&lt;/li&gt;
+&lt;li&gt;리소스를 생성할 때 (가능하다면):
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;k create&lt;/code&gt; 명령어로 어떤 리소스를 만들 수 있는지 보고,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;k create {resource} --help&lt;/code&gt; 로 해당 리소스를 만들 수 있는 다양한 예제를 확인한 뒤,&lt;/li&gt;
+&lt;li&gt;역시 &lt;code&gt;--dry-run=client -oyaml&lt;/code&gt; 을 붙여 YAML 파일을 얻을 수도 있다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description></item></channel></rss>

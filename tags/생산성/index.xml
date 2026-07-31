@@ -1,38 +1,39 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>생산성 on InterP Blog</title><link>https://interp.blog/tags/%EC%83%9D%EC%82%B0%EC%84%B1/</link><description>Recent content in 생산성 on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Tue, 09 May 2023 13:18:40 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/%EC%83%9D%EC%82%B0%EC%84%B1/index.xml" rel="self" type="application/rss+xml"/><item><title>자주 쓰는 3가지 파일 검색 터미널 도구</title><link>https://interp.blog/useful-3-terminal-tools/</link><pubDate>Tue, 09 May 2023 13:18:40 +0900</pubDate><guid>https://interp.blog/useful-3-terminal-tools/</guid><description>&lt;p>업무의 절반은 문서 작업, 나머지 절반은 코딩 작업이라고 생각한다. 코딩 작업 중에서도 가장 많이 하는 일은, 바로 &amp;lsquo;찾기&amp;rsquo; 이다. 내용을 찾을 때도 있고, 특정 파일을 찾을 때도 있다. 대부분의 경우엔 경로를 외워두거나 하긴 하는데, 정확히 외우지 않아도 되게끔 도와주는 효율 좋은 도구를 소개한다.&lt;/p>
-&lt;p>물론 아래 도구는 모두 터미널 기준이고, VSCode 나 PyCharm, Atom 같은 IDE 는 개별 가이드를 참고해서 써야 하겠다. 아래 도구들은 모두 homebrew 에서 설치가 가능하므로, &lt;code>brew&lt;/code> 를 이용한 설치 명령을 마지막에 추가해 두었다.&lt;/p>
-&lt;h1 id="ag-the-silver-searcher">ag, the silver searcher&lt;/h1>
-&lt;p>📌 &lt;a class="link" href="https://github.com/ggreer/the_silver_searcher" target="_blank" rel="noopener"
->Github&lt;/a>&lt;/p>
-&lt;p>&lt;code>grep&lt;/code> 을 대신할 친구다. 나느 &lt;code>grep . -rn&lt;/code> 을 밥먹듯이 하는데, ag 를 사용하면 더욱 빠르게 찾을 수 있다.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">brew install the_silver_searcher
-&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">ag &amp;lt;pattern&amp;gt;
-&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="fzf-command-line-fuzzy-finder">fzf, command-line fuzzy finder&lt;/h1>
-&lt;p>📌 &lt;a class="link" href="https://github.com/junegunn/fzf" target="_blank" rel="noopener"
->Github&lt;/a>&lt;/p>
-&lt;p>단독으로 입력하면 File 을 검색한다. 파이프라인에 태우면 앞선 출력에서 검색한다. 이게 마치 &amp;lsquo;검색어 입력&amp;rsquo; 처럼 키워드를 공백으로 띄워가며 입력해도 알아서 잘 찾아주고, 정규 표현식도 잘 먹는다.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">brew install fzf
-&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="c1"># solo&lt;/span>
-fzf
-&lt;span class="c1"># or after a pipeline&lt;/span>
-cat file_list.dat &lt;span class="p">|&lt;/span> fzf
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>oh-my-zsh 에 fzf plugin 을 활성화하면, 단축키로 파일 검색 (&lt;code>Ctrl+T&lt;/code>) 이나 히스토리 검색 (&lt;code>Ctrl+R&lt;/code>) 이 가능하다.&lt;/p>
-&lt;h2 id="plugin-문제해결">plugin 문제해결&lt;/h2>
-&lt;p>참고로 homebrew 로 설치한 뒤 oh-my-zsh plugin 활성화를 한 다음, zsh 를 다시 실행시키면 다음 에러가 뜰 수 있다.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">[&lt;/span>oh-my-zsh&lt;span class="o">]&lt;/span> fzf plugin: Cannot find fzf installation directory.
-Please add &lt;span class="sb">`&lt;/span>&lt;span class="nb">export&lt;/span> &lt;span class="nv">FZF_BASE&lt;/span>&lt;span class="o">=&lt;/span>/path/to/fzf/install/dir&lt;span class="sb">`&lt;/span> to your .zshrc
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>이 때는 homebrew 의 PATH 설정이 plugin 활성화 시점 이후일 가능성이 높다. 내 경우엔 &lt;code>$HOME/.zshrc&lt;/code> 에서 아래 라인을 &lt;code>plugin=(..)&lt;/code> 위에 두면 해결이 되었다.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="c1"># in your $HOME/.zshrc&lt;/span>
-&lt;span class="nb">export&lt;/span> &lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>/opt/homebrew/bin:&lt;span class="nv">$PATH&lt;/span>
-&lt;span class="nb">eval&lt;/span> &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="k">$(&lt;/span>/opt/homebrew/bin/brew shellenv&lt;span class="k">)&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
-&lt;span class="c1"># ...&lt;/span>
-plugin&lt;span class="o">(&lt;/span>fzf ...&lt;span class="o">)&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="fd-simple-and-fast-alternative-to-find">fd, simple and fast alternative to find&lt;/h1>
-&lt;p>📌 &lt;a class="link" href="https://github.com/sharkdp/fd" target="_blank" rel="noopener"
->Github&lt;/a>&lt;/p>
-&lt;p>&lt;code>find&lt;/code> 을 대신할 친구다. 파일 찾기가 더 빠르다고 한다. 참고로 &lt;a class="link" href="https://github.com/spearkkk/fd-kor" target="_blank" rel="noopener"
->README&lt;/a> 에 한국어가 지원되는데, 아니나 다를까 Main Contributor 가 한국 분이신 &lt;a class="link" href="https://spearkkk.dev/" target="_blank" rel="noopener"
->정창권&lt;/a> 님이시다. (감사합니다!)&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">brew install fd
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>fzf&lt;/code> 역시 파일 검색을 할 수 있지만, 내부에서는 &lt;code>find&lt;/code> 결과를 얻어 처리하는 수준이다. 따라서, &lt;code>fzf&lt;/code> 가 &lt;code>fd&lt;/code> 를 사용하게 만드려면 다음의 환경변수가 추가로 필요하다.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="nb">export&lt;/span> &lt;span class="nv">FZF_DEFAULT_COMMAND&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;fd — type f&amp;#39;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>생산성 on InterP Blog</title><link>https://interp.blog/tags/%EC%83%9D%EC%82%B0%EC%84%B1/</link><description>Recent content in 생산성 on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Tue, 09 May 2023 13:18:40 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/%EC%83%9D%EC%82%B0%EC%84%B1/index.xml" rel="self" type="application/rss+xml"/><item><title>자주 쓰는 3가지 파일 검색 터미널 도구</title><link>https://interp.blog/useful-3-terminal-tools/</link><pubDate>Tue, 09 May 2023 13:18:40 +0900</pubDate><guid>https://interp.blog/useful-3-terminal-tools/</guid><description>&lt;p&gt;업무의 절반은 문서 작업, 나머지 절반은 코딩 작업이라고 생각한다. 코딩 작업 중에서도 가장 많이 하는 일은, 바로 &amp;lsquo;찾기&amp;rsquo; 이다. 내용을 찾을 때도 있고, 특정 파일을 찾을 때도 있다. 대부분의 경우엔 경로를 외워두거나 하긴 하는데, 정확히 외우지 않아도 되게끔 도와주는 효율 좋은 도구를 소개한다.&lt;/p&gt;
+&lt;p&gt;물론 아래 도구는 모두 터미널 기준이고, VSCode 나 PyCharm, Atom 같은 IDE 는 개별 가이드를 참고해서 써야 하겠다. 아래 도구들은 모두 homebrew 에서 설치가 가능하므로, &lt;code&gt;brew&lt;/code&gt; 를 이용한 설치 명령을 마지막에 추가해 두었다.&lt;/p&gt;
+&lt;h1 id="ag-the-silver-searcher"&gt;ag, the silver searcher
+&lt;/h1&gt;&lt;p&gt;&amp;#x1f4cc; &lt;a class="link" href="https://github.com/ggreer/the_silver_searcher" target="_blank" rel="noopener"
+ &gt;Github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;grep&lt;/code&gt; 을 대신할 친구다. 나느 &lt;code&gt;grep . -rn&lt;/code&gt; 을 밥먹듯이 하는데, ag 를 사용하면 더욱 빠르게 찾을 수 있다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;brew install the_silver_searcher
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ag &amp;lt;pattern&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="fzf-command-line-fuzzy-finder"&gt;fzf, command-line fuzzy finder
+&lt;/h1&gt;&lt;p&gt;&amp;#x1f4cc; &lt;a class="link" href="https://github.com/junegunn/fzf" target="_blank" rel="noopener"
+ &gt;Github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;단독으로 입력하면 File 을 검색한다. 파이프라인에 태우면 앞선 출력에서 검색한다. 이게 마치 &amp;lsquo;검색어 입력&amp;rsquo; 처럼 키워드를 공백으로 띄워가며 입력해도 알아서 잘 찾아주고, 정규 표현식도 잘 먹는다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;brew install fzf
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# solo&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;fzf
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# or after a pipeline&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;cat file_list.dat &lt;span class="p"&gt;|&lt;/span&gt; fzf
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;oh-my-zsh 에 fzf plugin 을 활성화하면, 단축키로 파일 검색 (&lt;code&gt;Ctrl+T&lt;/code&gt;) 이나 히스토리 검색 (&lt;code&gt;Ctrl+R&lt;/code&gt;) 이 가능하다.&lt;/p&gt;
+&lt;h2 id="plugin-문제해결"&gt;plugin 문제해결
+&lt;/h2&gt;&lt;p&gt;참고로 homebrew 로 설치한 뒤 oh-my-zsh plugin 활성화를 한 다음, zsh 를 다시 실행시키면 다음 에러가 뜰 수 있다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;[&lt;/span&gt;oh-my-zsh&lt;span class="o"&gt;]&lt;/span&gt; fzf plugin: Cannot find fzf installation directory.
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Please add &lt;span class="sb"&gt;`&lt;/span&gt;&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;FZF_BASE&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/path/to/fzf/install/dir&lt;span class="sb"&gt;`&lt;/span&gt; to your .zshrc
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;이 때는 homebrew 의 PATH 설정이 plugin 활성화 시점 이후일 가능성이 높다. 내 경우엔 &lt;code&gt;$HOME/.zshrc&lt;/code&gt; 에서 아래 라인을 &lt;code&gt;plugin=(..)&lt;/code&gt; 위에 두면 해결이 되었다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# in your $HOME/.zshrc&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;PATH&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/opt/homebrew/bin:&lt;span class="nv"&gt;$PATH&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;eval&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;/opt/homebrew/bin/brew shellenv&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# ...&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;plugin&lt;span class="o"&gt;(&lt;/span&gt;fzf ...&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="fd-simple-and-fast-alternative-to-find"&gt;fd, simple and fast alternative to find
+&lt;/h1&gt;&lt;p&gt;&amp;#x1f4cc; &lt;a class="link" href="https://github.com/sharkdp/fd" target="_blank" rel="noopener"
+ &gt;Github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;find&lt;/code&gt; 을 대신할 친구다. 파일 찾기가 더 빠르다고 한다. 참고로 &lt;a class="link" href="https://github.com/spearkkk/fd-kor" target="_blank" rel="noopener"
+ &gt;README&lt;/a&gt; 에 한국어가 지원되는데, 아니나 다를까 Main Contributor 가 한국 분이신 &lt;a class="link" href="https://spearkkk.dev/" target="_blank" rel="noopener"
+ &gt;정창권&lt;/a&gt; 님이시다. (감사합니다!)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;brew install fd
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;fzf&lt;/code&gt; 역시 파일 검색을 할 수 있지만, 내부에서는 &lt;code&gt;find&lt;/code&gt; 결과를 얻어 처리하는 수준이다. 따라서, &lt;code&gt;fzf&lt;/code&gt; 가 &lt;code&gt;fd&lt;/code&gt; 를 사용하게 만드려면 다음의 환경변수가 추가로 필요하다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;FZF_DEFAULT_COMMAND&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;fd — type f&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item></channel></rss>

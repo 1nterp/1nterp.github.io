@@ -1,72 +1,100 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Obsidian on InterP Blog</title><link>https://interp.blog/tags/obsidian/</link><description>Recent content in Obsidian on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Sun, 17 Dec 2023 13:27:40 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/obsidian/index.xml" rel="self" type="application/rss+xml"/><item><title>iCloud Obsidian 주기적으로 백업하기</title><link>https://interp.blog/backup-from-icloud-obsidian/</link><pubDate>Sun, 17 Dec 2023 13:27:40 +0900</pubDate><guid>https://interp.blog/backup-from-icloud-obsidian/</guid><description>&lt;img src="https://interp.blog/backup-from-icloud-obsidian/feature.png" alt="Featured image of post iCloud Obsidian 주기적으로 백업하기" />&lt;p>나는 개인 노트 작성에 &lt;a class="link" href="https://obsidian.md/" target="_blank" rel="noopener"
->옵시디언 (obsidian)&lt;/a> 을 사용한다.&lt;/p>
-&lt;p>작년까지는 &lt;a class="link" href="https://www.notion.so/" target="_blank" rel="noopener"
->노션 (Notion)&lt;/a> 을 주로 사용했지만, 노션은 데이터베이스 형태로 기록할 만한 것들만 남겨두고, 실제 글들을 아이디어로 엮는 작업은 옵시디언에서 하고 있다. 주로 Macbook 앞에서 작성하지만, 컴퓨터를 쓰지 않을 때는 iPhone 에서 끄적이고 싶을 때 옵시디언 앱을 연다. 어느 쪽에서 쓰더라도, iCloud 를 통해 동기화가 이루어지므로 끊임없이 적을 수 있는 장점도 있다. (최근 워크스페이스가 늘어나면서 모바일 로딩 속도가 느려지는 문제가 있는 듯 하다. 이 때문에 임시 메모장 용도로만 다시 노션을 써야하나 고민 중이긴 하다.)&lt;/p>
-&lt;p>아무튼, 옵시디언은 정제된 메모들과 아이디어가 있는 공간이기 때문에, 몇년이고 잘 보존되어야 한다는 욕심이 생겼다. 대학원 시절 잘 &lt;a class="link" href="https://www.joongang.co.kr/article/9019118" target="_blank" rel="noopener"
->사용하던 스프링노트가 서비스 종료&lt;/a>되면서, 백업을 받아두긴 했지만 재활용하기가 너무 힘든 부분이 있었다. 백업을 해 두면, iCloud 를 더 이상 사용하지 않는다거나, 불의의 사고가 생기더라도 저장장치에서 새출발 할 수 있지 않을까 해서 이리저리 알아봤다.&lt;/p>
-&lt;figure>
-&lt;img loading="lazy" src="springnote.png"
-alt="추억의 스프링노트.." width="50%"/> &lt;figcaption>
-&lt;p>추억의 스프링노트..&lt;/p>
-&lt;/figcaption>
-&lt;/figure>
-&lt;p>옵시디언 저장소를 (옵시디언에서는 &lt;em>Vault&lt;/em> 라고 부른다) 아예 OneDrive 나 다른 저장소에 두면 되겠지만, &lt;u>모바일용 옵시디언에서는 외부 파일 클라우드 서비스를 지원하지 않는다.&lt;/u> iPhone 에서만 쓰거나, iCloud 에 동기화하거나.&lt;/p>
-&lt;figure>
-&lt;img loading="lazy" src="obsidian_mobile.jpeg"
-alt="모바일 옵시디언에서 저장소 동기화는 iCloud 에서만 가능하다" width="30%"/> &lt;figcaption>
-&lt;p>모바일 옵시디언에서 저장소 동기화는 iCloud 에서만 가능하다&lt;/p>
-&lt;/figcaption>
-&lt;/figure>
-&lt;h1 id="문제">문제&lt;/h1>
-&lt;p>iCloud 로 동기화 중인 옵시디언 저장소를 다른 파일 동기화 서비스에도 백업해 둘 순 없을까?&lt;/p>
-&lt;h1 id="디자인">디자인&lt;/h1>
-&lt;p>우선 내 작업 환경을 고려해서 다음 아이디어를 생각해 냈다.&lt;/p>
-&lt;ul>
-&lt;li>Macbook 이 꺼질 일은 없고, 매일 Macbook 을 사용하니까 Macbook 에서 iCloud 내용을 복사하는 반복 작업을 만들면?&lt;/li>
-&lt;li>대부분의 파일 동기화 서비스는 Mac OS 를 지원하니까, Macbook 내부 특정 위치를 동기화하게 만든 다음 그곳으로 iCloud 내용을 복사하면?&lt;/li>
-&lt;/ul>
-&lt;p>생각보다 간단하게 문제 해결 방법이 정리되었고, 단순 &lt;code>cp&lt;/code> 명령어보다 훨씬 더 좋은 방법을 적용할 수 있었다. (이번에 새로 알게 된 것은 아니고 원래 알고 있었지만&amp;hellip;)&lt;/p>
-&lt;h1 id="rsync-를-써보자">rsync 를 써보자!&lt;/h1>
-&lt;p>&lt;code>rsync&lt;/code> 는 파일 타임스탬프를 기반으로 (원격 시스템을 포함한) 두 경로 사이를 동기화하는데 사용된다. 당연히 로컬 환경에서도 사용이 가능하다! 하지만 MacOS 에 기본적으로 설치된 버전은 2.x 이기 때문에 인코딩 문제같은 자잘한 걸림돌이 많다. 그래서 먼저, 3.x 버전으로 업그레이드 해보자.&lt;/p>
-&lt;p>무릇 MacOS 유저라면 &lt;a class="link" href="https://brew.sh/" target="_blank" rel="noopener"
->Homebrew&lt;/a> 를 설치했으리라 믿는다. 그럼 바로 설치해보자!&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">brew install rsync
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Homebrew 에서 설치한 바이너리 명령어들의 설치 경로가 Intel/Silicon Mac 마다 다르다. 해당 경로가 &lt;code>$PATH&lt;/code> 최상단에 있는지 확인하자.&lt;/p>
-&lt;ul>
-&lt;li>Intel: &lt;code>/usr/local/bin&lt;/code>&lt;/li>
-&lt;li>Silicon (M1, M2..): &lt;code>/opt/homebrew/bin&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="nb">export&lt;/span> &lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">HOMEBREW_BIN_PATH&lt;/span>&lt;span class="si">}&lt;/span>:&lt;span class="si">${&lt;/span>&lt;span class="nv">PATH&lt;/span>&lt;span class="si">}&lt;/span>
-which rsync &lt;span class="c1"># 확인&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>자, 이제 다음 명령어로 동기화를 해보자!&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">rsync -uva --delete &lt;span class="si">${&lt;/span>&lt;span class="nv">source&lt;/span>&lt;span class="si">}&lt;/span>/ &lt;span class="si">${&lt;/span>&lt;span class="nv">destination&lt;/span>&lt;span class="si">}&lt;/span>/
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>man rsync&lt;/code> 를 통해서도 얻을 수 있는 정보이지만, 정리해두면 다음과 같다.&lt;/p>
-&lt;ul>
-&lt;li>&lt;code>-u&lt;/code>: 업데이트 된 파일만 destination 으로 복사&lt;/li>
-&lt;li>&lt;code>-v&lt;/code>: 동기화되는 파일 목록과 결과 통계 출력&lt;/li>
-&lt;li>&lt;code>-a&lt;/code>: archive mode (recursive + symbolic link + preserve metadata)&lt;/li>
-&lt;li>&lt;code>--delete&lt;/code>: 관계없는 파일은 destination 에서 삭제&lt;/li>
-&lt;/ul>
-&lt;p>반드시 &lt;code>--dry-run&lt;/code> 을 추가해서, 저장 경로에 어떤 파일이 생성되고 삭제되는지 직접 테스트를 해 보자.&lt;/p>
-&lt;h1 id="crontab-에-등록">Crontab 에 등록&lt;/h1>
-&lt;p>이제는 매일 동기화하도록 해보자. 그런데 주의할 점은, 반드시 바이너리와 두 디렉토리를 모두 절대경로로 작성해야 한다는 것이다. &lt;code>crontab&lt;/code> 은 &lt;code>PATH&lt;/code> 를 인식하지 못하기 때문이며, 실행하는 위치를 특정할 수 없기 때문에 상대경로로 쓸 수 없다.&lt;/p>
-&lt;p>말하자면 이런 식이다. (매일 오전 11시에 돌아간다)&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="c1"># 이러면 안 되고&lt;/span>
-&lt;span class="m">0&lt;/span> &lt;span class="m">11&lt;/span> * * * rsync -uva --delete src/ dest/
-&lt;span class="c1"># 이래야 한다.&lt;/span>
-&lt;span class="m">0&lt;/span> &lt;span class="m">11&lt;/span> * * * /opt/homebrew/bin/rsync -uva --delete /Users/username/src/ /Users/username/dest/
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>날짜와 함께 로그를 남기고 싶다면, 이렇게 &lt;code>log.log&lt;/code> 에 내용을 쌓는 방법도 있다. 더 좋은 방법이 있겠지만, 간단하니 우선은 이렇게 확인 중이다.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="m">0&lt;/span> &lt;span class="m">11&lt;/span> * * * date &amp;gt;&amp;gt; /Users/username/log.log &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> /opt/homebrew/bin/rsync -uva --delete /Users/username/src/ /Users/username/dest/ &amp;gt;&amp;gt; /Users/username/log.log
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="operation-not-permitted">Operation not permitted&lt;/h2>
-&lt;p>혹시 위 명령어를 보게 된다면 다음을 참고하자.&lt;/p>
-&lt;ol>
-&lt;li>&amp;lsquo;설정&amp;rsquo; 열기&lt;/li>
-&lt;li>검색에서 &amp;lsquo;디스크&amp;rsquo; 를 입력해서, &amp;lsquo;응용 프로그램이 모든 사용자 파일에 접근하는 것을 허용&amp;rsquo; 선택&lt;/li>
-&lt;li>목록 맨 아래에 더하기 (+) 기호 클릭&lt;/li>
-&lt;li>Command + Shift + G 를 눌러서, &lt;code>/usr/sbin/cron&lt;/code> 입력&lt;/li>
-&lt;li>&lt;code>cron&lt;/code> 이 활성화되어 있는지 확인 후, 설정 창 닫기&lt;/li>
-&lt;/ol>
-&lt;p>🔗 참고 : &lt;a class="link" href="https://apple.stackexchange.com/questions/378553/crontab-operation-not-permitted" target="_blank" rel="noopener"
->https://apple.stackexchange.com/questions/378553/crontab-operation-not-permitted&lt;/a>&lt;/p>
-&lt;hr>
-&lt;p>&lt;code>/Users/username/dest&lt;/code> 부분은 파일 동기화 클라이언트로 지정해 두면 클라우드/NAS 로 동기화가 자동으로 이뤄질 것이다!&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Obsidian on InterP Blog</title><link>https://interp.blog/tags/obsidian/</link><description>Recent content in Obsidian on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Sat, 10 Jan 2026 11:45:12 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/obsidian/index.xml" rel="self" type="application/rss+xml"/><item><title>Obsidian Copilot과 OpenRouter로 구축하는 나만의 무료 AI 워크플로우</title><link>https://interp.blog/obsidian-copilot-openrouter-free-llm/</link><pubDate>Sat, 10 Jan 2026 11:45:12 +0900</pubDate><guid>https://interp.blog/obsidian-copilot-openrouter-free-llm/</guid><description>&lt;p&gt;Obsidian에 쌓인 수많은 노트를 보며 이 지식들을 통해 새로운 부가가치를 만들어 낼 순 없을까 고민하게 된다. 이 질문은 이미 많은 사용자가 공유하고 있으며, 이를 해결하기 위한 다양한 플러그인이 출시되어 있다. 대표적으로 Note Companion 등이 언급되지만, 일반적인 사용자가 유료 LLM API를 구독하거나 복잡한 설정을 거쳐 무료 모델을 연결하기란 쉽지 않은 일이다.&lt;/p&gt;
+&lt;p&gt;Obsidian Copilot은 이러한 고민에 훌륭한 대안이 된다. 다양한 LLM API를 유연하게 지원하며, 유료 플랜인 Plus가 아니더라도 API 연동을 통해 충분히 강력한 기능을 맛볼 수 있기 때문이다. 특히 OpenRouter를 경유하면 최신 무료 모델들을 손쉽게 연결할 수 있어 비용 부담 없이 나만의 AI 지식 베이스를 구축할 수 있다.&lt;/p&gt;
+&lt;h2 id="obsidian-copilot-설치-및-기본-설정"&gt;Obsidian Copilot 설치 및 기본 설정
+&lt;/h2&gt;&lt;p&gt;Obsidian Copilot은 커뮤니티 플러그인에서 검색하여 쉽게 설치할 수 있다. 설치 후 가장 먼저 해야 할 일은 &amp;lsquo;Provider&amp;rsquo;를 설정하는 것이다. 이 플러그인은 OpenAI, Anthropic 등 다양한 프로바이더를 지원하지만, 우리는 범용성이 높은 OpenRouter를 선택한다.&lt;/p&gt;
+&lt;p&gt;OpenRouter는 수많은 LLM을 하나의 API 인터페이스로 제공하는 허브 역할을 한다. OpenRouter 계정을 생성하고 API Key를 발급받은 뒤, Copilot 설정창의 API Key 항목에 입력하면 준비는 끝난다.&lt;/p&gt;
+&lt;h2 id="openrouter에서-최적의-무료-모델-찾기"&gt;OpenRouter에서 최적의 무료 모델 찾기
+&lt;/h2&gt;&lt;p&gt;OpenRouter의 가장 큰 장점은 고성능의 무료 모델들을 지속적으로 업데이트한다는 점이다. 특정 모델을 고정해서 쓰기보다 현재 가장 성능이 좋은 무료 모델을 찾는 방법은 다음과 같다.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;OpenRouter 공식 홈페이지의 &lt;strong&gt;Models&lt;/strong&gt; 페이지로 접속한다.&lt;/li&gt;
+&lt;li&gt;필터 옵션에서 &lt;strong&gt;Pricing&lt;/strong&gt;을 &amp;lsquo;Free&amp;rsquo;로 설정한다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Rank&lt;/strong&gt; 또는 &lt;strong&gt;Usage&lt;/strong&gt;순으로 정렬하여 현재 사용자들에게 가장 검증된 모델을 확인한다.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;일반적으로 Meta의 Llama 시리즈나 Mistral 계열의 모델들이 무료로 풀리는 경우가 많으며, 단순 요약이나 문장 정리에는 이들만으로도 충분한 퍼포먼스를 보여준다.&lt;/p&gt;
+&lt;h2 id="효율적인-워크플로우-구성을-위한-팁"&gt;효율적인 워크플로우 구성을 위한 팁
+&lt;/h2&gt;&lt;p&gt;단순히 챗봇처럼 대화하는 것에 그치지 않고, 작성 중인 노트의 맥락을 파악하게 하려면 &amp;lsquo;Index&amp;rsquo; 기능을 활용해야 한다. Copilot 설정 내의 &lt;strong&gt;Vault Indexing&lt;/strong&gt;을 활성화하면 AI가 내 전체 노트의 내용을 파악하여 답변에 참고하게 된다.&lt;/p&gt;
+&lt;p&gt;다만 전체 인덱싱은 초기 설정 시 시간이 소요되므로, 중요한 폴더만 선택적으로 인덱싱하는 것을 권장한다. 또한 모델마다 토큰 제한이 다르므로, 긴 노트를 분석할 때는 OpenRouter에서 제공하는 모델의 Context Window 크기를 미리 확인하는 것이 좋다.&lt;/p&gt;
+&lt;h2 id="실무-팁-및-인사이트"&gt;실무 팁 및 인사이트
+&lt;/h2&gt;&lt;p&gt;실제로 이 조합을 며칠간 사용해 보니, 굳이 유료 모델인 GPT-4나 Claude 3를 고집할 필요가 없다는 결론에 도달했다. 특히 파편화된 메모들을 하나의 주제로 엮거나, 작성 중인 글의 어조를 다듬는 작업은 최신 무료 모델들로도 기성 유료 서비스 못지않은 결과물을 내놓는다.&lt;/p&gt;
+&lt;p&gt;중요한 것은 모델의 체급보다 **&amp;lsquo;내 노트라는 맥락(Context)&amp;rsquo;**을 AI에게 얼마나 잘 전달하느냐에 달려 있다. 유료 구독료가 부담스러워 AI 도입을 망설였다면 OpenRouter의 무료 모델 리스트를 주기적으로 확인하며 자신에게 맞는 모델을 테스트해보길 권한다.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;성능과 비용 사이의 균형을 잡는 데 이 가이드가 도움이 되었길 바란다. Obsidian에 잠들어 있는 노트들이 AI를 통해 새로운 통찰로 깨어나는 경험을 해보길 추천한다.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;다음 단계로 어떤 것을 도와드릴까요?&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;위 포스팅 내용을 바탕으로 SEO 최적화를 위한 핵심 키워드 리스트를 뽑아드릴까요?&lt;/li&gt;
+&lt;li&gt;OpenRouter 외에 로컬 환경(Ollama 등)에서 무료로 사용하는 방법을 추가로 작성해 드릴까요?&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>iCloud Obsidian 주기적으로 백업하기</title><link>https://interp.blog/backup-from-icloud-obsidian/</link><pubDate>Sun, 17 Dec 2023 13:27:40 +0900</pubDate><guid>https://interp.blog/backup-from-icloud-obsidian/</guid><description>&lt;img src="https://interp.blog/backup-from-icloud-obsidian/feature.png" alt="Featured image of post iCloud Obsidian 주기적으로 백업하기" /&gt;&lt;p&gt;나는 개인 노트 작성에 &lt;a class="link" href="https://obsidian.md/" target="_blank" rel="noopener"
+ &gt;옵시디언 (obsidian)&lt;/a&gt; 을 사용한다.&lt;/p&gt;
+&lt;p&gt;작년까지는 &lt;a class="link" href="https://www.notion.so/" target="_blank" rel="noopener"
+ &gt;노션 (Notion)&lt;/a&gt; 을 주로 사용했지만, 노션은 데이터베이스 형태로 기록할 만한 것들만 남겨두고, 실제 글들을 아이디어로 엮는 작업은 옵시디언에서 하고 있다. 주로 Macbook 앞에서 작성하지만, 컴퓨터를 쓰지 않을 때는 iPhone 에서 끄적이고 싶을 때 옵시디언 앱을 연다. 어느 쪽에서 쓰더라도, iCloud 를 통해 동기화가 이루어지므로 끊임없이 적을 수 있는 장점도 있다. (최근 워크스페이스가 늘어나면서 모바일 로딩 속도가 느려지는 문제가 있는 듯 하다. 이 때문에 임시 메모장 용도로만 다시 노션을 써야하나 고민 중이긴 하다.)&lt;/p&gt;
+&lt;p&gt;아무튼, 옵시디언은 정제된 메모들과 아이디어가 있는 공간이기 때문에, 몇년이고 잘 보존되어야 한다는 욕심이 생겼다. 대학원 시절 잘 &lt;a class="link" href="https://www.joongang.co.kr/article/9019118" target="_blank" rel="noopener"
+ &gt;사용하던 스프링노트가 서비스 종료&lt;/a&gt;되면서, 백업을 받아두긴 했지만 재활용하기가 너무 힘든 부분이 있었다. 백업을 해 두면, iCloud 를 더 이상 사용하지 않는다거나, 불의의 사고가 생기더라도 저장장치에서 새출발 할 수 있지 않을까 해서 이리저리 알아봤다.&lt;/p&gt;
+&lt;figure&gt;
+ &lt;img loading="lazy" src="springnote.png"
+ alt="추억의 스프링노트.." width="50%"/&gt; &lt;figcaption&gt;
+ &lt;p&gt;추억의 스프링노트..&lt;/p&gt;
+ &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;옵시디언 저장소를 (옵시디언에서는 &lt;em&gt;Vault&lt;/em&gt; 라고 부른다) 아예 OneDrive 나 다른 저장소에 두면 되겠지만, &lt;u&gt;모바일용 옵시디언에서는 외부 파일 클라우드 서비스를 지원하지 않는다.&lt;/u&gt; iPhone 에서만 쓰거나, iCloud 에 동기화하거나.&lt;/p&gt;
+&lt;figure&gt;
+ &lt;img loading="lazy" src="obsidian_mobile.jpeg"
+ alt="모바일 옵시디언에서 저장소 동기화는 iCloud 에서만 가능하다" width="30%"/&gt; &lt;figcaption&gt;
+ &lt;p&gt;모바일 옵시디언에서 저장소 동기화는 iCloud 에서만 가능하다&lt;/p&gt;
+ &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h1 id="문제"&gt;문제
+&lt;/h1&gt;&lt;p&gt;iCloud 로 동기화 중인 옵시디언 저장소를 다른 파일 동기화 서비스에도 백업해 둘 순 없을까?&lt;/p&gt;
+&lt;h1 id="디자인"&gt;디자인
+&lt;/h1&gt;&lt;p&gt;우선 내 작업 환경을 고려해서 다음 아이디어를 생각해 냈다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Macbook 이 꺼질 일은 없고, 매일 Macbook 을 사용하니까 Macbook 에서 iCloud 내용을 복사하는 반복 작업을 만들면?&lt;/li&gt;
+&lt;li&gt;대부분의 파일 동기화 서비스는 Mac OS 를 지원하니까, Macbook 내부 특정 위치를 동기화하게 만든 다음 그곳으로 iCloud 내용을 복사하면?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;생각보다 간단하게 문제 해결 방법이 정리되었고, 단순 &lt;code&gt;cp&lt;/code&gt; 명령어보다 훨씬 더 좋은 방법을 적용할 수 있었다. (이번에 새로 알게 된 것은 아니고 원래 알고 있었지만&amp;hellip;)&lt;/p&gt;
+&lt;h1 id="rsync-를-써보자"&gt;rsync 를 써보자!
+&lt;/h1&gt;&lt;p&gt;&lt;code&gt;rsync&lt;/code&gt; 는 파일 타임스탬프를 기반으로 (원격 시스템을 포함한) 두 경로 사이를 동기화하는데 사용된다. 당연히 로컬 환경에서도 사용이 가능하다! 하지만 MacOS 에 기본적으로 설치된 버전은 2.x 이기 때문에 인코딩 문제같은 자잘한 걸림돌이 많다. 그래서 먼저, 3.x 버전으로 업그레이드 해보자.&lt;/p&gt;
+&lt;p&gt;무릇 MacOS 유저라면 &lt;a class="link" href="https://brew.sh/" target="_blank" rel="noopener"
+ &gt;Homebrew&lt;/a&gt; 를 설치했으리라 믿는다. 그럼 바로 설치해보자!&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;brew install rsync
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Homebrew 에서 설치한 바이너리 명령어들의 설치 경로가 Intel/Silicon Mac 마다 다르다. 해당 경로가 &lt;code&gt;$PATH&lt;/code&gt; 최상단에 있는지 확인하자.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Intel: &lt;code&gt;/usr/local/bin&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Silicon (M1, M2..): &lt;code&gt;/opt/homebrew/bin&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;PATH&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;HOMEBREW_BIN_PATH&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;:&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;PATH&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;which rsync &lt;span class="c1"&gt;# 확인&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;자, 이제 다음 명령어로 동기화를 해보자!&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;rsync -uva --delete &lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;source&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;/ &lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;destination&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;/
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;man rsync&lt;/code&gt; 를 통해서도 얻을 수 있는 정보이지만, 정리해두면 다음과 같다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;-u&lt;/code&gt;: 업데이트 된 파일만 destination 으로 복사&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-v&lt;/code&gt;: 동기화되는 파일 목록과 결과 통계 출력&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-a&lt;/code&gt;: archive mode (recursive + symbolic link + preserve metadata)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;--delete&lt;/code&gt;: 관계없는 파일은 destination 에서 삭제&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;반드시 &lt;code&gt;--dry-run&lt;/code&gt; 을 추가해서, 저장 경로에 어떤 파일이 생성되고 삭제되는지 직접 테스트를 해 보자.&lt;/p&gt;
+&lt;h1 id="crontab-에-등록"&gt;Crontab 에 등록
+&lt;/h1&gt;&lt;p&gt;이제는 매일 동기화하도록 해보자. 그런데 주의할 점은, 반드시 바이너리와 두 디렉토리를 모두 절대경로로 작성해야 한다는 것이다. &lt;code&gt;crontab&lt;/code&gt; 은 &lt;code&gt;PATH&lt;/code&gt; 를 인식하지 못하기 때문이며, 실행하는 위치를 특정할 수 없기 때문에 상대경로로 쓸 수 없다.&lt;/p&gt;
+&lt;p&gt;말하자면 이런 식이다. (매일 오전 11시에 돌아간다)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 이러면 안 되고&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="m"&gt;0&lt;/span&gt; &lt;span class="m"&gt;11&lt;/span&gt; * * * rsync -uva --delete src/ dest/
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 이래야 한다.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="m"&gt;0&lt;/span&gt; &lt;span class="m"&gt;11&lt;/span&gt; * * * /opt/homebrew/bin/rsync -uva --delete /Users/username/src/ /Users/username/dest/
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;날짜와 함께 로그를 남기고 싶다면, 이렇게 &lt;code&gt;log.log&lt;/code&gt; 에 내용을 쌓는 방법도 있다. 더 좋은 방법이 있겠지만, 간단하니 우선은 이렇게 확인 중이다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="m"&gt;0&lt;/span&gt; &lt;span class="m"&gt;11&lt;/span&gt; * * * date &amp;gt;&amp;gt; /Users/username/log.log &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; /opt/homebrew/bin/rsync -uva --delete /Users/username/src/ /Users/username/dest/ &amp;gt;&amp;gt; /Users/username/log.log
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="operation-not-permitted"&gt;Operation not permitted
+&lt;/h2&gt;&lt;p&gt;혹시 위 명령어를 보게 된다면 다음을 참고하자.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&amp;lsquo;설정&amp;rsquo; 열기&lt;/li&gt;
+&lt;li&gt;검색에서 &amp;lsquo;디스크&amp;rsquo; 를 입력해서, &amp;lsquo;응용 프로그램이 모든 사용자 파일에 접근하는 것을 허용&amp;rsquo; 선택&lt;/li&gt;
+&lt;li&gt;목록 맨 아래에 더하기 (+) 기호 클릭&lt;/li&gt;
+&lt;li&gt;Command + Shift + G 를 눌러서, &lt;code&gt;/usr/sbin/cron&lt;/code&gt; 입력&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cron&lt;/code&gt; 이 활성화되어 있는지 확인 후, 설정 창 닫기&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;🔗 참고 : &lt;a class="link" href="https://apple.stackexchange.com/questions/378553/crontab-operation-not-permitted" target="_blank" rel="noopener"
+ &gt;https://apple.stackexchange.com/questions/378553/crontab-operation-not-permitted&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;code&gt;/Users/username/dest&lt;/code&gt; 부분은 파일 동기화 클라이언트로 지정해 두면 클라우드/NAS 로 동기화가 자동으로 이뤄질 것이다!&lt;/p&gt;</description></item></channel></rss>

@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>scss on InterP Blog</title><link>https://interp.blog/tags/scss/</link><description>Recent content in scss on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Fri, 31 Jan 2020 00:35:23 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/scss/index.xml" rel="self" type="application/rss+xml"/><item><title>Hugo SCSS Rebuild</title><link>https://interp.blog/hugo-scss-rebuild/</link><pubDate>Fri, 31 Jan 2020 00:35:23 +0900</pubDate><guid>https://interp.blog/hugo-scss-rebuild/</guid><description>&lt;p>Tale 테마로 블로그를 처음 시작하려고 보고 있는데, 여기서 SCSS 내용을 변경해도 &lt;code>hugo server -D&lt;/code> 를 하니까 변경 내용이 적용이 되지 않았다. &lt;a class="link" href="https://gohugo.io/hugo-pipes/scss-sass/" target="_blank" rel="noopener"
->여기선&lt;/a> 잘 된다고 나와 있는데, 어떻게 해결했는지 자세히 적어본다.&lt;/p>
-&lt;ul>
-&lt;li>자세히 보니 이미 컴파일이 완료된 CSS 파일이 &lt;code>resources/_gen/assets/scss/scss/&lt;/code> 에 존재하고 있었다.&lt;/li>
-&lt;li>설마 이것 때문인가? 삭제를 하고 다시 &lt;code>hugo server -D&lt;/code> 를 해보면 다음 문구가 반겨준다.
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">Building sites … ERROR 2020/01/31 00:27:39 Transformation failed: TOCSS: failed to transform &amp;#34;scss/tale.scss&amp;#34; (text/x-scss): this feature is not available in your current Hugo version, see https://goo.gl/YMrWcn for more information
-Built in 16 ms
-Error: Error building site: logged 1 error(s)
-&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
-&lt;/ul>
-&lt;p>그렇다, &lt;strong>extension version 이 아닌 일반 hugo 를 설치한 것이었다!&lt;/strong> &lt;a class="link" href="https://gohugo.io/getting-started/installing" target="_blank" rel="noopener"
->Install Hugo&lt;/a> 페이지에 다시 들어가 재설치하니 잘 되었다.&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Scss on InterP Blog</title><link>https://interp.blog/tags/scss/</link><description>Recent content in Scss on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Fri, 31 Jan 2020 00:35:23 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/scss/index.xml" rel="self" type="application/rss+xml"/><item><title>Hugo SCSS Rebuild</title><link>https://interp.blog/hugo-scss-rebuild/</link><pubDate>Fri, 31 Jan 2020 00:35:23 +0900</pubDate><guid>https://interp.blog/hugo-scss-rebuild/</guid><description>&lt;p&gt;Tale 테마로 블로그를 처음 시작하려고 보고 있는데, 여기서 SCSS 내용을 변경해도 &lt;code&gt;hugo server -D&lt;/code&gt; 를 하니까 변경 내용이 적용이 되지 않았다. &lt;a class="link" href="https://gohugo.io/hugo-pipes/scss-sass/" target="_blank" rel="noopener"
+ &gt;여기선&lt;/a&gt; 잘 된다고 나와 있는데, 어떻게 해결했는지 자세히 적어본다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;자세히 보니 이미 컴파일이 완료된 CSS 파일이 &lt;code&gt;resources/_gen/assets/scss/scss/&lt;/code&gt; 에 존재하고 있었다.&lt;/li&gt;
+&lt;li&gt;설마 이것 때문인가? 삭제를 하고 다시 &lt;code&gt;hugo server -D&lt;/code&gt; 를 해보면 다음 문구가 반겨준다.
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Building sites … ERROR 2020/01/31 00:27:39 Transformation failed: TOCSS: failed to transform &amp;#34;scss/tale.scss&amp;#34; (text/x-scss): this feature is not available in your current Hugo version, see https://goo.gl/YMrWcn for more information
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Built in 16 ms
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Error: Error building site: logged 1 error(s)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;그렇다, &lt;strong&gt;extension version 이 아닌 일반 hugo 를 설치한 것이었다!&lt;/strong&gt; &lt;a class="link" href="https://gohugo.io/getting-started/installing" target="_blank" rel="noopener"
+ &gt;Install Hugo&lt;/a&gt; 페이지에 다시 들어가 재설치하니 잘 되었다.&lt;/p&gt;</description></item></channel></rss>

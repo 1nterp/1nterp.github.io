@@ -1,256 +1,46 @@
-<!doctype html><html lang=ko-kr dir=ltr>
-<head><meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="가볍게 작업 표시줄에서 볼 수 있는 귀여운 달력"><title>Mac 용 달력 프로그램, itsycal</title>
-<style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500&display=swap';@import "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"</style>
-<link href=https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css rel=stylesheet>
-<link rel=canonical href=https://interp.blog/itsycal-mac-calendar/>
-<link rel=stylesheet href=/scss/style.min.4be513be4d3ee5d10255ef2b36fc366628db7e83c856167310af719cdd53496c.css><meta property="title" content="Mac 용 달력 프로그램, itsycal">
-<meta property="description" content="가볍게 작업 표시줄에서 볼 수 있는 귀여운 달력">
-<meta property="og:title" content="Mac 용 달력 프로그램, itsycal">
-<meta property="og:description" content="가볍게 작업 표시줄에서 볼 수 있는 귀여운 달력">
-<meta property="og:url" content="https://interp.blog/itsycal-mac-calendar/">
-<meta property="og:site_name" content="InterP Blog">
-<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="달력"><meta property="article:tag" content="Mac"><meta property="article:tag" content="App"><meta property="article:tag" content="Outlook"><meta property="article:tag" content="주 번호"><meta property="article:tag" content="유틸리티"><meta property="article:published_time" content="2025-01-25T22:29:39+09:00"><meta property="article:modified_time" content="2025-01-25T22:29:39+09:00"><meta property="og:image" content="https://interp.blog/itsycal-mac-calendar/feature.jpg">
-<meta name=twitter:site content="@interp_">
-<meta name=twitter:creator content="@interp_"><meta name=twitter:title content="Mac 용 달력 프로그램, itsycal">
-<meta name=twitter:description content="가볍게 작업 표시줄에서 볼 수 있는 귀여운 달력"><meta name=twitter:card content="summary_large_image">
-<meta name=twitter:image content="https://interp.blog/itsycal-mac-calendar/feature.jpg">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KMRJ33V06X"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-KMRJ33V06X')</script>
-<script>(function(b,d,e,a,g){b[a]=b[a]||[],b[a].push({'gtm.start':(new Date).getTime(),event:'gtm.js'});var f=d.getElementsByTagName(e)[0],c=d.createElement(e),h=a!='dataLayer'?'&l='+a:'';c.async=!0,c.src='https://www.googletagmanager.com/gtm.js?id='+g+h,f.parentNode.insertBefore(c,f)})(window,document,'script','dataLayer','GTM-NBPHNHQ')</script>
-</head>
-<body class=article-page>
-<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>
-<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky">
-<button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 토글">
-<span class=hamburger-box>
-<span class=hamburger-inner></span>
-</span>
-</button>
-<header>
-<div class=site-meta>
-<h1 class=site-name><a href=/>InterP Blog</a></h1>
-<h2 class=site-description>Things I'm interested</h2>
-</div>
-</header><ol class=menu id=main-menu>
-<li>
-<a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
-<span>Home</span>
-</a>
-</li>
-<li>
-<a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
-<span>Archives</span>
-</a>
-</li>
-<li>
-<a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
-<span>Search</span>
-</a>
-</li>
-<div class=menu-bottom-section>
-<li id=i18n-switch><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5h7"/><path d="M9 3v2c0 4.418-2.239 8-5 8"/><path d="M5 9c-.003 2.144 2.952 3.908 6.7 4"/><path d="M12 20l4-9 4 9"/><path d="M19.1 18h-6.2"/></svg>
-<select name=language onchange="window.location.href=this.selectedOptions[0].value"><option value=https://interp.blog/ selected>한국어</option><option value=https://interp.blog/en/>English</option></select>
-</li>
-<li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
-<span>다크 모드</span>
-</li>
-</div>
-</ol>
-</aside>
-<main class="main full-width">
-<article class="has-image main-article">
-<header class=article-header style=display:block>
-<div class=article-image>
-<a href=/itsycal-mac-calendar/>
-<img src=/itsycal-mac-calendar/feature_hud8f2c8a2587efb728b7a4f247aa68186_803385_900x0_resize_q75_h2_box.webp srcset="/itsycal-mac-calendar/feature_hud8f2c8a2587efb728b7a4f247aa68186_803385_900x0_resize_q75_h2_box.webp 800w, /itsycal-mac-calendar/feature_hud8f2c8a2587efb728b7a4f247aa68186_803385_1800x0_resize_q75_h2_box.webp 1600w" width=900 height=263 loading=lazy style="object-position:50% 50%" alt="Featured image of post Mac 용 달력 프로그램, itsycal">
-</a>
-</div>
-<div class=article-details>
-<header class=article-category>
-<a href=/categories/tech/ style=background-color:#1c8193;color:#fff>
-TECH 🛠️
-</a>
-</header>
-<div class=article-title-wrapper>
-<h2 class=article-title>
-<a href=/itsycal-mac-calendar/>Mac 용 달력 프로그램, itsycal</a>
-</h2>
-<h3 class=article-subtitle>
-가볍게 작업 표시줄에서 볼 수 있는 귀여운 달력
-</h3>
-</div>
-<footer class=article-time>
-<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
-<time class=article-time--published>2025-01-25</time>
-</div>
-<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
-<time class=article-time--reading>
-2 분 소요
-</time>
-</div>
-</footer>
-</div>
-</header>
-<section class=article-content>
-<p>Mac 을 업무에 사용하면서 가장 많이 쓰는 앱을 소개하면 좋겠다고 생각했다. 뭐가 있을까? <del>당연히 Visual Studio Code 겠지만</del> 개발자가 아니더라도 범용적으로 쓸 수 있는 앱을 찾아보기로 했다.</p>
-<p>갑자기, 작업표시줄 위에 떠 있는 <strong>1월 25일 (토)</strong> 가 보였다. 오늘이 몇월 몇일인지 바로 확인할 수 있는, 이번 주가 몇 번째 주인지 확인할 수 있는, 다른 캘린더와 연결해서 일정을 간단히 확인할 수 있는 앱, <a class=link href=https://www.mowglii.com/itsycal/ target=_blank rel=noopener>itsycal</a> 이다.</p>
-<figure>
-<img loading=lazy src=./image.png alt="실제 사용화면" width=70%> <figcaption>
-<p>실제 사용화면</p>
-</figcaption>
-</figure>
-<h1 id=시간말고-날짜도-확인하고-싶어>시간말고 날짜도 확인하고 싶어</h1>
-<p>내가 잘 모를 순 있겠지만, 작업표시줄에 시간만 나타낼 수 밖에 없어서 날짜도 바로 확인하고 싶었다.</p>
-<p>홈페이지에서는 영어 포맷으로 나타나나 있지만, 지금처럼 얼마든지 한글로 바꿀 수 있다.</p>
-<h1 id=몇째-주인지-확인하고-싶어>몇째 주인지 확인하고 싶어</h1>
-<p>회사 특성상, 일정을 이야기해야 할 때 주 번호 (Calendar Week) 를 자주 언급해야 할 때가 있다. 그래서 지금이 몇째 주인지 빠르게 파악할 수 있어야 하는데, 메일 프로그램인 아웃룩에서도 지원은 한다.</p>
-<figure>
-<img loading=lazy src=outlook.png alt="&amp;lsquo;설정 &amp;gt; 캘린더 &amp;gt; 주 번호 표시&amp;rsquo; 선택하면 이렇게 보인다 (스크린샷은 영문판)" width=100%> <figcaption>
-<p>&lsquo;설정 > 캘린더 > 주 번호 표시&rsquo; 선택하면 이렇게 보인다 (스크린샷은 영문판)</p>
-</figcaption>
-</figure>
-<p>아웃룩 열고 보고 하는게 번거로워 보이기도 했고, 무엇보다 현재 주가 아니라 4월 첫째주는 몇 번째 주야? 를 알려면 그때부터 더욱 복잡해졌기 때문이다. 휙휙 넘겨서 보는게 훨씬 더 쉬운 이 캘린더가 마음에 들었던 이유다.</p>
-<h1 id=다른-앱들은-뭐예요>다른 앱들은 뭐예요?</h1>
-<p>아, 표시줄에 있는 다른 앱은 다음과 같다. 따로 소개해 드릴 시간이 있을 것 같다.</p>
-<ul>
-<li><a class=link href=https://apps.apple.com/kr/app/flow-%EB%BD%80%EB%AA%A8%EB%8F%84%EB%A1%9C-%EC%A7%91%EC%A4%91-%EC%8B%9C%EA%B0%84%EA%B4%80%EB%A6%AC-%EA%B3%B5%EB%B6%80-%ED%83%80%EC%9D%B4%EB%A8%B8/id1423210932 target=_blank rel=noopener>Flow</a>: 뽀모도로 앱이다. 무료로 쓰고, 업무 시간을 기록하기 위한 용도로 간단히 쓴다.</li>
-<li><a class=link href=https://maccy.app/ target=_blank rel=noopener>Maccy</a>: 남들 다 쓰는 클립보드 저장 앱이다.</li>
-</ul>
-<p><em>가볍고 귀여운 캘린더, 바로 확인할 수 있는 간단한 캘린더를 원하십니까? 그렇다면 지금 바로 설치하세요!</em> 라고 추천해 주고 싶다.</p>
-</section>
-<footer class=article-footer>
-<br>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
-<ins class=adsbygoogle style=display:block;height:300px;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-0712823212859607 data-ad-slot=7880266545></ins>
-<script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
-<section class=article-tags>
-<a href=/tags/%EB%8B%AC%EB%A0%A5/>달력</a>
+<!doctype html><html lang=ko-kr dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="가볍게 작업 표시줄에서 볼 수 있는 귀여운 달력"><title>Mac 용 달력 프로그램, itsycal</title><link rel=canonical href=https://interp.blog/itsycal-mac-calendar/><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=stylesheet href=https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css><link rel=stylesheet href=/scss/style.min.13527503d779121ab03c412f0b9dee045fb647686643dd243aa74021dddf30be.css><meta property='og:title' content="Mac 용 달력 프로그램, itsycal"><meta property='og:description' content="가볍게 작업 표시줄에서 볼 수 있는 귀여운 달력"><meta property='og:url' content='https://interp.blog/itsycal-mac-calendar/'><meta property='og:site_name' content='InterP Blog'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content='달력'><meta property='article:tag' content='Mac'><meta property='article:tag' content='App'><meta property='article:tag' content='Outlook'><meta property='article:tag' content='주 번호'><meta property='article:tag' content='유틸리티'><meta property='article:published_time' content='2025-01-25T22:29:39+09:00'><meta property='article:modified_time' content='2025-01-25T22:29:39+09:00'><meta property='og:image' content='https://interp.blog/itsycal-mac-calendar/feature.jpg'><meta name=twitter:site content="@interp_"><meta name=twitter:creator content="@interp_"><meta name=twitter:title content="Mac 용 달력 프로그램, itsycal"><meta name=twitter:description content="가볍게 작업 표시줄에서 볼 수 있는 귀여운 달력"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://interp.blog/itsycal-mac-calendar/feature.jpg'><script async src="https://www.googletagmanager.com/gtag/js?id=G-KMRJ33V06X"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-KMRJ33V06X")</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 여닫기">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/>InterP Blog</a></h1><h2 class=site-description>Things I'm interested</h2></div></header><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li class=menu-bottom-section><ol class=menu><li id=i18n-switch><svg class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5h7"/><path d="M9 3v2c0 4.418-2.239 8-5 8"/><path d="M5 9c-.003 2.144 2.952 3.908 6.7 4"/><path d="M12 20l4-9 4 9"/><path d="M19.1 18h-6.2"/></svg>
+<select name=language title=language onchange="window.location.href=this.selectedOptions[0].value"><option value=/itsycal-mac-calendar/ selected>한국어</option><option value=/en/>English</option></select></li><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>다크 모드</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><form action=/search/ class="search-form widget"><p><label>검색</label>
+<input name=keyword required placeholder="검색어를 입력하세요...">
+<button title=검색>
+<svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg></button></p></form><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">목차</h2><div class=widget--toc><nav class=toc-nav id=TableOfContents><ul><li><a href=#시간말고-날짜도-확인하고-싶어>시간말고 날짜도 확인하고 싶어</a></li><li><a href=#몇째-주인지-확인하고-싶어>몇째 주인지 확인하고 싶어</a></li><li><a href=#다른-앱들은-뭐예요>다른 앱들은 뭐예요?</a></li></ul></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/itsycal-mac-calendar/><img alt="Featured image of post Mac 용 달력 프로그램, itsycal" height=700 loading=lazy sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src=/itsycal-mac-calendar/feature.jpg srcset="/itsycal-mac-calendar/feature_hu_28d8147744b9db13.jpg 800w, /itsycal-mac-calendar/feature_hu_449f75acf8e4604a.jpg 1600w, /itsycal-mac-calendar/feature.jpg 2400w" style="object-position:center center" width=2400></a></div><div class=article-details><header class=article-category><a href=/categories/tech/ style=background-color:#1c8193;color:#fff>TECH 🛠️</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/itsycal-mac-calendar/>Mac 용 달력 프로그램, itsycal</a></h2><h3 class=article-subtitle>가볍게 작업 표시줄에서 볼 수 있는 귀여운 달력</h3></div><footer class=article-meta><div class=inline-meta><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published datetime=2025-01-25T22:29:39+09:00>2025-01-25</time>
+<svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>2 분 정도</time></div></footer></div></header><aside class=article-toc><details><summary><div class=article-toc-title><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6-6 6"/></svg>
+<span>목차</span></div></summary><nav class=toc-nav><ul><li><a href=#시간말고-날짜도-확인하고-싶어>시간말고 날짜도 확인하고 싶어</a></li><li><a href=#몇째-주인지-확인하고-싶어>몇째 주인지 확인하고 싶어</a></li><li><a href=#다른-앱들은-뭐예요>다른 앱들은 뭐예요?</a></li></ul></nav></details></aside><section class=article-content><p>Mac 을 업무에 사용하면서 가장 많이 쓰는 앱을 소개하면 좋겠다고 생각했다. 뭐가 있을까? <del>당연히 Visual Studio Code 겠지만</del> 개발자가 아니더라도 범용적으로 쓸 수 있는 앱을 찾아보기로 했다.</p><p>갑자기, 작업표시줄 위에 떠 있는 <strong>1월 25일 (토)</strong> 가 보였다. 오늘이 몇월 몇일인지 바로 확인할 수 있는, 이번 주가 몇 번째 주인지 확인할 수 있는, 다른 캘린더와 연결해서 일정을 간단히 확인할 수 있는 앱, <a class=link href=https://www.mowglii.com/itsycal/ target=_blank rel=noopener>itsycal</a> 이다.</p><figure><img loading=lazy src=./image.png alt="실제 사용화면" width=70%><figcaption><p>실제 사용화면</p></figcaption></figure><h1 id=시간말고-날짜도-확인하고-싶어>시간말고 날짜도 확인하고 싶어</h1><p>내가 잘 모를 순 있겠지만, 작업표시줄에 시간만 나타낼 수 밖에 없어서 날짜도 바로 확인하고 싶었다.</p><p>홈페이지에서는 영어 포맷으로 나타나나 있지만, 지금처럼 얼마든지 한글로 바꿀 수 있다.</p><h1 id=몇째-주인지-확인하고-싶어>몇째 주인지 확인하고 싶어</h1><p>회사 특성상, 일정을 이야기해야 할 때 주 번호 (Calendar Week) 를 자주 언급해야 할 때가 있다. 그래서 지금이 몇째 주인지 빠르게 파악할 수 있어야 하는데, 메일 프로그램인 아웃룩에서도 지원은 한다.</p><figure><img loading=lazy src=outlook.png alt="&lsquo;설정 > 캘린더 > 주 번호 표시&rsquo; 선택하면 이렇게 보인다 (스크린샷은 영문판)" width=100%><figcaption><p>&lsquo;설정 > 캘린더 > 주 번호 표시&rsquo; 선택하면 이렇게 보인다 (스크린샷은 영문판)</p></figcaption></figure><p>아웃룩 열고 보고 하는게 번거로워 보이기도 했고, 무엇보다 현재 주가 아니라 4월 첫째주는 몇 번째 주야? 를 알려면 그때부터 더욱 복잡해졌기 때문이다. 휙휙 넘겨서 보는게 훨씬 더 쉬운 이 캘린더가 마음에 들었던 이유다.</p><h1 id=다른-앱들은-뭐예요>다른 앱들은 뭐예요?</h1><p>아, 표시줄에 있는 다른 앱은 다음과 같다. 따로 소개해 드릴 시간이 있을 것 같다.</p><ul><li><a class=link href=https://apps.apple.com/kr/app/flow-%EB%BD%80%EB%AA%A8%EB%8F%84%EB%A1%9C-%EC%A7%91%EC%A4%91-%EC%8B%9C%EA%B0%84%EA%B4%80%EB%A6%AC-%EA%B3%B5%EB%B6%80-%ED%83%80%EC%9D%B4%EB%A8%B8/id1423210932 target=_blank rel=noopener>Flow</a>: 뽀모도로 앱이다. 무료로 쓰고, 업무 시간을 기록하기 위한 용도로 간단히 쓴다.</li><li><a class=link href=https://maccy.app/ target=_blank rel=noopener>Maccy</a>: 남들 다 쓰는 클립보드 저장 앱이다.</li></ul><p><em>가볍고 귀여운 캘린더, 바로 확인할 수 있는 간단한 캘린더를 원하십니까? 그렇다면 지금 바로 설치하세요!</em> 라고 추천해 주고 싶다.</p></section><footer class="article-meta article-footer"><section class=article-tags><a href=/tags/%EB%8B%AC%EB%A0%A5/>달력</a>
 <a href=/tags/mac/>Mac</a>
 <a href=/tags/app/>App</a>
 <a href=/tags/outlook/>Outlook</a>
 <a href=/tags/%EC%A3%BC-%EB%B2%88%ED%98%B8/>주 번호</a>
-<a href=/tags/%EC%9C%A0%ED%8B%B8%EB%A6%AC%ED%8B%B0/>유틸리티</a>
-</section>
-</footer>
-</article>
-<aside class=related-content--wrapper>
-<h2 class=section-title>관련 글</h2>
-<div class=related-content>
-<div class="flex article-list--tile">
-<article class=has-image>
-<a href=/macos-rectangle/>
-<div class=article-image>
-<img src=/macos-rectangle/feature.92ac657c4e0e88d4fc6cc606a7e3e315_hu311737e22db1a0054658bbf8125d285e_577943_250x150_fill_q75_box_smart1.jpg width=250 height=150 loading=lazy alt="Featured image of post Rectangle, MacOS 창 이동 프로그램" data-hash="md5-kqxlfE4OiNT8bMYGp+PjFQ==">
-</div>
-<div class=article-details>
-<h2 class=article-title>Rectangle, MacOS 창 이동 프로그램</h2>
-</div>
-</a>
-</article>
-<article class=has-image>
-<a href=/backup-from-icloud-obsidian/>
-<div class=article-image>
-<img src=/backup-from-icloud-obsidian/feature.733fea06f52cb01084c577110197599f_hu4b4ed757e4b1c0b24b15644c97bf58e9_228493_250x150_fill_box_smart1_3.png width=250 height=150 loading=lazy alt="Featured image of post iCloud Obsidian 주기적으로 백업하기" data-hash="md5-cz/qBvUssBCExXcRAZdZnw==">
-</div>
-<div class=article-details>
-<h2 class=article-title>iCloud Obsidian 주기적으로 백업하기</h2>
-</div>
-</a>
-</article>
-<article class=has-image>
-<a href=/mac-display-resolution-adjustment/>
-<div class=article-image>
-<img src=/mac-display-resolution-adjustment/feature.d5d5e6b3ebb4c7db5ba6561230aaf6bb_hu43356a195e024c64166fce239cf0e8d2_1638563_250x150_fill_box_smart1_3.png width=250 height=150 loading=lazy alt="Featured image of post Mac 디스플레이 해상도 조절 팁" data-hash="md5-1dXms+u0x9tbplYSMKr2uw==">
-</div>
-<div class=article-details>
-<h2 class=article-title>Mac 디스플레이 해상도 조절 팁</h2>
-</div>
-</a>
-</article>
-</div>
-</div>
-</aside>
-<script src=https://giscus.app/client.js data-repo=1nterp/1nterp.github.io data-repo-id="MDEwOlJlcG9zaXRvcnkyMzY5NzQ5Mzc=" data-category=General data-category-id=MDE4OkRpc2N1c3Npb25DYXRlZ29yeTMyMjU4Mjgx data-mapping=pathname data-reactions-enabled=1 data-emit-metadata=1 data-theme=light data-lang=en data-loading=lazy crossorigin=anonymous async></script>
-<script>function setGiscusTheme(b){let a=document.querySelector("iframe.giscus-frame");a&&a.contentWindow.postMessage({giscus:{setConfig:{theme:b}}},"https://giscus.app")}(function(){addEventListener("message",b=>{if(event.origin!=="https://giscus.app")return;a()}),window.addEventListener("onColorSchemeChange",a);function a(){document.documentElement.dataset.scheme==="light"?setGiscusTheme('light'):setGiscusTheme('dark_dimmed')}})()</script>
-<footer class=site-footer>
-<section class=copyright>
-&copy;
+<a href=/tags/%EC%9C%A0%ED%8B%B8%EB%A6%AC%ED%8B%B0/>유틸리티</a></section></footer></article><aside><h2 class=section-title>관련 글</h2><div class=subsection-list><div class=article-list--tile><article class=has-image><a href=/macos-rectangle/><div class=article-image><img alt="Featured image of post Rectangle, MacOS 창 이동 프로그램" height=150 loading=lazy src=/macos-rectangle/feature_hu_56de393fe103bd5d.jpg srcset="/macos-rectangle/feature_hu_56de393fe103bd5d.jpg 1x, /macos-rectangle/feature_hu_bd783901323ab58b.jpg 2x" width=250></div><div class=article-details style="background:linear-gradient(0deg,#0690c880 0%,#20343eC0 100%)"><h2 class=article-title>Rectangle, MacOS 창 이동 프로그램</h2></div></a></article><article class=has-image><a href=/backup-from-icloud-obsidian/><div class=article-image><img alt="Featured image of post iCloud Obsidian 주기적으로 백업하기" height=150 loading=lazy src=/backup-from-icloud-obsidian/feature_hu_81090f1d81a496c1.png srcset="/backup-from-icloud-obsidian/feature_hu_81090f1d81a496c1.png 1x, /backup-from-icloud-obsidian/feature_hu_cfb703b58bede584.png 2x" width=250></div><div class=article-details style="background:linear-gradient(0deg,#ecedfc80 0%,#191919C0 100%)"><h2 class=article-title>iCloud Obsidian 주기적으로 백업하기</h2></div></a></article><article class=has-image><a href=/mac-display-resolution-adjustment/><div class=article-image><img alt="Featured image of post Mac 디스플레이 해상도 조절 팁" height=150 loading=lazy src=/mac-display-resolution-adjustment/feature_hu_b03353300f7a0852.png srcset="/mac-display-resolution-adjustment/feature_hu_b03353300f7a0852.png 1x, /mac-display-resolution-adjustment/feature_hu_c13377f9fa52cc1a.png 2x" width=250></div><div class=article-details style="background:linear-gradient(0deg,#3a3c3e80 0%,#dbdbdbC0 100%)"><h2 class=article-title>Mac 디스플레이 해상도 조절 팁</h2></div></a></article><article class=has-image><a href=/vscode-vim-mac-key-pressing-input/><div class=article-image><img alt="Featured image of post VSCode Vim 에서 키를 눌러 계속 입력하게 만들기" height=150 loading=lazy src=/vscode-vim-mac-key-pressing-input/feature_hu_3cf09181e61812ae.png srcset="/vscode-vim-mac-key-pressing-input/feature_hu_3cf09181e61812ae.png 1x, /vscode-vim-mac-key-pressing-input/feature_hu_4f3bf46db459794d.png 2x" width=250></div><div class=article-details style="background:linear-gradient(0deg,#988e6f80 0%,#c5bb9cC0 100%)"><h2 class=article-title>VSCode Vim 에서 키를 눌러 계속 입력하게 만들기</h2></div></a></article><article class=has-image><a href=/apple-silicon-mac-tensorflow-install/><div class=article-image><img alt="Featured image of post Apple Silicon Mac 에 Tensorflow 설치" height=150 loading=lazy src=/apple-silicon-mac-tensorflow-install/feature_hu_1ce7ae36147646e6.png srcset="/apple-silicon-mac-tensorflow-install/feature_hu_1ce7ae36147646e6.png 1x, /apple-silicon-mac-tensorflow-install/feature_hu_4f99e926f93f27d9.png 2x" width=250></div><div class=article-details style="background:linear-gradient(0deg,#4a1bb780 0%,#1a0b41C0 100%)"><h2 class=article-title>Apple Silicon Mac 에 Tensorflow 설치</h2></div></a></article></div></div></aside><script src=https://giscus.app/client.js data-repo=1nterp/1nterp.github.io data-repo-id="MDEwOlJlcG9zaXRvcnkyMzY5NzQ5Mzc=" data-category=General data-category-id=MDE4OkRpc2N1c3Npb25DYXRlZ29yeTMyMjU4Mjgx data-mapping=pathname data-strict=0 data-reactions-enabled=1 data-emit-metadata=1 data-input-position=top data-theme=light data-lang=en data-loading=lazy crossorigin=anonymous async></script><script>function setGiscusTheme(e){let t=document.querySelector("iframe.giscus-frame");t&&t.contentWindow.postMessage({giscus:{setConfig:{theme:e}}},"https://giscus.app")}(function(){addEventListener("message",t=>{if(event.origin!=="https://giscus.app")return;e()}),window.addEventListener("onColorSchemeChange",e);function e(){setGiscusTheme(document.documentElement.dataset.scheme==="light"?"light":"dark_dimmed")}})()</script><footer class=site-footer><section class=copyright>&copy;
 2019 -
-2026 InterP Blog
-</section>
-<section class=powerby>
-<a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 기반 / <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.12.0>Stack</a></b> 테마를 사용 중입니다.
-</section>
-</footer>
-<div class=pswp tabindex=-1 role=dialog aria-hidden=true>
-<div class=pswp__bg></div>
-<div class=pswp__scroll-wrap>
-<div class=pswp__container>
-<div class=pswp__item></div>
-<div class=pswp__item></div>
-<div class=pswp__item></div>
-</div>
-<div class="pswp__ui pswp__ui--hidden">
-<div class=pswp__top-bar>
-<div class=pswp__counter></div>
-<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-<button class="pswp__button pswp__button--share" title=Share></button>
-<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-<div class=pswp__preloader>
-<div class=pswp__preloader__icn>
-<div class=pswp__preloader__cut>
-<div class=pswp__preloader__donut></div>
-</div>
-</div>
-</div>
-</div>
-<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-<div class=pswp__share-tooltip></div>
-</div>
-<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-</button>
-<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-</button>
-<div class=pswp__caption>
-<div class=pswp__caption__center></div>
-</div>
-</div>
-</div>
-</div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous>
-</main>
-<aside class="sidebar right-sidebar sticky">
-<form action=/search/ class="search-form widget">
-<p>
-<label>검색</label>
-<input name=keyword required placeholder="검색어를 입력하세요...">
-<button title=검색><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
-</button>
-</p>
-</form>
-<section class="widget archives">
-<div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg>
-</div>
-<h2 class="widget-title section-title">목차</h2>
-<div class=widget--toc>
-<nav id=TableOfContents>
-<ul>
-<li><a href=#시간말고-날짜도-확인하고-싶어>시간말고 날짜도 확인하고 싶어</a></li>
-<li><a href=#몇째-주인지-확인하고-싶어>몇째 주인지 확인하고 싶어</a></li>
-<li><a href=#다른-앱들은-뭐예요>다른 앱들은 뭐예요?</a></li>
-</ul>
-</nav>
-</div>
-</section>
-<section class="widget adsense">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
-<ins class=adsbygoogle style=display:block data-ad-client=ca-pub-0712823212859607 data-ad-slot=8117949234 data-ad-format=auto data-full-width-responsive=true></ins>
-<script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
-</section>
-</aside>
-</div>
-<script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script>
-<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
-</body>
-</html>
+2026 InterP Blog</section><section class=powerby><a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a>로 만듦<br><a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=4.0.3>Stack</a></b> 테마 사용 중</section></footer><script type=module>
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script></main></div><script type=text/javascript src=/ts/main.74d5d6241af8967b6f1ef8ef876fb897ddb81eeaad46b5a139f47d9cbd3a64d4.js defer></script></body></html>

@@ -1,43 +1,43 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pyenv on InterP Blog</title><link>https://interp.blog/tags/pyenv/</link><description>Recent content in Pyenv on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Wed, 19 Apr 2023 11:39:11 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/pyenv/index.xml" rel="self" type="application/rss+xml"/><item><title>Pyenv 로 Python 설치 할 때 Openssl 문제</title><link>https://interp.blog/pyenv-openssl-problem/</link><pubDate>Wed, 19 Apr 2023 11:39:11 +0900</pubDate><guid>https://interp.blog/pyenv-openssl-problem/</guid><description>&lt;h1 id="문제">문제&lt;/h1>
-&lt;p>&lt;a class="link" href="https://github.com/pyenv/pyenv" target="_blank" rel="noopener"
->pyenv&lt;/a> 를 이용해 Python 3.7 버전 이상 (내 경우는 3.9 버전 이상) 설치할 때 다음의 에러를 만났다. (하다 보니 둘 다 만났다)&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">ERROR: The Python ssl extension was not compiled. Missing the OpenSSL lib?
-&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">*** WARNING: renaming &amp;#34;_hashlib&amp;#34; since importing it failed: /usr/lib64/libcrypto.so.1.1: version `OPENSSL_1_1_1&amp;#39; not found (required by /tmp/python-build.20230418192124.103279/Python-3.10.11/build/lib.linux-x86_64-3.10/_hashlib.cpython-310-x86_64-linux-gnu.so)
-&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="추적">추적&lt;/h1>
-&lt;p>결론은 OpenSSL 1.1.1 을 설치해야 한다는데, 내 경우엔 이 방법이 전부 힘들었다.&lt;/p>
-&lt;ul>
-&lt;li>1.1.1 을 패키지 매니저로 설치할 수 없는 Linux OS 였고&lt;/li>
-&lt;li>Homebrew 로 설치하면 무슨 이유에선지 엄청나게 꼬였다 (&lt;code>ld&lt;/code> 링크할 때 엉뚱한 곳을 본다던가..)&lt;/li>
-&lt;/ul>
-&lt;p>화면에 바로 안내되는 &lt;a class="link" href="https://github.com/pyenv/pyenv/wiki/Common-build-problems#error-the-python-ssl-extension-was-not-compiled-missing-the-openssl-lib" target="_blank" rel="noopener"
->URL&lt;/a> 를 살펴보면, openssl 을 수동으로 설치하는 방법이 아래에 안내되어 있다. 가장 확실한 방법이다.&lt;/p>
-&lt;h1 id="해결">해결&lt;/h1>
-&lt;ol>
-&lt;li>&lt;a class="link" href="https://help.dreamhost.com/hc/en-us/articles/360001435926-Installing-OpenSSL-locally-under-your-username" target="_blank" rel="noopener"
->Installing OpenSSL locally under your username&lt;/a> 으로 접속&lt;/li>
-&lt;li>&lt;strong>Installing OpenSSL&lt;/strong> 을 하나씩 따라하기 (매우 친절하다!)
-&lt;ul>
-&lt;li>&lt;code>username&lt;/code> 부분을 바꾸는 걸 잊지 말자.&lt;/li>
-&lt;li>이 때, &lt;code>make test&lt;/code> 가 실패할 수 있다. 그럴 땐 아쉽더라도 &lt;code>make install&lt;/code> 이후 과정을 진행한다.&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>다음을 입력한다.&lt;/li>
-&lt;/ol>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="nv">CPPFLAGS&lt;/span>&lt;span class="o">=&lt;/span>-I&lt;span class="nv">$HOME&lt;/span>/openssl/include &lt;span class="se">\
-&lt;/span>&lt;span class="se">&lt;/span>&lt;span class="nv">LDFLAGS&lt;/span>&lt;span class="o">=&lt;/span>-L&lt;span class="nv">$HOME&lt;/span>/openssl/lib &lt;span class="se">\
-&lt;/span>&lt;span class="se">&lt;/span>&lt;span class="nv">SSH&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nv">$HOME&lt;/span>/openssl
-pyenv install -v 3.7.2 &lt;span class="c1"># 원하는 버전을 입력&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="ssl-에러">SSL 에러?&lt;/h2>
-&lt;p>간혹, 다음 에러를 마주하게 될 수 있다.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">pyenv install -v 3.9.15
-/tmp/python-build.20230419102453.2507312 ~
-Downloading Python-3.9.15.tar.xz...
--&amp;gt; https://www.python.org/ftp/python/3.9.15/Python-3.9.15.tar.xz
-curl: (60) SSL certificate problem: unable to get local issuer certificate
-More details here: https://curl.haxx.se/docs/sslcerts.html
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>이럴 땐, 아까 OpenSSL 설치하면서 진행했던 환경변수 설정 부분에서 다음을 주석처리한다. 다시 설치를 시도하면 성공!&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback"># export PATH=$HOME/openssl/bin:$PATH
-# export LD_LIBRARY_PATH=$HOME/openssl/lib
-# export LC_ALL=&amp;#34;en_US.UTF-8&amp;#34;
-export LDFLAGS=&amp;#34;-L /home/username/openssl/lib -Wl,-rpath,/home/username/openssl/lib&amp;#34;
-&lt;/code>&lt;/pre>&lt;/div></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pyenv on InterP Blog</title><link>https://interp.blog/tags/pyenv/</link><description>Recent content in Pyenv on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Wed, 19 Apr 2023 11:39:11 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/pyenv/index.xml" rel="self" type="application/rss+xml"/><item><title>Pyenv 로 Python 설치 할 때 Openssl 문제</title><link>https://interp.blog/pyenv-openssl-problem/</link><pubDate>Wed, 19 Apr 2023 11:39:11 +0900</pubDate><guid>https://interp.blog/pyenv-openssl-problem/</guid><description>&lt;h1 id="문제"&gt;문제
+&lt;/h1&gt;&lt;p&gt;&lt;a class="link" href="https://github.com/pyenv/pyenv" target="_blank" rel="noopener"
+ &gt;pyenv&lt;/a&gt; 를 이용해 Python 3.7 버전 이상 (내 경우는 3.9 버전 이상) 설치할 때 다음의 에러를 만났다. (하다 보니 둘 다 만났다)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ERROR: The Python ssl extension was not compiled. Missing the OpenSSL lib?
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;*** WARNING: renaming &amp;#34;_hashlib&amp;#34; since importing it failed: /usr/lib64/libcrypto.so.1.1: version `OPENSSL_1_1_1&amp;#39; not found (required by /tmp/python-build.20230418192124.103279/Python-3.10.11/build/lib.linux-x86_64-3.10/_hashlib.cpython-310-x86_64-linux-gnu.so)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="추적"&gt;추적
+&lt;/h1&gt;&lt;p&gt;결론은 OpenSSL 1.1.1 을 설치해야 한다는데, 내 경우엔 이 방법이 전부 힘들었다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;1.1.1 을 패키지 매니저로 설치할 수 없는 Linux OS 였고&lt;/li&gt;
+&lt;li&gt;Homebrew 로 설치하면 무슨 이유에선지 엄청나게 꼬였다 (&lt;code&gt;ld&lt;/code&gt; 링크할 때 엉뚱한 곳을 본다던가..)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;화면에 바로 안내되는 &lt;a class="link" href="https://github.com/pyenv/pyenv/wiki/Common-build-problems#error-the-python-ssl-extension-was-not-compiled-missing-the-openssl-lib" target="_blank" rel="noopener"
+ &gt;URL&lt;/a&gt; 를 살펴보면, openssl 을 수동으로 설치하는 방법이 아래에 안내되어 있다. 가장 확실한 방법이다.&lt;/p&gt;
+&lt;h1 id="해결"&gt;해결
+&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;&lt;a class="link" href="https://help.dreamhost.com/hc/en-us/articles/360001435926-Installing-OpenSSL-locally-under-your-username" target="_blank" rel="noopener"
+ &gt;Installing OpenSSL locally under your username&lt;/a&gt; 으로 접속&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Installing OpenSSL&lt;/strong&gt; 을 하나씩 따라하기 (매우 친절하다!)
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;username&lt;/code&gt; 부분을 바꾸는 걸 잊지 말자.&lt;/li&gt;
+&lt;li&gt;이 때, &lt;code&gt;make test&lt;/code&gt; 가 실패할 수 있다. 그럴 땐 아쉽더라도 &lt;code&gt;make install&lt;/code&gt; 이후 과정을 진행한다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;다음을 입력한다.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nv"&gt;CPPFLAGS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;-I&lt;span class="nv"&gt;$HOME&lt;/span&gt;/openssl/include &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nv"&gt;LDFLAGS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;-L&lt;span class="nv"&gt;$HOME&lt;/span&gt;/openssl/lib &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nv"&gt;SSH&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;$HOME&lt;/span&gt;/openssl
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;pyenv install -v 3.7.2 &lt;span class="c1"&gt;# 원하는 버전을 입력&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="ssl-에러"&gt;SSL 에러?
+&lt;/h2&gt;&lt;p&gt;간혹, 다음 에러를 마주하게 될 수 있다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-gdscript3" data-lang="gdscript3"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;pyenv&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;v&lt;/span&gt; &lt;span class="mf"&gt;3.9&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;15&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;python&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;build&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="mf"&gt;20230419102453.2507312&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;Downloading&lt;/span&gt; &lt;span class="n"&gt;Python&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;3.9&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="mf"&gt;15.&lt;/span&gt;&lt;span class="n"&gt;tar&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;xz&lt;/span&gt;&lt;span class="o"&gt;...&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;https&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="o"&gt;//&lt;/span&gt;&lt;span class="n"&gt;www&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;python&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;org&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;ftp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;python&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mf"&gt;3.9&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;15&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;Python&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;3.9&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="mf"&gt;15.&lt;/span&gt;&lt;span class="n"&gt;tar&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;xz&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;curl&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;60&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;SSL&lt;/span&gt; &lt;span class="n"&gt;certificate&lt;/span&gt; &lt;span class="n"&gt;problem&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;unable&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="n"&gt;local&lt;/span&gt; &lt;span class="n"&gt;issuer&lt;/span&gt; &lt;span class="n"&gt;certificate&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;More&lt;/span&gt; &lt;span class="n"&gt;details&lt;/span&gt; &lt;span class="n"&gt;here&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;https&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="o"&gt;//&lt;/span&gt;&lt;span class="n"&gt;curl&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;haxx&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;se&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;docs&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sslcerts&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;html&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;이럴 땐, 아까 OpenSSL 설치하면서 진행했던 환경변수 설정 부분에서 다음을 주석처리한다. 다시 설치를 시도하면 성공!&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-gdscript3" data-lang="gdscript3"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# export PATH=$HOME/openssl/bin:$PATH&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# export LD_LIBRARY_PATH=$HOME/openssl/lib&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# export LC_ALL=&amp;#34;en_US.UTF-8&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;export&lt;/span&gt; &lt;span class="n"&gt;LDFLAGS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;-L /home/username/openssl/lib -Wl,-rpath,/home/username/openssl/lib&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item></channel></rss>

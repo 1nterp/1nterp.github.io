@@ -1,46 +1,49 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ChatGPT on InterP Blog</title><link>https://interp.blog/tags/chatgpt/</link><description>Recent content in ChatGPT on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Sun, 29 Dec 2024 21:22:25 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/chatgpt/index.xml" rel="self" type="application/rss+xml"/><item><title>AI 페어 프로그래밍</title><link>https://interp.blog/ai-pair-programming/</link><pubDate>Sun, 29 Dec 2024 21:22:25 +0900</pubDate><guid>https://interp.blog/ai-pair-programming/</guid><description>&lt;img src="https://interp.blog/ai-pair-programming/feature.jpg" alt="Featured image of post AI 페어 프로그래밍" />&lt;p>&lt;div style="background-color: var(--pre-background-color); width: 95%; margin:2rem; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
-&lt;div style="width: 16px;margin-right: 7px; margin-left: 4px;">
-📙
-&lt;/div>
-&lt;div>
-&lt;a href="https://product.kyobobook.co.kr/detail/S000213131985">도서 정보&lt;/a>
-&lt;/div>
-&lt;/div>
-&lt;figure>
-&lt;img loading="lazy" src="book.png" width="50%"/>
-&lt;/figure>
-&lt;/p>
-&lt;p>Github Copilot 을 사내에서 쓰면서, 단순 코딩 작업이나 반복작업을 떠넘기기 바빴었다. 물론 그것만으로도 효율이 올랐지만, 좀 더 스마트한 사용 케이스가 분명 있을 것이라는 기대가 있었다.&lt;/p>
-&lt;p>종종 다른 팀원의 코드를 리뷰할 때 &lt;code>/explain&lt;/code> 도 사용하는데, 이 내용을 기반으로 코드를 읽으면 훨씬 더 잘 보이는 것도 같아서 말이다. 최근에는 아예 Copilot 이 자체적으로 Code Review 해주는 기능도 추가되었으니, 다른 곳에서도 더 빠르면서도 준수한 결과를 내 줄 수 있지 않을까? 하는 궁금증이 생겼다. 말 그대로 &amp;lsquo;완벽한&amp;rsquo; 결과가 아닌 &amp;lsquo;일정한 수준의 결과를 빨리 처리할 수 있는&amp;rsquo; 그런 기대 말이다.&lt;/p>
-&lt;p>이 책은 AI 페어 프로그래밍이라는 주제로, 사수가 없어도 Github Copilot 과 ChatGPT 를 이용하여 페어 프로그래밍을 할 수 있는 방법을 소개한다.. 고 한다. 아마 이런 분들이 도움이 될 것 같다.&lt;/p>
-&lt;ul>
-&lt;li>Github Copilot 자체를 잘 모르는 사람&lt;/li>
-&lt;li>프롬프트 자체를 어떻게 써야 할지 막막한 사람 (ChatGPT, Claude 사용 예제가 일부 나오기 때문)&lt;/li>
-&lt;li>(나처럼) &lt;em>Copilot 으로 대체 뭘 할 수 있는데..?&lt;/em> 를 알아보고 싶은 사람&lt;/li>
-&lt;/ul>
-&lt;h1 id="프롬프트-엔지니어링">프롬프트 엔지니어링&lt;/h1>
-&lt;p>&lt;strong>프롬프트 엔지니어링&lt;/strong>은 인공지능 모델에게 원하는 결과를 얻기 위해 입력 내용을 설계하는 과정이다. 쉽게 말해서, LLM 의 대답이 원하는 대로 나오도록, 질문이나 요청을 구체적이고 효과적으로 표현하는 기술이다.&lt;/p>
-&lt;p>단순한 명령 대신 맥락과 의도를 명확히 하면 AI가 더 정확한 답을 내놓을 가능성이 높아진다. 예를 들어, &lt;em>&amp;ldquo;커피 만드는 법 알려줘&amp;rdquo;&lt;/em> 라고 하면 일반적인 방법이 나올 수 있지만, &lt;em>&amp;ldquo;간단한 재료로 집에서 만드는 달고나 커피 레시피를 알려줘&amp;rdquo;&lt;/em> 라고 하면 특정한 요구에 맞는 답을 얻을 수 있다. 프롬프트 엔지니어링은 이렇게 질문의 범위와 디테일을 조정해 원하는 결과를 끌어내는 데 초점을 맞춘다.&lt;/p>
-&lt;p>책에서 소개하는 방법이 있지만, 소개된 방법이 전부 정리된 (그리고 더 많은 기법들이 포함된) 웹 페이지가 기재되어 있다.&lt;/p>
-&lt;p>🔗 &lt;a class="link" href="https://www.promptingguide.ai/kr" target="_blank" rel="noopener"
->https://www.promptingguide.ai/kr&lt;/a>&lt;/p>
-&lt;h1 id="github-copilot">Github Copilot&lt;/h1>
-&lt;p>기본적인 사용 케이스는 아래와 같다.&lt;/p>
-&lt;ul>
-&lt;li>버그 픽스&lt;/li>
-&lt;li>코드 작성&lt;/li>
-&lt;li>코드 리팩토링&lt;/li>
-&lt;li>코드 검사 (&lt;a class="link" href="https://en.wikipedia.org/wiki/Static_program_analysis" target="_blank" rel="noopener"
->Static Code Analysis&lt;/a> 같은)&lt;/li>
-&lt;li>데이터 생성&lt;/li>
-&lt;li>&lt;strong>README 문서 작성&lt;/strong>&lt;/li>
-&lt;li>&lt;strong>Mermaid 다이어그램 생성&lt;/strong>&lt;/li>
-&lt;/ul>
-&lt;p>책에서 소개되는 예제는 너무나 단순해서, 현업에서 쓰기엔 아직 무리가 있어 보이지만 흥미가 돋는 부분은 마지막 두 부분이다. 바로 문서 작성과 다이어그램 그려주기이다.&lt;/p>
-&lt;p>예~전에 내가 OOP 와 SE 강의를 들으면서 상상한 것이, 어떤 프로젝트의 Spec 과 Stub 을 꾸며주면 그에 맞는 내부 로직은 알아서 구현해주는 다소 비현실적인 꿈이었다. 그런데 만약에 어떤 프로젝트 결과를 보여주고 README 를 작성하게 하거나, 혹은 반대로 README 와 Mermaid 로 State/Flow/Class Diagram 을 그려주면 자기가 이해하고 코드를 드르륵 짜 주는 게 &lt;em>혹시&lt;/em> 가능하지 않을까?&lt;/p>
-&lt;p>&lt;a class="link" href="https://mermaid.js.org/intro/" target="_blank" rel="noopener"
->mermaid 문법&lt;/a>을 모르진 않았는데, Copilot 에게 이해한 대로 그려보라고 시키면 괜찮은 결과가 나오리라 &lt;em>믿었다.&lt;/em> 음.. 현실은 기대만큼 따라주진 않았지만 적어도 얼개는 잡아주는 것 같아서 절반의 성공이라고 봐야겠다.&lt;/p>
-&lt;h1 id="건진-게-있다면-나에겐-훌륭한-책">건진 게 있다면, 나에겐 훌륭한 책&lt;/h1>
-&lt;p>책이 두껍지 않아, 한번 훓기에 좋은 책이었다. 물론 내용이 어렵지 않아서 그런 것일 수도 있지만.&lt;/p>
-&lt;p>대학교 때 HTML 관련 책을 동아리방에서 본 적이 있었다. 예전부터 해왔던 거라 다 알고 있다고 생각했는데, 웬걸. 잘 모르는 내용이 나왔고, 그 부분을 다질 수 있는 기회가 되었다. 책의 분량으로 치면 매우 적을지도 모르지만, 그래도 그 부분만큼 내가 얻어갈 수 있었기에 책을 고르는 데 주저함이 없었다.&lt;/p>
-&lt;p>그래서 책을 읽는다는 건 &lt;strong>많은 것을 얻기보다, 한 가지라도 건질 수 있다면 충분히 가치 있는 일&lt;/strong>이라 생각한다. 부족한 부분을 채워주거나 새로운 관점을 열어준다면 그걸로 훌륭한 길잡이가 된다. 지금 리뷰하는 이 책도 그런 작은 깨달음을 선사했기에, 기쁘게 리뷰를 남겨본다.&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ChatGPT on InterP Blog</title><link>https://interp.blog/tags/chatgpt/</link><description>Recent content in ChatGPT on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Sun, 29 Dec 2024 21:22:25 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/chatgpt/index.xml" rel="self" type="application/rss+xml"/><item><title>AI 페어 프로그래밍</title><link>https://interp.blog/ai-pair-programming/</link><pubDate>Sun, 29 Dec 2024 21:22:25 +0900</pubDate><guid>https://interp.blog/ai-pair-programming/</guid><description>&lt;img src="https://interp.blog/ai-pair-programming/feature.jpg" alt="Featured image of post AI 페어 프로그래밍" /&gt;&lt;p&gt;&lt;blockquote class="alert" style="border-color: var(--alert-note-color); background-color: var(--alert-note-background);"&gt;
+ &lt;div class="alert-header"&gt;
+ &lt;span class="alert-icon"&gt;:orange_book:&lt;/span&gt;
+ &lt;span class="alert-title" style="color: var(--alert-note-color);"&gt;Note&lt;/span&gt;
+ &lt;/div&gt;
+ &lt;div class="alert-body"&gt;
+ &lt;a class="link" href="https://product.kyobobook.co.kr/detail/S000213131985" target="_blank" rel="noopener"
+ &gt;도서 정보&lt;/a&gt;
+ &lt;/div&gt;
+&lt;/blockquote&gt;
+
+&lt;figure&gt;
+ &lt;img loading="lazy" src="book.png" width="50%"/&gt; 
+&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;Github Copilot 을 사내에서 쓰면서, 단순 코딩 작업이나 반복작업을 떠넘기기 바빴었다. 물론 그것만으로도 효율이 올랐지만, 좀 더 스마트한 사용 케이스가 분명 있을 것이라는 기대가 있었다.&lt;/p&gt;
+&lt;p&gt;종종 다른 팀원의 코드를 리뷰할 때 &lt;code&gt;/explain&lt;/code&gt; 도 사용하는데, 이 내용을 기반으로 코드를 읽으면 훨씬 더 잘 보이는 것도 같아서 말이다. 최근에는 아예 Copilot 이 자체적으로 Code Review 해주는 기능도 추가되었으니, 다른 곳에서도 더 빠르면서도 준수한 결과를 내 줄 수 있지 않을까? 하는 궁금증이 생겼다. 말 그대로 &amp;lsquo;완벽한&amp;rsquo; 결과가 아닌 &amp;lsquo;일정한 수준의 결과를 빨리 처리할 수 있는&amp;rsquo; 그런 기대 말이다.&lt;/p&gt;
+&lt;p&gt;이 책은 AI 페어 프로그래밍이라는 주제로, 사수가 없어도 Github Copilot 과 ChatGPT 를 이용하여 페어 프로그래밍을 할 수 있는 방법을 소개한다.. 고 한다. 아마 이런 분들이 도움이 될 것 같다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Github Copilot 자체를 잘 모르는 사람&lt;/li&gt;
+&lt;li&gt;프롬프트 자체를 어떻게 써야 할지 막막한 사람 (ChatGPT, Claude 사용 예제가 일부 나오기 때문)&lt;/li&gt;
+&lt;li&gt;(나처럼) &lt;em&gt;Copilot 으로 대체 뭘 할 수 있는데..?&lt;/em&gt; 를 알아보고 싶은 사람&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id="프롬프트-엔지니어링"&gt;프롬프트 엔지니어링
+&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;프롬프트 엔지니어링&lt;/strong&gt;은 인공지능 모델에게 원하는 결과를 얻기 위해 입력 내용을 설계하는 과정이다. 쉽게 말해서, LLM 의 대답이 원하는 대로 나오도록, 질문이나 요청을 구체적이고 효과적으로 표현하는 기술이다.&lt;/p&gt;
+&lt;p&gt;단순한 명령 대신 맥락과 의도를 명확히 하면 AI가 더 정확한 답을 내놓을 가능성이 높아진다. 예를 들어, &lt;em&gt;&amp;ldquo;커피 만드는 법 알려줘&amp;rdquo;&lt;/em&gt; 라고 하면 일반적인 방법이 나올 수 있지만, &lt;em&gt;&amp;ldquo;간단한 재료로 집에서 만드는 달고나 커피 레시피를 알려줘&amp;rdquo;&lt;/em&gt; 라고 하면 특정한 요구에 맞는 답을 얻을 수 있다. 프롬프트 엔지니어링은 이렇게 질문의 범위와 디테일을 조정해 원하는 결과를 끌어내는 데 초점을 맞춘다.&lt;/p&gt;
+&lt;p&gt;책에서 소개하는 방법이 있지만, 소개된 방법이 전부 정리된 (그리고 더 많은 기법들이 포함된) 웹 페이지가 기재되어 있다.&lt;/p&gt;
+&lt;p&gt;🔗 &lt;a class="link" href="https://www.promptingguide.ai/kr" target="_blank" rel="noopener"
+ &gt;https://www.promptingguide.ai/kr&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id="github-copilot"&gt;Github Copilot
+&lt;/h1&gt;&lt;p&gt;기본적인 사용 케이스는 아래와 같다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;버그 픽스&lt;/li&gt;
+&lt;li&gt;코드 작성&lt;/li&gt;
+&lt;li&gt;코드 리팩토링&lt;/li&gt;
+&lt;li&gt;코드 검사 (&lt;a class="link" href="https://en.wikipedia.org/wiki/Static_program_analysis" target="_blank" rel="noopener"
+ &gt;Static Code Analysis&lt;/a&gt; 같은)&lt;/li&gt;
+&lt;li&gt;데이터 생성&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;README 문서 작성&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Mermaid 다이어그램 생성&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;책에서 소개되는 예제는 너무나 단순해서, 현업에서 쓰기엔 아직 무리가 있어 보이지만 흥미가 돋는 부분은 마지막 두 부분이다. 바로 문서 작성과 다이어그램 그려주기이다.&lt;/p&gt;
+&lt;p&gt;예~전에 내가 OOP 와 SE 강의를 들으면서 상상한 것이, 어떤 프로젝트의 Spec 과 Stub 을 꾸며주면 그에 맞는 내부 로직은 알아서 구현해주는 다소 비현실적인 꿈이었다. 그런데 만약에 어떤 프로젝트 결과를 보여주고 README 를 작성하게 하거나, 혹은 반대로 README 와 Mermaid 로 State/Flow/Class Diagram 을 그려주면 자기가 이해하고 코드를 드르륵 짜 주는 게 &lt;em&gt;혹시&lt;/em&gt; 가능하지 않을까?&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="https://mermaid.js.org/intro/" target="_blank" rel="noopener"
+ &gt;mermaid 문법&lt;/a&gt;을 모르진 않았는데, Copilot 에게 이해한 대로 그려보라고 시키면 괜찮은 결과가 나오리라 &lt;em&gt;믿었다.&lt;/em&gt; 음.. 현실은 기대만큼 따라주진 않았지만 적어도 얼개는 잡아주는 것 같아서 절반의 성공이라고 봐야겠다.&lt;/p&gt;
+&lt;h1 id="건진-게-있다면-나에겐-훌륭한-책"&gt;건진 게 있다면, 나에겐 훌륭한 책
+&lt;/h1&gt;&lt;p&gt;책이 두껍지 않아, 한번 훓기에 좋은 책이었다. 물론 내용이 어렵지 않아서 그런 것일 수도 있지만.&lt;/p&gt;
+&lt;p&gt;대학교 때 HTML 관련 책을 동아리방에서 본 적이 있었다. 예전부터 해왔던 거라 다 알고 있다고 생각했는데, 웬걸. 잘 모르는 내용이 나왔고, 그 부분을 다질 수 있는 기회가 되었다. 책의 분량으로 치면 매우 적을지도 모르지만, 그래도 그 부분만큼 내가 얻어갈 수 있었기에 책을 고르는 데 주저함이 없었다.&lt;/p&gt;
+&lt;p&gt;그래서 책을 읽는다는 건 &lt;strong&gt;많은 것을 얻기보다, 한 가지라도 건질 수 있다면 충분히 가치 있는 일&lt;/strong&gt;이라 생각한다. 부족한 부분을 채워주거나 새로운 관점을 열어준다면 그걸로 훌륭한 길잡이가 된다. 지금 리뷰하는 이 책도 그런 작은 깨달음을 선사했기에, 기쁘게 리뷰를 남겨본다.&lt;/p&gt;</description></item></channel></rss>

@@ -1,44 +1,55 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>회의 on InterP Blog</title><link>https://interp.blog/tags/%ED%9A%8C%EC%9D%98/</link><description>Recent content in 회의 on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Thu, 06 Feb 2025 18:11:06 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/%ED%9A%8C%EC%9D%98/index.xml" rel="self" type="application/rss+xml"/><item><title>일 할 땐, 친절하게 말해줘</title><link>https://interp.blog/tell-me-in-a-polite-way/</link><pubDate>Thu, 06 Feb 2025 18:11:06 +0900</pubDate><guid>https://interp.blog/tell-me-in-a-polite-way/</guid><description>&lt;img src="https://interp.blog/tell-me-in-a-polite-way/feature.jpg" alt="Featured image of post 일 할 땐, 친절하게 말해줘" />&lt;p>예전에도 비슷한 느낌을 받아서 기록을 하나 남긴다.&lt;/p>
-&lt;p>다른 사람들은 (특히 팀장이나 선임은) 당신이 하는 모든 일의 디테일을 알지 못한다. 큰 흐름만 알지. 해결할 문제가 무엇이고, 예상되는 결과가 무엇인지 정도? 심지어는 기억해야 할 의무도 없다.&lt;/p>
-&lt;p>그러니 일 이야기를 할 때는 &amp;lsquo;적절히&amp;rsquo; 요약하거나 &amp;lsquo;자세히&amp;rsquo; 이야기할 필요가 있다는 것이다. 요약하자면, &lt;strong>업무 대화를 나눌 때는 친절할 필요가 있다.&lt;/strong>&lt;/p>
-&lt;h1 id="회의-할-때">회의 할 때&lt;/h1>
-&lt;p>회의에서 친절을 베푸는 방법은, 참가자들의 시간은 매우 소중하기 때문에 그 어느 시간보다도 효율적으로 써야 한다는 사실이다. 그러므로 반드시 미리 준비해야 한다. 회의에 들어가서 내가 말해야 할 것은? 말하고 싶은 것은?&lt;/p>
-&lt;p>회의를 들어가 보면, 정말 자기가 한 일을 미주알고주알 다 이야기하는 사람이 있다. 이런 사람이 시간을 잡아 먹고, 정작 중요한 안건을 처리하지 못하고 회의가 끝나버린다. 무엇이 핵심인지 알수 없게 떠들기만 하면, 듣는 데도 시간이 걸릴 뿐더러 그 문맥을 이해하는데도 시간이 걸린다.&lt;/p>
-&lt;p>이런 케이스도 있다. 이번에는 생략이 너무 된 케이스다. 완전히 기술적인 파트만 이야기를 해서 아무도 알아들을 수 없게 하는 케이스다.&lt;/p>
-&lt;blockquote>
-&lt;p>&lt;em>이번 주에는 A 를 B 로 바꿨어요.&lt;/em> 또는 &lt;em>이번주에 C 를 도입해 봤더니 괜찮더라고요.&lt;/em>&lt;/p>
-&lt;/blockquote>
-&lt;p>왜 바꿨지? 뭐가 괜찮다는 거야? 구현 단계에서 &amp;lsquo;어떻게&amp;rsquo; 를 회의에서 이야기할 때는, 문제가 발생해서 의사결정이 필요할 때 뿐이다. &amp;lsquo;무엇을&amp;rsquo; 해결했는지가 중요하다. 문제를 해결한 방법은 관련된 사람들끼리 소규모로 구성된 리뷰 라운드에서 하면 된다.&lt;/p>
-&lt;p>문제에 직면했을 때를 보자. 자신이 찾아낸 옵션을 소개하는 게 아니라, 해결 자체를 회의시간 안에 해달라는 사람들이 있다.&lt;/p>
-&lt;blockquote>
-&lt;p>&amp;lsquo;&lt;em>이 문제를 해결하려면 몇 가지 옵션이 있는데, 이건 뭐가 좋고 저건 뭐가 좋아요.&lt;/em>&amp;rsquo;&lt;/p>
-&lt;/blockquote>
-&lt;p>라고 하면 옵션에 대해 논의하거나, 옵션을 고르고 치울 수 있다. 그런데&lt;/p>
-&lt;blockquote>
-&lt;p>&amp;lsquo;&lt;em>문제가 있는데 어떡하죠?&lt;/em>&amp;rsquo; 라고 말한다면?&lt;/p>
-&lt;/blockquote>
-&lt;p>다들 생각에 잠겨 시간을 잡아먹는다. 이런 문제는 회의가 아니라, 메일을 보내거나 메신저로 도와달라 말했어야 한다. 정말 회의 시간에 논의를 할 거라면, 최소 하루 전에 회의록에 안건을 올려 놨어야 하고.&lt;/p>
-&lt;p>그래서 회의 전에는 준비 시간이 반드시 필요하다. 회의 때 뭘 말하고 싶은지, 말할 것이 많다면 메신저나 메일로 안건을 돌릴 수 있는 장기적이고 어려운 것들이 있는지 골라내는 작업 말이다. 그렇게 하면 자연스럽게 말할 순서도 잡히고, 놓치는 것도 없고, 시간 분배도 할 수 있다. 골라내기만 하면 된다.&lt;/p>
-&lt;p>그냥 알람 시간에 이끌려 회의실에 들어오는 사람은, 수다만 떨다 간다. 진전이 없다.&lt;/p>
-&lt;h1 id="요청할-때">요청할 때&lt;/h1>
-&lt;p>도와달라는 말이 나왔으니, 아예 요청할 때를 알아보자.&lt;/p>
-&lt;p>내가 하고 있는 일의 모든 세부사항을 상대방이 이해하고 있다고 가정하는 사람들이 있다.&lt;/p>
-&lt;blockquote>
-&lt;p>&lt;em>여기서 저렇게 했더니 안 되네요.&lt;/em> 여기와 저기는 뭐더라? &lt;em>전에 말씀드렸는데요.&lt;/em>&lt;/p>
-&lt;/blockquote>
-&lt;p>개인적으로 &amp;lsquo;전에 말했잖아&amp;rsquo; 라는 말을 싫어한다. 기억하고 있다는 보장이 없는데. 차라리 도움을 받고자 한다면 최소한의 배경지식을 반복해서라도 알려줘야 하지 않을까? 이런 식의 요청은 이기적이라고 생각한다. 질문하는 사람은 전혀 모르겠지만.&lt;/p>
-&lt;p>&lt;a class="link" href="https://www.youtube.com/shorts/Dq6oC3UWlhQ" target="_blank" rel="noopener"
->타블로가 그랬다&lt;/a>. &lt;em>본능적인 배려가 사실 언어를 잘하는 거거든&lt;/em>. 배경 지식이 적은 사람에게는 쉽게, 잘 알아들을 수 있는 사람에게는 빨리 정보를 전달하는 것. 상대방의 수준을 빠르게 캐치해야 한다.&lt;/p>
-&lt;p>상대방이 어떤 수준인지 가늠이 안 된다면? 무조건 자세히 적을 수 있어야 한다. &lt;strong>자세히 풀어내기 어렵다면, 문제 자체를 완벽히 이해하지 못한 것이다.&lt;/strong> 그래서 나는, 팀원이건 아니건 간에 최대한 자세히 써서 질문하려고 노력한다. 훨씬 많은 시간과 노력이 드는 작업이지만, 내가 한 질문을 보면서 나 자신이 뭘 모르고 있는지 자문할 수 있게 되더라.&lt;/p>
-&lt;p>덧붙여서, 몇 번이고 소통하는 것 자체를 두려워해선 안 될 것이다. 핑퐁이 오가면서 핵심에 가까워지고 있다고 믿어야 한다. 상대방이 악의적으로 공을 일부러 테이블 밖으로 날려버린다? 다시 줏어서 꿋꿋이 쳐야 한다. 이 사람을 위해서 내 자존심을 굽혀주는게 아니라, &lt;em>업무 소통&lt;/em>을 연습하는 소중한 기회라고 &lt;del>최면을 걸고&lt;/del> 임하는 수밖에.&lt;/p>
-&lt;h1 id="친절하게만-하자">친절하게만 하자&lt;/h1>
-&lt;p>다른 책에서 흔히들 말하는 내용들이 되었다. 그리고 역시 쉽지 않다.&lt;/p>
-&lt;p>그런데 최소한 상대방을 &amp;lsquo;친절히&amp;rsquo; 대하려 노력한다면, 위에서 말한 것들이 자연스럽게 이뤄질 거라 믿는다. &lt;em>저 사람은 나보다 돈을 더 받으니 (혹은 경력이 더 많으니) 분명히 알아들을 수 있어야 해&lt;/em> 같은 접근 말고&amp;hellip; 순수히 사람 대 사람으로 대하면, 내가 배려해 준 만큼 남도 나를 배려할 수 있을 것이다.&lt;/p>
-&lt;div style="background-color: var(--pre-background-color); width: 95%; margin:2rem; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
-&lt;div style="width: 16px;margin-right: 7px; margin-left: 4px;">
-😉
-&lt;/div>
-&lt;div>
-이 포스팅의 대표 이미지는 Unsplash 에서 찾은 &lt;a href="https://unsplash.com/ko/@jurigianfra?utm_content=creditCopyText&amp;amp;utm_medium=referral&amp;amp;utm_source=unsplash">Juri Gianfrancesco&lt;/a> 의 사진이다.
-&lt;/div>
-&lt;/div></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>회의 on InterP Blog</title><link>https://interp.blog/tags/%ED%9A%8C%EC%9D%98/</link><description>Recent content in 회의 on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Thu, 06 Feb 2025 18:11:06 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/%ED%9A%8C%EC%9D%98/index.xml" rel="self" type="application/rss+xml"/><item><title>일 할 땐, 친절하게 말해줘</title><link>https://interp.blog/tell-me-in-a-polite-way/</link><pubDate>Thu, 06 Feb 2025 18:11:06 +0900</pubDate><guid>https://interp.blog/tell-me-in-a-polite-way/</guid><description>&lt;img src="https://interp.blog/tell-me-in-a-polite-way/feature.jpg" alt="Featured image of post 일 할 땐, 친절하게 말해줘" /&gt;&lt;p&gt;예전에도 비슷한 느낌을 받아서 기록을 하나 남긴다.&lt;/p&gt;
+&lt;p&gt;다른 사람들은 (특히 팀장이나 선임은) 당신이 하는 모든 일의 디테일을 알지 못한다. 큰 흐름만 알지. 해결할 문제가 무엇이고, 예상되는 결과가 무엇인지 정도? 심지어는 기억해야 할 의무도 없다.&lt;/p&gt;
+&lt;p&gt;그러니 일 이야기를 할 때는 &amp;lsquo;적절히&amp;rsquo; 요약하거나 &amp;lsquo;자세히&amp;rsquo; 이야기할 필요가 있다는 것이다. 요약하자면, &lt;strong&gt;업무 대화를 나눌 때는 친절할 필요가 있다.&lt;/strong&gt;&lt;/p&gt;
+&lt;h1 id="회의-할-때"&gt;회의 할 때
+&lt;/h1&gt;&lt;p&gt;회의에서 친절을 베푸는 방법은, 참가자들의 시간은 매우 소중하기 때문에 그 어느 시간보다도 효율적으로 써야 한다는 사실이다. 그러므로 반드시 미리 준비해야 한다. 회의에 들어가서 내가 말해야 할 것은? 말하고 싶은 것은?&lt;/p&gt;
+&lt;p&gt;회의를 들어가 보면, 정말 자기가 한 일을 미주알고주알 다 이야기하는 사람이 있다. 이런 사람이 시간을 잡아 먹고, 정작 중요한 안건을 처리하지 못하고 회의가 끝나버린다. 무엇이 핵심인지 알수 없게 떠들기만 하면, 듣는 데도 시간이 걸릴 뿐더러 그 문맥을 이해하는데도 시간이 걸린다.&lt;/p&gt;
+&lt;p&gt;이런 케이스도 있다. 이번에는 생략이 너무 된 케이스다. 완전히 기술적인 파트만 이야기를 해서 아무도 알아들을 수 없게 하는 케이스다.&lt;/p&gt;
+
+ &lt;blockquote&gt;
+ &lt;p&gt;&lt;em&gt;이번 주에는 A 를 B 로 바꿨어요.&lt;/em&gt; 또는 &lt;em&gt;이번주에 C 를 도입해 봤더니 괜찮더라고요.&lt;/em&gt;&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;p&gt;왜 바꿨지? 뭐가 괜찮다는 거야? 구현 단계에서 &amp;lsquo;어떻게&amp;rsquo; 를 회의에서 이야기할 때는, 문제가 발생해서 의사결정이 필요할 때 뿐이다. &amp;lsquo;무엇을&amp;rsquo; 해결했는지가 중요하다. 문제를 해결한 방법은 관련된 사람들끼리 소규모로 구성된 리뷰 라운드에서 하면 된다.&lt;/p&gt;
+&lt;p&gt;문제에 직면했을 때를 보자. 자신이 찾아낸 옵션을 소개하는 게 아니라, 해결 자체를 회의시간 안에 해달라는 사람들이 있다.&lt;/p&gt;
+
+ &lt;blockquote&gt;
+ &lt;p&gt;&amp;lsquo;&lt;em&gt;이 문제를 해결하려면 몇 가지 옵션이 있는데, 이건 뭐가 좋고 저건 뭐가 좋아요.&lt;/em&gt;&amp;rsquo;&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;p&gt;라고 하면 옵션에 대해 논의하거나, 옵션을 고르고 치울 수 있다. 그런데&lt;/p&gt;
+
+ &lt;blockquote&gt;
+ &lt;p&gt;&amp;lsquo;&lt;em&gt;문제가 있는데 어떡하죠?&lt;/em&gt;&amp;rsquo; 라고 말한다면?&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;p&gt;다들 생각에 잠겨 시간을 잡아먹는다. 이런 문제는 회의가 아니라, 메일을 보내거나 메신저로 도와달라 말했어야 한다. 정말 회의 시간에 논의를 할 거라면, 최소 하루 전에 회의록에 안건을 올려 놨어야 하고.&lt;/p&gt;
+&lt;p&gt;그래서 회의 전에는 준비 시간이 반드시 필요하다. 회의 때 뭘 말하고 싶은지, 말할 것이 많다면 메신저나 메일로 안건을 돌릴 수 있는 장기적이고 어려운 것들이 있는지 골라내는 작업 말이다. 그렇게 하면 자연스럽게 말할 순서도 잡히고, 놓치는 것도 없고, 시간 분배도 할 수 있다. 골라내기만 하면 된다.&lt;/p&gt;
+&lt;p&gt;그냥 알람 시간에 이끌려 회의실에 들어오는 사람은, 수다만 떨다 간다. 진전이 없다.&lt;/p&gt;
+&lt;h1 id="요청할-때"&gt;요청할 때
+&lt;/h1&gt;&lt;p&gt;도와달라는 말이 나왔으니, 아예 요청할 때를 알아보자.&lt;/p&gt;
+&lt;p&gt;내가 하고 있는 일의 모든 세부사항을 상대방이 이해하고 있다고 가정하는 사람들이 있다.&lt;/p&gt;
+
+ &lt;blockquote&gt;
+ &lt;p&gt;&lt;em&gt;여기서 저렇게 했더니 안 되네요.&lt;/em&gt; 여기와 저기는 뭐더라? &lt;em&gt;전에 말씀드렸는데요.&lt;/em&gt;&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;p&gt;개인적으로 &amp;lsquo;전에 말했잖아&amp;rsquo; 라는 말을 싫어한다. 기억하고 있다는 보장이 없는데. 차라리 도움을 받고자 한다면 최소한의 배경지식을 반복해서라도 알려줘야 하지 않을까? 이런 식의 요청은 이기적이라고 생각한다. 질문하는 사람은 전혀 모르겠지만.&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="https://www.youtube.com/shorts/Dq6oC3UWlhQ" target="_blank" rel="noopener"
+ &gt;타블로가 그랬다&lt;/a&gt;. &lt;em&gt;본능적인 배려가 사실 언어를 잘하는 거거든&lt;/em&gt;. 배경 지식이 적은 사람에게는 쉽게, 잘 알아들을 수 있는 사람에게는 빨리 정보를 전달하는 것. 상대방의 수준을 빠르게 캐치해야 한다.&lt;/p&gt;
+&lt;p&gt;상대방이 어떤 수준인지 가늠이 안 된다면? 무조건 자세히 적을 수 있어야 한다. &lt;strong&gt;자세히 풀어내기 어렵다면, 문제 자체를 완벽히 이해하지 못한 것이다.&lt;/strong&gt; 그래서 나는, 팀원이건 아니건 간에 최대한 자세히 써서 질문하려고 노력한다. 훨씬 많은 시간과 노력이 드는 작업이지만, 내가 한 질문을 보면서 나 자신이 뭘 모르고 있는지 자문할 수 있게 되더라.&lt;/p&gt;
+&lt;p&gt;덧붙여서, 몇 번이고 소통하는 것 자체를 두려워해선 안 될 것이다. 핑퐁이 오가면서 핵심에 가까워지고 있다고 믿어야 한다. 상대방이 악의적으로 공을 일부러 테이블 밖으로 날려버린다? 다시 줏어서 꿋꿋이 쳐야 한다. 이 사람을 위해서 내 자존심을 굽혀주는게 아니라, &lt;em&gt;업무 소통&lt;/em&gt;을 연습하는 소중한 기회라고 &lt;del&gt;최면을 걸고&lt;/del&gt; 임하는 수밖에.&lt;/p&gt;
+&lt;h1 id="친절하게만-하자"&gt;친절하게만 하자
+&lt;/h1&gt;&lt;p&gt;다른 책에서 흔히들 말하는 내용들이 되었다. 그리고 역시 쉽지 않다.&lt;/p&gt;
+&lt;p&gt;그런데 최소한 상대방을 &amp;lsquo;친절히&amp;rsquo; 대하려 노력한다면, 위에서 말한 것들이 자연스럽게 이뤄질 거라 믿는다. &lt;em&gt;저 사람은 나보다 돈을 더 받으니 (혹은 경력이 더 많으니) 분명히 알아들을 수 있어야 해&lt;/em&gt; 같은 접근 말고&amp;hellip; 순수히 사람 대 사람으로 대하면, 내가 배려해 준 만큼 남도 나를 배려할 수 있을 것이다.&lt;/p&gt;
+&lt;blockquote class="alert" style="border-color: var(--alert-note-color); background-color: var(--alert-note-background);"&gt;
+ &lt;div class="alert-header"&gt;
+ &lt;span class="alert-icon"&gt;:wink:&lt;/span&gt;
+ &lt;span class="alert-title" style="color: var(--alert-note-color);"&gt;Note&lt;/span&gt;
+ &lt;/div&gt;
+ &lt;div class="alert-body"&gt;
+ 이 포스팅의 대표 이미지는 Unsplash 에서 찾은 &lt;a class="link" href="https://unsplash.com/ko/@jurigianfra?utm_content=creditCopyText&amp;amp;utm_medium=referral&amp;amp;utm_source=unsplash" target="_blank" rel="noopener"
+ &gt;Juri Gianfrancesco&lt;/a&gt; 의 사진이다.
+ &lt;/div&gt;
+&lt;/blockquote&gt;
+</description></item></channel></rss>

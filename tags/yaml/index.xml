@@ -1,176 +1,181 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>yaml on InterP Blog</title><link>https://interp.blog/tags/yaml/</link><description>Recent content in yaml on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Fri, 13 Dec 2024 14:07:39 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/yaml/index.xml" rel="self" type="application/rss+xml"/><item><title>yq: YAML Parser</title><link>https://interp.blog/yq-yaml-parser/</link><pubDate>Fri, 13 Dec 2024 14:07:39 +0900</pubDate><guid>https://interp.blog/yq-yaml-parser/</guid><description>&lt;p>&lt;strong>yq&lt;/strong>는 &lt;code>jq&lt;/code> 에서 쓸 수 있는 jsonpath 를 YAML 파일에 구사할 수 있는 CLI 도구이다. 여기서 소개하는 yq 는 &lt;a class="link" href="https://github.com/mikefarah/yq" target="_blank" rel="noopener"
->mikefarah/yq&lt;/a> 를 뜻한다.&lt;/p>
-&lt;p>이 글에서는 yq의 설치 방법과 기본적인 사용법을 간단히 살펴본다.&lt;/p>
-&lt;h1 id="yq-설치-방법">yq 설치 방법&lt;/h1>
-&lt;h2 id="homebrew로-설치-macoslinux">Homebrew로 설치 (macOS/Linux)&lt;/h2>
-&lt;p>Homebrew를 사용하면 yq를 간단히 설치할 수 있다. 터미널에서 아래 명령어를 입력하면 된다.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">brew install yq
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>설치가 끝난 뒤에는 &lt;code>yq --version&lt;/code> 명령어로 설치 여부를 확인할 수 있다.&lt;/p>
-&lt;h2 id="기타-설치-방법">기타 설치 방법&lt;/h2>
-&lt;p>Homebrew 외에도 yq는 여러 가지 방법으로 설치할 수 있다. 운영 체제와 환경에 맞는 방법을 선택하면 된다.&lt;/p>
-&lt;ul>
-&lt;li>&lt;a class="link" href="https://github.com/mikefarah/yq/releases/latest" target="_blank" rel="noopener"
->공식 다운로드 링크&lt;/a>: 바이너리를 직접 다운로드해서 설치&lt;/li>
-&lt;li>Snap 패키지 (Linux): &lt;code>snap install yq&lt;/code>&lt;/li>
-&lt;li>Windows: Chocolatey 또는 Scoop으로 설치&lt;/li>
-&lt;/ul>
-&lt;p>더 자세한 설치 방법은 &lt;a class="link" href="https://mikefarah.gitbook.io/yq" target="_blank" rel="noopener"
->공식 문서&lt;/a>에서 확인할 수 있다.&lt;/p>
-&lt;h1 id="yq의-주요-기능">yq의 주요 기능&lt;/h1>
-&lt;p>yq는 YAML 데이터를 쉽게 관리할 수 있는 다양한 기능을 제공한다.&lt;/p>
-&lt;h2 id="yaml-읽기">YAML 읽기&lt;/h2>
-&lt;p>YAML 파일에서 특정 데이터를 읽는 것은 아주 간단하다.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">yq &lt;span class="s1">&amp;#39;.person.name&amp;#39;&lt;/span> file.yaml
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>위 명령어는 &lt;code>file.yaml&lt;/code> 파일에서 &lt;code>person&lt;/code> 아래 &lt;code>name&lt;/code> 값을 출력한다.&lt;/p>
-&lt;h2 id="yaml-수정">YAML 수정&lt;/h2>
-&lt;p>YAML 데이터를 업데이트할 수도 있다. &lt;code>-i&lt;/code> 옵션을 사용하면 파일을 직접 수정할 수 있다.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">yq -i &lt;span class="s1">&amp;#39;.person.name = &amp;#34;인터피&amp;#34;&amp;#39;&lt;/span> file.yaml
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="json과-yaml-간-변환">JSON과 YAML 간 변환&lt;/h2>
-&lt;p>yq는 JSON과 YAML을 손쉽게 변환할 수 있다.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">yq -Poy sample.json
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>이 명령어는 &lt;code>sample.json&lt;/code> 파일을 YAML 형식으로 변환한다.&lt;/p>
-&lt;h2 id="4-여러-파일-병합">4. 여러 파일 병합&lt;/h2>
-&lt;p>여러 YAML 파일을 병합하는 것도 가능하다.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">yq -n &lt;span class="s1">&amp;#39;load(&amp;#34;file1.yaml&amp;#34;) * load(&amp;#34;file2.yaml&amp;#34;)&amp;#39;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="5-환경-변수-사용">5. 환경 변수 사용&lt;/h2>
-&lt;p>환경 변수를 활용할 때는 &lt;code>strenv()&lt;/code> 를 사용해야 한다. &lt;code>$...&lt;/code> 는 먹지 않으므로 주의. 아래 예제는 환경변수 &lt;code>$NAME&lt;/code> 을 가지고 YAML 데이터를 업데이트한다.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">bash
-NAME=&amp;#34;인터피&amp;#34;
-yq -i &amp;#39;.person.name = strenv(NAME)&amp;#39; file.yaml
-&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="yq-의-장점">yq 의 장점&lt;/h1>
-&lt;ol>
-&lt;li>&lt;strong>다양한 형식 지원&lt;/strong>: YAML뿐만 아니라 JSON, XML, CSV 등도 다룰 수 있다.&lt;/li>
-&lt;li>&lt;strong>유연한 구문&lt;/strong>: &lt;code>jq&lt;/code> 에서 쓸 수 있는 jsonpath syntax 로 간단히 작업할 수 있다.&lt;/li>
-&lt;li>&lt;strong>데이터 보존&lt;/strong>: YAML 의 주석과 포맷을 유지하면서 데이터를 수정할 수 있다.&lt;/li>
-&lt;li>&lt;strong>개발자 친화적&lt;/strong>: CI/CD 파이프라인에도 쉽게 통합할 수 있다.&lt;/li>
-&lt;/ol>
-&lt;h1 id="공식-문서와-커뮤니티">공식 문서와 커뮤니티&lt;/h1>
-&lt;p>yq에 대해 더 알고 싶다면 공식 문서를 확인해 보자. 명령어 사용법과 고급 기능에 대한 예제가 잘 정리되어 있다.&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>&lt;a class="link" href="https://mikefarah.gitbook.io/yq" target="_blank" rel="noopener"
->공식 문서&lt;/a>&lt;/strong>&lt;/li>
-&lt;li>&lt;strong>GitHub Repository&lt;/strong>: &lt;a class="link" href="https://github.com/mikefarah/yq" target="_blank" rel="noopener"
->mikefarah/yq&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Helm Template 공백 유지하는 방법</title><link>https://interp.blog/helm-template-preserve-space/</link><pubDate>Thu, 08 Aug 2024 21:57:01 +0900</pubDate><guid>https://interp.blog/helm-template-preserve-space/</guid><description>&lt;p>&lt;a class="link" href="https://interp.blog/helm-template-value-preserve-string/" >지난 포스팅&lt;/a> 에 이어, 오늘은 Template 내부에 생성되는 공백을 유지하는 방법을 알아보자. 사실 이 부분 역시 &lt;a class="link" href="https://helm.sh/docs/chart_template_guide/control_structures/#controlling-whitespace" target="_blank" rel="noopener"
->Helm 문서&lt;/a>에 나와있는 내용을 요약한 것이다.&lt;/p>
-&lt;h1 id="준비">준비&lt;/h1>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">helm create tempchart
-rm -rf tempchart/charts tempchart/templates/* tempchart/values.yaml
-cat &lt;span class="s">&amp;lt;&amp;lt;EOF &amp;gt; tempchart/templates/test.yaml
-&lt;/span>&lt;span class="s">data:
-&lt;/span>&lt;span class="s"> drink: {{ .Values.drink }}
-&lt;/span>&lt;span class="s"> {{ if eq .Values.drink &amp;#34;coffee&amp;#34; }}
-&lt;/span>&lt;span class="s"> mug: &amp;#34;true&amp;#34;
-&lt;/span>&lt;span class="s"> {{ end }}
-&lt;/span>&lt;span class="s">EOF&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>이렇게 만든 &lt;code>test.yaml&lt;/code> 파일을 보면, &lt;code>.Values.drink&lt;/code> 값이 &lt;code>coffee&lt;/code> 일 때에는 추가로 &lt;code>data.mug&lt;/code> attribute 를 &lt;code>true&lt;/code> 로 추가한다.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">data&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">drink&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{{&lt;span class="w"> &lt;/span>&lt;span class="l">.Values.drink }}&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>{{&lt;span class="w"> &lt;/span>&lt;span class="l">if eq .Values.drink &amp;#34;coffee&amp;#34; }}&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">mug&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;true&amp;#34;&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>{{&lt;span class="w"> &lt;/span>&lt;span class="l">end }}&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="공백이-그대로-남아요">공백이 그대로 남아요!&lt;/h1>
-&lt;p>drink 가 coffee 가 아닌 경우라면, 아래와 같이 &lt;code>data.drink&lt;/code> 만 가지는 yaml 파일이 생성된다.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">helm template tempchart --set &lt;span class="nv">drink&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;tea&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nn">---&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="c"># Source: tempchart/templates/test.yaml&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">data&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">drink&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">tea&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>coffee 로 설정하면 &lt;code>data.mug&lt;/code> attribute 가 추가될텐데..&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">helm template tempchart --set &lt;span class="nv">drink&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;coffee&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>뭔가 이상하다. 저 공백은 무엇인가?&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nn">---&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="c"># Source: tempchart/templates/test.yaml&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">data&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">drink&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">coffee&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">mug&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;true&amp;#34;&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="해결방법">해결방법&lt;/h1>
-&lt;p>&lt;a class="link" href="https://helm.sh/docs/chart_template_guide/control_structures/#controlling-whitespace" target="_blank" rel="noopener"
->Helm 문서&lt;/a>의 설명은 다음과 같다.&lt;/p>
-&lt;blockquote>
-&lt;p>First, the curly brace syntax of template declarations can be modified with special characters to tell the template engine to chomp whitespace. {{- (with the dash and space added) indicates that whitespace should be chomped left, while -}} means whitespace to the right should be consumed. Be careful! Newlines are whitespace!&lt;/p>
-&lt;p>먼저, 템플릿 선언의 중괄호 (&lt;code>{&lt;/code> 와 &lt;code>}&lt;/code>) 구문은 특수 문자를 사용하여 템플릿 엔진에 공백을 제거하도록 지시할 수 있습니다. &lt;code>{{-&lt;/code> (대시와 공백이 추가된 경우) 는 왼쪽의 공백을 제거해 달라는 것이고, &lt;code>-}}&lt;/code> 는 오른쪽의 공백을 제거해 달라는 것을 의미합니다. &lt;strong>주의하세요! 줄 바꿈도 공백입니다!&lt;/strong>&lt;/p>
-&lt;/blockquote>
-&lt;p>따라서 이 줄바꿈을 제거하기 위해 &lt;code>{{-&lt;/code> 를 사용하면 된다.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">data&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">drink&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{{&lt;span class="w"> &lt;/span>&lt;span class="l">.Values.drink }}&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>{{- &lt;span class="l">if eq .Values.drink &amp;#34;coffee&amp;#34; }}&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">mug&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;true&amp;#34;&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>{{- &lt;span class="l">end }}&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>양쪽에 다 사용하면 안 된다. 이렇게 에러가 발생한다.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">Error: YAML parse error on tempchart/templates/test.yaml: error converting YAML to JSON: yaml: line 2&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">mapping values are not allowed in this context&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="l">Use --debug flag to render out invalid YAML&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Helm Template Value 의 문자열 값 보존하기</title><link>https://interp.blog/helm-template-value-preserve-string/</link><pubDate>Wed, 07 Aug 2024 09:59:24 +0900</pubDate><guid>https://interp.blog/helm-template-value-preserve-string/</guid><description>&lt;p>Helm Templating 을 하다 보면, 값에 들어가 있는 따옴표를 그대로 보존해야 하는 상황이 발생한다. 다음과 같은 경우엔 어떻게 할 것인가?&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Secret&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">data&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">password&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{{&lt;span class="w"> &lt;/span>&lt;span class="l">.Values.password }}&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">helm template mychart --set &lt;span class="nv">password&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;my&amp;#39;password&amp;#34;&lt;/span> &lt;span class="c1"># 성공&lt;/span>
-helm template mychart --set &lt;span class="nv">password&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;my\&amp;#34;&amp;#39;password&amp;#34;&lt;/span> &lt;span class="c1"># YAML parse error&lt;/span>
-helm template mychart --set &lt;span class="nv">password&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;my&amp;#34;password&amp;#39;&lt;/span> &lt;span class="c1"># YAML parse error&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="--사용하기">&lt;code>&amp;gt;-&lt;/code> 사용하기&lt;/h1>
-&lt;p>처음으로 할 일은 &lt;code>spec.data.password&lt;/code> 을 다음과 같이 &lt;code>&amp;gt;&lt;/code> (angle bracket, greater-than-sign 이라고 부르더라) 와 &lt;code>-&lt;/code> 의 조합으로 바꾸는 것이다.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="w"> &lt;/span>&lt;span class="nt">password&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">&amp;gt;-&lt;/span>&lt;span class="sd">
-&lt;/span>&lt;span class="sd"> &lt;/span>&lt;span class="w"> &lt;/span>{{&lt;span class="w"> &lt;/span>&lt;span class="l">.Values.password }}&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>이게 뭔가요? 이건 Helm Template Engine 기술이 아니라 YAML 테크닉의 일종이고, 문자열 보존을 위한 목적도 아니다. &lt;a class="link" href="https://helm.sh/docs/chart_template_guide/yaml_techniques/#folded-multi-line-strings" target="_blank" rel="noopener"
->Helm 문서&lt;/a>&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>를 먼저 보면,&lt;/p>
-&lt;blockquote>
-&lt;p>Sometimes you want to represent a string in your YAML with multiple lines, but want it to be treated as one long line when it is interpreted. This is called &amp;ldquo;folding&amp;rdquo;. To declare a folded block, use &lt;code>&amp;gt;&lt;/code>.&lt;/p>
-&lt;p>YAML에서 문자열을 여러 줄로 표현하고 싶지만, 하나의 긴 줄로 나타내고 싶을 때가 있습니다. 이것을 &amp;ldquo;&lt;em>접기(folding)&lt;/em>&amp;ldquo;라고 부르죠. 접혀야 할 블록을 선언하려면, &lt;code>&amp;gt;&lt;/code> 를 사용하세요.&lt;/p>
-&lt;/blockquote>
-&lt;p>더 정확한 설명을 해 주는 &lt;a class="link" href="https://yaml-multiline.info/" target="_blank" rel="noopener"
->YAML Multiline 문서&lt;/a>&lt;sup id="fnref:2">&lt;a href="#fn:2" class="footnote-ref" role="doc-noteref">2&lt;/a>&lt;/sup>를 요약해 보면,&lt;/p>
-&lt;ul>
-&lt;li>Block 을 유지하려면 &lt;code>|&lt;/code>, 한 줄로 접으려면 &lt;code>&amp;gt;&lt;/code>&lt;/li>
-&lt;li>Block 마지막에 줄바꿈을 넣는 것이 기본값, 넣지 않으려면 &lt;code>-&lt;/code> 를 붙이고, 모든 줄바꿈을 유지하려면 (&lt;code>|&lt;/code> 일 때만) &lt;code>+&lt;/code> 를 붙인다.&lt;/li>
-&lt;/ul>
-&lt;p>그래서 &lt;code>&amp;gt;&lt;/code> 만 사용하면 줄바꿈이 들어간 값을 얻기 때문에, 정확히 우리가 원하는 것은 아니다. &lt;code>&amp;gt;-&lt;/code> 를 써야 한다.&lt;/p>
-&lt;h1 id="예제-적용하기">예제 적용하기&lt;/h1>
-&lt;p>앞서 &lt;code>helm template&lt;/code> 결과는 다음과 같이 나오는데,&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="c"># helm template mychart --set password=&amp;#34;my\&amp;#34;&amp;#39;password&amp;#34;&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nn">---&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Secret&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">data&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">password&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">&amp;gt;-&lt;/span>&lt;span class="sd">
-&lt;/span>&lt;span class="sd"> &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">my&amp;#34;&amp;#39;password&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="c"># helm template mychart --set password=&amp;#39;my&amp;#34;password&amp;#39;&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Secret&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">data&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">password&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">&amp;gt;-&lt;/span>&lt;span class="sd">
-&lt;/span>&lt;span class="sd"> &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">my&amp;#34;password&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="c"># helm template mychart --set password=&amp;#34;my&amp;#39;password&amp;#34;&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Secret&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">data&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">password&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">&amp;gt;-&lt;/span>&lt;span class="sd">
-&lt;/span>&lt;span class="sd"> &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">my&amp;#39;password&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>어? &lt;code>spec.data.password&lt;/code> 에 여전히 &lt;code>&amp;gt;-&lt;/code> 가 남아있고, 값 앞에 줄바꿈도 되어 있는데 읽으면 이상한거 아니예요? 그렇지 않다.&lt;/p>
-&lt;p>&lt;a class="link" href="https://github.com/mikefarah/yq/" target="_blank" rel="noopener"
->mikefarah/yq&lt;/a>&lt;sup id="fnref:3">&lt;a href="#fn:3" class="footnote-ref" role="doc-noteref">3&lt;/a>&lt;/sup>을 사용해서 쿼리해 보면 정상적으로 나오는 것을 확인할 수 있다.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">helm template mychart --set &lt;span class="nv">password&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;my\&amp;#34;password&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> yq &lt;span class="s1">&amp;#39;.spec.data.password&amp;#39;&lt;/span> -r
-my&lt;span class="s2">&amp;#34;password
-&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">helm template mychart --set &lt;span class="nv">password&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;my\&amp;#34;&amp;#39;password&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> yq &lt;span class="s1">&amp;#39;.spec.data.password&amp;#39;&lt;/span> -r
-my&lt;span class="s2">&amp;#34;&amp;#39;password
-&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">helm template mychart --set &lt;span class="nv">password&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;my&amp;#34;password&amp;#39;&lt;/span> &lt;span class="p">|&lt;/span> yq &lt;span class="s1">&amp;#39;.spec.data.password&amp;#39;&lt;/span> -r
-my&lt;span class="s2">&amp;#34;password
-&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;section class="footnotes" role="doc-endnotes">
-&lt;hr>
-&lt;ol>
-&lt;li id="fn:1" role="doc-endnote">
-&lt;p>&lt;a class="link" href="https://helm.sh/docs/chart_template_guide/yaml_techniques/#folded-multi-line-strings" target="_blank" rel="noopener"
->https://helm.sh/docs/chart_template_guide/yaml_techniques/#folded-multi-line-strings&lt;/a>&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
-&lt;/li>
-&lt;li id="fn:2" role="doc-endnote">
-&lt;p>&lt;a class="link" href="https://yaml-multiline.info/" target="_blank" rel="noopener"
->https://yaml-multiline.info/&lt;/a>&amp;#160;&lt;a href="#fnref:2" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
-&lt;/li>
-&lt;li id="fn:3" role="doc-endnote">
-&lt;p>&lt;a class="link" href="https://github.com/mikefarah/yq/" target="_blank" rel="noopener"
->https://github.com/mikefarah/yq/&lt;/a>&amp;#160;&lt;a href="#fnref:3" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
-&lt;/li>
-&lt;/ol>
-&lt;/section></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>YAML on InterP Blog</title><link>https://interp.blog/tags/yaml/</link><description>Recent content in YAML on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Fri, 13 Dec 2024 14:07:39 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/yaml/index.xml" rel="self" type="application/rss+xml"/><item><title>yq: YAML Parser</title><link>https://interp.blog/yq-yaml-parser/</link><pubDate>Fri, 13 Dec 2024 14:07:39 +0900</pubDate><guid>https://interp.blog/yq-yaml-parser/</guid><description>&lt;p&gt;&lt;strong&gt;yq&lt;/strong&gt;는 &lt;code&gt;jq&lt;/code&gt; 에서 쓸 수 있는 jsonpath 를 YAML 파일에 구사할 수 있는 CLI 도구이다. 여기서 소개하는 yq 는 &lt;a class="link" href="https://github.com/mikefarah/yq" target="_blank" rel="noopener"
+ &gt;mikefarah/yq&lt;/a&gt; 를 뜻한다.&lt;/p&gt;
+&lt;p&gt;이 글에서는 yq의 설치 방법과 기본적인 사용법을 간단히 살펴본다.&lt;/p&gt;
+&lt;h1 id="yq-설치-방법"&gt;yq 설치 방법
+&lt;/h1&gt;&lt;h2 id="homebrew로-설치-macoslinux"&gt;Homebrew로 설치 (macOS/Linux)
+&lt;/h2&gt;&lt;p&gt;Homebrew를 사용하면 yq를 간단히 설치할 수 있다. 터미널에서 아래 명령어를 입력하면 된다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;brew install yq
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;설치가 끝난 뒤에는 &lt;code&gt;yq --version&lt;/code&gt; 명령어로 설치 여부를 확인할 수 있다.&lt;/p&gt;
+&lt;h2 id="기타-설치-방법"&gt;기타 설치 방법
+&lt;/h2&gt;&lt;p&gt;Homebrew 외에도 yq는 여러 가지 방법으로 설치할 수 있다. 운영 체제와 환경에 맞는 방법을 선택하면 된다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class="link" href="https://github.com/mikefarah/yq/releases/latest" target="_blank" rel="noopener"
+ &gt;공식 다운로드 링크&lt;/a&gt;: 바이너리를 직접 다운로드해서 설치&lt;/li&gt;
+&lt;li&gt;Snap 패키지 (Linux): &lt;code&gt;snap install yq&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Windows: Chocolatey 또는 Scoop으로 설치&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;더 자세한 설치 방법은 &lt;a class="link" href="https://mikefarah.gitbook.io/yq" target="_blank" rel="noopener"
+ &gt;공식 문서&lt;/a&gt;에서 확인할 수 있다.&lt;/p&gt;
+&lt;h1 id="yq의-주요-기능"&gt;yq의 주요 기능
+&lt;/h1&gt;&lt;p&gt;yq는 YAML 데이터를 쉽게 관리할 수 있는 다양한 기능을 제공한다.&lt;/p&gt;
+&lt;h2 id="yaml-읽기"&gt;YAML 읽기
+&lt;/h2&gt;&lt;p&gt;YAML 파일에서 특정 데이터를 읽는 것은 아주 간단하다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;yq &lt;span class="s1"&gt;&amp;#39;.person.name&amp;#39;&lt;/span&gt; file.yaml
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;위 명령어는 &lt;code&gt;file.yaml&lt;/code&gt; 파일에서 &lt;code&gt;person&lt;/code&gt; 아래 &lt;code&gt;name&lt;/code&gt; 값을 출력한다.&lt;/p&gt;
+&lt;h2 id="yaml-수정"&gt;YAML 수정
+&lt;/h2&gt;&lt;p&gt;YAML 데이터를 업데이트할 수도 있다. &lt;code&gt;-i&lt;/code&gt; 옵션을 사용하면 파일을 직접 수정할 수 있다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;yq -i &lt;span class="s1"&gt;&amp;#39;.person.name = &amp;#34;인터피&amp;#34;&amp;#39;&lt;/span&gt; file.yaml
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="json과-yaml-간-변환"&gt;JSON과 YAML 간 변환
+&lt;/h2&gt;&lt;p&gt;yq는 JSON과 YAML을 손쉽게 변환할 수 있다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;yq -Poy sample.json
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;이 명령어는 &lt;code&gt;sample.json&lt;/code&gt; 파일을 YAML 형식으로 변환한다.&lt;/p&gt;
+&lt;h2 id="4-여러-파일-병합"&gt;4. 여러 파일 병합
+&lt;/h2&gt;&lt;p&gt;여러 YAML 파일을 병합하는 것도 가능하다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;yq -n &lt;span class="s1"&gt;&amp;#39;load(&amp;#34;file1.yaml&amp;#34;) * load(&amp;#34;file2.yaml&amp;#34;)&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="5-환경-변수-사용"&gt;5. 환경 변수 사용
+&lt;/h2&gt;&lt;p&gt;환경 변수를 활용할 때는 &lt;code&gt;strenv()&lt;/code&gt; 를 사용해야 한다. &lt;code&gt;$...&lt;/code&gt; 는 먹지 않으므로 주의. 아래 예제는 환경변수 &lt;code&gt;$NAME&lt;/code&gt; 을 가지고 YAML 데이터를 업데이트한다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;bash
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;NAME=&amp;#34;인터피&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;yq -i &amp;#39;.person.name = strenv(NAME)&amp;#39; file.yaml
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="yq-의-장점"&gt;yq 의 장점
+&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;다양한 형식 지원&lt;/strong&gt;: YAML뿐만 아니라 JSON, XML, CSV 등도 다룰 수 있다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;유연한 구문&lt;/strong&gt;: &lt;code&gt;jq&lt;/code&gt; 에서 쓸 수 있는 jsonpath syntax 로 간단히 작업할 수 있다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;데이터 보존&lt;/strong&gt;: YAML 의 주석과 포맷을 유지하면서 데이터를 수정할 수 있다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;개발자 친화적&lt;/strong&gt;: CI/CD 파이프라인에도 쉽게 통합할 수 있다.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id="공식-문서와-커뮤니티"&gt;공식 문서와 커뮤니티
+&lt;/h1&gt;&lt;p&gt;yq에 대해 더 알고 싶다면 공식 문서를 확인해 보자. 명령어 사용법과 고급 기능에 대한 예제가 잘 정리되어 있다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a class="link" href="https://mikefarah.gitbook.io/yq" target="_blank" rel="noopener"
+ &gt;공식 문서&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;GitHub Repository&lt;/strong&gt;: &lt;a class="link" href="https://github.com/mikefarah/yq" target="_blank" rel="noopener"
+ &gt;mikefarah/yq&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>Helm Template 공백 유지하는 방법</title><link>https://interp.blog/helm-template-preserve-space/</link><pubDate>Thu, 08 Aug 2024 21:57:01 +0900</pubDate><guid>https://interp.blog/helm-template-preserve-space/</guid><description>&lt;p&gt;&lt;a class="link" href="https://interp.blog/helm-template-value-preserve-string/" &gt;지난 포스팅&lt;/a&gt; 에 이어, 오늘은 Template 내부에 생성되는 공백을 유지하는 방법을 알아보자. 사실 이 부분 역시 &lt;a class="link" href="https://helm.sh/docs/chart_template_guide/control_structures/#controlling-whitespace" target="_blank" rel="noopener"
+ &gt;Helm 문서&lt;/a&gt;에 나와있는 내용을 요약한 것이다.&lt;/p&gt;
+&lt;h1 id="준비"&gt;준비
+&lt;/h1&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;helm create tempchart
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;rm -rf tempchart/charts tempchart/templates/* tempchart/values.yaml
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;cat &lt;span class="s"&gt;&amp;lt;&amp;lt;EOF &amp;gt; tempchart/templates/test.yaml
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;data:
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt; drink: {{ .Values.drink }}
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt; {{ if eq .Values.drink &amp;#34;coffee&amp;#34; }}
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt; mug: &amp;#34;true&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt; {{ end }}
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;EOF&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;이렇게 만든 &lt;code&gt;test.yaml&lt;/code&gt; 파일을 보면, &lt;code&gt;.Values.drink&lt;/code&gt; 값이 &lt;code&gt;coffee&lt;/code&gt; 일 때에는 추가로 &lt;code&gt;data.mug&lt;/code&gt; attribute 를 &lt;code&gt;true&lt;/code&gt; 로 추가한다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-yaml" data-lang="yaml"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;data&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;drink&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;{{&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;.Values.drink }}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;{{&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;if eq .Values.drink &amp;#34;coffee&amp;#34; }}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;mug&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;true&amp;#34;&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;{{&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;end }}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="공백이-그대로-남아요"&gt;공백이 그대로 남아요!
+&lt;/h1&gt;&lt;p&gt;drink 가 coffee 가 아닌 경우라면, 아래와 같이 &lt;code&gt;data.drink&lt;/code&gt; 만 가지는 yaml 파일이 생성된다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;helm template tempchart --set &lt;span class="nv"&gt;drink&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;tea&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-yaml" data-lang="yaml"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nn"&gt;---&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c"&gt;# Source: tempchart/templates/test.yaml&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;data&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;drink&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;tea&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;coffee 로 설정하면 &lt;code&gt;data.mug&lt;/code&gt; attribute 가 추가될텐데..&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;helm template tempchart --set &lt;span class="nv"&gt;drink&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;coffee&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;뭔가 이상하다. 저 공백은 무엇인가?&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-yaml" data-lang="yaml"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nn"&gt;---&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c"&gt;# Source: tempchart/templates/test.yaml&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;data&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;drink&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;coffee&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;mug&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;true&amp;#34;&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="해결방법"&gt;해결방법
+&lt;/h1&gt;&lt;p&gt;&lt;a class="link" href="https://helm.sh/docs/chart_template_guide/control_structures/#controlling-whitespace" target="_blank" rel="noopener"
+ &gt;Helm 문서&lt;/a&gt;의 설명은 다음과 같다.&lt;/p&gt;
+
+ &lt;blockquote&gt;
+ &lt;p&gt;First, the curly brace syntax of template declarations can be modified with special characters to tell the template engine to chomp whitespace. {{- (with the dash and space added) indicates that whitespace should be chomped left, while -}} means whitespace to the right should be consumed. Be careful! Newlines are whitespace!&lt;/p&gt;
+&lt;p&gt;먼저, 템플릿 선언의 중괄호 (&lt;code&gt;{&lt;/code&gt; 와 &lt;code&gt;}&lt;/code&gt;) 구문은 특수 문자를 사용하여 템플릿 엔진에 공백을 제거하도록 지시할 수 있습니다. &lt;code&gt;{{-&lt;/code&gt; (대시와 공백이 추가된 경우) 는 왼쪽의 공백을 제거해 달라는 것이고, &lt;code&gt;-}}&lt;/code&gt; 는 오른쪽의 공백을 제거해 달라는 것을 의미합니다. &lt;strong&gt;주의하세요! 줄 바꿈도 공백입니다!&lt;/strong&gt;&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;p&gt;따라서 이 줄바꿈을 제거하기 위해 &lt;code&gt;{{-&lt;/code&gt; 를 사용하면 된다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-yaml" data-lang="yaml"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;data&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;drink&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;{{&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;.Values.drink }}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;{{- &lt;span class="l"&gt;if eq .Values.drink &amp;#34;coffee&amp;#34; }}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;mug&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;true&amp;#34;&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;{{- &lt;span class="l"&gt;end }}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;양쪽에 다 사용하면 안 된다. 이렇게 에러가 발생한다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-yaml" data-lang="yaml"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;Error&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;YAML parse error on tempchart/templates/test.yaml&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;error converting YAML to JSON&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;yaml&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;line 2&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;mapping values are not allowed in this context&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="l"&gt;Use --debug flag to render out invalid YAML&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>Helm Template Value 의 문자열 값 보존하기</title><link>https://interp.blog/helm-template-value-preserve-string/</link><pubDate>Wed, 07 Aug 2024 09:59:24 +0900</pubDate><guid>https://interp.blog/helm-template-value-preserve-string/</guid><description>&lt;p&gt;Helm Templating 을 하다 보면, 값에 들어가 있는 따옴표를 그대로 보존해야 하는 상황이 발생한다. 다음과 같은 경우엔 어떻게 할 것인가?&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-yaml" data-lang="yaml"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;kind&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;Secret&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;spec&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;data&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;password&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;{{&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;.Values.password }}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;helm template mychart --set &lt;span class="nv"&gt;password&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;my&amp;#39;password&amp;#34;&lt;/span&gt; &lt;span class="c1"&gt;# 성공&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;helm template mychart --set &lt;span class="nv"&gt;password&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;my\&amp;#34;&amp;#39;password&amp;#34;&lt;/span&gt; &lt;span class="c1"&gt;# YAML parse error&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;helm template mychart --set &lt;span class="nv"&gt;password&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;my&amp;#34;password&amp;#39;&lt;/span&gt; &lt;span class="c1"&gt;# YAML parse error&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="--사용하기"&gt;&lt;code&gt;&amp;gt;-&lt;/code&gt; 사용하기
+&lt;/h1&gt;&lt;p&gt;처음으로 할 일은 &lt;code&gt;spec.data.password&lt;/code&gt; 을 다음과 같이 &lt;code&gt;&amp;gt;&lt;/code&gt; (angle bracket, greater-than-sign 이라고 부르더라) 와 &lt;code&gt;-&lt;/code&gt; 의 조합으로 바꾸는 것이다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-yaml" data-lang="yaml"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;password&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;&amp;gt;-&lt;/span&gt;&lt;span class="sd"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="sd"&gt; {{ .Values.password }}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;이게 뭔가요? 이건 Helm Template Engine 기술이 아니라 YAML 테크닉의 일종이고, 문자열 보존을 위한 목적도 아니다. &lt;a class="link" href="https://helm.sh/docs/chart_template_guide/yaml_techniques/#folded-multi-line-strings" target="_blank" rel="noopener"
+ &gt;Helm 문서&lt;/a&gt;&lt;sup id="fnref:1"&gt;&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref"&gt;1&lt;/a&gt;&lt;/sup&gt;를 먼저 보면,&lt;/p&gt;
+
+ &lt;blockquote&gt;
+ &lt;p&gt;Sometimes you want to represent a string in your YAML with multiple lines, but want it to be treated as one long line when it is interpreted. This is called &amp;ldquo;folding&amp;rdquo;. To declare a folded block, use &lt;code&gt;&amp;gt;&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;YAML에서 문자열을 여러 줄로 표현하고 싶지만, 하나의 긴 줄로 나타내고 싶을 때가 있습니다. 이것을 &amp;ldquo;&lt;em&gt;접기(folding)&lt;/em&gt;&amp;ldquo;라고 부르죠. 접혀야 할 블록을 선언하려면, &lt;code&gt;&amp;gt;&lt;/code&gt; 를 사용하세요.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;p&gt;더 정확한 설명을 해 주는 &lt;a class="link" href="https://yaml-multiline.info/" target="_blank" rel="noopener"
+ &gt;YAML Multiline 문서&lt;/a&gt;&lt;sup id="fnref:2"&gt;&lt;a href="#fn:2" class="footnote-ref" role="doc-noteref"&gt;2&lt;/a&gt;&lt;/sup&gt;를 요약해 보면,&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Block 을 유지하려면 &lt;code&gt;|&lt;/code&gt;, 한 줄로 접으려면 &lt;code&gt;&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Block 마지막에 줄바꿈을 넣는 것이 기본값, 넣지 않으려면 &lt;code&gt;-&lt;/code&gt; 를 붙이고, 모든 줄바꿈을 유지하려면 (&lt;code&gt;|&lt;/code&gt; 일 때만) &lt;code&gt;+&lt;/code&gt; 를 붙인다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;그래서 &lt;code&gt;&amp;gt;&lt;/code&gt; 만 사용하면 줄바꿈이 들어간 값을 얻기 때문에, 정확히 우리가 원하는 것은 아니다. &lt;code&gt;&amp;gt;-&lt;/code&gt; 를 써야 한다.&lt;/p&gt;
+&lt;h1 id="예제-적용하기"&gt;예제 적용하기
+&lt;/h1&gt;&lt;p&gt;앞서 &lt;code&gt;helm template&lt;/code&gt; 결과는 다음과 같이 나오는데,&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-yaml" data-lang="yaml"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c"&gt;# helm template mychart --set password=&amp;#34;my\&amp;#34;&amp;#39;password&amp;#34;&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nn"&gt;---&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;kind&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;Secret&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;spec&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;data&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;password&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;&amp;gt;-&lt;/span&gt;&lt;span class="sd"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="sd"&gt; my&amp;#34;&amp;#39;password&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-yaml" data-lang="yaml"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c"&gt;# helm template mychart --set password=&amp;#39;my&amp;#34;password&amp;#39;&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;kind&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;Secret&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;spec&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;data&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;password&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;&amp;gt;-&lt;/span&gt;&lt;span class="sd"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="sd"&gt; my&amp;#34;password&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-yaml" data-lang="yaml"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c"&gt;# helm template mychart --set password=&amp;#34;my&amp;#39;password&amp;#34;&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;kind&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;Secret&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;spec&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;data&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;password&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;&amp;gt;-&lt;/span&gt;&lt;span class="sd"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="sd"&gt; my&amp;#39;password&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;어? &lt;code&gt;spec.data.password&lt;/code&gt; 에 여전히 &lt;code&gt;&amp;gt;-&lt;/code&gt; 가 남아있고, 값 앞에 줄바꿈도 되어 있는데 읽으면 이상한거 아니예요? 그렇지 않다.&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="https://github.com/mikefarah/yq/" target="_blank" rel="noopener"
+ &gt;mikefarah/yq&lt;/a&gt;&lt;sup id="fnref:3"&gt;&lt;a href="#fn:3" class="footnote-ref" role="doc-noteref"&gt;3&lt;/a&gt;&lt;/sup&gt;을 사용해서 쿼리해 보면 정상적으로 나오는 것을 확인할 수 있다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;helm template mychart --set &lt;span class="nv"&gt;password&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;my\&amp;#34;password&amp;#34;&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; yq &lt;span class="s1"&gt;&amp;#39;.spec.data.password&amp;#39;&lt;/span&gt; -r
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;my&lt;span class="s2"&gt;&amp;#34;password
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;helm template mychart --set &lt;span class="nv"&gt;password&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;my\&amp;#34;&amp;#39;password&amp;#34;&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; yq &lt;span class="s1"&gt;&amp;#39;.spec.data.password&amp;#39;&lt;/span&gt; -r
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;my&lt;span class="s2"&gt;&amp;#34;&amp;#39;password
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;helm template mychart --set &lt;span class="nv"&gt;password&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;my&amp;#34;password&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; yq &lt;span class="s1"&gt;&amp;#39;.spec.data.password&amp;#39;&lt;/span&gt; -r
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;my&lt;span class="s2"&gt;&amp;#34;password
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="footnotes" role="doc-endnotes"&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id="fn:1"&gt;
+&lt;p&gt;&lt;a class="link" href="https://helm.sh/docs/chart_template_guide/yaml_techniques/#folded-multi-line-strings" target="_blank" rel="noopener"
+ &gt;https://helm.sh/docs/chart_template_guide/yaml_techniques/#folded-multi-line-strings&lt;/a&gt;&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink"&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id="fn:2"&gt;
+&lt;p&gt;&lt;a class="link" href="https://yaml-multiline.info/" target="_blank" rel="noopener"
+ &gt;https://yaml-multiline.info/&lt;/a&gt;&amp;#160;&lt;a href="#fnref:2" class="footnote-backref" role="doc-backlink"&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id="fn:3"&gt;
+&lt;p&gt;&lt;a class="link" href="https://github.com/mikefarah/yq/" target="_blank" rel="noopener"
+ &gt;https://github.com/mikefarah/yq/&lt;/a&gt;&amp;#160;&lt;a href="#fnref:3" class="footnote-backref" role="doc-backlink"&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description></item></channel></rss>

@@ -1,257 +1,52 @@
-<!doctype html><html lang=ko-kr dir=ltr>
-<head><meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Upgrade 8.x 로 쓰다가 10.x 로 업그레이드를 진행했다. 아니.. 그런데 Postgresql Database 버전이 다르다고? 알고보니 이렇게 대격변을 일으키면 안 되던 거였다. 그래서 겸사겸사 9.5.10 으로 다시"><title>Gitlab 10.x 삽질기</title>
-<style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500&display=swap';@import "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"</style>
-<link href=https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css rel=stylesheet>
-<link rel=canonical href=https://interp.blog/gitlab-%EC%82%BD%EC%A7%88%EA%B8%B0/>
-<link rel=stylesheet href=/scss/style.min.4be513be4d3ee5d10255ef2b36fc366628db7e83c856167310af719cdd53496c.css><meta property="title" content="Gitlab 10.x 삽질기">
-<meta property="description" content="Upgrade 8.x 로 쓰다가 10.x 로 업그레이드를 진행했다. 아니.. 그런데 Postgresql Database 버전이 다르다고? 알고보니 이렇게 대격변을 일으키면 안 되던 거였다. 그래서 겸사겸사 9.5.10 으로 다시">
-<meta property="og:title" content="Gitlab 10.x 삽질기">
-<meta property="og:description" content="Upgrade 8.x 로 쓰다가 10.x 로 업그레이드를 진행했다. 아니.. 그런데 Postgresql Database 버전이 다르다고? 알고보니 이렇게 대격변을 일으키면 안 되던 거였다. 그래서 겸사겸사 9.5.10 으로 다시">
-<meta property="og:url" content="https://interp.blog/gitlab-%EC%82%BD%EC%A7%88%EA%B8%B0/">
-<meta property="og:site_name" content="InterP Blog">
-<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="gitlab"><meta property="article:tag" content="ci"><meta property="article:published_time" content="2017-11-15T09:17:58+00:00"><meta property="article:modified_time" content="2017-11-15T09:17:58+00:00">
-<meta name=twitter:site content="@interp_">
-<meta name=twitter:creator content="@interp_"><meta name=twitter:title content="Gitlab 10.x 삽질기">
-<meta name=twitter:description content="Upgrade 8.x 로 쓰다가 10.x 로 업그레이드를 진행했다. 아니.. 그런데 Postgresql Database 버전이 다르다고? 알고보니 이렇게 대격변을 일으키면 안 되던 거였다. 그래서 겸사겸사 9.5.10 으로 다시">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KMRJ33V06X"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-KMRJ33V06X')</script>
-<script>(function(b,d,e,a,g){b[a]=b[a]||[],b[a].push({'gtm.start':(new Date).getTime(),event:'gtm.js'});var f=d.getElementsByTagName(e)[0],c=d.createElement(e),h=a!='dataLayer'?'&l='+a:'';c.async=!0,c.src='https://www.googletagmanager.com/gtm.js?id='+g+h,f.parentNode.insertBefore(c,f)})(window,document,'script','dataLayer','GTM-NBPHNHQ')</script>
-</head>
-<body class=article-page>
-<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>
-<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky">
-<button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 토글">
-<span class=hamburger-box>
-<span class=hamburger-inner></span>
-</span>
-</button>
-<header>
-<div class=site-meta>
-<h1 class=site-name><a href=/>InterP Blog</a></h1>
-<h2 class=site-description>Things I'm interested</h2>
-</div>
-</header><ol class=menu id=main-menu>
-<li>
-<a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
-<span>Home</span>
-</a>
-</li>
-<li>
-<a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
-<span>Archives</span>
-</a>
-</li>
-<li>
-<a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
-<span>Search</span>
-</a>
-</li>
-<div class=menu-bottom-section>
-<li id=i18n-switch><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5h7"/><path d="M9 3v2c0 4.418-2.239 8-5 8"/><path d="M5 9c-.003 2.144 2.952 3.908 6.7 4"/><path d="M12 20l4-9 4 9"/><path d="M19.1 18h-6.2"/></svg>
-<select name=language onchange="window.location.href=this.selectedOptions[0].value"><option value=https://interp.blog/ selected>한국어</option><option value=https://interp.blog/en/>English</option></select>
-</li>
-<li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
-<span>다크 모드</span>
-</li>
-</div>
-</ol>
-</aside>
-<main class="main full-width">
-<article class=main-article>
-<header class=article-header style=display:block>
-<div class=article-details>
-<header class=article-category>
-<a href=/categories/tech/ style=background-color:#1c8193;color:#fff>
-TECH 🛠️
-</a>
-</header>
-<div class=article-title-wrapper>
-<h2 class=article-title>
-<a href=/gitlab-%EC%82%BD%EC%A7%88%EA%B8%B0/>Gitlab 10.x 삽질기</a>
-</h2>
-</div>
-<footer class=article-time>
-<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
-<time class=article-time--published>2017-11-15</time>
-</div>
-<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
-<time class=article-time--reading>
-4 분 소요
-</time>
-</div>
-</footer>
-</div>
-</header>
-<section class=article-content>
-<h2 id=upgrade>Upgrade</h2>
-<p>8.x 로 쓰다가 10.x 로 업그레이드를 진행했다. 아니.. 그런데 Postgresql Database 버전이 다르다고? 알고보니 이렇게 대격변을 일으키면 안 되던 거였다. 그래서 겸사겸사 9.5.10 으로 다시 설치하니까 된다.</p>
-<ul>
-<li><code>gitlab-ctl reconfigure</code> 를 설치 직후에 반드시 해 줘야 한다.</li>
-<li>가끔 <code>gitlab-ctl pg-upgrade</code> 를 꼭 하라는 말이 있던데, 내가 해보니까 <code>gitlab-ctl reconfigure</code> 할 때 알아서 한다 (…) 했던 거 또 하는 느낌.</li>
-<li><code>gitlab-ctl restart</code> 를 할 때 postgresql 이나 다른 곳에서 &lsquo;down, up, want up&rsquo; 이런 게 뜨면 서비스가 온전히 수행될 수 없는 상황이다. <code>gitlab-ctl tail</code> 을 실행시켜 로그를 뒤져봐야 한다. 에러가 났거나, 무한히 반복되는 메시지가 없는지 확인하자.</li>
-</ul>
-<h2 id=runner>Runner</h2>
-<p>우리 회사 Gitlab 구조는 웹 서비스 주소와 내부 공유 주소가 다르다. (도메인을 거의 리다이렉트 비슷하게 해놨기 때문이기도 하지만) 비공개 저장소다 보니, 웹 접속은 외부에서 되었면서 Clone 은 똑같은 주소로 절대 받을 수 없게 해 놨다. 이게 Gitlab Runner 를 바보로 만들었다 (…)</p>
-<p>Gitlab Runner는 <code>.gitlab-ci.yml</code> 의 구성에 상관없이, 선작업으로 해당 저장소를 Cloning 하거나 Fetching 하게 된다. (양자택일은 웹 페이지의 Runner 관리 페이지에서 설정이 가능하다.) 이건 Runner의 Executer를 Docker를 하던 Shell 을 하던 똑같다. 문제는 내가 언급했던 대로, 이 저장소 주소를 웹 주소에 기반해서 가져가기 때문에, 항상 실패했다는 것이다.</p>
-<p>짜증이 치밀 즈음, 아예 이 작업을 끌 수는 없을까 하고 봤더니… 역시나 답은 있었다.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>variables:
-  GIT_STRATEGY: none
-</code></pre></div><p>이렇게 두면, Runner의 옵션을 Cloning 으로 줬건 Fetching 으로 줬건 간에 <strong>하지 않는다</strong>.</p>
-<p>즉, 모든 작업을 온전히 CI 명령에 맡기는 것이다. 위험하기도 하고, 캐싱도 안 되고 약점이 많지만, 나는 상관이 없었다. 직접 내부 주소의 저장소로 접근해서 받아오면 그만!</p>
-<h3 id=repository-에-ssh-key-등록>Repository 에 SSH Key 등록</h3>
-<p>그런데, 문제가 생겼다. 아래와 같이 &lsquo;gitlab-runner&rsquo; 사용자로 Runner Service를 등록하고, 실행시켰다고 가정하자.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>gitlab-runner install --user gitlab-runner
-gitlab-runner start
-ps aux <span class=p>|</span> grep gitlab-runner <span class=c1># gitlab-runner run 이 잘 되고 있어야 한다.</span>
-</code></pre></div><p>나는 Executer를 Shell 로 쓰고 있는데, 이 친구가 내부 저장소로 (그것도 SSH 주소로) 접근하려면… SSH Public Key를 넣어줘야 된다. 넣지 않으면 인증에서 실패한다. 그런데 Gitlab Runner 의 Shell 사용자는 위에서 보이는 것 처럼 &lsquo;gitlab-runner&rsquo; 인데.. 얘는 Gitlab 계정도 없는 가상 사용자다. 어떻게 Public Key를 등록할까?</p>
-<p>Gitlab은, 각 사용자 계정의 SSH Public Key를 관리해 주기도 하지만 Project 별로 SSH Key를 등록할 수도 있다. <em>Project 페이지의 Settings > Repository</em> 에서 Deploy Keys 부분을 펼쳐보자. 그러면 익숙한 SSH Key 등록 폼이 나온다. 여기에, 아까 언급한 &lsquo;gitlab-runner&rsquo; 의 SSH Key를 등록하면 된다. (당연히 gitlab-runner 계정에서 SSH Key 생성을 해야한다.)</p>
-<p>그러면<code>.gitlab-ci.yml</code> 에 마구잡이로 <code>'git clone git@~~~~:&lt;user or group>/&lt;project>.git'</code> 이런 식으로 스크립트를 적어도 아주 잘 clone 되는 걸 확인할 수 있다!</p>
-<h2 id=create-new-branch-의-기본-branch-바꾸기><em>Create New Branch</em> 의 기본 Branch 바꾸기</h2>
-<p>Issue 페이지에서 Create New Branch (9.x 에서는 New Branch) 를 하면, Branch의 이름이 &lsquo;421 – invalid table error&rsquo; 이런 식으로 뜬다. 이슈 번호와 이슈 제목.</p>
-<p>그런데 내부적으로는 이슈 제목에 한글을 많이 써서 Branch 이름을 출력하고 싶지 않았다. 그리고 규격화된 이름 (ISSUE#XXXX) 으로 Branch를 생성하고픈 욕구가 치밀었다. (참고로 Push Rule 에서 Branch Naming Rule에 저렇게 규칙을 쓰고, Create New Branch 를 누르면 절대로 Branch가 생기지 않는다.)</p>
-<p>Gitlab에 이미 <a class=link href=https://gitlab.com/gitlab-org/gitlab-ce/issues/21143 target=_blank rel=noopener>#21143</a> 으로 이슈가 등록되었고, 10.3 에서 업데이트가 된다지만… 이렇게 되면 사용자가 매번 Push Rule을 피하려고 Branch 이름을 일일이 쳐넣는 어처구니없는 상황이 계속된다. 그래서 코드를 찾아내서 고치는 편이 낫다고 생각했다.</p>
-<p>Ruby는 쥐뿔도 모르지만 코드는 코드일 뿐.</p>
-<p>이슈에 대한 브랜치를 생성하는 작업은 <a class=link href=https://gitlab.com/gitlab-org/gitlab-ce/merge_requests/2808/diffs target=_blank rel=noopener>이 Merge Request</a> 에서 반영된 것이다. 여기 Diff를 쭉 봤더니 <code>to_branch_name</code> 이 눈에 띈다. 오호라. 하지만 어디서 수정해야 할까?</p>
-<p>Gitlab을 Omnibus 로 정직하게 설치했다면 소스코드 경로는 <code>/opt/gitlab/embedded/service/gitlab-rails/</code> 에 있다. 여기서 grep으로 <code>to_branch_name</code> 을 검색해 보면?</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=nb>cd</span> /opt/gitlab/embedded/service/gitlab-rails/
-grep to_branch_name . -rn
-<span class=c1># ./embedded/service/gitlab-rails/app/models/issue.rb:XXX def to_branch_name</span>
-<span class=c1># 이하 생략</span>
-vi app/models/issue.rb
-</code></pre></div><p>여기서 <code>"#{iid}-#{title.parameterize}"</code> 라고 정의된 부분을 적절히 바꿔주자. 나는 <code>"ISSUE##{iid}"</code> 로 심플하게 바꿨다.</p>
-<p>이것만 바꾸면 &lsquo;Create New Branch&rsquo; 를 누를 때 잘 될 것 같다. 하지만 Issue 페이지에서 &lsquo;연관된 Issue Branch&rsquo; 목록에 연결되지 않는다. 수정한 파일 <code>/opt/gitlab/embedded/service/gitlab-rails/app/models/issue.rb</code> 에서, 더 수정할 것이 남아있다. 다음 함수를 수정해야 한다.</p>
-<ul>
-<li>has_related_branch</li>
-<li>related_branches</li>
-</ul>
-<p>수정 방법은 간단한데, Branch와 비교하는 Regular Expression 의 문법을 찾아보자. <code>/\A${iid}-(?!\d+-stable)/i</code> 라고 되어 있을 것이다. 이걸 실제로 <code>irb</code> 에서 테스트해 보면, <code>420-title</code> 같은 건 되는데 <code>420-0-stable</code> 은 인식이 안 되는 것을 알 수 있다. (뭔가.. 이상하다) 아무튼 이걸 적절한 Regular Expression 으로 바꿔 주도록 하자. Ruby의 Regexp 에 익숙치 않다면 <a class=link href=http://rubular.com/ target=_blank rel=noopener>Rubular 사이트</a>의 도움을 받아보도록 하자. (내 경우는 간단하게 <code>/\AISSUE#{iid}/i</code> 라고 했다.)</p>
-<p>수정을 했다. 하지만 끝이 아니다. 마무리를 해 줘야 한다. 실제 Gitlab이 서비스되고 있는 경로는 <code>/var/opt/gitlab</code> 이므로, 해당 경로로 적용을 시켜줘야 한다. 어떻게?</p>
-<p>간단하다. <code>gitlab-ctl reconfigure && gitlab-ctl restart</code> 를 입력하자.</p>
-</section>
-<footer class=article-footer>
-<br>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
-<ins class=adsbygoogle style=display:block;height:300px;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-0712823212859607 data-ad-slot=7880266545></ins>
-<script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
-<section class=article-tags>
-<a href=/tags/gitlab/>gitlab</a>
-<a href=/tags/ci/>ci</a>
-</section>
-</footer>
-</article>
-<aside class=related-content--wrapper>
-<h2 class=section-title>관련 글</h2>
-<div class=related-content>
-<div class="flex article-list--tile">
-<article>
-<a href=/set-gitlab-merge-request-checked/>
-<div class=article-details>
-<h2 class=article-title>Gitlab merge request 옵션 기본으로 두기</h2>
-</div>
-</a>
-</article>
-<article>
-<a href=/gitlab-%EC%95%84%EB%B0%94%ED%83%80-%EC%83%81%EB%8C%80-%EA%B2%BD%EB%A1%9C-%EC%84%A4%EC%A0%95/>
-<div class=article-details>
-<h2 class=article-title>Gitlab 아바타/첨부파일 상대 경로 설정</h2>
-</div>
-</a>
-</article>
-<article>
-<a href=/gitlab-markdown-parser-configuration/>
-<div class=article-details>
-<h2 class=article-title>Gitlab Markdown Parser 고치기</h2>
-</div>
-</a>
-</article>
-</div>
-</div>
-</aside>
-<script src=https://giscus.app/client.js data-repo=1nterp/1nterp.github.io data-repo-id="MDEwOlJlcG9zaXRvcnkyMzY5NzQ5Mzc=" data-category=General data-category-id=MDE4OkRpc2N1c3Npb25DYXRlZ29yeTMyMjU4Mjgx data-mapping=pathname data-reactions-enabled=1 data-emit-metadata=1 data-theme=light data-lang=en data-loading=lazy crossorigin=anonymous async></script>
-<script>function setGiscusTheme(b){let a=document.querySelector("iframe.giscus-frame");a&&a.contentWindow.postMessage({giscus:{setConfig:{theme:b}}},"https://giscus.app")}(function(){addEventListener("message",b=>{if(event.origin!=="https://giscus.app")return;a()}),window.addEventListener("onColorSchemeChange",a);function a(){document.documentElement.dataset.scheme==="light"?setGiscusTheme('light'):setGiscusTheme('dark_dimmed')}})()</script>
-<footer class=site-footer>
-<section class=copyright>
-&copy;
-2019 -
-2026 InterP Blog
-</section>
-<section class=powerby>
-<a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 기반 / <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.12.0>Stack</a></b> 테마를 사용 중입니다.
-</section>
-</footer>
-<div class=pswp tabindex=-1 role=dialog aria-hidden=true>
-<div class=pswp__bg></div>
-<div class=pswp__scroll-wrap>
-<div class=pswp__container>
-<div class=pswp__item></div>
-<div class=pswp__item></div>
-<div class=pswp__item></div>
-</div>
-<div class="pswp__ui pswp__ui--hidden">
-<div class=pswp__top-bar>
-<div class=pswp__counter></div>
-<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-<button class="pswp__button pswp__button--share" title=Share></button>
-<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-<div class=pswp__preloader>
-<div class=pswp__preloader__icn>
-<div class=pswp__preloader__cut>
-<div class=pswp__preloader__donut></div>
-</div>
-</div>
-</div>
-</div>
-<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-<div class=pswp__share-tooltip></div>
-</div>
-<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-</button>
-<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-</button>
-<div class=pswp__caption>
-<div class=pswp__caption__center></div>
-</div>
-</div>
-</div>
-</div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous>
-</main>
-<aside class="sidebar right-sidebar sticky">
-<form action=/search/ class="search-form widget">
-<p>
-<label>검색</label>
+<!doctype html><html lang=ko-kr dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="Upgrade 8.x 로 쓰다가 10.x 로 업그레이드를 진행했다. 아니.. 그런데 Postgresql Database 버전이 다르다고? 알고보니 이렇게 대격변을 일으키면 안 되던 거였다. 그래서 겸사겸사 9.5.10 으로 다시 설치하니까 된다.\n"><title>Gitlab 10.x 삽질기</title><link rel=canonical href=https://interp.blog/gitlab-%EC%82%BD%EC%A7%88%EA%B8%B0/><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=stylesheet href=https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css><link rel=stylesheet href=/scss/style.min.13527503d779121ab03c412f0b9dee045fb647686643dd243aa74021dddf30be.css><meta property='og:title' content="Gitlab 10.x 삽질기"><meta property='og:description' content="Upgrade 8.x 로 쓰다가 10.x 로 업그레이드를 진행했다. 아니.. 그런데 Postgresql Database 버전이 다르다고? 알고보니 이렇게 대격변을 일으키면 안 되던 거였다. 그래서 겸사겸사 9.5.10 으로 다시 설치하니까 된다.\n"><meta property='og:url' content='https://interp.blog/gitlab-%EC%82%BD%EC%A7%88%EA%B8%B0/'><meta property='og:site_name' content='InterP Blog'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content='gitlab'><meta property='article:tag' content='ci'><meta property='article:published_time' content='2017-11-15T09:17:58+00:00'><meta property='article:modified_time' content='2017-11-15T09:17:58+00:00'><meta name=twitter:site content="@interp_"><meta name=twitter:creator content="@interp_"><meta name=twitter:title content="Gitlab 10.x 삽질기"><meta name=twitter:description content="Upgrade 8.x 로 쓰다가 10.x 로 업그레이드를 진행했다. 아니.. 그런데 Postgresql Database 버전이 다르다고? 알고보니 이렇게 대격변을 일으키면 안 되던 거였다. 그래서 겸사겸사 9.5.10 으로 다시 설치하니까 된다.\n"><script async src="https://www.googletagmanager.com/gtag/js?id=G-KMRJ33V06X"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-KMRJ33V06X")</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 여닫기">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/>InterP Blog</a></h1><h2 class=site-description>Things I'm interested</h2></div></header><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li class=menu-bottom-section><ol class=menu><li id=i18n-switch><svg class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5h7"/><path d="M9 3v2c0 4.418-2.239 8-5 8"/><path d="M5 9c-.003 2.144 2.952 3.908 6.7 4"/><path d="M12 20l4-9 4 9"/><path d="M19.1 18h-6.2"/></svg>
+<select name=language title=language onchange="window.location.href=this.selectedOptions[0].value"><option value=/gitlab-%EC%82%BD%EC%A7%88%EA%B8%B0/ selected>한국어</option><option value=/en/>English</option></select></li><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>다크 모드</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><form action=/search/ class="search-form widget"><p><label>검색</label>
 <input name=keyword required placeholder="검색어를 입력하세요...">
-<button title=검색><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
-</button>
-</p>
-</form>
-<section class="widget archives">
-<div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg>
-</div>
-<h2 class="widget-title section-title">목차</h2>
-<div class=widget--toc>
-<nav id=TableOfContents>
-<ul>
-<li>
-<ul>
-<li><a href=#upgrade>Upgrade</a></li>
-<li><a href=#runner>Runner</a></li>
-<li><a href=#create-new-branch-의-기본-branch-바꾸기><em>Create New Branch</em> 의 기본 Branch 바꾸기</a></li>
-</ul>
-</li>
-</ul>
-</nav>
-</div>
-</section>
-<section class="widget adsense">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
-<ins class=adsbygoogle style=display:block data-ad-client=ca-pub-0712823212859607 data-ad-slot=8117949234 data-ad-format=auto data-full-width-responsive=true></ins>
-<script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
-</section>
-</aside>
-</div>
-<script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script>
-<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
-</body>
-</html>
+<button title=검색>
+<svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg></button></p></form><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">목차</h2><div class=widget--toc><nav class=toc-nav id=TableOfContents><ul><li><ul><li><a href=#upgrade>Upgrade</a></li><li><a href=#runner>Runner</a></li><li><a href=#create-new-branch-의-기본-branch-바꾸기><em>Create New Branch</em> 의 기본 Branch 바꾸기</a></li></ul></li></ul></nav></div></section></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><header class=article-category><a href=/categories/tech/ style=background-color:#1c8193;color:#fff>TECH 🛠️</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/gitlab-%EC%82%BD%EC%A7%88%EA%B8%B0/>Gitlab 10.x 삽질기</a></h2></div><footer class=article-meta><div class=inline-meta><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published datetime=2017-11-15T09:17:58Z>2017-11-15</time>
+<svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>4 분 정도</time></div></footer></div></header><aside class=article-toc><details><summary><div class=article-toc-title><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6-6 6"/></svg>
+<span>목차</span></div></summary><nav class=toc-nav><ul><li><ul><li><a href=#upgrade>Upgrade</a></li><li><a href=#runner>Runner</a></li><li><a href=#create-new-branch-의-기본-branch-바꾸기><em>Create New Branch</em> 의 기본 Branch 바꾸기</a></li></ul></li></ul></nav></details></aside><section class=article-content><h2 id=upgrade>Upgrade</h2><p>8.x 로 쓰다가 10.x 로 업그레이드를 진행했다. 아니.. 그런데 Postgresql Database 버전이 다르다고? 알고보니 이렇게 대격변을 일으키면 안 되던 거였다. 그래서 겸사겸사 9.5.10 으로 다시 설치하니까 된다.</p><ul><li><code>gitlab-ctl reconfigure</code> 를 설치 직후에 반드시 해 줘야 한다.</li><li>가끔 <code>gitlab-ctl pg-upgrade</code> 를 꼭 하라는 말이 있던데, 내가 해보니까 <code>gitlab-ctl reconfigure</code> 할 때 알아서 한다 (…) 했던 거 또 하는 느낌.</li><li><code>gitlab-ctl restart</code> 를 할 때 postgresql 이나 다른 곳에서 &lsquo;down, up, want up&rsquo; 이런 게 뜨면 서비스가 온전히 수행될 수 없는 상황이다. <code>gitlab-ctl tail</code> 을 실행시켜 로그를 뒤져봐야 한다. 에러가 났거나, 무한히 반복되는 메시지가 없는지 확인하자.</li></ul><h2 id=runner>Runner</h2><p>우리 회사 Gitlab 구조는 웹 서비스 주소와 내부 공유 주소가 다르다. (도메인을 거의 리다이렉트 비슷하게 해놨기 때문이기도 하지만) 비공개 저장소다 보니, 웹 접속은 외부에서 되었면서 Clone 은 똑같은 주소로 절대 받을 수 없게 해 놨다. 이게 Gitlab Runner 를 바보로 만들었다 (…)</p><p>Gitlab Runner는 <code>.gitlab-ci.yml</code> 의 구성에 상관없이, 선작업으로 해당 저장소를 Cloning 하거나 Fetching 하게 된다. (양자택일은 웹 페이지의 Runner 관리 페이지에서 설정이 가능하다.) 이건 Runner의 Executer를 Docker를 하던 Shell 을 하던 똑같다. 문제는 내가 언급했던 대로, 이 저장소 주소를 웹 주소에 기반해서 가져가기 때문에, 항상 실패했다는 것이다.</p><p>짜증이 치밀 즈음, 아예 이 작업을 끌 수는 없을까 하고 봤더니… 역시나 답은 있었다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-gdscript3 data-lang=gdscript3><span class=line><span class=cl><span class=n>variables</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>  <span class=n>GIT_STRATEGY</span><span class=p>:</span> <span class=n>none</span>
+</span></span></code></pre></div><p>이렇게 두면, Runner의 옵션을 Cloning 으로 줬건 Fetching 으로 줬건 간에 <strong>하지 않는다</strong>.</p><p>즉, 모든 작업을 온전히 CI 명령에 맡기는 것이다. 위험하기도 하고, 캐싱도 안 되고 약점이 많지만, 나는 상관이 없었다. 직접 내부 주소의 저장소로 접근해서 받아오면 그만!</p><h3 id=repository-에-ssh-key-등록>Repository 에 SSH Key 등록</h3><p>그런데, 문제가 생겼다. 아래와 같이 &lsquo;gitlab-runner&rsquo; 사용자로 Runner Service를 등록하고, 실행시켰다고 가정하자.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>gitlab-runner install --user gitlab-runner
+</span></span><span class=line><span class=cl>gitlab-runner start
+</span></span><span class=line><span class=cl>ps aux <span class=p>|</span> grep gitlab-runner <span class=c1># gitlab-runner run 이 잘 되고 있어야 한다.</span>
+</span></span></code></pre></div><p>나는 Executer를 Shell 로 쓰고 있는데, 이 친구가 내부 저장소로 (그것도 SSH 주소로) 접근하려면… SSH Public Key를 넣어줘야 된다. 넣지 않으면 인증에서 실패한다. 그런데 Gitlab Runner 의 Shell 사용자는 위에서 보이는 것 처럼 &lsquo;gitlab-runner&rsquo; 인데.. 얘는 Gitlab 계정도 없는 가상 사용자다. 어떻게 Public Key를 등록할까?</p><p>Gitlab은, 각 사용자 계정의 SSH Public Key를 관리해 주기도 하지만 Project 별로 SSH Key를 등록할 수도 있다. <em>Project 페이지의 Settings > Repository</em> 에서 Deploy Keys 부분을 펼쳐보자. 그러면 익숙한 SSH Key 등록 폼이 나온다. 여기에, 아까 언급한 &lsquo;gitlab-runner&rsquo; 의 SSH Key를 등록하면 된다. (당연히 gitlab-runner 계정에서 SSH Key 생성을 해야한다.)</p><p>그러면<code>.gitlab-ci.yml</code> 에 마구잡이로 <code>'git clone git@~~~~:&lt;user or group>/&lt;project>.git'</code> 이런 식으로 스크립트를 적어도 아주 잘 clone 되는 걸 확인할 수 있다!</p><h2 id=create-new-branch-의-기본-branch-바꾸기><em>Create New Branch</em> 의 기본 Branch 바꾸기</h2><p>Issue 페이지에서 Create New Branch (9.x 에서는 New Branch) 를 하면, Branch의 이름이 &lsquo;421 – invalid table error&rsquo; 이런 식으로 뜬다. 이슈 번호와 이슈 제목.</p><p>그런데 내부적으로는 이슈 제목에 한글을 많이 써서 Branch 이름을 출력하고 싶지 않았다. 그리고 규격화된 이름 (ISSUE#XXXX) 으로 Branch를 생성하고픈 욕구가 치밀었다. (참고로 Push Rule 에서 Branch Naming Rule에 저렇게 규칙을 쓰고, Create New Branch 를 누르면 절대로 Branch가 생기지 않는다.)</p><p>Gitlab에 이미 <a class=link href=https://gitlab.com/gitlab-org/gitlab-ce/issues/21143 target=_blank rel=noopener>#21143</a> 으로 이슈가 등록되었고, 10.3 에서 업데이트가 된다지만… 이렇게 되면 사용자가 매번 Push Rule을 피하려고 Branch 이름을 일일이 쳐넣는 어처구니없는 상황이 계속된다. 그래서 코드를 찾아내서 고치는 편이 낫다고 생각했다.</p><p>Ruby는 쥐뿔도 모르지만 코드는 코드일 뿐.</p><p>이슈에 대한 브랜치를 생성하는 작업은 <a class=link href=https://gitlab.com/gitlab-org/gitlab-ce/merge_requests/2808/diffs target=_blank rel=noopener>이 Merge Request</a> 에서 반영된 것이다. 여기 Diff를 쭉 봤더니 <code>to_branch_name</code> 이 눈에 띈다. 오호라. 하지만 어디서 수정해야 할까?</p><p>Gitlab을 Omnibus 로 정직하게 설치했다면 소스코드 경로는 <code>/opt/gitlab/embedded/service/gitlab-rails/</code> 에 있다. 여기서 grep으로 <code>to_branch_name</code> 을 검색해 보면?</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nb>cd</span> /opt/gitlab/embedded/service/gitlab-rails/
+</span></span><span class=line><span class=cl>grep to_branch_name . -rn
+</span></span><span class=line><span class=cl><span class=c1># ./embedded/service/gitlab-rails/app/models/issue.rb:XXX def to_branch_name</span>
+</span></span><span class=line><span class=cl><span class=c1># 이하 생략</span>
+</span></span><span class=line><span class=cl>vi app/models/issue.rb
+</span></span></code></pre></div><p>여기서 <code>"#{iid}-#{title.parameterize}"</code> 라고 정의된 부분을 적절히 바꿔주자. 나는 <code>"ISSUE##{iid}"</code> 로 심플하게 바꿨다.</p><p>이것만 바꾸면 &lsquo;Create New Branch&rsquo; 를 누를 때 잘 될 것 같다. 하지만 Issue 페이지에서 &lsquo;연관된 Issue Branch&rsquo; 목록에 연결되지 않는다. 수정한 파일 <code>/opt/gitlab/embedded/service/gitlab-rails/app/models/issue.rb</code> 에서, 더 수정할 것이 남아있다. 다음 함수를 수정해야 한다.</p><ul><li>has_related_branch</li><li>related_branches</li></ul><p>수정 방법은 간단한데, Branch와 비교하는 Regular Expression 의 문법을 찾아보자. <code>/\A${iid}-(?!\d+-stable)/i</code> 라고 되어 있을 것이다. 이걸 실제로 <code>irb</code> 에서 테스트해 보면, <code>420-title</code> 같은 건 되는데 <code>420-0-stable</code> 은 인식이 안 되는 것을 알 수 있다. (뭔가.. 이상하다) 아무튼 이걸 적절한 Regular Expression 으로 바꿔 주도록 하자. Ruby의 Regexp 에 익숙치 않다면 <a class=link href=http://rubular.com/ target=_blank rel=noopener>Rubular 사이트</a>의 도움을 받아보도록 하자. (내 경우는 간단하게 <code>/\AISSUE#{iid}/i</code> 라고 했다.)</p><p>수정을 했다. 하지만 끝이 아니다. 마무리를 해 줘야 한다. 실제 Gitlab이 서비스되고 있는 경로는 <code>/var/opt/gitlab</code> 이므로, 해당 경로로 적용을 시켜줘야 한다. 어떻게?</p><p>간단하다. <code>gitlab-ctl reconfigure && gitlab-ctl restart</code> 를 입력하자.</p></section><footer class="article-meta article-footer"><section class=article-tags><a href=/tags/gitlab/>Gitlab</a>
+<a href=/tags/ci/>Ci</a></section></footer></article><aside><h2 class=section-title>관련 글</h2><div class=subsection-list><div class=article-list--tile><article><a href=/set-gitlab-merge-request-checked/><div class=article-details><h2 class=article-title>Gitlab merge request 옵션 기본으로 두기</h2></div></a></article><article><a href=/gitlab-%EC%95%84%EB%B0%94%ED%83%80-%EC%83%81%EB%8C%80-%EA%B2%BD%EB%A1%9C-%EC%84%A4%EC%A0%95/><div class=article-details><h2 class=article-title>Gitlab 아바타/첨부파일 상대 경로 설정</h2></div></a></article><article><a href=/gitlab-markdown-parser-configuration/><div class=article-details><h2 class=article-title>Gitlab Markdown Parser 고치기</h2></div></a></article><article><a href=/obsidian-copilot-openrouter-free-llm/><div class=article-details><h2 class=article-title>Obsidian Copilot과 OpenRouter로 구축하는 나만의 무료 AI 워크플로우</h2></div></a></article><article class=has-image><a href=/microsoft-ai-tour-seoul-2025-review/><div class=article-image><img alt="Featured image of post Microsoft AI Tour Seoul 2025 후기" height=150 loading=lazy src=/microsoft-ai-tour-seoul-2025-review/feature_hu_54ccc15e75d8a864.jpeg srcset="/microsoft-ai-tour-seoul-2025-review/feature_hu_54ccc15e75d8a864.jpeg 1x, /microsoft-ai-tour-seoul-2025-review/feature_hu_a2e088dc225ca71d.jpeg 2x" width=250></div><div class=article-details style="background:linear-gradient(0deg,#e7dfdf80 0%,#130e0bC0 100%)"><h2 class=article-title>Microsoft AI Tour Seoul 2025 후기</h2></div></a></article></div></div></aside><script src=https://giscus.app/client.js data-repo=1nterp/1nterp.github.io data-repo-id="MDEwOlJlcG9zaXRvcnkyMzY5NzQ5Mzc=" data-category=General data-category-id=MDE4OkRpc2N1c3Npb25DYXRlZ29yeTMyMjU4Mjgx data-mapping=pathname data-strict=0 data-reactions-enabled=1 data-emit-metadata=1 data-input-position=top data-theme=light data-lang=en data-loading=lazy crossorigin=anonymous async></script><script>function setGiscusTheme(e){let t=document.querySelector("iframe.giscus-frame");t&&t.contentWindow.postMessage({giscus:{setConfig:{theme:e}}},"https://giscus.app")}(function(){addEventListener("message",t=>{if(event.origin!=="https://giscus.app")return;e()}),window.addEventListener("onColorSchemeChange",e);function e(){setGiscusTheme(document.documentElement.dataset.scheme==="light"?"light":"dark_dimmed")}})()</script><footer class=site-footer><section class=copyright>&copy;
+2019 -
+2026 InterP Blog</section><section class=powerby><a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a>로 만듦<br><a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=4.0.3>Stack</a></b> 테마 사용 중</section></footer><script type=module>
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script></main></div><script type=text/javascript src=/ts/main.74d5d6241af8967b6f1ef8ef876fb897ddb81eeaad46b5a139f47d9cbd3a64d4.js defer></script></body></html>

@@ -1,390 +1,169 @@
-<!doctype html><html lang=ko-kr dir=ltr>
-<head><meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="지난 포스팅으로 BDD 는 어떤 개발방법론이고, 어떤 면에서 이 방법이 필요한지를 정리해 봤다. 이번 포스팅을 시작으로, 직접 다양한 언어에서 BDD 를 적용하는 방법을 정리"><title>BDD in Python: Behave</title>
-<style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500&display=swap';@import "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"</style>
-<link href=https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css rel=stylesheet>
-<link rel=canonical href=https://interp.blog/bdd-in-python-behave/>
-<link rel=stylesheet href=/scss/style.min.4be513be4d3ee5d10255ef2b36fc366628db7e83c856167310af719cdd53496c.css><meta property="title" content="BDD in Python: Behave">
-<meta property="description" content="지난 포스팅으로 BDD 는 어떤 개발방법론이고, 어떤 면에서 이 방법이 필요한지를 정리해 봤다. 이번 포스팅을 시작으로, 직접 다양한 언어에서 BDD 를 적용하는 방법을 정리">
-<meta property="og:title" content="BDD in Python: Behave">
-<meta property="og:description" content="지난 포스팅으로 BDD 는 어떤 개발방법론이고, 어떤 면에서 이 방법이 필요한지를 정리해 봤다. 이번 포스팅을 시작으로, 직접 다양한 언어에서 BDD 를 적용하는 방법을 정리">
-<meta property="og:url" content="https://interp.blog/bdd-in-python-behave/">
-<meta property="og:site_name" content="InterP Blog">
-<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="BDD"><meta property="article:tag" content="Python"><meta property="article:tag" content="behave"><meta property="article:published_time" content="2022-08-19T09:00:36+09:00"><meta property="article:modified_time" content="2022-08-19T09:00:36+09:00">
-<meta name=twitter:site content="@interp_">
-<meta name=twitter:creator content="@interp_"><meta name=twitter:title content="BDD in Python: Behave">
-<meta name=twitter:description content="지난 포스팅으로 BDD 는 어떤 개발방법론이고, 어떤 면에서 이 방법이 필요한지를 정리해 봤다. 이번 포스팅을 시작으로, 직접 다양한 언어에서 BDD 를 적용하는 방법을 정리">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KMRJ33V06X"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-KMRJ33V06X')</script>
-<script>(function(b,d,e,a,g){b[a]=b[a]||[],b[a].push({'gtm.start':(new Date).getTime(),event:'gtm.js'});var f=d.getElementsByTagName(e)[0],c=d.createElement(e),h=a!='dataLayer'?'&l='+a:'';c.async=!0,c.src='https://www.googletagmanager.com/gtm.js?id='+g+h,f.parentNode.insertBefore(c,f)})(window,document,'script','dataLayer','GTM-NBPHNHQ')</script>
-</head>
-<body class=article-page>
-<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>
-<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky">
-<button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 토글">
-<span class=hamburger-box>
-<span class=hamburger-inner></span>
-</span>
-</button>
-<header>
-<div class=site-meta>
-<h1 class=site-name><a href=/>InterP Blog</a></h1>
-<h2 class=site-description>Things I'm interested</h2>
-</div>
-</header><ol class=menu id=main-menu>
-<li>
-<a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
-<span>Home</span>
-</a>
-</li>
-<li>
-<a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
-<span>Archives</span>
-</a>
-</li>
-<li>
-<a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
-<span>Search</span>
-</a>
-</li>
-<div class=menu-bottom-section>
-<li id=i18n-switch><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5h7"/><path d="M9 3v2c0 4.418-2.239 8-5 8"/><path d="M5 9c-.003 2.144 2.952 3.908 6.7 4"/><path d="M12 20l4-9 4 9"/><path d="M19.1 18h-6.2"/></svg>
-<select name=language onchange="window.location.href=this.selectedOptions[0].value"><option value=https://interp.blog/ selected>한국어</option><option value=https://interp.blog/en/>English</option></select>
-</li>
-<li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
-<span>다크 모드</span>
-</li>
-</div>
-</ol>
-</aside>
-<main class="main full-width">
-<article class=main-article>
-<header class=article-header style=display:block>
-<div class=article-details>
-<header class=article-category>
-<a href=/categories/tech/ style=background-color:#1c8193;color:#fff>
-TECH 🛠️
-</a>
-</header>
-<div class=article-title-wrapper>
-<h2 class=article-title>
-<a href=/bdd-in-python-behave/>BDD in Python: Behave</a>
-</h2>
-</div>
-<footer class=article-time>
-<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
-<time class=article-time--published>2022-08-19</time>
-</div>
-<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
-<time class=article-time--reading>
-4 분 소요
-</time>
-</div>
-</footer>
-</div>
-</header>
-<section class=article-content>
-<p><a class=link href=/bdd-behavior-driven-development/>지난 포스팅</a>으로 BDD 는 어떤 개발방법론이고, 어떤 면에서 이 방법이 필요한지를 정리해 봤다. </p>
-<p>이번 포스팅을 시작으로, 직접 다양한 언어에서 BDD 를 적용하는 방법을 정리해 볼 예정이다. 첫 시간으로는 <strong>파이썬</strong> (Python) 언어를 가지고 할 것이다. Python 라이브러리 중 하나인 <a class=link href=https://behave.readthedocs.io/en/stable/ target=_blank rel=noopener>behave</a> 를 통해, BDD 테스트 프레임워크를 구성하고, 예제 시나리오를 만들어서 테스트 자동화가 어떻게 이뤄질 수 있을지 알아보자.</p>
-<h1 id=예제-프로젝트-생성>예제 프로젝트 생성</h1>
-<div style=background-color:var(--pre-background-color);width:95%;margin:2rem;padding:20px;border-radius:5px;font-size:.8em;display:flex>
-<div style=width:16px;margin-right:7px;margin-left:4px>
-💡
-</div>
-<div>
-모든 명령어는 리눅스 OS 또는 WSL 환경에서 실행한다고 가정한다.
-</div>
-</div>
-<p>파이썬이 설치된 환경에서 다음과 같이 디렉터리만 만들면 된다.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>mkdir behave-test <span class=o>&amp;&amp;</span> <span class=nb>cd</span> behave-test
-</code></pre></div><p>나는 virtualenv 를 이용해 환경을 분리해 두도록 하겠다.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>virtualenv venv
-<span class=nb>source</span> venv/bin/activate
-</code></pre></div><h1 id=behave-설치>behave 설치</h1>
-<p><code>pip install behave</code> 만 하면 된다.</p>
-<h1 id=featuressteps-디렉터리-생성><code>features/steps</code> 디렉터리 생성</h1>
-<p>behave 는 <code>features/steps</code> 를 필요로 한다. 만들어 주자.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>mkdir -p features/steps
-</code></pre></div><hr>
-<p>디렉터리만 만들고 곧장 <code>behave</code> 를 실행하면, <code>ConfigError: No feature files in $(pwd)/features</code> 라는 메시지가 뜰 것이다.</p>
-<h1 id=feature-파일-만들기><code>.feature</code> 파일 만들기</h1>
-<p><code>features/hotdog.feature</code> 라는 파일을 하나 만들어보자. 핫도그 12개에서 5개를 먹으면 반드시 7개가 남아야 한다는 내용이다. 단순 영어로 되어 있지만, 문법에 대해 더 자세히 알고 싶다면 <a class=link href=https://interp.tistory.com/entry/BDD-%EC%9D%98%EB%AF%B8%EC%99%80-%ED%95%84%EC%9A%94%EC%84%B1 target=_blank rel=noopener>이전 포스팅</a>을 꼭 참고하고 오자.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-gherkin data-lang=gherkin><span class=k>Feature:</span><span class=nf> eat hotdogs
-</span><span class=nf>
-</span><span class=nf>  </span><span class=k>Scenario:</span><span class=nf> Eat 5 out of 12
-</span><span class=nf></span><span class=k>      Given </span><span class=nf>there are </span><span class=s>12</span><span class=nf> hotdogs
-</span><span class=nf>      </span><span class=k>When </span><span class=nf>I eat </span><span class=s>5</span><span class=nf>
-</span><span class=nf>      </span><span class=k>Then </span><span class=nf>there should be </span><span class=s>7</span><span class=nf> remaining
-</span></code></pre></div><hr>
-<p>이제 다시 <code>behave</code> 를 실행하면, 아래 구조로 되어 있는 테스트 파일이 존재하지 않다고 하면서, 스니펫 (snippet) 을 출력해 주고 내부를 구현해 달라고 한다.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ behave
-Feature: eat hotdogs <span class=c1># features/hotdog.feature:1</span>
-
-  Scenario: Eat <span class=m>5</span> out of <span class=m>12</span>          <span class=c1># features/hotdog.feature:3</span>
-    Given there are <span class=m>12</span> hotdogs       <span class=c1># None</span>
-    When I eat <span class=m>5</span>                     <span class=c1># None</span>
-    Then there should be <span class=m>7</span> remaining <span class=c1># None</span>
-
-
-Failing scenarios:
-  features/hotdog.feature:3  Eat <span class=m>5</span> out of <span class=m>12</span>
-
-<span class=m>0</span> features passed, <span class=m>1</span> failed, <span class=m>0</span> skipped
-<span class=m>0</span> scenarios passed, <span class=m>1</span> failed, <span class=m>0</span> skipped
-<span class=m>0</span> steps passed, <span class=m>0</span> failed, <span class=m>0</span> skipped, <span class=m>3</span> undefined
-Took 0m0.000s
-
-You can implement step definitions <span class=k>for</span> undefined steps with these snippets:
-
-@given<span class=o>(</span>u<span class=s1>&#39;there are 12 hotdogs&#39;</span><span class=o>)</span>
-def step_impl<span class=o>(</span>context<span class=o>)</span>:
-    raise NotImplementedError<span class=o>(</span>u<span class=s1>&#39;STEP: Given there are 12 hotdogs&#39;</span><span class=o>)</span>
-
-
-@when<span class=o>(</span>u<span class=s1>&#39;I eat 5&#39;</span><span class=o>)</span>
-def step_impl<span class=o>(</span>context<span class=o>)</span>:
-    raise NotImplementedError<span class=o>(</span>u<span class=s1>&#39;STEP: When I eat 5&#39;</span><span class=o>)</span>
-
-
-@then<span class=o>(</span>u<span class=s1>&#39;there should be 7 remaining&#39;</span><span class=o>)</span>
-def step_impl<span class=o>(</span>context<span class=o>)</span>:
-    raise NotImplementedError<span class=o>(</span>u<span class=s1>&#39;STEP: Then there should be 7 remaining&#39;</span><span class=o>)</span>
-</code></pre></div><h1 id=테스트-python-파일-만들기>테스트 Python 파일 만들기</h1>
-<p>방금 출력된 내용을 단순히 복사해서 <code>features/steps/hotdog.py</code> 라는 파일을 만들었다. 참고로 파일 이름은 상관없지만 반드시 <code>features/steps</code> 디렉터리에 위치해야 한다.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=kn>from</span> <span class=nn>behave</span> <span class=kn>import</span> <span class=o>*</span>
-
-<span class=nd>@given</span><span class=p>(</span><span class=sa>u</span><span class=s1>&#39;there are 12 hotdogs&#39;</span><span class=p>)</span>
-<span class=k>def</span> <span class=nf>step_impl</span><span class=p>(</span><span class=n>context</span><span class=p>):</span>
-    <span class=k>raise</span> <span class=ne>NotImplementedError</span><span class=p>(</span><span class=sa>u</span><span class=s1>&#39;STEP: Given there are 12 hotdogs&#39;</span><span class=p>)</span>
-
-
-<span class=nd>@when</span><span class=p>(</span><span class=sa>u</span><span class=s1>&#39;I eat 5&#39;</span><span class=p>)</span>
-<span class=k>def</span> <span class=nf>step_impl</span><span class=p>(</span><span class=n>context</span><span class=p>):</span>
-    <span class=k>raise</span> <span class=ne>NotImplementedError</span><span class=p>(</span><span class=sa>u</span><span class=s1>&#39;STEP: When I eat 5&#39;</span><span class=p>)</span>
-
-
-<span class=nd>@then</span><span class=p>(</span><span class=sa>u</span><span class=s1>&#39;there should be 7 remaining&#39;</span><span class=p>)</span>
-<span class=k>def</span> <span class=nf>step_impl</span><span class=p>(</span><span class=n>context</span><span class=p>):</span>
-    <span class=k>raise</span> <span class=ne>NotImplementedError</span><span class=p>(</span><span class=sa>u</span><span class=s1>&#39;STEP: Then there should be 7 remaining&#39;</span><span class=p>)</span>
-</code></pre></div><p>시나리오의 각 구절 (<em>GIVEN, WHEN, THEN</em>) 에 연결되는 기준은, 각 method 에 위치한 decorator 인 <code>@given</code>, <code>@when</code>, <code>@then</code> 에 따라 달려있기 때문에, 파일 이름은 상관없고 해당 decorator 만 수정하지 않으면 된다. </p>
-<p>그리고 주의할 것은, 반드시 맨 위에 <code>from behave import *</code> 와 같이 <code>behave</code> 라이브러리를 import 해야 한다는 것이다.</p>
-<hr>
-<p>이렇게 하고 다시 <code>behave</code> 를 실행하면, 예상대로 <code>NotImplementedError</code> exception 이 발생하면서 traceback 이 출력되고, 테스트는 실패한 것으로 간주한다.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ behave
-Feature: eat hotdogs <span class=c1># features/hotdog.feature:1</span>
-
-  Scenario: Eat <span class=m>5</span> out of <span class=m>12</span>          <span class=c1># features/hotdog.feature:3</span>
-    Given there are <span class=m>12</span> hotdogs       <span class=c1># features/steps/hotdog.py:3 0.000s</span>
-      Traceback <span class=o>(</span>most recent call last<span class=o>)</span>:
-        File <span class=s2>&#34;/home/behave-test/venv/lib/python3.6/site-packages/behave/model.py&#34;</span>, line 1329, in run
-          match.run<span class=o>(</span>runner.context<span class=o>)</span>
-        File <span class=s2>&#34;/home/behave-test/venv/lib/python3.6/site-packages/behave/matchers.py&#34;</span>, line 98, in run
-          self.func<span class=o>(</span>context, *args, **kwargs<span class=o>)</span>
-        File <span class=s2>&#34;features/steps/hotdog.py&#34;</span>, line 5, in step_impl
-          raise NotImplementedError<span class=o>(</span>u<span class=s1>&#39;STEP: Given there are 12 hotdogs&#39;</span><span class=o>)</span>
-      NotImplementedError: STEP: Given there are <span class=m>12</span> hotdogs
-
-    When I eat <span class=m>5</span>                     <span class=c1># None</span>
-    Then there should be <span class=m>7</span> remaining <span class=c1># None</span>
-
-
-Failing scenarios:
-  features/hotdog.feature:3  Eat <span class=m>5</span> out of <span class=m>12</span>
-
-<span class=m>0</span> features passed, <span class=m>1</span> failed, <span class=m>0</span> skipped
-<span class=m>0</span> scenarios passed, <span class=m>1</span> failed, <span class=m>0</span> skipped
-<span class=m>0</span> steps passed, <span class=m>1</span> failed, <span class=m>2</span> skipped, <span class=m>0</span> undefined
-Took 0m0.000s
-</code></pre></div><h1 id=테스트-파일-구현하기>테스트 파일 구현하기</h1>
-<p>이제 테스트 파일 안의 method 를 구현해 보자.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=kn>from</span> <span class=nn>behave</span> <span class=kn>import</span> <span class=o>*</span>
-
-<span class=nd>@given</span><span class=p>(</span><span class=sa>u</span><span class=s1>&#39;there are </span><span class=si>{num_hotdog}</span><span class=s1> hotdogs&#39;</span><span class=p>)</span>
-<span class=k>def</span> <span class=nf>step_impl</span><span class=p>(</span><span class=n>context</span><span class=p>,</span> <span class=n>num_hotdog</span><span class=p>):</span>
-    <span class=n>context</span><span class=o>.</span><span class=n>hotdogs</span> <span class=o>=</span> <span class=nb>int</span><span class=p>(</span><span class=n>num_hotdog</span><span class=p>)</span>
-
-
-<span class=nd>@when</span><span class=p>(</span><span class=sa>u</span><span class=s1>&#39;I eat </span><span class=si>{eaten_hotdog}</span><span class=s1>&#39;</span><span class=p>)</span>
-<span class=k>def</span> <span class=nf>step_impl</span><span class=p>(</span><span class=n>context</span><span class=p>,</span> <span class=n>eaten_hotdog</span><span class=p>):</span>
-    <span class=n>context</span><span class=o>.</span><span class=n>hotdogs</span> <span class=o>-=</span> <span class=nb>int</span><span class=p>(</span><span class=n>eaten_hotdog</span><span class=p>)</span>
-
-<span class=nd>@then</span><span class=p>(</span><span class=sa>u</span><span class=s1>&#39;there should be </span><span class=si>{remaining_hotdog}</span><span class=s1> remaining&#39;</span><span class=p>)</span>
-<span class=k>def</span> <span class=nf>step_impl</span><span class=p>(</span><span class=n>context</span><span class=p>,</span> <span class=n>remaining_hotdog</span><span class=p>):</span>
-    <span class=k>assert</span> <span class=n>context</span><span class=o>.</span><span class=n>hotdogs</span> <span class=o>==</span> <span class=nb>int</span><span class=p>(</span><span class=n>remaining_hotdog</span><span class=p>)</span>
-</code></pre></div><p>decorator 에서 숫자를 나타내는 부분을 <code>num_hotdog</code> 같은 식으로 파라메터로 치환한 것을 주목해 달라. 이렇게 해 두면, 나중에 숫자만 바꾼 시나리오를 추가해도, 위의 세 개 method 를 재사용할 수 있는 장점이 있다.</p>
-<p>그리고 behave 는 <a class=link href="https://behave.readthedocs.io/en/stable/tutorial.html?highlight=eq_#context" target=_blank rel=noopener><code>context</code> 라는 파라메터를 입력으로 받을 수 있도록</a> 지원한다. 해당 시나리오가 진행되는 동안 유효한 객체이며, 따라서 여기에 원하는 attribute 를 만들어 값을 저장하고 열람할 수 있다. 예제 시나리오에서는, 남은 핫도그 개수를 <code>context.hotdogs</code> 로 보관한다.</p>
-<blockquote>
-<p>엄밀히 말하면, when 에 해당하는 method 에서 핫도그 개수를 차감하는 부분은 <strong>여기서 구현하면 안 된다</strong>. 실제 업무에 사용하려면, 여기서 <strong>&lsquo;실제로 구현한 로직&rsquo; 을</strong> <strong>호출해야</strong> 한다. 그래야 검증을 할 수 있으니 말이다!</p>
-</blockquote>
-<hr>
-<p>다시 <code>behave</code> 를 실행하면, 이제야 모든 테스트가 통과되었음을 알 수 있다!</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ behave
-Feature: eat hotdogs <span class=c1># features/hotdog.feature:1</span>
-
-  Scenario: Eat <span class=m>5</span> out of <span class=m>12</span>          <span class=c1># features/hotdog.feature:3</span>
-    Given there are <span class=m>12</span> hotdogs       <span class=c1># features/steps/hotdog.py:3 0.000s</span>
-    When I eat <span class=m>5</span>                     <span class=c1># features/steps/hotdog.py:8 0.000s</span>
-    Then there should be <span class=m>7</span> remaining <span class=c1># features/steps/hotdog.py:12 0.000s</span>
-
-<span class=m>1</span> feature passed, <span class=m>0</span> failed, <span class=m>0</span> skipped
-<span class=m>1</span> scenario passed, <span class=m>0</span> failed, <span class=m>0</span> skipped
-<span class=m>3</span> steps passed, <span class=m>0</span> failed, <span class=m>0</span> skipped, <span class=m>0</span> undefined
-Took 0m0.000s
-</code></pre></div><h1 id=숫자만-바꾼-시나리오를-추가하면>숫자만 바꾼 시나리오를 추가하면?</h1>
-<p>시나리오<strong>만</strong> 추가하더라도 이미 재사용이 가능한 형태로 테스트 method 를 구현했기 때문에, 아래처럼 성공적으로 작동한다.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ behave
-Feature: eat hotdogs <span class=c1># features/hotdog.feature:1</span>
-
-  Scenario: Eat <span class=m>5</span> out of <span class=m>12</span>          <span class=c1># features/hotdog.feature:3</span>
-    Given there are <span class=m>12</span> hotdogs       <span class=c1># features/steps/hotdog.py:3 0.000s</span>
-    When I eat <span class=m>5</span>                     <span class=c1># features/steps/hotdog.py:8 0.000s</span>
-    Then there should be <span class=m>7</span> remaining <span class=c1># features/steps/hotdog.py:12 0.000s</span>
-
-  Scenario: Eat <span class=m>10</span> out of <span class=m>20</span>          <span class=c1># features/hotdog.feature:8</span>
-    Given there are <span class=m>20</span> hotdogs        <span class=c1># features/steps/hotdog.py:3 0.000s</span>
-    When I eat <span class=m>10</span>                     <span class=c1># features/steps/hotdog.py:8 0.000s</span>
-    Then there should be <span class=m>10</span> remaining <span class=c1># features/steps/hotdog.py:12 0.000s</span>
-
-<span class=m>1</span> feature passed, <span class=m>0</span> failed, <span class=m>0</span> skipped
-<span class=m>2</span> scenarios passed, <span class=m>0</span> failed, <span class=m>0</span> skipped
-<span class=m>6</span> steps passed, <span class=m>0</span> failed, <span class=m>0</span> skipped, <span class=m>0</span> undefined
-Took 0m0.001s
-</code></pre></div><h1 id=마치며>마치며</h1>
-<p>이제 이 테스트 케이스를 구현할 때 mock 라이브러리를 통해 mocking 을 하면, 기능 검증을 충분히 할 수 있을 것이다. 시나리오를 추가하는 것은 개발자 뿐만이 아닌 비 개발자나 QA 도 할 수 있어야 하고, 개발자는 그렇게 푸시된 새로운 시나리오를 보고 커버리지를 달성하기 위해 테스트에 좀 더 집중할 수 있을 것이다.</p>
-<p>한 가지 맹점은, 기존 시나리오가 바뀌면 테스트 케이스 개발 과정에서 엄청난 고통이 뒤따를 수 있단 것이다. 따라서 (전에도 말했지만) 항상 시나리오는 합의 하에 신중히 추가되어야 한다.</p>
-<p>다음 시간에는 golang 으로 똑같은 시나리오를 테스트 해 볼 예정이다.</p>
-</section>
-<footer class=article-footer>
-<br>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
-<ins class=adsbygoogle style=display:block;height:300px;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-0712823212859607 data-ad-slot=7880266545></ins>
-<script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
-<section class=article-tags>
-<a href=/tags/bdd/>BDD</a>
-<a href=/tags/python/>Python</a>
-<a href=/tags/behave/>behave</a>
-</section>
-</footer>
-</article>
-<aside class=related-content--wrapper>
-<h2 class=section-title>관련 글</h2>
-<div class=related-content>
-<div class="flex article-list--tile">
-<article>
-<a href=/pyenv-openssl-problem/>
-<div class=article-details>
-<h2 class=article-title>Pyenv 로 Python 설치 할 때 Openssl 문제</h2>
-</div>
-</a>
-</article>
-<article class=has-image>
-<a href=/program-language-closure/>
-<div class=article-image>
-<img src=/program-language-closure/feature.e972bd58c2fc2bae5aada4fc6e59c6c0_huc0f5d4c1286e8e5d1cad12c4be591944_1794231_250x150_fill_q75_box_smart1.jpg width=250 height=150 loading=lazy alt="Featured image of post 클로저 (Closure)" data-hash="md5-6XK9WML8K65araT8blnGwA==">
-</div>
-<div class=article-details>
-<h2 class=article-title>클로저 (Closure)</h2>
-</div>
-</a>
-</article>
-<article class=has-image>
-<a href=/vscode-python-debugging-no-response/>
-<div class=article-image>
-<img src=/vscode-python-debugging-no-response/feature.ff9acece9622b8d1d2bb53f316021ea6_huab4f92b5cef58f16753956ed9b784205_206719_250x150_fill_box_smart1_3.png width=250 height=150 loading=lazy alt="Featured image of post VSCode Python 디버그 반응이 없을 때" data-hash="md5-/5rOzpYiuNHSu1PzFgIepg==">
-</div>
-<div class=article-details>
-<h2 class=article-title>VSCode Python 디버그 반응이 없을 때</h2>
-</div>
-</a>
-</article>
-</div>
-</div>
-</aside>
-<script src=https://giscus.app/client.js data-repo=1nterp/1nterp.github.io data-repo-id="MDEwOlJlcG9zaXRvcnkyMzY5NzQ5Mzc=" data-category=General data-category-id=MDE4OkRpc2N1c3Npb25DYXRlZ29yeTMyMjU4Mjgx data-mapping=pathname data-reactions-enabled=1 data-emit-metadata=1 data-theme=light data-lang=en data-loading=lazy crossorigin=anonymous async></script>
-<script>function setGiscusTheme(b){let a=document.querySelector("iframe.giscus-frame");a&&a.contentWindow.postMessage({giscus:{setConfig:{theme:b}}},"https://giscus.app")}(function(){addEventListener("message",b=>{if(event.origin!=="https://giscus.app")return;a()}),window.addEventListener("onColorSchemeChange",a);function a(){document.documentElement.dataset.scheme==="light"?setGiscusTheme('light'):setGiscusTheme('dark_dimmed')}})()</script>
-<footer class=site-footer>
-<section class=copyright>
-&copy;
-2019 -
-2026 InterP Blog
-</section>
-<section class=powerby>
-<a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 기반 / <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.12.0>Stack</a></b> 테마를 사용 중입니다.
-</section>
-</footer>
-<div class=pswp tabindex=-1 role=dialog aria-hidden=true>
-<div class=pswp__bg></div>
-<div class=pswp__scroll-wrap>
-<div class=pswp__container>
-<div class=pswp__item></div>
-<div class=pswp__item></div>
-<div class=pswp__item></div>
-</div>
-<div class="pswp__ui pswp__ui--hidden">
-<div class=pswp__top-bar>
-<div class=pswp__counter></div>
-<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-<button class="pswp__button pswp__button--share" title=Share></button>
-<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-<div class=pswp__preloader>
-<div class=pswp__preloader__icn>
-<div class=pswp__preloader__cut>
-<div class=pswp__preloader__donut></div>
-</div>
-</div>
-</div>
-</div>
-<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-<div class=pswp__share-tooltip></div>
-</div>
-<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-</button>
-<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-</button>
-<div class=pswp__caption>
-<div class=pswp__caption__center></div>
-</div>
-</div>
-</div>
-</div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous>
-</main>
-<aside class="sidebar right-sidebar sticky">
-<form action=/search/ class="search-form widget">
-<p>
-<label>검색</label>
+<!doctype html><html lang=ko-kr dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="지난 포스팅으로 BDD 는 어떤 개발방법론이고, 어떤 면에서 이 방법이 필요한지를 정리해 봤다.\u00a0이번 포스팅을 시작으로, 직접 다양한 언어에서 BDD 를 적용하는 방법을 정리해 볼 예정이다. 첫 시간으로는 파이썬 (Python) 언어를 가지고 할 것이다. Python 라이브러리 중 하나인 behave 를 통해, BDD 테스트 프레임워크를 구성하고, 예제 시나리오를 만들어서 테스트 자동화가 어떻게 이뤄질 수 있을지 알아보자.\n"><title>BDD in Python: Behave</title><link rel=canonical href=https://interp.blog/bdd-in-python-behave/><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=stylesheet href=https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css><link rel=stylesheet href=/scss/style.min.13527503d779121ab03c412f0b9dee045fb647686643dd243aa74021dddf30be.css><meta property='og:title' content="BDD in Python: Behave"><meta property='og:description' content="지난 포스팅으로 BDD 는 어떤 개발방법론이고, 어떤 면에서 이 방법이 필요한지를 정리해 봤다.\u00a0이번 포스팅을 시작으로, 직접 다양한 언어에서 BDD 를 적용하는 방법을 정리해 볼 예정이다. 첫 시간으로는 파이썬 (Python) 언어를 가지고 할 것이다. Python 라이브러리 중 하나인 behave 를 통해, BDD 테스트 프레임워크를 구성하고, 예제 시나리오를 만들어서 테스트 자동화가 어떻게 이뤄질 수 있을지 알아보자.\n"><meta property='og:url' content='https://interp.blog/bdd-in-python-behave/'><meta property='og:site_name' content='InterP Blog'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content='BDD'><meta property='article:tag' content='Python'><meta property='article:tag' content='behave'><meta property='article:published_time' content='2022-08-19T09:00:36+09:00'><meta property='article:modified_time' content='2022-08-19T09:00:36+09:00'><meta name=twitter:site content="@interp_"><meta name=twitter:creator content="@interp_"><meta name=twitter:title content="BDD in Python: Behave"><meta name=twitter:description content="지난 포스팅으로 BDD 는 어떤 개발방법론이고, 어떤 면에서 이 방법이 필요한지를 정리해 봤다.\u00a0이번 포스팅을 시작으로, 직접 다양한 언어에서 BDD 를 적용하는 방법을 정리해 볼 예정이다. 첫 시간으로는 파이썬 (Python) 언어를 가지고 할 것이다. Python 라이브러리 중 하나인 behave 를 통해, BDD 테스트 프레임워크를 구성하고, 예제 시나리오를 만들어서 테스트 자동화가 어떻게 이뤄질 수 있을지 알아보자.\n"><script async src="https://www.googletagmanager.com/gtag/js?id=G-KMRJ33V06X"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-KMRJ33V06X")</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 여닫기">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/>InterP Blog</a></h1><h2 class=site-description>Things I'm interested</h2></div></header><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li class=menu-bottom-section><ol class=menu><li id=i18n-switch><svg class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5h7"/><path d="M9 3v2c0 4.418-2.239 8-5 8"/><path d="M5 9c-.003 2.144 2.952 3.908 6.7 4"/><path d="M12 20l4-9 4 9"/><path d="M19.1 18h-6.2"/></svg>
+<select name=language title=language onchange="window.location.href=this.selectedOptions[0].value"><option value=/bdd-in-python-behave/ selected>한국어</option><option value=/en/>English</option></select></li><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>다크 모드</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><form action=/search/ class="search-form widget"><p><label>검색</label>
 <input name=keyword required placeholder="검색어를 입력하세요...">
-<button title=검색><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
-</button>
-</p>
-</form>
-<section class="widget archives">
-<div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg>
-</div>
-<h2 class="widget-title section-title">목차</h2>
-<div class=widget--toc>
-<nav id=TableOfContents>
-<ul>
-<li><a href=#예제-프로젝트-생성>예제 프로젝트 생성</a></li>
-<li><a href=#behave-설치>behave 설치</a></li>
-<li><a href=#featuressteps-디렉터리-생성><code>features/steps</code> 디렉터리 생성</a></li>
-<li><a href=#feature-파일-만들기><code>.feature</code> 파일 만들기</a></li>
-<li><a href=#테스트-python-파일-만들기>테스트 Python 파일 만들기</a></li>
-<li><a href=#테스트-파일-구현하기>테스트 파일 구현하기</a></li>
-<li><a href=#숫자만-바꾼-시나리오를-추가하면>숫자만 바꾼 시나리오를 추가하면?</a></li>
-<li><a href=#마치며>마치며</a></li>
-</ul>
-</nav>
-</div>
-</section>
-<section class="widget adsense">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
-<ins class=adsbygoogle style=display:block data-ad-client=ca-pub-0712823212859607 data-ad-slot=8117949234 data-ad-format=auto data-full-width-responsive=true></ins>
-<script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
-</section>
-</aside>
-</div>
-<script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script>
-<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
-</body>
-</html>
+<button title=검색>
+<svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg></button></p></form><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">목차</h2><div class=widget--toc><nav class=toc-nav id=TableOfContents><ul><li><a href=#예제-프로젝트-생성>예제 프로젝트 생성</a></li><li><a href=#behave-설치>behave 설치</a></li><li><a href=#featuressteps-디렉터리-생성><code>features/steps</code> 디렉터리 생성</a></li><li><a href=#feature-파일-만들기><code>.feature</code> 파일 만들기</a></li><li><a href=#테스트-python-파일-만들기>테스트 Python 파일 만들기</a></li><li><a href=#테스트-파일-구현하기>테스트 파일 구현하기</a></li><li><a href=#숫자만-바꾼-시나리오를-추가하면>숫자만 바꾼 시나리오를 추가하면?</a></li><li><a href=#마치며>마치며</a></li></ul></nav></div></section></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><header class=article-category><a href=/categories/tech/ style=background-color:#1c8193;color:#fff>TECH 🛠️</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/bdd-in-python-behave/>BDD in Python: Behave</a></h2></div><footer class=article-meta><div class=inline-meta><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published datetime=2022-08-19T09:00:36+09:00>2022-08-19</time>
+<svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>4 분 정도</time></div></footer></div></header><aside class=article-toc><details><summary><div class=article-toc-title><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6-6 6"/></svg>
+<span>목차</span></div></summary><nav class=toc-nav><ul><li><a href=#예제-프로젝트-생성>예제 프로젝트 생성</a></li><li><a href=#behave-설치>behave 설치</a></li><li><a href=#featuressteps-디렉터리-생성><code>features/steps</code> 디렉터리 생성</a></li><li><a href=#feature-파일-만들기><code>.feature</code> 파일 만들기</a></li><li><a href=#테스트-python-파일-만들기>테스트 Python 파일 만들기</a></li><li><a href=#테스트-파일-구현하기>테스트 파일 구현하기</a></li><li><a href=#숫자만-바꾼-시나리오를-추가하면>숫자만 바꾼 시나리오를 추가하면?</a></li><li><a href=#마치며>마치며</a></li></ul></nav></details></aside><section class=article-content><p><a class=link href=/bdd-behavior-driven-development/>지난 포스팅</a>으로 BDD 는 어떤 개발방법론이고, 어떤 면에서 이 방법이 필요한지를 정리해 봤다. </p><p>이번 포스팅을 시작으로, 직접 다양한 언어에서 BDD 를 적용하는 방법을 정리해 볼 예정이다. 첫 시간으로는 <strong>파이썬</strong> (Python) 언어를 가지고 할 것이다. Python 라이브러리 중 하나인 <a class=link href=https://behave.readthedocs.io/en/stable/ target=_blank rel=noopener>behave</a> 를 통해, BDD 테스트 프레임워크를 구성하고, 예제 시나리오를 만들어서 테스트 자동화가 어떻게 이뤄질 수 있을지 알아보자.</p><h1 id=예제-프로젝트-생성>예제 프로젝트 생성</h1><blockquote class=alert style=border-color:var(--alert-note-color);background-color:var(--alert-note-background)><div class=alert-header><span class=alert-icon>📝</span>
+<span class=alert-title style=color:var(--alert-note-color)>Note</span></div><div class=alert-body>모든 명령어는 리눅스 OS 또는 WSL 환경에서 실행한다고 가정한다.</div></blockquote><p>파이썬이 설치된 환경에서 다음과 같이 디렉터리만 만들면 된다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>mkdir behave-test <span class=o>&amp;&amp;</span> <span class=nb>cd</span> behave-test
+</span></span></code></pre></div><p>나는 virtualenv 를 이용해 환경을 분리해 두도록 하겠다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>virtualenv venv
+</span></span><span class=line><span class=cl><span class=nb>source</span> venv/bin/activate
+</span></span></code></pre></div><h1 id=behave-설치>behave 설치</h1><p><code>pip install behave</code> 만 하면 된다.</p><h1 id=featuressteps-디렉터리-생성><code>features/steps</code> 디렉터리 생성</h1><p>behave 는 <code>features/steps</code> 를 필요로 한다. 만들어 주자.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>mkdir -p features/steps
+</span></span></code></pre></div><hr><p>디렉터리만 만들고 곧장 <code>behave</code> 를 실행하면, <code>ConfigError: No feature files in $(pwd)/features</code> 라는 메시지가 뜰 것이다.</p><h1 id=feature-파일-만들기><code>.feature</code> 파일 만들기</h1><p><code>features/hotdog.feature</code> 라는 파일을 하나 만들어보자. 핫도그 12개에서 5개를 먹으면 반드시 7개가 남아야 한다는 내용이다. 단순 영어로 되어 있지만, 문법에 대해 더 자세히 알고 싶다면 <a class=link href=https://interp.tistory.com/entry/BDD-%EC%9D%98%EB%AF%B8%EC%99%80-%ED%95%84%EC%9A%94%EC%84%B1 target=_blank rel=noopener>이전 포스팅</a>을 꼭 참고하고 오자.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-gherkin data-lang=gherkin><span class=line><span class=cl><span class=k>Feature:</span><span class=nf> eat hotdogs
+</span></span></span><span class=line><span class=cl><span class=nf>
+</span></span></span><span class=line><span class=cl><span class=nf>  </span><span class=k>Scenario:</span><span class=nf> Eat 5 out of 12
+</span></span></span><span class=line><span class=cl><span class=k>      Given </span><span class=nf>there are </span><span class=s>12</span><span class=nf> hotdogs
+</span></span></span><span class=line><span class=cl><span class=nf>      </span><span class=k>When </span><span class=nf>I eat </span><span class=s>5</span><span class=nf>
+</span></span></span><span class=line><span class=cl><span class=nf>      </span><span class=k>Then </span><span class=nf>there should be </span><span class=s>7</span><span class=nf> remaining
+</span></span></span></code></pre></div><hr><p>이제 다시 <code>behave</code> 를 실행하면, 아래 구조로 되어 있는 테스트 파일이 존재하지 않다고 하면서, 스니펫 (snippet) 을 출력해 주고 내부를 구현해 달라고 한다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ behave
+</span></span><span class=line><span class=cl>Feature: eat hotdogs <span class=c1># features/hotdog.feature:1</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  Scenario: Eat <span class=m>5</span> out of <span class=m>12</span>          <span class=c1># features/hotdog.feature:3</span>
+</span></span><span class=line><span class=cl>    Given there are <span class=m>12</span> hotdogs       <span class=c1># None</span>
+</span></span><span class=line><span class=cl>    When I eat <span class=m>5</span>                     <span class=c1># None</span>
+</span></span><span class=line><span class=cl>    Then there should be <span class=m>7</span> remaining <span class=c1># None</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Failing scenarios:
+</span></span><span class=line><span class=cl>  features/hotdog.feature:3  Eat <span class=m>5</span> out of <span class=m>12</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=m>0</span> features passed, <span class=m>1</span> failed, <span class=m>0</span> skipped
+</span></span><span class=line><span class=cl><span class=m>0</span> scenarios passed, <span class=m>1</span> failed, <span class=m>0</span> skipped
+</span></span><span class=line><span class=cl><span class=m>0</span> steps passed, <span class=m>0</span> failed, <span class=m>0</span> skipped, <span class=m>3</span> undefined
+</span></span><span class=line><span class=cl>Took 0m0.000s
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>You can implement step definitions <span class=k>for</span> undefined steps with these snippets:
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>@given<span class=o>(</span>u<span class=s1>&#39;there are 12 hotdogs&#39;</span><span class=o>)</span>
+</span></span><span class=line><span class=cl>def step_impl<span class=o>(</span>context<span class=o>)</span>:
+</span></span><span class=line><span class=cl>    raise NotImplementedError<span class=o>(</span>u<span class=s1>&#39;STEP: Given there are 12 hotdogs&#39;</span><span class=o>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>@when<span class=o>(</span>u<span class=s1>&#39;I eat 5&#39;</span><span class=o>)</span>
+</span></span><span class=line><span class=cl>def step_impl<span class=o>(</span>context<span class=o>)</span>:
+</span></span><span class=line><span class=cl>    raise NotImplementedError<span class=o>(</span>u<span class=s1>&#39;STEP: When I eat 5&#39;</span><span class=o>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>@then<span class=o>(</span>u<span class=s1>&#39;there should be 7 remaining&#39;</span><span class=o>)</span>
+</span></span><span class=line><span class=cl>def step_impl<span class=o>(</span>context<span class=o>)</span>:
+</span></span><span class=line><span class=cl>    raise NotImplementedError<span class=o>(</span>u<span class=s1>&#39;STEP: Then there should be 7 remaining&#39;</span><span class=o>)</span>
+</span></span></code></pre></div><h1 id=테스트-python-파일-만들기>테스트 Python 파일 만들기</h1><p>방금 출력된 내용을 단순히 복사해서 <code>features/steps/hotdog.py</code> 라는 파일을 만들었다. 참고로 파일 이름은 상관없지만 반드시 <code>features/steps</code> 디렉터리에 위치해야 한다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>behave</span> <span class=kn>import</span> <span class=o>*</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nd>@given</span><span class=p>(</span><span class=sa>u</span><span class=s1>&#39;there are 12 hotdogs&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>step_impl</span><span class=p>(</span><span class=n>context</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>raise</span> <span class=ne>NotImplementedError</span><span class=p>(</span><span class=sa>u</span><span class=s1>&#39;STEP: Given there are 12 hotdogs&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nd>@when</span><span class=p>(</span><span class=sa>u</span><span class=s1>&#39;I eat 5&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>step_impl</span><span class=p>(</span><span class=n>context</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>raise</span> <span class=ne>NotImplementedError</span><span class=p>(</span><span class=sa>u</span><span class=s1>&#39;STEP: When I eat 5&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nd>@then</span><span class=p>(</span><span class=sa>u</span><span class=s1>&#39;there should be 7 remaining&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>step_impl</span><span class=p>(</span><span class=n>context</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>raise</span> <span class=ne>NotImplementedError</span><span class=p>(</span><span class=sa>u</span><span class=s1>&#39;STEP: Then there should be 7 remaining&#39;</span><span class=p>)</span>
+</span></span></code></pre></div><p>시나리오의 각 구절 (<em>GIVEN, WHEN, THEN</em>) 에 연결되는 기준은, 각 method 에 위치한 decorator 인 <code>@given</code>, <code>@when</code>, <code>@then</code> 에 따라 달려있기 때문에, 파일 이름은 상관없고 해당 decorator 만 수정하지 않으면 된다. </p><p>그리고 주의할 것은, 반드시 맨 위에 <code>from behave import *</code> 와 같이 <code>behave</code> 라이브러리를 import 해야 한다는 것이다.</p><hr><p>이렇게 하고 다시 <code>behave</code> 를 실행하면, 예상대로 <code>NotImplementedError</code> exception 이 발생하면서 traceback 이 출력되고, 테스트는 실패한 것으로 간주한다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ behave
+</span></span><span class=line><span class=cl>Feature: eat hotdogs <span class=c1># features/hotdog.feature:1</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  Scenario: Eat <span class=m>5</span> out of <span class=m>12</span>          <span class=c1># features/hotdog.feature:3</span>
+</span></span><span class=line><span class=cl>    Given there are <span class=m>12</span> hotdogs       <span class=c1># features/steps/hotdog.py:3 0.000s</span>
+</span></span><span class=line><span class=cl>      Traceback <span class=o>(</span>most recent call last<span class=o>)</span>:
+</span></span><span class=line><span class=cl>        File <span class=s2>&#34;/home/behave-test/venv/lib/python3.6/site-packages/behave/model.py&#34;</span>, line 1329, in run
+</span></span><span class=line><span class=cl>          match.run<span class=o>(</span>runner.context<span class=o>)</span>
+</span></span><span class=line><span class=cl>        File <span class=s2>&#34;/home/behave-test/venv/lib/python3.6/site-packages/behave/matchers.py&#34;</span>, line 98, in run
+</span></span><span class=line><span class=cl>          self.func<span class=o>(</span>context, *args, **kwargs<span class=o>)</span>
+</span></span><span class=line><span class=cl>        File <span class=s2>&#34;features/steps/hotdog.py&#34;</span>, line 5, in step_impl
+</span></span><span class=line><span class=cl>          raise NotImplementedError<span class=o>(</span>u<span class=s1>&#39;STEP: Given there are 12 hotdogs&#39;</span><span class=o>)</span>
+</span></span><span class=line><span class=cl>      NotImplementedError: STEP: Given there are <span class=m>12</span> hotdogs
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    When I eat <span class=m>5</span>                     <span class=c1># None</span>
+</span></span><span class=line><span class=cl>    Then there should be <span class=m>7</span> remaining <span class=c1># None</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Failing scenarios:
+</span></span><span class=line><span class=cl>  features/hotdog.feature:3  Eat <span class=m>5</span> out of <span class=m>12</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=m>0</span> features passed, <span class=m>1</span> failed, <span class=m>0</span> skipped
+</span></span><span class=line><span class=cl><span class=m>0</span> scenarios passed, <span class=m>1</span> failed, <span class=m>0</span> skipped
+</span></span><span class=line><span class=cl><span class=m>0</span> steps passed, <span class=m>1</span> failed, <span class=m>2</span> skipped, <span class=m>0</span> undefined
+</span></span><span class=line><span class=cl>Took 0m0.000s
+</span></span></code></pre></div><h1 id=테스트-파일-구현하기>테스트 파일 구현하기</h1><p>이제 테스트 파일 안의 method 를 구현해 보자.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>behave</span> <span class=kn>import</span> <span class=o>*</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nd>@given</span><span class=p>(</span><span class=sa>u</span><span class=s1>&#39;there are </span><span class=si>{num_hotdog}</span><span class=s1> hotdogs&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>step_impl</span><span class=p>(</span><span class=n>context</span><span class=p>,</span> <span class=n>num_hotdog</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>context</span><span class=o>.</span><span class=n>hotdogs</span> <span class=o>=</span> <span class=nb>int</span><span class=p>(</span><span class=n>num_hotdog</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nd>@when</span><span class=p>(</span><span class=sa>u</span><span class=s1>&#39;I eat </span><span class=si>{eaten_hotdog}</span><span class=s1>&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>step_impl</span><span class=p>(</span><span class=n>context</span><span class=p>,</span> <span class=n>eaten_hotdog</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>context</span><span class=o>.</span><span class=n>hotdogs</span> <span class=o>-=</span> <span class=nb>int</span><span class=p>(</span><span class=n>eaten_hotdog</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nd>@then</span><span class=p>(</span><span class=sa>u</span><span class=s1>&#39;there should be </span><span class=si>{remaining_hotdog}</span><span class=s1> remaining&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>step_impl</span><span class=p>(</span><span class=n>context</span><span class=p>,</span> <span class=n>remaining_hotdog</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>assert</span> <span class=n>context</span><span class=o>.</span><span class=n>hotdogs</span> <span class=o>==</span> <span class=nb>int</span><span class=p>(</span><span class=n>remaining_hotdog</span><span class=p>)</span>
+</span></span></code></pre></div><p>decorator 에서 숫자를 나타내는 부분을 <code>num_hotdog</code> 같은 식으로 파라메터로 치환한 것을 주목해 달라. 이렇게 해 두면, 나중에 숫자만 바꾼 시나리오를 추가해도, 위의 세 개 method 를 재사용할 수 있는 장점이 있다.</p><p>그리고 behave 는 <a class=link href="https://behave.readthedocs.io/en/stable/tutorial.html?highlight=eq_#context" target=_blank rel=noopener><code>context</code> 라는 파라메터를 입력으로 받을 수 있도록</a> 지원한다. 해당 시나리오가 진행되는 동안 유효한 객체이며, 따라서 여기에 원하는 attribute 를 만들어 값을 저장하고 열람할 수 있다. 예제 시나리오에서는, 남은 핫도그 개수를 <code>context.hotdogs</code> 로 보관한다.</p><blockquote><p>엄밀히 말하면, when 에 해당하는 method 에서 핫도그 개수를 차감하는 부분은 <strong>여기서 구현하면 안 된다</strong>. 실제 업무에 사용하려면, 여기서 <strong>&lsquo;실제로 구현한 로직&rsquo; 을</strong> <strong>호출해야</strong> 한다. 그래야 검증을 할 수 있으니 말이다!</p></blockquote><hr><p>다시 <code>behave</code> 를 실행하면, 이제야 모든 테스트가 통과되었음을 알 수 있다!</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ behave
+</span></span><span class=line><span class=cl>Feature: eat hotdogs <span class=c1># features/hotdog.feature:1</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  Scenario: Eat <span class=m>5</span> out of <span class=m>12</span>          <span class=c1># features/hotdog.feature:3</span>
+</span></span><span class=line><span class=cl>    Given there are <span class=m>12</span> hotdogs       <span class=c1># features/steps/hotdog.py:3 0.000s</span>
+</span></span><span class=line><span class=cl>    When I eat <span class=m>5</span>                     <span class=c1># features/steps/hotdog.py:8 0.000s</span>
+</span></span><span class=line><span class=cl>    Then there should be <span class=m>7</span> remaining <span class=c1># features/steps/hotdog.py:12 0.000s</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=m>1</span> feature passed, <span class=m>0</span> failed, <span class=m>0</span> skipped
+</span></span><span class=line><span class=cl><span class=m>1</span> scenario passed, <span class=m>0</span> failed, <span class=m>0</span> skipped
+</span></span><span class=line><span class=cl><span class=m>3</span> steps passed, <span class=m>0</span> failed, <span class=m>0</span> skipped, <span class=m>0</span> undefined
+</span></span><span class=line><span class=cl>Took 0m0.000s
+</span></span></code></pre></div><h1 id=숫자만-바꾼-시나리오를-추가하면>숫자만 바꾼 시나리오를 추가하면?</h1><p>시나리오<strong>만</strong> 추가하더라도 이미 재사용이 가능한 형태로 테스트 method 를 구현했기 때문에, 아래처럼 성공적으로 작동한다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ behave
+</span></span><span class=line><span class=cl>Feature: eat hotdogs <span class=c1># features/hotdog.feature:1</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  Scenario: Eat <span class=m>5</span> out of <span class=m>12</span>          <span class=c1># features/hotdog.feature:3</span>
+</span></span><span class=line><span class=cl>    Given there are <span class=m>12</span> hotdogs       <span class=c1># features/steps/hotdog.py:3 0.000s</span>
+</span></span><span class=line><span class=cl>    When I eat <span class=m>5</span>                     <span class=c1># features/steps/hotdog.py:8 0.000s</span>
+</span></span><span class=line><span class=cl>    Then there should be <span class=m>7</span> remaining <span class=c1># features/steps/hotdog.py:12 0.000s</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  Scenario: Eat <span class=m>10</span> out of <span class=m>20</span>          <span class=c1># features/hotdog.feature:8</span>
+</span></span><span class=line><span class=cl>    Given there are <span class=m>20</span> hotdogs        <span class=c1># features/steps/hotdog.py:3 0.000s</span>
+</span></span><span class=line><span class=cl>    When I eat <span class=m>10</span>                     <span class=c1># features/steps/hotdog.py:8 0.000s</span>
+</span></span><span class=line><span class=cl>    Then there should be <span class=m>10</span> remaining <span class=c1># features/steps/hotdog.py:12 0.000s</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=m>1</span> feature passed, <span class=m>0</span> failed, <span class=m>0</span> skipped
+</span></span><span class=line><span class=cl><span class=m>2</span> scenarios passed, <span class=m>0</span> failed, <span class=m>0</span> skipped
+</span></span><span class=line><span class=cl><span class=m>6</span> steps passed, <span class=m>0</span> failed, <span class=m>0</span> skipped, <span class=m>0</span> undefined
+</span></span><span class=line><span class=cl>Took 0m0.001s
+</span></span></code></pre></div><h1 id=마치며>마치며</h1><p>이제 이 테스트 케이스를 구현할 때 mock 라이브러리를 통해 mocking 을 하면, 기능 검증을 충분히 할 수 있을 것이다. 시나리오를 추가하는 것은 개발자 뿐만이 아닌 비 개발자나 QA 도 할 수 있어야 하고, 개발자는 그렇게 푸시된 새로운 시나리오를 보고 커버리지를 달성하기 위해 테스트에 좀 더 집중할 수 있을 것이다.</p><p>한 가지 맹점은, 기존 시나리오가 바뀌면 테스트 케이스 개발 과정에서 엄청난 고통이 뒤따를 수 있단 것이다. 따라서 (전에도 말했지만) 항상 시나리오는 합의 하에 신중히 추가되어야 한다.</p><p>다음 시간에는 golang 으로 똑같은 시나리오를 테스트 해 볼 예정이다.</p></section><footer class="article-meta article-footer"><section class=article-tags><a href=/tags/bdd/>BDD</a>
+<a href=/tags/python/>Python</a>
+<a href=/tags/behave/>Behave</a></section></footer></article><aside><h2 class=section-title>관련 글</h2><div class=subsection-list><div class=article-list--tile><article><a href=/pyenv-openssl-problem/><div class=article-details><h2 class=article-title>Pyenv 로 Python 설치 할 때 Openssl 문제</h2></div></a></article><article class=has-image><a href=/program-language-closure/><div class=article-image><img alt="Featured image of post 클로저 (Closure)" height=150 loading=lazy src=/program-language-closure/feature_hu_ed61b4a5fde109c3.jpg srcset="/program-language-closure/feature_hu_ed61b4a5fde109c3.jpg 1x, /program-language-closure/feature_hu_1e39fe0dea17a495.jpg 2x" width=250></div><div class=article-details style="background:linear-gradient(0deg,#fcb30980 0%,#050101C0 100%)"><h2 class=article-title>클로저 (Closure)</h2></div></a></article><article class=has-image><a href=/vscode-python-debugging-no-response/><div class=article-image><img alt="Featured image of post VSCode Python 디버그 반응이 없을 때" height=150 loading=lazy src=/vscode-python-debugging-no-response/feature_hu_d88ad83acbd5ac63.png srcset="/vscode-python-debugging-no-response/feature_hu_d88ad83acbd5ac63.png 1x, /vscode-python-debugging-no-response/feature_hu_7c0e4a8700a1a909.png 2x" width=250></div><div class=article-details style="background:linear-gradient(0deg,#2f303480 0%,#7bbbe7C0 100%)"><h2 class=article-title>VSCode Python 디버그 반응이 없을 때</h2></div></a></article><article class=has-image><a href=/bdd-behavior-driven-development/><div class=article-image><img alt="Featured image of post BDD (Behavior-driven Development) 소개" height=150 loading=lazy src=/bdd-behavior-driven-development/feature_hu_6bd2c8a35aaa423d.jpg srcset="/bdd-behavior-driven-development/feature_hu_6bd2c8a35aaa423d.jpg 1x, /bdd-behavior-driven-development/feature_hu_36f37fd65a97bef2.jpg 2x" width=250></div><div class=article-details style="background:linear-gradient(0deg,#1f222480 0%,#d9dce2C0 100%)"><h2 class=article-title>BDD (Behavior-driven Development) 소개</h2></div></a></article><article><a href=/obsidian-copilot-openrouter-free-llm/><div class=article-details><h2 class=article-title>Obsidian Copilot과 OpenRouter로 구축하는 나만의 무료 AI 워크플로우</h2></div></a></article></div></div></aside><script src=https://giscus.app/client.js data-repo=1nterp/1nterp.github.io data-repo-id="MDEwOlJlcG9zaXRvcnkyMzY5NzQ5Mzc=" data-category=General data-category-id=MDE4OkRpc2N1c3Npb25DYXRlZ29yeTMyMjU4Mjgx data-mapping=pathname data-strict=0 data-reactions-enabled=1 data-emit-metadata=1 data-input-position=top data-theme=light data-lang=en data-loading=lazy crossorigin=anonymous async></script><script>function setGiscusTheme(e){let t=document.querySelector("iframe.giscus-frame");t&&t.contentWindow.postMessage({giscus:{setConfig:{theme:e}}},"https://giscus.app")}(function(){addEventListener("message",t=>{if(event.origin!=="https://giscus.app")return;e()}),window.addEventListener("onColorSchemeChange",e);function e(){setGiscusTheme(document.documentElement.dataset.scheme==="light"?"light":"dark_dimmed")}})()</script><footer class=site-footer><section class=copyright>&copy;
+2019 -
+2026 InterP Blog</section><section class=powerby><a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a>로 만듦<br><a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=4.0.3>Stack</a></b> 테마 사용 중</section></footer><script type=module>
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script></main></div><script type=text/javascript src=/ts/main.74d5d6241af8967b6f1ef8ef876fb897ddb81eeaad46b5a139f47d9cbd3a64d4.js defer></script></body></html>

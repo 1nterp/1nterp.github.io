@@ -1,276 +1,49 @@
-<!doctype html><html lang=ko-kr dir=ltr>
-<head><meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="mmap 은 memory map 의 줄임말이다. 메모리의 특정 영역을 파일 디스크립터로 인식하게 만드는 것이다. map or unmap files or devices into memory (메모리 영역을 파일이나 디바이스로 인식하게 합니다"><title>mmap : 메모리를 파일처럼</title>
-<style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500&display=swap';@import "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"</style>
-<link href=https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css rel=stylesheet>
-<link rel=canonical href=https://interp.blog/mmap-memory-block-like-file/>
-<link rel=stylesheet href=/scss/style.min.4be513be4d3ee5d10255ef2b36fc366628db7e83c856167310af719cdd53496c.css><meta property="title" content="mmap : 메모리를 파일처럼">
-<meta property="description" content="mmap 은 memory map 의 줄임말이다. 메모리의 특정 영역을 파일 디스크립터로 인식하게 만드는 것이다. map or unmap files or devices into memory (메모리 영역을 파일이나 디바이스로 인식하게 합니다">
-<meta property="og:title" content="mmap : 메모리를 파일처럼">
-<meta property="og:description" content="mmap 은 memory map 의 줄임말이다. 메모리의 특정 영역을 파일 디스크립터로 인식하게 만드는 것이다. map or unmap files or devices into memory (메모리 영역을 파일이나 디바이스로 인식하게 합니다">
-<meta property="og:url" content="https://interp.blog/mmap-memory-block-like-file/">
-<meta property="og:site_name" content="InterP Blog">
-<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="Linux"><meta property="article:tag" content="c"><meta property="article:tag" content="mmap"><meta property="article:published_time" content="2017-09-20T13:29:57+00:00"><meta property="article:modified_time" content="2017-09-20T13:29:57+00:00">
-<meta name=twitter:site content="@interp_">
-<meta name=twitter:creator content="@interp_"><meta name=twitter:title content="mmap : 메모리를 파일처럼">
-<meta name=twitter:description content="mmap 은 memory map 의 줄임말이다. 메모리의 특정 영역을 파일 디스크립터로 인식하게 만드는 것이다. map or unmap files or devices into memory (메모리 영역을 파일이나 디바이스로 인식하게 합니다">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KMRJ33V06X"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-KMRJ33V06X')</script>
-<script>(function(b,d,e,a,g){b[a]=b[a]||[],b[a].push({'gtm.start':(new Date).getTime(),event:'gtm.js'});var f=d.getElementsByTagName(e)[0],c=d.createElement(e),h=a!='dataLayer'?'&l='+a:'';c.async=!0,c.src='https://www.googletagmanager.com/gtm.js?id='+g+h,f.parentNode.insertBefore(c,f)})(window,document,'script','dataLayer','GTM-NBPHNHQ')</script>
-</head>
-<body class=article-page>
-<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>
-<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky">
-<button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 토글">
-<span class=hamburger-box>
-<span class=hamburger-inner></span>
-</span>
-</button>
-<header>
-<div class=site-meta>
-<h1 class=site-name><a href=/>InterP Blog</a></h1>
-<h2 class=site-description>Things I'm interested</h2>
-</div>
-</header><ol class=menu id=main-menu>
-<li>
-<a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
-<span>Home</span>
-</a>
-</li>
-<li>
-<a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
-<span>Archives</span>
-</a>
-</li>
-<li>
-<a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
-<span>Search</span>
-</a>
-</li>
-<div class=menu-bottom-section>
-<li id=i18n-switch><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5h7"/><path d="M9 3v2c0 4.418-2.239 8-5 8"/><path d="M5 9c-.003 2.144 2.952 3.908 6.7 4"/><path d="M12 20l4-9 4 9"/><path d="M19.1 18h-6.2"/></svg>
-<select name=language onchange="window.location.href=this.selectedOptions[0].value"><option value=https://interp.blog/ selected>한국어</option><option value=https://interp.blog/en/>English</option></select>
-</li>
-<li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
-<span>다크 모드</span>
-</li>
-</div>
-</ol>
-</aside>
-<main class="main full-width">
-<article class=main-article>
-<header class=article-header style=display:block>
-<div class=article-details>
-<header class=article-category>
-<a href=/categories/tech/ style=background-color:#1c8193;color:#fff>
-TECH 🛠️
-</a>
-</header>
-<div class=article-title-wrapper>
-<h2 class=article-title>
-<a href=/mmap-memory-block-like-file/>mmap : 메모리를 파일처럼</a>
-</h2>
-</div>
-<footer class=article-time>
-<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
-<time class=article-time--published>2017-09-20</time>
-</div>
-<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
-<time class=article-time--reading>
-2 분 소요
-</time>
-</div>
-</footer>
-</div>
-</header>
-<section class=article-content>
-<p><code>mmap</code> 은 memory map 의 줄임말이다. 메모리의 특정 영역을 파일 디스크립터로 인식하게 만드는 것이다.</p>
-<blockquote>
-<p>map or unmap files or devices into memory<br>
-(메모리 영역을 파일이나 디바이스로 인식하게 합니다)</p>
-<p>– manpage of mmap</p>
-</blockquote>
-<h2 id=사용>사용</h2>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=kt>void</span> <span class=o>*</span> <span class=nf>mmap</span><span class=p>(</span><span class=kt>void</span> <span class=o>*</span><span class=n>start</span><span class=p>,</span> 
-           <span class=n>size_t</span> <span class=n>length</span><span class=p>,</span> 
-           <span class=kt>int</span>    <span class=n>prot</span><span class=p>,</span> 
-           <span class=kt>int</span>    <span class=n>flags</span><span class=p>,</span> 
-           <span class=kt>int</span>    <span class=n>fd</span><span class=p>,</span> 
-           <span class=n>off_t</span>  <span class=n>offset</span><span class=p>);</span>
-</code></pre></div><p>여기서 의미가 있는 건 Length, Prot (Protection), Flag 뿐이다.</p>
-<ul>
-<li>Start 는, Kernel이 아무 곳이나 지정해도 좋다면 NULL을 입력한다.</li>
-<li>Offset 은, 보통 0으로 둔다. (MAP_ANONYMOUS 또는 MAP_ANON Flag가 있는 경우엔 무시된다)</li>
-<li>Fd 는, 연결할 파일 디스크립터를 지정한다. (MAP_ANONYMOUS 또는 MAP_ANON Flag를 통해서 &lsquo;파일로 사용하지 않는다&rsquo; 라고 한다면 -1을 넣어줘야 한다. (사실 안 넣어주고 무시해도 되지만 몇몇 구현에서는 넣어야 한다 카더라)</li>
-</ul>
-<h2 id=protection>Protection</h2>
-<p>매핑된 메모리 영역의 사용 권한 같은 것을 정하는 것이라고 이해하자. 리눅스 파일 시스템의 권한과 비슷한 분류로 이해하면 더욱 쉽다. (물론 똑같지는 않지만)</p>
-<ul>
-<li>PROT_NONE : 메모리 영역은 아무것도 할 수 없다.</li>
-<li>PROT_READ : 메모리 영역을 읽을 수 있다.</li>
-<li>PROT_WRITE : 메모리 영역을 쓸 수 있다.</li>
-<li>PROT_EXEC : 메모리 영역이 실행될 수 있다.</li>
-</ul>
-<p>이 때, 연결된 파일 디스크립터의 모드와 절대 충돌해서는 안 된다. 예를 들어 파일 디스크립터를 획득할 때는 <code>w+</code> 라고 해놓고 여기서 PROT_READ 라고 하면, 예상치 못한 무언가가 일어나지 않을까?</p>
-<p>메모리 영역의 보호에 관련된 자세한 내용은 <a class=link href=http://man7.org/linux/man-pages/man2/mprotect.2.html target=_blank rel=noopener>여기</a>를 참고하자.</p>
-<h2 id=flag>Flag</h2>
-<div class=table-wrapper><table>
-<thead>
-<tr>
-<th>Flag</th>
-<th>사용 가능 커널</th>
-<th>설명</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>MAP_SHARED</td>
-<td>–</td>
-<td>이 매핑을 다른 프로세스들이 공유할 수 있다. (실제 파일과 연결되어 반영된다. 하지만 자동으로 반영하지는 않고 <code>msync</code> 나 <code>munmap</code> 을 호출해야 반영된다.)</td>
-</tr>
-<tr>
-<td>MAP_PRIVATE</td>
-<td>–</td>
-<td>이 매핑을 다른 프로세스들과 공유하지 않는다. 실제 파일과도 연결되지 않으므로, <code>mmap</code> 이후에 파일에 반영되는 변경 내역이 매핑된 영역에 반영되는지는 확신할 수 없다.</td>
-</tr>
-<tr>
-<td>MAP_32BIT</td>
-<td>~2.4.20, 2.6</td>
-<td>첫 2GB 안에서 영역을 잡는다. x86-64 프로그램에서만 사용이 가능하다.<br> (초기 64-bit 프로세서에서는 context-switch 비용 절감을 위해 사용할 수 있는 옵션이겠지만, 지금은 그렇지 않으므로 굳이..)</td>
-</tr>
-<tr>
-<td>MAP_ANONYMOUS<br> MAP_ANON</td>
-<td>–</td>
-<td>파일 디스크립터로 인식하지 않는다. fd와 offset은 무시되지만, 몇몇 구현에서는 fd를 반드시 -1로 입력해야 한다. <br> ※ SHARED와 같이 사용하려면 Kernel Version 이 2.4 이하여야 한다.</td>
-</tr>
-</tbody>
-</table></div>
-<p>헉헉.. 아래에 더 있는데 여기까지만 해야겠다. 내가 사용하고자 하는건 사실 ANONYMOUS Flag 만 있으면 되는데 말이지.</p>
-</section>
-<footer class=article-footer>
-<br>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
-<ins class=adsbygoogle style=display:block;height:300px;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-0712823212859607 data-ad-slot=7880266545></ins>
-<script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
-<section class=article-tags>
-<a href=/tags/linux/>Linux</a>
-<a href=/tags/c/>c</a>
-<a href=/tags/mmap/>mmap</a>
-</section>
-</footer>
-</article>
-<aside class=related-content--wrapper>
-<h2 class=section-title>관련 글</h2>
-<div class=related-content>
-<div class="flex article-list--tile">
-<article>
-<a href=/csharp-xunit-practice/>
-<div class=article-details>
-<h2 class=article-title>C# xUnit 실습</h2>
-</div>
-</a>
-</article>
-<article>
-<a href=/linux-%EC%97%90%EC%84%9C-cpumemorydisk-%ED%99%95%EC%9D%B8/>
-<div class=article-details>
-<h2 class=article-title>Linux 에서 CPU/Memory/Disk 확인</h2>
-</div>
-</a>
-</article>
-<article>
-<a href=/pthread_yield-vs-sleep/>
-<div class=article-details>
-<h2 class=article-title>pthread_yield vs. sleep</h2>
-</div>
-</a>
-</article>
-</div>
-</div>
-</aside>
-<script src=https://giscus.app/client.js data-repo=1nterp/1nterp.github.io data-repo-id="MDEwOlJlcG9zaXRvcnkyMzY5NzQ5Mzc=" data-category=General data-category-id=MDE4OkRpc2N1c3Npb25DYXRlZ29yeTMyMjU4Mjgx data-mapping=pathname data-reactions-enabled=1 data-emit-metadata=1 data-theme=light data-lang=en data-loading=lazy crossorigin=anonymous async></script>
-<script>function setGiscusTheme(b){let a=document.querySelector("iframe.giscus-frame");a&&a.contentWindow.postMessage({giscus:{setConfig:{theme:b}}},"https://giscus.app")}(function(){addEventListener("message",b=>{if(event.origin!=="https://giscus.app")return;a()}),window.addEventListener("onColorSchemeChange",a);function a(){document.documentElement.dataset.scheme==="light"?setGiscusTheme('light'):setGiscusTheme('dark_dimmed')}})()</script>
-<footer class=site-footer>
-<section class=copyright>
-&copy;
-2019 -
-2026 InterP Blog
-</section>
-<section class=powerby>
-<a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 기반 / <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.12.0>Stack</a></b> 테마를 사용 중입니다.
-</section>
-</footer>
-<div class=pswp tabindex=-1 role=dialog aria-hidden=true>
-<div class=pswp__bg></div>
-<div class=pswp__scroll-wrap>
-<div class=pswp__container>
-<div class=pswp__item></div>
-<div class=pswp__item></div>
-<div class=pswp__item></div>
-</div>
-<div class="pswp__ui pswp__ui--hidden">
-<div class=pswp__top-bar>
-<div class=pswp__counter></div>
-<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-<button class="pswp__button pswp__button--share" title=Share></button>
-<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-<div class=pswp__preloader>
-<div class=pswp__preloader__icn>
-<div class=pswp__preloader__cut>
-<div class=pswp__preloader__donut></div>
-</div>
-</div>
-</div>
-</div>
-<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-<div class=pswp__share-tooltip></div>
-</div>
-<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-</button>
-<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-</button>
-<div class=pswp__caption>
-<div class=pswp__caption__center></div>
-</div>
-</div>
-</div>
-</div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous>
-</main>
-<aside class="sidebar right-sidebar sticky">
-<form action=/search/ class="search-form widget">
-<p>
-<label>검색</label>
+<!doctype html><html lang=ko-kr dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="mmap 은 memory map 의 줄임말이다. 메모리의 특정 영역을 파일 디스크립터로 인식하게 만드는 것이다.\nmap or unmap files or devices into memory\n(메모리 영역을 파일이나 디바이스로 인식하게 합니다)\n– manpage of mmap\n"><title>mmap : 메모리를 파일처럼</title><link rel=canonical href=https://interp.blog/mmap-memory-block-like-file/><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=stylesheet href=https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css><link rel=stylesheet href=/scss/style.min.13527503d779121ab03c412f0b9dee045fb647686643dd243aa74021dddf30be.css><meta property='og:title' content="mmap : 메모리를 파일처럼"><meta property='og:description' content="mmap 은 memory map 의 줄임말이다. 메모리의 특정 영역을 파일 디스크립터로 인식하게 만드는 것이다.\nmap or unmap files or devices into memory\n(메모리 영역을 파일이나 디바이스로 인식하게 합니다)\n– manpage of mmap\n"><meta property='og:url' content='https://interp.blog/mmap-memory-block-like-file/'><meta property='og:site_name' content='InterP Blog'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content='Linux'><meta property='article:tag' content='c'><meta property='article:tag' content='mmap'><meta property='article:published_time' content='2017-09-20T13:29:57+00:00'><meta property='article:modified_time' content='2017-09-20T13:29:57+00:00'><meta name=twitter:site content="@interp_"><meta name=twitter:creator content="@interp_"><meta name=twitter:title content="mmap : 메모리를 파일처럼"><meta name=twitter:description content="mmap 은 memory map 의 줄임말이다. 메모리의 특정 영역을 파일 디스크립터로 인식하게 만드는 것이다.\nmap or unmap files or devices into memory\n(메모리 영역을 파일이나 디바이스로 인식하게 합니다)\n– manpage of mmap\n"><script async src="https://www.googletagmanager.com/gtag/js?id=G-KMRJ33V06X"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-KMRJ33V06X")</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 여닫기">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/>InterP Blog</a></h1><h2 class=site-description>Things I'm interested</h2></div></header><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li class=menu-bottom-section><ol class=menu><li id=i18n-switch><svg class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5h7"/><path d="M9 3v2c0 4.418-2.239 8-5 8"/><path d="M5 9c-.003 2.144 2.952 3.908 6.7 4"/><path d="M12 20l4-9 4 9"/><path d="M19.1 18h-6.2"/></svg>
+<select name=language title=language onchange="window.location.href=this.selectedOptions[0].value"><option value=/mmap-memory-block-like-file/ selected>한국어</option><option value=/en/>English</option></select></li><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>다크 모드</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><form action=/search/ class="search-form widget"><p><label>검색</label>
 <input name=keyword required placeholder="검색어를 입력하세요...">
-<button title=검색><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
-</button>
-</p>
-</form>
-<section class="widget archives">
-<div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg>
-</div>
-<h2 class="widget-title section-title">목차</h2>
-<div class=widget--toc>
-<nav id=TableOfContents>
-<ul>
-<li>
-<ul>
-<li><a href=#사용>사용</a></li>
-<li><a href=#protection>Protection</a></li>
-<li><a href=#flag>Flag</a></li>
-</ul>
-</li>
-</ul>
-</nav>
-</div>
-</section>
-<section class="widget adsense">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
-<ins class=adsbygoogle style=display:block data-ad-client=ca-pub-0712823212859607 data-ad-slot=8117949234 data-ad-format=auto data-full-width-responsive=true></ins>
-<script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
-</section>
-</aside>
-</div>
-<script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script>
-<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
-</body>
-</html>
+<button title=검색>
+<svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg></button></p></form><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">목차</h2><div class=widget--toc><nav class=toc-nav id=TableOfContents><ul><li><ul><li><a href=#사용>사용</a></li><li><a href=#protection>Protection</a></li><li><a href=#flag>Flag</a></li></ul></li></ul></nav></div></section></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><header class=article-category><a href=/categories/tech/ style=background-color:#1c8193;color:#fff>TECH 🛠️</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/mmap-memory-block-like-file/>mmap : 메모리를 파일처럼</a></h2></div><footer class=article-meta><div class=inline-meta><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published datetime=2017-09-20T13:29:57Z>2017-09-20</time>
+<svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>2 분 정도</time></div></footer></div></header><aside class=article-toc><details><summary><div class=article-toc-title><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6-6 6"/></svg>
+<span>목차</span></div></summary><nav class=toc-nav><ul><li><ul><li><a href=#사용>사용</a></li><li><a href=#protection>Protection</a></li><li><a href=#flag>Flag</a></li></ul></li></ul></nav></details></aside><section class=article-content><p><code>mmap</code> 은 memory map 의 줄임말이다. 메모리의 특정 영역을 파일 디스크립터로 인식하게 만드는 것이다.</p><blockquote><p>map or unmap files or devices into memory<br>(메모리 영역을 파일이나 디바이스로 인식하게 합니다)</p><p>– manpage of mmap</p></blockquote><h2 id=사용>사용</h2><div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=line><span class=cl><span class=kt>void</span> <span class=o>*</span> <span class=nf>mmap</span><span class=p>(</span><span class=kt>void</span> <span class=o>*</span><span class=n>start</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>           <span class=n>size_t</span> <span class=n>length</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>           <span class=kt>int</span>    <span class=n>prot</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>           <span class=kt>int</span>    <span class=n>flags</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>           <span class=kt>int</span>    <span class=n>fd</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>           <span class=n>off_t</span>  <span class=n>offset</span><span class=p>);</span>
+</span></span></code></pre></div><p>여기서 의미가 있는 건 Length, Prot (Protection), Flag 뿐이다.</p><ul><li>Start 는, Kernel이 아무 곳이나 지정해도 좋다면 NULL을 입력한다.</li><li>Offset 은, 보통 0으로 둔다. (MAP_ANONYMOUS 또는 MAP_ANON Flag가 있는 경우엔 무시된다)</li><li>Fd 는, 연결할 파일 디스크립터를 지정한다. (MAP_ANONYMOUS 또는 MAP_ANON Flag를 통해서 &lsquo;파일로 사용하지 않는다&rsquo; 라고 한다면 -1을 넣어줘야 한다. (사실 안 넣어주고 무시해도 되지만 몇몇 구현에서는 넣어야 한다 카더라)</li></ul><h2 id=protection>Protection</h2><p>매핑된 메모리 영역의 사용 권한 같은 것을 정하는 것이라고 이해하자. 리눅스 파일 시스템의 권한과 비슷한 분류로 이해하면 더욱 쉽다. (물론 똑같지는 않지만)</p><ul><li>PROT_NONE : 메모리 영역은 아무것도 할 수 없다.</li><li>PROT_READ : 메모리 영역을 읽을 수 있다.</li><li>PROT_WRITE : 메모리 영역을 쓸 수 있다.</li><li>PROT_EXEC : 메모리 영역이 실행될 수 있다.</li></ul><p>이 때, 연결된 파일 디스크립터의 모드와 절대 충돌해서는 안 된다. 예를 들어 파일 디스크립터를 획득할 때는 <code>w+</code> 라고 해놓고 여기서 PROT_READ 라고 하면, 예상치 못한 무언가가 일어나지 않을까?</p><p>메모리 영역의 보호에 관련된 자세한 내용은 <a class=link href=http://man7.org/linux/man-pages/man2/mprotect.2.html target=_blank rel=noopener>여기</a>를 참고하자.</p><h2 id=flag>Flag</h2><div class=table-wrapper><table><thead><tr><th>Flag</th><th>사용 가능 커널</th><th>설명</th></tr></thead><tbody><tr><td>MAP_SHARED</td><td>–</td><td>이 매핑을 다른 프로세스들이 공유할 수 있다. (실제 파일과 연결되어 반영된다. 하지만 자동으로 반영하지는 않고 <code>msync</code> 나 <code>munmap</code> 을 호출해야 반영된다.)</td></tr><tr><td>MAP_PRIVATE</td><td>–</td><td>이 매핑을 다른 프로세스들과 공유하지 않는다. 실제 파일과도 연결되지 않으므로, <code>mmap</code> 이후에 파일에 반영되는 변경 내역이 매핑된 영역에 반영되는지는 확신할 수 없다.</td></tr><tr><td>MAP_32BIT</td><td>~2.4.20, 2.6</td><td>첫 2GB 안에서 영역을 잡는다. x86-64 프로그램에서만 사용이 가능하다.<br>(초기 64-bit 프로세서에서는 context-switch 비용 절감을 위해 사용할 수 있는 옵션이겠지만, 지금은 그렇지 않으므로 굳이..)</td></tr><tr><td>MAP_ANONYMOUS<br>MAP_ANON</td><td>–</td><td>파일 디스크립터로 인식하지 않는다. fd와 offset은 무시되지만, 몇몇 구현에서는 fd를 반드시 -1로 입력해야 한다.<br>※ SHARED와 같이 사용하려면 Kernel Version 이 2.4 이하여야 한다.</td></tr></tbody></table></div><p>헉헉.. 아래에 더 있는데 여기까지만 해야겠다. 내가 사용하고자 하는건 사실 ANONYMOUS Flag 만 있으면 되는데 말이지.</p></section><footer class="article-meta article-footer"><section class=article-tags><a href=/tags/linux/>Linux</a>
+<a href=/tags/c/>C</a>
+<a href=/tags/mmap/>Mmap</a></section></footer></article><aside><h2 class=section-title>관련 글</h2><div class=subsection-list><div class=article-list--tile><article><a href=/csharp-xunit-practice/><div class=article-details><h2 class=article-title>C# xUnit 실습</h2></div></a></article><article><a href=/linux-%EC%97%90%EC%84%9C-cpumemorydisk-%ED%99%95%EC%9D%B8/><div class=article-details><h2 class=article-title>Linux 에서 CPU/Memory/Disk 확인</h2></div></a></article><article><a href=/pthread_yield-vs-sleep/><div class=article-details><h2 class=article-title>pthread_yield vs. sleep</h2></div></a></article><article><a href=/obsidian-copilot-openrouter-free-llm/><div class=article-details><h2 class=article-title>Obsidian Copilot과 OpenRouter로 구축하는 나만의 무료 AI 워크플로우</h2></div></a></article><article class=has-image><a href=/microsoft-ai-tour-seoul-2025-review/><div class=article-image><img alt="Featured image of post Microsoft AI Tour Seoul 2025 후기" height=150 loading=lazy src=/microsoft-ai-tour-seoul-2025-review/feature_hu_54ccc15e75d8a864.jpeg srcset="/microsoft-ai-tour-seoul-2025-review/feature_hu_54ccc15e75d8a864.jpeg 1x, /microsoft-ai-tour-seoul-2025-review/feature_hu_a2e088dc225ca71d.jpeg 2x" width=250></div><div class=article-details style="background:linear-gradient(0deg,#e7dfdf80 0%,#130e0bC0 100%)"><h2 class=article-title>Microsoft AI Tour Seoul 2025 후기</h2></div></a></article></div></div></aside><script src=https://giscus.app/client.js data-repo=1nterp/1nterp.github.io data-repo-id="MDEwOlJlcG9zaXRvcnkyMzY5NzQ5Mzc=" data-category=General data-category-id=MDE4OkRpc2N1c3Npb25DYXRlZ29yeTMyMjU4Mjgx data-mapping=pathname data-strict=0 data-reactions-enabled=1 data-emit-metadata=1 data-input-position=top data-theme=light data-lang=en data-loading=lazy crossorigin=anonymous async></script><script>function setGiscusTheme(e){let t=document.querySelector("iframe.giscus-frame");t&&t.contentWindow.postMessage({giscus:{setConfig:{theme:e}}},"https://giscus.app")}(function(){addEventListener("message",t=>{if(event.origin!=="https://giscus.app")return;e()}),window.addEventListener("onColorSchemeChange",e);function e(){setGiscusTheme(document.documentElement.dataset.scheme==="light"?"light":"dark_dimmed")}})()</script><footer class=site-footer><section class=copyright>&copy;
+2019 -
+2026 InterP Blog</section><section class=powerby><a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a>로 만듦<br><a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=4.0.3>Stack</a></b> 테마 사용 중</section></footer><script type=module>
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script></main></div><script type=text/javascript src=/ts/main.74d5d6241af8967b6f1ef8ef876fb897ddb81eeaad46b5a139f47d9cbd3a64d4.js defer></script></body></html>

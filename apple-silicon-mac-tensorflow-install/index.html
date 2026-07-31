@@ -1,277 +1,67 @@
-<!doctype html><html lang=ko-kr dir=ltr>
-<head><meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="M1/M2 Notebook 에서도 머신러닝을 쉽게"><title>Apple Silicon Mac 에 Tensorflow 설치</title>
-<style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500&display=swap';@import "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"</style>
-<link href=https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css rel=stylesheet>
-<link rel=canonical href=https://interp.blog/apple-silicon-mac-tensorflow-install/>
-<link rel=stylesheet href=/scss/style.min.4be513be4d3ee5d10255ef2b36fc366628db7e83c856167310af719cdd53496c.css><meta property="title" content="Apple Silicon Mac 에 Tensorflow 설치">
-<meta property="description" content="M1/M2 Notebook 에서도 머신러닝을 쉽게">
-<meta property="og:title" content="Apple Silicon Mac 에 Tensorflow 설치">
-<meta property="og:description" content="M1/M2 Notebook 에서도 머신러닝을 쉽게">
-<meta property="og:url" content="https://interp.blog/apple-silicon-mac-tensorflow-install/">
-<meta property="og:site_name" content="InterP Blog">
-<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="Mac"><meta property="article:tag" content="Silicon"><meta property="article:tag" content="Macbook M1 Pro"><meta property="article:tag" content="Tensorflow"><meta property="article:tag" content="Machine Learning"><meta property="article:published_time" content="2023-02-27T00:00:00+09:00"><meta property="article:modified_time" content="2023-02-27T00:00:00+09:00"><meta property="og:image" content="https://interp.blog/apple-silicon-mac-tensorflow-install/feature.png">
-<meta name=twitter:site content="@interp_">
-<meta name=twitter:creator content="@interp_"><meta name=twitter:title content="Apple Silicon Mac 에 Tensorflow 설치">
-<meta name=twitter:description content="M1/M2 Notebook 에서도 머신러닝을 쉽게"><meta name=twitter:card content="summary_large_image">
-<meta name=twitter:image content="https://interp.blog/apple-silicon-mac-tensorflow-install/feature.png">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KMRJ33V06X"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-KMRJ33V06X')</script>
-<script>(function(b,d,e,a,g){b[a]=b[a]||[],b[a].push({'gtm.start':(new Date).getTime(),event:'gtm.js'});var f=d.getElementsByTagName(e)[0],c=d.createElement(e),h=a!='dataLayer'?'&l='+a:'';c.async=!0,c.src='https://www.googletagmanager.com/gtm.js?id='+g+h,f.parentNode.insertBefore(c,f)})(window,document,'script','dataLayer','GTM-NBPHNHQ')</script>
-</head>
-<body class=article-page>
-<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>
-<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky">
-<button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 토글">
-<span class=hamburger-box>
-<span class=hamburger-inner></span>
-</span>
-</button>
-<header>
-<div class=site-meta>
-<h1 class=site-name><a href=/>InterP Blog</a></h1>
-<h2 class=site-description>Things I'm interested</h2>
-</div>
-</header><ol class=menu id=main-menu>
-<li>
-<a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
-<span>Home</span>
-</a>
-</li>
-<li>
-<a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
-<span>Archives</span>
-</a>
-</li>
-<li>
-<a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
-<span>Search</span>
-</a>
-</li>
-<div class=menu-bottom-section>
-<li id=i18n-switch><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5h7"/><path d="M9 3v2c0 4.418-2.239 8-5 8"/><path d="M5 9c-.003 2.144 2.952 3.908 6.7 4"/><path d="M12 20l4-9 4 9"/><path d="M19.1 18h-6.2"/></svg>
-<select name=language onchange="window.location.href=this.selectedOptions[0].value"><option value=https://interp.blog/ selected>한국어</option><option value=https://interp.blog/en/>English</option></select>
-</li>
-<li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
-<span>다크 모드</span>
-</li>
-</div>
-</ol>
-</aside>
-<main class="main full-width">
-<article class="has-image main-article">
-<header class=article-header style=display:block>
-<div class=article-image>
-<a href=/apple-silicon-mac-tensorflow-install/>
-<img src=/apple-silicon-mac-tensorflow-install/feature_huf0548c6f5090259b22a2de3fd3dc97e4_9743739_900x0_resize_q75_h2_box_3.webp srcset="/apple-silicon-mac-tensorflow-install/feature_huf0548c6f5090259b22a2de3fd3dc97e4_9743739_900x0_resize_q75_h2_box_3.webp 800w, /apple-silicon-mac-tensorflow-install/feature_huf0548c6f5090259b22a2de3fd3dc97e4_9743739_1800x0_resize_q75_h2_box_3.webp 1600w" width=900 height=514 loading=lazy style="object-position:50% 50%" alt="Featured image of post Apple Silicon Mac 에 Tensorflow 설치">
-</a>
-</div>
-<div class=article-details>
-<header class=article-category>
-<a href=/categories/tech/ style=background-color:#1c8193;color:#fff>
-TECH 🛠️
-</a>
-</header>
-<div class=article-title-wrapper>
-<h2 class=article-title>
-<a href=/apple-silicon-mac-tensorflow-install/>Apple Silicon Mac 에 Tensorflow 설치</a>
-</h2>
-<h3 class=article-subtitle>
-M1/M2 Notebook 에서도 머신러닝을 쉽게
-</h3>
-</div>
-<footer class=article-time>
-<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
-<time class=article-time--published>2023-02-27</time>
-</div>
-<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
-<time class=article-time--reading>
-2 분 소요
-</time>
-</div>
-</footer>
-</div>
-</header>
-<section class=article-content>
-<p>책 <a class=link href=http://www.yes24.com/Product/Goods/112028850 target=_blank rel=noopener>개발자를 위한 머신러닝&딥러닝</a> 을 구매해서 읽어보고 있는데, 실습을 해 보기 위해 M1 Pro 칩의 Macbook Pro 에 환경을 설정하려고 했다.</p>
-<p>처음에는 virtualenv 로 가상 환경을 구성하고 tensorflow 를 pip 로 설치하면 되지 않을까? 하는 순진한 생각이었다. 그런데 예제 코드를 돌려보니 뿜어져 나오는 에러에 당황하고 말았다.</p>
-<p>다른 가이드들도 많지만 한번 이해하는 차원에서 여기 다시 정리해 둔다.</p>
-<h1 id=miniconda-설치>Miniconda 설치</h1>
-<p><a class=link href=https://www.anaconda.com/products/distribution target=_blank rel=noopener>Anaconda</a> 에서 제공하는 tensorflow 관련 dependency 를 설치하기 위해, Anaconda 를 설치해야 한다. 하지만 여기서는 전체 설치를 할 필요는 없고 <strong>Miniconda</strong> 만 설치해도 된다.</p>
-<p>다음 경로 중 하나를 선택해 Shell script 파일을 다운로드 받는다. 두 번째가 직접 다운로드 가능한 경로이다.</p>
-<ul>
-<li><a class=link href=https://docs.conda.io/en/latest/miniconda.html target=_blank rel=noopener>Miniconda Download page</a></li>
-<li><a class=link href=https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh target=_blank rel=noopener>Shell script 다운로드 링크</a></li>
-</ul>
-<p>파일이 위치한 곳에서, 다음 명령을 차례대로 입력한다.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>bash ./Miniconda3-latest-MacOSX-arm64.sh -b -p <span class=nv>$HOME</span>/miniconda
-<span class=nb>source</span> <span class=nv>$HOME</span>/miniconda/bin/activate
-conda
-</code></pre></div><p><code>conda</code> 명령에 에러가 없으면 설치가 완료되었다. 추가로 다음을 입력해 주자.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>conda init <span class=o>{</span>shell<span class=o>}</span>
-</code></pre></div><p><code>{shell}</code> 에는 현재 사용중인 쉘을 입력한다. bash, zsh 같은 것 말이다. 잘 모르겠다면 <code>echo $SHELL</code> 을 입력해서 알아내자.</p>
-<h1 id=conda-환경에서-tensorflow-설치>Conda 환경에서 Tensorflow 설치</h1>
-<p><a class=link href=https://developer.apple.com/metal/tensorflow-plugin/ target=_blank rel=noopener>Apple Developer Page</a> 에 안내된 대로 설치하면 완료된다.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>conda create -n tf-env <span class=nv>python</span><span class=o>=</span>3.8
-conda install -c apple tensorflow-deps
-</code></pre></div><p>위와 같이 conda environment 를 설정한다.</p>
-<p>Python 버전은 <em>3.8</em> 이 테스트되었고 다른 버전에 대해서는 자잘한 문제를 일으킬 수 있으니, 버전 업그레이드는 추천하지 않는다.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>conda activate tf-cert3.8
-pip install tensorflow-macos<span class=o>==</span>2.9.0
-pip install tensorflow-metal<span class=o>==</span>0.5.0
-</code></pre></div><p><code>tensorflow-macos</code> 나 <code>tensorflow-metal</code> 의 버전도 가급적이면 그대로 놔 두길 추천한다. 참고로 최신 버전은 현재 <em>2.11.0</em> 까지 확인되었다.</p>
-<h1 id=설치-확인>설치 확인</h1>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=kn>import</span> <span class=nn>tensorflow</span> <span class=k>as</span> <span class=nn>tf</span>
-<span class=nb>print</span><span class=p>(</span><span class=n>tf</span><span class=o>.</span><span class=n>__version__</span><span class=p>)</span>
-</code></pre></div><p>버전이 잘 출력되면 성공이다.</p>
-<h1 id=테스트-코드-확인>테스트 코드 확인</h1>
-<p>여려 예제가 있겠지만, 책의 첫 번째 예제 코드를 실행해 보자.</p>
-<p><a class=link href=https://github.com/rickiepark/aiml4coders/blob/main/ch01/01-first-model.ipynb target=_blank rel=noopener>여기에서</a> Jupyter Notebook 파일로 제공되고 있으니 코드만 긁어다가 파이썬으로 실행해서 문제가 없어야 한다. (혹시 코드가 궁금하다면, 책을 한 번 읽어보길 권한다!)</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=kn>import</span> <span class=nn>tensorflow</span> <span class=k>as</span> <span class=nn>tf</span>
-<span class=kn>import</span> <span class=nn>numpy</span> <span class=k>as</span> <span class=nn>np</span>
-<span class=kn>from</span> <span class=nn>tensorflow.keras</span> <span class=kn>import</span> <span class=n>Sequential</span>
-<span class=kn>from</span> <span class=nn>tensorflow.keras.layers</span> <span class=kn>import</span> <span class=n>Dense</span>
-
-<span class=n>dense</span> <span class=o>=</span> <span class=n>Dense</span><span class=p>(</span><span class=n>units</span><span class=o>=</span><span class=mi>1</span><span class=p>,</span> <span class=n>input_shape</span><span class=o>=</span><span class=p>[</span><span class=mi>1</span><span class=p>])</span>
-<span class=n>model</span> <span class=o>=</span> <span class=n>Sequential</span><span class=p>([</span><span class=n>dense</span><span class=p>])</span>
-<span class=n>model</span><span class=o>.</span><span class=n>compile</span><span class=p>(</span><span class=n>optimizer</span><span class=o>=</span><span class=s1>&#39;sgd&#39;</span><span class=p>,</span> <span class=n>loss</span><span class=o>=</span><span class=s1>&#39;mean_squared_error&#39;</span><span class=p>)</span>
-<span class=n>xs</span> <span class=o>=</span> <span class=n>np</span><span class=o>.</span><span class=n>array</span><span class=p>([</span><span class=o>-</span><span class=mf>1.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>,</span> <span class=mf>2.0</span><span class=p>,</span> <span class=mf>3.0</span><span class=p>,</span> <span class=mf>4.0</span><span class=p>],</span> <span class=n>dtype</span><span class=o>=</span><span class=nb>float</span><span class=p>)</span>
-<span class=n>ys</span> <span class=o>=</span> <span class=n>np</span><span class=o>.</span><span class=n>array</span><span class=p>([</span><span class=o>-</span><span class=mf>3.0</span><span class=p>,</span> <span class=o>-</span><span class=mf>1.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>,</span> <span class=mf>3.0</span><span class=p>,</span> <span class=mf>5.0</span><span class=p>,</span> <span class=mf>7.0</span><span class=p>],</span> <span class=n>dtype</span><span class=o>=</span><span class=nb>float</span><span class=p>)</span>
-<span class=n>model</span><span class=o>.</span><span class=n>fit</span><span class=p>(</span><span class=n>xs</span><span class=p>,</span> <span class=n>ys</span><span class=p>,</span> <span class=n>epochs</span><span class=o>=</span><span class=mi>500</span><span class=p>)</span>
-</code></pre></div>
-</section>
-<footer class=article-footer>
-<br>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
-<ins class=adsbygoogle style=display:block;height:300px;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-0712823212859607 data-ad-slot=7880266545></ins>
-<script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
-<section class=article-tags>
-<a href=/tags/mac/>Mac</a>
+<!doctype html><html lang=ko-kr dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="M1/M2 Notebook 에서도 머신러닝을 쉽게"><title>Apple Silicon Mac 에 Tensorflow 설치</title><link rel=canonical href=https://interp.blog/apple-silicon-mac-tensorflow-install/><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=stylesheet href=https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css><link rel=stylesheet href=/scss/style.min.13527503d779121ab03c412f0b9dee045fb647686643dd243aa74021dddf30be.css><meta property='og:title' content="Apple Silicon Mac 에 Tensorflow 설치"><meta property='og:description' content="M1/M2 Notebook 에서도 머신러닝을 쉽게"><meta property='og:url' content='https://interp.blog/apple-silicon-mac-tensorflow-install/'><meta property='og:site_name' content='InterP Blog'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content='Mac'><meta property='article:tag' content='Silicon'><meta property='article:tag' content='Macbook M1 Pro'><meta property='article:tag' content='Tensorflow'><meta property='article:tag' content='Machine Learning'><meta property='article:published_time' content='2023-02-27T00:00:00+09:00'><meta property='article:modified_time' content='2023-02-27T00:00:00+09:00'><meta property='og:image' content='https://interp.blog/apple-silicon-mac-tensorflow-install/feature.png'><meta name=twitter:site content="@interp_"><meta name=twitter:creator content="@interp_"><meta name=twitter:title content="Apple Silicon Mac 에 Tensorflow 설치"><meta name=twitter:description content="M1/M2 Notebook 에서도 머신러닝을 쉽게"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://interp.blog/apple-silicon-mac-tensorflow-install/feature.png'><script async src="https://www.googletagmanager.com/gtag/js?id=G-KMRJ33V06X"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-KMRJ33V06X")</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 여닫기">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/>InterP Blog</a></h1><h2 class=site-description>Things I'm interested</h2></div></header><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li class=menu-bottom-section><ol class=menu><li id=i18n-switch><svg class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5h7"/><path d="M9 3v2c0 4.418-2.239 8-5 8"/><path d="M5 9c-.003 2.144 2.952 3.908 6.7 4"/><path d="M12 20l4-9 4 9"/><path d="M19.1 18h-6.2"/></svg>
+<select name=language title=language onchange="window.location.href=this.selectedOptions[0].value"><option value=/apple-silicon-mac-tensorflow-install/ selected>한국어</option><option value=/en/>English</option></select></li><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>다크 모드</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><form action=/search/ class="search-form widget"><p><label>검색</label>
+<input name=keyword required placeholder="검색어를 입력하세요...">
+<button title=검색>
+<svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg></button></p></form><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">목차</h2><div class=widget--toc><nav class=toc-nav id=TableOfContents><ul><li><a href=#miniconda-설치>Miniconda 설치</a></li><li><a href=#conda-환경에서-tensorflow-설치>Conda 환경에서 Tensorflow 설치</a></li><li><a href=#설치-확인>설치 확인</a></li><li><a href=#테스트-코드-확인>테스트 코드 확인</a></li></ul></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/apple-silicon-mac-tensorflow-install/><img alt="Featured image of post Apple Silicon Mac 에 Tensorflow 설치" height=2402 loading=lazy sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src=/apple-silicon-mac-tensorflow-install/feature.png srcset="/apple-silicon-mac-tensorflow-install/feature_hu_69afa5871d6a6b9a.png 800w, /apple-silicon-mac-tensorflow-install/feature_hu_df822f7762374ab.png 1600w, /apple-silicon-mac-tensorflow-install/feature_hu_87128b7c02ba617a.png 2400w, /apple-silicon-mac-tensorflow-install/feature.png 4206w" style="object-position:center center" width=4206></a></div><div class=article-details><header class=article-category><a href=/categories/tech/ style=background-color:#1c8193;color:#fff>TECH 🛠️</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/apple-silicon-mac-tensorflow-install/>Apple Silicon Mac 에 Tensorflow 설치</a></h2><h3 class=article-subtitle>M1/M2 Notebook 에서도 머신러닝을 쉽게</h3></div><footer class=article-meta><div class=inline-meta><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published datetime=2023-02-27T00:00:00+09:00>2023-02-27</time>
+<svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>2 분 정도</time></div></footer></div></header><aside class=article-toc><details><summary><div class=article-toc-title><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6-6 6"/></svg>
+<span>목차</span></div></summary><nav class=toc-nav><ul><li><a href=#miniconda-설치>Miniconda 설치</a></li><li><a href=#conda-환경에서-tensorflow-설치>Conda 환경에서 Tensorflow 설치</a></li><li><a href=#설치-확인>설치 확인</a></li><li><a href=#테스트-코드-확인>테스트 코드 확인</a></li></ul></nav></details></aside><section class=article-content><p>책 <a class=link href=http://www.yes24.com/Product/Goods/112028850 target=_blank rel=noopener>개발자를 위한 머신러닝&딥러닝</a> 을 구매해서 읽어보고 있는데, 실습을 해 보기 위해 M1 Pro 칩의 Macbook Pro 에 환경을 설정하려고 했다.</p><p>처음에는 virtualenv 로 가상 환경을 구성하고 tensorflow 를 pip 로 설치하면 되지 않을까? 하는 순진한 생각이었다. 그런데 예제 코드를 돌려보니 뿜어져 나오는 에러에 당황하고 말았다.</p><p>다른 가이드들도 많지만 한번 이해하는 차원에서 여기 다시 정리해 둔다.</p><h1 id=miniconda-설치>Miniconda 설치</h1><p><a class=link href=https://www.anaconda.com/products/distribution target=_blank rel=noopener>Anaconda</a> 에서 제공하는 tensorflow 관련 dependency 를 설치하기 위해, Anaconda 를 설치해야 한다. 하지만 여기서는 전체 설치를 할 필요는 없고 <strong>Miniconda</strong> 만 설치해도 된다.</p><p>다음 경로 중 하나를 선택해 Shell script 파일을 다운로드 받는다. 두 번째가 직접 다운로드 가능한 경로이다.</p><ul><li><a class=link href=https://docs.conda.io/en/latest/miniconda.html target=_blank rel=noopener>Miniconda Download page</a></li><li><a class=link href=https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh target=_blank rel=noopener>Shell script 다운로드 링크</a></li></ul><p>파일이 위치한 곳에서, 다음 명령을 차례대로 입력한다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>bash ./Miniconda3-latest-MacOSX-arm64.sh -b -p <span class=nv>$HOME</span>/miniconda
+</span></span><span class=line><span class=cl><span class=nb>source</span> <span class=nv>$HOME</span>/miniconda/bin/activate
+</span></span><span class=line><span class=cl>conda
+</span></span></code></pre></div><p><code>conda</code> 명령에 에러가 없으면 설치가 완료되었다. 추가로 다음을 입력해 주자.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>conda init <span class=o>{</span>shell<span class=o>}</span>
+</span></span></code></pre></div><p><code>{shell}</code> 에는 현재 사용중인 쉘을 입력한다. bash, zsh 같은 것 말이다. 잘 모르겠다면 <code>echo $SHELL</code> 을 입력해서 알아내자.</p><h1 id=conda-환경에서-tensorflow-설치>Conda 환경에서 Tensorflow 설치</h1><p><a class=link href=https://developer.apple.com/metal/tensorflow-plugin/ target=_blank rel=noopener>Apple Developer Page</a> 에 안내된 대로 설치하면 완료된다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>conda create -n tf-env <span class=nv>python</span><span class=o>=</span>3.8
+</span></span><span class=line><span class=cl>conda install -c apple tensorflow-deps
+</span></span></code></pre></div><p>위와 같이 conda environment 를 설정한다.</p><p>Python 버전은 <em>3.8</em> 이 테스트되었고 다른 버전에 대해서는 자잘한 문제를 일으킬 수 있으니, 버전 업그레이드는 추천하지 않는다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>conda activate tf-cert3.8
+</span></span><span class=line><span class=cl>pip install tensorflow-macos<span class=o>==</span>2.9.0
+</span></span><span class=line><span class=cl>pip install tensorflow-metal<span class=o>==</span>0.5.0
+</span></span></code></pre></div><p><code>tensorflow-macos</code> 나 <code>tensorflow-metal</code> 의 버전도 가급적이면 그대로 놔 두길 추천한다. 참고로 최신 버전은 현재 <em>2.11.0</em> 까지 확인되었다.</p><h1 id=설치-확인>설치 확인</h1><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>tensorflow</span> <span class=k>as</span> <span class=nn>tf</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>tf</span><span class=o>.</span><span class=n>__version__</span><span class=p>)</span>
+</span></span></code></pre></div><p>버전이 잘 출력되면 성공이다.</p><h1 id=테스트-코드-확인>테스트 코드 확인</h1><p>여려 예제가 있겠지만, 책의 첫 번째 예제 코드를 실행해 보자.</p><p><a class=link href=https://github.com/rickiepark/aiml4coders/blob/main/ch01/01-first-model.ipynb target=_blank rel=noopener>여기에서</a> Jupyter Notebook 파일로 제공되고 있으니 코드만 긁어다가 파이썬으로 실행해서 문제가 없어야 한다. (혹시 코드가 궁금하다면, 책을 한 번 읽어보길 권한다!)</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>tensorflow</span> <span class=k>as</span> <span class=nn>tf</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>numpy</span> <span class=k>as</span> <span class=nn>np</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>tensorflow.keras</span> <span class=kn>import</span> <span class=n>Sequential</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>tensorflow.keras.layers</span> <span class=kn>import</span> <span class=n>Dense</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>dense</span> <span class=o>=</span> <span class=n>Dense</span><span class=p>(</span><span class=n>units</span><span class=o>=</span><span class=mi>1</span><span class=p>,</span> <span class=n>input_shape</span><span class=o>=</span><span class=p>[</span><span class=mi>1</span><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=n>model</span> <span class=o>=</span> <span class=n>Sequential</span><span class=p>([</span><span class=n>dense</span><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=n>model</span><span class=o>.</span><span class=n>compile</span><span class=p>(</span><span class=n>optimizer</span><span class=o>=</span><span class=s1>&#39;sgd&#39;</span><span class=p>,</span> <span class=n>loss</span><span class=o>=</span><span class=s1>&#39;mean_squared_error&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>xs</span> <span class=o>=</span> <span class=n>np</span><span class=o>.</span><span class=n>array</span><span class=p>([</span><span class=o>-</span><span class=mf>1.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>,</span> <span class=mf>2.0</span><span class=p>,</span> <span class=mf>3.0</span><span class=p>,</span> <span class=mf>4.0</span><span class=p>],</span> <span class=n>dtype</span><span class=o>=</span><span class=nb>float</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>ys</span> <span class=o>=</span> <span class=n>np</span><span class=o>.</span><span class=n>array</span><span class=p>([</span><span class=o>-</span><span class=mf>3.0</span><span class=p>,</span> <span class=o>-</span><span class=mf>1.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>,</span> <span class=mf>3.0</span><span class=p>,</span> <span class=mf>5.0</span><span class=p>,</span> <span class=mf>7.0</span><span class=p>],</span> <span class=n>dtype</span><span class=o>=</span><span class=nb>float</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>model</span><span class=o>.</span><span class=n>fit</span><span class=p>(</span><span class=n>xs</span><span class=p>,</span> <span class=n>ys</span><span class=p>,</span> <span class=n>epochs</span><span class=o>=</span><span class=mi>500</span><span class=p>)</span>
+</span></span></code></pre></div></section><footer class="article-meta article-footer"><section class=article-tags><a href=/tags/mac/>Mac</a>
 <a href=/tags/silicon/>Silicon</a>
 <a href=/tags/macbook-m1-pro/>Macbook M1 Pro</a>
 <a href=/tags/tensorflow/>Tensorflow</a>
-<a href=/tags/machine-learning/>Machine Learning</a>
-</section>
-</footer>
-</article>
-<aside class=related-content--wrapper>
-<h2 class=section-title>관련 글</h2>
-<div class=related-content>
-<div class="flex article-list--tile">
-<article class=has-image>
-<a href=/macos-rectangle/>
-<div class=article-image>
-<img src=/macos-rectangle/feature.92ac657c4e0e88d4fc6cc606a7e3e315_hu311737e22db1a0054658bbf8125d285e_577943_250x150_fill_q75_box_smart1.jpg width=250 height=150 loading=lazy alt="Featured image of post Rectangle, MacOS 창 이동 프로그램" data-hash="md5-kqxlfE4OiNT8bMYGp+PjFQ==">
-</div>
-<div class=article-details>
-<h2 class=article-title>Rectangle, MacOS 창 이동 프로그램</h2>
-</div>
-</a>
-</article>
-<article class=has-image>
-<a href=/itsycal-mac-calendar/>
-<div class=article-image>
-<img src=/itsycal-mac-calendar/feature.96a4eca305b8d57b14561e56d00daec5_hud8f2c8a2587efb728b7a4f247aa68186_803385_250x150_fill_q75_box_smart1.jpg width=250 height=150 loading=lazy alt="Featured image of post Mac 용 달력 프로그램, itsycal" data-hash="md5-lqTsowW41XsUVh5W0A2uxQ==">
-</div>
-<div class=article-details>
-<h2 class=article-title>Mac 용 달력 프로그램, itsycal</h2>
-</div>
-</a>
-</article>
-<article class=has-image>
-<a href=/backup-from-icloud-obsidian/>
-<div class=article-image>
-<img src=/backup-from-icloud-obsidian/feature.733fea06f52cb01084c577110197599f_hu4b4ed757e4b1c0b24b15644c97bf58e9_228493_250x150_fill_box_smart1_3.png width=250 height=150 loading=lazy alt="Featured image of post iCloud Obsidian 주기적으로 백업하기" data-hash="md5-cz/qBvUssBCExXcRAZdZnw==">
-</div>
-<div class=article-details>
-<h2 class=article-title>iCloud Obsidian 주기적으로 백업하기</h2>
-</div>
-</a>
-</article>
-</div>
-</div>
-</aside>
-<script src=https://giscus.app/client.js data-repo=1nterp/1nterp.github.io data-repo-id="MDEwOlJlcG9zaXRvcnkyMzY5NzQ5Mzc=" data-category=General data-category-id=MDE4OkRpc2N1c3Npb25DYXRlZ29yeTMyMjU4Mjgx data-mapping=pathname data-reactions-enabled=1 data-emit-metadata=1 data-theme=light data-lang=en data-loading=lazy crossorigin=anonymous async></script>
-<script>function setGiscusTheme(b){let a=document.querySelector("iframe.giscus-frame");a&&a.contentWindow.postMessage({giscus:{setConfig:{theme:b}}},"https://giscus.app")}(function(){addEventListener("message",b=>{if(event.origin!=="https://giscus.app")return;a()}),window.addEventListener("onColorSchemeChange",a);function a(){document.documentElement.dataset.scheme==="light"?setGiscusTheme('light'):setGiscusTheme('dark_dimmed')}})()</script>
-<footer class=site-footer>
-<section class=copyright>
-&copy;
+<a href=/tags/machine-learning/>Machine Learning</a></section></footer></article><aside><h2 class=section-title>관련 글</h2><div class=subsection-list><div class=article-list--tile><article class=has-image><a href=/macos-rectangle/><div class=article-image><img alt="Featured image of post Rectangle, MacOS 창 이동 프로그램" height=150 loading=lazy src=/macos-rectangle/feature_hu_56de393fe103bd5d.jpg srcset="/macos-rectangle/feature_hu_56de393fe103bd5d.jpg 1x, /macos-rectangle/feature_hu_bd783901323ab58b.jpg 2x" width=250></div><div class=article-details style="background:linear-gradient(0deg,#0690c880 0%,#20343eC0 100%)"><h2 class=article-title>Rectangle, MacOS 창 이동 프로그램</h2></div></a></article><article class=has-image><a href=/itsycal-mac-calendar/><div class=article-image><img alt="Featured image of post Mac 용 달력 프로그램, itsycal" height=150 loading=lazy src=/itsycal-mac-calendar/feature_hu_fff660af11bab97.jpg srcset="/itsycal-mac-calendar/feature_hu_fff660af11bab97.jpg 1x, /itsycal-mac-calendar/feature_hu_c1810eb3b27ae21.jpg 2x" width=250></div><div class=article-details style="background:linear-gradient(0deg,#2d323080 0%,#9fb4cfC0 100%)"><h2 class=article-title>Mac 용 달력 프로그램, itsycal</h2></div></a></article><article class=has-image><a href=/backup-from-icloud-obsidian/><div class=article-image><img alt="Featured image of post iCloud Obsidian 주기적으로 백업하기" height=150 loading=lazy src=/backup-from-icloud-obsidian/feature_hu_81090f1d81a496c1.png srcset="/backup-from-icloud-obsidian/feature_hu_81090f1d81a496c1.png 1x, /backup-from-icloud-obsidian/feature_hu_cfb703b58bede584.png 2x" width=250></div><div class=article-details style="background:linear-gradient(0deg,#ecedfc80 0%,#191919C0 100%)"><h2 class=article-title>iCloud Obsidian 주기적으로 백업하기</h2></div></a></article><article class=has-image><a href=/mac-display-resolution-adjustment/><div class=article-image><img alt="Featured image of post Mac 디스플레이 해상도 조절 팁" height=150 loading=lazy src=/mac-display-resolution-adjustment/feature_hu_b03353300f7a0852.png srcset="/mac-display-resolution-adjustment/feature_hu_b03353300f7a0852.png 1x, /mac-display-resolution-adjustment/feature_hu_c13377f9fa52cc1a.png 2x" width=250></div><div class=article-details style="background:linear-gradient(0deg,#3a3c3e80 0%,#dbdbdbC0 100%)"><h2 class=article-title>Mac 디스플레이 해상도 조절 팁</h2></div></a></article><article class=has-image><a href=/vscode-vim-mac-key-pressing-input/><div class=article-image><img alt="Featured image of post VSCode Vim 에서 키를 눌러 계속 입력하게 만들기" height=150 loading=lazy src=/vscode-vim-mac-key-pressing-input/feature_hu_3cf09181e61812ae.png srcset="/vscode-vim-mac-key-pressing-input/feature_hu_3cf09181e61812ae.png 1x, /vscode-vim-mac-key-pressing-input/feature_hu_4f3bf46db459794d.png 2x" width=250></div><div class=article-details style="background:linear-gradient(0deg,#988e6f80 0%,#c5bb9cC0 100%)"><h2 class=article-title>VSCode Vim 에서 키를 눌러 계속 입력하게 만들기</h2></div></a></article></div></div></aside><script src=https://giscus.app/client.js data-repo=1nterp/1nterp.github.io data-repo-id="MDEwOlJlcG9zaXRvcnkyMzY5NzQ5Mzc=" data-category=General data-category-id=MDE4OkRpc2N1c3Npb25DYXRlZ29yeTMyMjU4Mjgx data-mapping=pathname data-strict=0 data-reactions-enabled=1 data-emit-metadata=1 data-input-position=top data-theme=light data-lang=en data-loading=lazy crossorigin=anonymous async></script><script>function setGiscusTheme(e){let t=document.querySelector("iframe.giscus-frame");t&&t.contentWindow.postMessage({giscus:{setConfig:{theme:e}}},"https://giscus.app")}(function(){addEventListener("message",t=>{if(event.origin!=="https://giscus.app")return;e()}),window.addEventListener("onColorSchemeChange",e);function e(){setGiscusTheme(document.documentElement.dataset.scheme==="light"?"light":"dark_dimmed")}})()</script><footer class=site-footer><section class=copyright>&copy;
 2019 -
-2026 InterP Blog
-</section>
-<section class=powerby>
-<a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 기반 / <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.12.0>Stack</a></b> 테마를 사용 중입니다.
-</section>
-</footer>
-<div class=pswp tabindex=-1 role=dialog aria-hidden=true>
-<div class=pswp__bg></div>
-<div class=pswp__scroll-wrap>
-<div class=pswp__container>
-<div class=pswp__item></div>
-<div class=pswp__item></div>
-<div class=pswp__item></div>
-</div>
-<div class="pswp__ui pswp__ui--hidden">
-<div class=pswp__top-bar>
-<div class=pswp__counter></div>
-<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-<button class="pswp__button pswp__button--share" title=Share></button>
-<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-<div class=pswp__preloader>
-<div class=pswp__preloader__icn>
-<div class=pswp__preloader__cut>
-<div class=pswp__preloader__donut></div>
-</div>
-</div>
-</div>
-</div>
-<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-<div class=pswp__share-tooltip></div>
-</div>
-<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-</button>
-<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-</button>
-<div class=pswp__caption>
-<div class=pswp__caption__center></div>
-</div>
-</div>
-</div>
-</div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous>
-</main>
-<aside class="sidebar right-sidebar sticky">
-<form action=/search/ class="search-form widget">
-<p>
-<label>검색</label>
-<input name=keyword required placeholder="검색어를 입력하세요...">
-<button title=검색><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
-</button>
-</p>
-</form>
-<section class="widget archives">
-<div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg>
-</div>
-<h2 class="widget-title section-title">목차</h2>
-<div class=widget--toc>
-<nav id=TableOfContents>
-<ul>
-<li><a href=#miniconda-설치>Miniconda 설치</a></li>
-<li><a href=#conda-환경에서-tensorflow-설치>Conda 환경에서 Tensorflow 설치</a></li>
-<li><a href=#설치-확인>설치 확인</a></li>
-<li><a href=#테스트-코드-확인>테스트 코드 확인</a></li>
-</ul>
-</nav>
-</div>
-</section>
-<section class="widget adsense">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
-<ins class=adsbygoogle style=display:block data-ad-client=ca-pub-0712823212859607 data-ad-slot=8117949234 data-ad-format=auto data-full-width-responsive=true></ins>
-<script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
-</section>
-</aside>
-</div>
-<script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script>
-<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
-</body>
-</html>
+2026 InterP Blog</section><section class=powerby><a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a>로 만듦<br><a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=4.0.3>Stack</a></b> 테마 사용 중</section></footer><script type=module>
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script></main></div><script type=text/javascript src=/ts/main.74d5d6241af8967b6f1ef8ef876fb897ddb81eeaad46b5a139f47d9cbd3a64d4.js defer></script></body></html>

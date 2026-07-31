@@ -1,259 +1,49 @@
-<!doctype html><html lang=ko-kr dir=ltr>
-<head><meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Vim 과 SSH 에 찌들어 있었는데, 이번 Visual Studio Code 의 베타 기능인 Remote Deployment 를 연결해 보고 나서, 학생 때 쓰던 IDE 로 돌아간 것 같아 너무 좋았다. 언제까지고 구식 도구를 쓰며 부심을 부릴"><title>Visual Studio Code Remote Deployment</title>
-<style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500&display=swap';@import "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"</style>
-<link href=https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css rel=stylesheet>
-<link rel=canonical href=https://interp.blog/visual-studio-code-remote-deployment/>
-<link rel=stylesheet href=/scss/style.min.4be513be4d3ee5d10255ef2b36fc366628db7e83c856167310af719cdd53496c.css><meta property="title" content="Visual Studio Code Remote Deployment">
-<meta property="description" content="Vim 과 SSH 에 찌들어 있었는데, 이번 Visual Studio Code 의 베타 기능인 Remote Deployment 를 연결해 보고 나서, 학생 때 쓰던 IDE 로 돌아간 것 같아 너무 좋았다. 언제까지고 구식 도구를 쓰며 부심을 부릴">
-<meta property="og:title" content="Visual Studio Code Remote Deployment">
-<meta property="og:description" content="Vim 과 SSH 에 찌들어 있었는데, 이번 Visual Studio Code 의 베타 기능인 Remote Deployment 를 연결해 보고 나서, 학생 때 쓰던 IDE 로 돌아간 것 같아 너무 좋았다. 언제까지고 구식 도구를 쓰며 부심을 부릴">
-<meta property="og:url" content="https://interp.blog/visual-studio-code-remote-deployment/">
-<meta property="og:site_name" content="InterP Blog">
-<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="SSH"><meta property="article:tag" content="vs code"><meta property="article:tag" content="remote"><meta property="article:published_time" content="2019-06-26T05:11:21+00:00"><meta property="article:modified_time" content="2019-06-26T05:11:21+00:00">
-<meta name=twitter:site content="@interp_">
-<meta name=twitter:creator content="@interp_"><meta name=twitter:title content="Visual Studio Code Remote Deployment">
-<meta name=twitter:description content="Vim 과 SSH 에 찌들어 있었는데, 이번 Visual Studio Code 의 베타 기능인 Remote Deployment 를 연결해 보고 나서, 학생 때 쓰던 IDE 로 돌아간 것 같아 너무 좋았다. 언제까지고 구식 도구를 쓰며 부심을 부릴">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KMRJ33V06X"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-KMRJ33V06X')</script>
-<script>(function(b,d,e,a,g){b[a]=b[a]||[],b[a].push({'gtm.start':(new Date).getTime(),event:'gtm.js'});var f=d.getElementsByTagName(e)[0],c=d.createElement(e),h=a!='dataLayer'?'&l='+a:'';c.async=!0,c.src='https://www.googletagmanager.com/gtm.js?id='+g+h,f.parentNode.insertBefore(c,f)})(window,document,'script','dataLayer','GTM-NBPHNHQ')</script>
-</head>
-<body class=article-page>
-<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>
-<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky">
-<button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 토글">
-<span class=hamburger-box>
-<span class=hamburger-inner></span>
-</span>
-</button>
-<header>
-<div class=site-meta>
-<h1 class=site-name><a href=/>InterP Blog</a></h1>
-<h2 class=site-description>Things I'm interested</h2>
-</div>
-</header><ol class=menu id=main-menu>
-<li>
-<a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
-<span>Home</span>
-</a>
-</li>
-<li>
-<a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
-<span>Archives</span>
-</a>
-</li>
-<li>
-<a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
-<span>Search</span>
-</a>
-</li>
-<div class=menu-bottom-section>
-<li id=i18n-switch><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5h7"/><path d="M9 3v2c0 4.418-2.239 8-5 8"/><path d="M5 9c-.003 2.144 2.952 3.908 6.7 4"/><path d="M12 20l4-9 4 9"/><path d="M19.1 18h-6.2"/></svg>
-<select name=language onchange="window.location.href=this.selectedOptions[0].value"><option value=https://interp.blog/ selected>한국어</option><option value=https://interp.blog/en/>English</option></select>
-</li>
-<li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
-<span>다크 모드</span>
-</li>
-</div>
-</ol>
-</aside>
-<main class="main full-width">
-<article class=main-article>
-<header class=article-header style=display:block>
-<div class=article-details>
-<header class=article-category>
-<a href=/categories/tech/ style=background-color:#1c8193;color:#fff>
-TECH 🛠️
-</a>
-</header>
-<div class=article-title-wrapper>
-<h2 class=article-title>
-<a href=/visual-studio-code-remote-deployment/>Visual Studio Code Remote Deployment</a>
-</h2>
-</div>
-<footer class=article-time>
-<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
-<time class=article-time--published>2019-06-26</time>
-</div>
-<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
-<time class=article-time--reading>
-3 분 소요
-</time>
-</div>
-</footer>
-</div>
-</header>
-<section class=article-content>
-<p>Vim 과 SSH 에 찌들어 있었는데, 이번 Visual Studio Code 의 베타 기능인 Remote Deployment 를 연결해 보고 나서, 학생 때 쓰던 IDE 로 돌아간 것 같아 너무 좋았다. 언제까지고 구식 도구를 쓰며 부심을 부릴 수만은 없다. 설치 과정이 조금 험난했지만, 간단히 요약해서 써본다.</p>
-<p>클라이언트 OS 는 윈도우 10 (빌드 1809), 서버 OS 는 Cent OS 7 기준으로 작성한다.</p>
-<h2 id=클라이언트-윈도우-준비>클라이언트 (윈도우) 준비</h2>
-<p>처음에 준비할 때는 <a class=link href=https://code.visualstudio.com/insiders/ target=_blank rel=noopener>Visual Studio Code Insider</a> 버전을 설치하라고 되어 있었는데, 이제는 꼭 그럴 필요 없는 것 같다. 일반 <a class=link href=https://code.visualstudio.com/Download target=_blank rel=noopener>Visual Studio Code</a> 를 설치해도 된다.</p>
-<p>다음으로, SSH 클라이언트를 설치한다. <strong>윈도우 10 빌드 1807 이상 버전</strong>의 윈도우 OS 라면 <a class=link href=https://docs.microsoft.com/ko-kr/windows-server/administration/openssh/openssh_install_firstuse target=_blank rel=noopener>여기 링크</a> 안내를 따르거나, 아래 요약된 스크린샷을 보면 된다.</p>
-<p>시작 > 설정 앱에서, &lsquo;앱&rsquo; 을 클릭한 뒤 &lsquo;앱 및 기능&rsquo; 탭의 &lsquo;선택적 기능 관리&rsquo; 를 클릭한다. 그 다음 아래 &lsquo;OpenSSH 클라이언트&rsquo; 를 찾아 설치한다. OpenSSH 서버는 설치할 필요가 없다.</p>
-<p><img src=/uploads/2019/06/img_5d11df55e7f29.png loading=lazy>
-<img src=/uploads/2019/06/img_5d11df39e0722.png loading=lazy></p>
-<blockquote>
-<p>만약에 여러분이 윈도우 10 빌드 1807 이하 버전의 윈도우 OS 라면… 조금 귀찮아진다. <a class=link href=%22https://code.visualstudio.com/docs/remote/troubleshooting#_installing-a-supported-ssh-client%22>이 문서</a> 에 따르면, <a class=link href=%22https://git-scm.com/download/win%22>Git for windows</a> 를 설치하면서 옵션에서 <strong>Use Git and optional Unix tools from the Command Prompt </strong>를 선택하면 된다.<br>
-그러면, 같이 설치된 mingw 내부의 SSH 를 클라이언트로 사용한다고 한다. 물론 난 테스트해 보진 않았다! 권한 문제 등등으로 생각보다 꼬일 가능성이 있으므로, 조심해야 한다.</p>
-</blockquote>
-<p>이제 ssh key 를 만들어야 한다. 비대칭 키에 대한 지식이 없다면 <a class=link href=https://arsviator.blogspot.com/2015/04/ssh-ssh-key.html target=_blank rel=noopener>암호 대신 SSH Key 로 인증하기</a> 포스팅을 참고하면 된다. 혹시 PuTTY 에서 생성한 비공개 키를 등록하고 쓰고 있으니 이걸로 충분하지 않을까? 그렇게 준비하면.. 실제 접속할 때 아마 잘 안 될 것이다.</p>
-<p>Visual Studio Code 는 OpenSSH (또는 Git 의 ssh) 클라이언트를 쓰기 때문에, Key 호환성 문제로 &lsquo;invalid format&rsquo; 에러를 발생시킬 수 있다. 그러니 순순히 (?) <strong>실행 명령 창 (cmd) 을 열어서</strong> 다음을 입력하자. 기존에 쓰던 키 저장 경로가 존재한다면, 다른 경로로 설정하는 것을 추천한다. 이 방법은 <a class=link href=https://code.visualstudio.com/docs/remote/troubleshooting#_quick-start-ssh-key target=_blank rel=noopener>Visual Studio Code 페이지의 Troubleshooting</a> 에 등록된 내용이다.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>ssh-keygen -t rsa -b  <span class=m>4096</span>
-</code></pre></div><h2 id=서버-리눅스-준비>서버 (리눅스) 준비</h2>
-<p>원활한 서비스가 가능한 리눅스 OS 목록은 <a class=link href=https://code.visualstudio.com/docs/remote/linux target=_blank rel=noopener>여기</a>를 참고하면 된다. Cent OS 7 은 잘 되므로 별 다른 설정 없이 가능하다. 지원이 안 되는 리눅스들은 workaround 가 있는데 (특시 Cent OS 6) 생각보다 까다롭고 원치 않는 상황이 발생할 수 있기 때문에 신중해야 한다.</p>
-<p>접속하고자 하는 계정의 <code>~/.ssh/authorized_keys</code> 파일에다가, 아까 만들었던 Key Pair 중 &lsquo;공개 키&rsquo; 정보를 입력해야 한다. 해당 파일이 없으면 만들면 되고, 있으면 파일 끝에 추가 (append) 해주면 된다.</p>
-<p><code>~/.ssh/authorized_keys</code> 파일의 권한이 600 (계정에서만 읽기/쓰기가 가능) 인지 반드시 체크하고, 아니라면 <code>chmod</code> 명령으로 바꿔주도록 한다. (이건 SSH 일반 접속 때문에 하는 작업이지, Visual Studio Code 라서 하는 것이 아니다.)</p>
-<h2 id=visual-studio-code-준비>Visual Studio Code 준비</h2>
-<p>우여곡절 끝에 준비를 다 했으면, Visual Studio Code 를 열어서 <a class=link href=https://aka.ms/vscode-remote/download/extension target=_blank rel=noopener>Remote Deployment</a> 를 설치하자. 그 다음, 명령 팔레트를 열어서 (Shift + Ctrl + P) <strong>Remote-SSH: Open Configuration File…</strong> 을 선택한다. 설정 파일 경로는 수정하거나 기존에 잡아주는 경로를 쓰건 상관없다.</p>
-<p id=KhDFgvb>
-<img class="alignnone size-full wp-image-1524" src=https://interp.blog/uploads/2019/06/img_5d12fc88e148b.png alt srcset="https://interp.blog/uploads/2019/06/img_5d12fc88e148b.png 622w, https://interp.blog/uploads/2019/06/img_5d12fc88e148b-300x45.png 300w" sizes="(max-width: 622px) 100vw, 622px">
-</p>
-<p>예시는 이렇다.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>Host 192.168.0.10
-    HostName 192.168.0.10
-    User interp
-    IdentityFile &#34;C:\Users\interp\ssh_key\id_rsa&#34;
-</code></pre></div><ul>
-<li>Host : 목록에 나올 이름이다. 보통은 HostName 과 같이 지정해주거나 Username@HostName 으로 지정한다.</li>
-<li>HostName : 실제 접속할 호스트 주소</li>
-<li>User : 접속할 사용자 계정 이름</li>
-<li>IdentifyFile : 생성한 Key Pair 중 &lsquo;비공개 키&rsquo; 경로</li>
-</ul>
-<h2 id=remote-로-접속>Remote 로 접속!</h2>
-<p>이제 설정 파일을 저장하고, 명령 팔레트를 열어서 (Shift + Ctrl + P) <strong>Remote-SSH: Connect to Host…</strong> 을 선택한다. 아까 저장한 Host 가 1개만 떠 있을텐데, 접속하면 아예 새로운 Visual Studio Code 창이 하나 더 뜨게 된다.</p>
-<p>이것저것 하는 것 같으니 잠시 기다리면, 접속이 되었다는 메시지와 함께 &lsquo;절대로 저 작은 터미널을 닫지 말아주세요&rsquo; 라는 경고문이 뜬다. 최소화시키고 작업을 하면 된다!</p>
-</section>
-<footer class=article-footer>
-<br>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
-<ins class=adsbygoogle style=display:block;height:300px;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-0712823212859607 data-ad-slot=7880266545></ins>
-<script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
-<section class=article-tags>
-<a href=/tags/ssh/>SSH</a>
-<a href=/tags/vs-code/>vs code</a>
-<a href=/tags/remote/>remote</a>
-</section>
-</footer>
-</article>
-<aside class=related-content--wrapper>
-<h2 class=section-title>관련 글</h2>
-<div class=related-content>
-<div class="flex article-list--tile">
-<article class=has-image>
-<a href=/ssh-authorized-keys-problem/>
-<div class=article-image>
-<img src=/ssh-authorized-keys-problem/feature.157b1cd8e0f78639c76dd084c0e90052_huacae445ac6aed6ca077a2852bee8342c_81596_250x150_fill_q75_box_smart1.jpg width=250 height=150 loading=lazy alt="Featured image of post SSH 비대칭 키로 접속할 때 문제 해결" data-hash="md5-FXsc2OD3hjnHbdCEwOkAUg==">
-</div>
-<div class=article-details>
-<h2 class=article-title>SSH 비대칭 키로 접속할 때 문제 해결</h2>
-</div>
-</a>
-</article>
-<article class=has-image>
-<a href=/windows-ssh-rsa-key-%EB%AC%B8%EC%A0%9C-%ED%95%B4%EA%B2%B0/>
-<div class=article-image>
-<img src=/images/featured/ssh-rsa.jpg loading=lazy data-key data-hash=/images/featured/ssh-rsa.jpg>
-</div>
-<div class=article-details>
-<h2 class=article-title>Windows SSH RSA Key 문제 해결</h2>
-</div>
-</a>
-</article>
-<article>
-<a href=/x11-windows-linux-subsystem/>
-<div class=article-details>
-<h2 class=article-title>X11 on Windows Linux Subsystem</h2>
-</div>
-</a>
-</article>
-</div>
-</div>
-</aside>
-<script src=https://giscus.app/client.js data-repo=1nterp/1nterp.github.io data-repo-id="MDEwOlJlcG9zaXRvcnkyMzY5NzQ5Mzc=" data-category=General data-category-id=MDE4OkRpc2N1c3Npb25DYXRlZ29yeTMyMjU4Mjgx data-mapping=pathname data-reactions-enabled=1 data-emit-metadata=1 data-theme=light data-lang=en data-loading=lazy crossorigin=anonymous async></script>
-<script>function setGiscusTheme(b){let a=document.querySelector("iframe.giscus-frame");a&&a.contentWindow.postMessage({giscus:{setConfig:{theme:b}}},"https://giscus.app")}(function(){addEventListener("message",b=>{if(event.origin!=="https://giscus.app")return;a()}),window.addEventListener("onColorSchemeChange",a);function a(){document.documentElement.dataset.scheme==="light"?setGiscusTheme('light'):setGiscusTheme('dark_dimmed')}})()</script>
-<footer class=site-footer>
-<section class=copyright>
-&copy;
-2019 -
-2026 InterP Blog
-</section>
-<section class=powerby>
-<a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 기반 / <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.12.0>Stack</a></b> 테마를 사용 중입니다.
-</section>
-</footer>
-<div class=pswp tabindex=-1 role=dialog aria-hidden=true>
-<div class=pswp__bg></div>
-<div class=pswp__scroll-wrap>
-<div class=pswp__container>
-<div class=pswp__item></div>
-<div class=pswp__item></div>
-<div class=pswp__item></div>
-</div>
-<div class="pswp__ui pswp__ui--hidden">
-<div class=pswp__top-bar>
-<div class=pswp__counter></div>
-<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-<button class="pswp__button pswp__button--share" title=Share></button>
-<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-<div class=pswp__preloader>
-<div class=pswp__preloader__icn>
-<div class=pswp__preloader__cut>
-<div class=pswp__preloader__donut></div>
-</div>
-</div>
-</div>
-</div>
-<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-<div class=pswp__share-tooltip></div>
-</div>
-<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-</button>
-<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-</button>
-<div class=pswp__caption>
-<div class=pswp__caption__center></div>
-</div>
-</div>
-</div>
-</div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous>
-</main>
-<aside class="sidebar right-sidebar sticky">
-<form action=/search/ class="search-form widget">
-<p>
-<label>검색</label>
+<!doctype html><html lang=ko-kr dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="Vim 과 SSH 에 찌들어 있었는데, 이번 Visual Studio Code 의 베타 기능인 Remote Deployment 를 연결해 보고 나서, 학생 때 쓰던 IDE 로 돌아간 것 같아 너무 좋았다. 언제까지고 구식 도구를 쓰며 부심을 부릴 수만은 없다. 설치 과정이 조금 험난했지만, 간단히 요약해서 써본다.\n"><title>Visual Studio Code Remote Deployment</title><link rel=canonical href=https://interp.blog/visual-studio-code-remote-deployment/><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=stylesheet href=https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css><link rel=stylesheet href=/scss/style.min.13527503d779121ab03c412f0b9dee045fb647686643dd243aa74021dddf30be.css><meta property='og:title' content="Visual Studio Code Remote Deployment"><meta property='og:description' content="Vim 과 SSH 에 찌들어 있었는데, 이번 Visual Studio Code 의 베타 기능인 Remote Deployment 를 연결해 보고 나서, 학생 때 쓰던 IDE 로 돌아간 것 같아 너무 좋았다. 언제까지고 구식 도구를 쓰며 부심을 부릴 수만은 없다. 설치 과정이 조금 험난했지만, 간단히 요약해서 써본다.\n"><meta property='og:url' content='https://interp.blog/visual-studio-code-remote-deployment/'><meta property='og:site_name' content='InterP Blog'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content='SSH'><meta property='article:tag' content='vs code'><meta property='article:tag' content='remote'><meta property='article:published_time' content='2019-06-26T05:11:21+00:00'><meta property='article:modified_time' content='2019-06-26T05:11:21+00:00'><meta name=twitter:site content="@interp_"><meta name=twitter:creator content="@interp_"><meta name=twitter:title content="Visual Studio Code Remote Deployment"><meta name=twitter:description content="Vim 과 SSH 에 찌들어 있었는데, 이번 Visual Studio Code 의 베타 기능인 Remote Deployment 를 연결해 보고 나서, 학생 때 쓰던 IDE 로 돌아간 것 같아 너무 좋았다. 언제까지고 구식 도구를 쓰며 부심을 부릴 수만은 없다. 설치 과정이 조금 험난했지만, 간단히 요약해서 써본다.\n"><script async src="https://www.googletagmanager.com/gtag/js?id=G-KMRJ33V06X"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-KMRJ33V06X")</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 여닫기">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/>InterP Blog</a></h1><h2 class=site-description>Things I'm interested</h2></div></header><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li class=menu-bottom-section><ol class=menu><li id=i18n-switch><svg class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5h7"/><path d="M9 3v2c0 4.418-2.239 8-5 8"/><path d="M5 9c-.003 2.144 2.952 3.908 6.7 4"/><path d="M12 20l4-9 4 9"/><path d="M19.1 18h-6.2"/></svg>
+<select name=language title=language onchange="window.location.href=this.selectedOptions[0].value"><option value=/visual-studio-code-remote-deployment/ selected>한국어</option><option value=/en/>English</option></select></li><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>다크 모드</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><form action=/search/ class="search-form widget"><p><label>검색</label>
 <input name=keyword required placeholder="검색어를 입력하세요...">
-<button title=검색><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
-</button>
-</p>
-</form>
-<section class="widget archives">
-<div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg>
-</div>
-<h2 class="widget-title section-title">목차</h2>
-<div class=widget--toc>
-<nav id=TableOfContents>
-<ul>
-<li>
-<ul>
-<li><a href=#클라이언트-윈도우-준비>클라이언트 (윈도우) 준비</a></li>
-<li><a href=#서버-리눅스-준비>서버 (리눅스) 준비</a></li>
-<li><a href=#visual-studio-code-준비>Visual Studio Code 준비</a></li>
-<li><a href=#remote-로-접속>Remote 로 접속!</a></li>
-</ul>
-</li>
-</ul>
-</nav>
-</div>
-</section>
-<section class="widget adsense">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
-<ins class=adsbygoogle style=display:block data-ad-client=ca-pub-0712823212859607 data-ad-slot=8117949234 data-ad-format=auto data-full-width-responsive=true></ins>
-<script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
-</section>
-</aside>
-</div>
-<script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script>
-<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
-</body>
-</html>
+<button title=검색>
+<svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg></button></p></form><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">목차</h2><div class=widget--toc><nav class=toc-nav id=TableOfContents><ul><li><ul><li><a href=#클라이언트-윈도우-준비>클라이언트 (윈도우) 준비</a></li><li><a href=#서버-리눅스-준비>서버 (리눅스) 준비</a></li><li><a href=#visual-studio-code-준비>Visual Studio Code 준비</a></li><li><a href=#remote-로-접속>Remote 로 접속!</a></li></ul></li></ul></nav></div></section></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><header class=article-category><a href=/categories/tech/ style=background-color:#1c8193;color:#fff>TECH 🛠️</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/visual-studio-code-remote-deployment/>Visual Studio Code Remote Deployment</a></h2></div><footer class=article-meta><div class=inline-meta><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published datetime=2019-06-26T05:11:21Z>2019-06-26</time>
+<svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>3 분 정도</time></div></footer></div></header><aside class=article-toc><details><summary><div class=article-toc-title><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6-6 6"/></svg>
+<span>목차</span></div></summary><nav class=toc-nav><ul><li><ul><li><a href=#클라이언트-윈도우-준비>클라이언트 (윈도우) 준비</a></li><li><a href=#서버-리눅스-준비>서버 (리눅스) 준비</a></li><li><a href=#visual-studio-code-준비>Visual Studio Code 준비</a></li><li><a href=#remote-로-접속>Remote 로 접속!</a></li></ul></li></ul></nav></details></aside><section class=article-content><p>Vim 과 SSH 에 찌들어 있었는데, 이번 Visual Studio Code 의 베타 기능인 Remote Deployment 를 연결해 보고 나서, 학생 때 쓰던 IDE 로 돌아간 것 같아 너무 좋았다. 언제까지고 구식 도구를 쓰며 부심을 부릴 수만은 없다. 설치 과정이 조금 험난했지만, 간단히 요약해서 써본다.</p><p>클라이언트 OS 는 윈도우 10 (빌드 1809), 서버 OS 는 Cent OS 7 기준으로 작성한다.</p><h2 id=클라이언트-윈도우-준비>클라이언트 (윈도우) 준비</h2><p>처음에 준비할 때는 <a class=link href=https://code.visualstudio.com/insiders/ target=_blank rel=noopener>Visual Studio Code Insider</a> 버전을 설치하라고 되어 있었는데, 이제는 꼭 그럴 필요 없는 것 같다. 일반 <a class=link href=https://code.visualstudio.com/Download target=_blank rel=noopener>Visual Studio Code</a> 를 설치해도 된다.</p><p>다음으로, SSH 클라이언트를 설치한다. <strong>윈도우 10 빌드 1807 이상 버전</strong>의 윈도우 OS 라면 <a class=link href=https://docs.microsoft.com/ko-kr/windows-server/administration/openssh/openssh_install_firstuse target=_blank rel=noopener>여기 링크</a> 안내를 따르거나, 아래 요약된 스크린샷을 보면 된다.</p><p>시작 > 설정 앱에서, &lsquo;앱&rsquo; 을 클릭한 뒤 &lsquo;앱 및 기능&rsquo; 탭의 &lsquo;선택적 기능 관리&rsquo; 를 클릭한다. 그 다음 아래 &lsquo;OpenSSH 클라이언트&rsquo; 를 찾아 설치한다. OpenSSH 서버는 설치할 필요가 없다.</p><p><img loading=lazy sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src=/uploads/2019/06/img_5d11df55e7f29.png>
+<img loading=lazy sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src=/uploads/2019/06/img_5d11df39e0722.png></p><blockquote><p>만약에 여러분이 윈도우 10 빌드 1807 이하 버전의 윈도우 OS 라면… 조금 귀찮아진다. <a class=link href=https://code.visualstudio.com/docs/remote/troubleshooting#_installing-a-supported-ssh-client target=_blank rel=noopener>이 문서</a> 에 따르면, <a class=link href=https://git-scm.com/download/win target=_blank rel=noopener>Git for windows</a> 를 설치하면서 옵션에서 <strong>Use Git and optional Unix tools from the Command Prompt </strong>를 선택하면 된다.<br>그러면, 같이 설치된 mingw 내부의 SSH 를 클라이언트로 사용한다고 한다. 물론 난 테스트해 보진 않았다! 권한 문제 등등으로 생각보다 꼬일 가능성이 있으므로, 조심해야 한다.</p></blockquote><p>이제 ssh key 를 만들어야 한다. 비대칭 키에 대한 지식이 없다면 <a class=link href=https://arsviator.blogspot.com/2015/04/ssh-ssh-key.html target=_blank rel=noopener>암호 대신 SSH Key 로 인증하기</a> 포스팅을 참고하면 된다. 혹시 PuTTY 에서 생성한 비공개 키를 등록하고 쓰고 있으니 이걸로 충분하지 않을까? 그렇게 준비하면.. 실제 접속할 때 아마 잘 안 될 것이다.</p><p>Visual Studio Code 는 OpenSSH (또는 Git 의 ssh) 클라이언트를 쓰기 때문에, Key 호환성 문제로 &lsquo;invalid format&rsquo; 에러를 발생시킬 수 있다. 그러니 순순히 (?) <strong>실행 명령 창 (cmd) 을 열어서</strong> 다음을 입력하자. 기존에 쓰던 키 저장 경로가 존재한다면, 다른 경로로 설정하는 것을 추천한다. 이 방법은 <a class=link href=https://code.visualstudio.com/docs/remote/troubleshooting#_quick-start-ssh-key target=_blank rel=noopener>Visual Studio Code 페이지의 Troubleshooting</a> 에 등록된 내용이다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ssh-keygen -t rsa -b  <span class=m>4096</span>
+</span></span></code></pre></div><h2 id=서버-리눅스-준비>서버 (리눅스) 준비</h2><p>원활한 서비스가 가능한 리눅스 OS 목록은 <a class=link href=https://code.visualstudio.com/docs/remote/linux target=_blank rel=noopener>여기</a>를 참고하면 된다. Cent OS 7 은 잘 되므로 별 다른 설정 없이 가능하다. 지원이 안 되는 리눅스들은 workaround 가 있는데 (특시 Cent OS 6) 생각보다 까다롭고 원치 않는 상황이 발생할 수 있기 때문에 신중해야 한다.</p><p>접속하고자 하는 계정의 <code>~/.ssh/authorized_keys</code> 파일에다가, 아까 만들었던 Key Pair 중 &lsquo;공개 키&rsquo; 정보를 입력해야 한다. 해당 파일이 없으면 만들면 되고, 있으면 파일 끝에 추가 (append) 해주면 된다.</p><p><code>~/.ssh/authorized_keys</code> 파일의 권한이 600 (계정에서만 읽기/쓰기가 가능) 인지 반드시 체크하고, 아니라면 <code>chmod</code> 명령으로 바꿔주도록 한다. (이건 SSH 일반 접속 때문에 하는 작업이지, Visual Studio Code 라서 하는 것이 아니다.)</p><h2 id=visual-studio-code-준비>Visual Studio Code 준비</h2><p>우여곡절 끝에 준비를 다 했으면, Visual Studio Code 를 열어서 <a class=link href=https://aka.ms/vscode-remote/download/extension target=_blank rel=noopener>Remote Deployment</a> 를 설치하자. 그 다음, 명령 팔레트를 열어서 (Shift + Ctrl + P) <strong>Remote-SSH: Open Configuration File…</strong> 을 선택한다. 설정 파일 경로는 수정하거나 기존에 잡아주는 경로를 쓰건 상관없다.</p><p id=KhDFgvb><img class="alignnone size-full wp-image-1524" src=https://interp.blog/uploads/2019/06/img_5d12fc88e148b.png alt srcset="https://interp.blog/uploads/2019/06/img_5d12fc88e148b.png 622w, https://interp.blog/uploads/2019/06/img_5d12fc88e148b-300x45.png 300w" sizes="(max-width: 622px) 100vw, 622px"></p><p>예시는 이렇다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>Host 192.168.0.10
+</span></span><span class=line><span class=cl>    HostName 192.168.0.10
+</span></span><span class=line><span class=cl>    User interp
+</span></span><span class=line><span class=cl>    IdentityFile &#34;C:\Users\interp\ssh_key\id_rsa&#34;
+</span></span></code></pre></div><ul><li>Host : 목록에 나올 이름이다. 보통은 HostName 과 같이 지정해주거나 Username@HostName 으로 지정한다.</li><li>HostName : 실제 접속할 호스트 주소</li><li>User : 접속할 사용자 계정 이름</li><li>IdentifyFile : 생성한 Key Pair 중 &lsquo;비공개 키&rsquo; 경로</li></ul><h2 id=remote-로-접속>Remote 로 접속!</h2><p>이제 설정 파일을 저장하고, 명령 팔레트를 열어서 (Shift + Ctrl + P) <strong>Remote-SSH: Connect to Host…</strong> 을 선택한다. 아까 저장한 Host 가 1개만 떠 있을텐데, 접속하면 아예 새로운 Visual Studio Code 창이 하나 더 뜨게 된다.</p><p>이것저것 하는 것 같으니 잠시 기다리면, 접속이 되었다는 메시지와 함께 &lsquo;절대로 저 작은 터미널을 닫지 말아주세요&rsquo; 라는 경고문이 뜬다. 최소화시키고 작업을 하면 된다!</p></section><footer class="article-meta article-footer"><section class=article-tags><a href=/tags/ssh/>SSH</a>
+<a href=/tags/vs-code/>Vs Code</a>
+<a href=/tags/remote/>Remote</a></section></footer></article><aside><h2 class=section-title>관련 글</h2><div class=subsection-list><div class=article-list--tile><article class=has-image><a href=/ssh-authorized-keys-problem/><div class=article-image><img alt="Featured image of post SSH 비대칭 키로 접속할 때 문제 해결" height=150 loading=lazy src=/ssh-authorized-keys-problem/feature_hu_f460e11cbd90ed06.jpg srcset="/ssh-authorized-keys-problem/feature_hu_f460e11cbd90ed06.jpg 1x" width=250></div><div class=article-details style="background:linear-gradient(0deg,#02020280 0%,#f1f1f1C0 100%)"><h2 class=article-title>SSH 비대칭 키로 접속할 때 문제 해결</h2></div></a></article><article class=has-image><a href=/windows-ssh-rsa-key-%EB%AC%B8%EC%A0%9C-%ED%95%B4%EA%B2%B0/><div class=article-image><img alt="Featured image of post Windows SSH RSA Key 문제 해결" loading=lazy src=/images/featured/ssh-rsa.jpg></div><div class=article-details><h2 class=article-title>Windows SSH RSA Key 문제 해결</h2></div></a></article><article><a href=/x11-windows-linux-subsystem/><div class=article-details><h2 class=article-title>X11 on Windows Linux Subsystem</h2></div></a></article><article><a href=/obsidian-copilot-openrouter-free-llm/><div class=article-details><h2 class=article-title>Obsidian Copilot과 OpenRouter로 구축하는 나만의 무료 AI 워크플로우</h2></div></a></article><article class=has-image><a href=/microsoft-ai-tour-seoul-2025-review/><div class=article-image><img alt="Featured image of post Microsoft AI Tour Seoul 2025 후기" height=150 loading=lazy src=/microsoft-ai-tour-seoul-2025-review/feature_hu_54ccc15e75d8a864.jpeg srcset="/microsoft-ai-tour-seoul-2025-review/feature_hu_54ccc15e75d8a864.jpeg 1x, /microsoft-ai-tour-seoul-2025-review/feature_hu_a2e088dc225ca71d.jpeg 2x" width=250></div><div class=article-details style="background:linear-gradient(0deg,#e7dfdf80 0%,#130e0bC0 100%)"><h2 class=article-title>Microsoft AI Tour Seoul 2025 후기</h2></div></a></article></div></div></aside><script src=https://giscus.app/client.js data-repo=1nterp/1nterp.github.io data-repo-id="MDEwOlJlcG9zaXRvcnkyMzY5NzQ5Mzc=" data-category=General data-category-id=MDE4OkRpc2N1c3Npb25DYXRlZ29yeTMyMjU4Mjgx data-mapping=pathname data-strict=0 data-reactions-enabled=1 data-emit-metadata=1 data-input-position=top data-theme=light data-lang=en data-loading=lazy crossorigin=anonymous async></script><script>function setGiscusTheme(e){let t=document.querySelector("iframe.giscus-frame");t&&t.contentWindow.postMessage({giscus:{setConfig:{theme:e}}},"https://giscus.app")}(function(){addEventListener("message",t=>{if(event.origin!=="https://giscus.app")return;e()}),window.addEventListener("onColorSchemeChange",e);function e(){setGiscusTheme(document.documentElement.dataset.scheme==="light"?"light":"dark_dimmed")}})()</script><footer class=site-footer><section class=copyright>&copy;
+2019 -
+2026 InterP Blog</section><section class=powerby><a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a>로 만듦<br><a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=4.0.3>Stack</a></b> 테마 사용 중</section></footer><script type=module>
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script></main></div><script type=text/javascript src=/ts/main.74d5d6241af8967b6f1ef8ef876fb897ddb81eeaad46b5a139f47d9cbd3a64d4.js defer></script></body></html>

@@ -1,173 +1,64 @@
-<!doctype html><html lang=ko-kr dir=ltr>
-<head><meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="패키지, 변수, 함수 정의와 사용에 대해"><title>A tour of Go: Package, Function, Variable</title>
-<style>@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500&display=swap';@import "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"</style>
-<link href=https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css rel=stylesheet>
-<link rel=canonical href=https://interp.blog/tour-of-go-package-function-variable/>
-<link rel=stylesheet href=/scss/style.min.4be513be4d3ee5d10255ef2b36fc366628db7e83c856167310af719cdd53496c.css><meta property="title" content="A tour of Go: Package, Function, Variable">
-<meta property="description" content="패키지, 변수, 함수 정의와 사용에 대해">
-<meta property="og:title" content="A tour of Go: Package, Function, Variable">
-<meta property="og:description" content="패키지, 변수, 함수 정의와 사용에 대해">
-<meta property="og:url" content="https://interp.blog/tour-of-go-package-function-variable/">
-<meta property="og:site_name" content="InterP Blog">
-<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="golang"><meta property="article:tag" content="tutorial"><meta property="article:tag" content="programming"><meta property="article:published_time" content="2022-06-16T10:26:18+09:00"><meta property="article:modified_time" content="2022-06-16T10:26:18+09:00">
-<meta name=twitter:site content="@interp_">
-<meta name=twitter:creator content="@interp_"><meta name=twitter:title content="A tour of Go: Package, Function, Variable">
-<meta name=twitter:description content="패키지, 변수, 함수 정의와 사용에 대해">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KMRJ33V06X"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-KMRJ33V06X')</script>
-<script>(function(b,d,e,a,g){b[a]=b[a]||[],b[a].push({'gtm.start':(new Date).getTime(),event:'gtm.js'});var f=d.getElementsByTagName(e)[0],c=d.createElement(e),h=a!='dataLayer'?'&l='+a:'';c.async=!0,c.src='https://www.googletagmanager.com/gtm.js?id='+g+h,f.parentNode.insertBefore(c,f)})(window,document,'script','dataLayer','GTM-NBPHNHQ')</script>
-</head>
-<body class=article-page>
-<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>
-<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky">
-<button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 토글">
-<span class=hamburger-box>
-<span class=hamburger-inner></span>
-</span>
-</button>
-<header>
-<div class=site-meta>
-<h1 class=site-name><a href=/>InterP Blog</a></h1>
-<h2 class=site-description>Things I'm interested</h2>
-</div>
-</header><ol class=menu id=main-menu>
-<li>
-<a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
-<span>Home</span>
-</a>
-</li>
-<li>
-<a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
-<span>Archives</span>
-</a>
-</li>
-<li>
-<a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
-<span>Search</span>
-</a>
-</li>
-<div class=menu-bottom-section>
-<li id=i18n-switch><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5h7"/><path d="M9 3v2c0 4.418-2.239 8-5 8"/><path d="M5 9c-.003 2.144 2.952 3.908 6.7 4"/><path d="M12 20l4-9 4 9"/><path d="M19.1 18h-6.2"/></svg>
-<select name=language onchange="window.location.href=this.selectedOptions[0].value"><option value=https://interp.blog/ selected>한국어</option><option value=https://interp.blog/en/>English</option></select>
-</li>
-<li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
-<span>다크 모드</span>
-</li>
-</div>
-</ol>
-</aside>
-<main class="main full-width">
-<article class=main-article>
-<header class=article-header style=display:block>
-<div class=article-details>
-<header class=article-category>
-<a href=/categories/tech/ style=background-color:#1c8193;color:#fff>
-TECH 🛠️
-</a>
-</header>
-<div class=article-title-wrapper>
-<h2 class=article-title>
-<a href=/tour-of-go-package-function-variable/>A tour of Go: Package, Function, Variable</a>
-</h2>
-<h3 class=article-subtitle>
-패키지, 변수, 함수 정의와 사용에 대해
-</h3>
-</div>
-<footer class=article-time>
-<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
-<time class=article-time--published>2022-06-16</time>
-</div>
-<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
-<time class=article-time--reading>
-4 분 소요
-</time>
-</div>
-</footer>
-</div>
-</header>
-<section class=article-content>
-<p>A tour of Go 시리즈를 두 번씩 돌아보고, 나름 배운 것들을 연이어 적어보려 한다. 첫 번째로 패키지, 변수, 함수 정의와 사용에 대한 내용이다. 이 문서는 번역이 아니라서, 개인적으로 중요했던 부분만 있을 수도 있고 투어 예제에서 다루지 않은 부분이 섞여있을 수 있으니 편하게 봐주셨으면 한다. <del>화면 안 넘기고 스크롤만으로 볼 수 있다는 장점 정도?</del></p>
-<h2 id=a-tour-of-go>A tour of Go</h2>
-<p>Go 언어의 튜토리얼 페이지라고 보면 된다. 다양한 언어로 번역되어 있으니 영어 원문으로 봐도 좋고 한국어판으로 봐도 좋다.</p>
-<ul>
-<li>English: <a class=link href=https://go.dev/tour/ title=https://go.dev/tour/ target=_blank rel=noopener>https://go.dev/tour/</a></li>
-<li>한국어판: <a class=link href=https://go-tour-ko.appspot.com/ title=https://go-tour-ko.appspot.com/ target=_blank rel=noopener>https://go-tour-ko.appspot.com/</a></li>
-</ul>
-<h2 id=package>Package</h2>
-<p>모든 <code>*.go</code> 파일의 첫 줄에는, 이 파일이 속한 &lsquo;패키지&rsquo; 이름을 작성한다. <code>main.go</code> 는 이렇게 패키지 이름이 지정될 것이다.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kn>package</span> <span class=nx>main</span>
-</code></pre></div><p>다음 줄에는, 이 파일에서 사용할 다른 패키지들을 작성할 수 있다. 이렇게 각각 패키지 이름과 함께 <code>import</code> 를 해도 되지만,</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=c1>// separated
-</span><span class=c1></span><span class=kn>import</span> <span class=s>&#34;fmt&#34;</span>
-<span class=kn>import</span> <span class=s>&#34;math&#34;</span>
-</code></pre></div><p>이렇게 뭉쳐서 선언하는게 보통이다.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=c1>// factored (better)
-</span><span class=c1></span><span class=kn>import</span> <span class=p>(</span>
-	<span class=s>&#34;fmt&#34;</span>
-	<span class=s>&#34;math&#34;</span>
-<span class=p>)</span>
-</code></pre></div><h2 id=function-declaration>Function declaration</h2>
-<p>다양한 방식으로 함수 시그니처를 선언할 수 있다.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=c1>// 기본적인 형태. return type 까지 적어야 함.
-</span><span class=c1></span><span class=kd>func</span> <span class=nf>add</span><span class=p>(</span><span class=nx>x</span> <span class=kt>int</span><span class=p>,</span> <span class=nx>y</span> <span class=kt>int</span><span class=p>)</span> <span class=kt>int</span> <span class=p>{</span> <span class=p>..</span> <span class=p>}</span>
-
-<span class=c1>// input 타입이 다 같으면 이렇게 typing 을 몰아서 할 수도 있음 (가독성은 좀 떨어짐)
-</span><span class=c1></span><span class=kd>func</span> <span class=nf>add</span><span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span> <span class=kt>int</span><span class=p>)</span> <span class=kt>int</span> <span class=p>{</span> <span class=p>..</span> <span class=p>}</span>     
-
-<span class=c1>// return 도 여러 개 가능함.
-</span><span class=c1></span><span class=kd>func</span> <span class=nf>swap</span><span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span> <span class=kt>string</span><span class=p>)</span> <span class=p>(</span><span class=kt>string</span><span class=p>,</span> <span class=kt>string</span><span class=p>)</span> <span class=p>{</span> <span class=p>..</span> <span class=p>}</span>
-
-<span class=c1>// return 에 변수명을 입력해도 됨. 이 때는 변수명이 함수 내부에서 사용되고, naked return 으로 리턴함 (&#39;return&#39; 만 씀) 
-</span><span class=c1>// &lt;&lt; 가독성이 심하게 떨어지므로 짧은 함수일 때만 쓰는걸 추천함.
-</span><span class=c1></span><span class=kd>func</span> <span class=nf>split</span><span class=p>(</span><span class=nx>sum</span> <span class=kt>int</span><span class=p>)</span> <span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span> <span class=kt>int</span><span class=p>)</span> <span class=p>{</span> <span class=p>..</span> <span class=p>}</span>
-</code></pre></div><br>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
-<ins class=adsbygoogle style=display:block data-ad-format=fluid data-ad-layout-key=-fx-q+4w-88+2u data-ad-client=ca-pub-0712823212859607 data-ad-slot=1092971030></ins>
-<script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
-<br>
-<h2 id=variable-declaration>Variable declaration</h2>
-<p>변수 또한 다양한 방식으로 선언이 가능한데, 크게 두 가지 방법으로 할 수 있다.</p>
-<ul>
-<li><code>var</code> 키워드를 통한 선언</li>
-<li><code>:=</code> 를 사용해 선언+할당 동시에 하기</li>
-</ul>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kd>var</span> <span class=nx>c</span><span class=p>,</span> <span class=nx>python</span><span class=p>,</span> <span class=nx>java</span> <span class=kt>bool</span> <span class=c1>// 여러 변수가 전부 같은 타입이면 이렇게 변수명 리스트와 마지막 타입 한 번만 적어서 정의해도 됨.
-</span><span class=c1></span>                         <span class=c1>// 이건 패키지 레벨, 즉, 다른 함수도 c, python, java 를 모두 접근할 수 있다.
-</span><span class=c1></span>
-<span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
-	<span class=kd>var</span> <span class=nx>i</span> <span class=kt>int</span>  <span class=c1>// 순서는 var [변수명] [타입] 이다. 이건 함수 레벨이다.
-</span><span class=c1></span>	<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>i</span><span class=p>,</span> <span class=nx>c</span><span class=p>,</span> <span class=nx>python</span><span class=p>,</span> <span class=nx>java</span><span class=p>)</span>
-<span class=p>}</span>
-</code></pre></div><p>변수 선언과 함께 값을 할당하는 initializer 방법도 다양하다.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kd>var</span> <span class=nx>i</span><span class=p>,</span> <span class=nx>j</span> <span class=kt>int</span> <span class=p>=</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>2</span> <span class=c1>// 지정된 타입에 맞춰 넣는다. 여러 개를 이렇게 동시에 넣어도 된다. (이 경우에 j = &#34;str&#34; 하면 에러 난다)
-</span><span class=c1></span><span class=kd>var</span> <span class=nx>c</span><span class=p>,</span> <span class=nx>python</span><span class=p>,</span> <span class=nx>java</span> <span class=p>=</span> <span class=kc>true</span><span class=p>,</span> <span class=kc>false</span><span class=p>,</span> <span class=s>&#34;no!&#34;</span> <span class=c1>// 타입 지정이 되어 있지 않아도, 값에 따라 개별로 설정된다. 앞부터 bool, bool, string 이 된다.
-</span><span class=c1></span>
-<span class=c1>// 이렇게 factored 방식으로 지정할 수도 있고, 가독성 역시 좋아진다~
-</span><span class=c1></span><span class=kd>var</span> <span class=p>(</span>
-	<span class=nx>ToBe</span>   <span class=kt>bool</span>       <span class=p>=</span> <span class=kc>false</span>
-	<span class=nx>MaxInt</span> <span class=kt>uint64</span>     <span class=p>=</span> <span class=mi>1</span><span class=o>&lt;&lt;</span><span class=mi>64</span> <span class=o>-</span> <span class=mi>1</span> <span class=c1>// bit-wise operator 조심
-</span><span class=c1></span><span class=p>)</span>
-</code></pre></div><p><code>:=</code> 도 알아보자. 단, 이 방법은 전역 변수 (=패키지 레벨 변수) 에서는 사용이 불가능하다. 이 때는 <code>var</code> 로만 선언이 가능하다.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kd>func</span> <span class=nf>blahblah</span><span class=p>()</span> <span class=p>{</span>
-	<span class=nx>k</span> <span class=o>:=</span> <span class=mi>3</span> <span class=c1>// var k = 3 과 같다. var == : 라는 뜻.
-</span><span class=c1></span>	<span class=nx>c</span><span class=p>,</span> <span class=nx>python</span><span class=p>,</span> <span class=nx>java</span> <span class=o>:=</span> <span class=kc>true</span><span class=p>,</span> <span class=kc>false</span><span class=p>,</span> <span class=s>&#34;no!&#34;</span>
-	<span class=o>...</span>
-<span class=p>}</span>
-</code></pre></div><h2 id=exported-variablefunction>Exported variable/function</h2>
-<p>첫 문자가 <strong>대문자</strong>인 함수나 전역 변수 이름은, <code>패키지 이름.이름</code> 형식으로 다른 패키지에서 참조가 가능하다. 아래와 같이 쓰고 <code>custommath_pi.go</code> 라고 저장했다고 하면, <code>custommath.hiddenPi</code> 로는 참조가 안 되고 <code>custommath.Pi()</code> 는 참조가 가능하다.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kn>package</span> <span class=nx>custommath</span>
-
-<span class=kd>var</span> <span class=nx>hiddenPi</span> <span class=kt>float64</span>
-
-<span class=kd>func</span> <span class=nf>Pi</span><span class=p>()</span> <span class=kt>float64</span> <span class=p>{</span> <span class=o>...</span> <span class=p>}</span>
-</code></pre></div><p>주목할 부분은,</p>
-<ul>
-<li>파일 이름이 아니라 패키지 이름으로 참조한다는 것이다.</li>
-<li>다른 말로, 같은 패키지 안이기만 하면, 다른 파일에서도 모든 변수/함수 참조가 가능하다는 것이다. (같은 패키지에서 중복된 변수/함수 이름은 허용되지 않는 이유..)</li>
-</ul>
-<h2 id=variable-types-default-values>Variable types, default values</h2>
-<pre><code>bool
+<!doctype html><html lang=ko-kr dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="패키지, 변수, 함수 정의와 사용에 대해"><title>A tour of Go: Package, Function, Variable</title><link rel=canonical href=https://interp.blog/tour-of-go-package-function-variable/><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=stylesheet href=https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css><link rel=stylesheet href=/scss/style.min.13527503d779121ab03c412f0b9dee045fb647686643dd243aa74021dddf30be.css><meta property='og:title' content="A tour of Go: Package, Function, Variable"><meta property='og:description' content="패키지, 변수, 함수 정의와 사용에 대해"><meta property='og:url' content='https://interp.blog/tour-of-go-package-function-variable/'><meta property='og:site_name' content='InterP Blog'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content='golang'><meta property='article:tag' content='tutorial'><meta property='article:tag' content='programming'><meta property='article:published_time' content='2022-06-16T10:26:18+09:00'><meta property='article:modified_time' content='2022-06-16T10:26:18+09:00'><meta name=twitter:site content="@interp_"><meta name=twitter:creator content="@interp_"><meta name=twitter:title content="A tour of Go: Package, Function, Variable"><meta name=twitter:description content="패키지, 변수, 함수 정의와 사용에 대해"><script async src="https://www.googletagmanager.com/gtag/js?id=G-KMRJ33V06X"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-KMRJ33V06X")</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 여닫기">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/>InterP Blog</a></h1><h2 class=site-description>Things I'm interested</h2></div></header><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li class=menu-bottom-section><ol class=menu><li id=i18n-switch><svg class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5h7"/><path d="M9 3v2c0 4.418-2.239 8-5 8"/><path d="M5 9c-.003 2.144 2.952 3.908 6.7 4"/><path d="M12 20l4-9 4 9"/><path d="M19.1 18h-6.2"/></svg>
+<select name=language title=language onchange="window.location.href=this.selectedOptions[0].value"><option value=/tour-of-go-package-function-variable/ selected>한국어</option><option value=/en/>English</option></select></li><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>다크 모드</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><form action=/search/ class="search-form widget"><p><label>검색</label>
+<input name=keyword required placeholder="검색어를 입력하세요...">
+<button title=검색>
+<svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg></button></p></form><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">목차</h2><div class=widget--toc><nav class=toc-nav id=TableOfContents><ul><li><ul><li><a href=#a-tour-of-go>A tour of Go</a></li><li><a href=#package>Package</a></li><li><a href=#function-declaration>Function declaration</a></li><li><a href=#variable-declaration>Variable declaration</a></li><li><a href=#exported-variablefunction>Exported variable/function</a></li><li><a href=#variable-types-default-values>Variable types, default values</a></li><li><a href=#variable-type-casting>Variable type-casting</a></li><li><a href=#constant>Constant</a></li></ul></li></ul></nav></div></section></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><header class=article-category><a href=/categories/tech/ style=background-color:#1c8193;color:#fff>TECH 🛠️</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/tour-of-go-package-function-variable/>A tour of Go: Package, Function, Variable</a></h2><h3 class=article-subtitle>패키지, 변수, 함수 정의와 사용에 대해</h3></div><footer class=article-meta><div class=inline-meta><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published datetime=2022-06-16T10:26:18+09:00>2022-06-16</time>
+<svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>4 분 정도</time></div></footer></div></header><aside class=article-toc><details><summary><div class=article-toc-title><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6-6 6"/></svg>
+<span>목차</span></div></summary><nav class=toc-nav><ul><li><ul><li><a href=#a-tour-of-go>A tour of Go</a></li><li><a href=#package>Package</a></li><li><a href=#function-declaration>Function declaration</a></li><li><a href=#variable-declaration>Variable declaration</a></li><li><a href=#exported-variablefunction>Exported variable/function</a></li><li><a href=#variable-types-default-values>Variable types, default values</a></li><li><a href=#variable-type-casting>Variable type-casting</a></li><li><a href=#constant>Constant</a></li></ul></li></ul></nav></details></aside><section class=article-content><p>A tour of Go 시리즈를 두 번씩 돌아보고, 나름 배운 것들을 연이어 적어보려 한다. 첫 번째로 패키지, 변수, 함수 정의와 사용에 대한 내용이다. 이 문서는 번역이 아니라서, 개인적으로 중요했던 부분만 있을 수도 있고 투어 예제에서 다루지 않은 부분이 섞여있을 수 있으니 편하게 봐주셨으면 한다. <del>화면 안 넘기고 스크롤만으로 볼 수 있다는 장점 정도?</del></p><h2 id=a-tour-of-go>A tour of Go</h2><p>Go 언어의 튜토리얼 페이지라고 보면 된다. 다양한 언어로 번역되어 있으니 영어 원문으로 봐도 좋고 한국어판으로 봐도 좋다.</p><ul><li>English: <a class=link href=https://go.dev/tour/ title=https://go.dev/tour/ target=_blank rel=noopener>https://go.dev/tour/</a></li><li>한국어판: <a class=link href=https://go-tour-ko.appspot.com/ title=https://go-tour-ko.appspot.com/ target=_blank rel=noopener>https://go-tour-ko.appspot.com/</a></li></ul><h2 id=package>Package</h2><p>모든 <code>*.go</code> 파일의 첫 줄에는, 이 파일이 속한 &lsquo;패키지&rsquo; 이름을 작성한다. <code>main.go</code> 는 이렇게 패키지 이름이 지정될 것이다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span><span class=w> </span><span class=nx>main</span><span class=w>
+</span></span></span></code></pre></div><p>다음 줄에는, 이 파일에서 사용할 다른 패키지들을 작성할 수 있다. 이렇게 각각 패키지 이름과 함께 <code>import</code> 를 해도 되지만,</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// separated</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kn>import</span><span class=w> </span><span class=s>&#34;fmt&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kn>import</span><span class=w> </span><span class=s>&#34;math&#34;</span><span class=w>
+</span></span></span></code></pre></div><p>이렇게 뭉쳐서 선언하는게 보통이다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// factored (better)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kn>import</span><span class=w> </span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=s>&#34;fmt&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=s>&#34;math&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>)</span><span class=w>
+</span></span></span></code></pre></div><h2 id=function-declaration>Function declaration</h2><p>다양한 방식으로 함수 시그니처를 선언할 수 있다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// 기본적인 형태. return type 까지 적어야 함.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>add</span><span class=p>(</span><span class=nx>x</span><span class=w> </span><span class=kt>int</span><span class=p>,</span><span class=w> </span><span class=nx>y</span><span class=w> </span><span class=kt>int</span><span class=p>)</span><span class=w> </span><span class=kt>int</span><span class=w> </span><span class=p>{</span><span class=w> </span><span class=p>..</span><span class=w> </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1>// input 타입이 다 같으면 이렇게 typing 을 몰아서 할 수도 있음 (가독성은 좀 떨어짐)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>add</span><span class=p>(</span><span class=nx>x</span><span class=p>,</span><span class=w> </span><span class=nx>y</span><span class=w> </span><span class=kt>int</span><span class=p>)</span><span class=w> </span><span class=kt>int</span><span class=w> </span><span class=p>{</span><span class=w> </span><span class=p>..</span><span class=w> </span><span class=p>}</span><span class=w>     
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1>// return 도 여러 개 가능함.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>swap</span><span class=p>(</span><span class=nx>x</span><span class=p>,</span><span class=w> </span><span class=nx>y</span><span class=w> </span><span class=kt>string</span><span class=p>)</span><span class=w> </span><span class=p>(</span><span class=kt>string</span><span class=p>,</span><span class=w> </span><span class=kt>string</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w> </span><span class=p>..</span><span class=w> </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1>// return 에 변수명을 입력해도 됨. 이 때는 변수명이 함수 내부에서 사용되고, naked return 으로 리턴함 (&#39;return&#39; 만 씀) </span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1>// &lt;&lt; 가독성이 심하게 떨어지므로 짧은 함수일 때만 쓰는걸 추천함.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>split</span><span class=p>(</span><span class=nx>sum</span><span class=w> </span><span class=kt>int</span><span class=p>)</span><span class=w> </span><span class=p>(</span><span class=nx>x</span><span class=p>,</span><span class=w> </span><span class=nx>y</span><span class=w> </span><span class=kt>int</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w> </span><span class=p>..</span><span class=w> </span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></div><br><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script><ins class=adsbygoogle style=display:block data-ad-format=fluid data-ad-layout-key=-fx-q+4w-88+2u data-ad-client=ca-pub-0712823212859607 data-ad-slot=1092971030></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=variable-declaration>Variable declaration</h2><p>변수 또한 다양한 방식으로 선언이 가능한데, 크게 두 가지 방법으로 할 수 있다.</p><ul><li><code>var</code> 키워드를 통한 선언</li><li><code>:=</code> 를 사용해 선언+할당 동시에 하기</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>var</span><span class=w> </span><span class=nx>c</span><span class=p>,</span><span class=w> </span><span class=nx>python</span><span class=p>,</span><span class=w> </span><span class=nx>java</span><span class=w> </span><span class=kt>bool</span><span class=w> </span><span class=c1>// 여러 변수가 전부 같은 타입이면 이렇게 변수명 리스트와 마지막 타입 한 번만 적어서 정의해도 됨.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>                         </span><span class=c1>// 이건 패키지 레벨, 즉, 다른 함수도 c, python, java 를 모두 접근할 수 있다.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=kd>var</span><span class=w> </span><span class=nx>i</span><span class=w> </span><span class=kt>int</span><span class=w>  </span><span class=c1>// 순서는 var [변수명] [타입] 이다. 이건 함수 레벨이다.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>i</span><span class=p>,</span><span class=w> </span><span class=nx>c</span><span class=p>,</span><span class=w> </span><span class=nx>python</span><span class=p>,</span><span class=w> </span><span class=nx>java</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span></code></pre></div><p>변수 선언과 함께 값을 할당하는 initializer 방법도 다양하다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>var</span><span class=w> </span><span class=nx>i</span><span class=p>,</span><span class=w> </span><span class=nx>j</span><span class=w> </span><span class=kt>int</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=mi>1</span><span class=p>,</span><span class=w> </span><span class=mi>2</span><span class=w> </span><span class=c1>// 지정된 타입에 맞춰 넣는다. 여러 개를 이렇게 동시에 넣어도 된다. (이 경우에 j = &#34;str&#34; 하면 에러 난다)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>var</span><span class=w> </span><span class=nx>c</span><span class=p>,</span><span class=w> </span><span class=nx>python</span><span class=p>,</span><span class=w> </span><span class=nx>java</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=kc>true</span><span class=p>,</span><span class=w> </span><span class=kc>false</span><span class=p>,</span><span class=w> </span><span class=s>&#34;no!&#34;</span><span class=w> </span><span class=c1>// 타입 지정이 되어 있지 않아도, 값에 따라 개별로 설정된다. 앞부터 bool, bool, string 이 된다.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1>// 이렇게 factored 방식으로 지정할 수도 있고, 가독성 역시 좋아진다~</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>var</span><span class=w> </span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>ToBe</span><span class=w>   </span><span class=kt>bool</span><span class=w>       </span><span class=p>=</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>MaxInt</span><span class=w> </span><span class=kt>uint64</span><span class=w>     </span><span class=p>=</span><span class=w> </span><span class=mi>1</span><span class=o>&lt;&lt;</span><span class=mi>64</span><span class=w> </span><span class=o>-</span><span class=w> </span><span class=mi>1</span><span class=w> </span><span class=c1>// bit-wise operator 조심</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>)</span><span class=w>
+</span></span></span></code></pre></div><p><code>:=</code> 도 알아보자. 단, 이 방법은 전역 변수 (=패키지 레벨 변수) 에서는 사용이 불가능하다. 이 때는 <code>var</code> 로만 선언이 가능하다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>blahblah</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>k</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=mi>3</span><span class=w> </span><span class=c1>// var k = 3 과 같다. var == : 라는 뜻.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>c</span><span class=p>,</span><span class=w> </span><span class=nx>python</span><span class=p>,</span><span class=w> </span><span class=nx>java</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=kc>true</span><span class=p>,</span><span class=w> </span><span class=kc>false</span><span class=p>,</span><span class=w> </span><span class=s>&#34;no!&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=o>...</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span></code></pre></div><h2 id=exported-variablefunction>Exported variable/function</h2><p>첫 문자가 <strong>대문자</strong>인 함수나 전역 변수 이름은, <code>패키지 이름.이름</code> 형식으로 다른 패키지에서 참조가 가능하다. 아래와 같이 쓰고 <code>custommath_pi.go</code> 라고 저장했다고 하면, <code>custommath.hiddenPi</code> 로는 참조가 안 되고 <code>custommath.Pi()</code> 는 참조가 가능하다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span><span class=w> </span><span class=nx>custommath</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>var</span><span class=w> </span><span class=nx>hiddenPi</span><span class=w> </span><span class=kt>float64</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>Pi</span><span class=p>()</span><span class=w> </span><span class=kt>float64</span><span class=w> </span><span class=p>{</span><span class=w> </span><span class=o>...</span><span class=w> </span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></div><p>주목할 부분은,</p><ul><li>파일 이름이 아니라 패키지 이름으로 참조한다는 것이다.</li><li>다른 말로, 같은 패키지 안이기만 하면, 다른 파일에서도 모든 변수/함수 참조가 가능하다는 것이다. (같은 패키지에서 중복된 변수/함수 이름은 허용되지 않는 이유..)</li></ul><h2 id=variable-types-default-values>Variable types, default values</h2><pre><code>bool
 string
 int  int8  int16  int32  int64
 uint uint8 uint16 uint32 uint64 uintptr
@@ -176,178 +67,44 @@ rune // alias for int32
      // represents a Unicode code point
 float32 float64
 complex64 complex128 // 복소수임.. e.g. 3+2i
-</code></pre>
-<ul>
-<li>C/C++ 개발자들에겐 <code>uintptr</code>, <code>rune</code>, <code>complex</code> 타입이 좀 생소할 수 있다. 주석으로 설명해 뒀으니 이해해주면 좋겠다.</li>
-<li><code>int</code>, <code>uint</code>, <code>uintptr</code> 은 물론, 32-bit system 에서는 4바이트, 64-bit system 에서는 8바이트이다.</li>
-</ul>
-<p>이제 각 타입의 기본값을 알아보자.</p>
-<ul>
-<li>정수/실수형은 전부 <strong>0</strong> (float 역시 0.0 이 아니라 0)</li>
-<li>boolean 은 <strong>false</strong></li>
-<li>string 은 <strong>“”</strong> (empty) (formatting 에서 주목할 부분은 <code>%q</code> 로 하면 quota 가 붙는다는 거다 (&mldr;))</li>
-<li>포인터형은 전부 <strong>nil</strong></li>
-</ul>
-<h2 id=variable-type-casting>Variable type-casting</h2>
-<p>Go 언어에서 type casting 은 <em>type conversion</em> 이라고 불린다. 그냥 캐스팅 하듯 type 을 앞에 쓰고 괄호로 감싸면 형변환이 된다.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=nx>i</span> <span class=o>:=</span> <span class=mi>42</span>
-<span class=nx>f</span> <span class=o>:=</span> <span class=nb>float64</span><span class=p>(</span><span class=nx>i</span><span class=p>)</span>
-<span class=nx>u</span> <span class=o>:=</span> <span class=nb>uint</span><span class=p>(</span><span class=nx>f</span><span class=p>)</span>
-<span class=nx>s</span> <span class=o>:=</span> <span class=nb>string</span><span class=p>(</span><span class=nx>i</span><span class=p>)</span>
-</code></pre></div><p>다른 대부분의 언어에서는 암묵적 캐스팅이 가능한데, Go 언어는 이 부분에서 엄격하다. 따라서 이 구문은 안 된다.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kd>var</span> <span class=nx>i</span> <span class=kt>int</span> <span class=p>=</span> <span class=mi>1</span>
-<span class=kd>var</span> <span class=nx>f</span> <span class=kt>float64</span> <span class=p>=</span> <span class=nx>i</span> <span class=c1>// i 가 int 여서 안 됨. 1.0 으로 들어가지 않음
-</span></code></pre></div><h2 id=constant>Constant</h2>
-<p><code>const</code> 키워드를 쓰면 된다.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kd>const</span> <span class=nx>Pi</span> <span class=p>=</span> <span class=mf>3.14</span>
-
-<span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
-	<span class=kd>const</span> <span class=nx>world</span> <span class=p>=</span> <span class=s>&#34;세계&#34;</span>
-<span class=p>}</span>
-</code></pre></div><p>다음의 특징을 가진다.</p>
-<ul>
-<li>
-<p>패키지 레벨, 함수 레벨 둘 다 가능하다.</p>
-</li>
-<li>
-<p><code>var</code> 이나 <code>:=</code> 로 선언할 수 없다. 이 말은, <strong>별도의 타입 선언을 하지 않고</strong> 상수 값과 함께 선언한다.</p>
-</li>
-<li>
-<p>별도 타입 선언이 안 되므로, 정수형 상수 (numeric constant) 를 넣을 때는 내부적으로 필요한 type 을 (마음대로) 결정한다. 예를 들어,</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kd>const</span> <span class=nx>Big</span> <span class=p>=</span> <span class=mi>1</span> <span class=o>&lt;&lt;</span> <span class=mi>100</span>
-</code></pre></div><p>이렇게 선언하면 Big 은 <code>int</code> 형이 아니라 <code>float64</code> 쯤 될 것이다. 이 말은 <code>Big</code> 을 int 처럼 쓰려고 들면 type conversion error 를 만날 수 있다는 것이다.</p>
-</li>
-</ul>
-</section>
-<footer class=article-footer>
-<br>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
-<ins class=adsbygoogle style=display:block;height:300px;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-0712823212859607 data-ad-slot=7880266545></ins>
-<script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
-<section class=article-tags>
-<a href=/tags/golang/>Golang</a>
-<a href=/tags/tutorial/>tutorial</a>
-<a href=/tags/programming/>programming</a>
-</section>
-</footer>
-</article>
-<aside class=related-content--wrapper>
-<h2 class=section-title>관련 글</h2>
-<div class=related-content>
-<div class="flex article-list--tile">
-<article>
-<a href=/tour-of-go-pointer-struct-array-slice/>
-<div class=article-details>
-<h2 class=article-title>A tour of Go: Pointer, Struct, Array, Slice</h2>
-</div>
-</a>
-</article>
-<article>
-<a href=/tour-of-go-flow-control-stmts/>
-<div class=article-details>
-<h2 class=article-title>A tour of Go: Flow control statements</h2>
-</div>
-</a>
-</article>
-<article>
-<a href=/golang-errorsnew-fmterrorf/>
-<div class=article-details>
-<h2 class=article-title>Golang: errors.new() vs. fmt.Errorf()</h2>
-</div>
-</a>
-</article>
-</div>
-</div>
-</aside>
-<script src=https://giscus.app/client.js data-repo=1nterp/1nterp.github.io data-repo-id="MDEwOlJlcG9zaXRvcnkyMzY5NzQ5Mzc=" data-category=General data-category-id=MDE4OkRpc2N1c3Npb25DYXRlZ29yeTMyMjU4Mjgx data-mapping=pathname data-reactions-enabled=1 data-emit-metadata=1 data-theme=light data-lang=en data-loading=lazy crossorigin=anonymous async></script>
-<script>function setGiscusTheme(b){let a=document.querySelector("iframe.giscus-frame");a&&a.contentWindow.postMessage({giscus:{setConfig:{theme:b}}},"https://giscus.app")}(function(){addEventListener("message",b=>{if(event.origin!=="https://giscus.app")return;a()}),window.addEventListener("onColorSchemeChange",a);function a(){document.documentElement.dataset.scheme==="light"?setGiscusTheme('light'):setGiscusTheme('dark_dimmed')}})()</script>
-<footer class=site-footer>
-<section class=copyright>
-&copy;
+</code></pre><ul><li>C/C++ 개발자들에겐 <code>uintptr</code>, <code>rune</code>, <code>complex</code> 타입이 좀 생소할 수 있다. 주석으로 설명해 뒀으니 이해해주면 좋겠다.</li><li><code>int</code>, <code>uint</code>, <code>uintptr</code> 은 물론, 32-bit system 에서는 4바이트, 64-bit system 에서는 8바이트이다.</li></ul><p>이제 각 타입의 기본값을 알아보자.</p><ul><li>정수/실수형은 전부 <strong>0</strong> (float 역시 0.0 이 아니라 0)</li><li>boolean 은 <strong>false</strong></li><li>string 은 <strong>“”</strong> (empty) (formatting 에서 주목할 부분은 <code>%q</code> 로 하면 quota 가 붙는다는 거다 (&mldr;))</li><li>포인터형은 전부 <strong>nil</strong></li></ul><h2 id=variable-type-casting>Variable type-casting</h2><p>Go 언어에서 type casting 은 <em>type conversion</em> 이라고 불린다. 그냥 캐스팅 하듯 type 을 앞에 쓰고 괄호로 감싸면 형변환이 된다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>i</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=mi>42</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>f</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nb>float64</span><span class=p>(</span><span class=nx>i</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>u</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nb>uint</span><span class=p>(</span><span class=nx>f</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>s</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nb>string</span><span class=p>(</span><span class=nx>i</span><span class=p>)</span><span class=w>
+</span></span></span></code></pre></div><p>다른 대부분의 언어에서는 암묵적 캐스팅이 가능한데, Go 언어는 이 부분에서 엄격하다. 따라서 이 구문은 안 된다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>var</span><span class=w> </span><span class=nx>i</span><span class=w> </span><span class=kt>int</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=mi>1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>var</span><span class=w> </span><span class=nx>f</span><span class=w> </span><span class=kt>float64</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=nx>i</span><span class=w> </span><span class=c1>// i 가 int 여서 안 됨. 1.0 으로 들어가지 않음</span><span class=w>
+</span></span></span></code></pre></div><h2 id=constant>Constant</h2><p><code>const</code> 키워드를 쓰면 된다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>const</span><span class=w> </span><span class=nx>Pi</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=mf>3.14</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=kd>const</span><span class=w> </span><span class=nx>world</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=s>&#34;세계&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span></code></pre></div><p>다음의 특징을 가진다.</p><ul><li><p>패키지 레벨, 함수 레벨 둘 다 가능하다.</p></li><li><p><code>var</code> 이나 <code>:=</code> 로 선언할 수 없다. 이 말은, <strong>별도의 타입 선언을 하지 않고</strong> 상수 값과 함께 선언한다.</p></li><li><p>별도 타입 선언이 안 되므로, 정수형 상수 (numeric constant) 를 넣을 때는 내부적으로 필요한 type 을 (마음대로) 결정한다. 예를 들어,</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>const</span><span class=w> </span><span class=nx>Big</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=mi>1</span><span class=w> </span><span class=o>&lt;&lt;</span><span class=w> </span><span class=mi>100</span><span class=w>
+</span></span></span></code></pre></div><p>이렇게 선언하면 Big 은 <code>int</code> 형이 아니라 <code>float64</code> 쯤 될 것이다. 이 말은 <code>Big</code> 을 int 처럼 쓰려고 들면 type conversion error 를 만날 수 있다는 것이다.</p></li></ul></section><footer class="article-meta article-footer"><section class=article-tags><a href=/tags/golang/>Golang</a>
+<a href=/tags/tutorial/>Tutorial</a>
+<a href=/tags/programming/>Programming</a></section></footer></article><aside><h2 class=section-title>관련 글</h2><div class=subsection-list><div class=article-list--tile><article><a href=/tour-of-go-pointer-struct-array-slice/><div class=article-details><h2 class=article-title>A tour of Go: Pointer, Struct, Array, Slice</h2></div></a></article><article><a href=/tour-of-go-flow-control-stmts/><div class=article-details><h2 class=article-title>A tour of Go: Flow control statements</h2></div></a></article><article><a href=/golang-errorsnew-fmterrorf/><div class=article-details><h2 class=article-title>Golang: errors.new() vs. fmt.Errorf()</h2></div></a></article><article class=has-image><a href=/program-language-closure/><div class=article-image><img alt="Featured image of post 클로저 (Closure)" height=150 loading=lazy src=/program-language-closure/feature_hu_ed61b4a5fde109c3.jpg srcset="/program-language-closure/feature_hu_ed61b4a5fde109c3.jpg 1x, /program-language-closure/feature_hu_1e39fe0dea17a495.jpg 2x" width=250></div><div class=article-details style="background:linear-gradient(0deg,#fcb30980 0%,#050101C0 100%)"><h2 class=article-title>클로저 (Closure)</h2></div></a></article><article><a href=/golang-struct-tag/><div class=article-details><h2 class=article-title>Golang struct tag: omitempty</h2></div></a></article></div></div></aside><script src=https://giscus.app/client.js data-repo=1nterp/1nterp.github.io data-repo-id="MDEwOlJlcG9zaXRvcnkyMzY5NzQ5Mzc=" data-category=General data-category-id=MDE4OkRpc2N1c3Npb25DYXRlZ29yeTMyMjU4Mjgx data-mapping=pathname data-strict=0 data-reactions-enabled=1 data-emit-metadata=1 data-input-position=top data-theme=light data-lang=en data-loading=lazy crossorigin=anonymous async></script><script>function setGiscusTheme(e){let t=document.querySelector("iframe.giscus-frame");t&&t.contentWindow.postMessage({giscus:{setConfig:{theme:e}}},"https://giscus.app")}(function(){addEventListener("message",t=>{if(event.origin!=="https://giscus.app")return;e()}),window.addEventListener("onColorSchemeChange",e);function e(){setGiscusTheme(document.documentElement.dataset.scheme==="light"?"light":"dark_dimmed")}})()</script><footer class=site-footer><section class=copyright>&copy;
 2019 -
-2026 InterP Blog
-</section>
-<section class=powerby>
-<a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 기반 / <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.12.0>Stack</a></b> 테마를 사용 중입니다.
-</section>
-</footer>
-<div class=pswp tabindex=-1 role=dialog aria-hidden=true>
-<div class=pswp__bg></div>
-<div class=pswp__scroll-wrap>
-<div class=pswp__container>
-<div class=pswp__item></div>
-<div class=pswp__item></div>
-<div class=pswp__item></div>
-</div>
-<div class="pswp__ui pswp__ui--hidden">
-<div class=pswp__top-bar>
-<div class=pswp__counter></div>
-<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-<button class="pswp__button pswp__button--share" title=Share></button>
-<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-<div class=pswp__preloader>
-<div class=pswp__preloader__icn>
-<div class=pswp__preloader__cut>
-<div class=pswp__preloader__donut></div>
-</div>
-</div>
-</div>
-</div>
-<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-<div class=pswp__share-tooltip></div>
-</div>
-<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-</button>
-<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-</button>
-<div class=pswp__caption>
-<div class=pswp__caption__center></div>
-</div>
-</div>
-</div>
-</div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous>
-</main>
-<aside class="sidebar right-sidebar sticky">
-<form action=/search/ class="search-form widget">
-<p>
-<label>검색</label>
-<input name=keyword required placeholder="검색어를 입력하세요...">
-<button title=검색><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
-</button>
-</p>
-</form>
-<section class="widget archives">
-<div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg>
-</div>
-<h2 class="widget-title section-title">목차</h2>
-<div class=widget--toc>
-<nav id=TableOfContents>
-<ul>
-<li>
-<ul>
-<li><a href=#a-tour-of-go>A tour of Go</a></li>
-<li><a href=#package>Package</a></li>
-<li><a href=#function-declaration>Function declaration</a></li>
-<li><a href=#variable-declaration>Variable declaration</a></li>
-<li><a href=#exported-variablefunction>Exported variable/function</a></li>
-<li><a href=#variable-types-default-values>Variable types, default values</a></li>
-<li><a href=#variable-type-casting>Variable type-casting</a></li>
-<li><a href=#constant>Constant</a></li>
-</ul>
-</li>
-</ul>
-</nav>
-</div>
-</section>
-<section class="widget adsense">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0712823212859607" crossorigin=anonymous></script>
-<ins class=adsbygoogle style=display:block data-ad-client=ca-pub-0712823212859607 data-ad-slot=8117949234 data-ad-format=auto data-full-width-responsive=true></ins>
-<script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
-</section>
-</aside>
-</div>
-<script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script>
-<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
-</body>
-</html>
+2026 InterP Blog</section><section class=powerby><a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a>로 만듦<br><a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=4.0.3>Stack</a></b> 테마 사용 중</section></footer><script type=module>
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script></main></div><script type=text/javascript src=/ts/main.74d5d6241af8967b6f1ef8ef876fb897ddb81eeaad46b5a139f47d9cbd3a64d4.js defer></script></body></html>

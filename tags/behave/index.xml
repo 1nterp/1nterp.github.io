@@ -1,143 +1,176 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>behave on InterP Blog</title><link>https://interp.blog/tags/behave/</link><description>Recent content in behave on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Fri, 19 Aug 2022 09:00:36 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/behave/index.xml" rel="self" type="application/rss+xml"/><item><title>BDD in Python: Behave</title><link>https://interp.blog/bdd-in-python-behave/</link><pubDate>Fri, 19 Aug 2022 09:00:36 +0900</pubDate><guid>https://interp.blog/bdd-in-python-behave/</guid><description>&lt;p>&lt;a class="link" href="https://interp.blog/bdd-behavior-driven-development/" >지난 포스팅&lt;/a>으로 BDD 는 어떤 개발방법론이고, 어떤 면에서 이 방법이 필요한지를 정리해 봤다. &lt;/p>
-&lt;p>이번 포스팅을 시작으로, 직접 다양한 언어에서 BDD 를 적용하는 방법을 정리해 볼 예정이다. 첫 시간으로는 &lt;strong>파이썬&lt;/strong> (Python) 언어를 가지고 할 것이다. Python 라이브러리 중 하나인 &lt;a class="link" href="https://behave.readthedocs.io/en/stable/" target="_blank" rel="noopener"
->behave&lt;/a> 를 통해, BDD 테스트 프레임워크를 구성하고, 예제 시나리오를 만들어서 테스트 자동화가 어떻게 이뤄질 수 있을지 알아보자.&lt;/p>
-&lt;h1 id="예제-프로젝트-생성">예제 프로젝트 생성&lt;/h1>
-&lt;div style="background-color: var(--pre-background-color); width: 95%; margin:2rem; padding: 20px; border-radius: 5px;font-size: .8em;display: flex;">
-&lt;div style="width: 16px;margin-right: 7px; margin-left: 4px;">
-💡
-&lt;/div>
-&lt;div>
-모든 명령어는 리눅스 OS 또는 WSL 환경에서 실행한다고 가정한다.
-&lt;/div>
-&lt;/div>
-&lt;p>파이썬이 설치된 환경에서 다음과 같이 디렉터리만 만들면 된다.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">mkdir behave-test &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nb">cd&lt;/span> behave-test
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>나는 virtualenv 를 이용해 환경을 분리해 두도록 하겠다.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">virtualenv venv
-&lt;span class="nb">source&lt;/span> venv/bin/activate
-&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="behave-설치">behave 설치&lt;/h1>
-&lt;p>&lt;code>pip install behave&lt;/code> 만 하면 된다.&lt;/p>
-&lt;h1 id="featuressteps-디렉터리-생성">&lt;code>features/steps&lt;/code> 디렉터리 생성&lt;/h1>
-&lt;p>behave 는 &lt;code>features/steps&lt;/code> 를 필요로 한다. 만들어 주자.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">mkdir -p features/steps
-&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
-&lt;p>디렉터리만 만들고 곧장 &lt;code>behave&lt;/code> 를 실행하면, &lt;code>ConfigError: No feature files in $(pwd)/features&lt;/code> 라는 메시지가 뜰 것이다.&lt;/p>
-&lt;h1 id="feature-파일-만들기">&lt;code>.feature&lt;/code> 파일 만들기&lt;/h1>
-&lt;p>&lt;code>features/hotdog.feature&lt;/code> 라는 파일을 하나 만들어보자. 핫도그 12개에서 5개를 먹으면 반드시 7개가 남아야 한다는 내용이다. 단순 영어로 되어 있지만, 문법에 대해 더 자세히 알고 싶다면 &lt;a class="link" href="https://interp.tistory.com/entry/BDD-%EC%9D%98%EB%AF%B8%EC%99%80-%ED%95%84%EC%9A%94%EC%84%B1" target="_blank" rel="noopener"
->이전 포스팅&lt;/a>을 꼭 참고하고 오자.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-gherkin" data-lang="gherkin">&lt;span class="k">Feature:&lt;/span>&lt;span class="nf"> eat hotdogs
-&lt;/span>&lt;span class="nf">
-&lt;/span>&lt;span class="nf"> &lt;/span>&lt;span class="k">Scenario:&lt;/span>&lt;span class="nf"> Eat 5 out of 12
-&lt;/span>&lt;span class="nf">&lt;/span>&lt;span class="k"> Given &lt;/span>&lt;span class="nf">there are &lt;/span>&lt;span class="s">12&lt;/span>&lt;span class="nf"> hotdogs
-&lt;/span>&lt;span class="nf"> &lt;/span>&lt;span class="k">When &lt;/span>&lt;span class="nf">I eat &lt;/span>&lt;span class="s">5&lt;/span>&lt;span class="nf">
-&lt;/span>&lt;span class="nf"> &lt;/span>&lt;span class="k">Then &lt;/span>&lt;span class="nf">there should be &lt;/span>&lt;span class="s">7&lt;/span>&lt;span class="nf"> remaining
-&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
-&lt;p>이제 다시 &lt;code>behave&lt;/code> 를 실행하면, 아래 구조로 되어 있는 테스트 파일이 존재하지 않다고 하면서, 스니펫 (snippet) 을 출력해 주고 내부를 구현해 달라고 한다.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ behave
-Feature: eat hotdogs &lt;span class="c1"># features/hotdog.feature:1&lt;/span>
-Scenario: Eat &lt;span class="m">5&lt;/span> out of &lt;span class="m">12&lt;/span> &lt;span class="c1"># features/hotdog.feature:3&lt;/span>
-Given there are &lt;span class="m">12&lt;/span> hotdogs &lt;span class="c1"># None&lt;/span>
-When I eat &lt;span class="m">5&lt;/span> &lt;span class="c1"># None&lt;/span>
-Then there should be &lt;span class="m">7&lt;/span> remaining &lt;span class="c1"># None&lt;/span>
-Failing scenarios:
-features/hotdog.feature:3 Eat &lt;span class="m">5&lt;/span> out of &lt;span class="m">12&lt;/span>
-&lt;span class="m">0&lt;/span> features passed, &lt;span class="m">1&lt;/span> failed, &lt;span class="m">0&lt;/span> skipped
-&lt;span class="m">0&lt;/span> scenarios passed, &lt;span class="m">1&lt;/span> failed, &lt;span class="m">0&lt;/span> skipped
-&lt;span class="m">0&lt;/span> steps passed, &lt;span class="m">0&lt;/span> failed, &lt;span class="m">0&lt;/span> skipped, &lt;span class="m">3&lt;/span> undefined
-Took 0m0.000s
-You can implement step definitions &lt;span class="k">for&lt;/span> undefined steps with these snippets:
-@given&lt;span class="o">(&lt;/span>u&lt;span class="s1">&amp;#39;there are 12 hotdogs&amp;#39;&lt;/span>&lt;span class="o">)&lt;/span>
-def step_impl&lt;span class="o">(&lt;/span>context&lt;span class="o">)&lt;/span>:
-raise NotImplementedError&lt;span class="o">(&lt;/span>u&lt;span class="s1">&amp;#39;STEP: Given there are 12 hotdogs&amp;#39;&lt;/span>&lt;span class="o">)&lt;/span>
-@when&lt;span class="o">(&lt;/span>u&lt;span class="s1">&amp;#39;I eat 5&amp;#39;&lt;/span>&lt;span class="o">)&lt;/span>
-def step_impl&lt;span class="o">(&lt;/span>context&lt;span class="o">)&lt;/span>:
-raise NotImplementedError&lt;span class="o">(&lt;/span>u&lt;span class="s1">&amp;#39;STEP: When I eat 5&amp;#39;&lt;/span>&lt;span class="o">)&lt;/span>
-@then&lt;span class="o">(&lt;/span>u&lt;span class="s1">&amp;#39;there should be 7 remaining&amp;#39;&lt;/span>&lt;span class="o">)&lt;/span>
-def step_impl&lt;span class="o">(&lt;/span>context&lt;span class="o">)&lt;/span>:
-raise NotImplementedError&lt;span class="o">(&lt;/span>u&lt;span class="s1">&amp;#39;STEP: Then there should be 7 remaining&amp;#39;&lt;/span>&lt;span class="o">)&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="테스트-python-파일-만들기">테스트 Python 파일 만들기&lt;/h1>
-&lt;p>방금 출력된 내용을 단순히 복사해서 &lt;code>features/steps/hotdog.py&lt;/code> 라는 파일을 만들었다. 참고로 파일 이름은 상관없지만 반드시 &lt;code>features/steps&lt;/code> 디렉터리에 위치해야 한다.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">from&lt;/span> &lt;span class="nn">behave&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="o">*&lt;/span>
-&lt;span class="nd">@given&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">u&lt;/span>&lt;span class="s1">&amp;#39;there are 12 hotdogs&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;span class="k">def&lt;/span> &lt;span class="nf">step_impl&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">context&lt;/span>&lt;span class="p">):&lt;/span>
-&lt;span class="k">raise&lt;/span> &lt;span class="ne">NotImplementedError&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">u&lt;/span>&lt;span class="s1">&amp;#39;STEP: Given there are 12 hotdogs&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;span class="nd">@when&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">u&lt;/span>&lt;span class="s1">&amp;#39;I eat 5&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;span class="k">def&lt;/span> &lt;span class="nf">step_impl&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">context&lt;/span>&lt;span class="p">):&lt;/span>
-&lt;span class="k">raise&lt;/span> &lt;span class="ne">NotImplementedError&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">u&lt;/span>&lt;span class="s1">&amp;#39;STEP: When I eat 5&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;span class="nd">@then&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">u&lt;/span>&lt;span class="s1">&amp;#39;there should be 7 remaining&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;span class="k">def&lt;/span> &lt;span class="nf">step_impl&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">context&lt;/span>&lt;span class="p">):&lt;/span>
-&lt;span class="k">raise&lt;/span> &lt;span class="ne">NotImplementedError&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">u&lt;/span>&lt;span class="s1">&amp;#39;STEP: Then there should be 7 remaining&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>시나리오의 각 구절 (&lt;em>GIVEN, WHEN, THEN&lt;/em>) 에 연결되는 기준은, 각 method 에 위치한 decorator 인 &lt;code>@given&lt;/code>, &lt;code>@when&lt;/code>, &lt;code>@then&lt;/code> 에 따라 달려있기 때문에, 파일 이름은 상관없고 해당 decorator 만 수정하지 않으면 된다. &lt;/p>
-&lt;p>그리고 주의할 것은, 반드시 맨 위에 &lt;code>from behave import *&lt;/code> 와 같이 &lt;code>behave&lt;/code> 라이브러리를 import 해야 한다는 것이다.&lt;/p>
-&lt;hr>
-&lt;p>이렇게 하고 다시 &lt;code>behave&lt;/code> 를 실행하면, 예상대로 &lt;code>NotImplementedError&lt;/code> exception 이 발생하면서 traceback 이 출력되고, 테스트는 실패한 것으로 간주한다.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ behave
-Feature: eat hotdogs &lt;span class="c1"># features/hotdog.feature:1&lt;/span>
-Scenario: Eat &lt;span class="m">5&lt;/span> out of &lt;span class="m">12&lt;/span> &lt;span class="c1"># features/hotdog.feature:3&lt;/span>
-Given there are &lt;span class="m">12&lt;/span> hotdogs &lt;span class="c1"># features/steps/hotdog.py:3 0.000s&lt;/span>
-Traceback &lt;span class="o">(&lt;/span>most recent call last&lt;span class="o">)&lt;/span>:
-File &lt;span class="s2">&amp;#34;/home/behave-test/venv/lib/python3.6/site-packages/behave/model.py&amp;#34;&lt;/span>, line 1329, in run
-match.run&lt;span class="o">(&lt;/span>runner.context&lt;span class="o">)&lt;/span>
-File &lt;span class="s2">&amp;#34;/home/behave-test/venv/lib/python3.6/site-packages/behave/matchers.py&amp;#34;&lt;/span>, line 98, in run
-self.func&lt;span class="o">(&lt;/span>context, *args, **kwargs&lt;span class="o">)&lt;/span>
-File &lt;span class="s2">&amp;#34;features/steps/hotdog.py&amp;#34;&lt;/span>, line 5, in step_impl
-raise NotImplementedError&lt;span class="o">(&lt;/span>u&lt;span class="s1">&amp;#39;STEP: Given there are 12 hotdogs&amp;#39;&lt;/span>&lt;span class="o">)&lt;/span>
-NotImplementedError: STEP: Given there are &lt;span class="m">12&lt;/span> hotdogs
-When I eat &lt;span class="m">5&lt;/span> &lt;span class="c1"># None&lt;/span>
-Then there should be &lt;span class="m">7&lt;/span> remaining &lt;span class="c1"># None&lt;/span>
-Failing scenarios:
-features/hotdog.feature:3 Eat &lt;span class="m">5&lt;/span> out of &lt;span class="m">12&lt;/span>
-&lt;span class="m">0&lt;/span> features passed, &lt;span class="m">1&lt;/span> failed, &lt;span class="m">0&lt;/span> skipped
-&lt;span class="m">0&lt;/span> scenarios passed, &lt;span class="m">1&lt;/span> failed, &lt;span class="m">0&lt;/span> skipped
-&lt;span class="m">0&lt;/span> steps passed, &lt;span class="m">1&lt;/span> failed, &lt;span class="m">2&lt;/span> skipped, &lt;span class="m">0&lt;/span> undefined
-Took 0m0.000s
-&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="테스트-파일-구현하기">테스트 파일 구현하기&lt;/h1>
-&lt;p>이제 테스트 파일 안의 method 를 구현해 보자.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">from&lt;/span> &lt;span class="nn">behave&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="o">*&lt;/span>
-&lt;span class="nd">@given&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">u&lt;/span>&lt;span class="s1">&amp;#39;there are &lt;/span>&lt;span class="si">{num_hotdog}&lt;/span>&lt;span class="s1"> hotdogs&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;span class="k">def&lt;/span> &lt;span class="nf">step_impl&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">context&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">num_hotdog&lt;/span>&lt;span class="p">):&lt;/span>
-&lt;span class="n">context&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">hotdogs&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">num_hotdog&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;span class="nd">@when&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">u&lt;/span>&lt;span class="s1">&amp;#39;I eat &lt;/span>&lt;span class="si">{eaten_hotdog}&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;span class="k">def&lt;/span> &lt;span class="nf">step_impl&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">context&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">eaten_hotdog&lt;/span>&lt;span class="p">):&lt;/span>
-&lt;span class="n">context&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">hotdogs&lt;/span> &lt;span class="o">-=&lt;/span> &lt;span class="nb">int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">eaten_hotdog&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;span class="nd">@then&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">u&lt;/span>&lt;span class="s1">&amp;#39;there should be &lt;/span>&lt;span class="si">{remaining_hotdog}&lt;/span>&lt;span class="s1"> remaining&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;span class="k">def&lt;/span> &lt;span class="nf">step_impl&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">context&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">remaining_hotdog&lt;/span>&lt;span class="p">):&lt;/span>
-&lt;span class="k">assert&lt;/span> &lt;span class="n">context&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">hotdogs&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="nb">int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">remaining_hotdog&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>decorator 에서 숫자를 나타내는 부분을 &lt;code>num_hotdog&lt;/code> 같은 식으로 파라메터로 치환한 것을 주목해 달라. 이렇게 해 두면, 나중에 숫자만 바꾼 시나리오를 추가해도, 위의 세 개 method 를 재사용할 수 있는 장점이 있다.&lt;/p>
-&lt;p>그리고 behave 는 &lt;a class="link" href="https://behave.readthedocs.io/en/stable/tutorial.html?highlight=eq_#context" target="_blank" rel="noopener"
->&lt;code>context&lt;/code> 라는 파라메터를 입력으로 받을 수 있도록&lt;/a> 지원한다. 해당 시나리오가 진행되는 동안 유효한 객체이며, 따라서 여기에 원하는 attribute 를 만들어 값을 저장하고 열람할 수 있다. 예제 시나리오에서는, 남은 핫도그 개수를 &lt;code>context.hotdogs&lt;/code> 로 보관한다.&lt;/p>
-&lt;blockquote>
-&lt;p>엄밀히 말하면, when 에 해당하는 method 에서 핫도그 개수를 차감하는 부분은 &lt;strong>여기서 구현하면 안 된다&lt;/strong>. 실제 업무에 사용하려면, 여기서 &lt;strong>&amp;lsquo;실제로 구현한 로직&amp;rsquo; 을&lt;/strong> &lt;strong>호출해야&lt;/strong> 한다. 그래야 검증을 할 수 있으니 말이다!&lt;/p>
-&lt;/blockquote>
-&lt;hr>
-&lt;p>다시 &lt;code>behave&lt;/code> 를 실행하면, 이제야 모든 테스트가 통과되었음을 알 수 있다!&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ behave
-Feature: eat hotdogs &lt;span class="c1"># features/hotdog.feature:1&lt;/span>
-Scenario: Eat &lt;span class="m">5&lt;/span> out of &lt;span class="m">12&lt;/span> &lt;span class="c1"># features/hotdog.feature:3&lt;/span>
-Given there are &lt;span class="m">12&lt;/span> hotdogs &lt;span class="c1"># features/steps/hotdog.py:3 0.000s&lt;/span>
-When I eat &lt;span class="m">5&lt;/span> &lt;span class="c1"># features/steps/hotdog.py:8 0.000s&lt;/span>
-Then there should be &lt;span class="m">7&lt;/span> remaining &lt;span class="c1"># features/steps/hotdog.py:12 0.000s&lt;/span>
-&lt;span class="m">1&lt;/span> feature passed, &lt;span class="m">0&lt;/span> failed, &lt;span class="m">0&lt;/span> skipped
-&lt;span class="m">1&lt;/span> scenario passed, &lt;span class="m">0&lt;/span> failed, &lt;span class="m">0&lt;/span> skipped
-&lt;span class="m">3&lt;/span> steps passed, &lt;span class="m">0&lt;/span> failed, &lt;span class="m">0&lt;/span> skipped, &lt;span class="m">0&lt;/span> undefined
-Took 0m0.000s
-&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="숫자만-바꾼-시나리오를-추가하면">숫자만 바꾼 시나리오를 추가하면?&lt;/h1>
-&lt;p>시나리오&lt;strong>만&lt;/strong> 추가하더라도 이미 재사용이 가능한 형태로 테스트 method 를 구현했기 때문에, 아래처럼 성공적으로 작동한다.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ behave
-Feature: eat hotdogs &lt;span class="c1"># features/hotdog.feature:1&lt;/span>
-Scenario: Eat &lt;span class="m">5&lt;/span> out of &lt;span class="m">12&lt;/span> &lt;span class="c1"># features/hotdog.feature:3&lt;/span>
-Given there are &lt;span class="m">12&lt;/span> hotdogs &lt;span class="c1"># features/steps/hotdog.py:3 0.000s&lt;/span>
-When I eat &lt;span class="m">5&lt;/span> &lt;span class="c1"># features/steps/hotdog.py:8 0.000s&lt;/span>
-Then there should be &lt;span class="m">7&lt;/span> remaining &lt;span class="c1"># features/steps/hotdog.py:12 0.000s&lt;/span>
-Scenario: Eat &lt;span class="m">10&lt;/span> out of &lt;span class="m">20&lt;/span> &lt;span class="c1"># features/hotdog.feature:8&lt;/span>
-Given there are &lt;span class="m">20&lt;/span> hotdogs &lt;span class="c1"># features/steps/hotdog.py:3 0.000s&lt;/span>
-When I eat &lt;span class="m">10&lt;/span> &lt;span class="c1"># features/steps/hotdog.py:8 0.000s&lt;/span>
-Then there should be &lt;span class="m">10&lt;/span> remaining &lt;span class="c1"># features/steps/hotdog.py:12 0.000s&lt;/span>
-&lt;span class="m">1&lt;/span> feature passed, &lt;span class="m">0&lt;/span> failed, &lt;span class="m">0&lt;/span> skipped
-&lt;span class="m">2&lt;/span> scenarios passed, &lt;span class="m">0&lt;/span> failed, &lt;span class="m">0&lt;/span> skipped
-&lt;span class="m">6&lt;/span> steps passed, &lt;span class="m">0&lt;/span> failed, &lt;span class="m">0&lt;/span> skipped, &lt;span class="m">0&lt;/span> undefined
-Took 0m0.001s
-&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="마치며">마치며&lt;/h1>
-&lt;p>이제 이 테스트 케이스를 구현할 때 mock 라이브러리를 통해 mocking 을 하면, 기능 검증을 충분히 할 수 있을 것이다. 시나리오를 추가하는 것은 개발자 뿐만이 아닌 비 개발자나 QA 도 할 수 있어야 하고, 개발자는 그렇게 푸시된 새로운 시나리오를 보고 커버리지를 달성하기 위해 테스트에 좀 더 집중할 수 있을 것이다.&lt;/p>
-&lt;p>한 가지 맹점은, 기존 시나리오가 바뀌면 테스트 케이스 개발 과정에서 엄청난 고통이 뒤따를 수 있단 것이다. 따라서 (전에도 말했지만) 항상 시나리오는 합의 하에 신중히 추가되어야 한다.&lt;/p>
-&lt;p>다음 시간에는 golang 으로 똑같은 시나리오를 테스트 해 볼 예정이다.&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Behave on InterP Blog</title><link>https://interp.blog/tags/behave/</link><description>Recent content in Behave on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Fri, 19 Aug 2022 09:00:36 +0900</lastBuildDate><atom:link href="https://interp.blog/tags/behave/index.xml" rel="self" type="application/rss+xml"/><item><title>BDD in Python: Behave</title><link>https://interp.blog/bdd-in-python-behave/</link><pubDate>Fri, 19 Aug 2022 09:00:36 +0900</pubDate><guid>https://interp.blog/bdd-in-python-behave/</guid><description>&lt;p&gt;&lt;a class="link" href="https://interp.blog/bdd-behavior-driven-development/" &gt;지난 포스팅&lt;/a&gt;으로 BDD 는 어떤 개발방법론이고, 어떤 면에서 이 방법이 필요한지를 정리해 봤다. &lt;/p&gt;
+&lt;p&gt;이번 포스팅을 시작으로, 직접 다양한 언어에서 BDD 를 적용하는 방법을 정리해 볼 예정이다. 첫 시간으로는 &lt;strong&gt;파이썬&lt;/strong&gt; (Python) 언어를 가지고 할 것이다. Python 라이브러리 중 하나인 &lt;a class="link" href="https://behave.readthedocs.io/en/stable/" target="_blank" rel="noopener"
+ &gt;behave&lt;/a&gt; 를 통해, BDD 테스트 프레임워크를 구성하고, 예제 시나리오를 만들어서 테스트 자동화가 어떻게 이뤄질 수 있을지 알아보자.&lt;/p&gt;
+&lt;h1 id="예제-프로젝트-생성"&gt;예제 프로젝트 생성
+&lt;/h1&gt;&lt;blockquote class="alert" style="border-color: var(--alert-note-color); background-color: var(--alert-note-background);"&gt;
+ &lt;div class="alert-header"&gt;
+ &lt;span class="alert-icon"&gt;📝&lt;/span&gt;
+ &lt;span class="alert-title" style="color: var(--alert-note-color);"&gt;Note&lt;/span&gt;
+ &lt;/div&gt;
+ &lt;div class="alert-body"&gt;
+ 모든 명령어는 리눅스 OS 또는 WSL 환경에서 실행한다고 가정한다.
+ &lt;/div&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;파이썬이 설치된 환경에서 다음과 같이 디렉터리만 만들면 된다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;mkdir behave-test &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="nb"&gt;cd&lt;/span&gt; behave-test
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;나는 virtualenv 를 이용해 환경을 분리해 두도록 하겠다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;virtualenv venv
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;source&lt;/span&gt; venv/bin/activate
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="behave-설치"&gt;behave 설치
+&lt;/h1&gt;&lt;p&gt;&lt;code&gt;pip install behave&lt;/code&gt; 만 하면 된다.&lt;/p&gt;
+&lt;h1 id="featuressteps-디렉터리-생성"&gt;&lt;code&gt;features/steps&lt;/code&gt; 디렉터리 생성
+&lt;/h1&gt;&lt;p&gt;behave 는 &lt;code&gt;features/steps&lt;/code&gt; 를 필요로 한다. 만들어 주자.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;mkdir -p features/steps
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;p&gt;디렉터리만 만들고 곧장 &lt;code&gt;behave&lt;/code&gt; 를 실행하면, &lt;code&gt;ConfigError: No feature files in $(pwd)/features&lt;/code&gt; 라는 메시지가 뜰 것이다.&lt;/p&gt;
+&lt;h1 id="feature-파일-만들기"&gt;&lt;code&gt;.feature&lt;/code&gt; 파일 만들기
+&lt;/h1&gt;&lt;p&gt;&lt;code&gt;features/hotdog.feature&lt;/code&gt; 라는 파일을 하나 만들어보자. 핫도그 12개에서 5개를 먹으면 반드시 7개가 남아야 한다는 내용이다. 단순 영어로 되어 있지만, 문법에 대해 더 자세히 알고 싶다면 &lt;a class="link" href="https://interp.tistory.com/entry/BDD-%EC%9D%98%EB%AF%B8%EC%99%80-%ED%95%84%EC%9A%94%EC%84%B1" target="_blank" rel="noopener"
+ &gt;이전 포스팅&lt;/a&gt;을 꼭 참고하고 오자.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-gherkin" data-lang="gherkin"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;Feature:&lt;/span&gt;&lt;span class="nf"&gt; eat hotdogs
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nf"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nf"&gt; &lt;/span&gt;&lt;span class="k"&gt;Scenario:&lt;/span&gt;&lt;span class="nf"&gt; Eat 5 out of 12
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt; Given &lt;/span&gt;&lt;span class="nf"&gt;there are &lt;/span&gt;&lt;span class="s"&gt;12&lt;/span&gt;&lt;span class="nf"&gt; hotdogs
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nf"&gt; &lt;/span&gt;&lt;span class="k"&gt;When &lt;/span&gt;&lt;span class="nf"&gt;I eat &lt;/span&gt;&lt;span class="s"&gt;5&lt;/span&gt;&lt;span class="nf"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nf"&gt; &lt;/span&gt;&lt;span class="k"&gt;Then &lt;/span&gt;&lt;span class="nf"&gt;there should be &lt;/span&gt;&lt;span class="s"&gt;7&lt;/span&gt;&lt;span class="nf"&gt; remaining
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;p&gt;이제 다시 &lt;code&gt;behave&lt;/code&gt; 를 실행하면, 아래 구조로 되어 있는 테스트 파일이 존재하지 않다고 하면서, 스니펫 (snippet) 을 출력해 주고 내부를 구현해 달라고 한다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;$ behave
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Feature: eat hotdogs &lt;span class="c1"&gt;# features/hotdog.feature:1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Scenario: Eat &lt;span class="m"&gt;5&lt;/span&gt; out of &lt;span class="m"&gt;12&lt;/span&gt; &lt;span class="c1"&gt;# features/hotdog.feature:3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Given there are &lt;span class="m"&gt;12&lt;/span&gt; hotdogs &lt;span class="c1"&gt;# None&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; When I eat &lt;span class="m"&gt;5&lt;/span&gt; &lt;span class="c1"&gt;# None&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Then there should be &lt;span class="m"&gt;7&lt;/span&gt; remaining &lt;span class="c1"&gt;# None&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Failing scenarios:
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; features/hotdog.feature:3 Eat &lt;span class="m"&gt;5&lt;/span&gt; out of &lt;span class="m"&gt;12&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="m"&gt;0&lt;/span&gt; features passed, &lt;span class="m"&gt;1&lt;/span&gt; failed, &lt;span class="m"&gt;0&lt;/span&gt; skipped
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="m"&gt;0&lt;/span&gt; scenarios passed, &lt;span class="m"&gt;1&lt;/span&gt; failed, &lt;span class="m"&gt;0&lt;/span&gt; skipped
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="m"&gt;0&lt;/span&gt; steps passed, &lt;span class="m"&gt;0&lt;/span&gt; failed, &lt;span class="m"&gt;0&lt;/span&gt; skipped, &lt;span class="m"&gt;3&lt;/span&gt; undefined
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Took 0m0.000s
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;You can implement step definitions &lt;span class="k"&gt;for&lt;/span&gt; undefined steps with these snippets:
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;@given&lt;span class="o"&gt;(&lt;/span&gt;u&lt;span class="s1"&gt;&amp;#39;there are 12 hotdogs&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;def step_impl&lt;span class="o"&gt;(&lt;/span&gt;context&lt;span class="o"&gt;)&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; raise NotImplementedError&lt;span class="o"&gt;(&lt;/span&gt;u&lt;span class="s1"&gt;&amp;#39;STEP: Given there are 12 hotdogs&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;@when&lt;span class="o"&gt;(&lt;/span&gt;u&lt;span class="s1"&gt;&amp;#39;I eat 5&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;def step_impl&lt;span class="o"&gt;(&lt;/span&gt;context&lt;span class="o"&gt;)&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; raise NotImplementedError&lt;span class="o"&gt;(&lt;/span&gt;u&lt;span class="s1"&gt;&amp;#39;STEP: When I eat 5&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;@then&lt;span class="o"&gt;(&lt;/span&gt;u&lt;span class="s1"&gt;&amp;#39;there should be 7 remaining&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;def step_impl&lt;span class="o"&gt;(&lt;/span&gt;context&lt;span class="o"&gt;)&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; raise NotImplementedError&lt;span class="o"&gt;(&lt;/span&gt;u&lt;span class="s1"&gt;&amp;#39;STEP: Then there should be 7 remaining&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="테스트-python-파일-만들기"&gt;테스트 Python 파일 만들기
+&lt;/h1&gt;&lt;p&gt;방금 출력된 내용을 단순히 복사해서 &lt;code&gt;features/steps/hotdog.py&lt;/code&gt; 라는 파일을 만들었다. 참고로 파일 이름은 상관없지만 반드시 &lt;code&gt;features/steps&lt;/code&gt; 디렉터리에 위치해야 한다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;behave&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nd"&gt;@given&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sa"&gt;u&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;there are 12 hotdogs&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;step_impl&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;context&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;raise&lt;/span&gt; &lt;span class="ne"&gt;NotImplementedError&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sa"&gt;u&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;STEP: Given there are 12 hotdogs&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nd"&gt;@when&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sa"&gt;u&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;I eat 5&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;step_impl&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;context&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;raise&lt;/span&gt; &lt;span class="ne"&gt;NotImplementedError&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sa"&gt;u&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;STEP: When I eat 5&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nd"&gt;@then&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sa"&gt;u&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;there should be 7 remaining&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;step_impl&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;context&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;raise&lt;/span&gt; &lt;span class="ne"&gt;NotImplementedError&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sa"&gt;u&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;STEP: Then there should be 7 remaining&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;시나리오의 각 구절 (&lt;em&gt;GIVEN, WHEN, THEN&lt;/em&gt;) 에 연결되는 기준은, 각 method 에 위치한 decorator 인 &lt;code&gt;@given&lt;/code&gt;, &lt;code&gt;@when&lt;/code&gt;, &lt;code&gt;@then&lt;/code&gt; 에 따라 달려있기 때문에, 파일 이름은 상관없고 해당 decorator 만 수정하지 않으면 된다. &lt;/p&gt;
+&lt;p&gt;그리고 주의할 것은, 반드시 맨 위에 &lt;code&gt;from behave import *&lt;/code&gt; 와 같이 &lt;code&gt;behave&lt;/code&gt; 라이브러리를 import 해야 한다는 것이다.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;이렇게 하고 다시 &lt;code&gt;behave&lt;/code&gt; 를 실행하면, 예상대로 &lt;code&gt;NotImplementedError&lt;/code&gt; exception 이 발생하면서 traceback 이 출력되고, 테스트는 실패한 것으로 간주한다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;$ behave
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Feature: eat hotdogs &lt;span class="c1"&gt;# features/hotdog.feature:1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Scenario: Eat &lt;span class="m"&gt;5&lt;/span&gt; out of &lt;span class="m"&gt;12&lt;/span&gt; &lt;span class="c1"&gt;# features/hotdog.feature:3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Given there are &lt;span class="m"&gt;12&lt;/span&gt; hotdogs &lt;span class="c1"&gt;# features/steps/hotdog.py:3 0.000s&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Traceback &lt;span class="o"&gt;(&lt;/span&gt;most recent call last&lt;span class="o"&gt;)&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; File &lt;span class="s2"&gt;&amp;#34;/home/behave-test/venv/lib/python3.6/site-packages/behave/model.py&amp;#34;&lt;/span&gt;, line 1329, in run
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; match.run&lt;span class="o"&gt;(&lt;/span&gt;runner.context&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; File &lt;span class="s2"&gt;&amp;#34;/home/behave-test/venv/lib/python3.6/site-packages/behave/matchers.py&amp;#34;&lt;/span&gt;, line 98, in run
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; self.func&lt;span class="o"&gt;(&lt;/span&gt;context, *args, **kwargs&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; File &lt;span class="s2"&gt;&amp;#34;features/steps/hotdog.py&amp;#34;&lt;/span&gt;, line 5, in step_impl
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; raise NotImplementedError&lt;span class="o"&gt;(&lt;/span&gt;u&lt;span class="s1"&gt;&amp;#39;STEP: Given there are 12 hotdogs&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; NotImplementedError: STEP: Given there are &lt;span class="m"&gt;12&lt;/span&gt; hotdogs
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; When I eat &lt;span class="m"&gt;5&lt;/span&gt; &lt;span class="c1"&gt;# None&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Then there should be &lt;span class="m"&gt;7&lt;/span&gt; remaining &lt;span class="c1"&gt;# None&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Failing scenarios:
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; features/hotdog.feature:3 Eat &lt;span class="m"&gt;5&lt;/span&gt; out of &lt;span class="m"&gt;12&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="m"&gt;0&lt;/span&gt; features passed, &lt;span class="m"&gt;1&lt;/span&gt; failed, &lt;span class="m"&gt;0&lt;/span&gt; skipped
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="m"&gt;0&lt;/span&gt; scenarios passed, &lt;span class="m"&gt;1&lt;/span&gt; failed, &lt;span class="m"&gt;0&lt;/span&gt; skipped
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="m"&gt;0&lt;/span&gt; steps passed, &lt;span class="m"&gt;1&lt;/span&gt; failed, &lt;span class="m"&gt;2&lt;/span&gt; skipped, &lt;span class="m"&gt;0&lt;/span&gt; undefined
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Took 0m0.000s
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="테스트-파일-구현하기"&gt;테스트 파일 구현하기
+&lt;/h1&gt;&lt;p&gt;이제 테스트 파일 안의 method 를 구현해 보자.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;behave&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nd"&gt;@given&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sa"&gt;u&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;there are &lt;/span&gt;&lt;span class="si"&gt;{num_hotdog}&lt;/span&gt;&lt;span class="s1"&gt; hotdogs&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;step_impl&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;context&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;num_hotdog&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;context&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;hotdogs&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;num_hotdog&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nd"&gt;@when&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sa"&gt;u&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;I eat &lt;/span&gt;&lt;span class="si"&gt;{eaten_hotdog}&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;step_impl&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;context&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;eaten_hotdog&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;context&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;hotdogs&lt;/span&gt; &lt;span class="o"&gt;-=&lt;/span&gt; &lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;eaten_hotdog&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nd"&gt;@then&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sa"&gt;u&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;there should be &lt;/span&gt;&lt;span class="si"&gt;{remaining_hotdog}&lt;/span&gt;&lt;span class="s1"&gt; remaining&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;step_impl&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;context&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;remaining_hotdog&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;assert&lt;/span&gt; &lt;span class="n"&gt;context&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;hotdogs&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;remaining_hotdog&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;decorator 에서 숫자를 나타내는 부분을 &lt;code&gt;num_hotdog&lt;/code&gt; 같은 식으로 파라메터로 치환한 것을 주목해 달라. 이렇게 해 두면, 나중에 숫자만 바꾼 시나리오를 추가해도, 위의 세 개 method 를 재사용할 수 있는 장점이 있다.&lt;/p&gt;
+&lt;p&gt;그리고 behave 는 &lt;a class="link" href="https://behave.readthedocs.io/en/stable/tutorial.html?highlight=eq_#context" target="_blank" rel="noopener"
+ &gt;&lt;code&gt;context&lt;/code&gt; 라는 파라메터를 입력으로 받을 수 있도록&lt;/a&gt; 지원한다. 해당 시나리오가 진행되는 동안 유효한 객체이며, 따라서 여기에 원하는 attribute 를 만들어 값을 저장하고 열람할 수 있다. 예제 시나리오에서는, 남은 핫도그 개수를 &lt;code&gt;context.hotdogs&lt;/code&gt; 로 보관한다.&lt;/p&gt;
+
+ &lt;blockquote&gt;
+ &lt;p&gt;엄밀히 말하면, when 에 해당하는 method 에서 핫도그 개수를 차감하는 부분은 &lt;strong&gt;여기서 구현하면 안 된다&lt;/strong&gt;. 실제 업무에 사용하려면, 여기서 &lt;strong&gt;&amp;lsquo;실제로 구현한 로직&amp;rsquo; 을&lt;/strong&gt; &lt;strong&gt;호출해야&lt;/strong&gt; 한다. 그래야 검증을 할 수 있으니 말이다!&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;p&gt;다시 &lt;code&gt;behave&lt;/code&gt; 를 실행하면, 이제야 모든 테스트가 통과되었음을 알 수 있다!&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;$ behave
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Feature: eat hotdogs &lt;span class="c1"&gt;# features/hotdog.feature:1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Scenario: Eat &lt;span class="m"&gt;5&lt;/span&gt; out of &lt;span class="m"&gt;12&lt;/span&gt; &lt;span class="c1"&gt;# features/hotdog.feature:3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Given there are &lt;span class="m"&gt;12&lt;/span&gt; hotdogs &lt;span class="c1"&gt;# features/steps/hotdog.py:3 0.000s&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; When I eat &lt;span class="m"&gt;5&lt;/span&gt; &lt;span class="c1"&gt;# features/steps/hotdog.py:8 0.000s&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Then there should be &lt;span class="m"&gt;7&lt;/span&gt; remaining &lt;span class="c1"&gt;# features/steps/hotdog.py:12 0.000s&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="m"&gt;1&lt;/span&gt; feature passed, &lt;span class="m"&gt;0&lt;/span&gt; failed, &lt;span class="m"&gt;0&lt;/span&gt; skipped
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="m"&gt;1&lt;/span&gt; scenario passed, &lt;span class="m"&gt;0&lt;/span&gt; failed, &lt;span class="m"&gt;0&lt;/span&gt; skipped
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="m"&gt;3&lt;/span&gt; steps passed, &lt;span class="m"&gt;0&lt;/span&gt; failed, &lt;span class="m"&gt;0&lt;/span&gt; skipped, &lt;span class="m"&gt;0&lt;/span&gt; undefined
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Took 0m0.000s
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="숫자만-바꾼-시나리오를-추가하면"&gt;숫자만 바꾼 시나리오를 추가하면?
+&lt;/h1&gt;&lt;p&gt;시나리오&lt;strong&gt;만&lt;/strong&gt; 추가하더라도 이미 재사용이 가능한 형태로 테스트 method 를 구현했기 때문에, 아래처럼 성공적으로 작동한다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;$ behave
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Feature: eat hotdogs &lt;span class="c1"&gt;# features/hotdog.feature:1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Scenario: Eat &lt;span class="m"&gt;5&lt;/span&gt; out of &lt;span class="m"&gt;12&lt;/span&gt; &lt;span class="c1"&gt;# features/hotdog.feature:3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Given there are &lt;span class="m"&gt;12&lt;/span&gt; hotdogs &lt;span class="c1"&gt;# features/steps/hotdog.py:3 0.000s&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; When I eat &lt;span class="m"&gt;5&lt;/span&gt; &lt;span class="c1"&gt;# features/steps/hotdog.py:8 0.000s&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Then there should be &lt;span class="m"&gt;7&lt;/span&gt; remaining &lt;span class="c1"&gt;# features/steps/hotdog.py:12 0.000s&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Scenario: Eat &lt;span class="m"&gt;10&lt;/span&gt; out of &lt;span class="m"&gt;20&lt;/span&gt; &lt;span class="c1"&gt;# features/hotdog.feature:8&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Given there are &lt;span class="m"&gt;20&lt;/span&gt; hotdogs &lt;span class="c1"&gt;# features/steps/hotdog.py:3 0.000s&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; When I eat &lt;span class="m"&gt;10&lt;/span&gt; &lt;span class="c1"&gt;# features/steps/hotdog.py:8 0.000s&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Then there should be &lt;span class="m"&gt;10&lt;/span&gt; remaining &lt;span class="c1"&gt;# features/steps/hotdog.py:12 0.000s&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="m"&gt;1&lt;/span&gt; feature passed, &lt;span class="m"&gt;0&lt;/span&gt; failed, &lt;span class="m"&gt;0&lt;/span&gt; skipped
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="m"&gt;2&lt;/span&gt; scenarios passed, &lt;span class="m"&gt;0&lt;/span&gt; failed, &lt;span class="m"&gt;0&lt;/span&gt; skipped
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="m"&gt;6&lt;/span&gt; steps passed, &lt;span class="m"&gt;0&lt;/span&gt; failed, &lt;span class="m"&gt;0&lt;/span&gt; skipped, &lt;span class="m"&gt;0&lt;/span&gt; undefined
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Took 0m0.001s
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="마치며"&gt;마치며
+&lt;/h1&gt;&lt;p&gt;이제 이 테스트 케이스를 구현할 때 mock 라이브러리를 통해 mocking 을 하면, 기능 검증을 충분히 할 수 있을 것이다. 시나리오를 추가하는 것은 개발자 뿐만이 아닌 비 개발자나 QA 도 할 수 있어야 하고, 개발자는 그렇게 푸시된 새로운 시나리오를 보고 커버리지를 달성하기 위해 테스트에 좀 더 집중할 수 있을 것이다.&lt;/p&gt;
+&lt;p&gt;한 가지 맹점은, 기존 시나리오가 바뀌면 테스트 케이스 개발 과정에서 엄청난 고통이 뒤따를 수 있단 것이다. 따라서 (전에도 말했지만) 항상 시나리오는 합의 하에 신중히 추가되어야 한다.&lt;/p&gt;
+&lt;p&gt;다음 시간에는 golang 으로 똑같은 시나리오를 테스트 해 볼 예정이다.&lt;/p&gt;</description></item></channel></rss>
