@@ -1,11 +1,8 @@
-baseurl: https://interp.blog/
+baseurl: https://1nterp.github.io/
 languageCode: ko-kr
-locale: ko
 theme: stack
 paginate: 6
 title: InterP Blog
-
-enableRobotsTXT: true
 
 languages:
     ko:
@@ -23,9 +20,6 @@ languages:
 # GA Tracking ID
 # googleAnalytics: UA-126809878-1
 
-# Google Analytics 4
-googleAnalyticsID: "G-KMRJ33V06X"
-
 # Theme i18n support
 # Available values: ar, bn, ca, de, el, en, es, fr, hu, id, it, ja, ko, nl, pt-br, th, uk, zh-cn, zh-hk, zh-tw
 DefaultContentLanguage: ko
@@ -35,12 +29,15 @@ DefaultContentLanguage: ko
 hasCJKLanguage: true
 
 permalinks:
-    post: /:slug/
+    post: /p/:slug/
     page: /:slug/
 
 params:
     mainSections:
-      - post
+        - post
+        - tech
+        - essay
+        - review
     featuredImageField: image
     rssFullContent: true
     favicon:
@@ -55,7 +52,6 @@ params:
 
     sidebar:
         subtitle: Things I'm interested
-        # emoji: ":baseball:"
         avatar:
             enabled: false
             local: false
@@ -69,18 +65,8 @@ params:
             enabled: 
 
     comments:
-        enabled: true
-        provider: giscus
-        giscus:
-            repo: 1nterp/1nterp.github.io
-            repoID: MDEwOlJlcG9zaXRvcnkyMzY5NzQ5Mzc=
-            category: General
-            categoryID: MDE4OkRpc2N1c3Npb25DYXRlZ29yeTMyMjU4Mjgx
-            mapping: pathname
-            reactionsEnabled: 1
-            emitMetadata: 1
-            #lightTheme:
-            lang: en
+        enabled: false
+        # provider: disqus
 
     widgets:
         homepage:
@@ -95,9 +81,7 @@ params:
               params:
                   limit: 10
         page:
-            - type: search
             - type: toc
-            - type: adsense
 
     opengraph:
         twitter:
@@ -130,37 +114,20 @@ params:
 ### See https://docs.stack.jimmycai.com/configuration/custom-menu.html
 ### To remove about, archive and search page menu item, remove `menu` field from their FrontMatter
 menu:
-    main: 
-        - identifier: home
-          name: Home
-          weight: -90
-          url: /
-          params:
-              icon: home
+    main: []
 
     # social:
-    # - identifier: github
-    #   name: GitHub
-    #   url: https://github.com/1nterp
-    #   params:
-    #       icon: brand-github
-    # - identifier: instagram
-    #   name: Instagram
-    #   url: https://www.instagram.com/interp/
-    #   params:
-    #       icon: brand-instagram
-
-    #     - identifier: facebook
-    #       name: Facebook
-    #       url: https://www.facebook.com/1nterp
+    #     - identifier: github
+    #       name: GitHub
+    #       url: https://github.com/1nterp
     #       params:
-    #           icon: brand-facebook
-    #    - identifier: linkedin
-    #      name: LinkedIn
-    #      url: https://linkedin.com/in/interp
-    #      params:
-    #          icon: brand-linkedin
+    #           icon: brand-github
 
+    #     - identifier: twitter
+    #       name: Twitter
+    #       url: https://twitter.com
+    #       params:
+    #           icon: brand-twitter
 
 related:
     includeNewer: true
@@ -177,18 +144,18 @@ markup:
     goldmark:
         renderer:
             ## Set to true if you have HTML content inside Markdown
-            unsafe: true
+            unsafe: false
     tableOfContents:
-        startLevel: 1
         endLevel: 2
-        ordered: false
+        ordered: true
+        startLevel: 2
     highlight:
         noClasses: false
         codeFences: true
         guessSyntax: true
         lineNoStart: 1
-        lineNos: false
-        lineNumbersInTable: false
+        lineNos: true
+        lineNumbersInTable: true
         tabWidth: 4
 
 enableEmoji: true
