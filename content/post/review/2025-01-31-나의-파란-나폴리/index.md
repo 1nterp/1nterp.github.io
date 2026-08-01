@@ -14,8 +14,8 @@ tags:
 - 나폴리
 ---
 
-{{< callout emoji=":orange_book:" >}}
-[도서 정보](https://product.kyobobook.co.kr/detail/S000213728797)
+{{< callout type="book" title="도서 정보">}}
+https://product.kyobobook.co.kr/detail/S000213728797
 {{< /callout >}}
 {{< figure src="./book.png" width="50%">}}
 

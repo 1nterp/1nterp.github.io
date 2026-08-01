@@ -16,8 +16,8 @@ tags:
 - 인생
 ---
 
-{{< callout emoji=":orange_book:" >}}
-[도서 정보](https://product.kyobobook.co.kr/detail/S000214961966)
+{{< callout type="book" title="도서 정보">}}
+https://product.kyobobook.co.kr/detail/S000214961966
 {{< /callout >}}
 {{< floatimg src="feature.jpeg" float="right" width="35%" >}}
 

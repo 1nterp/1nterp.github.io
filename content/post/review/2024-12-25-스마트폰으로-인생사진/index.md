@@ -13,8 +13,8 @@ tags:
     - 인생사진
 slug: 오늘도-스마트폰으로-인생사진을-찍습니다
 ---
-{{< callout emoji=":orange_book:" >}}
-[도서 정보](https://product.kyobobook.co.kr/detail/S000203182297)
+{{< callout type="book" title="도서 정보">}}
+https://product.kyobobook.co.kr/detail/S000203182297
 {{< /callout >}}
 {{< figure src="book.png" width="50%">}}
 

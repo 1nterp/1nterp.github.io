@@ -9,8 +9,8 @@ tags: ['버번', '위스키', '에드워드 리']
 categories: ['Review']
 ---
 
-{{< callout emoji=":orange_book:" >}}
-[도서 정보](https://product.kyobobook.co.kr/detail/S000217402059)
+{{< callout type="book" title="도서 정보">}}
+https://product.kyobobook.co.kr/detail/S000217402059
 {{< /callout >}}
 {{< figure src="./feature.jpg" width="70%">}}
 

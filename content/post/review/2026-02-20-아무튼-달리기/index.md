@@ -9,8 +9,8 @@ tags: ['러닝', '에세이', '아무튼']
 categories: ['Review']
 ---
 
-{{< callout emoji=":orange_book:" >}}
-[도서 정보](https://product.kyobobook.co.kr/detail/S000001888678)
+{{< callout type="book" title="도서 정보">}}
+https://product.kyobobook.co.kr/detail/S000001888678
 {{< /callout >}}
 {{< figure src="./feature.jpg" width="50%">}}
 

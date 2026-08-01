@@ -15,8 +15,8 @@ tags:
 slug: ai-pair-programming-book-review
 ---
 
-{{< callout emoji=":orange_book:" >}}
-[도서 정보](https://product.kyobobook.co.kr/detail/S000213131985)
+{{< callout type="book" title="도서 정보">}}
+https://product.kyobobook.co.kr/detail/S000213131985
 {{< /callout >}}
 {{< figure src="book.png" width="50%">}}
 

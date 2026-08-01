@@ -16,8 +16,8 @@ tags:
     - 켄터키
 ---
 
-{{< callout emoji=":orange_book:" >}}
-[도서 정보](https://product.kyobobook.co.kr/detail/S000001938250)
+{{< callout type="book" title="도서 정보">}}
+https://product.kyobobook.co.kr/detail/S000001938250
 {{< /callout >}}
 {{< figure src="./book.png" width="50%">}}
 

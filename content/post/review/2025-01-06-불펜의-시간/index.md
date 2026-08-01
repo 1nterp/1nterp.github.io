@@ -14,8 +14,8 @@ tags:
 slug: time-of-the-bullpen
 ---
 
-{{< callout emoji=":orange_book:" >}}
-[도서 정보](https://product.kyobobook.co.kr/detail/S000001790506)
+{{< callout type="book" title="도서 정보">}}
+https://product.kyobobook.co.kr/detail/S000001790506
 {{< /callout >}}
 {{< figure src="feature.jpeg" width="50%">}}
 
