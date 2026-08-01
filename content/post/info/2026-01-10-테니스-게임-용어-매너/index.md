@@ -4,6 +4,7 @@ date: 2026-01-10
 slug: tennis-game-manner-guide
 tags: ['테니스', '스포츠']
 categories: ['Info']
+draft: true
 ---
 
 **키워드: 테니스 입문, 경기 규칙, 코트 매너, 스코어 카운트**
