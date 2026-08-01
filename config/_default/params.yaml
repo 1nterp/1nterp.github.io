@@ -4,17 +4,18 @@ featuredImageField: image
 rssFullContent: true
 favicon:
 
+sidebar:
+    emoji: "🖋️"
+    subtitle:  "Works, books, and thoughts"
+    avatar: "/avatar_202608.png"
+
 footer:
     since: 2019
-    customText:
+    customText: 
 
 dateFormat:
     published: 2006-01-02
     lastUpdated: 2006-01-02 15:04 UTC
-
-sidebar:
-    subtitle: Things I'm interested
-    avatar:
 
 article:
     math: false

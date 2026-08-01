@@ -8,7 +8,8 @@
         --main-top-padding: 50px;
     }
 
-    --body-background: #fff;
+    --body-background: url('/bg_images/011-subtle-light-patterns.jpg');
+    --body-background-color: #f0ede8;
 
     --accent-color: #1b87af;
     --accent-bold-color: #cb4377;
@@ -22,7 +23,8 @@
     --section-separation: 40px;
 
     &[data-scheme="dark"] {
-        --body-background: #1a1a1a;
+        --body-background: url('/bg_images/dark-hardback.png');
+        --body-background-color: #1a1a1a;
         --accent-color: #84bce1;
         --accent-bold-color: #ec6196;
         --accent-color-darker: #96aab7;

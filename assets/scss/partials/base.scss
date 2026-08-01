@@ -10,6 +10,8 @@ html {
 
 body {
     background: var(--body-background);
+    background-attachment: fixed;
+    background-size: auto;
     margin: 0;
     font-family: var(--base-font-family);
     font-size: 1.6rem;
@@ -18,4 +20,12 @@ body {
     -ms-text-autospace: ideograph-alpha;
     -webkit-font-smoothing: auto;
     -moz-osx-font-smoothing: grayscale;
+}
+
+// pagination uses --body-background as background-color for input/kbd — override with solid color
+#pagination-jump-dialog {
+    input[type="number"],
+    .pagination-jump-hint kbd {
+        background-color: var(--body-background-color);
+    }
 }
