@@ -1,30 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>TECH 🛠️ on InterP Blog</title><link>https://interp.blog/categories/tech/</link><description>Recent content in TECH 🛠️ on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Sat, 10 Jan 2026 11:45:12 +0900</lastBuildDate><atom:link href="https://interp.blog/categories/tech/index.xml" rel="self" type="application/rss+xml"/><item><title>Obsidian Copilot과 OpenRouter로 구축하는 나만의 무료 AI 워크플로우</title><link>https://interp.blog/obsidian-copilot-openrouter-free-llm/</link><pubDate>Sat, 10 Jan 2026 11:45:12 +0900</pubDate><guid>https://interp.blog/obsidian-copilot-openrouter-free-llm/</guid><description>&lt;p&gt;Obsidian에 쌓인 수많은 노트를 보며 이 지식들을 통해 새로운 부가가치를 만들어 낼 순 없을까 고민하게 된다. 이 질문은 이미 많은 사용자가 공유하고 있으며, 이를 해결하기 위한 다양한 플러그인이 출시되어 있다. 대표적으로 Note Companion 등이 언급되지만, 일반적인 사용자가 유료 LLM API를 구독하거나 복잡한 설정을 거쳐 무료 모델을 연결하기란 쉽지 않은 일이다.&lt;/p&gt;
-&lt;p&gt;Obsidian Copilot은 이러한 고민에 훌륭한 대안이 된다. 다양한 LLM API를 유연하게 지원하며, 유료 플랜인 Plus가 아니더라도 API 연동을 통해 충분히 강력한 기능을 맛볼 수 있기 때문이다. 특히 OpenRouter를 경유하면 최신 무료 모델들을 손쉽게 연결할 수 있어 비용 부담 없이 나만의 AI 지식 베이스를 구축할 수 있다.&lt;/p&gt;
-&lt;h2 id="obsidian-copilot-설치-및-기본-설정"&gt;Obsidian Copilot 설치 및 기본 설정
-&lt;/h2&gt;&lt;p&gt;Obsidian Copilot은 커뮤니티 플러그인에서 검색하여 쉽게 설치할 수 있다. 설치 후 가장 먼저 해야 할 일은 &amp;lsquo;Provider&amp;rsquo;를 설정하는 것이다. 이 플러그인은 OpenAI, Anthropic 등 다양한 프로바이더를 지원하지만, 우리는 범용성이 높은 OpenRouter를 선택한다.&lt;/p&gt;
-&lt;p&gt;OpenRouter는 수많은 LLM을 하나의 API 인터페이스로 제공하는 허브 역할을 한다. OpenRouter 계정을 생성하고 API Key를 발급받은 뒤, Copilot 설정창의 API Key 항목에 입력하면 준비는 끝난다.&lt;/p&gt;
-&lt;h2 id="openrouter에서-최적의-무료-모델-찾기"&gt;OpenRouter에서 최적의 무료 모델 찾기
-&lt;/h2&gt;&lt;p&gt;OpenRouter의 가장 큰 장점은 고성능의 무료 모델들을 지속적으로 업데이트한다는 점이다. 특정 모델을 고정해서 쓰기보다 현재 가장 성능이 좋은 무료 모델을 찾는 방법은 다음과 같다.&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;OpenRouter 공식 홈페이지의 &lt;strong&gt;Models&lt;/strong&gt; 페이지로 접속한다.&lt;/li&gt;
-&lt;li&gt;필터 옵션에서 &lt;strong&gt;Pricing&lt;/strong&gt;을 &amp;lsquo;Free&amp;rsquo;로 설정한다.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Rank&lt;/strong&gt; 또는 &lt;strong&gt;Usage&lt;/strong&gt;순으로 정렬하여 현재 사용자들에게 가장 검증된 모델을 확인한다.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;일반적으로 Meta의 Llama 시리즈나 Mistral 계열의 모델들이 무료로 풀리는 경우가 많으며, 단순 요약이나 문장 정리에는 이들만으로도 충분한 퍼포먼스를 보여준다.&lt;/p&gt;
-&lt;h2 id="효율적인-워크플로우-구성을-위한-팁"&gt;효율적인 워크플로우 구성을 위한 팁
-&lt;/h2&gt;&lt;p&gt;단순히 챗봇처럼 대화하는 것에 그치지 않고, 작성 중인 노트의 맥락을 파악하게 하려면 &amp;lsquo;Index&amp;rsquo; 기능을 활용해야 한다. Copilot 설정 내의 &lt;strong&gt;Vault Indexing&lt;/strong&gt;을 활성화하면 AI가 내 전체 노트의 내용을 파악하여 답변에 참고하게 된다.&lt;/p&gt;
-&lt;p&gt;다만 전체 인덱싱은 초기 설정 시 시간이 소요되므로, 중요한 폴더만 선택적으로 인덱싱하는 것을 권장한다. 또한 모델마다 토큰 제한이 다르므로, 긴 노트를 분석할 때는 OpenRouter에서 제공하는 모델의 Context Window 크기를 미리 확인하는 것이 좋다.&lt;/p&gt;
-&lt;h2 id="실무-팁-및-인사이트"&gt;실무 팁 및 인사이트
-&lt;/h2&gt;&lt;p&gt;실제로 이 조합을 며칠간 사용해 보니, 굳이 유료 모델인 GPT-4나 Claude 3를 고집할 필요가 없다는 결론에 도달했다. 특히 파편화된 메모들을 하나의 주제로 엮거나, 작성 중인 글의 어조를 다듬는 작업은 최신 무료 모델들로도 기성 유료 서비스 못지않은 결과물을 내놓는다.&lt;/p&gt;
-&lt;p&gt;중요한 것은 모델의 체급보다 **&amp;lsquo;내 노트라는 맥락(Context)&amp;rsquo;**을 AI에게 얼마나 잘 전달하느냐에 달려 있다. 유료 구독료가 부담스러워 AI 도입을 망설였다면 OpenRouter의 무료 모델 리스트를 주기적으로 확인하며 자신에게 맞는 모델을 테스트해보길 권한다.&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;성능과 비용 사이의 균형을 잡는 데 이 가이드가 도움이 되었길 바란다. Obsidian에 잠들어 있는 노트들이 AI를 통해 새로운 통찰로 깨어나는 경험을 해보길 추천한다.&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;&lt;strong&gt;다음 단계로 어떤 것을 도와드릴까요?&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;위 포스팅 내용을 바탕으로 SEO 최적화를 위한 핵심 키워드 리스트를 뽑아드릴까요?&lt;/li&gt;
-&lt;li&gt;OpenRouter 외에 로컬 환경(Ollama 등)에서 무료로 사용하는 방법을 추가로 작성해 드릴까요?&lt;/li&gt;
-&lt;/ul&gt;</description></item><item><title>Microsoft AI Tour Seoul 2025 후기</title><link>https://interp.blog/microsoft-ai-tour-seoul-2025-review/</link><pubDate>Thu, 27 Mar 2025 18:09:46 +0900</pubDate><guid>https://interp.blog/microsoft-ai-tour-seoul-2025-review/</guid><description>&lt;img src="https://interp.blog/microsoft-ai-tour-seoul-2025-review/feature.jpeg" alt="Featured image of post Microsoft AI Tour Seoul 2025 후기" /&gt;&lt;p&gt;AI Tour 2년 연속 개근이다! &lt;a class="link" href="https://interp.blog/microsoft-ai-tour-review" &gt;지난 해 후기&lt;/a&gt;에 이어 올해도 후기를 남긴다.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>TECH 🛠️ on InterP Blog</title><link>https://interp.blog/categories/tech/</link><description>Recent content in TECH 🛠️ on InterP Blog</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Thu, 27 Mar 2025 18:09:46 +0900</lastBuildDate><atom:link href="https://interp.blog/categories/tech/index.xml" rel="self" type="application/rss+xml"/><item><title>Microsoft AI Tour Seoul 2025 후기</title><link>https://interp.blog/microsoft-ai-tour-seoul-2025-review/</link><pubDate>Thu, 27 Mar 2025 18:09:46 +0900</pubDate><guid>https://interp.blog/microsoft-ai-tour-seoul-2025-review/</guid><description>&lt;img src="https://interp.blog/microsoft-ai-tour-seoul-2025-review/feature.jpeg" alt="Featured image of post Microsoft AI Tour Seoul 2025 후기" /&gt;&lt;p&gt;AI Tour 2년 연속 개근이다! &lt;a class="link" href="https://interp.blog/microsoft-ai-tour-review" &gt;지난 해 후기&lt;/a&gt;에 이어 올해도 후기를 남긴다.&lt;/p&gt;
 &lt;p&gt;사실 전날 오후 1시에 미리 배지를 받았는데, 이유는 키노트 우선지정석이 선착순으로 배포되기 때문이었다. 배지와 우선지정석 카드, 그리고 럭키드로우 27번을 받았다. &lt;del&gt;내 앞의 26명은 누구인가&amp;hellip;&lt;/del&gt;&lt;/p&gt;
 &lt;figure&gt;
  &lt;img loading="lazy" src="79FAA4FF-539A-454D-83F4-747C9E99CBC6_1_102_o.jpeg"
