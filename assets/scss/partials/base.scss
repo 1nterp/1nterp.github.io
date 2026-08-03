@@ -22,6 +22,20 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+.article-content {
+    strong {
+        font-weight: 700;
+        background: linear-gradient(transparent 55%, color-mix(in srgb, var(--accent-color) 45%, transparent) 55%);
+        border-radius: 2px;
+        padding: 0 1px;
+    }
+
+    em {
+        color: var(--accent-color);
+        font-style: italic;
+    }
+}
+
 // pagination uses --body-background as background-color for input/kbd — override with solid color
 #pagination-jump-dialog {
     input[type="number"],
